@@ -1,0 +1,31 @@
+﻿{% extends "base.html" %}
+
+{% block title %}Radar Brasil - Inicio{% endblock %}
+{% block menu_inicio_active %}active{% endblock %}
+
+{% block content %}
+<section class="rb-section rb-section-inicio">
+    <p class="rb-section-subtitle">
+        Explore as estruturas de <strong>Governanca, Politicas, Planos, Programas e Linhas de Financiamento</strong>
+        com base nos <strong>criterios e parametros de avaliacao</strong>. Clique nos Eixos abaixo.
+    </p>
+    <div class="rb-eixos-grid">
+        <a href="#" class="rb-eixo-card">
+            <div class="rb-eixo-card-header">Governanca</div>
+            <div class="rb-eixo-card-body"><span class="rb-eixo-icon">&#9783;</span></div>
+        </a>
+        <a href="#" class="rb-eixo-card">
+            <div class="rb-eixo-card-header">Politicas e Planos</div>
+            <div class="rb-eixo-card-body"><span class="rb-eixo-icon">&#9998;</span></div>
+        </a>
+        <a href="#" class="rb-eixo-card">
+            <div class="rb-eixo-card-header">Programas</div>
+            <div class="rb-eixo-card-body"><span class="rb-eixo-icon">&#9881;</span></div>
+        </a>
+        <a href="#" class="rb-eixo-card">
+            <div class="rb-eixo-card-header">Linhas de Financiamento</div>
+            <div class="rb-eixo-card-body"><span class="rb-eixo-icon">&#127963;</span></div>
+        </a>
+    </div>
+</section>
+{% endblock %}

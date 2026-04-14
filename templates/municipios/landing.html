@@ -1,0 +1,118 @@
+﻿{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar Brasil - Bem-vindo{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- LAYOUT PRINCIPAL: sidebar esquerda + cards direita -->
+<div class="lp-layout">
+
+    <!-- COLUNA ESQUERDA -->
+    <aside class="lp-sidebar">
+
+        <!-- Box azul escuro -->
+        <div class="lp-sidebar-dark">
+            <p>O que é o RADAR BRASIL -<br>FEDERALISMO CLIMÁTICO?</p>
+        </div>
+
+        <!-- Box mídia -->
+        <div class="lp-sidebar-white">
+            <h4>O Radar Brasil na mídia</h4>
+            <p>
+                Brasil lança iniciativa para estruturar 100 ações climáticas
+                de impacto nos municípios.
+            </p>
+            <p>
+                Cidades selecionadas para primeira fase do Cidades Modelo
+                Verdes Resilientes foram anunciadas durante o 1º Encontro
+                Cidades Verdes Resilientes. A iniciativa oferta suporte técnico
+                para desenvolver duas ações climáticas de grande impacto.
+            </p>
+        </div>
+
+        <!-- Box agenda -->
+<div class="lp-sidebar-white lp-sidebar-agenda">
+    <h3>Agenda RADAR BRASIL</h3>
+    <img src="{% static 'img/agenda-land.png' %}"
+         alt="Agenda RADAR BRASIL"
+         class="lp-agenda-img">
+    <a href="#" class="lp-agenda-btn">Agenda</a>
+</div>
+
+    </aside>
+
+    <!-- COLUNA DIREITA: 4 cards empilhados -->
+    <div class="lp-cards">
+
+        <!-- Card 1 -->
+        <div class="lp-card">
+            <h2>Desvendando o Federalismo Climático: Nossa Metodologia</h2>
+            <div class="lp-card-body">
+                <img src="{% static 'img/computadores-land.png' %}"
+                     alt="Metodologia"
+                     class="lp-card-img">
+                <p>
+                    Desenvolvemos uma metodologia robusta que avalia a
+                    cooperação interfederativa nas ações climáticas.
+                </p>
+            </div>
+            <a href="#" class="lp-card-btn">Saiba mais</a>
+        </div>
+
+        <!-- Card 2 -->
+<div class="lp-card">
+    <h2>Painéis de Avaliação interativos: Radiografia Federativa</h2>
+    <div class="lp-card-body">
+        <img src="{% static 'img/painel-land.png' %}"
+             alt="Painéis"
+             class="lp-card-img">
+        <p>
+            Explore dados climáticos através de painéis interativos
+            que oferecem uma visão completa das ações federativas
+            em todo o Brasil.
+        </p>
+    </div>
+    <a href="{% url 'municipios:home' %}" class="lp-card-btn">Acessar painéis</a>
+</div>
+
+        <!-- Card 3 -->
+        <div class="lp-card">
+            <h2>Conectando Ações: Mapa Inter-federativo</h2>
+            <div class="lp-card-body">
+                <img src="{% static 'img/mapa-land.png' %}"
+                     alt="Mapa"
+                     class="lp-card-img">
+                <p>
+                    Visualize geograficamente as conexões e sinergias entre
+                    diferentes níveis de governo nas ações climáticas em
+                    todo território nacional.
+                </p>
+            </div>
+            <a href="#" class="lp-card-btn">Explorar mapa</a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="lp-card">
+            <h2>Ecossistema de Colaboração: Outras Iniciativas e Recursos</h2>
+            <div class="lp-card-body">
+                <img src="{% static 'img/ecossistema-land.png' %}"
+                     alt="Ecossistema"
+                     class="lp-card-img">
+                <p>
+                    Conecte-se com uma rede ampla de organizações, iniciativas
+                    e recursos que fortalecem a ação climática no Brasil.
+                </p>
+            </div>
+            <a href="#" class="lp-card-btn">Saiba mais</a>
+        </div>
+
+    </div><!-- fim lp-cards -->
+
+</div><!-- fim lp-layout -->
+
+{% endblock %}

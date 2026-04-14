@@ -1,0 +1,191 @@
+﻿/* ==============================
+   LANDING PAGE
+   ============================== */
+
+/* Layout principal*/
+.lp-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ---- SIDEBAR ---- */
+.lp-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Box azul escuro */
+.lp-sidebar-dark {
+    background-color: #448396;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 28px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Box branco (mídia e agenda) */
+.lp-sidebar-white {
+    background-color: #EFF8F9;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    color: #1a3a50;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.lp-sidebar-white h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a3a50;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.lp-sidebar-white p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* Agenda */
+.lp-sidebar-agenda {
+    text-align: center;
+}
+
+.lp-sidebar-agenda h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a3a50;
+    margin-bottom: 16px;
+}
+
+.lp-agenda-img {
+    display: block;
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0 auto 16px;
+    object-fit: cover;
+}
+
+.lp-agenda-btn {
+    display: block;
+    background: #2f6b7c;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 7px 29px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.lp-agenda-btn:hover {
+    background: #1e4d5e;
+}
+
+/* ---- CARDS COLUNA DIREITA ---- */
+.lp-card {
+    background: #EFF8F9;
+    border-radius: 14px;
+    padding: 16px 20px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    display: flex;
+    flex-direction: column;
+}
+
+.lp-card h2 {
+    font-size: 21px;
+    font-weight: 700;
+    color: #16404b;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.lp-card-body {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 12px;
+    flex: 1;
+}
+
+/* Imagem do card */
+.lp-card-img {
+    width: 168px;
+    height: 126px;
+    object-fit: contain;
+    border-radius: 8px;
+    flex-shrink: 0;
+    background: #EFF8F9;
+}
+
+.lp-card-body p {
+    font-size: 16px;
+    color: #16404b;
+    line-height: 1.6;
+    text-align: justify;
+    flex: 1;
+}
+
+
+.lp-card-btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background: #2f6b7c;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 32px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.lp-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* botão do card */
+.lp-card-btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    background: #2f6b7c;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 29px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    text-align: center;
+}
+
+.lp-card-btn:hover {
+    background: #1e4d5e;
+}
+
+/* ---- RESPONSIVO ---- */
+@media (max-width: 860px) {
+    .lp-layout {
+        grid-template-columns: 1fr;
+    }
+    .lp-card-img {
+        width: 140px;
+        height: 100px;
+    }
+    .lp-card h2 {
+        font-size: 17px;
+    }
+}
