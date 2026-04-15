@@ -17,7 +17,9 @@ body.rb-body {
     background-repeat: no-repeat;
     width: 100%;
     flex-shrink: 0;
-    padding: 16px 0 12px;
+    padding: 40px 0 16px;
+    margin-top: -20px; /* Ajuste para cobrir o espaço do header */
+
 }
 
 /* Header interno mais estreito */
@@ -70,7 +72,7 @@ body.rb-body {
 /* MENU NAV */
 .rb-main-nav {
     margin-top: 8px;
-    background-color: #e8f0f7;
+    background-color: #ffffff;
     border-radius: 0;         
     padding: 6px 24px;
     border-top: 2px solid #2f7fa5;         

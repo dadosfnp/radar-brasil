@@ -1,11 +1,12 @@
-﻿{% extends "base.html" %}
+﻿{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Radar Brasil - Bem-vindo{% endblock %}
-
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
 {% endblock %}
+
+{% block body_class %}rb-body lp-body{% endblock %}
+
 
 {% block content %}
 

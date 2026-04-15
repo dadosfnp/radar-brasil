@@ -76,7 +76,7 @@
 
 .lp-agenda-btn {
     display: block;
-    background: #2f6b7c;
+    background: #448396;
     color: #ffffff;
     text-decoration: none;
     padding: 7px 29px;
@@ -87,7 +87,7 @@
 }
 
 .lp-agenda-btn:hover {
-    background: #1e4d5e;
+    background: #448396;
 }
 
 /* ---- CARDS COLUNA DIREITA ---- */
@@ -139,7 +139,7 @@
     display: block;
     width: fit-content;
     margin: 0 auto;
-    background: #2f6b7c;
+    background: #448396;
     color: #ffffff;
     text-decoration: none;
     padding: 8px 32px;
@@ -161,7 +161,7 @@
     display: block;
     width: fit-content;
     margin: 0 auto;
-    background: #2f6b7c;
+    background: #448396;
     color: #ffffff;
     text-decoration: none;
     padding: 10px 29px;
@@ -173,7 +173,7 @@
 }
 
 .lp-card-btn:hover {
-    background: #1e4d5e;
+    background: #448396;
 }
 
 /* ---- RESPONSIVO ---- */
@@ -188,4 +188,9 @@
     .lp-card h2 {
         font-size: 17px;
     }
+}
+
+/* Esconde o menu de navegação na landing page */
+body.lp-body .rb-main-nav {
+    display: none !important;
 }

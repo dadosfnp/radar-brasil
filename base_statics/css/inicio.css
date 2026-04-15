@@ -1,0 +1,124 @@
+/* ==============================
+   PÁGINA INÍCIO
+   ============================== */
+
+/* Fundo da página Início com textura */
+body.inicio-page {
+    background-image: url("/static/img/bg-body.png"); /* ajuste a extensão se for .jpg */
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+/* Seção inteira da página Início */
+.rb-section-inicio {
+    margin-top: 8px;                 /* aproxima do menu */
+}
+
+/* Texto de instrução abaixo do menu */
+.rb-section-inicio .rb-section-subtitle {
+    font-size: 15px;
+    color: #16404b;
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* Grid dos 4 eixos (2 colunas por 2 linhas) */
+.rb-eixos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 80px;  /* mais espaço horizontal entre os cards */
+    row-gap: 40px;     /* mais espaço vertical */
+    justify-items: center;
+}
+
+/* Card de eixo (container) */
+.rb-eixo-card {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 220px;
+    border-radius: 18px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    overflow: hidden;
+    transition: transform 0.15s ease-out,
+                box-shadow 0.15s ease-out;
+}
+
+/* Faixa azul do topo do card (título) */
+.rb-eixo-card-header {
+    background: #2f7fa5;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 16px;
+}
+
+/* Corpo do card, onde fica o ícone */
+.rb-eixo-card-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ícone central */
+.rb-eixo-icon {
+    font-size: 64px;                 /* deixa grande como no mock */
+    color: #16404b;
+}
+
+/* Hover: pequeno zoom e sombra mais forte */
+.rb-eixo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.22);
+}
+
+.rb-eixo-card:hover .rb-eixo-card-header {
+    background: #246280;             /* um pouco mais escuro no hover */
+}
+
+/* Responsivo: 1 card por linha em telas pequenas */
+@media (max-width: 768px) {
+    .rb-eixos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .rb-eixo-card {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+/* Ajustes para o container principal na página Início */
+body.inicio-page .rb-main {
+    background: transparent;   /* sem bloco azul-claro */
+    max-width: 1200px;         /* mais largo, como no mock */
+    margin: 16px auto 32px;    /* centralizado verticalmente, com espaço antes do rodapé */
+    padding: 0 24px;           /* só padding horizontal */
+}
+
+/* Seção inteira da página Início */
+.rb-section-inicio {
+    margin-top: 8px;
+    padding-top: 8px; /* leve respiro abaixo do menu */
+}
+
+/* Texto de instrução abaixo do menu */
+.rb-section-inicio .rb-section-subtitle {
+    font-size: 15px;
+    color: #ffffff;         /* no mock o texto está claro */
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 32px;    /* um pouco mais de espaço antes dos cards */
+}
+
+/* Trechos em negrito no texto */
+.rb-section-inicio .rb-section-subtitle strong {
+    font-weight: 700;
+}
