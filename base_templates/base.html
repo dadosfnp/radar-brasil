@@ -15,6 +15,7 @@
 
 <div class="rb-header-wrapper">
     <header class="rb-header">
+        {# O rb-header-top agora vai ter o max-width e margin: auto #}
         <div class="rb-header-top">
             <div class="rb-header-title">
                 <h1>RADAR BRASIL</h1>
@@ -26,6 +27,7 @@
                 </a>
             </div>
         </div>
+        {# O rb-main-nav agora está diretamente dentro do rb-header #}
         <nav class="rb-main-nav">
             <ul>
                 <li><a href="{% url 'municipios:home' %}" class="{% block menu_inicio_active %}{% endblock %}">Inicio</a></li>

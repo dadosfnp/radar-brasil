@@ -4,33 +4,80 @@
 
 /* Fundo da página Início com textura */
 body.inicio-page {
-    background-image: url("/static/img/bg-body.png"); /* ajuste a extensão se for .jpg */
+    background-image: url("/static/img/bg-body.png");
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
+    background-color: transparent;
 }
+
+/* Esconde o rodapé herdado do base.html apenas na página Início */
+body.inicio-page .rb-footer-landing {
+    display: none;
+}
+
+/* Ajustes para o container principal (.rb-main) na página Início */
+body.inicio-page .rb-main {
+    background: transparent;
+    max-width: 4000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    flex-grow: 1;
+}
+
+/* Barra de menu na página Início: fundo branco 100% largura */
+body.inicio-page .rb-main-nav {
+    background-color: #ffffff;
+    border-top: none;
+    padding: 6px 0;
+    margin-top: 0;
+    border-radius: 0;
+}
+
+/* Ajusta o padding do .rb-header para que o menu se estenda por toda a largura */
+body.inicio-page .rb-header {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+}
+
+/* Ajusta o conteúdo do header para que o título e logo fiquem centralizados */
+body.inicio-page .rb-header-top {
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 12px 24px 8px;
+}
+
 
 /* Seção inteira da página Início */
 .rb-section-inicio {
-    margin-top: 8px;                 /* aproxima do menu */
+    margin-top: 16px;
+    padding-top: 8px;
 }
 
 /* Texto de instrução abaixo do menu */
 .rb-section-inicio .rb-section-subtitle {
-    font-size: 15px;
-    color: #16404b;
-    text-align: left;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: centerleft;
     line-height: 1.6;
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+}
+
+/* Trechos em negrito no texto */
+.rb-section-inicio .rb-section-subtitle strong {
+    font-weight: 700;
 }
 
 /* Grid dos 4 eixos (2 colunas por 2 linhas) */
 .rb-eixos-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 80px;  /* mais espaço horizontal entre os cards */
-    row-gap: 40px;     /* mais espaço vertical */
-    justify-items: center;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    column-gap: 48px;
+    row-gap: 40px;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 /* Card de eixo (container) */
@@ -50,9 +97,9 @@ body.inicio-page {
 
 /* Faixa azul do topo do card (título) */
 .rb-eixo-card-header {
-    background: #2f7fa5;
+    background: #4C8093;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 700;
     text-align: center;
     padding: 10px 16px;
@@ -66,10 +113,11 @@ body.inicio-page {
     justify-content: center;
 }
 
-/* Ícone central */
-.rb-eixo-icon {
-    font-size: 64px;                 /* deixa grande como no mock */
-    color: #16404b;
+/* Ícone central*/
+.rb-eixo-icon-img {
+    width: 80px;
+    height: 80px;
+    color: #16404b; 
 }
 
 /* Hover: pequeno zoom e sombra mais forte */
@@ -79,46 +127,29 @@ body.inicio-page {
 }
 
 .rb-eixo-card:hover .rb-eixo-card-header {
-    background: #246280;             /* um pouco mais escuro no hover */
+    background: #246280;
 }
 
 /* Responsivo: 1 card por linha em telas pequenas */
 @media (max-width: 768px) {
+    body.inicio-page .rb-main {
+        max-width: 100%;
+        margin: 12px auto 24px;
+        padding: 0 12px;
+    }
+
     .rb-eixos-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+        max-width: 320px;
     }
 
     .rb-eixo-card {
         width: 100%;
         max-width: 320px;
     }
-}
 
-/* Ajustes para o container principal na página Início */
-body.inicio-page .rb-main {
-    background: transparent;   /* sem bloco azul-claro */
-    max-width: 1200px;         /* mais largo, como no mock */
-    margin: 16px auto 32px;    /* centralizado verticalmente, com espaço antes do rodapé */
-    padding: 0 24px;           /* só padding horizontal */
-}
-
-/* Seção inteira da página Início */
-.rb-section-inicio {
-    margin-top: 8px;
-    padding-top: 8px; /* leve respiro abaixo do menu */
-}
-
-/* Texto de instrução abaixo do menu */
-.rb-section-inicio .rb-section-subtitle {
-    font-size: 15px;
-    color: #ffffff;         /* no mock o texto está claro */
-    text-align: left;
-    line-height: 1.6;
-    margin-bottom: 32px;    /* um pouco mais de espaço antes dos cards */
-}
-
-/* Trechos em negrito no texto */
-.rb-section-inicio .rb-section-subtitle strong {
-    font-weight: 700;
+    .rb-section-inicio .rb-section-subtitle {
+        text-align: center;
+    }
 }
