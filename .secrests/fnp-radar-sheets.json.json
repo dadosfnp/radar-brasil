@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "robust-charge-494120-s3",
+  "private_key_id": "f40019d39e4b68bf91b7d560643d9ea8fc3c5874",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC3Ev5VElWMK/vG\ncVQu5lvlYrclXRVtCO7NVeL8TH+K8Alpn+YIvkxgPkbCf8PvJipj47MwuDHPpazQ\nt3J5i2e3MjaAgal+Me+c6BwNcgFKyBYWtNqsPOv9ZFqCUeyORDQpB36KPryJh3Tu\n8i56hWAYcaD5W1aKNmHS5EkFdsZ/EmMDJGscdjN0D+mBPSWQE3N/RbhlkyatremZ\nU3S930QwpmAm/5JGW6/rCxgNbjse1hU8JhHNeDJmBRYOafgCyNlrOPsRLpU3NCBJ\nLzyj34uhQsxUTetfmN92WEHqYRR4A3eD+mTApazSBmb0jFQQ8XxnN4TYBeRCeYy9\nukCeV7ZzAgMBAAECggEAEAy8ulWQpWjHumZ+FFyCqvIED2UBN11kniDM9QR53ALe\nOGHZx2Nzi656Apwz37fvWHGCaJ+FUmh6ZZPnl8tGbPOcfpifdN5I3O8mYnFftqAi\n+5ugXiA7KixNmQY4oGJPVld/WvxUCBSVhks6Eui1e38ety2wQQ6ydcwosK9wiHw8\nrdSJK65CbFwKXpYEihR4FClclwwPkhAZZ+Du8EIa56osyifZ2a4LUCBTU/AlAINw\nXxXW6qb7VMgvKBECE+bvPnQLfBEIK/rZp4CRMMmH3t8bdadQDrKrpw6XJiWVBFAw\nDVSvDbkrWPiOi0/0F/c7I10l+AlPQttbhAPwfnD+OQKBgQDiXUAeVAfzrjEE+nF1\nQf5uvEZqiTjUVFYhv2StcEH/liJSBJKhoxr3R/FO62hOTngXYw/etK/IsdDCA32H\npROnR9VJtKn0L1/Rghd3+WP+HoHdMUghfk9P0B+rnPCuP2jbli927xoBqfhY3WkB\n/JML0SgaAjfkxPO99MKhvFjZmwKBgQDPCtj10jEReSsHm/cPGEeVUd7meKDfL9pm\nVxO/Eu5rqu5vp3ce8/MU6ABYjIPBblhh8X6NFEmENA8U6sTG8YvL11zsSFVMnhhz\negW21m2IXmsxRPwh98zxZXguuFekDE45CN9it4lwBgpKEcTdY6/+/CBsUdDKtKJI\n/LjF63EwCQKBgQCOS0ocBny9LLm5xGj/6c0z9PxaygnER4OhUTvLXu7N6KWIY0F9\nhBdWbI3/KzH1T5RkNyxptbFueoCdBS6qzxVMqXYlEAFp80HLZHi2PTojKzA9SFZs\nX4chx9WwvkX5cvjKWF1b6S+y7hKkYgI5cnlJC2CnAM/76ebCeRLEMq6zkwKBgC8c\n18vwPYwtV1ZO7kQ4ESnwTFmDf4/p8rew/uRO6YQEjGdJ4zhe6KSMOm/r4ZtlgaUf\n790ojaYQtpHa7lYa5uXGpvV5bDeYDhZQ4PX/C0OpwJigiwMrwS35GgT/m6nPxwkB\ndNugyhx8s2CxdGuwYH8UXkhnwawuuHMFVwJqlgIJAoGBAIE+UOzZYfDhL8OlYRdQ\no1bXYvrNMvOHtJScirkWIb6rIel8pVeOM9riZrxy+B5FDnqZAaRvbKw+P0PsbDm+\nS+I2FV2VKqwnOaoiSCnCQaEg3oRKcXlOd4F4NAfh/C8iIL6ONClteT1j/wtPsSpT\nhASwT2+I8uu1JzwAtJHLgQ4I\n-----END PRIVATE KEY-----\n",
+  "client_email": "radar-brasil-sheets@robust-charge-494120-s3.iam.gserviceaccount.com",
+  "client_id": "104500509424950925456",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/radar-brasil-sheets%40robust-charge-494120-s3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

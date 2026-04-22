@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar Brasil - Painel Multinível{% endblock %}
+{% block body_class %}rb-body painel-multinivel-page{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/painel-multinivel.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{% static 'js/painel-multinivel.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="pm-wrapper">
+
+  <!-- HEADER RADAR BRASIL -->
+  <header class="pm-header">
+    <div class="pm-header-inner">
+      <div class="pm-header-title">
+        <h1>RADAR BRASIL</h1>
+        <p>Impulsionando a Ação Climática Federativa</p>
+      </div>
+      <div class="pm-header-logo">
+        <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="pm-logo-img">
+      </div>
+    </div>
+  </header>
+
+  <!-- TÍTULO DO PAINEL -->
+  <section class="pm-panel-title">
+    <h2>Painel Multinível</h2>
+  </section>
+
+  <!-- ABA / NAV DO PAINEL -->
+  <nav class="pm-tabs">
+    <ul>
+      <li class="active">
+        <button type="button">
+          <span class="pm-tab-icon pm-tab-icon-gov"></span>
+          <span>Governança</span>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <span class="pm-tab-icon pm-tab-icon-politicas"></span>
+          <span>Políticas e Planos</span>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <span class="pm-tab-icon pm-tab-icon-programas"></span>
+          <span>Programas</span>
+        </button>
+      </li>
+      <li>
+        <button type="button">
+          <span class="pm-tab-icon pm-tab-icon-linha"></span>
+          <span>Linha de Financiamento</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ÁREA PRINCIPAL DO PAINEL / GRÁFICO -->
+  <main class="pm-main">
+
+    <div class="pm-card">
+
+      <!-- container do gráfico -->
+      <div class="pm-chart-wrapper">
+        <!-- Aqui você injeta o gráfico via JS (Chart.js, Plotly, etc.) -->
+        <canvas id="pm-chart-governanca"></canvas>
+      </div>
+
+      <!-- selinho "Critérios e Parâmetros de Avaliação" -->
+      <button type="button" class="pm-criteria-badge">
+        Critérios e Parâmetros<br>de Avaliação
+      </button>
+    </div>
+
+  </main>
+
+</div>
+{% endblock %}
