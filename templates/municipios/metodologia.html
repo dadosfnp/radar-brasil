@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar Brasil - Metodologia{% endblock %}
+{% block menu_metodologia_active %}active{% endblock %}
+{% block body_class %}rb-body metodologia-page{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="rb-section rb-section-metodologia">
+
+    <div class="rb-meto-grid">
+
+                <!-- Card 1: Mapeamento -->
+        <article class="rb-meto-card">
+            <header class="rb-meto-card-header">
+                <div class="rb-meto-icon-circle">
+                    <img src="{% static 'img/mapeamento.svg' %}" alt="Mapeamento" class="rb-meto-icon-img">
+                </div>
+                <h2>Mapeamento</h2>
+            </header>
+            <div class="rb-meto-card-body">
+                <ul class="rb-meto-list-mapeamento">
+                    <li>
+                        <span class="rb-meto-list-icon">
+                            <img src="{% static 'img/mapeamento-17.svg' %}" alt="" />
+                        </span>
+                        <strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;
+                    </li>
+                    <li>
+                        <span class="rb-meto-list-icon">
+                            <img src="{% static 'img/mapeamento-31.svg' %}" alt="" />
+                        </span>
+                        <strong>31</strong> instâncias de governança;
+                    </li>
+                    <li>
+                        <span class="rb-meto-list-icon">
+                            <img src="{% static 'img/mapeamento2-17.svg' %}" alt="" />
+                        </span>
+                        <strong>17</strong> planos e políticas públicas;
+                    </li>
+                    <li>
+                        <span class="rb-meto-list-icon">
+                            <img src="{% static 'img/mapeamento-18.svg' %}" alt="" />
+                        </span>
+                        <strong>18</strong> programas.
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Card 2: Mensuração dos resultados -->
+        <article class="rb-meto-card">
+    <header class="rb-meto-card-header">
+        <div class="rb-meto-icon-circle">
+            <img src="{% static 'img/mensuracao-dos-resultados.svg' %}" alt="Mensuração dos resultados" class="rb-meto-icon-img">
+        </div>
+        <h2>Mensuração dos resultados</h2>
+    </header>
+
+    <div class="rb-meto-card-body">
+                <ul>
+                    <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
+                    <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Card 3: Critérios de avaliação -->
+        <article class="rb-meto-card rb-meto-card-full">
+    <header class="rb-meto-card-header">
+        <div class="rb-meto-icon-circle">
+            <img src="{% static 'img/criterios-de-avaliacao.svg' %}" alt="Critérios de avaliação" class="rb-meto-icon-img">
+        </div>
+        <h2>Critérios de avaliação</h2>
+    </header>
+                <div class="rb-meto-card-body">
+
+                <p>
+                    Estabelecimento de <strong>níveis (0 a 5)</strong> para cada parâmetro, sendo
+                    <strong>0</strong> a inexistência de ação ou participação de municípios, e
+                    <strong>5</strong> atividade plena.
+                </p>
+            </div>
+        </article>
+
+    </div>
+
+</section>
+{% endblock %}

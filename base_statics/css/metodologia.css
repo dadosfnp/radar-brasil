@@ -1,0 +1,240 @@
+/* ==============================
+   PÁGINA METODOLOGIA
+   ============================== */
+
+/* Fundo da página Metodologia com textura (igual ao início) */
+body.metodologia-page {
+    background-image: url("/static/img/bg-body.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+/* Esconde o rodapé herdado do base.html apenas na página Metodologia (igual ao início) */
+body.metodologia-page .rb-footer-landing {
+    display: none;
+}
+
+/* Ajustes para o container principal (.rb-main) na página Metodologia (igual ao início) */
+body.metodologia-page .rb-main {
+    background: transparent; /* O fundo agora vai no body */
+    max-width: 4000px; /* Largura máxima para o main, igual ao início */
+    margin: 0 auto;
+    padding: 0 24px; /* Padding do main, igual ao início */
+    flex-grow: 1;
+}
+
+/* Barra de menu na página Metodologia: fundo branco 100% largura (igual ao início) */
+body.metodologia-page .rb-main-nav {
+    background-color: #ffffff;
+    border-top: none;
+    padding: 6px 0;
+    margin-top: 0;
+    border-radius: 0;
+}
+
+/* Ajusta o padding do .rb-header para que o menu se estenda por toda a largura (igual ao início) */
+body.metodologia-page .rb-header {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+}
+
+/* Ajusta o conteúdo do header para que o título e logo fiquem centralizados (igual ao início) */
+body.metodologia-page .rb-header-top {
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 12px 24px 8px;
+}
+
+
+/* Container da seção de conteúdo da Metodologia */
+.rb-section-metodologia {
+    margin-top: 16px; /* Espaçamento do topo */
+    padding-top: 8px; /* Padding interno */
+    max-width: 1200px; /* Largura máxima para o conteúdo específico da metodologia */
+    margin-left: auto; /* Centraliza o conteúdo da seção */
+    margin-right: auto; /* Centraliza o conteúdo da seção */
+}
+
+/* Título principal da seção de metodologia (se houver) */
+.rb-section-metodologia h1 {
+    font-size: 28px;
+    color: #16404b; /* Cor do texto */
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+/* Texto de introdução da metodologia (se houver) */
+.rb-section-metodologia .rb-section-subtitle {
+    font-size: 20px;
+    color: #16404b;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+/* Grid dos três blocos como no mock (2 em cima, 1 centralizado embaixo) */
+.rb-meto-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    column-gap: 40px;
+    row-gap: 32px;
+    justify-content: center;
+    max-width: 900px; /* Ajuste a largura máxima do grid se necessário */
+    margin: 0 auto; /* Centraliza o grid */
+}
+
+/* Card base */
+.rb-meto-card {
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 18px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Card de baixo ocupando duas colunas */
+.rb-meto-card-full {
+    grid-column: 1 / 3;
+}
+
+.rb-meto-card-header {
+    background-color: #4C8093;
+    color: #ffffff;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;   /* centraliza ícone + título */
+    gap: 10px;
+}
+
+.rb-meto-card-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;   /* texto bem centralizado verticalmente */
+}
+
+/* Ícone circular */
+.rb-meto-icon-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.06);
+}
+
+.rb-meto-icon {
+    font-size: 16px;
+}
+
+/* Imagem SVG do ícone */
+.rb-meto-icon-img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Título do card – ocupa o espaço restante e alinha verticalmente */
+.rb-meto-card-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;      /* deixa o texto centralizado na altura do header */
+}
+
+/* Corpo do card */
+.rb-meto-card-body {
+    padding: 16px 18px 18px;
+    color: #16404b;
+    font-size: 14px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.rb-meto-card-body ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.rb-meto-card-body li {
+    margin-bottom: 6px;
+}
+
+.rb-meto-card-body li:last-child {
+    margin-bottom: 0;
+}
+
+/* Destaque dos números em negrito */
+.rb-meto-card-body strong {
+    font-weight: 700;
+}
+
+/* Responsivo: empilha os cards em 1 coluna */
+@media (max-width: 768px) {
+    body.metodologia-page .rb-main {
+        max-width: 100%;
+        margin: 12px auto 24px;
+        padding: 0 12px;
+    }
+
+    .rb-meto-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 320px; /* Limita a largura do grid em mobile */
+    }
+
+    .rb-meto-card-full {
+        grid-column: 1 / 2;
+    }
+
+    .rb-section-metodologia {
+        padding: 16px 12px; /* Ajusta padding da seção em mobile */
+    }
+}
+
+/* Lista do card de Mapeamento com ícones na coluna da esquerda */
+.rb-meto-list-mapeamento {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.rb-meto-list-mapeamento li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+/* Coluna do ícone numérico */
+.rb-meto-list-icon {
+    width: 20px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 2px; /* ajusta o alinhamento vertical com o texto */
+}
+
+.rb-meto-list-icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+/* Garante que o número em negrito fique colado no texto depois do ícone */
+.rb-meto-list-mapeamento li strong {
+    margin-right: 4px;
+}
