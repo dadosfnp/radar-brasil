@@ -154,10 +154,9 @@ body.painel-multinivel-page .pm-header {
 
 /* área do gráfico em si: mantém proporção semelhante ao print */
 .pm-chart-wrapper {
-    background-color: #fdfdfd;
-    border-radius: 8px;
-    border: 1px solid #e5e9f0;
-    padding: 16px 16px 32px;
+  position: relative;
+  height: 420px;
+  width: 100%;
 }
 
 /* Canvas ocupa toda a largura disponível, altura ajustável conforme lib */
