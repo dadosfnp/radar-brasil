@@ -228,3 +228,24 @@ body.painel-multinivel-page .rb-main {
 body.painel-multinivel-page main {
     background-color: transparent;
 }
+
+/* ── Header e menu global: padrão igual à metodologia ── */
+body.painel-multinivel-page .rb-main-nav {
+    background-color: #ffffff;
+    border-top: none;
+    padding: 6px 0;
+    margin-top: 0;
+    border-radius: 0;
+}
+
+body.painel-multinivel-page .rb-header {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+}
+
+body.painel-multinivel-page .rb-header-top {
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 12px 24px 8px;
+}

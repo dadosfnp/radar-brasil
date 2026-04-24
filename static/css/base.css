@@ -113,11 +113,11 @@ body.rb-body {
 
 /* MENU NAV */
 .rb-main-nav {
-    margin-top: 8px;
-    background-color: #ffff;
-    border-radius: 0;         
-    padding: 6px 24px;
-    border-top: 2px solid #2f7fa5;         
+    margin-top: 0;
+    background-color: #ffffff;  /* branco correto */
+    border-top: 2px solid #2f7fa5;
+    border-radius: 0;
+    padding: 6px 0;             /* sem padding lateral — cada página controla */
 }
 
 .rb-main-nav ul {

@@ -2,7 +2,6 @@
    PÁGINA INÍCIO
    ============================== */
 
-/* Fundo da página Início com textura */
 body.inicio-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;
@@ -11,12 +10,10 @@ body.inicio-page {
     background-color: transparent;
 }
 
-/* Esconde o rodapé herdado do base.html apenas na página Início */
 body.inicio-page .rb-footer-landing {
     display: none;
 }
 
-/* Ajustes para o container principal (.rb-main) na página Início */
 body.inicio-page .rb-main {
     background: transparent;
     max-width: 4000px;
@@ -25,7 +22,7 @@ body.inicio-page .rb-main {
     flex-grow: 1;
 }
 
-/* Barra de menu na página Início: fundo branco 100% largura */
+/* ── Header e menu: IGUAL à metodologia ── */
 body.inicio-page .rb-main-nav {
     background-color: #ffffff;
     border-top: none;
@@ -34,42 +31,40 @@ body.inicio-page .rb-main-nav {
     border-radius: 0;
 }
 
-/* Ajusta o padding do .rb-header para que o menu se estenda por toda a largura */
 body.inicio-page .rb-header {
     padding: 0;
     max-width: none;
     margin: 0;
 }
 
-/* Ajusta o conteúdo do header para que o título e logo fiquem centralizados */
 body.inicio-page .rb-header-top {
     max-width: 1900px;
     margin: 0 auto;
     padding: 12px 24px 8px;
 }
 
-
 /* Seção inteira da página Início */
 .rb-section-inicio {
-    margin-top: 16px;
+    margin-top: 24px;         /* ↑ um pouco mais de respiro, igual percepção da Metodologia */
     padding-top: 8px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Texto de instrução abaixo do menu */
 .rb-section-inicio .rb-section-subtitle {
     font-size: 20px;
     color: #ffffff;
-    text-align: centerleft;
+    text-align: center;
     line-height: 1.6;
     margin-bottom: 32px;
 }
 
-/* Trechos em negrito no texto */
 .rb-section-inicio .rb-section-subtitle strong {
     font-weight: 700;
 }
 
-/* Grid dos 4 eixos (2 colunas por 2 linhas) */
 .rb-eixos-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(260px, 1fr));
@@ -80,7 +75,6 @@ body.inicio-page .rb-header-top {
     margin: 0 auto;
 }
 
-/* Card de eixo (container) */
 .rb-eixo-card {
     display: flex;
     flex-direction: column;
@@ -91,11 +85,9 @@ body.inicio-page .rb-header-top {
     background: rgba(255, 255, 255, 0.78);
     box-shadow: 0 3px 8px rgba(0,0,0,0.18);
     overflow: hidden;
-    transition: transform 0.15s ease-out,
-                box-shadow 0.15s ease-out;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 }
 
-/* Faixa azul do topo do card (título) */
 .rb-eixo-card-header {
     background: #4C8093;
     color: #ffffff;
@@ -105,7 +97,6 @@ body.inicio-page .rb-header-top {
     padding: 10px 16px;
 }
 
-/* Corpo do card, onde fica o ícone */
 .rb-eixo-card-body {
     flex: 1;
     display: flex;
@@ -113,14 +104,12 @@ body.inicio-page .rb-header-top {
     justify-content: center;
 }
 
-/* Ícone central*/
 .rb-eixo-icon-img {
     width: 80px;
     height: 80px;
-    color: #16404b; 
+    color: #16404b;
 }
 
-/* Hover: pequeno zoom e sombra mais forte */
 .rb-eixo-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0,0,0,0.22);
@@ -130,7 +119,6 @@ body.inicio-page .rb-header-top {
     background: #246280;
 }
 
-/* Responsivo: 1 card por linha em telas pequenas */
 @media (max-width: 768px) {
     body.inicio-page .rb-main {
         max-width: 100%;
