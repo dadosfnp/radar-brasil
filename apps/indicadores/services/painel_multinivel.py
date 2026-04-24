@@ -1,44 +1,48 @@
-import os
+import time
+import unicodedata
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 # ── Configuração ──────────────────────────────────────────────
-CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID   = "1L5uuiTqoz9aDUAVflGww1UnZfp7xFntcmvoB_jeS3Og"
+CREDS_PATH          = ".secrets/fnp-radar-sheets.json"
+SHEET_PARAMETROS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
+WORKSHEET_NAME      = "dados"
+CACHE_TTL           = 1800  # 30 minutos
 
 CORES_NIVEL = {
-    0: "#d73027",
-    1: "#f46d43",
-    2: "#fdae61",
-    3: "#fee08b",
-    4: "#a6d96a",
-    5: "#1a9850",
+    "Nível 0": "#E0E0E0",
+    "Nível 1": "#F4A6A6",
+    "Nível 2": "#F9C89B",
+    "Nível 3": "#FFEB99",
+    "Nível 4": "#BCD6A2",
+    "Nível 5": "#A5C8ED",
 }
 
-EIXOS = {
-    "Governanca":             "Governança",
-    "Politicas e Planos":     "Políticas e Planos",
+# O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
+EIXO_MAP = {
+    "Governanca":             "Governanca",
+    "Politicas e Planos":     "Politicas e Planos",
     "Programas":              "Programas",
     "Linhas de Financiamento":"Linhas de Financiamento",
 }
 
-# Mapeamento: nome do eixo → nome da aba na planilha
-ABA_MAP = {
-    "Governanca":             "Governança",
-    "Politicas e Planos":     "Políticas e Planos",
-    "Programas":              "Programas",
-    "Linhas de Financiamento":"Linhas de Financiamento",
+# Cache em memória
+_cache = {
+    "df":        None,
+    "timestamp": 0,
 }
 
-# Tipos de parâmetro (ordem fixa igual ao R)
-TIPOS = [
-    "Operacionalidade",
-    "Espaço de diálogo federativo",
-    "Financiamento",
-    "Representação de Gênero, Raça e Etnia",
-    "Comunicação e Transparência",
-]
+
+def _normalizar(texto: str) -> str:
+    """Remove acentos e coloca em minúsculas para comparação segura."""
+    return (
+        unicodedata.normalize("NFKD", texto)
+        .encode("ascii", "ignore")
+        .decode("ascii")
+        .lower()
+        .strip()
+    )
 
 
 def _get_client():
@@ -46,185 +50,111 @@ def _get_client():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
     ]
-    creds  = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
     return gspread.authorize(creds)
 
 
-def _ler_aba(client, aba_nome: str) -> pd.DataFrame:
-    """Lê a aba e devolve um DataFrame bruto (sem tratamento)."""
-    sheet = client.open_by_key(SHEET_ID)
-    ws    = sheet.worksheet(aba_nome)
-    dados = ws.get_all_values()
-    return pd.DataFrame(dados)
+def _ler_parametros() -> pd.DataFrame:
+    agora = time.time()
+
+    if _cache["df"] is not None and (agora - _cache["timestamp"]) < CACHE_TTL:
+        print("[CACHE HIT] Usando dados em memória.")
+        return _cache["df"]
+
+    print("[CACHE MISS] Buscando dados do Google Sheets...")
+    client = _get_client()
+    sh     = client.open_by_key(SHEET_PARAMETROS_ID)
+    ws     = sh.worksheet(WORKSHEET_NAME)
+    dados  = ws.get_all_records()
+    df     = pd.DataFrame(dados)
+
+    _cache["df"]        = df
+    _cache["timestamp"] = agora
+
+    # LOG: mostra os valores únicos da coluna Eixo para diagnóstico
+    if "Eixo" in df.columns:
+        print("[CACHE] Eixos na planilha:", df["Eixo"].unique().tolist())
+
+    print(f"[CACHE] {len(df)} registros. Expira em {CACHE_TTL // 60} min.")
+    return df
 
 
-def _processar_governanca(df_raw: pd.DataFrame) -> pd.DataFrame:
-    """
-    Replica o bloco R:
-      governanca_limp → Governanca_parametro → pivot_longer
-    Devolve colunas: Estrutura, Setor, Tipo, Nivel, Avaliacao, Descritivo
-    """
-    # Linha 0 = cabeçalho geral (ignorar)
-    # Linha 1 = sub-cabeçalho com nomes dos parâmetros
-    # Linha 2 = nomes das colunas finais
-    # Dados a partir da linha 3
+def dados_para_grafico(eixo_front: str) -> dict:
+    eixo_busca = EIXO_MAP.get(eixo_front)
+    if not eixo_busca:
+        return {
+            "labels":   [],
+            "datasets": [],
+            "erro": f"Eixo desconhecido: {eixo_front}",
+        }
 
-    # Índices das colunas de parâmetros (igual ao select do R: cols 10-24)
-    # Col 0  = Estrutura
-    # Col 1  = Setor
-    # Col 10 = Nível Operacionalidade
-    # Col 11 = Avaliação Operacionalidade
-    # Col 12 = Descritivo Operacionalidade
-    # Col 13 = Nível Diálogo
-    # ... e assim por diante (3 colunas por tipo)
+    df = _ler_parametros()
 
-    dados = df_raw.iloc[3:].reset_index(drop=True)  # remove as 3 linhas de cabeçalho
-    dados.columns = range(len(dados.columns))
+    # Verifica colunas mínimas
+    colunas_esperadas = {"Eixo", "Avaliação", "Nível"}
+    if not colunas_esperadas.issubset(set(df.columns)):
+        return {
+            "labels":   [],
+            "datasets": [],
+            "erro": f"Colunas encontradas: {list(df.columns)}",
+        }
 
-    registros = []
-    for _, row in dados.iterrows():
-        estrutura = str(row[0]).strip()
-        setor     = str(row[1]).strip()
+    # Normaliza para comparação sem acento
+    df = df.copy()
+    df["Eixo_norm"]     = df["Eixo"].astype(str).apply(_normalizar)
+    df["Avaliação"]     = df["Avaliação"].astype(str).str.strip()
+    df["Nível"]         = df["Nível"].astype(str).str.strip()
 
-        if not estrutura or estrutura.lower() in ("", "nan"):
-            continue
+    eixo_norm = _normalizar(eixo_busca)
 
-        # Cada tipo ocupa 3 colunas: Nível, Avaliação, Descritivo
-        inicio_col = 10  # mesma lógica do R: select(1:2, 10:24)
-        for i, tipo in enumerate(TIPOS):
-            col_nivel     = inicio_col + (i * 3)
-            col_avaliacao = col_nivel + 1
-            col_descritivo= col_nivel + 2
+    # Filtra pelo eixo e por níveis válidos
+    df_eixo = df[
+        (df["Eixo_norm"] == eixo_norm) &
+        (df["Nível"].isin(CORES_NIVEL.keys()))
+    ].copy()
 
-            try:
-                nivel_raw = str(row[col_nivel]).strip()
-                nivel     = int(float(nivel_raw)) if nivel_raw not in ("", "nan") else None
-            except (ValueError, IndexError):
-                nivel = None
+    print(f"[FILTRO] Eixo '{eixo_front}' → '{eixo_busca}' → norm '{eixo_norm}': {len(df_eixo)} registros")
 
-            try:
-                avaliacao  = str(row[col_avaliacao]).strip()
-            except IndexError:
-                avaliacao = ""
+    if df_eixo.empty:
+        return {"labels": [], "datasets": []}
 
-            try:
-                descritivo = str(row[col_descritivo]).strip()
-            except IndexError:
-                descritivo = ""
-
-            registros.append({
-                "Estrutura":  estrutura,
-                "Setor":      setor,
-                "Tipo":       tipo,
-                "Nivel":      nivel,
-                "Avaliacao":  avaliacao,
-                "Descritivo": descritivo,
-                "Eixo":       "Governanca",
-            })
-
-    return pd.DataFrame(registros)
-
-
-def _processar_generica(df_raw: pd.DataFrame, eixo: str) -> pd.DataFrame:
-    """
-    Processamento genérico para Políticas e Planos, Programas e
-    Linhas de Financiamento — mesma lógica de colunas.
-    """
-    dados = df_raw.iloc[3:].reset_index(drop=True)
-    dados.columns = range(len(dados.columns))
-
-    registros = []
-    for _, row in dados.iterrows():
-        estrutura = str(row[0]).strip()
-        setor     = str(row[1]).strip()
-
-        if not estrutura or estrutura.lower() in ("", "nan"):
-            continue
-
-        inicio_col = 10
-        for i, tipo in enumerate(TIPOS):
-            col_nivel     = inicio_col + (i * 3)
-            col_avaliacao = col_nivel + 1
-            col_descritivo= col_nivel + 2
-
-            try:
-                nivel_raw = str(row[col_nivel]).strip()
-                nivel     = int(float(nivel_raw)) if nivel_raw not in ("", "nan") else None
-            except (ValueError, IndexError):
-                nivel = None
-
-            try:
-                avaliacao  = str(row[col_avaliacao]).strip()
-            except IndexError:
-                avaliacao = ""
-
-            try:
-                descritivo = str(row[col_descritivo]).strip()
-            except IndexError:
-                descritivo = ""
-
-            registros.append({
-                "Estrutura":  estrutura,
-                "Setor":      setor,
-                "Tipo":       tipo,
-                "Nivel":      nivel,
-                "Avaliacao":  avaliacao,
-                "Descritivo": descritivo,
-                "Eixo":       eixo,
-            })
-
-    return pd.DataFrame(registros)
-
-
-def dados_para_grafico(eixo: str) -> dict:
-    """
-    Função principal chamada pela view Django.
-    Retorna o JSON pronto para o Chart.js:
-    {
-        "labels": ["Operacionalidade", ...],
-        "datasets": [
-            {"label": "Nível 0", "data": [3, 1, 2, 0, 1], "backgroundColor": "#d73027"},
-            ...
-        ]
-    }
-    """
-    client   = _get_client()
-    aba_nome = ABA_MAP.get(eixo, "Governança")
-    df_raw   = _ler_aba(client, aba_nome)
-
-    if eixo == "Governanca":
-        df = _processar_governanca(df_raw)
-    else:
-        df = _processar_generica(df_raw, eixo)
-
-    # Remove linhas sem nível
-    df = df.dropna(subset=["Nivel"])
-    df["Nivel"] = df["Nivel"].astype(int)
-
-    # Agrupa: conta quantas estruturas estão em cada Nível, por Tipo
-    agrupado = (
-        df.groupby(["Tipo", "Nivel"])
+    # Ordena Avaliações pelo score de Nível 5 (igual ao R)
+    score = (
+        df_eixo[df_eixo["Nível"] == "Nível 5"]
+        .groupby("Avaliação")
         .size()
-        .reset_index(name="Contagem")
+        .reset_index(name="score")
+    )
+    todas    = df_eixo["Avaliação"].unique().tolist()
+    score_df = pd.DataFrame({"Avaliação": todas})
+    score_df = score_df.merge(score, on="Avaliação", how="left").fillna(0)
+    score_df = score_df.sort_values("score", ascending=True)
+    labels   = score_df["Avaliação"].tolist()
+
+    # Contagem por Avaliação + Nível
+    contagem = (
+        df_eixo.groupby(["Avaliação", "Nível"])
+        .size()
+        .reset_index(name="qtd")
     )
 
-    # Garante ordem fixa dos tipos (igual ao R)
-    labels   = TIPOS
+    # Monta datasets — um por nível
     datasets = []
-
-    for nivel in range(6):  # 0 a 5
-        contagens = []
-        for tipo in labels:
-            filtro = agrupado[
-                (agrupado["Tipo"] == tipo) & (agrupado["Nivel"] == nivel)
+    for nivel, cor in CORES_NIVEL.items():
+        data = []
+        for avaliacao in labels:
+            filtro = contagem[
+                (contagem["Avaliação"] == avaliacao) &
+                (contagem["Nível"] == nivel)
             ]
-            contagens.append(int(filtro["Contagem"].sum()))
+            data.append(int(filtro["qtd"].sum()))
 
         datasets.append({
-            "label":           f"Nível {nivel}",
-            "data":            contagens,
-            "backgroundColor": CORES_NIVEL[nivel],
+            "label":           nivel,
+            "data":            data,
+            "backgroundColor": cor,
             "borderWidth":     0,
+            "stack":           "stack1",
         })
 
     return {

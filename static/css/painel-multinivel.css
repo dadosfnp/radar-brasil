@@ -11,12 +11,11 @@ body.painel-multinivel-page {
     font-family: "Roboto", "Segoe UI", Arial, sans-serif;
 }
 
-/* wrapper central branco (como na imagem) */
 .pm-wrapper {
     max-width: 1200px;
-    margin: 24px auto 40px;
-    padding: 0 24px 32px;
-    background-color: rgba(255, 255, 255, 0.98);
+    margin: 24px auto 16px;
+    padding: 0 24px 8px;
+    background-color: #ffffff;
     border-radius: 20px;
     box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
@@ -39,14 +38,14 @@ body.painel-multinivel-page {
     font-size: 32px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: #16404b;
     margin: 0 0 4px;
 }
 
 .pm-header-title p {
     margin: 0;
     font-size: 16px;
-    color: #f4f4f4;
+    color: #16404b;
 }
 
 .pm-header-logo .pm-logo-img {
@@ -124,11 +123,10 @@ body.painel-multinivel-page .pm-header {
 }
 
 /* ícone genérico das abas; substitua por background-image se quiser ícones reais */
-.pm-tab-icon {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 1px solid currentColor;
+.pm-tab-icon-img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
 }
 
 /* você pode customizar por aba se quiser cores/ícones distintos */
@@ -140,16 +138,17 @@ body.painel-multinivel-page .pm-header {
 /* ================== ÁREA PRINCIPAL / CARD DO GRÁFICO ================== */
 
 .pm-main {
-    padding: 24px 0 8px;
+    padding: 32px 0 0px;
 }
 
 .pm-card {
     position: relative;
-    background-color: #ffffff;
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    border: 1px solid #e1e7ed;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0 24px 24px;
+    box-shadow: none;
+    border: none;
+    text-align: right;
 }
 
 /* área do gráfico em si: mantém proporção semelhante ao print */
@@ -162,14 +161,15 @@ body.painel-multinivel-page .pm-header {
 /* Canvas ocupa toda a largura disponível, altura ajustável conforme lib */
 .pm-chart-wrapper canvas {
     width: 100%;
-    height: 420px; /* ajuste fino conforme o gráfico */
+    height: 420px;
 }
 
 /* selo "Critérios e Parâmetros de Avaliação" no canto inferior direito */
 .pm-criteria-badge {
-    position: absolute;
-    right: 30px;
-    bottom: 24px;
+    position: static;
+    margin-top: 16px;
+    display: inline-block;
+    float: none;
     background-color: #007ca3;
     color: #ffffff;
     font-size: 11px;
@@ -219,4 +219,12 @@ body.painel-multinivel-page .pm-header {
         margin-top: 16px;
         display: inline-block;
     }
+}
+
+body.painel-multinivel-page .rb-main {
+    background-color: transparent;
+}
+
+body.painel-multinivel-page main {
+    background-color: transparent;
 }
