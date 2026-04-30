@@ -2,6 +2,11 @@
    PÁGINA PAINEL MULTINÍVEL
    ============================== */
 
+/* Equaliza a altura do header com a das páginas inicio/landing */
+body.painel-multinivel-page .rb-header-wrapper {
+    padding-top: 20px;
+}
+
 body.painel-multinivel-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;
@@ -9,6 +14,10 @@ body.painel-multinivel-page {
     background-repeat: no-repeat;
     background-color: #0d1f26;
     font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
 }
 
 .pm-wrapper {
@@ -20,8 +29,8 @@ body.painel-multinivel-page {
     box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 
-/* ================== HEADER ESPECÍFICO DO PAINEL ================== */
-/* Este header é específico da página Painel Multinível e não deve ser confundido com o header global. */
+/* ================== HEADER ================== */
+
 .pm-header {
     padding: 24px 0 8px;
 }
@@ -58,17 +67,6 @@ body.painel-multinivel-page .pm-header {
     margin: -24px -24px 0;
     padding: 24px 32px 12px;
     background: transparent;
-}
-
-/* As regras de header globais foram removidas para que o header da página Painel Multinível
-   herde os estilos do base.css. */
-
-body.painel-multinivel-page .rb-main {
-    background-color: transparent;
-}
-
-body.painel-multinivel-page main {
-    background-color: transparent;
 }
 
 /* ================== TÍTULO DO PAINEL ================== */
@@ -231,3 +229,12 @@ body.painel-multinivel-page main {
         display: inline-block;
     }
 }
+
+body.painel-multinivel-page .rb-main {
+    background-color: transparent;
+}
+
+body.painel-multinivel-page main {
+    background-color: transparent;
+}
+

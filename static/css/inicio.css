@@ -2,24 +2,16 @@
    PÁGINA INÍCIO
    ============================== */
 
-/* Aplicar o background-image ao HTML para que ele cubra toda a viewport */
-html {
+
+body.inicio-page {
+    /* Fundo da página Início com textura, aplicado diretamente ao body,
+       assim como em metodologia.css. Isso garante que o bg-body.png
+       seja o background da página e que o header do base.css o cubra corretamente. */
     background-image: url("/static/img/bg-body.png");
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    background-color: transparent; /* Ou a cor de fundo padrão do seu site */
-}
-
-body.inicio-page {
-    /* O body.inicio-page deve ser transparente para que o background do HTML seja visível.
-       O header (rb-header-wrapper) terá seu próprio background do base.css.
-    */
-    background-image: none; /* ESSENCIAL: Remove a imagem de fundo do body */
-    background-color: transparent; /* Garante que o body não tenha cor de fundo */
-    background-size: auto; /* Resetar */
-    background-position: initial; /* Resetar */
-    background-repeat: initial; /* Resetar */
+    background-color: transparent; /* Garante que o body não tenha cor de fundo própria */
 
     margin: 0;
     padding: 0;
@@ -28,32 +20,18 @@ body.inicio-page {
 }
 
 body.inicio-page .rb-footer-landing {
-    display: none;
+    display: none; /* Esconde o rodapé herdado do base.html apenas na página Início */
 }
 
-/* Remover quaisquer regras de posicionamento absoluto/fixo do header,
-   pois o header deve estar no fluxo normal do documento para herdar do base.css */
-body.inicio-page .rb-header-wrapper {
-    position: initial; /* Resetar qualquer position: absolute/fixed */
-    top: initial;
-    left: initial;
-    width: initial;
-    z-index: initial;
-}
-
+/* Ajustes para o container principal (.rb-main) na página Início*/
 body.inicio-page .rb-main {
-    /* O rb-main deve ter background transparente para que o background do HTML seja visível */
-    background: transparent; /* Garante que o rb-main não tenha um background próprio */
-    max-width: 4000px;
-    margin: 0 auto;
-    padding: 0 24px;
+    background: transparent; /* O rb-main deve ter background transparente para que o background do body seja visível */
+    max-width: 4000px; /* Mantido para não limitar o conteúdo */
+    margin: 0 auto;    /* Mantido para centralizar o conteúdo */
+    padding: 0 24px;   /* Mantido para espaçamento interno */
     flex-grow: 1;
-    /* Remover margin-top, pois o rb-main deve seguir o fluxo normal do documento */
-    margin-top: 0;
+    margin-top: 0;     /* Garante que não haja margem superior extra */
 }
-
-/* As regras de header foram removidas daqui para que a página Início
-   herde os estilos do base.css para o header. */
 
 /* Seção inteira da página Início */
 .rb-section-inicio {

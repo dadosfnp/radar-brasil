@@ -1,88 +1,61 @@
 ﻿* { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body { margin: 0; padding: 0; }
+
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
-    background: #D7EDEF; /* Este background será visível onde não houver outro background */
+    background: #D7EDEF;
     color: #123;
     min-height: 100vh;
     display: flex;
     flex-direction: column; 
-    padding-top: 20px; /* Espaçamento acima do header para todas as páginas */
 }
 
-/* HEADER com textura */
+/* HEADER */
 .rb-header-wrapper {
+    background-color: #0d1f26;
     background-image: url('/static/img/bg-header.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
     width: 100%;
     flex-shrink: 0;
-
     padding: 0;
-    /* ADICIONADO: Um background-color sólido para cobrir o background do body */
-    background-color: #D7EDEF; /* Use a cor de fundo do seu body ou uma cor sólida que combine */
+    margin-top: 0;
+    position: relative;
 }
 
-/* Header interno mais estreito */
+.rb-header-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: #0d1f26;
+    background-image: url('/static/img/bg-header.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
 .rb-header {
-    width: 100%; /* Garantir que ocupe 100% */
-    padding: 0;
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 0 24px;
     color: #fff;
 }
 
-/* Layout do topo – centraliza no centro do header */
 .rb-header-top {
-    max-width: 1900px; /* Mantido para o conteúdo do topo */
-    margin: 0 auto;    /* Mantido para centralizar o conteúdo do topo */
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    min-height: unset;
-    padding: 20px 24px 8px;
+    padding: 20px 0 8px;
 }
 
-/* Título exatamente no centro (horizontal e vertical) */
 .rb-header-title {
     grid-column: 2 / 3;
     justify-self: center;
-    text-align: center;
-}
-
-/* Logo FNP à direita, alinhado ao topo/centro vertical da faixa */
-.rb-header-logo {
-    grid-column: 3 / 4;
-    justify-self: end;
-}
-
-/* Títulos (mantém seu estilo atual) */
-.rb-header-title h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
-}
-
-.rb-header-title p {
-    font-size: 15px;
-    opacity: 0.9;
-}
-
-/* Bloco do título centralizado de verdade */
-.rb-header-title {
-    grid-column: 2 / 3;
-    text-align: center;
-    justify-self: center;
-}
-
-/* Logo FNP à direita continua na última coluna */
-.rb-header-logo {
-    grid-column: 3 / 4;
-    justify-self: end;
-}
-
-/* Bloco do título centralizado */
-.rb-header-title {
     text-align: center;
 }
 
@@ -98,8 +71,8 @@ body.rb-body {
     opacity: 0.9;
 }
 
-/* Logo FNP à direita */
 .rb-header-logo {
+    grid-column: 3 / 4;
     justify-self: end;
 }
 
@@ -116,10 +89,10 @@ body.rb-body {
 /* MENU NAV */
 .rb-main-nav {
     margin-top: 0;
-    background-color: #ffffff;  /* branco correto */
+    background-color: #ffffff;
     border-top: 2px solid #2f7fa5;
     border-radius: 0;
-    padding: 6px 0;             /* sem padding lateral — cada página controla */
+    padding: 6px 0;
 }
 
 .rb-main-nav ul {
