@@ -1,13 +1,34 @@
 /* ==============================
-   PÁGINA METODOLOGIA
+   PÁGINA METODOLOGIA — v2
    ============================== */
+
+:root {
+    --hdr-900: #1a3d4d;
+    --hdr-800: #2c6174;
+    --hdr-600: #427a88;
+    --hdr-400: #5c97aa;
+    --hdr-200: #75b3a6;
+    --hdr-100: #a7d4ce;
+    --hdr-50:  #d4ecea;
+    --bdy-600: #5389a4;
+    --bdy-400: #7aafc5;
+    --bdy-200: #a7c7c7;
+    --bdy-100: #ccdeea;
+    --bdy-50:  #dee9f4;
+    --txt-dark:  #133040;
+    --txt-mid:   #235060;
+    --txt-muted: #3a6070;
+    --card-bg:        rgba(255,255,255,0.86);
+    --card-bg-hover:  rgba(255,255,255,0.96);
+    --card-border:    rgba(66,122,136,0.20);
+    --card-border-lt: rgba(255,255,255,0.55);
+}
 
 /* Equaliza a altura do header com a das páginas inicio/landing */
 body.metodologia-page .rb-header-wrapper {
     padding-top: 20px;
 }
 
-/* Fundo da página Metodologia com textura */
 body.metodologia-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;
@@ -20,218 +41,365 @@ body.metodologia-page {
     min-height: 100vh;
 }
 
-/* Esconde o rodapé herdado do base.html apenas na página Metodologia */
 body.metodologia-page .rb-footer-landing {
     display: none;
 }
 
-/* Ajustes para o container principal (.rb-main) na página Metodologia*/
 body.metodologia-page .rb-main {
     background: transparent;
-    max-width: 4000px;
-    margin: 0 auto;
-    padding: 0 24px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
     flex-grow: 1;
+    min-height: 70vh;
 }
 
-/* Container da seção de conteúdo da Metodologia */
-.rb-section-metodologia {
-    margin-top: 50px;
-    padding-top: 8px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+/* ================== HERO ZONE ================== */
+
+.meto-hero-zone {
+    background-image:
+        linear-gradient(to bottom, rgba(22,52,65,0.08) 0%, rgba(22,52,65,0.22) 100%),
+        url('/static/img/bg-header.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #0d1f26;
+    padding: 36px 0 40px;
 }
 
-/* Grid dos três blocos como no mock (2 em cima, 1 centralizado embaixo) */
-.rb-meto-grid {
+.meto-hero {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    column-gap: 40px;
-    row-gap: 32px;
-    justify-content: center;
-    max-width: 900px;
+    grid-template-columns: 1fr 400px;
+    gap: 48px;
+    align-items: start;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 48px;
 }
 
-/* Card base */
-.rb-meto-card {
-    background: rgba(255, 255, 255, 0.96);
-    border-radius: 18px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.18);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    width: 360px;
-    max-width: 100%;
+.meto-hero-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.14);
+    color: var(--hdr-50);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.22);
+    margin-bottom: 14px;
 }
 
-/* Card de baixo ocupando duas colunas */
-.rb-meto-card-full {
-    grid-column: 1 / 3;
-    width: 360px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-.rb-meto-card-header {
-    background-color: #4C8093;
+.meto-hero h1 {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
     color: #ffffff;
-    padding: 12px 18px;
+    line-height: 1.25;
+    margin-bottom: 14px;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.30);
+}
+
+.meto-hero-desc {
+    font-size: 15px;
+    color: rgba(255,255,255,0.84);
+    line-height: 1.80;
+}
+
+/* ================== ZONE DIVIDER ================== */
+
+.meto-zone-divider {
+    height: 3px;
+    background: linear-gradient(90deg,
+        var(--hdr-800) 0%,
+        var(--hdr-200) 50%,
+        var(--bdy-200) 100%);
+    opacity: .50;
+}
+
+/* ================== CONTENT WRAP ================== */
+
+.meto-content-wrap {
+    background: rgba(222,233,244,0.48);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,0.38);
+    padding: 32px 0 48px;
+}
+
+/* ================== STEP CARD ================== */
+
+.meto-step-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 1px solid var(--card-border-lt);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(22, 64, 75, .14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.meto-step-card-header {
+    background: var(--hdr-800);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    padding: 11px 20px;
+}
+
+.meto-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(66,122,136,0.14);
+    transition: background .15s;
+}
+
+.meto-step-item:last-child { border-bottom: none; }
+.meto-step-item:hover { background: rgba(100,170,190,0.10); }
+
+.meto-step-num {
+    min-width: 32px;
+    height: 32px;
+    background: var(--hdr-50);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--hdr-800);
+    flex-shrink: 0;
+    margin-top: 3px;
+}
+
+.meto-step-big {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--hdr-800);
+    line-height: 1;
+}
+
+.meto-step-text {
+    font-size: 13px;
+    color: var(--txt-mid);
+    line-height: 1.5;
+    margin-top: 3px;
+}
+
+/* ================== CONTEÚDO PRINCIPAL ================== */
+
+.meto-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 56px;
+    align-items: start;
+}
+
+/* ================== SEÇÕES (coluna esquerda) ================== */
+
+.meto-section { margin-bottom: 40px; }
+.meto-section:last-child { margin-bottom: 0; }
+
+.meto-section-title {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--hdr-900);
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.rb-meto-card-header h2 {
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
+.meto-section-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 20px;
+    background: var(--hdr-600);
+    border-radius: 2px;
+    flex-shrink: 0;
 }
 
-/* Ícone circular no cabeçalho do card */
-.rb-meto-icon-circle {
-    width: 32px;
-    height: 32px;
+.meto-section-body {
+    font-size: 15px;
+    color: var(--txt-mid);
+    line-height: 1.75;
+    padding-left: 14px;
+    border-left: 2px solid var(--hdr-100);
+    margin-top: 12px;
+}
+
+.meto-section-body p { margin-bottom: 12px; }
+.meto-section-body p:last-child { margin-bottom: 0; }
+
+.meto-bullet-list { list-style: none; padding: 0; margin: 0; }
+
+.meto-bullet-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--txt-mid);
+    line-height: 1.65;
+}
+
+.meto-bullet-list li:last-child { margin-bottom: 0; }
+
+.meto-bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 7px;
+    height: 7px;
+    background: var(--hdr-400);
     border-radius: 50%;
-    border: 2px solid #ffffff;
+}
+
+/* ================== SIDEBAR ================== */
+
+.meto-sidebar { position: sticky; top: 80px; }
+
+/* ---- SCALE CARD ---- */
+
+.meto-scale-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 1px solid var(--card-border-lt);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(22,64,75,.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.meto-scale-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--hdr-900);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 14px;
+}
+
+.meto-scale-row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.meto-scale-pip {
+    flex: 1;
+    height: 32px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    background: rgba(255,255,255,0.10);
-}
-
-/* Ícone SVG dentro do círculo */
-.rb-meto-icon-img {
-    width: 18px;
-    height: 18px;
-    display: block;
-}
-
-/* Título do card – ocupa o espaço restante e alinha verticalmente */
-.rb-meto-card-header h2 {
-    font-size: 18px;
     font-weight: 700;
-    margin: 0;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
+    font-size: 13px;
 }
 
-/* Corpo do card */
-.rb-meto-card-body {
-    padding: 18px 22px 20px;
-    color: #16404b;
-    font-size: 14px;
+.pip-0 { background: var(--hdr-50);  color: var(--hdr-900); }
+.pip-1 { background: var(--hdr-100); color: var(--hdr-900); }
+.pip-2 { background: var(--hdr-200); color: #fff; }
+.pip-3 { background: var(--hdr-400); color: #fff; }
+.pip-4 { background: var(--hdr-600); color: #fff; }
+.pip-5 { background: var(--hdr-800); color: #fff; }
+
+.meto-scale-legend {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--txt-muted);
+    margin-top: 4px;
+}
+
+.meto-scale-note {
+    font-size: 12px;
+    color: var(--txt-muted);
     line-height: 1.6;
-    flex-grow: 1;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--hdr-100);
 }
 
-/* Lista do card de Mapeamento com ícones na coluna da esquerda */
-.rb-meto-list-mapeamento {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
+/* ---- STAT PILLS ---- */
 
-.rb-meto-list-mapeamento li {
+.meto-stat-pill {
     display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    margin-bottom: 4px;
+    align-items: center;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 1px solid var(--card-border-lt);
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 8px;
+    transition: box-shadow .15s, background .15s;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* Coluna do ícone numérico */
-.rb-meto-list-icon {
-    width: 18px;
-    flex-shrink: 0;
+.meto-stat-pill:hover {
+    background: var(--card-bg-hover);
+    box-shadow: 0 4px 14px rgba(22,64,75,.14);
+}
+
+.meto-stat-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--hdr-50);
+    border-radius: 8px;
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 1px;
-}
-
-.rb-meto-list-icon img {
-    width: 16px;
-    height: 16px;
-    display: block;
-}
-
-/* Número em negrito colado ao texto */
-.rb-meto-list-mapeamento li strong {
-    margin-right: 4px;
-}
-
-/* Responsivo: empilha os cards em 1 coluna */
-@media (max-width: 768px) {
-    body.metodologia-page .rb-main {
-        max-width: 100%;
-        margin: 12px auto 24px;
-        padding: 0 12px;
-    }
-
-    .rb-meto-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 100%;
-    }
-
-    .rb-meto-card,
-    .rb-meto-card-full {
-        width: 100%;
-        max-width: 360px;
-        margin: 0 auto;
-    }
-
-    .rb-section-metodologia {
-        padding: 16px 12px;
-    }
-}
-
-/* Lista do card de Mapeamento com ícones na coluna da esquerda */
-.rb-meto-list-mapeamento {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-
-.rb-meto-list-mapeamento li {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;          /* um pouco menor para ficar mais “compacto” */
-    margin-bottom: 4px;
-}
-
-.rb-meto-list-icon {
-    width: 18px;
+    font-size: 17px;
     flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    margin-top: 1px;   /* alinha melhor ícone com o número */
 }
 
-.rb-meto-list-icon img {
-    width: 16px;
-    height: 16px;
-    display: block;
-}
-
-/* Garante que o número em negrito fique colado no texto depois do ícone */
-.rb-meto-list-mapeamento li strong {
-    margin-right: 4px;
-}
-
-/* Destaque padrão de negrito dentro do card */
-.rb-meto-card-body strong {
+.meto-stat-val {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 21px;
     font-weight: 700;
-    font-size: 16px;
+    color: var(--hdr-800);
+    line-height: 1;
 }
 
-/* Números do card de Mapeamento ainda um pouco maiores */
-.rb-meto-list-mapeamento li strong {
-    margin-right: 4px;
-    font-size: 20px;
+.meto-stat-desc {
+    font-size: 12px;
+    color: var(--txt-muted);
+    line-height: 1.4;
+    margin-top: 2px;
+}
+
+/* ================== RESPONSIVO ================== */
+
+@media (max-width: 900px) {
+    .meto-hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 20px;
+    }
+    .meto-hero-zone {
+        padding: 24px 0 28px;
+    }
+    .meto-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 0 16px;
+    }
+    .meto-sidebar { position: static; }
+    .meto-hero h1 { font-size: 22px; }
 }

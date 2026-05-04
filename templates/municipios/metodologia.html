@@ -6,87 +6,159 @@
 {% block body_class %}rb-body metodologia-page{% endblock %}
 
 {% block extra_head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}">
 {% endblock %}
 
 {% block content %}
-<section class="rb-section rb-section-metodologia">
 
-    <div class="rb-meto-grid">
+<!-- HERO ZONE: visual com bg-header.png -->
+<div class="meto-hero-zone">
+    <div class="meto-hero">
 
-        <!-- Card 1: Mapeamento -->
-        <article class="rb-meto-card">
-            <header class="rb-meto-card-header">
-                <div class="rb-meto-icon-circle">
-                    <img src="{% static 'img/mapeamento.svg' %}" alt="Mapeamento" class="rb-meto-icon-img">
+        <div>
+            <span class="meto-hero-label">Metodologia</span>
+            <h1>Impulsionando a Ação<br>Climática Federativa</h1>
+            <p class="meto-hero-desc">
+                O Radar Brasil avalia o nível de implementação do Federalismo Climático no País,
+                mapeando instâncias de governança, planos, políticas e programas relacionados à
+                ação climática, e mensurando os resultados por meio de critérios padronizados
+                entre eixos e instâncias.
+            </p>
+        </div>
+
+        <div class="meto-step-card">
+            <div class="meto-step-card-header">O que foi mapeado</div>
+            <div class="meto-step-item">
+                <div class="meto-step-num">1</div>
+                <div>
+                    <div class="meto-step-big">17</div>
+                    <div class="meto-step-text">linhas de financiamento do Governo Federal voltadas à ação climática</div>
                 </div>
-                <h2>Mapeamento</h2>
-            </header>
-            <div class="rb-meto-card-body">
-                <ul class="rb-meto-list-mapeamento">
-                    <li>
-                        <span class="rb-meto-list-icon">
-                            <img src="{% static 'img/mapeamento-17.svg' %}" alt="">
-                        </span>
-                        <strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;
-                    </li>
-                    <li>
-                        <span class="rb-meto-list-icon">
-                            <img src="{% static 'img/mapeamento-31.svg' %}" alt="">
-                        </span>
-                        <strong>31</strong> instâncias de governança;
-                    </li>
-                    <li>
-                        <span class="rb-meto-list-icon">
-                            <img src="{% static 'img/mapeamento2-17.svg' %}" alt="">
-                        </span>
-                        <strong>17</strong> planos e políticas públicas;
-                    </li>
-                    <li>
-                        <span class="rb-meto-list-icon">
-                            <img src="{% static 'img/mapeamento-18.svg' %}" alt="">
-                        </span>
-                        <strong>18</strong> programas.
-                    </li>
-                </ul>
             </div>
-        </article>
-
-        <!-- Card 2: Mensuração dos resultados -->
-        <article class="rb-meto-card">
-            <header class="rb-meto-card-header">
-                <div class="rb-meto-icon-circle">
-                    <img src="{% static 'img/mensuracao-dos-resultados.svg' %}" alt="Mensuração dos resultados" class="rb-meto-icon-img">
+            <div class="meto-step-item">
+                <div class="meto-step-num">2</div>
+                <div>
+                    <div class="meto-step-big">31</div>
+                    <div class="meto-step-text">instâncias de governança</div>
                 </div>
-                <h2>Mensuração dos resultados</h2>
-            </header>
-
-            <div class="rb-meto-card-body">
-                <ul>
-                    <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
-                    <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
-                </ul>
             </div>
-        </article>
-
-        <!-- Card 3: Critérios de avaliação -->
-        <article class="rb-meto-card rb-meto-card-full">
-            <header class="rb-meto-card-header">
-                <div class="rb-meto-icon-circle">
-                    <img src="{% static 'img/criterios-de-avaliacao.svg' %}" alt="Critérios de avaliação" class="rb-meto-icon-img">
+            <div class="meto-step-item">
+                <div class="meto-step-num">3</div>
+                <div>
+                    <div class="meto-step-big">17</div>
+                    <div class="meto-step-text">planos e políticas públicas</div>
                 </div>
-                <h2>Critérios de avaliação</h2>
-            </header>
-            <div class="rb-meto-card-body">
-                <p>
-                    Estabelecimento de <strong>níveis (0 a 5)</strong> para cada parâmetro, sendo
-                    <strong>0</strong> a inexistência de ação ou participação de municípios, e
-                    <strong>5</strong> atividade plena.
-                </p>
             </div>
-        </article>
+            <div class="meto-step-item">
+                <div class="meto-step-num">4</div>
+                <div>
+                    <div class="meto-step-big">18</div>
+                    <div class="meto-step-text">programas</div>
+                </div>
+            </div>
+        </div>
 
     </div>
+</div>
 
-</section>
+<div class="meto-zone-divider"></div>
+
+<!-- CONTEÚDO PRINCIPAL: backdrop-blur sobre bg-body.png -->
+<div class="meto-content-wrap">
+    <div class="meto-content">
+
+        <!-- COLUNA ESQUERDA: seções de texto -->
+        <div>
+            <section class="meto-section">
+                <div class="meto-section-title">Mapeamento</div>
+                <div class="meto-section-body">
+                    <p>O mapeamento identificou os principais instrumentos federais de ação climática disponíveis
+                    para municípios brasileiros, organizados em quatro categorias:</p>
+                    <ul class="meto-bullet-list">
+                        <li><strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;</li>
+                        <li><strong>31</strong> instâncias de governança;</li>
+                        <li><strong>17</strong> planos e políticas públicas;</li>
+                        <li><strong>18</strong> programas.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="meto-section">
+                <div class="meto-section-title">Mensuração dos resultados</div>
+                <div class="meto-section-body">
+                    <ul class="meto-bullet-list">
+                        <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
+                        <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="meto-section">
+                <div class="meto-section-title">Critérios de avaliação</div>
+                <div class="meto-section-body">
+                    <p>Estabelecimento de <strong>níveis (0 a 5)</strong> para cada parâmetro,
+                    sendo <strong>0</strong> a inexistência de ação ou participação de municípios,
+                    e <strong>5</strong> atividade plena.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- SIDEBAR DIREITA -->
+        <div class="meto-sidebar">
+
+            <div class="meto-scale-card">
+                <div class="meto-scale-title">Escala de avaliação</div>
+                <div class="meto-scale-row">
+                    <div class="meto-scale-pip pip-0">0</div>
+                    <div class="meto-scale-pip pip-1">1</div>
+                    <div class="meto-scale-pip pip-2">2</div>
+                    <div class="meto-scale-pip pip-3">3</div>
+                    <div class="meto-scale-pip pip-4">4</div>
+                    <div class="meto-scale-pip pip-5">5</div>
+                </div>
+                <div class="meto-scale-legend">
+                    <span>Inexistência</span>
+                    <span>Atividade plena</span>
+                </div>
+                <p class="meto-scale-note">
+                    <strong>0</strong> — nenhuma ação ou participação municipal &nbsp;·&nbsp;
+                    <strong>5</strong> — plena implementação e participação ativa dos municípios.
+                </p>
+            </div>
+
+            <div class="meto-stat-pill">
+                <div class="meto-stat-icon">💧</div>
+                <div>
+                    <div class="meto-stat-val">17</div>
+                    <div class="meto-stat-desc">linhas de financiamento climático</div>
+                </div>
+            </div>
+            <div class="meto-stat-pill">
+                <div class="meto-stat-icon">🏛️</div>
+                <div>
+                    <div class="meto-stat-val">31</div>
+                    <div class="meto-stat-desc">instâncias de governança</div>
+                </div>
+            </div>
+            <div class="meto-stat-pill">
+                <div class="meto-stat-icon">📋</div>
+                <div>
+                    <div class="meto-stat-val">17</div>
+                    <div class="meto-stat-desc">planos e políticas públicas</div>
+                </div>
+            </div>
+            <div class="meto-stat-pill">
+                <div class="meto-stat-icon">📦</div>
+                <div>
+                    <div class="meto-stat-val">18</div>
+                    <div class="meto-stat-desc">programas mapeados</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {% endblock %}
