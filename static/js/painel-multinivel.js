@@ -136,6 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Carrega Governança ao abrir
-  carregarDados("Governança");
+  // Ativa aba via query param ?aba=0..3 (vindo da página inicial)
+  const abaParam = new URLSearchParams(window.location.search).get("aba");
+  const abaIdx   = abaParam !== null ? parseInt(abaParam, 10) : 0;
+  const abaInicial = abaNomes[abaIdx] || "Governança";
+
+  tabs.forEach((t) => t.classList.remove("active"));
+  if (tabs[abaIdx]) tabs[abaIdx].classList.add("active");
+
+  carregarDados(abaInicial);
 });
