@@ -59,7 +59,7 @@ body.metodologia-page .rb-main {
 .meto-hero-zone {
     background-image:
         linear-gradient(to bottom, rgba(22,52,65,0.08) 0%, rgba(22,52,65,0.22) 100%),
-        url('/static/img/bg-header.png');
+        url('/static/img/bg-body.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
