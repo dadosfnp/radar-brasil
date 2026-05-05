@@ -23,40 +23,40 @@
 {% block content %}
 <div class="pm-wrapper">
 
-  {# TÍTULO DO PAINEL #}
-  <section class="pm-panel-title">
-    <h2>Painel Multinível</h2>
-  </section>
-
-  {# ABAS #}
-  <nav class="pm-tabs">
-    <ul>
-      <li class="active">
-        <button type="button">
-          <img src="{% static 'img/governanca.svg' %}" alt="" class="pm-tab-icon-img">
-          <span>Governança</span>
-        </button>
-      </li>
-      <li>
-        <button type="button">
-          <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="pm-tab-icon-img">
-          <span>Políticas e Planos</span>
-        </button>
-      </li>
-      <li>
-        <button type="button">
-          <img src="{% static 'img/programas.svg' %}" alt="" class="pm-tab-icon-img">
-          <span>Programas</span>
-        </button>
-      </li>
-      <li>
-        <button type="button">
-          <img src="{% static 'img/financiamento.svg' %}" alt="" class="pm-tab-icon-img">
-          <span>Linha de Financiamento</span>
-        </button>
-      </li>
-    </ul>
-  </nav>
+  {# CABEÇALHO: título + abas — fundo escuro igual ao meto-step-card-header #}
+  <div class="pm-card-header">
+    <section class="pm-panel-title">
+      <h2>Painel Multinível</h2>
+    </section>
+    <nav class="pm-tabs">
+      <ul>
+        <li class="active">
+          <button type="button">
+            <img src="{% static 'img/governanca.svg' %}" alt="" class="pm-tab-icon-img">
+            <span>Governança</span>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="pm-tab-icon-img">
+            <span>Políticas e Planos</span>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <img src="{% static 'img/programas.svg' %}" alt="" class="pm-tab-icon-img">
+            <span>Programas</span>
+          </button>
+        </li>
+        <li>
+          <button type="button">
+            <img src="{% static 'img/financiamento.svg' %}" alt="" class="pm-tab-icon-img">
+            <span>Linha de Financiamento</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
 
   {# GRÁFICO #}
   <main class="pm-main">
