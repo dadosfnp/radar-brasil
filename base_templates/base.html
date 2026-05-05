@@ -41,7 +41,10 @@
                     <a href="{% url 'indicadores:painel_multinivel' %}"
                        class="{% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
                 </li>
-                <li><a href="#">Avaliação Painel Multinível</a></li>
+                <li>
+                    <a href="{% url 'indicadores:avaliacao_painel' %}"
+                       class="{% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+                </li>
                 <li><a href="#">Nota País</a></li>
                 <li><a href="#">Financiamento Climático</a></li>
                 <li><a href="#">Mapa Georreferenciado</a></li>

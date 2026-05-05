@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar Brasil - Avaliação Painel Multinível{% endblock %}
+{% block body_class %}rb-body avaliacao-painel-page{% endblock %}
+{% block menu_avaliacao_active %}active{% endblock %}
+
+{% block extra_head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/avaliacao-painel.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="ap-wrapper">
+
+  {# CABEÇALHO: título + abas #}
+  <div class="ap-card-header">
+    <section class="ap-panel-title">
+      <h2>Avaliação Painel Multinível</h2>
+    </section>
+    <nav class="ap-tabs">
+      <ul>
+        <li class="active">
+          <button type="button" data-eixo="Governanca">
+            <img src="{% static 'img/governanca.svg' %}" alt="" class="ap-tab-icon-img">
+            <span>Governança</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-eixo="Politicas e Planos">
+            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ap-tab-icon-img">
+            <span>Políticas e Planos</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-eixo="Programas">
+            <img src="{% static 'img/programas.svg' %}" alt="" class="ap-tab-icon-img">
+            <span>Programas</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-eixo="Linhas de Financiamento">
+            <img src="{% static 'img/financiamento.svg' %}" alt="" class="ap-tab-icon-img">
+            <span>Linha de Financiamento</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  {# ÁREA PRINCIPAL #}
+  <main class="ap-main">
+
+    {# DESCRIÇÃO #}
+    <div class="ap-desc">
+      <p id="ap-titulo-eixo" class="ap-eixo-title">Critérios de Avaliação <span id="ap-eixo-label">Governança</span></p>
+      <p class="ap-eixo-sub">
+        <strong>No campo abaixo, selecione, primeiro, o Setor para, então, selecionar a instância que deseja pesquisar.</strong><br>
+        Cada parâmetro possui critérios de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes.
+      </p>
+    </div>
+
+    {# FILTROS #}
+    <div class="ap-filters" id="ap-filters">
+
+      {# Filtro Setor (oculto se não houver setores) #}
+      <div class="ap-filter-group" id="ap-setor-group" style="display:none;">
+        <label class="ap-filter-label" id="ap-setor-label">Setor</label>
+        <div class="ap-select-wrap">
+          <select id="ap-setor-select">
+            <option value="">Selecione o Setor</option>
+          </select>
+        </div>
+      </div>
+
+      {# Filtro Estrutura #}
+      <div class="ap-filter-group">
+        <label class="ap-filter-label" id="ap-estrutura-label">Estrutura de Governança</label>
+        <div class="ap-select-wrap">
+          <select id="ap-estrutura-select" disabled>
+            <option value="">Selecione para mostrar a avaliação do item</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    {# ÁREA DA TABELA #}
+    <div class="ap-table-area" id="ap-table-area">
+
+      {# Loader #}
+      <div id="ap-loader" class="ap-loader" style="display:none;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
+                   M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+            <animateTransform attributeName="transform" type="rotate"
+              from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+        Carregando dados...
+      </div>
+
+      {# Placeholder inicial #}
+      <div id="ap-placeholder" class="ap-placeholder">
+        Selecione um item para visualizar a avaliação.
+      </div>
+
+      {# Tabela de avaliação #}
+      <table class="ap-table" id="ap-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Critério</th>
+            <th>Parâmetro</th>
+            <th class="ap-th-nivel">Nível</th>
+          </tr>
+        </thead>
+        <tbody id="ap-table-body"></tbody>
+      </table>
+
+    </div>
+
+    {# RODAPÉ DA ÁREA PRINCIPAL #}
+    <div class="ap-footer-actions" id="ap-footer-actions" style="display:none;">
+      <button type="button" class="ap-ficha-btn" id="ap-ficha-btn">
+        Ficha Técnica
+      </button>
+    </div>
+
+  </main>
+</div>
+
+{# MODAL FICHA TÉCNICA #}
+<div class="ap-modal-overlay" id="ap-modal" style="display:none;" role="dialog" aria-modal="true">
+  <div class="ap-modal-box">
+    <div class="ap-modal-header">
+      <h3 id="ap-modal-title">Ficha Técnica</h3>
+      <button class="ap-modal-close" id="ap-modal-close" aria-label="Fechar">&times;</button>
+    </div>
+    <div class="ap-modal-body" id="ap-modal-body">
+      <div class="ap-loader" id="ap-modal-loader">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round">
+          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
+                   M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
+            <animateTransform attributeName="transform" type="rotate"
+              from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
+          </path>
+        </svg>
+        Carregando ficha...
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/avaliacao-painel.js' %}"></script>
+{% endblock %}
