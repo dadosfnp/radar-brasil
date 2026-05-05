@@ -1,9 +1,9 @@
-const ABA_MAP = {
-  "Governança":             "Governanca",
-  "Políticas e Planos":     "Politicas e Planos",
-  "Programas":              "Programas",
-  "Linha de Financiamento": "Linhas de Financiamento",
-};
+const EIXOS = [
+  "Governanca",
+  "Politicas e Planos",
+  "Programas",
+  "Linhas de Financiamento",
+];
 
 let chartInstance = null;
 
@@ -97,9 +97,8 @@ function mostrarLoader(visivel) {
   if (wrapper) wrapper.style.opacity = visivel ? "0.3" : "1";
 }
 
-async function carregarDados(nomeAba) {
-  const eixo = ABA_MAP[nomeAba] || "Governanca";
-  const url  = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
+async function carregarDados(eixo) {
+  const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
 
   mostrarLoader(true);
 
@@ -120,29 +119,22 @@ async function carregarDados(nomeAba) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tabs     = document.querySelectorAll(".pm-tabs li");
-  const abaNomes = [
-    "Governança",
-    "Políticas e Planos",
-    "Programas",
-    "Linha de Financiamento",
-  ];
+  const tabs = document.querySelectorAll(".pm-tabs li");
 
   tabs.forEach((tab, idx) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-      carregarDados(abaNomes[idx]);
+      carregarDados(EIXOS[idx]);
     });
   });
 
   // Ativa aba via query param ?aba=0..3 (vindo da página inicial)
   const abaParam = new URLSearchParams(window.location.search).get("aba");
-  const abaIdx   = abaParam !== null ? parseInt(abaParam, 10) : 0;
-  const abaInicial = abaNomes[abaIdx] || "Governança";
+  const abaIdx   = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
 
   tabs.forEach((t) => t.classList.remove("active"));
   if (tabs[abaIdx]) tabs[abaIdx].classList.add("active");
 
-  carregarDados(abaInicial);
+  carregarDados(EIXOS[abaIdx]);
 });
