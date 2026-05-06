@@ -120,21 +120,31 @@ async function carregarDados(eixo) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".pm-tabs li");
+  let abaIdxAtual = 0;
 
   tabs.forEach((tab, idx) => {
     tab.addEventListener("click", () => {
       tabs.forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
+      abaIdxAtual = idx;
       carregarDados(EIXOS[idx]);
     });
   });
 
   // Ativa aba via query param ?aba=0..3 (vindo da página inicial)
   const abaParam = new URLSearchParams(window.location.search).get("aba");
-  const abaIdx   = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
+  abaIdxAtual    = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
 
   tabs.forEach((t) => t.classList.remove("active"));
-  if (tabs[abaIdx]) tabs[abaIdx].classList.add("active");
+  if (tabs[abaIdxAtual]) tabs[abaIdxAtual].classList.add("active");
 
-  carregarDados(EIXOS[abaIdx]);
+  carregarDados(EIXOS[abaIdxAtual]);
+
+  // Botão "Critérios e Parâmetros de Avaliação" → redireciona para a aba certa
+  const critBtn = document.querySelector(".pm-criteria-badge");
+  if (critBtn) {
+    critBtn.addEventListener("click", () => {
+      window.location.href = `/indicadores/avaliacao-painel/?aba=${abaIdxAtual}`;
+    });
+  }
 });
