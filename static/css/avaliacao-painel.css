@@ -427,9 +427,9 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-ficha-campo-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: #2c6174;
+    font-size: 12px;
+    font-weight: 800;
+    color: #0d2530;
     text-transform: uppercase;
     letter-spacing: .07em;
     margin-bottom: 4px;
@@ -437,7 +437,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-ficha-campo-valor {
     font-size: 14px;
-    color: #235060;
+    color: #4a6a78;
     line-height: 1.6;
     white-space: pre-wrap;
 }
