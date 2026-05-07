@@ -47,7 +47,8 @@
                 </li>
                 <li><a href="#">Nota País</a></li>
                 <li><a href="#">Financiamento Climático</a></li>
-                <li><a href="#">Mapa Georreferenciado</a></li>
+                <li><a href="{% url 'indicadores:mapa_georreferenciado' %}"
+                       class="{% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a></li>
             </ul>
         </nav>
     </div>

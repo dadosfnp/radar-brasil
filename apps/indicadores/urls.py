@@ -11,4 +11,7 @@ urlpatterns = [
     path("api/avaliacao/tabela/", views.api_avaliacao_tabela, name="api_avaliacao_tabela"),
     path("api/avaliacao/ficha/", views.api_avaliacao_ficha, name="api_avaliacao_ficha"),
     path("linha-do-tempo/", views.linha_do_tempo_view, name="linha_do_tempo"),
+    path("mapa-georreferenciado/", views.mapa_georreferenciado_view, name="mapa_georreferenciado"),
+    path("api/mapa/dados/", views.api_mapa_dados, name="api_mapa_dados"),
+    path("api/mapa/filtros/", views.api_mapa_filtros, name="api_mapa_filtros"),
 ]

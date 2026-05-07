@@ -54,3 +54,23 @@ def api_avaliacao_ficha(request):
 def linha_do_tempo_view(request):
     estrutura = request.GET.get("estrutura", "")
     return render(request, "municipios/linha-do-tempo.html", {"estrutura": estrutura})
+
+
+def mapa_georreferenciado_view(request):
+    return render(request, "municipios/mapa-georreferenciado.html")
+
+
+def api_mapa_dados(request):
+    try:
+        from apps.indicadores.services.mapa_georreferenciado import get_dados_mapa
+        return JsonResponse(get_dados_mapa())
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=500)
+
+
+def api_mapa_filtros(request):
+    try:
+        from apps.indicadores.services.mapa_georreferenciado import get_filtros_mapa
+        return JsonResponse(get_filtros_mapa())
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=500)
