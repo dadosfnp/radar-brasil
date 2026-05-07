@@ -49,3 +49,8 @@ def api_avaliacao_ficha(request):
         return JsonResponse(get_ficha(estrutura))
     except Exception as e:
         return JsonResponse({"erro": str(e)}, status=500)
+
+
+def linha_do_tempo_view(request):
+    estrutura = request.GET.get("estrutura", "")
+    return render(request, "municipios/linha-do-tempo.html", {"estrutura": estrutura})

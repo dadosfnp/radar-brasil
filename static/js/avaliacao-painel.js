@@ -30,6 +30,8 @@ const modalTitle      = document.getElementById("ap-modal-title");
 const modalBody       = document.getElementById("ap-modal-body");
 const modalClose      = document.getElementById("ap-modal-close");
 const modalLoader     = document.getElementById("ap-modal-loader");
+const linhaTempoBtn   = document.getElementById("ap-linha-tempo-btn");
+const pdfBtn          = document.getElementById("ap-pdf-btn");
 
 // ── Tabs ──────────────────────────────────────────────────────
 tabs.forEach((tab) => {
@@ -188,6 +190,58 @@ fichaBtn.addEventListener("click", () => abrirFicha(estruturaAtual));
 modalClose.addEventListener("click", () => { modal.style.display = "none"; });
 modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
+pdfBtn.addEventListener("click", () => {
+    const titulo  = modalTitle.textContent || "Ficha Técnica";
+    const campos  = modalBody.querySelectorAll(".ap-ficha-campo");
+    if (!campos.length) return;
+
+    let linhas = "";
+    campos.forEach((c) => {
+        const label = c.querySelector(".ap-ficha-campo-label")?.textContent || "";
+        const valor = c.querySelector(".ap-ficha-campo-valor")?.textContent || "";
+        linhas += `
+            <div class="campo">
+                <div class="campo-label">${escHtml(label)}</div>
+                <div class="campo-valor">${escHtml(valor)}</div>
+            </div>`;
+    });
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ficha Técnica – ${escHtml(titulo)}</title>
+<style>
+  @page { margin: 20mm 18mm 28mm; }
+  body { font-family: 'Roboto', Arial, sans-serif; margin: 0; padding: 12px 20px 48px;
+         color: #1a3d4d; font-size: 13px; }
+  h1   { font-size: 15px; font-weight: 700; color: #2c6174; text-transform: uppercase;
+         letter-spacing: .06em; border-bottom: 2px solid #2c6174; padding-bottom: 8px; margin-bottom: 20px; }
+  .campo { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #d4ece8; }
+  .campo:last-child { border-bottom: none; }
+  .campo-label { font-size: 10px; font-weight: 800; color: #0d2530; text-transform: uppercase;
+                 letter-spacing: .07em; margin-bottom: 4px; }
+  .campo-valor { font-size: 13px; color: #3a6070; line-height: 1.6; white-space: pre-wrap; }
+  .print-footer { position: fixed; bottom: 0; left: 0; right: 0;
+                  font-size: 9px; color: #2c6174; font-family: Arial, sans-serif;
+                  padding: 6px 20px; border-top: 1px solid #d4ece8;
+                  background: #fff; letter-spacing: .03em; }
+</style>
+</head>
+<body>
+<h1>${escHtml(titulo)}</h1>
+${linhas}
+<div class="print-footer">RADAR BRASIL &ndash; Impulsionando a Ação Climática Federativa</div>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank", "width=800,height=900");
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 400);
+});
+
 async function abrirFicha(estrutura) {
     if (!estrutura) return;
 
@@ -196,6 +250,8 @@ async function abrirFicha(estrutura) {
     modalBody.appendChild(modalLoader);
     modalLoader.style.display = "flex";
     modal.style.display = "flex";
+
+    linhaTempoBtn.href = `/indicadores/linha-do-tempo/?estrutura=${encodeURIComponent(estrutura)}`;
 
     try {
         const resp = await fetch(`/indicadores/api/avaliacao/ficha/?estrutura=${encodeURIComponent(estrutura)}`);

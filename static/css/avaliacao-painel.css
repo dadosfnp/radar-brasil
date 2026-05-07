@@ -381,7 +381,7 @@ body.avaliacao-painel-page .rb-main {
     padding: 14px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 12px;
     flex-shrink: 0;
 }
 
@@ -392,6 +392,42 @@ body.avaliacao-painel-page .rb-main {
     letter-spacing: .07em;
     text-transform: uppercase;
     margin: 0;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ap-pdf-header-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.40);
+    color: rgba(255,255,255,0.90);
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background .15s, color .15s;
+    font-family: inherit;
+    flex-shrink: 0;
+}
+
+.ap-pdf-header-btn:hover {
+    background: rgba(255,255,255,0.28);
+    color: #fff;
+}
+
+.ap-modal-header-sep {
+    width: 1px;
+    height: 20px;
+    background: rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    margin: 0 4px;
 }
 
 .ap-modal-close {
@@ -403,6 +439,7 @@ body.avaliacao-painel-page .rb-main {
     cursor: pointer;
     padding: 0 4px;
     transition: color .15s;
+    flex-shrink: 0;
 }
 
 .ap-modal-close:hover {
@@ -413,6 +450,37 @@ body.avaliacao-painel-page .rb-main {
     padding: 20px 24px;
     overflow-y: auto;
     flex: 1;
+}
+
+.ap-modal-footer {
+    padding: 12px 20px;
+    border-top: 1px solid rgba(66,122,136,0.14);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+    background: #f8fbfc;
+}
+
+.ap-linha-tempo-btn {
+    background: transparent;
+    color: #2c6174;
+    border: 1.5px solid #2c6174;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+    font-family: inherit;
+}
+
+.ap-linha-tempo-btn:hover {
+    background: #2c6174;
+    color: #fff;
 }
 
 .ap-ficha-campo {

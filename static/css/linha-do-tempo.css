@@ -1,0 +1,218 @@
+/* ==============================
+   PÁGINA LINHA DO TEMPO
+   ============================== */
+
+body.linha-do-tempo-page .rb-header-wrapper {
+    padding-top: 20px;
+}
+
+body.linha-do-tempo-page {
+    background-image: url("/static/img/bg-body.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+body.linha-do-tempo-page .rb-footer-landing {
+    display: none;
+}
+
+body.linha-do-tempo-page .rb-main {
+    background: transparent;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    min-height: 70vh;
+}
+
+/* ================== WRAPPER ================== */
+
+.lt-wrapper {
+    max-width: 1200px;
+    margin: 24px auto 48px;
+    padding: 0;
+    background: rgba(255,255,255,0.86);
+    border: 1px solid rgba(66,122,136,0.20);
+    border-top: 1px solid rgba(255,255,255,0.55);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(22,64,75,.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+/* ================== CABEÇALHO ================== */
+
+.lt-card-header {
+    background: #2c6174;
+    padding: 11px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.lt-panel-title h2 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ================== MAIN ================== */
+
+.lt-main {
+    padding: 28px 28px 32px;
+}
+
+/* ================== INTRO ================== */
+
+.lt-intro {
+    margin-bottom: 24px;
+}
+
+.lt-estrutura-label {
+    font-size: 15px;
+    font-weight: 800;
+    color: #2c6174;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin: 0 0 12px;
+    border-bottom: 2px solid rgba(44,97,116,0.20);
+    padding-bottom: 10px;
+}
+
+.lt-title {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a3d4d;
+    margin: 0 0 10px;
+}
+
+.lt-desc {
+    font-size: 14px;
+    color: #3a6070;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ================== ZONA DE CONSTRUÇÃO ================== */
+
+.lt-construction-zone {
+    background: rgba(212,236,234,0.30);
+    border: 1px solid rgba(66,122,136,0.14);
+    border-radius: 10px;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 32px;
+}
+
+.lt-construction-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.lt-construction-icon {
+    width: 68px;
+    height: 68px;
+    opacity: 0.65;
+    margin-bottom: 6px;
+}
+
+.lt-construction-title {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a3d4d;
+    margin: 0;
+}
+
+.lt-construction-sub {
+    font-size: 14px;
+    color: #3a6070;
+    margin: 0;
+    font-style: italic;
+}
+
+/* ================== PROGRESS BAR ================== */
+
+.lt-progress-bar {
+    width: 480px;
+    max-width: 90%;
+    height: 12px;
+    background: rgba(66,122,136,0.15);
+    border-radius: 999px;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+.lt-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: rgba(44,97,116,0.40);
+    border-radius: 999px;
+    animation: lt-progress-anim 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes lt-progress-anim {
+    0%   { width: 8%;  opacity: 0.6; }
+    100% { width: 40%; opacity: 1;   }
+}
+
+/* ================== RODAPÉ ================== */
+
+.lt-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.lt-voltar-btn {
+    background: transparent;
+    color: #2c6174;
+    border: 1.5px solid #2c6174;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .15s, color .15s;
+    font-family: inherit;
+}
+
+.lt-voltar-btn:hover {
+    background: #2c6174;
+    color: #fff;
+}
+
+/* ================== RESPONSIVO ================== */
+
+@media (max-width: 900px) {
+    .lt-wrapper {
+        margin: 12px;
+    }
+    .lt-main {
+        padding: 16px;
+    }
+    .lt-construction-zone {
+        min-height: 280px;
+    }
+    .lt-construction-title {
+        font-size: 18px;
+    }
+}

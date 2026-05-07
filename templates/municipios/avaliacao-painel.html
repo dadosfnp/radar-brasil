@@ -136,6 +136,16 @@
   <div class="ap-modal-box">
     <div class="ap-modal-header">
       <h3 id="ap-modal-title">Ficha Técnica</h3>
+      <button type="button" id="ap-pdf-btn" class="ap-pdf-header-btn" title="Salvar PDF">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        PDF
+      </button>
+      <span class="ap-modal-header-sep" aria-hidden="true"></span>
       <button class="ap-modal-close" id="ap-modal-close" aria-label="Fechar">&times;</button>
     </div>
     <div class="ap-modal-body" id="ap-modal-body">
@@ -150,6 +160,11 @@
         </svg>
         Carregando ficha...
       </div>
+    </div>
+    <div class="ap-modal-footer">
+      <a href="#" id="ap-linha-tempo-btn" class="ap-linha-tempo-btn" target="_blank">
+        Linha do Tempo
+      </a>
     </div>
   </div>
 </div>

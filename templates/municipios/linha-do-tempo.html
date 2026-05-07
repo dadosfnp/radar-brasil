@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Radar Brasil - Linha do Tempo{% endblock %}
+{% block body_class %}rb-body linha-do-tempo-page{% endblock %}
+{% block menu_avaliacao_active %}active{% endblock %}
+
+{% block extra_head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/linha-do-tempo.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="lt-wrapper">
+
+  {# CABEÇALHO #}
+  <div class="lt-card-header">
+    <section class="lt-panel-title">
+      <h2>Linha do Tempo</h2>
+    </section>
+  </div>
+
+  {# ÁREA PRINCIPAL #}
+  <main class="lt-main">
+
+    {# INTRO #}
+    <div class="lt-intro">
+      {% if estrutura %}
+        <p class="lt-estrutura-label">{{ estrutura }}</p>
+      {% endif %}
+      <p class="lt-desc">
+        A Linha do Tempo trará informações sobre a progressão dos acontecimentos
+        ao longo do tempo (marco legal, financiamento, participação etc.) em ordem
+        cronológica, permitindo uma compreensão mais clara da sequência e evolução
+        da instância selecionada, conforme os parâmetros de avaliação definidos.
+        O painel encontra-se em construção.
+      </p>
+    </div>
+
+    {# ZONA EM CONSTRUÇÃO #}
+    <div class="lt-construction-zone">
+      <div class="lt-construction-content">
+        <svg class="lt-construction-icon" viewBox="0 0 64 64" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 14C18 14 20 12 24 12C28 12 30 16 28 20L44 36C48 34 52 36 52 40C52 44 50 46 50 46L44 40L40 44L46 50C46 50 44 52 40 52C36 52 34 48 36 44L20 28C16 30 12 28 12 24C12 20 14 18 14 18L20 24L24 20L18 14Z"
+                stroke="#2c6174" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                fill="rgba(44,97,116,0.08)"/>
+          <path d="M40 12L52 24M46 12L52 18" stroke="#2c6174" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M12 40L24 52M12 46L18 52" stroke="#2c6174" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p class="lt-construction-title">Linha do Tempo</p>
+        <p class="lt-construction-sub">Conteúdo em construção...</p>
+        <div class="lt-progress-bar">
+          <div class="lt-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    {# RODAPÉ COM BOTÃO VOLTAR #}
+    <div class="lt-footer-actions">
+      <a href="{% url 'indicadores:avaliacao_painel' %}" class="lt-voltar-btn">
+        ← Voltar para Avaliação Painel Multinível
+      </a>
+    </div>
+
+  </main>
+</div>
+{% endblock %}
