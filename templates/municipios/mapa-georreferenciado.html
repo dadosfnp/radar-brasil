@@ -38,10 +38,10 @@
       <div class="mg-filters">
 
         <div class="mg-filter-group">
-          <label class="mg-filter-label" for="mg-f-eixo">Programa / Eixo</label>
+          <label class="mg-filter-label" for="mg-f-eixo">Filtrar por Financiamento</label>
           <div class="mg-select-wrap">
             <select id="mg-f-eixo">
-              <option value="">Todos os Programas / Eixos</option>
+              <option value="">Todos</option>
             </select>
           </div>
         </div>
@@ -92,10 +92,13 @@
         </div>
 
         <div class="mg-filter-group">
-          <label class="mg-filter-label" for="mg-f-perfil">Perfil</label>
+          <label class="mg-filter-label" for="mg-f-porte">Filtrar por Porte Populacional</label>
           <div class="mg-select-wrap">
-            <select id="mg-f-perfil">
-              <option value="">Todos os Perfis</option>
+            <select id="mg-f-porte">
+              <option value="">Todos</option>
+              <option value="Capital">Capital</option>
+              <option value="Acima de 80mil">Acima de 80mil</option>
+              <option value="Abaixo de 80mil">Abaixo de 80mil</option>
             </select>
           </div>
         </div>
@@ -149,8 +152,12 @@
         Carregando dados...
       </div>
 
-      {# Contador de resultados #}
-      <div id="mg-result-count" class="mg-result-count">—</div>
+      {# Painel de totais #}
+      <div class="mg-stats-panel">
+        <div id="mg-stats-valor" class="mg-stats-valor">—</div>
+        <div class="mg-stats-label">Total Estimado 2023 a 2030</div>
+        <div id="mg-stats-municipios" class="mg-stats-municipios">—</div>
+      </div>
 
       {# Mapa Leaflet #}
       <div id="mg-map"></div>

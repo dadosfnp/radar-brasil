@@ -228,21 +228,45 @@ body.mapa-page .rb-main {
 
 .mg-map-loader.hidden { display: none; }
 
-/* Contador de resultados */
-.mg-result-count {
+/* Painel de totais */
+.mg-stats-panel {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(255,255,255,0.92);
-    border: 1px solid rgba(66,122,136,0.20);
-    border-radius: 6px;
-    padding: 5px 12px;
+    background: rgba(26,61,77,0.93);
+    border-radius: 10px;
+    padding: 12px 18px;
+    z-index: 400;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 3px 14px rgba(22,64,75,.28);
+    text-align: center;
+    min-width: 210px;
+}
+
+.mg-stats-valor {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #4dd6a0;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+}
+
+.mg-stats-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-top: 3px;
+}
+
+.mg-stats-municipios {
     font-size: 12px;
     font-weight: 600;
-    color: #2c6174;
-    z-index: 400;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 2px 8px rgba(22,64,75,.12);
+    color: rgba(255,255,255,0.90);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255,255,255,0.12);
 }
 
 /* Legenda */

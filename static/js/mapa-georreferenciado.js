@@ -45,13 +45,12 @@ async function carregarFiltros() {
         const resp = await fetch("/indicadores/api/mapa/filtros/");
         const data = await resp.json();
 
-        populateSelect("mg-f-eixo",       data.eixos,       "Todos os Programas / Eixos");
-        populateSelect("mg-f-modalidade", data.modalidades,  "Todas as Modalidades");
-        populateSelect("mg-f-estagio",    data.estagios,     "Todos os Estágios");
-        populateSelect("mg-f-executor",   data.executores,   "Todos os Executores");
-        populateSelect("mg-f-regiao",     data.regioes,      "Todas as Regiões");
-        populateSelect("mg-f-uf",         data.ufs,          "Todos os Estados");
-        populateSelect("mg-f-perfil",     data.perfis,       "Todos os Perfis");
+        populateSelect("mg-f-eixo",       data.eixos,      "Todos");
+        populateSelect("mg-f-modalidade", data.modalidades, "Todas as Modalidades");
+        populateSelect("mg-f-estagio",    data.estagios,    "Todos os Estágios");
+        populateSelect("mg-f-executor",   data.executores,  "Todos os Executores");
+        populateSelect("mg-f-regiao",     data.regioes,     "Todas as Regiões");
+        populateSelect("mg-f-uf",         data.ufs,         "Todos os Estados");
 
         (data.eixos || []).forEach((e, i) => {
             eixoCores[e] = COR_EIXO[i % COR_EIXO.length];
@@ -110,7 +109,7 @@ function renderMarkers(features, fitBounds) {
         markerLayer.addLayer(marker);
     });
 
-    atualizarContador(features.length);
+    atualizarStats(features);
 
     if (fitBounds && features.length > 0 && markerLayer.getLayers().length > 0) {
         try {
@@ -145,7 +144,7 @@ function filtrar() {
     const executor   = document.getElementById("mg-f-executor")?.value    || "";
     const regiao     = document.getElementById("mg-f-regiao")?.value      || "";
     const uf         = document.getElementById("mg-f-uf")?.value          || "";
-    const perfil     = document.getElementById("mg-f-perfil")?.value      || "";
+    const porte      = document.getElementById("mg-f-porte")?.value       || "";
     const mun        = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
 
     const filtered = allFeatures.filter(f => {
@@ -156,19 +155,19 @@ function filtrar() {
         if (executor   && p.executor   !== executor)   return false;
         if (regiao     && p.regiao     !== regiao)     return false;
         if (uf         && p.uf         !== uf)         return false;
-        if (perfil     && p.perfil     !== perfil)     return false;
+        if (porte      && p.porte      !== porte)      return false;
         if (mun        && !(p.municipio || "").toLowerCase().includes(mun)) return false;
         return true;
     });
 
     const algumFiltroAtivo = eixo || modalidade || estagio || executor ||
-                             regiao || uf || perfil || mun;
+                             regiao || uf || porte || mun;
     renderMarkers(filtered, !!algumFiltroAtivo);
 }
 
 function limparFiltros() {
     ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-uf","mg-f-perfil"].forEach(id => {
+     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });
@@ -176,6 +175,24 @@ function limparFiltros() {
     if (mun) mun.value = "";
     map.fitBounds(BR_BOUNDS);
     renderMarkers(allFeatures, false);
+}
+
+// ── Painel de totais ───────────────────────────────────────────
+function atualizarStats(features) {
+    const total = features.reduce((s, f) => s + (f.properties.estimativa || 0), 0);
+    const munis = new Set(features.map(f => f.properties.code_muni || f.properties.municipio)).size;
+
+    const elValor = document.getElementById("mg-stats-valor");
+    const elMunis = document.getElementById("mg-stats-municipios");
+
+    if (elValor) {
+        elValor.textContent = total > 0
+            ? `R$ ${Number(total).toLocaleString("pt-BR", { minimumFractionDigits: 0 })}`
+            : "—";
+    }
+    if (elMunis) {
+        elMunis.textContent = `Para ${munis.toLocaleString("pt-BR")} Município${munis !== 1 ? "s" : ""}`;
+    }
 }
 
 // ── Legenda ────────────────────────────────────────────────────
@@ -208,30 +225,27 @@ function mostrarLoader(vis) {
     if (el) el.classList.toggle("hidden", !vis);
 }
 
-function atualizarContador(n) {
-    const el = document.getElementById("mg-result-count");
-    if (el) el.textContent = `${n} investimento${n !== 1 ? "s" : ""}`;
-}
-
 function imprimirMapa() {
     window.print();
 }
 
 function baixarDados() {
-    const eixo = document.getElementById("mg-f-eixo")?.value || "";
-    const uf   = document.getElementById("mg-f-uf")?.value   || "";
-    const mun  = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
+    const eixo  = document.getElementById("mg-f-eixo")?.value  || "";
+    const uf    = document.getElementById("mg-f-uf")?.value    || "";
+    const porte = document.getElementById("mg-f-porte")?.value || "";
+    const mun   = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
 
     const filtered = allFeatures.filter(f => {
         const p = f.properties;
-        if (eixo && p.eixo !== eixo) return false;
-        if (uf   && p.uf   !== uf)   return false;
-        if (mun  && !(p.municipio || "").toLowerCase().includes(mun)) return false;
+        if (eixo  && p.eixo  !== eixo)  return false;
+        if (uf    && p.uf    !== uf)    return false;
+        if (porte && p.porte !== porte) return false;
+        if (mun   && !(p.municipio || "").toLowerCase().includes(mun)) return false;
         return true;
     });
 
     const header = ["Município","UF","Região","Empreendimento","Modalidade","Executor",
-                    "Estágio","Estimativa 2023-2030","% Executado","Perfil","Eixo"];
+                    "Estágio","Estimativa 2023-2030","% Executado","Porte Populacional","Eixo"];
     const rows = filtered.map(f => {
         const p = f.properties;
         return [p.municipio, p.uf, p.regiao, p.empreendimento, p.modalidade,
@@ -255,7 +269,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await carregarDados();
 
     ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-uf","mg-f-perfil"].forEach(id => {
+     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
         document.getElementById(id)?.addEventListener("change", filtrar);
     });
     document.getElementById("mg-f-municipio")?.addEventListener("input", filtrar);

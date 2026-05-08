@@ -129,6 +129,7 @@ def get_dados_mapa() -> dict:
                 "executor":       str(row.get("Tipo de Executor", "")).strip(),
                 "perfil":         str(row.get("Perfil", "")).strip(),
                 "eixo":           str(row.get("Eixo", "")).strip(),
+                "porte":          c.get("porte", ""),
             },
         })
 
