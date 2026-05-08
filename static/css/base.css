@@ -87,36 +87,58 @@ body.rb-body {
 }
 
 /* MENU NAV */
+:root {
+    --hdr-900: #122e38;
+    --hdr-800: #1e4d5c;
+    --hdr-700: #2c6174;
+    --hdr-500: #427a88;
+    --hdr-300: #5c97aa;
+    --hdr-200: #75b3a6;
+    --hdr-100: #a7d4ce;
+    --hdr-50:  #d4ecea;
+    --bdy-200: #a7c7c7;
+    --bdy-100: #ccdeea;
+    --bdy-50:  #dee9f4;
+}
+
 .rb-main-nav {
-    margin-top: 0;
-    background-color: #ffffff;
-    border-top: 2px solid #2f7fa5;
-    border-radius: 0;
-    padding: 6px 0;
-}
-
-.rb-main-nav ul {
-    list-style: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--hdr-50);
     display: flex;
-    gap: 4px;
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: center;               
+    padding: 0 48px;
+    gap: 0;
 }
 
-.rb-main-nav a {
+.rb-nav-link {
     text-decoration: none;
-    color: #1a4563;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 400;
+    color: var(--hdr-700);
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    white-space: nowrap;
 }
 
+.rb-nav-link:hover {
+    color: var(--hdr-500);
+    background: rgba(167, 212, 206, 0.10);
+    border-bottom-color: var(--hdr-100);
+}
 
-.rb-main-nav a.active,
-.rb-main-nav a:hover {
-    background-color: #2f7fa5;
-    color: #ffffff;
+.rb-nav-link.active {
+    color: var(--hdr-800);
+    font-weight: 600;
+    border-bottom-color: var(--hdr-500);
+    background: rgba(167, 212, 206, 0.14);
 }
 
 /* MAIN - CARDS*/

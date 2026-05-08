@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
@@ -28,28 +28,18 @@
             </div>
         </header>
         <nav class="rb-main-nav">
-            <ul>
-                <li>
-                    <a href="{% url 'municipios:home' %}"
-                       class="{% block menu_inicio_active %}{% endblock %}">Inicio</a>
-                </li>
-                <li>
-                    <a href="{% url 'municipios:metodologia' %}"
-                       class="{% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
-                </li>
-                <li>
-                    <a href="{% url 'indicadores:painel_multinivel' %}"
-                       class="{% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
-                </li>
-                <li>
-                    <a href="{% url 'indicadores:avaliacao_painel' %}"
-                       class="{% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
-                </li>
-                <li><a href="#">Nota País</a></li>
-                <li><a href="#">Financiamento Climático</a></li>
-                <li><a href="{% url 'indicadores:mapa_georreferenciado' %}"
-                       class="{% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a></li>
-            </ul>
+            <a href="{% url 'municipios:home' %}"
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
+            <a href="{% url 'municipios:metodologia' %}"
+               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
+            <a href="{% url 'indicadores:painel_multinivel' %}"
+               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
+            <a href="{% url 'indicadores:avaliacao_painel' %}"
+               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+            <a href="#" class="rb-nav-link">Nota País</a>
+            <a href="#" class="rb-nav-link">Financiamento Climático</a>
+            <a href="{% url 'indicadores:mapa_georreferenciado' %}"
+               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
         </nav>
     </div>
 

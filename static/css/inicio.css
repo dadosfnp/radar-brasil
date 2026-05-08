@@ -1,140 +1,251 @@
 /* ==============================
-   PÁGINA INÍCIO
+   PÁGINA INÍCIO – redesign
    ============================== */
 
-
 body.inicio-page {
-    /* Fundo da página Início com textura, aplicado diretamente ao body,
-       assim como em metodologia.css. Isso garante que o bg-body.png
-       seja o background da página e que o header do base.css o cubra corretamente. */
     background-image: url("/static/img/bg-body.png");
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    background-color: transparent; /* Garante que o body não tenha cor de fundo própria */
-
+    background-color: transparent;
     margin: 0;
     padding: 0;
-    position: relative; /* Mantido para contexto de posicionamento se necessário */
-    min-height: 100vh; /* Garante que o body tenha altura para o conteúdo */
+    min-height: 100vh;
 }
 
 body.inicio-page .rb-footer-landing {
-    display: none; /* Esconde o rodapé herdado do base.html apenas na página Início */
+    display: none;
 }
 
-/* Ajustes para o container principal (.rb-main) na página Início*/
 body.inicio-page .rb-main {
-    background: transparent; /* O rb-main deve ter background transparente para que o background do body seja visível */
-    max-width: 4000px; /* Mantido para não limitar o conteúdo */
-    margin: 0 auto;    /* Mantido para centralizar o conteúdo */
-    padding: 0 24px;   /* Mantido para espaçamento interno */
-    flex-grow: 1;
-    margin-top: 0;     /* Garante que não haja margem superior extra */
-}
-
-/* Seção inteira da página Início */
-.rb-section-inicio {
-    margin-top: 0; /* Alterado de 24px para 0 */
-    padding-top: 8px;
-    max-width: 1600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Texto de instrução abaixo do menu */
-.rb-section-inicio .rb-section-subtitle {
-    font-size: 16px;
-    color: #ffffff;
-    text-align:right;
-    line-height: 1.6;
-    margin-bottom: 32px;
-}
-
-.rb-section-inicio .rb-section-subtitle strong {
-    font-weight: 700;
-}
-
-.rb-eixos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(260px, 1fr));
-    column-gap: 48px;
-    row-gap: 40px;
-    justify-content: center;
-    max-width: 700px;
+    background: transparent;
+    max-width: 4000px;
     margin: 0 auto;
+    padding: 0 24px;
+    flex-grow: 1;
+    margin-top: 0;
 }
 
-.rb-eixo-card {
+/* ---- PAGE WRAPPER ---- */
+.ini-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 0 60px;
     display: flex;
     flex-direction: column;
-    width: 320px;
-    height: 220px;
-    border-radius: 14px;
-    text-decoration: none;
-    background: rgba(255, 255, 255, 0.86);
-    border: 1px solid rgba(66, 122, 136, 0.20);
-    border-top: 1px solid rgba(255, 255, 255, 0.55);
-    box-shadow: 0 4px 20px rgba(22, 64, 75, 0.14);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    overflow: hidden;
-    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background 0.15s;
+    gap: 32px;
 }
 
-.rb-eixo-card-header {
-    background: #2c6174;
+/* ---- INTRO ---- */
+.ini-intro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.intro-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(167, 212, 206, 0.25);
+    border: 1px solid var(--hdr-100);
+    border-radius: 999px;
+    padding: 5px 14px 5px 10px;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--hdr-50);
+    letter-spacing: .04em;
+    width: fit-content;
+    backdrop-filter: blur(6px);
+}
+
+.intro-label-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hdr-100);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.intro-label-dot::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: rgba(167, 212, 206, 0.40);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.5); opacity: 0.4; }
+}
+
+.ini-intro h2 {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
     color: #ffffff;
+    line-height: 1.4;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+
+.ini-intro h2 strong {
+    color: var(--hdr-100);
+    font-weight: 700;
+}
+
+.ini-intro p {
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.80);
+    line-height: 1.7;
+}
+
+/* ---- GRID 2×2 ---- */
+.ini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* ---- CARD ---- */
+.ini-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow:
+        0 4px 24px rgba(30, 77, 92, 0.14),
+        0 1px 4px rgba(30, 77, 92, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.60);
+    text-decoration: none;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    cursor: pointer;
+}
+
+.ini-card:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow:
+        0 14px 40px rgba(30, 77, 92, 0.20),
+        0 2px 8px rgba(30, 77, 92, 0.10);
+}
+
+/* Card header gradient */
+.ini-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--hdr-800) 0%, var(--hdr-500) 100%);
+    padding: 14px 24px 13px;
+}
+
+.ini-card-title {
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 11px;
     font-weight: 700;
-    letter-spacing: .09em;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    text-align: center;
-    padding: 11px 16px;
+    color: rgba(255, 255, 255, 0.92);
 }
 
-.rb-eixo-card-body {
-    flex: 1;
+.ini-card-arrow {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.90);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.rb-eixo-icon-img {
-    width: 80px;
-    height: 80px;
-    color: #16404b;
+.ini-card:hover .ini-card-arrow {
+    transform: translateX(3px);
+    background: rgba(255, 255, 255, 0.28);
 }
 
-.rb-eixo-card:hover {
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 8px 24px rgba(22, 64, 75, 0.20);
+/* Card body */
+.ini-card-body {
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    flex: 1;
 }
 
-.rb-eixo-card:hover .rb-eixo-card-header {
-    background: #1a3d4d;
+/* Icon wrapper */
+.ini-icon-wrap {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+    background: linear-gradient(145deg, var(--bdy-50), var(--bdy-100));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.80),
+        0 4px 12px rgba(30, 77, 92, 0.10);
+    position: relative;
+    overflow: hidden;
 }
 
-@media (max-width: 768px) {
-    body.inicio-page .rb-main {
-        max-width: 100%;
-        margin: 12px auto 24px;
-        padding: 0 12px;
-    }
+.ini-icon-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0%, transparent 65%);
+    border-radius: inherit;
+}
 
-    .rb-eixos-grid {
+.ini-icon-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+}
+
+/* Card description */
+.ini-card-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.ini-card-desc strong {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--hdr-800);
+    line-height: 1.3;
+}
+
+.ini-card-desc p {
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    color: var(--hdr-700);
+    line-height: 1.65;
+    opacity: 0.85;
+}
+
+/* ---- RESPONSIVO ---- */
+@media (max-width: 680px) {
+    .ini-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 320px;
     }
-
-    .rb-eixo-card {
-        width: 100%;
-        max-width: 320px;
-    }
-
-    .rb-section-inicio .rb-section-subtitle {
-        text-align: center;
+    .ini-page {
+        padding: 24px 0 48px;
     }
 }

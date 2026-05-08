@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Radar Brasil - Inicio{% endblock %}
@@ -10,36 +10,110 @@
 {% endblock %}
 
 {% block content %}
-<section class="rb-section rb-section-inicio">
-    <p class="rb-section-subtitle">
-        Explore as estruturas de <strong>Governanca, Politicas, Planos, Programas e Linhas de Financiamento</strong>
-        com base nos <strong>criterios e parametros de avaliação</strong>. Clique nos Eixos abaixo:
-    </p>
-    <div class="rb-eixos-grid">
-        <a href="{% url 'indicadores:painel_multinivel' %}?aba=0" class="rb-eixo-card">
-            <div class="rb-eixo-card-header">Governanca</div>
-            <div class="rb-eixo-card-body">
-                <img src="{% static 'img/governanca.svg' %}" alt="Ícone de Governança" class="rb-eixo-icon-img">
-            </div>
-        </a>
-        <a href="{% url 'indicadores:painel_multinivel' %}?aba=1" class="rb-eixo-card">
-            <div class="rb-eixo-card-header">Politicas e Planos</div>
-            <div class="rb-eixo-card-body">
-                <img src="{% static 'img/politicas_planos.svg' %}" alt="Ícone de Políticas e Planos" class="rb-eixo-icon-img">
-            </div>
-        </a>
-        <a href="{% url 'indicadores:painel_multinivel' %}?aba=2" class="rb-eixo-card">
-            <div class="rb-eixo-card-header">Programas</div>
-            <div class="rb-eixo-card-body">
-                <img src="{% static 'img/programas.svg' %}" alt="Ícone de Programas" class="rb-eixo-icon-img">
-            </div>
-        </a>
-        <a href="{% url 'indicadores:painel_multinivel' %}?aba=3" class="rb-eixo-card">
-            <div class="rb-eixo-card-header">Linhas de Financiamento</div>
-            <div class="rb-eixo-card-body">
-                <img src="{% static 'img/financiamento.svg' %}" alt="Ícone de Linhas de Financiamento" class="rb-eixo-icon-img">
-            </div>
-        </a>
+<div class="ini-page">
+
+  <div class="ini-intro">
+    <div class="intro-label">
+      <span class="intro-label-dot"></span>
+      Federalismo Climático
     </div>
-</section>
+    <h2>
+      Explore as dimensões do <strong>Radar Brasil</strong> —<br>
+      Governança, Políticas, Programas e Financiamento
+    </h2>
+    <p>
+      Clique em um dos eixos abaixo para acessar os dados, painéis interativos
+      e avaliações de cada dimensão do federalismo climático brasileiro.
+    </p>
+  </div>
+
+  <div class="ini-grid">
+
+    {# Card 1 – Governança #}
+    <a href="{% url 'indicadores:painel_multinivel' %}?aba=0" class="ini-card">
+      <div class="ini-card-head">
+        <span class="ini-card-title">Governança</span>
+        <span class="ini-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </div>
+      <div class="ini-card-body">
+        <div class="ini-icon-wrap">
+          <img src="{% static 'img/governanca.svg' %}" alt="Governança" class="ini-icon-img">
+        </div>
+        <div class="ini-card-desc">
+          <strong>Estruturas de Governança</strong>
+          <p>Arranjos institucionais e de coordenação que estruturam a ação climática entre União, estados e municípios.</p>
+        </div>
+      </div>
+    </a>
+
+    {# Card 2 – Políticas e Planos #}
+    <a href="{% url 'indicadores:painel_multinivel' %}?aba=1" class="ini-card">
+      <div class="ini-card-head">
+        <span class="ini-card-title">Políticas e Planos</span>
+        <span class="ini-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </div>
+      <div class="ini-card-body">
+        <div class="ini-icon-wrap">
+          <img src="{% static 'img/politicas_planos.svg' %}" alt="Políticas e Planos" class="ini-icon-img">
+        </div>
+        <div class="ini-card-desc">
+          <strong>Políticas e Planos Climáticos</strong>
+          <p>Planos climáticos municipais, estaduais e federais que orientam as estratégias de mitigação e adaptação.</p>
+        </div>
+      </div>
+    </a>
+
+    {# Card 3 – Programas #}
+    <a href="{% url 'indicadores:painel_multinivel' %}?aba=2" class="ini-card">
+      <div class="ini-card-head">
+        <span class="ini-card-title">Programas</span>
+        <span class="ini-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </div>
+      <div class="ini-card-body">
+        <div class="ini-icon-wrap">
+          <img src="{% static 'img/programas.svg' %}" alt="Programas" class="ini-icon-img">
+        </div>
+        <div class="ini-card-desc">
+          <strong>Programas Climáticos</strong>
+          <p>Acompanhe a execução dos programas e iniciativas climáticas em cada nível federativo no painel multinível.</p>
+        </div>
+      </div>
+    </a>
+
+    {# Card 4 – Linhas de Financiamento #}
+    <a href="{% url 'indicadores:painel_multinivel' %}?aba=3" class="ini-card">
+      <div class="ini-card-head">
+        <span class="ini-card-title">Linhas de Financiamento</span>
+        <span class="ini-card-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </div>
+      <div class="ini-card-body">
+        <div class="ini-icon-wrap">
+          <img src="{% static 'img/financiamento.svg' %}" alt="Linhas de Financiamento" class="ini-icon-img">
+        </div>
+        <div class="ini-card-desc">
+          <strong>Linhas de Financiamento</strong>
+          <p>Investimentos estimados de 2023 a 2030 e mapa georreferenciado de financiamento climático nos municípios.</p>
+        </div>
+      </div>
+    </a>
+
+  </div>{# /ini-grid #}
+
+</div>{# /ini-page #}
 {% endblock %}
