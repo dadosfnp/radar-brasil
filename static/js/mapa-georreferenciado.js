@@ -1,9 +1,8 @@
 /* Mapa Georreferenciado – Radar Brasil */
 /* global L */
 
-const COR_EIXO = [
-    "#2196F3","#4CAF50","#FF9800","#E91E63","#9C27B0","#00BCD4","#FF5722"
-];
+const COR_FINANCIAMENTO     = "#4CAF50"; // Verde – tem financiamento
+const COR_SEM_FINANCIAMENTO = "#F4511E"; // Laranja-vermelho – sem financiamento
 
 // Limites aproximados do Brasil
 const BR_BOUNDS = L.latLngBounds(
@@ -11,7 +10,24 @@ const BR_BOUNDS = L.latLngBounds(
     L.latLng(5.5,  -28.5)
 );
 
-let map, allFeatures = [], markerLayer, eixoCores = {};
+let map, allFeatures = [], markerLayer, canvasRenderer;
+
+// ── Polígono simplificado do Brasil (Natural Earth) ────────────
+const BRAZIL_POLY = { type: "Feature", geometry: { type: "Polygon", coordinates: [[
+    [-60.19, 5.27],  [-60.70, 4.20],  [-60.66, 1.32],  [-59.84, 1.38],
+    [-57.96, 1.21],  [-54.53, 2.13],  [-51.62, 4.22],  [-51.40, 1.46],
+    [-50.07,-0.34],  [-48.48,-1.46],  [-46.82,-1.06],  [-44.36,-2.46],
+    [-41.73,-2.91],  [-38.50,-3.72],  [-36.54,-4.50],  [-35.19,-5.81],
+    [-34.79,-7.12],  [-34.86,-8.10],  [-36.50,-9.00],  [-37.50,-10.47],
+    [-38.50,-13.00], [-39.08,-17.02], [-40.26,-20.19], [-43.18,-22.90],
+    [-44.72,-23.00], [-46.32,-24.00], [-48.59,-27.59], [-50.52,-29.00],
+    [-51.21,-31.05], [-52.01,-33.61], [-53.37,-33.75], [-55.50,-31.00],
+    [-57.00,-29.70], [-55.60,-27.50], [-54.62,-25.49], [-54.80,-22.30],
+    [-57.90,-22.00], [-57.90,-17.80], [-60.13,-16.26], [-65.33,-15.00],
+    [-68.74,-11.01], [-70.29,-11.00], [-73.90, -7.47], [-70.47, -2.00],
+    [-70.02, -0.19], [-69.98,  0.71], [-69.94,  1.74], [-67.33,  2.00],
+    [-64.50,  4.00], [-63.39,  3.93], [-61.54,  4.27], [-60.19,  5.27],
+]] }, properties: {} };
 
 // ── Inicializa o mapa ──────────────────────────────────────────
 function initMap() {
@@ -20,23 +36,60 @@ function initMap() {
         zoom: 4,
         minZoom: 4,
         maxZoom: 14,
-        maxBounds: BR_BOUNDS,
-        maxBoundsViscosity: 0.9,
         zoomControl: true,
     });
 
     L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
         {
+            maxZoom: 18,
             attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-                '&copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: "abcd",
-            maxZoom: 19,
+                'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; ' +
+                'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, ' +
+                'GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong)',
         }
     ).addTo(map);
 
+    // Pane exclusivo para o overlay do Brasil (abaixo dos marcadores z=400)
+    map.createPane('brasilPane').style.zIndex = 210;
+    L.geoJSON(BRAZIL_POLY, {
+        pane: 'brasilPane',
+        style: {
+            fillColor:   '#1a4a2e',
+            fillOpacity: 0.22,
+            color:       '#1a4a2e',
+            weight:      1.2,
+            opacity:     0.50,
+        },
+    }).addTo(map);
+
+    canvasRenderer = L.canvas({ padding: 0.5 });
     markerLayer = L.featureGroup().addTo(map);
+
+    // ── Centraliza o popup ao clicar num município ────────────────
+    map.on('popupopen', function (e) {
+        requestAnimationFrame(function () {
+            const latlng   = e.popup.getLatLng();
+            const el       = e.popup.getElement();
+            const mapSize  = map.getSize();
+            const markerPx = map.latLngToContainerPoint(latlng);
+
+            // Altura real do popup (+24px para a ponta e margem de segurança)
+            const popupH  = el ? el.offsetHeight + 24 : 200;
+
+            // Alvo vertical: marker fica na posição que coloca o popup centrado
+            // (capped em 75% da altura para não empurrar o marker fora da tela)
+            const targetY = Math.min(mapSize.y * 0.75, mapSize.y / 2 + popupH / 2);
+
+            // Alvo horizontal: centro da área do mapa
+            const targetX = mapSize.x / 2;
+
+            map.panBy(
+                [markerPx.x - targetX, markerPx.y - targetY],
+                { animate: true, duration: 0.45 }
+            );
+        });
+    });
 }
 
 // ── Carrega filtros e popula selects ──────────────────────────
@@ -45,18 +98,14 @@ async function carregarFiltros() {
         const resp = await fetch("/indicadores/api/mapa/filtros/");
         const data = await resp.json();
 
-        populateSelect("mg-f-eixo",       data.eixos,      "Todos");
-        populateSelect("mg-f-modalidade", data.modalidades, "Todas as Modalidades");
-        populateSelect("mg-f-estagio",    data.estagios,    "Todos os Estágios");
-        populateSelect("mg-f-executor",   data.executores,  "Todos os Executores");
-        populateSelect("mg-f-regiao",     data.regioes,     "Todas as Regiões");
-        populateSelect("mg-f-uf",         data.ufs,         "Todos os Estados");
+        populateSelect("mg-f-eixo",       data.eixos,       "Todos");
+        populateSelect("mg-f-modalidade", data.modalidades,  "Todas as Modalidades");
+        populateSelect("mg-f-estagio",    data.estagios,     "Todos os Estágios");
+        populateSelect("mg-f-executor",   data.executores,   "Todos os Executores");
+        populateSelect("mg-f-regiao",     data.regioes,      "Todas as Regiões");
+        populateSelect("mg-f-uf",         data.ufs,          "Todos os Estados");
 
-        (data.eixos || []).forEach((e, i) => {
-            eixoCores[e] = COR_EIXO[i % COR_EIXO.length];
-        });
-
-        buildLegend(data.eixos || []);
+        buildLegend();
     } catch (e) {
         console.error("Erro filtros:", e);
     }
@@ -88,24 +137,38 @@ async function carregarDados() {
     }
 }
 
+// Raio por porte populacional (replica R: rescale(populacao, to = c(5, 25)))
+function _radiusByPorte(porte) {
+    if (porte === "Capital")        return 20;
+    if (porte === "Acima de 80mil") return 11;
+    return 5;  // Abaixo de 80mil ou desconhecido
+}
+
 // ── Renderiza marcadores no mapa ───────────────────────────────
 function renderMarkers(features, fitBounds) {
     markerLayer.clearLayers();
 
     features.forEach(feat => {
         const p   = feat.properties;
-        const cor = eixoCores[p.eixo] || "#4CAF50";
+        const cor = p.tem_financiamento ? COR_FINANCIAMENTO : COR_SEM_FINANCIAMENTO;
         const [lng, lat] = feat.geometry.coordinates;
 
         const marker = L.circleMarker([lat, lng], {
-            radius: 6,
-            fillColor: cor,
-            color: "#fff",
-            weight: 1.2,
-            fillOpacity: 0.88,
+            renderer:    canvasRenderer,
+            radius:      _radiusByPorte(p.porte),
+            fillColor:   cor,
+            color:       "#ffffff",
+            weight:      1,
+            fillOpacity: 0.90,
+            opacity:     1,
         });
 
-        marker.bindPopup(buildPopup(p), { maxWidth: 300 });
+        marker.bindPopup(buildPopup(p), {
+            maxWidth: 310,
+            minWidth: 260,
+            autoPanPaddingTopLeft:     L.point(20, 80),
+            autoPanPaddingBottomRight: L.point(20, 20),
+        });
         markerLayer.addLayer(marker);
     });
 
@@ -118,21 +181,92 @@ function renderMarkers(features, fitBounds) {
     }
 }
 
+function _svgIcon(path) {
+    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
+}
+const _IC = {
+    porte:  _svgIcon('<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'),
+    perfil: _svgIcon('<circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/>'),
+    emp:    _svgIcon('<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>'),
+    valor:  _svgIcon('<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'),
+    exec:   _svgIcon('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>'),
+    regiao: _svgIcon('<circle cx="12" cy="12" r="10"/><polyline points="2 12 12 12 17 17"/>'),
+};
+
+function _fmtValor(est) {
+    if (!est || est <= 0) return "—";
+    return `R$ ${Number(est).toLocaleString("pt-BR")}`;
+}
+
 function buildPopup(p) {
-    const fmt   = v => (v && v !== "nan") ? v : "—";
-    const valor = p.estimativa > 0
-        ? `R$ ${Number(p.estimativa).toLocaleString("pt-BR")}` : "—";
-    const cor   = eixoCores[p.eixo] || "#4CAF50";
+    const fmt = v => (v && v !== "nan") ? v : "—";
+
+    if (!p.tem_financiamento) {
+        return `
+        <div class="mg-popup">
+          <div class="mg-popup-header">
+            <h4>${fmt(p.municipio)}<span class="mg-popup-uf"> — ${fmt(p.uf)}</span></h4>
+            <span class="mg-popup-status-tag mg-popup-status-no">Sem Financiamento</span>
+          </div>
+          <div class="mg-popup-body">
+            <div class="mg-popup-row">
+              <span class="mg-popup-icon">${_IC.porte}</span>
+              <span class="mg-popup-lbl">Porte</span>
+              <span class="mg-popup-val">${fmt(p.porte)}</span>
+            </div>
+            <div class="mg-popup-row">
+              <span class="mg-popup-icon">${_IC.regiao}</span>
+              <span class="mg-popup-lbl">Região</span>
+              <span class="mg-popup-val">${fmt(p.regiao)}</span>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    const programas = p.programas || [];
+    const nProg = programas.length || p.n_programas || 1;
+
+    const progsHtml = programas.map((prog, i) => {
+        const pct = Math.min(Number(prog.percentual) || 0, 100);
+        const nome = (prog.empreendimento && prog.empreendimento !== "nan")
+            ? prog.empreendimento : "—";
+        const estagio = (prog.estagio && prog.estagio !== "nan") ? prog.estagio : "";
+        return `
+        <div class="mg-popup-prog-item${i > 0 ? " mg-popup-prog-item--sep" : ""}">
+          <div class="mg-popup-prog-name">${nome}</div>
+          <div class="mg-popup-prog-meta">
+            ${estagio ? `<span class="mg-popup-status-tag mg-popup-status-yes">${estagio}</span>` : ""}
+            <span class="mg-popup-prog-valor">${_fmtValor(prog.estimativa)}</span>
+          </div>
+          <div class="mg-popup-exec-wrap">
+            <span class="mg-popup-prog-track">
+              <span class="mg-popup-prog-fill" style="width:${pct}%"></span>
+            </span>
+            <span class="mg-popup-pct">${pct}%</span>
+          </div>
+        </div>`;
+    }).join("");
+
+    const countLabel = nProg === 1
+        ? "1 programa de investimento"
+        : `${nProg} programas de investimento`;
 
     return `
     <div class="mg-popup">
-      <h4>${fmt(p.municipio)} – ${fmt(p.uf)}</h4>
-      <div class="mg-popup-row"><span class="mg-popup-label">Empreendimento:</span> ${fmt(p.empreendimento)}</div>
-      <div class="mg-popup-row"><span class="mg-popup-label">Modalidade:</span> ${fmt(p.modalidade)}</div>
-      <div class="mg-popup-row"><span class="mg-popup-label">Executor:</span> ${fmt(p.executor)}</div>
-      <div class="mg-popup-row"><span class="mg-popup-label">Estimativa:</span> ${valor}</div>
-      <div class="mg-popup-row"><span class="mg-popup-label">Execução:</span> ${p.percentual || 0}%</div>
-      <span class="mg-popup-tag" style="background:${cor};color:#fff;">${fmt(p.estagio)}</span>
+      <div class="mg-popup-header">
+        <h4>${fmt(p.municipio)}<span class="mg-popup-uf"> — ${fmt(p.uf)}</span></h4>
+        <span class="mg-popup-count-badge">${countLabel}</span>
+      </div>
+      <div class="mg-popup-body">
+        <div class="mg-popup-row">
+          <span class="mg-popup-icon">${_IC.porte}</span>
+          <span class="mg-popup-lbl">Porte</span>
+          <span class="mg-popup-val">${fmt(p.porte)}</span>
+        </div>
+        <div class="mg-popup-progs${programas.length > 3 ? " mg-popup-progs--scroll" : ""}">
+          ${progsHtml}
+        </div>
+      </div>
     </div>`;
 }
 
@@ -147,15 +281,31 @@ function filtrar() {
     const porte      = document.getElementById("mg-f-porte")?.value       || "";
     const mun        = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
 
+    // Filtros específicos de financiamento – excluem municípios sem financiamento
+    const filtroFinanciamento = eixo || modalidade || estagio || executor;
+
     const filtered = allFeatures.filter(f => {
         const p = f.properties;
-        if (eixo       && p.eixo       !== eixo)       return false;
-        if (modalidade && p.modalidade !== modalidade) return false;
-        if (estagio    && p.estagio    !== estagio)    return false;
-        if (executor   && p.executor   !== executor)   return false;
-        if (regiao     && p.regiao     !== regiao)     return false;
-        if (uf         && p.uf         !== uf)         return false;
-        if (porte      && p.porte      !== porte)      return false;
+
+        if (!p.tem_financiamento) {
+            // Municípios sem financiamento só aparecem quando nenhum filtro de
+            // financiamento está ativo (replica comportamento do app R com NAs)
+            if (filtroFinanciamento) return false;
+            if (regiao && p.regiao !== regiao) return false;
+            if (uf     && p.uf     !== uf)     return false;
+            if (porte  && p.porte  !== porte)  return false;
+            if (mun    && !(p.municipio || "").toLowerCase().includes(mun)) return false;
+            return true;
+        }
+
+        // Municípios com financiamento: filtra por listas de valores múltiplos
+        if (eixo       && !(p.eixos       || []).includes(eixo))       return false;
+        if (modalidade && !(p.modalidades || []).includes(modalidade)) return false;
+        if (estagio    && !(p.estagios    || []).includes(estagio))    return false;
+        if (executor   && !(p.executores  || []).includes(executor))   return false;
+        if (regiao     && p.regiao !== regiao)                         return false;
+        if (uf         && p.uf     !== uf)                             return false;
+        if (porte      && p.porte  !== porte)                          return false;
         if (mun        && !(p.municipio || "").toLowerCase().includes(mun)) return false;
         return true;
     });
@@ -179,8 +329,33 @@ function limparFiltros() {
 
 // ── Painel de totais ───────────────────────────────────────────
 function atualizarStats(features) {
-    const total = features.reduce((s, f) => s + (f.properties.estimativa || 0), 0);
-    const munis = new Set(features.map(f => f.properties.code_muni || f.properties.municipio)).size;
+    // Replica lógica do app R:
+    // Investimento Único  → mínimo por município
+    // Investimento Agrupado → 1x por empreendimento (já pré-calculado no backend)
+    const unicoMunis = new Map();  // code_muni → unico_min_est
+    const agrupEmps  = new Map();  // empreendimento → estimativa
+
+    features.forEach(f => {
+        const p = f.properties;
+        if (!p.tem_financiamento) return;
+
+        const key = p.code_muni || p.municipio;
+        if (p.unico_min_est > 0) {
+            unicoMunis.set(key, p.unico_min_est);
+        }
+
+        (p.agrupado_empreendimentos || []).forEach(emp => {
+            if (!agrupEmps.has(emp.nome)) {
+                agrupEmps.set(emp.nome, emp.estimativa);
+            }
+        });
+    });
+
+    const total =
+        Array.from(unicoMunis.values()).reduce((s, v) => s + v, 0) +
+        Array.from(agrupEmps.values()).reduce((s, v) => s + v, 0);
+
+    const munis = features.filter(f => f.properties.tem_financiamento).length;
 
     const elValor = document.getElementById("mg-stats-valor");
     const elMunis = document.getElementById("mg-stats-municipios");
@@ -196,27 +371,26 @@ function atualizarStats(features) {
 }
 
 // ── Legenda ────────────────────────────────────────────────────
-function buildLegend(eixos) {
+function buildLegend() {
     const body = document.getElementById("mg-legend-body");
     if (!body) return;
-    body.innerHTML = "";
-    if (!eixos.length) {
-        body.innerHTML = `
-          <div class="mg-legend-item">
-            <span class="mg-legend-dot" style="background:#4CAF50;"></span>
-            <span>Municípios com financiamento</span>
-          </div>`;
-        return;
-    }
-    eixos.forEach(e => {
-        const cor   = eixoCores[e] || "#4CAF50";
-        const short = e.length > 38 ? e.substring(0, 36) + "…" : e;
-        body.innerHTML += `
-          <div class="mg-legend-item">
-            <span class="mg-legend-dot" style="background:${cor};"></span>
-            <span>${short}</span>
-          </div>`;
-    });
+    body.innerHTML = `
+      <div class="mg-legend-item">
+        <span class="mg-legend-dot" style="background:${COR_FINANCIAMENTO};"></span>
+        <span>Financiamento</span>
+      </div>
+      <div class="mg-legend-item">
+        <span class="mg-legend-dot" style="background:${COR_SEM_FINANCIAMENTO};"></span>
+        <span>Sem Financiamento</span>
+      </div>
+      <div class="mg-legend-size">
+        <div class="mg-legend-size-row">
+          <span class="mg-legend-circle" style="width:10px;height:10px;"></span>
+          <span class="mg-legend-circle" style="width:22px;height:22px;"></span>
+          <span class="mg-legend-circle" style="width:40px;height:40px;"></span>
+        </div>
+        <div class="mg-legend-size-label">Abaixo 80k · Acima 80k · Capital</div>
+      </div>`;
 }
 
 // ── Utilitários ────────────────────────────────────────────────
@@ -225,8 +399,35 @@ function mostrarLoader(vis) {
     if (el) el.classList.toggle("hidden", !vis);
 }
 
-function imprimirMapa() {
-    window.print();
+async function imprimirMapa() {
+    const btn = document.getElementById("mg-btn-print");
+    const mapArea = document.querySelector(".mg-map-area");
+    if (!mapArea) return;
+
+    if (btn) { btn.disabled = true; btn.textContent = "Gerando…"; }
+    mostrarLoader(true);
+
+    try {
+        const canvas = await html2canvas(mapArea, {
+            useCORS: true,
+            allowTaint: true,
+            scale: 2,
+            backgroundColor: "#e8f2f6",
+            ignoreElements: el => el.id === "mg-loader",
+        });
+        const link = document.createElement("a");
+        link.download = "radar-brasil-mapa.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    } catch (err) {
+        console.error("Erro ao gerar imagem:", err);
+    } finally {
+        mostrarLoader(false);
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><polyline points="8 12 12 16 16 12"></polyline><line x1="12" y1="8" x2="12" y2="16"></line></svg> Print Mapa`;
+        }
+    }
 }
 
 function baixarDados() {
@@ -237,7 +438,8 @@ function baixarDados() {
 
     const filtered = allFeatures.filter(f => {
         const p = f.properties;
-        if (eixo  && p.eixo  !== eixo)  return false;
+        if (!p.tem_financiamento) return false;  // exporta só municípios com dados
+        if (eixo  && !(p.eixos  || []).includes(eixo)) return false;
         if (uf    && p.uf    !== uf)    return false;
         if (porte && p.porte !== porte) return false;
         if (mun   && !(p.municipio || "").toLowerCase().includes(mun)) return false;

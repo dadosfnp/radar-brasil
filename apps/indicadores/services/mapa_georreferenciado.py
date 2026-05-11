@@ -21,7 +21,7 @@ REGIAO_POR_UF = {
     "PR":"Sul","RS":"Sul","SC":"Sul",
 }
 
-_cache_sheet = {"df": None, "ts": 0}
+_cache_sheet = {"df": None, "ts": 0}  # reset on deploy to pick up schema changes
 _coords_cache = None
 _nome_idx = None   # "nome_lower|UF" → entry
 
@@ -71,12 +71,10 @@ def _load_coords() -> dict:
 
 def _lookup_coords(code_muni: str, municipio: str, uf: str):
     coords = _load_coords()
-    # 1. por código IBGE (7 dígitos)
     if code_muni and code_muni != "0":
         c = coords.get(code_muni)
         if c:
             return c
-    # 2. por nome + UF
     if municipio and _nome_idx is not None:
         key = f"{municipio.lower().strip()}|{uf}"
         c = _nome_idx.get(key)
@@ -93,18 +91,24 @@ def _col(df, *names):
 
 
 def get_dados_mapa() -> dict:
+    """
+    Retorna um GeoJSON com UM feature por município (todos os 5.571 do Brasil).
+    Municípios com financiamento: tem_financiamento=True + dados agregados.
+    Municípios sem financiamento: tem_financiamento=False + dados geográficos apenas.
+    Replica a lógica do app R: distinct(code_muni) + radius por porte populacional.
+    """
     df     = _ler_sheet()
-    _load_coords()
+    coords = _load_coords()
 
-    municipio_col     = _col(df, "Municípios", "Municipios", "Município", "Municipio")
-    estagio_col       = _col(df, "Estágio", "Estagio")
-    classificacao_col = _col(df, "Classificação", "Classificacao")
+    municipio_col = _col(df, "Municípios", "Municipios", "Município", "Municipio")
+    estagio_col   = _col(df, "Estágio", "Estagio")
 
-    features = []
+    # ── Agrega dados de financiamento por município ────────────────
+    muni = {}   # key → dict com dados agregados
+
     for _, row in df.iterrows():
         raw_code  = str(row.get("code_muni", "")).strip()
         code_muni = str(int(float(raw_code))) if raw_code not in ("", "nan", "0") else "0"
-
         uf  = str(row.get("UF", "")).strip()
         mun = str(row.get(municipio_col, "")).strip() if municipio_col else ""
 
@@ -112,26 +116,142 @@ def get_dados_mapa() -> dict:
         if c is None:
             continue
 
-        features.append({
-            "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [c["lng"], c["lat"]]},
-            "properties": {
-                "code_muni":      code_muni,
-                "municipio":      mun,
-                "uf":             uf,
-                "regiao":         REGIAO_POR_UF.get(uf, ""),
-                "empreendimento": str(row.get("Empreendimento", "")).strip(),
-                "modalidade":     str(row.get("Modalidade", "")).strip(),
-                "classificacao":  str(row.get(classificacao_col, "")).strip() if classificacao_col else "",
-                "estagio":        str(row.get(estagio_col, "")).strip() if estagio_col else "",
-                "estimativa":     float(row.get("Estimativa_2023_2030", 0) or 0),
-                "percentual":     float(row.get("Percentual_executado", 0) or 0),
-                "executor":       str(row.get("Tipo de Executor", "")).strip(),
-                "perfil":         str(row.get("Perfil", "")).strip(),
-                "eixo":           str(row.get("Eixo", "")).strip(),
-                "porte":          c.get("porte", ""),
-            },
-        })
+        # Chave estável: código IBGE ou fallback por nome+UF
+        key = code_muni if code_muni != "0" else f"\x00{mun.lower().strip()}|{uf}"
+
+        perfil = str(row.get("Perfil", "")).strip()
+        est    = float(row.get("Estimativa_2023_2030", 0) or 0)
+        emp    = str(row.get("Empreendimento", "")).strip()
+        eixo   = str(row.get("Eixo", "")).strip()
+        mod    = str(row.get("Modalidade", "")).strip()
+        etap   = str(row.get(estagio_col, "")).strip() if estagio_col else ""
+        exec_  = str(row.get("Tipo de Executor", "")).strip()
+        pct    = float(row.get("Percentual_executado", 0) or 0)
+
+        if key not in muni:
+            muni[key] = {
+                "c": c, "code_muni": code_muni, "municipio": mun, "uf": uf,
+                "unico_ests": [],      # estimativas de Investimento Único
+                "agrupado_emps": {},   # empreendimento → estimativa (Agrupado)
+                "programas": [],       # lista completa para exibição no popup
+                "eixos": set(), "modalidades": set(),
+                "estagios": set(), "executores": set(),
+                "first": None,
+            }
+
+        d = muni[key]
+
+        if perfil == "Investimento Único":
+            d["unico_ests"].append(est)
+            d["programas"].append({
+                "empreendimento": emp, "perfil": perfil, "estagio": etap,
+                "estimativa": est, "percentual": pct,
+            })
+        else:
+            if emp not in d["agrupado_emps"]:
+                d["agrupado_emps"][emp] = est
+                d["programas"].append({
+                    "empreendimento": emp, "perfil": perfil, "estagio": etap,
+                    "estimativa": est, "percentual": pct,
+                })
+
+        for val, s in [
+            (eixo,  d["eixos"]),
+            (mod,   d["modalidades"]),
+            (etap,  d["estagios"]),
+            (exec_, d["executores"]),
+        ]:
+            if val and val != "nan":
+                s.add(val)
+
+        if d["first"] is None:
+            d["first"] = {
+                "empreendimento": emp, "modalidade": mod, "estagio": etap,
+                "estimativa": est, "percentual": pct,
+                "executor": exec_, "perfil": perfil, "eixo": eixo,
+            }
+
+    # Índices de lookup para cruzar com coords
+    by_code = {d["code_muni"]: k for k, d in muni.items() if d["code_muni"] != "0"}
+    by_name = {
+        f"{d['municipio'].lower().strip()}|{d['uf']}": k
+        for k, d in muni.items()
+    }
+
+    # ── Gera um feature para cada município do Brasil ──────────────
+    features = []
+
+    for code_muni, c in coords.items():
+        uf    = c.get("uf", "")
+        nom   = c.get("nome", "")
+        porte = c.get("porte", "")
+
+        # Tenta localizar dados de financiamento
+        lookup_key = by_code.get(code_muni) or by_name.get(f"{nom.lower().strip()}|{uf}")
+        d = muni.get(lookup_key) if lookup_key else None
+
+        if d:
+            unico_min = min(d["unico_ests"]) if d["unico_ests"] else 0
+            n_prog    = len(d["programas"])
+            first     = d["first"] or {}
+
+            features.append({
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [c["lng"], c["lat"]]},
+                "properties": {
+                    "code_muni":  code_muni,
+                    "municipio":  nom,
+                    "uf":         uf,
+                    "regiao":     REGIAO_POR_UF.get(uf, ""),
+                    "porte":      porte,
+                    # flags para visualização (replica R: tem_financiamento)
+                    "tem_financiamento": True,
+                    "n_programas":       n_prog,
+                    # campos para cálculo do painel de totais
+                    "unico_min_est": unico_min,
+                    "agrupado_empreendimentos": [
+                        {"nome": k, "estimativa": v}
+                        for k, v in d["agrupado_emps"].items()
+                    ],
+                    # campos para filtros (múltiplos valores por município)
+                    "eixo":        first.get("eixo", ""),
+                    "eixos":       list(d["eixos"]),
+                    "modalidade":  first.get("modalidade", ""),
+                    "modalidades": list(d["modalidades"]),
+                    "estagio":     first.get("estagio", ""),
+                    "estagios":    list(d["estagios"]),
+                    "executor":    first.get("executor", ""),
+                    "executores":  list(d["executores"]),
+                    # campos para popup
+                    "programas":      d["programas"],
+                    "perfil":         first.get("perfil", ""),
+                    "empreendimento": first.get("empreendimento", ""),
+                    "estimativa":     first.get("estimativa", 0),
+                    "percentual":     first.get("percentual", 0),
+                },
+            })
+        else:
+            features.append({
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [c["lng"], c["lat"]]},
+                "properties": {
+                    "code_muni": code_muni,
+                    "municipio": nom,
+                    "uf":        uf,
+                    "regiao":    REGIAO_POR_UF.get(uf, ""),
+                    "porte":     porte,
+                    "tem_financiamento": False,
+                    "n_programas": 0,
+                    "unico_min_est": 0,
+                    "agrupado_empreendimentos": [],
+                    "eixo": "", "eixos": [],
+                    "modalidade": "", "modalidades": [],
+                    "estagio": "", "estagios": [],
+                    "executor": "", "executores": [],
+                    "perfil": "", "empreendimento": "",
+                    "estimativa": 0, "percentual": 0,
+                },
+            })
 
     return {"type": "FeatureCollection", "features": features}
 

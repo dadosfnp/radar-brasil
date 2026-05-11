@@ -129,11 +129,11 @@
         </button>
         <button id="mg-btn-print" class="mg-btn mg-btn-outline">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 6 2 18 2 18 9"></polyline>
-            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-            <rect x="6" y="14" width="12" height="8"></rect>
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <polyline points="8 12 12 16 16 12"></polyline>
+            <line x1="12" y1="8" x2="12" y2="16"></line>
           </svg>
-          Imprimir
+          Print Mapa
         </button>
       </div>
 
@@ -152,15 +152,15 @@
         Carregando dados...
       </div>
 
-      {# Painel de totais #}
+      {# Mapa Leaflet #}
+      <div id="mg-map"></div>
+
+      {# Painel de totais – após o #mg-map no DOM para garantir sobreposição correta #}
       <div class="mg-stats-panel">
         <div id="mg-stats-valor" class="mg-stats-valor">—</div>
         <div class="mg-stats-label">Total Estimado 2023 a 2030</div>
         <div id="mg-stats-municipios" class="mg-stats-municipios">—</div>
       </div>
-
-      {# Mapa Leaflet #}
-      <div id="mg-map"></div>
 
       {# Legenda #}
       <div class="mg-legend">
@@ -177,5 +177,6 @@
 
 {% block extra_js %}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="{% static 'js/mapa-georreferenciado.js' %}"></script>
 {% endblock %}
