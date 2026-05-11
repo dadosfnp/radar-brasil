@@ -311,6 +311,9 @@ function filtrar() {
     const algumFiltroAtivo = eixo || modalidade || estagio || executor ||
                              regiao || uf || porte || mun;
     renderMarkers(filtered, !!algumFiltroAtivo);
+
+    const legendSemFin = document.getElementById("mg-legend-sem-fin");
+    if (legendSemFin) legendSemFin.style.display = exibirSemFin ? "" : "none";
 }
 
 function limparFiltros() {
@@ -379,7 +382,7 @@ function buildLegend() {
         <span class="mg-legend-dot" style="background:${COR_FINANCIAMENTO};"></span>
         <span>Financiamento</span>
       </div>
-      <div class="mg-legend-item">
+      <div class="mg-legend-item" id="mg-legend-sem-fin" style="display:none">
         <span class="mg-legend-dot" style="background:${COR_SEM_FINANCIAMENTO};"></span>
         <span>Sem Financiamento</span>
       </div>
