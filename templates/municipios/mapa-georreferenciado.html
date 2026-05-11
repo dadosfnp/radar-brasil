@@ -105,8 +105,13 @@
 
         <div class="mg-filter-group">
           <label class="mg-filter-label" for="mg-f-municipio">Município</label>
-          <input id="mg-f-municipio" class="mg-mun-input" type="text"
-                 placeholder="Buscar município...">
+          <div class="mg-mun-wrap">
+            <input id="mg-f-municipio" class="mg-mun-input" type="text"
+                   placeholder="Buscar município...">
+            <button id="mg-f-municipio-clear" class="mg-mun-clear" type="button" hidden>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
         </div>
 
         <label class="mg-toggle-row" for="mg-f-sem-financiamento">

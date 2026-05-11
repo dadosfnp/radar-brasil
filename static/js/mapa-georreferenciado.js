@@ -40,13 +40,11 @@ function initMap() {
     });
 
     L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
-            subdomains: "abcd",
             maxZoom: 19,
             attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-                'contribuidores &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contribuidores',
         }
     ).addTo(map);
 
@@ -324,6 +322,8 @@ function limparFiltros() {
     });
     const mun = document.getElementById("mg-f-municipio");
     if (mun) mun.value = "";
+    const munClearBtn = document.getElementById("mg-f-municipio-clear");
+    if (munClearBtn) munClearBtn.hidden = true;
     const toggle = document.getElementById("mg-f-sem-financiamento");
     if (toggle) toggle.checked = false;
     map.fitBounds(BR_BOUNDS);
@@ -388,11 +388,19 @@ function buildLegend() {
       </div>
       <div class="mg-legend-size">
         <div class="mg-legend-size-row">
-          <span class="mg-legend-circle" style="width:10px;height:10px;"></span>
-          <span class="mg-legend-circle" style="width:22px;height:22px;"></span>
-          <span class="mg-legend-circle" style="width:40px;height:40px;"></span>
+          <div class="mg-legend-size-item">
+            <span class="mg-legend-circle" style="width:10px;height:10px;"></span>
+            <span class="mg-legend-size-label">Abaixo 80k</span>
+          </div>
+          <div class="mg-legend-size-item">
+            <span class="mg-legend-circle" style="width:22px;height:22px;"></span>
+            <span class="mg-legend-size-label">Acima 80k</span>
+          </div>
+          <div class="mg-legend-size-item">
+            <span class="mg-legend-circle" style="width:40px;height:40px;"></span>
+            <span class="mg-legend-size-label">Capital</span>
+          </div>
         </div>
-        <div class="mg-legend-size-label">Abaixo 80k · Acima 80k · Capital</div>
       </div>`;
 }
 
@@ -477,7 +485,18 @@ document.addEventListener("DOMContentLoaded", async () => {
      "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
         document.getElementById(id)?.addEventListener("change", filtrar);
     });
-    document.getElementById("mg-f-municipio")?.addEventListener("input", filtrar);
+    const munInput = document.getElementById("mg-f-municipio");
+    const munClear = document.getElementById("mg-f-municipio-clear");
+    munInput?.addEventListener("input", () => {
+        if (munClear) munClear.hidden = !munInput.value;
+        filtrar();
+    });
+    munClear?.addEventListener("click", () => {
+        if (munInput) munInput.value = "";
+        munClear.hidden = true;
+        munInput?.focus();
+        filtrar();
+    });
     document.getElementById("mg-f-sem-financiamento")?.addEventListener("change", filtrar);
     document.getElementById("mg-btn-limpar")?.addEventListener("click", limparFiltros);
     document.getElementById("mg-btn-print")?.addEventListener("click", imprimirMapa);

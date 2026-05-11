@@ -141,9 +141,13 @@ body.mapa-page .rb-main {
 }
 
 /* Município search */
+.mg-mun-wrap {
+    position: relative;
+}
+
 .mg-mun-input {
     width: 100%;
-    padding: 7px 10px;
+    padding: 7px 28px 7px 10px;
     font-size: 12px;
     color: #e0ecef;
     background: rgba(255,255,255,0.08);
@@ -160,6 +164,25 @@ body.mapa-page .rb-main {
 }
 
 .mg-mun-input::placeholder { color: rgba(255,255,255,0.35); }
+
+.mg-mun-clear {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    color: rgba(255,255,255,0.50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: color .15s;
+}
+
+.mg-mun-clear:hover { color: #fff; }
 
 /* Toggle — Exibir sem financiamento */
 .mg-toggle-row {
@@ -378,9 +401,15 @@ body.mapa-page .rb-main {
 
 .mg-legend-size-row {
     display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.mg-legend-size-item {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 5px;
+    gap: 5px;
 }
 
 .mg-legend-circle {
@@ -395,6 +424,8 @@ body.mapa-page .rb-main {
     font-size: 10px;
     color: #3a6070;
     letter-spacing: .01em;
+    white-space: nowrap;
+    text-align: center;
 }
 
 /* ── Leaflet popup shell overrides ── */
