@@ -24,7 +24,7 @@ body.mapa-page .rb-main {
     gap: 16px;
 }
 
-.mg-intro { max-width: 900px; }
+.mg-intro { max-width: 100%; }
 
 .mg-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
@@ -160,6 +160,66 @@ body.mapa-page .rb-main {
 }
 
 .mg-mun-input::placeholder { color: rgba(255,255,255,0.35); }
+
+/* Toggle — Exibir sem financiamento */
+.mg-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer;
+    padding: 6px 2px 2px;
+}
+
+.mg-toggle-switch {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.mg-toggle-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 0; height: 0;
+}
+
+.mg-toggle-track {
+    display: block;
+    width: 32px;
+    height: 17px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 999px;
+    position: relative;
+    transition: background .2s, border-color .2s;
+}
+
+.mg-toggle-thumb {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 11px; height: 11px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 50%;
+    transition: transform .2s, background .2s;
+}
+
+.mg-toggle-switch input:checked + .mg-toggle-track {
+    background: #F4511E;
+    border-color: #F4511E;
+}
+
+.mg-toggle-switch input:checked + .mg-toggle-track .mg-toggle-thumb {
+    transform: translateX(15px);
+    background: #fff;
+}
+
+.mg-toggle-text {
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.60);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+}
+
+.mg-toggle-row:hover .mg-toggle-text { color: rgba(255,255,255,0.85); }
 
 /* Botões da sidebar */
 .mg-sidebar-actions {

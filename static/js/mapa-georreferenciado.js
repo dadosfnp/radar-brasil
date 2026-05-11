@@ -40,13 +40,13 @@ function initMap() {
     });
 
     L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+        "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
         {
-            maxZoom: 18,
+            subdomains: "abcd",
+            maxZoom: 19,
             attribution:
-                'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &mdash; ' +
-                'Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, ' +
-                'GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong)',
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
+                'contribuidores &copy; <a href="https://carto.com/attributions">CARTO</a>',
         }
     ).addTo(map);
 
@@ -129,7 +129,7 @@ async function carregarDados() {
         const resp = await fetch("/indicadores/api/mapa/dados/");
         const geo  = await resp.json();
         allFeatures = (geo.features || []);
-        renderMarkers(allFeatures, false);
+        filtrar();
     } catch (e) {
         console.error("Erro dados mapa:", e);
     } finally {
@@ -272,25 +272,24 @@ function buildPopup(p) {
 
 // ── Filtros client-side ────────────────────────────────────────
 function filtrar() {
-    const eixo       = document.getElementById("mg-f-eixo")?.value       || "";
-    const modalidade = document.getElementById("mg-f-modalidade")?.value  || "";
-    const estagio    = document.getElementById("mg-f-estagio")?.value     || "";
-    const executor   = document.getElementById("mg-f-executor")?.value    || "";
-    const regiao     = document.getElementById("mg-f-regiao")?.value      || "";
-    const uf         = document.getElementById("mg-f-uf")?.value          || "";
-    const porte      = document.getElementById("mg-f-porte")?.value       || "";
-    const mun        = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
+    const eixo         = document.getElementById("mg-f-eixo")?.value       || "";
+    const modalidade   = document.getElementById("mg-f-modalidade")?.value  || "";
+    const estagio      = document.getElementById("mg-f-estagio")?.value     || "";
+    const executor     = document.getElementById("mg-f-executor")?.value    || "";
+    const regiao       = document.getElementById("mg-f-regiao")?.value      || "";
+    const uf           = document.getElementById("mg-f-uf")?.value          || "";
+    const porte        = document.getElementById("mg-f-porte")?.value       || "";
+    const mun          = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
+    const exibirSemFin = document.getElementById("mg-f-sem-financiamento")?.checked || false;
 
-    // Filtros específicos de financiamento – excluem municípios sem financiamento
     const filtroFinanciamento = eixo || modalidade || estagio || executor;
 
     const filtered = allFeatures.filter(f => {
         const p = f.properties;
 
         if (!p.tem_financiamento) {
-            // Municípios sem financiamento só aparecem quando nenhum filtro de
-            // financiamento está ativo (replica comportamento do app R com NAs)
-            if (filtroFinanciamento) return false;
+            if (!exibirSemFin)        return false; // oculto por padrão
+            if (filtroFinanciamento)  return false;
             if (regiao && p.regiao !== regiao) return false;
             if (uf     && p.uf     !== uf)     return false;
             if (porte  && p.porte  !== porte)  return false;
@@ -298,7 +297,6 @@ function filtrar() {
             return true;
         }
 
-        // Municípios com financiamento: filtra por listas de valores múltiplos
         if (eixo       && !(p.eixos       || []).includes(eixo))       return false;
         if (modalidade && !(p.modalidades || []).includes(modalidade)) return false;
         if (estagio    && !(p.estagios    || []).includes(estagio))    return false;
@@ -323,8 +321,10 @@ function limparFiltros() {
     });
     const mun = document.getElementById("mg-f-municipio");
     if (mun) mun.value = "";
+    const toggle = document.getElementById("mg-f-sem-financiamento");
+    if (toggle) toggle.checked = false;
     map.fitBounds(BR_BOUNDS);
-    renderMarkers(allFeatures, false);
+    filtrar();
 }
 
 // ── Painel de totais ───────────────────────────────────────────
@@ -475,6 +475,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById(id)?.addEventListener("change", filtrar);
     });
     document.getElementById("mg-f-municipio")?.addEventListener("input", filtrar);
+    document.getElementById("mg-f-sem-financiamento")?.addEventListener("change", filtrar);
     document.getElementById("mg-btn-limpar")?.addEventListener("click", limparFiltros);
     document.getElementById("mg-btn-print")?.addEventListener("click", imprimirMapa);
     document.getElementById("mg-btn-baixar")?.addEventListener("click", baixarDados);
