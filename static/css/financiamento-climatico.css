@@ -430,6 +430,75 @@ body.fin-cli-page .rb-main {
 .fc-page-btn.active { background: #2c6174; color: #fff; border-color: #2c6174; }
 .fc-page-btn:disabled { opacity: .4; cursor: not-allowed; }
 
+/* ── ORIGEM DOS RECURSOS – LEGENDA INTERATIVA ── */
+.fc-origem-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.fc-chart-donut {
+    flex: 0 0 44%;
+    height: 280px;
+    min-width: 0;
+}
+
+.fc-origem-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 280px;
+    padding: 0 6px 0 0;
+    gap: 1px;
+    min-width: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(44,97,116,.15) transparent;
+}
+
+.fc-origem-legend::-webkit-scrollbar { width: 3px; }
+.fc-origem-legend::-webkit-scrollbar-thumb {
+    background: rgba(44,97,116,.15);
+    border-radius: 4px;
+}
+
+.fc-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 5px;
+    cursor: pointer;
+    border-radius: 3px;
+    user-select: none;
+    transition: background .12s;
+    flex-shrink: 0;
+}
+
+.fc-legend-item:hover { background: rgba(44,97,116,0.09); }
+
+.fc-legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    transition: background .15s;
+}
+
+.fc-legend-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 9.5px;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+    transition: color .15s;
+}
+
+.fc-legend-item.fc-hidden .fc-legend-swatch { background: #c8c8c8 !important; }
+.fc-legend-item.fc-hidden .fc-legend-text   { color: #b0b8bc; text-decoration: line-through; }
+
 /* ── RESPONSIVO ── */
 @media (max-width: 1100px) {
     .fc-charts { grid-template-columns: 1fr; }

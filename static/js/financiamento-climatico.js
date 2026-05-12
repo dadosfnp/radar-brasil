@@ -255,6 +255,9 @@ async function carregarFiltros() {
 // ══════════════════════════════════════════════════════════════
 // Gráficos
 // ══════════════════════════════════════════════════════════════
+let _origemData   = null;
+let _origemHidden = new Set();
+
 async function carregarGraficos() {
     const qs = _buildQS(_getFilters());
     try {
@@ -304,40 +307,62 @@ function renderChartSetor(d) {
 function renderChartOrigem(d) {
     const el = _qs("fc-chart-origem");
     if (!el || !d.labels?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+    _origemData   = d;
+    _origemHidden = new Set();
+    _drawOrigem();
+}
+
+function _drawOrigem() {
+    const d     = _origemData;
+    const el    = _qs("fc-chart-origem");
+    const legEl = _qs("fc-origem-legend");
+    if (!el || !d) return;
 
     const COLORS = ["#2c7873", "#1a3d4d", "#6fb3b8", "#f4a261", "#e76f51",
                     "#52b788", "#118ab2", "#ffd166", "#ef476f", "#90e0ef"];
+    const palette = d.colors?.length ? d.colors : COLORS;
 
-    // Abrevia nomes longos na legenda
-    const shortLabels = d.labels.map(l => _abbrevLabel(l, 38));
+    // apenas itens visíveis entram no gráfico
+    const visible = d.labels
+        .map((l, i) => ({ label: l, value: d.values[i], color: palette[i % palette.length] }))
+        .filter(item => !_origemHidden.has(item.label));
 
-    const trace = {
+    Plotly.newPlot(el, [{
         type: "pie",
         hole: 0.44,
-        labels: shortLabels,
-        values: d.values,
-        customdata: d.labels,
-        domain: { x: [0, 0.40], y: [0.04, 0.96] },   // donut ocupa 40% à esquerda
-        marker: { colors: d.colors?.length ? d.colors : COLORS },
+        labels: visible.map(item => _abbrevLabel(item.label, 38)),
+        values: visible.map(item => item.value),
+        customdata: visible.map(item => item.label),
+        domain: { x: [0, 1], y: [0.04, 0.96] },
+        marker: { colors: visible.map(item => item.color) },
         textinfo: "none",
         hovertemplate: "<b>%{customdata}</b><br>%{value} registros (%{percent})<extra></extra>",
-    };
-    Plotly.newPlot(el, [trace], {
-        margin: { l: 12, r: 12, t: 12, b: 12 },
+    }], {
+        margin: { l: 4, r: 4, t: 4, b: 4 },
         plot_bgcolor: "transparent", paper_bgcolor: "transparent",
         font: { family: "Roboto, sans-serif", size: 10 },
-        legend: {
-            orientation: "v",
-            x: 0.46,             // inicia logo após o domínio do donut
-            y: 0.5,
-            xanchor: "left",
-            yanchor: "middle",
-            font: { size: 9.5 },
-            tracegroupgap: 4,
-            itemclick: false,
-            itemsizing: "constant",
-        },
+        showlegend: false,
     }, _plotConfig());
+
+    if (!legEl) return;
+
+    // legenda HTML — hover e clique via CSS + eventos nativos
+    legEl.innerHTML = d.labels.map((label, i) => {
+        const color  = palette[i % palette.length];
+        const hidden = _origemHidden.has(label);
+        return `<div class="fc-legend-item${hidden ? " fc-hidden" : ""}" data-i="${i}">
+            <span class="fc-legend-swatch" style="background:${hidden ? "#c8c8c8" : color}"></span>
+            <span class="fc-legend-text" title="${label}">${_abbrevLabel(label, 38)}</span>
+        </div>`;
+    }).join("");
+
+    legEl.querySelectorAll(".fc-legend-item").forEach(item => {
+        item.addEventListener("click", () => {
+            const lbl = d.labels[+item.dataset.i];
+            _origemHidden.has(lbl) ? _origemHidden.delete(lbl) : _origemHidden.add(lbl);
+            _drawOrigem();
+        });
+    });
 }
 
 function renderChartEnte(d) {
