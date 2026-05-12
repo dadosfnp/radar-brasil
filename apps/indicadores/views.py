@@ -74,3 +74,45 @@ def api_mapa_filtros(request):
         return JsonResponse(get_filtros_mapa())
     except Exception as e:
         return JsonResponse({"erro": str(e)}, status=500)
+
+
+def financiamento_climatico_view(request):
+    return render(request, "municipios/financiamento-climatico.html")
+
+
+def api_fin_cli_filtros(request):
+    try:
+        from apps.indicadores.services.financiamento_climatico import get_filtros
+        return JsonResponse(get_filtros())
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=500)
+
+
+def api_fin_cli_tabela(request):
+    filtros = {
+        "programa":   request.GET.get("programa", ""),
+        "setor":      request.GET.get("setor", ""),
+        "modalidade": request.GET.get("modalidade", ""),
+        "origem":     request.GET.get("origem", ""),
+        "ente":       request.GET.get("ente", ""),
+    }
+    try:
+        from apps.indicadores.services.financiamento_climatico import get_tabela
+        return JsonResponse({"rows": get_tabela(filtros)})
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=500)
+
+
+def api_fin_cli_graficos(request):
+    filtros = {
+        "programa":   request.GET.get("programa", ""),
+        "setor":      request.GET.get("setor", ""),
+        "modalidade": request.GET.get("modalidade", ""),
+        "origem":     request.GET.get("origem", ""),
+        "ente":       request.GET.get("ente", ""),
+    }
+    try:
+        from apps.indicadores.services.financiamento_climatico import get_graficos
+        return JsonResponse(get_graficos(filtros))
+    except Exception as e:
+        return JsonResponse({"erro": str(e)}, status=500)

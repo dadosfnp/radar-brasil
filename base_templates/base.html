@@ -37,7 +37,8 @@
             <a href="{% url 'indicadores:avaliacao_painel' %}"
                class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
             <a href="#" class="rb-nav-link">Nota País</a>
-            <a href="#" class="rb-nav-link">Financiamento Climático</a>
+            <a href="{% url 'indicadores:financiamento_climatico' %}"
+               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
             <a href="{% url 'indicadores:mapa_georreferenciado' %}"
                class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
         </nav>
