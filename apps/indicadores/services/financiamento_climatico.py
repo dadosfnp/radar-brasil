@@ -89,6 +89,13 @@ def _fmt_brl(v):
     return f"R$ {v:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
+def _split_multi(val_str: str) -> list:
+    """Converte string com múltiplos valores separados por vírgula em lista."""
+    if not val_str:
+        return []
+    return [v.strip() for v in val_str.split(",") if v.strip()]
+
+
 def _aplicar_filtros(df: pd.DataFrame, filtros: dict) -> pd.DataFrame:
     prog_col  = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
     setor_col = _col(df, "Setor")
@@ -96,10 +103,11 @@ def _aplicar_filtros(df: pd.DataFrame, filtros: dict) -> pd.DataFrame:
     orig_col  = _col(df, "Origem dos Recursos", "Origem")
     ente_col  = _col(df, "Ente", "Ente Federado")
 
-    def _filtrar(col, val):
+    def _filtrar(col, val_str):
         nonlocal df
-        if col and val:
-            df = df[df[col].apply(_limpar) == val]
+        vals = _split_multi(val_str)
+        if col and vals:
+            df = df[df[col].apply(_limpar).isin(vals)]
 
     _filtrar(prog_col,  filtros.get("programa", ""))
     _filtrar(setor_col, filtros.get("setor", ""))

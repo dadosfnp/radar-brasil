@@ -2,7 +2,6 @@
    PÁGINA MAPA GEORREFERENCIADO
    ============================== */
 
-body.mapa-page .rb-header-wrapper { padding-top: 20px; }
 body.mapa-page .rb-footer-landing { display: none; }
 body.mapa-page .rb-main {
     background: transparent;

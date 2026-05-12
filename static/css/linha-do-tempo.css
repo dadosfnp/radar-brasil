@@ -2,10 +2,6 @@
    PÁGINA LINHA DO TEMPO
    ============================== */
 
-body.linha-do-tempo-page .rb-header-wrapper {
-    padding-top: 20px;
-}
-
 body.linha-do-tempo-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;

@@ -1,0 +1,400 @@
+/* ==============================
+   PÁGINA NOTA PAÍS
+   ============================== */
+
+body.np-body .rb-footer-landing { display: none; }
+body.np-body .rb-main {
+    background: transparent;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── PAGE WRAPPER ── */
+.np-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px 28px 32px;
+    gap: 16px;
+}
+
+/* ── INTRO ── */
+.np-intro h2 {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #103758;
+    margin: 0 0 8px;
+}
+
+.np-intro p {
+    font-size: 14px;
+    color: #3a6070;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* ── MAIN CARD (sidebar + map) ── */
+.np-card {
+    display: flex;
+    flex: 1;
+    min-height: 540px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 28px rgba(16,55,88,.12);
+    overflow: hidden;
+}
+
+/* ── SIDEBAR ── */
+.np-sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid #e8f0f4;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(44,97,116,.2) transparent;
+}
+
+.np-sidebar::-webkit-scrollbar { width: 4px; }
+.np-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(44,97,116,.2);
+    border-radius: 4px;
+}
+
+.np-sidebar-header {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid #eef2f6;
+}
+
+.np-sidebar-title {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1a3d4d;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+/* ── FILTERS ── */
+.np-filters {
+    padding: 14px 16px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.np-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.np-filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a6a7c;
+    letter-spacing: .02em;
+}
+
+.np-filter-row {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
+}
+
+.np-select-wrap {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+}
+
+.np-select-wrap::after {
+    content: "▾";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4a7a90;
+    font-size: 10px;
+    pointer-events: none;
+}
+
+.np-select-wrap select {
+    width: 100%;
+    height: 32px;
+    padding: 0 24px 0 9px;
+    background: #f5f8fa;
+    border: 1px solid #ccdde5;
+    border-radius: 5px;
+    color: #3a5a6a;
+    font-size: 12px;
+    font-family: inherit;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+
+.np-select-wrap select:focus {
+    outline: none;
+    border-color: #2c7873;
+    background: #fff;
+}
+
+.np-search-btn {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: #1a3d4d;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+}
+
+.np-search-btn:hover { background: #2a5570; }
+
+/* ── ACTIONS ── */
+.np-actions {
+    padding: 12px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid #eef2f6;
+    margin-top: auto;
+}
+
+.np-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s, opacity .15s;
+    width: 100%;
+    border: none;
+}
+
+.np-btn-primary {
+    background: #1a3d4d;
+    color: #fff;
+}
+
+.np-btn-primary:hover { background: #2a5570; }
+
+.np-btn-secondary {
+    background: #e4ecf0;
+    color: #2a4a5a;
+}
+
+.np-btn-secondary:hover { background: #d6e4ea; }
+
+/* ── MAP CONTAINER ── */
+.np-map-container {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+    background: #bdd8e8;
+}
+
+#np-map {
+    position: absolute;
+    inset: 0;
+    background: #bdd8e8;
+}
+
+/* ── KPI STRIP ── */
+.np-kpi-strip {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(16,55,88,.10);
+    padding: 18px 32px;
+    gap: 0;
+}
+
+.np-kpi {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 20px;
+}
+
+.np-kpi-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #2c7873;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2c7873;
+    flex-shrink: 0;
+}
+
+.np-kpi-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.np-kpi-value {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #103758;
+    line-height: 1;
+}
+
+.np-kpi-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #6b8a96;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.np-kpi-sep {
+    width: 1px;
+    height: 50px;
+    background: #e4ecf0;
+    flex-shrink: 0;
+}
+
+/* ── REMOVE FOCUS OUTLINE ON MAP PATHS ── */
+#np-map path.leaflet-interactive:focus,
+#np-map .leaflet-interactive:focus {
+    outline: none;
+}
+
+/* ── LEAFLET OVERRIDES ── */
+.np-map-container .leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,.20) !important;
+    border-radius: 6px !important;
+    overflow: hidden;
+}
+
+.np-map-container .leaflet-control-zoom a {
+    background: rgba(16,55,88,.85) !important;
+    color: #fff !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255,255,255,.15) !important;
+    transition: background .15s !important;
+}
+
+.np-map-container .leaflet-control-zoom-out {
+    border-bottom: none !important;
+}
+
+.np-map-container .leaflet-control-zoom a:hover {
+    background: rgba(16,55,88,1) !important;
+}
+
+.np-map-container .leaflet-control-attribution {
+    font-size: 9px;
+    background: rgba(255,255,255,.55);
+    padding: 1px 5px;
+    border-radius: 3px 0 0 0;
+}
+
+/* ── HOVER TOOLTIP ── */
+.leaflet-tooltip.np-tooltip {
+    background: rgba(16,55,88,.92) !important;
+    border: 1px solid rgba(255,255,255,.15) !important;
+    border-radius: 7px !important;
+    color: #fff !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 12px !important;
+    padding: 7px 12px !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,.30) !important;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.leaflet-tooltip.np-tooltip-brazil {
+    background: rgba(255,204,60,.95) !important;
+    border: 1px solid rgba(200,160,30,.5) !important;
+    color: #1a3d4d !important;
+}
+
+.leaflet-tooltip.np-tooltip::before,
+.leaflet-tooltip.np-tooltip-brazil::before { display: none !important; }
+
+/* ── COUNTRY NAME LABELS ── */
+.leaflet-tooltip.np-country-label {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 7px !important;
+    font-weight: 700 !important;
+    color: rgba(26,61,77,.72) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    text-shadow: 0 0 3px rgba(255,255,255,.85), 0 0 3px rgba(255,255,255,.85) !important;
+}
+
+.leaflet-tooltip.np-country-label::before { display: none !important; }
+
+/* ── OCEAN LABELS ── */
+.leaflet-tooltip.np-ocean-label {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    color: rgba(44,100,160,.55) !important;
+    letter-spacing: 0.10em !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    font-style: italic;
+}
+
+.leaflet-tooltip.np-ocean-label::before { display: none !important; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+    .np-kpi { padding: 0 12px; gap: 10px; }
+    .np-kpi-value { font-size: 22px; }
+}
+
+@media (max-width: 900px) {
+    .np-page { padding: 16px 14px 24px; }
+    .np-card { flex-direction: column; min-height: unset; }
+    .np-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #eef2f6; }
+    .np-filters { flex-direction: row; flex-wrap: wrap; }
+    .np-filter-group { min-width: 160px; flex: 1; }
+    .np-actions { flex-direction: row; padding: 10px 16px; }
+    .np-btn { width: auto; }
+    .np-map-container { min-height: 420px; }
+    #np-map { position: relative; height: 420px; }
+    .np-kpi-strip { flex-wrap: wrap; padding: 14px 16px; gap: 14px; }
+    .np-kpi { flex: 0 0 calc(50% - 14px); padding: 0; }
+    .np-kpi-sep { display: none; }
+}

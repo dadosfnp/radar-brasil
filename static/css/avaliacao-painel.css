@@ -2,10 +2,6 @@
    PÁGINA AVALIAÇÃO PAINEL MULTINÍVEL
    ============================== */
 
-body.avaliacao-painel-page .rb-header-wrapper {
-    padding-top: 20px;
-}
-
 body.avaliacao-painel-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;

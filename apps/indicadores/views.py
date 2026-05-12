@@ -76,6 +76,10 @@ def api_mapa_filtros(request):
         return JsonResponse({"erro": str(e)}, status=500)
 
 
+def nota_pais_view(request):
+    return render(request, "municipios/nota-pais.html")
+
+
 def financiamento_climatico_view(request):
     return render(request, "municipios/financiamento-climatico.html")
 

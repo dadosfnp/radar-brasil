@@ -2,11 +2,6 @@
    PÁGINA PAINEL MULTINÍVEL
    ============================== */
 
-/* Equaliza a altura do header com a das páginas inicio/landing */
-body.painel-multinivel-page .rb-header-wrapper {
-    padding-top: 20px;
-}
-
 body.painel-multinivel-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;

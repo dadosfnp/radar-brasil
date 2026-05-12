@@ -24,11 +24,6 @@
     --card-border-lt: rgba(255,255,255,0.55);
 }
 
-/* Equaliza a altura do header com a das páginas inicio/landing */
-body.metodologia-page .rb-header-wrapper {
-    padding-top: 20px;
-}
-
 body.metodologia-page {
     background-image: url("/static/img/bg-body.png");
     background-size: cover;

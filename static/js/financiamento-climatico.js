@@ -1,19 +1,206 @@
 /* Financiamento Climático – Radar Brasil */
 
 const ROWS_PER_PAGE = 10;
-let allRows = [];
+let allRows    = [];
 let currentPage = 1;
+let msInstances = {};   // { key: MultiSelect }
 
-// ── Utilitários ────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// MultiSelect — dropdown com checkboxes
+// ══════════════════════════════════════════════════════════════
+class MultiSelect {
+    constructor({ containerId, placeholder, onChange }) {
+        this.el          = document.getElementById(containerId);
+        this.placeholder = placeholder || "Todos";
+        this.onChange    = onChange;
+        this.options     = [];
+        this.selected    = new Set();   // vazio = "todos selecionados"
+        this.isOpen      = false;
+        this._build();
+    }
+
+    _build() {
+        this.el.innerHTML = `
+          <button type="button" class="fc-ms-trigger" aria-haspopup="listbox">
+            <span class="fc-ms-trigger-label">${this.placeholder}</span>
+            <svg class="fc-ms-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="fc-ms-dropdown" role="listbox" aria-multiselectable="true">
+            <div class="fc-ms-search">
+              <input type="text" placeholder="Buscar..." autocomplete="off" spellcheck="false">
+            </div>
+            <div class="fc-ms-actions">
+              <button type="button" class="fc-ms-action-btn js-select-all">Todos</button>
+              <button type="button" class="fc-ms-action-btn js-clear-all">Nenhum</button>
+              <span class="fc-ms-count-label"></span>
+            </div>
+            <div class="fc-ms-options"></div>
+          </div>`;
+
+        this._trigger    = this.el.querySelector(".fc-ms-trigger");
+        this._dropdown   = this.el.querySelector(".fc-ms-dropdown");
+        this._label      = this.el.querySelector(".fc-ms-trigger-label");
+        this._optionsEl  = this.el.querySelector(".fc-ms-options");
+        this._searchEl   = this.el.querySelector("input");
+        this._countEl    = this.el.querySelector(".fc-ms-count-label");
+
+        this._trigger.addEventListener("click", e => { e.stopPropagation(); this._toggle(); });
+        this.el.querySelector(".js-select-all").addEventListener("click", () => this._selectAll());
+        this.el.querySelector(".js-clear-all").addEventListener("click",  () => this._clearAll());
+        this._searchEl.addEventListener("input", () => this._renderOptions(this._searchEl.value.toLowerCase()));
+
+        document.addEventListener("click", e => {
+            if (!this.el.contains(e.target)) this._close();
+        });
+    }
+
+    // ── API pública ───────────────────────────────────────────
+    setOptions(opts) {
+        this.options  = opts;
+        this.selected = new Set();
+        this._renderOptions();
+        this._updateLabel();
+    }
+
+    getSelected() { return [...this.selected]; }
+
+    reset() {
+        this.selected.clear();
+        this._renderOptions();
+        this._updateLabel();
+    }
+
+    // ── Internos ──────────────────────────────────────────────
+    _toggle() { this.isOpen ? this._close() : this._open(); }
+
+    _open() {
+        this.isOpen = true;
+        this._dropdown.classList.add("open");
+        this._trigger.classList.add("open");
+        this._searchEl.value = "";
+        this._renderOptions();
+        this._searchEl.focus();
+    }
+
+    _close() {
+        this.isOpen = false;
+        this._dropdown.classList.remove("open");
+        this._trigger.classList.remove("open");
+    }
+
+    _selectAll() {
+        this.selected.clear();                 // vazio = todos
+        this._renderOptions(this._searchEl.value.toLowerCase());
+        this._updateLabel();
+        this.onChange([]);
+    }
+
+    _clearAll() {
+        // "nenhum" = todos marcados como exclusão — usamos Set com todos para indicar "nenhum"
+        // Tratamos: selected tem exatamente todos = "nenhum visível" → API filtra por lista vazia retorna 0
+        this.options.forEach(o => this.selected.add(o));
+        this._renderOptions(this._searchEl.value.toLowerCase());
+        this._updateLabel();
+        this.onChange(this.getSelected());
+    }
+
+    _toggle_option(val) {
+        const allCount = this.options.length;
+
+        if (this.selected.size === 0) {
+            // Estava "todos" → agora remove este: seleciona todos os outros
+            this.options.forEach(o => { if (o !== val) this.selected.add(o); });
+        } else if (this.selected.has(val)) {
+            this.selected.delete(val);
+            if (this.selected.size === 0) {
+                // Ficou vazio = "todos" novamente
+            }
+        } else {
+            this.selected.add(val);
+            if (this.selected.size === allCount) {
+                this.selected.clear();  // todos marcados = "todos" = limpa
+            }
+        }
+
+        this._renderOptions(this._searchEl.value.toLowerCase());
+        this._updateLabel();
+        this.onChange(this.getSelected());
+    }
+
+    _renderOptions(filter = "") {
+        const visible = filter
+            ? this.options.filter(o => o.toLowerCase().includes(filter))
+            : this.options;
+
+        if (!visible.length) {
+            this._optionsEl.innerHTML = `<div class="fc-ms-empty">Nenhum resultado</div>`;
+            return;
+        }
+
+        this._optionsEl.innerHTML = visible.map(opt => {
+            // checked se selected está vazio (= todos) OU se este item está no set
+            const checked = this.selected.size === 0 || this.selected.has(opt);
+            const safeval = opt.replace(/"/g, "&quot;");
+            return `
+              <label class="fc-ms-option ${checked ? "is-checked" : ""}" data-val="${safeval}">
+                <input type="checkbox" ${checked ? "checked" : ""}>
+                <span>${opt}</span>
+              </label>`;
+        }).join("");
+
+        this._optionsEl.querySelectorAll(".fc-ms-option").forEach(lbl => {
+            lbl.addEventListener("click", e => {
+                e.preventDefault();
+                this._toggle_option(lbl.dataset.val);
+            });
+        });
+
+        // Contagem
+        const sel = this.selected.size;
+        const tot = this.options.length;
+        this._countEl.textContent = sel === 0 ? `${tot} de ${tot}` : `${tot - sel} de ${tot}`;
+    }
+
+    _updateLabel() {
+        const n = this.selected.size;
+        if (n === 0) {
+            this._label.textContent = this.placeholder;
+            this._label.classList.remove("has-selection");
+            // Remove badge se existir
+            this.el.querySelector(".fc-ms-badge")?.remove();
+        } else {
+            const excluded = n;
+            const shown    = this.options.length - excluded;
+            this._label.textContent = shown === 0
+                ? "Nenhum selecionado"
+                : `${shown} selecionado${shown !== 1 ? "s" : ""}`;
+            this._label.classList.add("has-selection");
+
+            let badge = this.el.querySelector(".fc-ms-badge");
+            if (!badge) {
+                badge = document.createElement("span");
+                badge.className = "fc-ms-badge";
+                this._trigger.insertBefore(badge, this.el.querySelector(".fc-ms-arrow"));
+            }
+            badge.textContent = shown;
+        }
+    }
+}
+
+// ══════════════════════════════════════════════════════════════
+// Utilitários
+// ══════════════════════════════════════════════════════════════
 function _qs(id) { return document.getElementById(id); }
 
 function _getFilters() {
     return {
-        programa:   _qs("fc-f-programa")?.value   || "",
-        setor:      _qs("fc-f-setor")?.value      || "",
-        modalidade: _qs("fc-f-modalidade")?.value  || "",
-        origem:     _qs("fc-f-origem")?.value      || "",
-        ente:       _qs("fc-f-ente")?.value        || "",
+        programa:   (msInstances.programa   || { getSelected: () => [] }).getSelected().join(","),
+        setor:      (msInstances.setor      || { getSelected: () => [] }).getSelected().join(","),
+        modalidade: (msInstances.modalidade || { getSelected: () => [] }).getSelected().join(","),
+        origem:     (msInstances.origem     || { getSelected: () => [] }).getSelected().join(","),
+        ente:       (msInstances.ente       || { getSelected: () => [] }).getSelected().join(","),
     };
 }
 
@@ -28,41 +215,46 @@ function _showLoader(vis) {
     _qs("fc-loader")?.classList.toggle("hidden", !vis);
 }
 
-function _updateClearBtns() {
-    document.querySelectorAll(".fc-select-clear").forEach(btn => {
-        const target = _qs(btn.dataset.target);
-        btn.classList.toggle("visible", !!(target && target.value));
+// ══════════════════════════════════════════════════════════════
+// Inicialização dos MultiSelects
+// ══════════════════════════════════════════════════════════════
+function _initMultiSelects() {
+    const defs = [
+        { key: "programa",   id: "ms-programa",   placeholder: "Todos os Programas" },
+        { key: "setor",      id: "ms-setor",      placeholder: "Todos os Setores"   },
+        { key: "modalidade", id: "ms-modalidade", placeholder: "Todas as Modalidades" },
+        { key: "origem",     id: "ms-origem",     placeholder: "Todas as Origens"   },
+        { key: "ente",       id: "ms-ente",       placeholder: "Todos os Entes"     },
+    ];
+    defs.forEach(({ key, id, placeholder }) => {
+        msInstances[key] = new MultiSelect({
+            containerId: id,
+            placeholder,
+            onChange: () => aplicarFiltros(),
+        });
     });
 }
 
-// ── Popula selects com opções do backend ──────────────────────
+// ══════════════════════════════════════════════════════════════
+// Carrega opções dos filtros
+// ══════════════════════════════════════════════════════════════
 async function carregarFiltros() {
     try {
         const resp = await fetch("/indicadores/api/financiamento/filtros/");
         const data = await resp.json();
-
-        _populateSelect("fc-f-programa",   data.programas   || [], "Todos");
-        _populateSelect("fc-f-setor",      data.setores     || [], "Todos");
-        _populateSelect("fc-f-modalidade", data.modalidades || [], "Todas");
-        _populateSelect("fc-f-origem",     data.origens     || [], "Todas");
-        _populateSelect("fc-f-ente",       data.entes       || [], "Todos");
+        msInstances.programa?.setOptions(data.programas   || []);
+        msInstances.setor?.setOptions(data.setores         || []);
+        msInstances.modalidade?.setOptions(data.modalidades || []);
+        msInstances.origem?.setOptions(data.origens        || []);
+        msInstances.ente?.setOptions(data.entes            || []);
     } catch (e) {
         console.error("Erro filtros:", e);
     }
 }
 
-function _populateSelect(id, items, placeholder) {
-    const sel = _qs(id);
-    if (!sel) return;
-    sel.innerHTML = `<option value="">${placeholder}</option>`;
-    items.forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v; opt.textContent = v;
-        sel.appendChild(opt);
-    });
-}
-
-// ── Carrega gráficos ──────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// Gráficos
+// ══════════════════════════════════════════════════════════════
 async function carregarGraficos() {
     const qs = _buildQS(_getFilters());
     try {
@@ -78,119 +270,120 @@ async function carregarGraficos() {
 
 function renderChartSetor(d) {
     const el = _qs("fc-chart-setor");
-    if (!el || !d.labels || !d.labels.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+    if (!el || !d.labels?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
 
-    // Ordena decrescente para mostrar maior à esquerda
-    const paired = d.labels.map((l, i) => ({ l, v: d.values[i], t: (d.texts || [])[i] || "" }))
-        .sort((a, b) => b.v - a.v);
+    // Top 5 ordenados decrescente
+    const paired = d.labels.map((l, i) => ({
+        l, v: d.values[i], t: (d.texts || [])[i] || ""
+    })).sort((a, b) => b.v - a.v).slice(0, 5);
 
     const trace = {
         type: "bar",
-        x: paired.map(p => p.l),
+        x: paired.map(p => _abbrevLabel(p.l, 20)),
         y: paired.map(p => p.v),
         text: paired.map(p => p.t),
         textposition: "outside",
         cliponaxis: false,
-        hovertemplate: "<b>%{x}</b><br>%{text}<extra></extra>",
-        marker: { color: "#2c7873" },
+        hovertext: paired.map(p => `<b>${p.l}</b><br>${p.t}`),
+        hoverinfo: "text",
+        marker: {
+            color: "#2c7873",
+            line: { color: "#1a5050", width: 0.5 },
+        },
     };
-    const layout = {
-        margin: { l: 40, r: 20, t: 36, b: 80 },
-        xaxis: {
-            automargin: true,
-            tickangle: -30,
-            tickfont: { size: 10 },
-        },
-        yaxis: {
-            showgrid: true,
-            gridcolor: "#eef2f5",
-            zeroline: false,
-            showticklabels: false,
-        },
-        plot_bgcolor: "transparent",
-        paper_bgcolor: "transparent",
-        font: { family: "Roboto, sans-serif", size: 11 },
+    Plotly.newPlot(el, [trace], {
+        margin: { l: 30, r: 20, t: 30, b: 70 },
+        xaxis: { tickangle: -35, tickfont: { size: 9 }, automargin: true },
+        yaxis: { showgrid: true, gridcolor: "#eef2f5", zeroline: false, showticklabels: false },
+        plot_bgcolor: "transparent", paper_bgcolor: "transparent",
+        font: { family: "Roboto, sans-serif", size: 10 },
         showlegend: false,
-    };
-    Plotly.newPlot(el, [trace], layout, _config());
+    }, _plotConfig());
 }
 
 function renderChartOrigem(d) {
     const el = _qs("fc-chart-origem");
-    if (!el || !d.labels || !d.labels.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+    if (!el || !d.labels?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+
+    const COLORS = ["#2c7873", "#1a3d4d", "#6fb3b8", "#f4a261", "#e76f51",
+                    "#52b788", "#118ab2", "#ffd166", "#ef476f", "#90e0ef"];
+
+    // Abrevia nomes longos na legenda
+    const shortLabels = d.labels.map(l => _abbrevLabel(l, 38));
 
     const trace = {
         type: "pie",
-        hole: 0.42,
-        labels: d.labels,
+        hole: 0.44,
+        labels: shortLabels,
         values: d.values,
-        marker: {
-            colors: d.colors && d.colors.length ? d.colors : [
-                "#2c7873", "#1a3d4d", "#6fb3b8", "#f4a261", "#e76f51", "#52b788"
-            ],
-        },
+        customdata: d.labels,
+        domain: { x: [0, 0.40], y: [0.04, 0.96] },   // donut ocupa 40% à esquerda
+        marker: { colors: d.colors?.length ? d.colors : COLORS },
         textinfo: "none",
-        hovertemplate: "<b>%{label}</b><br>%{value} registros (%{percent})<extra></extra>",
+        hovertemplate: "<b>%{customdata}</b><br>%{value} registros (%{percent})<extra></extra>",
     };
-    const layout = {
-        margin: { l: 10, r: 120, t: 10, b: 10 },
-        plot_bgcolor: "transparent",
-        paper_bgcolor: "transparent",
-        font: { family: "Roboto, sans-serif", size: 11 },
+    Plotly.newPlot(el, [trace], {
+        margin: { l: 12, r: 12, t: 12, b: 12 },
+        plot_bgcolor: "transparent", paper_bgcolor: "transparent",
+        font: { family: "Roboto, sans-serif", size: 10 },
         legend: {
             orientation: "v",
-            x: 0.82, y: 0.5,
+            x: 0.46,             // inicia logo após o domínio do donut
+            y: 0.5,
             xanchor: "left",
             yanchor: "middle",
-            font: { size: 11 },
+            font: { size: 9.5 },
+            tracegroupgap: 4,
+            itemclick: false,
+            itemsizing: "constant",
         },
-    };
-    Plotly.newPlot(el, [trace], layout, _config());
+    }, _plotConfig());
 }
 
 function renderChartEnte(d) {
     const el = _qs("fc-chart-ente");
-    if (!el || !d.series || !d.series.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+    if (!el || !d.series?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
 
-    const colors = ["#2c7873", "#6fb3b8", "#f4a261", "#1a3d4d", "#52b788", "#e76f51"];
+    const COLORS = ["#2c7873", "#6fb3b8", "#f4a261", "#1a3d4d", "#52b788",
+                    "#e76f51", "#118ab2", "#ffd166"];
+
     const traces = d.series.map((s, i) => ({
         type: "bar",
-        name: s.name,
+        name: _abbrevLabel(s.name, 28),
         x: d.labels,
         y: s.values,
         text: s.values.map(v => v > 0 ? String(v) : ""),
         textposition: "outside",
         cliponaxis: false,
-        marker: { color: s.color || colors[i % colors.length] },
-        hovertemplate: "<b>%{x}</b><br>" + _esc(s.name) + ": %{y}<extra></extra>",
+        customdata: Array(d.labels.length).fill(s.name),
+        hovertemplate: "<b>%{x}</b><br>%{customdata}<br>%{y}<extra></extra>",
+        marker: { color: s.color || COLORS[i % COLORS.length] },
     }));
-    const layout = {
-        margin: { l: 40, r: 20, t: 36, b: 60 },
+
+    Plotly.newPlot(el, traces, {
+        margin: { l: 30, r: 20, t: 30, b: 60 },
         barmode: "group",
         xaxis: { automargin: true, tickfont: { size: 11 } },
-        yaxis: {
-            showgrid: true,
-            gridcolor: "#eef2f5",
-            zeroline: false,
-            showticklabels: false,
-        },
-        plot_bgcolor: "transparent",
-        paper_bgcolor: "transparent",
-        font: { family: "Roboto, sans-serif", size: 11 },
-        legend: { orientation: "h", x: 0.5, xanchor: "center", y: -0.22 },
-    };
-    Plotly.newPlot(el, traces, layout, _config());
+        yaxis: { showgrid: true, gridcolor: "#eef2f5", zeroline: false, showticklabels: false },
+        plot_bgcolor: "transparent", paper_bgcolor: "transparent",
+        font: { family: "Roboto, sans-serif", size: 10 },
+        legend: { orientation: "h", x: 0.5, xanchor: "center", y: -0.22, font: { size: 9 } },
+    }, _plotConfig());
 }
 
-function _config() {
-    return { displayModeBar: false, responsive: true };
+function _abbrevLabel(s, max) {
+    return s && s.length > max ? s.slice(0, max - 1) + "…" : (s || "");
 }
 
 function _emptyMsg() {
     return `<div style="text-align:center;color:#9bb;padding:30px 0;font-size:12px;">Sem dados</div>`;
 }
 
-// ── Carrega e renderiza tabela ─────────────────────────────────
+function _plotConfig() { return { displayModeBar: false, responsive: true }; }
+
+// ══════════════════════════════════════════════════════════════
+// Tabela
+// ══════════════════════════════════════════════════════════════
 async function carregarTabela() {
     _showLoader(true);
     const qs = _buildQS(_getFilters());
@@ -215,7 +408,8 @@ function renderTabela() {
     const page  = allRows.slice(start, start + ROWS_PER_PAGE);
 
     if (!page.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:#9bb;">Nenhum dado encontrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:#9bb;">
+            Nenhum dado encontrado.</td></tr>`;
         renderPaginacao();
         return;
     }
@@ -237,13 +431,13 @@ function renderTabela() {
 }
 
 function renderPaginacao() {
-    const el = _qs("fc-pagination");
+    const el   = _qs("fc-pagination");
     if (!el) return;
 
-    const total  = allRows.length;
-    const pages  = Math.ceil(total / ROWS_PER_PAGE);
-    const start  = (currentPage - 1) * ROWS_PER_PAGE + 1;
-    const end    = Math.min(currentPage * ROWS_PER_PAGE, total);
+    const total = allRows.length;
+    const pages = Math.ceil(total / ROWS_PER_PAGE);
+    const start = (currentPage - 1) * ROWS_PER_PAGE + 1;
+    const end   = Math.min(currentPage * ROWS_PER_PAGE, total);
 
     if (total === 0) { el.innerHTML = ""; return; }
 
@@ -252,7 +446,7 @@ function renderPaginacao() {
 
     const maxBtns = 5;
     let pStart = Math.max(1, currentPage - Math.floor(maxBtns / 2));
-    let pEnd   = Math.min(pages, pStart + maxBtns - 1);
+    const pEnd = Math.min(pages, pStart + maxBtns - 1);
     if (pEnd - pStart < maxBtns - 1) pStart = Math.max(1, pEnd - maxBtns + 1);
 
     for (let p = pStart; p <= pEnd; p++) {
@@ -272,29 +466,25 @@ function renderPaginacao() {
 function _esc(s) {
     if (!s) return "—";
     return String(s)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// ── Aplica filtros (charts + tabela) ──────────────────────────
+// ══════════════════════════════════════════════════════════════
+// Filtrar / Limpar
+// ══════════════════════════════════════════════════════════════
 function aplicarFiltros() {
-    _updateClearBtns();
     carregarGraficos();
     carregarTabela();
 }
 
-// ── Limpar filtros ────────────────────────────────────────────
 function limparFiltros() {
-    ["fc-f-programa", "fc-f-setor", "fc-f-modalidade", "fc-f-origem", "fc-f-ente"].forEach(id => {
-        const el = _qs(id);
-        if (el) el.value = "";
-    });
-    _updateClearBtns();
+    Object.values(msInstances).forEach(ms => ms.reset());
     aplicarFiltros();
 }
 
-// ── Exportar CSV ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// Exportar CSV
+// ══════════════════════════════════════════════════════════════
 function baixarDados() {
     if (!allRows.length) return;
     const headers = ["Programas e Linhas de Financiamento", "Setor", "Modalidade",
@@ -314,23 +504,13 @@ function baixarDados() {
     URL.revokeObjectURL(url);
 }
 
-// ── Bootstrap ──────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// Bootstrap
+// ══════════════════════════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", async () => {
+    _initMultiSelects();
     await carregarFiltros();
     aplicarFiltros();
-
-    // Filtros
-    ["fc-f-programa", "fc-f-setor", "fc-f-modalidade", "fc-f-origem", "fc-f-ente"].forEach(id => {
-        _qs(id)?.addEventListener("change", aplicarFiltros);
-    });
-
-    // Botões X dos selects
-    document.querySelectorAll(".fc-select-clear").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const sel = _qs(btn.dataset.target);
-            if (sel) { sel.value = ""; aplicarFiltros(); }
-        });
-    });
 
     _qs("fc-btn-limpar")?.addEventListener("click", limparFiltros);
     _qs("fc-btn-baixar")?.addEventListener("click", baixarDados);
