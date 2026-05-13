@@ -23,12 +23,41 @@ function renderizarGrafico(dados) {
 
   const ctx = canvas.getContext("2d");
 
+  const barLabelsPlugin = {
+    id: "barLabels",
+    afterDatasetsDraw(chart) {
+      const c = chart.ctx;
+      chart.data.datasets.forEach((dataset, di) => {
+        const meta = chart.getDatasetMeta(di);
+        if (meta.hidden) return;
+        meta.data.forEach((bar, i) => {
+          const value = dataset.data[i];
+          if (!value || value <= 0) return;
+          const text    = String(value);
+          const centerX = (bar.base + bar.x) / 2;
+          const centerY = bar.y;
+          c.save();
+          c.font         = "600 10px Roboto, sans-serif";
+          c.fillStyle    = "#3a3a3a";
+          c.textAlign    = "center";
+          c.textBaseline = "middle";
+          const segW = Math.abs(bar.x - bar.base);
+          if (segW >= c.measureText(text).width + 6) {
+            c.fillText(text, centerX, centerY);
+          }
+          c.restore();
+        });
+      });
+    },
+  };
+
   chartInstance = new Chart(ctx, {
     type: "bar",
     data: {
       labels:   dados.labels,
       datasets: dados.datasets,
     },
+    plugins: [barLabelsPlugin],
     options: {
       indexAxis: "y",                 // ← barras HORIZONTAIS
       responsive: true,

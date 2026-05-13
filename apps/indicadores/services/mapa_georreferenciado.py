@@ -146,6 +146,7 @@ def get_dados_mapa() -> dict:
             d["programas"].append({
                 "empreendimento": emp, "perfil": perfil, "estagio": etap,
                 "estimativa": est, "percentual": pct,
+                "executor": exec_, "modalidade": mod, "eixo": eixo,
             })
         else:
             if emp not in d["agrupado_emps"]:
@@ -153,6 +154,7 @@ def get_dados_mapa() -> dict:
                 d["programas"].append({
                     "empreendimento": emp, "perfil": perfil, "estagio": etap,
                     "estimativa": est, "percentual": pct,
+                    "executor": exec_, "modalidade": mod, "eixo": eixo,
                 })
 
         for val, s in [

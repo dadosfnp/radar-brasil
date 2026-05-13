@@ -11,6 +11,7 @@ const BR_BOUNDS = L.latLngBounds(
 );
 
 let map, allFeatures = [], markerLayer, canvasRenderer;
+let activeFilters = {};
 
 // ── Polígono simplificado do Brasil (Natural Earth) ────────────
 const BRAZIL_POLY = { type: "Feature", geometry: { type: "Polygon", coordinates: [[
@@ -221,7 +222,13 @@ function buildPopup(p) {
         </div>`;
     }
 
-    const programas = p.programas || [];
+    const programas = (p.programas || []).filter(prog => {
+        if (activeFilters.estagio    && prog.estagio    !== activeFilters.estagio)    return false;
+        if (activeFilters.executor   && prog.executor   !== activeFilters.executor)   return false;
+        if (activeFilters.modalidade && prog.modalidade !== activeFilters.modalidade) return false;
+        if (activeFilters.eixo       && prog.eixo       !== activeFilters.eixo)       return false;
+        return true;
+    });
     const nProg = programas.length || p.n_programas || 1;
 
     const progsHtml = programas.map((prog, i) => {
@@ -279,6 +286,8 @@ function filtrar() {
     const porte        = document.getElementById("mg-f-porte")?.value       || "";
     const mun          = (document.getElementById("mg-f-municipio")?.value || "").toLowerCase().trim();
     const exibirSemFin = document.getElementById("mg-f-sem-financiamento")?.checked || false;
+
+    activeFilters = { eixo, modalidade, estagio, executor };
 
     const filtroFinanciamento = eixo || modalidade || estagio || executor;
 
@@ -436,7 +445,7 @@ async function imprimirMapa() {
         mostrarLoader(false);
         if (btn) {
             btn.disabled = false;
-            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><polyline points="8 12 12 16 16 12"></polyline><line x1="12" y1="8" x2="12" y2="16"></line></svg> Print Mapa`;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Print Mapa`;
         }
     }
 }
