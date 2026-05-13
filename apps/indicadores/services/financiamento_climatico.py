@@ -212,41 +212,21 @@ def get_graficos(filtros: dict) -> dict:
             "colors": CHART_COLORS[:len(labels)],
         }
 
-    # ── Gráfico 3: Repasse por Ente Federado ──────────────────
-    ente_data = {"labels": ["Federal", "Estadual", "Municipal"], "series": []}
+    # ── Gráfico 3: Repasse por Ente Federado (pizza) ──────────────────
+    def _sum_col(col):
+        if not col or col not in df.columns:
+            return 0.0
+        return float(df[col].apply(_parse_num).sum())
 
-    if ente_col and orig_col:
-        # Grouped: eixo X = Ente, séries = Origem dos Recursos
-        entes   = ["Federal", "Estadual", "Municipal"]
-        origens = [o for o in df[orig_col].apply(_limpar).unique() if o]
-        series  = []
-        for i, orig in enumerate(sorted(origens)):
-            sub = df[df[orig_col].apply(_limpar) == orig]
-            vals = [
-                int((sub[ente_col].apply(_limpar) == e).sum())
-                for e in entes
-            ]
-            if sum(vals) > 0:
-                series.append({
-                    "name":   orig,
-                    "values": vals,
-                    "color":  CHART_COLORS[i % len(CHART_COLORS)],
-                })
-        ente_data["series"] = series
-    elif fed_col or est_col or mun_col:
-        # Fallback: conta células não-vazias em cada coluna de repasse
-        def _count_nonempty(col):
-            if not col:
-                return 0
-            return int(df[col].apply(_limpar).replace("", pd.NA).dropna().count())
+    fed_v = _sum_col(fed_col)
+    est_v = _sum_col(est_col)
+    mun_v = _sum_col(mun_col)
 
-        ente_data["series"] = [{
-            "name":   "Repasse",
-            "values": [_count_nonempty(fed_col),
-                       _count_nonempty(est_col),
-                       _count_nonempty(mun_col)],
-            "color":  CHART_COLORS[0],
-        }]
+    ente_data = {
+        "labels": ["Federal", "Estadual", "Municipal"],
+        "values": [round(fed_v, 2), round(est_v, 2), round(mun_v, 2)],
+        "texts":  [_fmt_brl(fed_v), _fmt_brl(est_v), _fmt_brl(mun_v)],
+    }
 
     return {
         "setor":  setor_data,

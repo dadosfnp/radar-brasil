@@ -1,10 +1,74 @@
+# ── AMBIENTES VIRTUAIS ────────────────────────────────────────────
 venv/
+.venv/
+env/
+ENV/
+
+# ── VARIÁVEIS DE AMBIENTE / SEGREDOS ──────────────────────────────
 .env
+.env.*
+*.env
+.secrets/
+
+# ── CREDENCIAIS E CHAVES ──────────────────────────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+token.json
+service_account*.json
+*service_account*.json
+
+# ── BANCO DE DADOS ────────────────────────────────────────────────
+db.sqlite3
+*.sqlite3
+*.sqlite
+*.db
+
+# ── DJANGO ────────────────────────────────────────────────────────
+local_settings.py
+staticfiles/
+media/
+
+# ── PYTHON ───────────────────────────────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
-db.sqlite3
-staticfiles/
-.DS_Store
+*.pyd
+*.pdb
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── LOGS ─────────────────────────────────────────────────────────
 *.log
-.secrets/
+*.log.*
+
+# ── SCRIPTS DE TESTE LOCAIS ───────────────────────────────────────
+teste_sheets.py
+
+# ── CLAUDE CODE (configurações locais do IDE) ─────────────────────
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# ── EDITORES / IDEs ───────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ── SISTEMA OPERACIONAL ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/

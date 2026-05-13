@@ -353,15 +353,33 @@ body.metodologia-page .rb-main {
 }
 
 .meto-stat-icon {
-    width: 36px;
-    height: 36px;
-    background: var(--hdr-50);
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 17px;
     flex-shrink: 0;
+}
+
+.meto-icon-finance {
+    background: rgba(44, 120, 115, .12);
+    color: #2c7873;
+}
+
+.meto-icon-gov {
+    background: rgba(16, 55, 88, .12);
+    color: #103758;
+}
+
+.meto-icon-plan {
+    background: rgba(44, 97, 116, .12);
+    color: #2c6174;
+}
+
+.meto-icon-prog {
+    background: rgba(82, 183, 136, .14);
+    color: #2e8b57;
 }
 
 .meto-stat-val {

@@ -255,8 +255,7 @@ async function carregarFiltros() {
 // ══════════════════════════════════════════════════════════════
 // Gráficos
 // ══════════════════════════════════════════════════════════════
-let _origemData   = null;
-let _origemHidden = new Set();
+let _origemData = null;
 
 async function carregarGraficos() {
     const qs = _buildQS(_getFilters());
@@ -307,92 +306,80 @@ function renderChartSetor(d) {
 function renderChartOrigem(d) {
     const el = _qs("fc-chart-origem");
     if (!el || !d.labels?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
-    _origemData   = d;
-    _origemHidden = new Set();
+    _origemData = d;
     _drawOrigem();
 }
 
 function _drawOrigem() {
-    const d     = _origemData;
-    const el    = _qs("fc-chart-origem");
-    const legEl = _qs("fc-origem-legend");
+    const d  = _origemData;
+    const el = _qs("fc-chart-origem");
     if (!el || !d) return;
 
-    const COLORS = ["#2c7873", "#1a3d4d", "#6fb3b8", "#f4a261", "#e76f51",
-                    "#52b788", "#118ab2", "#ffd166", "#ef476f", "#90e0ef"];
+    const COLORS = ["#2c7873","#1a3d4d","#6fb3b8","#f4a261","#e76f51",
+                    "#52b788","#118ab2","#ffd166","#ef476f","#90e0ef"];
     const palette = d.colors?.length ? d.colors : COLORS;
 
-    // apenas itens visíveis entram no gráfico
-    const visible = d.labels
+    // Ordena ascendente para que o maior fique no topo (Plotly inverte eixo Y)
+    const items = d.labels
         .map((l, i) => ({ label: l, value: d.values[i], color: palette[i % palette.length] }))
-        .filter(item => !_origemHidden.has(item.label));
+        .sort((a, b) => a.value - b.value);
+
+    const BAR_H = 30;
+    el.style.height = Math.max(60, items.length * BAR_H) + "px";
 
     Plotly.newPlot(el, [{
-        type: "pie",
-        hole: 0.44,
-        labels: visible.map(item => _abbrevLabel(item.label, 38)),
-        values: visible.map(item => item.value),
-        customdata: visible.map(item => item.label),
-        domain: { x: [0, 1], y: [0.04, 0.96] },
-        marker: { colors: visible.map(item => item.color) },
-        textinfo: "none",
-        hovertemplate: "<b>%{customdata}</b><br>%{value} registros (%{percent})<extra></extra>",
+        type: "bar",
+        orientation: "h",
+        y: items.map(item => _abbrevLabel(item.label, 32)),
+        x: items.map(item => item.value),
+        text: items.map(item => String(item.value)),
+        textposition: "inside",
+        insidetextanchor: "middle",
+        textfont: { color: "#fff", size: 9 },
+        hovertemplate: "<b>%{y}</b><br>%{x} registros<extra></extra>",
+        marker: { color: items.map(item => item.color) },
     }], {
-        margin: { l: 4, r: 4, t: 4, b: 4 },
-        plot_bgcolor: "transparent", paper_bgcolor: "transparent",
+        margin: { l: 170, r: 40, t: 4, b: 20 },
+        xaxis: { showgrid: true, gridcolor: "#eef2f5", zeroline: false, tickfont: { size: 9 } },
+        yaxis: { tickfont: { size: 9.5 }, automargin: false },
+        plot_bgcolor: "transparent",
+        paper_bgcolor: "transparent",
         font: { family: "Roboto, sans-serif", size: 10 },
         showlegend: false,
     }, _plotConfig());
-
-    if (!legEl) return;
-
-    // legenda HTML — hover e clique via CSS + eventos nativos
-    legEl.innerHTML = d.labels.map((label, i) => {
-        const color  = palette[i % palette.length];
-        const hidden = _origemHidden.has(label);
-        return `<div class="fc-legend-item${hidden ? " fc-hidden" : ""}" data-i="${i}">
-            <span class="fc-legend-swatch" style="background:${hidden ? "#c8c8c8" : color}"></span>
-            <span class="fc-legend-text" title="${label}">${_abbrevLabel(label, 38)}</span>
-        </div>`;
-    }).join("");
-
-    legEl.querySelectorAll(".fc-legend-item").forEach(item => {
-        item.addEventListener("click", () => {
-            const lbl = d.labels[+item.dataset.i];
-            _origemHidden.has(lbl) ? _origemHidden.delete(lbl) : _origemHidden.add(lbl);
-            _drawOrigem();
-        });
-    });
 }
 
 function renderChartEnte(d) {
     const el = _qs("fc-chart-ente");
-    if (!el || !d.series?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
+    if (!el || !d.labels?.length) { if (el) el.innerHTML = _emptyMsg(); return; }
 
-    const COLORS = ["#2c7873", "#6fb3b8", "#f4a261", "#1a3d4d", "#52b788",
-                    "#e76f51", "#118ab2", "#ffd166"];
+    const hasValues = d.values?.some(v => v > 0);
+    if (!hasValues) { el.innerHTML = _emptyMsg(); return; }
 
-    const traces = d.series.map((s, i) => ({
-        type: "bar",
-        name: _abbrevLabel(s.name, 28),
-        x: d.labels,
-        y: s.values,
-        text: s.values.map(v => v > 0 ? String(v) : ""),
-        textposition: "outside",
-        cliponaxis: false,
-        customdata: Array(d.labels.length).fill(s.name),
-        hovertemplate: "<b>%{x}</b><br>%{customdata}<br>%{y}<extra></extra>",
-        marker: { color: s.color || COLORS[i % COLORS.length] },
-    }));
+    const COLORS = ["#2c7873", "#6fb3b8", "#f4a261"];
+    const texts  = d.texts || d.labels;
 
-    Plotly.newPlot(el, traces, {
-        margin: { l: 30, r: 20, t: 30, b: 60 },
-        barmode: "group",
-        xaxis: { automargin: true, tickfont: { size: 11 } },
-        yaxis: { showgrid: true, gridcolor: "#eef2f5", zeroline: false, showticklabels: false },
-        plot_bgcolor: "transparent", paper_bgcolor: "transparent",
+    Plotly.newPlot(el, [{
+        type: "pie",
+        hole: 0.44,
+        labels: d.labels,
+        values: d.values,
+        customdata: texts,
+        textinfo: "percent",
+        hovertemplate: "<b>%{label}</b><br>%{customdata}<br>%{percent}<extra></extra>",
+        domain: { x: [0.02, 0.62], y: [0.04, 0.96] },
+        marker: { colors: COLORS.slice(0, d.labels.length) },
+    }], {
+        margin: { l: 4, r: 4, t: 10, b: 10 },
+        plot_bgcolor: "transparent",
+        paper_bgcolor: "transparent",
         font: { family: "Roboto, sans-serif", size: 10 },
-        legend: { orientation: "h", x: 0.5, xanchor: "center", y: -0.22, font: { size: 9 } },
+        legend: {
+            x: 0.66, y: 0.5, yanchor: "middle",
+            font: { size: 10 },
+            bgcolor: "transparent",
+        },
+        showlegend: true,
     }, _plotConfig());
 }
 

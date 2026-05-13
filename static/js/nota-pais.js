@@ -144,7 +144,46 @@ const OCEAN_LABELS = [
   { pos: [-22,  78], text: "OCEANO ÍNDICO" },
 ];
 
+const REGION_MAP = {
+  "americas": ["North America", "South America"],
+  "europe":   ["Europe"],
+  "africa":   ["Africa"],
+  "asia":     ["Asia"],
+  "oceania":  ["Oceania"],
+};
+
 let map, geoLayer;
+let currentRegion = "";
+let pinMarkers = [];
+let labelMarkers = [];
+
+// ── REGION FILTER ─────────────────────────────────────────────────
+function applyRegionFilter(region) {
+  currentRegion = region;
+  const allowed = region ? REGION_MAP[region] : null;
+
+  if (geoLayer) {
+    geoLayer.eachLayer(layer => {
+      const continent = getContinent(layer.feature.properties);
+      const match = !allowed || allowed.includes(continent);
+      layer.setStyle({
+        fillColor:   match ? (CONTINENT_COLORS[continent] || "#C0C8CC") : "#C0C8C8",
+        fillOpacity: match ? 0.84 : 0.38,
+        color: "#fff",
+        weight: 0.7,
+      });
+    });
+  }
+
+  [...pinMarkers, ...labelMarkers].forEach(({ marker, continent }) => {
+    const match = !allowed || allowed.includes(continent);
+    if (match) {
+      if (!map.hasLayer(marker)) marker.addTo(map);
+    } else {
+      if (map.hasLayer(marker)) map.removeLayer(marker);
+    }
+  });
+}
 
 // ── INIT ──────────────────────────────────────────────────────────
 function init() {
@@ -170,10 +209,14 @@ function init() {
     .then(buildMap)
     .catch(err => console.error("[Nota País] Erro ao carregar GeoJSON:", err));
 
+  document.getElementById("np-f-regiao")
+    ?.addEventListener("change", e => applyRegionFilter(e.target.value));
+
   document.getElementById("np-btn-limpar")
     ?.addEventListener("click", () => {
       ["np-f-pais","np-f-compromisso","np-f-iniciativa","np-f-regiao"]
         .forEach(id => { const el = document.getElementById(id); if (el) el.value = ""; });
+      applyRegionFilter("");
     });
 
   document.getElementById("np-btn-print")
@@ -222,7 +265,7 @@ function addTextMarker(latlng, text, className) {
     iconSize: null,
     iconAnchor: null,
   });
-  L.marker(latlng, { icon, interactive: false, zIndexOffset: -2000 }).addTo(map);
+  return L.marker(latlng, { icon, interactive: false, zIndexOffset: -2000 }).addTo(map);
 }
 
 // ── MAP BUILD ─────────────────────────────────────────────────────
@@ -256,12 +299,22 @@ function buildMap(data) {
         offset:    [0, -6],
       });
 
+      const continent = getContinent(props);
       layer.on({
         mouseover() {
           this.setStyle({ weight: 2.0, color: "#fff", fillOpacity: 0.96 });
           this.bringToFront();
         },
-        mouseout() { geoLayer.resetStyle(this); },
+        mouseout() {
+          const allowed = currentRegion ? REGION_MAP[currentRegion] : null;
+          const match = !allowed || allowed.includes(continent);
+          this.setStyle({
+            fillColor:   match ? (CONTINENT_COLORS[continent] || "#C0C8CC") : "#C0C8C8",
+            fillOpacity: match ? 0.84 : 0.38,
+            color: "#fff",
+            weight: 0.7,
+          });
+        },
       });
     },
   }).addTo(map);
@@ -275,12 +328,15 @@ function buildMap(data) {
     if (!centroid) return;
 
     // Red pin marker
-    L.marker(centroid, { icon: PIN_ICON, interactive: false, zIndexOffset: 500 }).addTo(map);
+    const pin = L.marker(centroid, { icon: PIN_ICON, interactive: false, zIndexOffset: 500 }).addTo(map);
+    const featureContinent = getContinent(feature.properties);
+    pinMarkers.push({ marker: pin, continent: featureContinent });
 
     // Permanent country name label (below the centroid, not to block the pin)
     const name = getName(feature.properties);
     if (name) {
-      addTextMarker([centroid[0] - 1.8, centroid[1]], name, "np-country-label");
+      const lbl = addTextMarker([centroid[0] - 1.8, centroid[1]], name, "np-country-label");
+      labelMarkers.push({ marker: lbl, continent: featureContinent });
     }
   });
 }
