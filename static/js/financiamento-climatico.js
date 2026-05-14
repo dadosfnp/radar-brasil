@@ -300,6 +300,7 @@ function renderChartSetor(d) {
         plot_bgcolor: "transparent", paper_bgcolor: "transparent",
         font: { family: "Roboto, sans-serif", size: 10 },
         showlegend: false,
+        dragmode: false,
     }, _plotConfig());
 }
 
@@ -346,6 +347,7 @@ function _drawOrigem() {
         paper_bgcolor: "transparent",
         font: { family: "Roboto, sans-serif", size: 10 },
         showlegend: false,
+        dragmode: false,
     }, _plotConfig());
 }
 
@@ -380,6 +382,7 @@ function renderChartEnte(d) {
             bgcolor: "transparent",
         },
         showlegend: true,
+        dragmode: false,
     }, _plotConfig());
 }
 
@@ -391,7 +394,7 @@ function _emptyMsg() {
     return `<div style="text-align:center;color:#9bb;padding:30px 0;font-size:12px;">Sem dados</div>`;
 }
 
-function _plotConfig() { return { displayModeBar: false, responsive: true }; }
+function _plotConfig() { return { displayModeBar: false, responsive: true, scrollZoom: false }; }
 
 // ══════════════════════════════════════════════════════════════
 // Tabela

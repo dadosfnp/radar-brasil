@@ -1,196 +1,238 @@
-﻿/* ==============================
-   LANDING PAGE
+/* ==============================
+   LANDING PAGE — DIMENSÕES
    ============================== */
 
-/* Layout principal*/
-.lp-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 24px;
-    align-items: start;
+body.lp-body {
+    background-image: url("/static/img/bg-body.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #bdd6e0;
 }
 
-/* ---- SIDEBAR ---- */
-.lp-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+body.lp-body .rb-main-nav { display: none !important; }
+
+body.lp-body .rb-main {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: 900px;
+    padding: 44px 24px 56px;
+    margin: 0 auto;
+    min-height: 0;
 }
 
-/* Box azul escuro */
-.lp-sidebar-dark {
-    background-color: #448396;
-    color: #ffffff;
-    border-radius: 12px;
-    padding: 28px 20px;
-    font-size: 14px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.6;
-}
-
-/* Box branco (mídia e agenda) */
-.lp-sidebar-white {
-    background-color: #EFF8F9;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    color: #1a3a50;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.lp-sidebar-white h4 {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a3a50;
-    text-align: center;
-    margin-bottom: 12px;
-}
-
-.lp-sidebar-white p {
-    margin-bottom: 10px;
-    text-align: justify;
-}
-
-/* Agenda */
-.lp-sidebar-agenda {
-    text-align: center;
-}
-
-.lp-sidebar-agenda h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #1a3a50;
-    margin-bottom: 16px;
-}
-
-.lp-agenda-img {
-    display: block;
-    width: 40%;
-    height: auto;
-    border-radius: 8px;
-    margin: 0 auto 16px;
-    object-fit: cover;
-}
-
-.lp-agenda-btn {
-    display: block;
-    background: #448396;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 7px 29px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-.lp-agenda-btn:hover {
-    background: #448396;
-}
-
-/* ---- CARDS COLUNA DIREITA ---- */
-.lp-card {
-    background: #EFF8F9;
-    border-radius: 14px;
-    padding: 16px 20px 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    display: flex;
-    flex-direction: column;
-}
-
-.lp-card h2 {
-    font-size: 21px;
-    font-weight: 700;
-    color: #16404b;
-    margin-bottom: 10px;
-    line-height: 1.3;
-}
-
-.lp-card-body {
-    display: flex;
-    gap: 16px;
+/* ── Badge "Federalismo Climático" ── */
+.lp-page-badge {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 12px;
-    flex: 1;
+    gap: 6px;
+    background: rgba(53,96,115,.12);
+    border: 1px solid rgba(53,96,115,.22);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
 }
 
-/* Imagem do card */
-.lp-card-img {
-    width: 168px;
-    height: 126px;
-    object-fit: contain;
-    border-radius: 8px;
+.lp-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #356073;
     flex-shrink: 0;
-    background: #EFF8F9;
 }
 
-.lp-card-body p {
-    font-size: 16px;
-    color: #16404b;
-    line-height: 1.6;
-    text-align: justify;
-    flex: 1;
+.lp-badge-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #356073;
 }
 
-
-.lp-card-btn {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    background: #448396;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 8px 32px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    transition: background 0.2s;
-    text-align: center;
+/* ── Título e descrição ── */
+.lp-page-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a2e3a;
+    line-height: 1.3;
+    margin-bottom: 14px;
 }
 
-.lp-cards {
+.lp-page-title em {
+    color: #356073;
+    font-style: normal;
+}
+
+.lp-page-desc {
+    font-size: 13.5px;
+    color: #4a5c6a;
+    line-height: 1.75;
+    max-width: 640px;
+    margin-bottom: 38px;
+}
+
+/* ══════════════════════════════
+   GRADE 2×2
+   ══════════════════════════════ */
+
+.lp-dim-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+/* ── Card ── */
+.lp-dim-card {
+    background: rgba(255,255,255,.73);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border: 1.5px solid rgba(255,255,255,.90);
+    border-radius: 18px;
+    box-shadow: 0 6px 32px rgba(10,45,41,.11), 0 1px 4px rgba(10,45,41,.06);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .22s, box-shadow .22s;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-}
-
-/* botão do card */
-.lp-card-btn {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    background: #448396;
-    color: #ffffff;
     text-decoration: none;
-    padding: 10px 29px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s;
+}
+
+.lp-dim-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 52px rgba(10,45,41,.17), 0 2px 8px rgba(10,45,41,.08);
+}
+
+/* Barra do cabeçalho */
+.lp-dim-bar {
+    background: linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.lp-dim-bar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.lp-dim-bar-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.88);
+    position: relative;
+    z-index: 1;
+}
+
+.lp-dim-arrow {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s;
+    position: relative;
+    z-index: 1;
+}
+
+.lp-dim-arrow svg {
+    width: 12px;
+    height: 12px;
+    stroke: rgba(255,255,255,.82);
+    fill: none;
+    stroke-width: 2.5;
+    transition: transform .2s;
+}
+
+.lp-dim-card:hover .lp-dim-arrow { background: rgba(255,255,255,.25); }
+.lp-dim-card:hover .lp-dim-arrow svg { transform: translateX(2px); }
+
+/* Corpo do card */
+.lp-dim-body {
+    flex: 1;
+    padding: 34px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    background: rgba(255,255,255,.55);
 }
 
-.lp-card-btn:hover {
-    background: #448396;
+.lp-dim-body::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2.5px;
+    background: linear-gradient(90deg, #264a57, #3d6e85);
+    border-radius: 2px;
+    margin-top: 20px;
+    opacity: .35;
 }
 
-/* ---- RESPONSIVO ---- */
-@media (max-width: 860px) {
-    .lp-layout {
-        grid-template-columns: 1fr;
-    }
-    .lp-card-img {
-        width: 140px;
-        height: 100px;
-    }
-    .lp-card h2 {
-        font-size: 17px;
-    }
+/* Ícone */
+.lp-dim-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+    background: rgba(53,96,115,.08);
+    border: 1.5px solid rgba(53,96,115,.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    transition: all .2s;
 }
 
-/* Esconde o menu de navegação na landing page */
-body.lp-body .rb-main-nav {
-    display: none !important;
+.lp-dim-card:hover .lp-dim-icon {
+    background: rgba(53,96,115,.13);
+    box-shadow: 0 4px 20px rgba(53,96,115,.15);
+}
+
+.lp-dim-icon svg {
+    width: 36px;
+    height: 36px;
+    stroke: #356073;
+    fill: none;
+    stroke-width: 1.6;
+}
+
+/* Nome e descrição */
+.lp-dim-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #356073;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+.lp-dim-desc {
+    font-size: 12.5px;
+    color: #4a5c6a;
+    line-height: 1.72;
+    max-width: 260px;
+}
+
+/* ══════════════════════════════
+   RESPONSIVO
+   ══════════════════════════════ */
+
+@media (max-width: 680px) {
+    .lp-dim-grid { grid-template-columns: 1fr; }
+    .lp-page-title { font-size: 20px; }
 }

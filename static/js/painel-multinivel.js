@@ -38,7 +38,8 @@ function renderizarGrafico(dados) {
           const centerY = bar.y;
           c.save();
           c.font         = "600 10px Roboto, sans-serif";
-          c.fillStyle    = "#3a3a3a";
+          const bg = (dataset.backgroundColor || "").toLowerCase();
+          c.fillStyle = bg === "#e8c53a" ? "rgba(55,35,0,.75)" : "rgba(255,255,255,.95)";
           c.textAlign    = "center";
           c.textBaseline = "middle";
           const segW = Math.abs(bar.x - bar.base);

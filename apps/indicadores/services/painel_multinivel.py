@@ -11,12 +11,12 @@ WORKSHEET_NAME      = "dados"
 CACHE_TTL           = 1800  # 30 minutos
 
 CORES_NIVEL = {
-    "Nível 0": "#E0E0E0",
-    "Nível 1": "#F4A6A6",
-    "Nível 2": "#F9C89B",
-    "Nível 3": "#FFEB99",
-    "Nível 4": "#BCD6A2",
-    "Nível 5": "#A5C8ED",
+    "Nível 0": "#bdc5d0",
+    "Nível 1": "#e06b6b",
+    "Nível 2": "#f09a50",
+    "Nível 3": "#e8c53a",
+    "Nível 4": "#72be79",
+    "Nível 5": "#7aaed4",
 }
 
 # O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
@@ -154,6 +154,7 @@ def dados_para_grafico(eixo_front: str) -> dict:
             "data":            data,
             "backgroundColor": cor,
             "borderWidth":     0,
+            "borderRadius":    3,
             "stack":           "stack1",
         })
 

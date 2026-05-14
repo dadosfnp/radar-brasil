@@ -21,9 +21,30 @@ REGIAO_POR_UF = {
     "PR":"Sul","RS":"Sul","SC":"Sul",
 }
 
-_cache_sheet = {"df": None, "ts": 0}  # reset on deploy to pick up schema changes
+_cache_sheet = {"df": None, "ts": 0}
 _coords_cache = None
 _nome_idx = None   # "nome_lower|UF" → entry
+
+
+def _parse_pct(v) -> float:
+    """Retorna percentual em escala 0-100.
+    Aceita: float decimal (0.75→75), inteiro (75), string '75%', formato BR '75,5'.
+    gspread devolve colunas formatadas como % no Sheets como decimais (0.45 = 45%).
+    """
+    try:
+        if v in (None, "", "nan"):
+            return 0.0
+        s = str(v).strip()
+        if s.endswith("%"):
+            s = s[:-1].strip()
+        if "," in s and "." not in s:
+            s = s.replace(",", ".")
+        f = float(s)
+    except (TypeError, ValueError):
+        return 0.0
+    if 0 < f <= 1:
+        return round(f * 100, 1)
+    return round(f, 1)
 
 
 def _get_client():
@@ -126,13 +147,16 @@ def get_dados_mapa() -> dict:
         mod    = str(row.get("Modalidade", "")).strip()
         etap   = str(row.get(estagio_col, "")).strip() if estagio_col else ""
         exec_  = str(row.get("Tipo de Executor", "")).strip()
-        pct    = float(row.get("Percentual_executado", 0) or 0)
+        pct    = _parse_pct(row.get("Percentual_executado", 0))
+        if pct == 0 and etap.lower() in ("concluído", "concluido"):
+            pct = 100.0
 
         if key not in muni:
             muni[key] = {
                 "c": c, "code_muni": code_muni, "municipio": mun, "uf": uf,
                 "unico_ests": [],      # estimativas de Investimento Único
                 "agrupado_emps": {},   # empreendimento → estimativa (Agrupado)
+                "agrupado_prog_keys": set(),  # (emp, estagio) já adicionados
                 "programas": [],       # lista completa para exibição no popup
                 "eixos": set(), "modalidades": set(),
                 "estagios": set(), "executores": set(),
@@ -150,7 +174,10 @@ def get_dados_mapa() -> dict:
             })
         else:
             if emp not in d["agrupado_emps"]:
-                d["agrupado_emps"][emp] = est
+                d["agrupado_emps"][emp] = est  # dedup financeiro por empreendimento
+            prog_key = (emp, etap)
+            if prog_key not in d["agrupado_prog_keys"]:
+                d["agrupado_prog_keys"].add(prog_key)
                 d["programas"].append({
                     "empreendimento": emp, "perfil": perfil, "estagio": etap,
                     "estimativa": est, "percentual": pct,

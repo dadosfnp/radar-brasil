@@ -46,62 +46,49 @@ body.inicio-page .rb-main {
 .intro-label {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(167, 212, 206, 0.25);
-    border: 1px solid var(--hdr-100);
+    gap: 6px;
+    background: rgba(53, 96, 115, .12);
+    border: 1px solid rgba(53, 96, 115, .22);
     border-radius: 999px;
-    padding: 5px 14px 5px 10px;
-    font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--hdr-50);
-    letter-spacing: .04em;
+    padding: 5px 14px;
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #356073;
+    letter-spacing: .14em;
+    text-transform: uppercase;
     width: fit-content;
-    backdrop-filter: blur(6px);
 }
 
 .intro-label-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: var(--hdr-100);
+    background: #356073;
     flex-shrink: 0;
-    position: relative;
-}
-
-.intro-label-dot::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: rgba(167, 212, 206, 0.40);
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50%       { transform: scale(1.5); opacity: 0.4; }
 }
 
 .ini-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1.4;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a2e3a;
+    line-height: 1.3;
+    text-shadow: none;
 }
 
 .ini-intro h2 strong {
-    color: var(--hdr-800);
-    font-weight: 700;
+    color: #356073;
+    font-weight: 800;
+    font-style: normal;
 }
 
 .ini-intro p {
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.80);
-    line-height: 1.7;
+    font-size: 13.5px;
+    color: #4a5c6a;
+    line-height: 1.75;
+    max-width: 640px;
 }
 
 /* ---- GRID 2×2 ---- */

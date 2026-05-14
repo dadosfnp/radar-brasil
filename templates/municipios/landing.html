@@ -2,118 +2,111 @@
 {% load static %}
 
 {% block extra_head %}
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
 
-
 {% block content %}
 
-<!-- LAYOUT PRINCIPAL: sidebar esquerda + cards direita -->
-<div class="lp-layout">
+  <!-- Hero text -->
+  <div class="lp-page-badge">
+    <span class="lp-badge-dot"></span>
+    <span class="lp-badge-text">Federalismo Climático</span>
+  </div>
 
-    <!-- COLUNA ESQUERDA -->
-    <aside class="lp-sidebar">
+  <h1 class="lp-page-title">
+    Explore as dimensões do <em>Radar Brasil</em> —<br>
+    Governança, Políticas, Programas e Financiamento
+  </h1>
 
-        <!-- Box azul escuro -->
-        <div class="lp-sidebar-dark">
-            <p>O que é o RADAR BRASIL -<br>FEDERALISMO CLIMÁTICO?</p>
+  <p class="lp-page-desc">
+    Clique em um dos eixos abaixo para acessar os dados, painéis interativos e avaliações de cada dimensão do federalismo climático brasileiro.
+  </p>
+
+  <!-- Grade 2×2 -->
+  <div class="lp-dim-grid">
+
+    <!-- Governança -->
+    <a href="{% url 'municipios:home' %}" class="lp-dim-card">
+      <div class="lp-dim-bar">
+        <span class="lp-dim-bar-title">Governança</span>
+        <span class="lp-dim-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+      <div class="lp-dim-body">
+        <div class="lp-dim-icon">
+          <svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="4" rx="1"/><rect x="2" y="18" width="6" height="4" rx="1"/><rect x="16" y="18" width="6" height="4" rx="1"/><line x1="12" y1="6" x2="12" y2="11"/><line x1="5" y1="18" x2="5" y2="14"/><line x1="19" y1="18" x2="19" y2="14"/><line x1="5" y1="14" x2="19" y2="14"/></svg>
         </div>
+        <div class="lp-dim-name">Estruturas de Governança</div>
+        <p class="lp-dim-desc">Arranjos institucionais e de coordenação que estruturam a ação climática entre União, estados e municípios.</p>
+      </div>
+    </a>
 
-        <!-- Box mídia -->
-        <div class="lp-sidebar-white">
-            <h4>O Radar Brasil na mídia</h4>
-            <p>
-                Brasil lança iniciativa para estruturar 100 ações climáticas
-                de impacto nos municípios.
-            </p>
-            <p>
-                Cidades selecionadas para primeira fase do Cidades Modelo
-                Verdes Resilientes foram anunciadas durante o 1º Encontro
-                Cidades Verdes Resilientes. A iniciativa oferta suporte técnico
-                para desenvolver duas ações climáticas de grande impacto.
-            </p>
+    <!-- Políticas e Planos -->
+    <a href="{% url 'municipios:home' %}" class="lp-dim-card">
+      <div class="lp-dim-bar">
+        <span class="lp-dim-bar-title">Políticas e Planos</span>
+        <span class="lp-dim-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+      <div class="lp-dim-body">
+        <div class="lp-dim-icon">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </div>
+        <div class="lp-dim-name">Políticas e Planos</div>
+        <p class="lp-dim-desc">Planos climáticos municipais, estaduais e federais que orientam as estratégias de mitigação e adaptação.</p>
+      </div>
+    </a>
 
-        <!-- Box agenda -->
-<div class="lp-sidebar-white lp-sidebar-agenda">
-    <h3>Agenda RADAR BRASIL</h3>
-    <img src="{% static 'img/agenda-land.png' %}"
-         alt="Agenda RADAR BRASIL"
-         class="lp-agenda-img">
-    <a href="#" class="lp-agenda-btn">Agenda</a>
-</div>
-
-    </aside>
-
-    <!-- COLUNA DIREITA: 4 cards empilhados -->
-    <div class="lp-cards">
-
-        <!-- Card 1 -->
-        <div class="lp-card">
-            <h2>Desvendando o Federalismo Climático: Nossa Metodologia</h2>
-            <div class="lp-card-body">
-                <img src="{% static 'img/computadores-land.png' %}"
-                     alt="Metodologia"
-                     class="lp-card-img">
-                <p>
-                    Desenvolvemos uma metodologia robusta que avalia a
-                    cooperação interfederativa nas ações climáticas.
-                </p>
-            </div>
-            <a href="{% url 'municipios:metodologia' %}" class="lp-card-btn">Saiba mais</a>
+    <!-- Programas -->
+    <a href="{% url 'municipios:home' %}" class="lp-dim-card">
+      <div class="lp-dim-bar">
+        <span class="lp-dim-bar-title">Programas</span>
+        <span class="lp-dim-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+      <div class="lp-dim-body">
+        <div class="lp-dim-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </div>
+        <div class="lp-dim-name">Programas</div>
+        <p class="lp-dim-desc">Acompanhe a execução dos programas e iniciativas climáticas em cada nível federativo no painel multinível.</p>
+      </div>
+    </a>
 
-        <!-- Card 2 -->
-<div class="lp-card">
-    <h2>Painéis de Avaliação interativos: Radiografia Federativa</h2>
-    <div class="lp-card-body">
-        <img src="{% static 'img/painel-land.png' %}"
-             alt="Painéis"
-             class="lp-card-img">
-        <p>
-            Explore dados climáticos através de painéis interativos
-            que oferecem uma visão completa das ações federativas
-            em todo o Brasil.
-        </p>
-    </div>
-    <a href="{% url 'municipios:home' %}" class="lp-card-btn">Acessar painéis</a>
-</div>
-
-        <!-- Card 3 -->
-        <div class="lp-card">
-            <h2>Conectando Ações: Mapa Inter-federativo</h2>
-            <div class="lp-card-body">
-                <img src="{% static 'img/mapa-land.png' %}"
-                     alt="Mapa"
-                     class="lp-card-img">
-                <p>
-                    Visualize geograficamente as conexões e sinergias entre
-                    diferentes níveis de governo nas ações climáticas em
-                    todo território nacional.
-                </p>
-            </div>
-            <a href="#" class="lp-card-btn">Explorar mapa</a>
+    <!-- Linhas de Financiamento -->
+    <a href="{% url 'municipios:financiamento_climatico' %}" class="lp-dim-card">
+      <div class="lp-dim-bar">
+        <span class="lp-dim-bar-title">Linhas de Financiamento</span>
+        <span class="lp-dim-arrow">
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </div>
+      <div class="lp-dim-body">
+        <div class="lp-dim-icon">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><rect x="2" y="11" width="5" height="11" rx="1"/><rect x="9.5" y="7" width="5" height="15" rx="1"/><rect x="17" y="3" width="5" height="19" rx="1"/></svg>
         </div>
+        <div class="lp-dim-name">Linhas de Financiamento</div>
+        <p class="lp-dim-desc">Investimentos estimados de 2023 a 2030 e mapa georreferenciado de financiamento climático nos municípios.</p>
+      </div>
+    </a>
 
-        <!-- Card 4 -->
-        <div class="lp-card">
-            <h2>Ecossistema de Colaboração: Outras Iniciativas e Recursos</h2>
-            <div class="lp-card-body">
-                <img src="{% static 'img/ecossistema-land.png' %}"
-                     alt="Ecossistema"
-                     class="lp-card-img">
-                <p>
-                    Conecte-se com uma rede ampla de organizações, iniciativas
-                    e recursos que fortalecem a ação climática no Brasil.
-                </p>
-            </div>
-            <a href="#" class="lp-card-btn">Saiba mais</a>
-        </div>
+  </div><!-- /lp-dim-grid -->
 
-    </div><!-- fim lp-cards -->
+{% endblock %}
 
-</div><!-- fim lp-layout -->
-
+{% block extra_js %}
+<script>
+document.querySelectorAll('.lp-dim-card').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .42s ease, transform .42s ease';
+  setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 150 + i * 100);
+});
+</script>
 {% endblock %}

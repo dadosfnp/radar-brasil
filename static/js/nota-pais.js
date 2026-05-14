@@ -220,10 +220,47 @@ function init() {
     });
 
   document.getElementById("np-btn-print")
-    ?.addEventListener("click", () => window.print());
+    ?.addEventListener("click", imprimirMapa);
+}
+
+// ── PRINT MAPA ───────────────────────────────────────────────────
+async function imprimirMapa() {
+  const btn = document.getElementById("np-btn-print");
+  const mapContainer = document.querySelector(".np-map-container");
+  if (!mapContainer) return;
+
+  if (btn) { btn.disabled = true; btn.textContent = "Gerando…"; }
+
+  try {
+    const canvas = await html2canvas(mapContainer, {
+      useCORS: true,
+      allowTaint: true,
+      scale: 2,
+      backgroundColor: "#1a3a50",
+    });
+    const link = document.createElement("a");
+    link.download = "radar-brasil-nota-pais.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  } catch (err) {
+    console.error("Erro ao gerar imagem:", err);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Print Mapa`;
+    }
+  }
 }
 
 // ── HELPERS ──────────────────────────────────────────────────────
+function brighten(hex, amount = 40) {
+  const n = parseInt(hex.replace("#", ""), 16);
+  const r = Math.min(255, (n >> 16) + amount);
+  const g = Math.min(255, ((n >> 8) & 0xff) + amount);
+  const b = Math.min(255, (n & 0xff) + amount);
+  return "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("");
+}
+
 function getIso(props) {
   const iso = props.ISO_A3 || props.ADM0_A3 || props.iso_a3 || "";
   return (iso === "-99" || iso === "") ? "" : iso;
@@ -302,7 +339,7 @@ function buildMap(data) {
       const continent = getContinent(props);
       layer.on({
         mouseover() {
-          this.setStyle({ weight: 2.0, color: "#fff", fillOpacity: 0.96 });
+          this.setStyle({ weight: 3.0, color: "#fff", fillOpacity: 1, fillColor: brighten(CONTINENT_COLORS[continent] || "#C0C8CC") });
           this.bringToFront();
         },
         mouseout() {
@@ -319,7 +356,7 @@ function buildMap(data) {
     },
   }).addTo(map);
 
-  // Pin markers + country name labels
+  // Pin markers + country name labels (signatories)
   data.features.forEach(feature => {
     const iso = getIso(feature.properties);
     if (!iso || !CHAMP_SIGNATORIES.has(iso)) return;
@@ -327,17 +364,31 @@ function buildMap(data) {
     const centroid = getCentroid(feature);
     if (!centroid) return;
 
-    // Red pin marker
     const pin = L.marker(centroid, { icon: PIN_ICON, interactive: false, zIndexOffset: 500 }).addTo(map);
     const featureContinent = getContinent(feature.properties);
     pinMarkers.push({ marker: pin, continent: featureContinent });
 
-    // Permanent country name label (below the centroid, not to block the pin)
     const name = getName(feature.properties);
     if (name) {
       const lbl = addTextMarker([centroid[0] - 1.8, centroid[1]], name, "np-country-label");
       labelMarkers.push({ marker: lbl, continent: featureContinent });
     }
+  });
+
+  // Country name labels (non-signatories)
+  data.features.forEach(feature => {
+    const iso = getIso(feature.properties);
+    if (!iso || CHAMP_SIGNATORIES.has(iso)) return;
+
+    const centroid = getCentroid(feature);
+    if (!centroid) return;
+
+    const name = getName(feature.properties);
+    if (!name) return;
+
+    const featureContinent = getContinent(feature.properties);
+    const lbl = addTextMarker(centroid, name, "np-country-label np-country-label--minor");
+    labelMarkers.push({ marker: lbl, continent: featureContinent });
   });
 }
 

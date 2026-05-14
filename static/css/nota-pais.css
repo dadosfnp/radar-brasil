@@ -360,6 +360,12 @@ body.np-body .rb-main {
 
 .leaflet-tooltip.np-country-label::before { display: none !important; }
 
+.leaflet-tooltip.np-country-label.np-country-label--minor {
+    font-size: 6px !important;
+    font-weight: 500 !important;
+    color: rgba(26,61,77,.48) !important;
+}
+
 /* ── OCEAN LABELS ── */
 .leaflet-tooltip.np-ocean-label {
     background: transparent !important;

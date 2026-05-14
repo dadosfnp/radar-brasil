@@ -13,12 +13,11 @@
 
 {% block content %}
 <div class="ap-wrapper">
+<div class="ap-card">
 
   {# CABEÇALHO: título + abas #}
   <div class="ap-card-header">
-    <section class="ap-panel-title">
-      <h2>Avaliação Painel Multinível</h2>
-    </section>
+    <span class="ap-panel-label">Avaliação Painel Multinível</span>
     <nav class="ap-tabs">
       <ul>
         <li class="active">
@@ -129,7 +128,9 @@
     </div>
 
   </main>
-</div>
+
+</div>{# /ap-card #}
+</div>{# /ap-wrapper #}
 
 {# MODAL FICHA TÉCNICA #}
 <div class="ap-modal-overlay" id="ap-modal" style="display:none;" role="dialog" aria-modal="true">
