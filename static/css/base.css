@@ -4,17 +4,19 @@ html, body { margin: 0; padding: 0; }
 
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
-    background: #D7EDEF;
+    background: #bdd6e0;
     color: #123;
     min-height: 100vh;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 /* HEADER */
 .rb-header-wrapper {
-    background-color: #0d1f26;
-    background-image: url('/static/img/bg-header.png');
+    background-color: #061e1b;
+    background-image:
+        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
+        url('/static/img/bg-header.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -32,8 +34,10 @@ body.rb-body {
     left: 0;
     right: 0;
     height: 20px;
-    background-color: #0d1f26;
-    background-image: url('/static/img/bg-header.png');
+    background-color: #061e1b;
+    background-image:
+        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
+        url('/static/img/bg-header.png');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -84,6 +88,12 @@ body.rb-body {
     height: 52px;
     width: auto;
     display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.rb-header-logo a:hover .rb-header-logo-img {
+    opacity: 1;
 }
 
 /* MENU NAV */
@@ -105,9 +115,7 @@ body.rb-body {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: #ffffff;
     border-bottom: 2px solid var(--hdr-50);
     display: flex;
     justify-content: center;
@@ -146,7 +154,7 @@ body.rb-body {
     max-width: 1000px;
     margin: 16px auto 0;
     padding: 24px;
-    background: #D7EDEF;
+    background: #bdd6e0;
     border-radius: 16px;
     min-height: 70vh;
     flex-grow: 1;
@@ -156,11 +164,13 @@ body.rb-body {
 .rb-footer-landing {
     position: relative;
     width: 100%;
-    background-image: url('/static/img/bg-rodape.png');
+    background-color: #061e1b;
+    background-image:
+        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
+        url('/static/img/bg-header.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-color: #b8d8dc;
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -174,6 +184,13 @@ body.rb-body {
     display: block;
     width: 100%;
     height: 90px;
+}
+
+/* Links dentro do footer */
+.rb-footer-landing a[href^="tel"],
+.rb-footer-landing a[href^="mailto"],
+.rb-footer-landing a[href^="https://wa"] {
+    color: rgba(122, 174, 212, 0.85) !important;
 }
 
 /* Container principal: posição texto rodape */
@@ -200,13 +217,13 @@ body.rb-body {
 .rb-footer-col-left h3 {
     font-size: 21px;
     font-weight: 900;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.90);
     margin-bottom: 6px;
 }
 
 .rb-footer-col-left p {
     font-size: 16px;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.65);
     line-height: 1.5;
     margin-bottom: 4px;
 }
@@ -216,7 +233,7 @@ body.rb-body {
     align-items: center;
     gap: 6px;
     font-size: 16px;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.65);
     flex-wrap: wrap;
     margin-top: 4px;
 }
@@ -236,7 +253,7 @@ body.rb-body {
 }
 
 .rb-footer-sep {
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.40);
     font-size: 16px;
 }
 
@@ -245,7 +262,7 @@ body.rb-body {
     align-items: center;
     gap: 4px;
     font-size: 16px;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.65);
 }
 
 /* ---- COLUNA CENTRAL ---- */
@@ -260,7 +277,7 @@ body.rb-body {
 
 .rb-footer-copy {
     font-size: 16px;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.38);
     line-height: 1.4;
     white-space: nowrap;
 }
@@ -284,7 +301,7 @@ body.rb-body {
 .rb-footer-social-block h3 {
     font-size: 21px;
     font-weight: 900;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.90);
 }
 
 .rb-footer-social {
@@ -300,11 +317,12 @@ body.rb-body {
     width: 34px;
     height: 34px;
     flex-shrink: 0;
-    color: #1a3a50;
+    color: rgba(194, 237, 231, 0.70);
     text-decoration: none;
-    border: 2px solid #1a3a50;
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
     border-radius: 8px;
-    transition: background 0.2s;
+    background: rgba(255, 255, 255, 0.06);
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .rb-social-icon svg {
@@ -315,7 +333,8 @@ body.rb-body {
 }
 
 .rb-social-icon:hover {
-    background: rgba(26,58,80,0.12);
+    background: rgba(53, 96, 115, 0.40);
+    border-color: rgba(255, 255, 255, 0.40);
 }
 
 .rb-footer-logos {
@@ -331,6 +350,13 @@ body.rb-body {
     max-width: 150px;
     object-fit: contain;
     display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.75;
+    transition: opacity .15s;
+}
+
+.rb-footer-logo:hover {
+    opacity: 1;
 }
 
 /* ---- RESPONSIVO ---- */

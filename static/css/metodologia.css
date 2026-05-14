@@ -25,11 +25,7 @@
 }
 
 body.metodologia-page {
-    background-image: url("/static/img/bg-body.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-color: transparent;
+    background: #bdd6e0;
     margin: 0;
     padding: 0;
     position: relative;
@@ -52,13 +48,7 @@ body.metodologia-page .rb-main {
 /* ================== HERO ZONE ================== */
 
 .meto-hero-zone {
-    background-image:
-        linear-gradient(to bottom, rgba(22,52,65,0.08) 0%, rgba(22,52,65,0.22) 100%),
-        url('/static/img/bg-body.png');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-color: #0d1f26;
+    background: #0d1f26;
     padding: 36px 0 40px;
 }
 

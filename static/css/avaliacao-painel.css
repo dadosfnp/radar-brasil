@@ -3,10 +3,7 @@
    ============================== */
 
 body.avaliacao-painel-page {
-    background-image: url("/static/img/bg-body.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background: #bdd6e0;
     font-family: "Roboto", "Segoe UI", Arial, sans-serif;
 }
 
