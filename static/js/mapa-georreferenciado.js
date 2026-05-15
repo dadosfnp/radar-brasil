@@ -10,8 +10,18 @@ const BR_BOUNDS = L.latLngBounds(
     L.latLng(5.5,  -28.5)
 );
 
+// Mapeamento fixo região → siglas de UF
+const REGIAO_UFS = {
+    "Norte":        ["AC", "AM", "AP", "PA", "RO", "RR", "TO"],
+    "Nordeste":     ["AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE"],
+    "Centro-Oeste": ["DF", "GO", "MS", "MT"],
+    "Sudeste":      ["ES", "MG", "RJ", "SP"],
+    "Sul":          ["PR", "RS", "SC"],
+};
+
 let map, allFeatures = [], markerLayer, canvasRenderer;
 let activeFilters = {};
+let allUfOptions = [];
 
 // ── Polígono simplificado do Brasil (Natural Earth) ────────────
 const BRAZIL_POLY = { type: "Feature", geometry: { type: "Polygon", coordinates: [[
@@ -103,6 +113,9 @@ async function carregarFiltros() {
         populateSelect("mg-f-executor",   data.executores,   "Todos os Executores");
         populateSelect("mg-f-regiao",     data.regioes,      "Todas as Regiões");
         populateSelect("mg-f-uf",         data.ufs,          "Todos os Estados");
+
+        const ufSel = document.getElementById("mg-f-uf");
+        allUfOptions = Array.from(ufSel.options).slice(1).map(o => ({ value: o.value, text: o.textContent }));
 
         buildLegend();
     } catch (e) {
@@ -323,12 +336,31 @@ function filtrar() {
     if (legendSemFin) legendSemFin.style.display = exibirSemFin ? "" : "none";
 }
 
+function atualizarEstadosPorRegiao(regiao) {
+    const sel = document.getElementById("mg-f-uf");
+    if (!sel) return;
+    const ufsFiltrados = regiao ? (REGIAO_UFS[regiao] || []) : null;
+    const currentVal = sel.value;
+    sel.innerHTML = `<option value="">Todos os Estados</option>`;
+    const opcoes = ufsFiltrados
+        ? allUfOptions.filter(o => ufsFiltrados.includes(o.value))
+        : allUfOptions;
+    opcoes.forEach(o => {
+        const opt = document.createElement("option");
+        opt.value = o.value;
+        opt.textContent = o.text;
+        sel.appendChild(opt);
+    });
+    sel.value = (ufsFiltrados && !ufsFiltrados.includes(currentVal)) ? "" : currentVal;
+}
+
 function limparFiltros() {
     ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
+     "mg-f-regiao","mg-f-porte"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });
+    atualizarEstadosPorRegiao("");
     const mun = document.getElementById("mg-f-municipio");
     if (mun) mun.value = "";
     const munClearBtn = document.getElementById("mg-f-municipio-clear");
@@ -490,9 +522,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     await carregarFiltros();
     await carregarDados();
 
-    ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
+    ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor","mg-f-uf","mg-f-porte"].forEach(id => {
         document.getElementById(id)?.addEventListener("change", filtrar);
+    });
+    document.getElementById("mg-f-regiao")?.addEventListener("change", e => {
+        atualizarEstadosPorRegiao(e.target.value);
+        filtrar();
     });
     const munInput = document.getElementById("mg-f-municipio");
     const munClear = document.getElementById("mg-f-municipio-clear");
