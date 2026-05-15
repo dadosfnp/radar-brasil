@@ -6,20 +6,22 @@
 {% block body_class %}rb-body metodologia-page{% endblock %}
 
 {% block extra_head %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<!-- HERO ZONE: visual com bg-header.png -->
+<!-- HERO -->
 <div class="meto-hero-zone">
     <div class="meto-hero">
 
         <div>
-            <span class="meto-hero-label">Metodologia</span>
-            <h1>Impulsionando a Ação<br>Climática Federativa</h1>
+            <div class="meto-hero-badge">
+                <span class="meto-hero-badge-dot"></span>
+                <span class="meto-hero-badge-text">Metodologia</span>
+            </div>
+            <h1>Impulsionando a<br><em>Ação Climática</em><br>Federativa</h1>
             <p class="meto-hero-desc">
                 O Radar Brasil avalia o nível de implementação do Federalismo Climático no País,
                 mapeando instâncias de governança, planos, políticas e programas relacionados à
@@ -28,88 +30,82 @@
             </p>
         </div>
 
-        <div class="meto-step-card">
-            <div class="meto-step-card-header">O que foi mapeado</div>
-            <div class="meto-step-item">
-                <div class="meto-step-num">1</div>
-                <div>
-                    <div class="meto-step-big">17</div>
-                    <div class="meto-step-text">linhas de financiamento do Governo Federal voltadas à ação climática</div>
-                </div>
+        <div class="meto-step-card" id="meto-mapped-card">
+            <div class="meto-step-card-header">
+                <span class="meto-step-card-header-text">O que foi mapeado</span>
             </div>
             <div class="meto-step-item">
-                <div class="meto-step-num">2</div>
-                <div>
+                <div class="meto-step-num-wrap">
+                    <div class="meto-step-num">1</div>
+                    <div class="meto-step-big">17</div>
+                </div>
+                <div class="meto-step-text">linhas de financiamento do Governo Federal voltadas à ação climática</div>
+            </div>
+            <div class="meto-step-item">
+                <div class="meto-step-num-wrap">
+                    <div class="meto-step-num">2</div>
                     <div class="meto-step-big">31</div>
-                    <div class="meto-step-text">instâncias de governança</div>
                 </div>
+                <div class="meto-step-text">instâncias de governança</div>
             </div>
             <div class="meto-step-item">
-                <div class="meto-step-num">3</div>
-                <div>
+                <div class="meto-step-num-wrap">
+                    <div class="meto-step-num">3</div>
                     <div class="meto-step-big">17</div>
-                    <div class="meto-step-text">planos e políticas públicas</div>
                 </div>
+                <div class="meto-step-text">planos e políticas públicas</div>
             </div>
             <div class="meto-step-item">
-                <div class="meto-step-num">4</div>
-                <div>
+                <div class="meto-step-num-wrap">
+                    <div class="meto-step-num">4</div>
                     <div class="meto-step-big">18</div>
-                    <div class="meto-step-text">programas</div>
                 </div>
+                <div class="meto-step-text">programas</div>
             </div>
         </div>
 
     </div>
 </div>
 
-<div class="meto-zone-divider"></div>
-
-<!-- CONTEÚDO PRINCIPAL: backdrop-blur sobre bg-body.png -->
+<!-- CONTENT -->
 <div class="meto-content-wrap">
     <div class="meto-content">
 
-        <!-- COLUNA ESQUERDA: seções de texto -->
-        <div>
+        <div class="meto-text-col" id="meto-text-col">
+
             <section class="meto-section">
                 <div class="meto-section-title">Mapeamento</div>
-                <div class="meto-section-body">
-                    <p>O mapeamento identificou os principais instrumentos federais de ação climática disponíveis
-                    para municípios brasileiros, organizados em quatro categorias:</p>
-                    <ul class="meto-bullet-list">
-                        <li><strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;</li>
-                        <li><strong>31</strong> instâncias de governança;</li>
-                        <li><strong>17</strong> planos e políticas públicas;</li>
-                        <li><strong>18</strong> programas.</li>
-                    </ul>
-                </div>
+                <p class="meto-section-body">O mapeamento identificou os principais instrumentos federais de ação climática disponíveis
+                para municípios brasileiros, organizados em quatro categorias:</p>
+                <ul class="meto-bullet-list">
+                    <li><strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;</li>
+                    <li><strong>31</strong> instâncias de governança;</li>
+                    <li><strong>17</strong> planos e políticas públicas;</li>
+                    <li><strong>18</strong> programas.</li>
+                </ul>
             </section>
 
             <section class="meto-section">
                 <div class="meto-section-title">Mensuração dos resultados</div>
-                <div class="meto-section-body">
-                    <ul class="meto-bullet-list">
-                        <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
-                        <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
-                    </ul>
-                </div>
+                <ul class="meto-bullet-list">
+                    <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
+                    <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
+                </ul>
             </section>
 
             <section class="meto-section">
                 <div class="meto-section-title">Critérios de avaliação</div>
-                <div class="meto-section-body">
-                    <p>Estabelecimento de <strong>níveis (0 a 5)</strong> para cada parâmetro,
-                    sendo <strong>0</strong> a inexistência de ação ou participação de municípios,
-                    e <strong>5</strong> atividade plena.</p>
-                </div>
+                <p class="meto-section-body">Estabelecimento de <strong>níveis (0 a 5)</strong> para cada parâmetro,
+                sendo <strong>0</strong> a inexistência de ação ou participação de municípios,
+                e <strong>5</strong> atividade plena.</p>
             </section>
+
         </div>
 
-        <!-- SIDEBAR DIREITA -->
-        <div class="meto-sidebar">
+        <div class="meto-sidebar" id="meto-sidebar">
 
             <div class="meto-scale-card">
-                <div class="meto-scale-title">Escala de avaliação</div>
+                <div class="meto-scale-title">Escala de Avaliação</div>
                 <div class="meto-scale-row">
                     <div class="meto-scale-pip pip-0">0</div>
                     <div class="meto-scale-pip pip-1">1</div>
@@ -129,12 +125,9 @@
             </div>
 
             <div class="meto-stat-pill">
-                <div class="meto-stat-icon meto-icon-finance">
+                <div class="meto-stat-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                        <path d="M14.5 9a2.5 2.5 0 0 0-5 0c0 1.5 1 2 2.5 2.5S14.5 13 14.5 15a2.5 2.5 0 0 1-5 0"/>
-                        <line x1="12" y1="6.5" x2="12" y2="7.5"/>
-                        <line x1="12" y1="16.5" x2="12" y2="17.5"/>
+                        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
                     </svg>
                 </div>
                 <div>
@@ -142,15 +135,11 @@
                     <div class="meto-stat-desc">linhas de financiamento climático</div>
                 </div>
             </div>
+
             <div class="meto-stat-pill">
-                <div class="meto-stat-icon meto-icon-gov">
+                <div class="meto-stat-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="22" x2="21" y2="22"/>
-                        <line x1="6" y1="18" x2="6" y2="11"/>
-                        <line x1="10" y1="18" x2="10" y2="11"/>
-                        <line x1="14" y1="18" x2="14" y2="11"/>
-                        <line x1="18" y1="18" x2="18" y2="11"/>
-                        <polygon points="12 2 20 7 4 7"/>
+                        <line x1="3" y1="22" x2="21" y2="22"/><rect x="2" y="11" width="5" height="11" rx="1"/><rect x="9.5" y="7" width="5" height="15" rx="1"/><rect x="17" y="3" width="5" height="19" rx="1"/>
                     </svg>
                 </div>
                 <div>
@@ -158,14 +147,11 @@
                     <div class="meto-stat-desc">instâncias de governança</div>
                 </div>
             </div>
+
             <div class="meto-stat-pill">
-                <div class="meto-stat-icon meto-icon-plan">
+                <div class="meto-stat-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14 2 14 8 20 8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <line x1="10" y1="9" x2="8" y2="9"/>
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
                 </div>
                 <div>
@@ -173,13 +159,11 @@
                     <div class="meto-stat-desc">planos e políticas públicas</div>
                 </div>
             </div>
+
             <div class="meto-stat-pill">
-                <div class="meto-stat-icon meto-icon-prog">
+                <div class="meto-stat-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="7" height="7" rx="1"/>
-                        <rect x="14" y="3" width="7" height="7" rx="1"/>
-                        <rect x="14" y="14" width="7" height="7" rx="1"/>
-                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
                     </svg>
                 </div>
                 <div>
@@ -192,4 +176,46 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    /* Hero mapped card */
+    var mc = document.getElementById('meto-mapped-card');
+    mc.style.cssText += 'opacity:0;transform:translateX(24px);transition:opacity .5s ease,transform .5s ease';
+    setTimeout(function () { mc.style.opacity = '1'; mc.style.transform = 'translateX(0)'; }, 200);
+
+    /* Text sections */
+    document.querySelectorAll('#meto-text-col .meto-section').forEach(function (s, i) {
+        s.style.cssText += 'opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease';
+        setTimeout(function () { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 300 + i * 130);
+    });
+
+    /* Sidebar items */
+    document.querySelectorAll('#meto-sidebar > *').forEach(function (el, i) {
+        el.style.cssText += 'opacity:0;transform:translateY(12px);transition:opacity .38s ease,transform .38s ease';
+        setTimeout(function () { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 280 + i * 90);
+    });
+
+    /* Count-up animation */
+    function animateCount(el, target, duration) {
+        var start = performance.now();
+        (function step(now) {
+            var p = Math.min((now - start) / duration, 1);
+            var ease = 1 - Math.pow(1 - p, 3);
+            el.textContent = Math.round(ease * target);
+            if (p < 1) requestAnimationFrame(step);
+        })(start);
+    }
+    setTimeout(function () {
+        document.querySelectorAll('.meto-stat-val').forEach(function (el) {
+            animateCount(el, parseInt(el.textContent), 900);
+        });
+        document.querySelectorAll('.meto-step-big').forEach(function (el) {
+            animateCount(el, parseInt(el.textContent), 900);
+        });
+    }, 500);
+}());
+</script>
 {% endblock %}
