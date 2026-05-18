@@ -164,7 +164,12 @@ function _radiusByPorte(porte) {
 function renderMarkers(features, fitBounds) {
     markerLayer.clearLayers();
 
-    features.forEach(feat => {
+    // Sem financiamento renderiza primeiro (embaixo); com financiamento por último (em cima)
+    const sorted = [...features].sort((a, b) =>
+        (a.properties.tem_financiamento ? 1 : 0) - (b.properties.tem_financiamento ? 1 : 0)
+    );
+
+    sorted.forEach(feat => {
         const p   = feat.properties;
         const cor = p.tem_financiamento ? COR_FINANCIAMENTO : COR_SEM_FINANCIAMENTO;
         const [lng, lat] = feat.geometry.coordinates;
