@@ -74,13 +74,6 @@ body.lp-body .rb-main {
     gap: 6px;
 }
 
-.lp-hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 1.5px;
-    background: rgba(255,255,255,.4);
-}
 
 .lp-hero-title {
     font-family: 'Sora', sans-serif;
