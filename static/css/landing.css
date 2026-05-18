@@ -264,13 +264,17 @@ body.lp-body .rb-main {
     height: 90px;
     border-radius: 12px;
     flex-shrink: 0;
+    background: #f5f8fa;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .lp-card-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
 }
 
