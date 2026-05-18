@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## [Não publicado] — 2026-05-18
+
+### Nota País — Print exibe apenas países signatários
+
+- `imprimirMapa()` agora oculta temporariamente todos os labels de países não-signatários (`np-country-label--minor`) antes de capturar o canvas via html2canvas
+- Após a captura (sucesso ou erro), os labels são restaurados automaticamente no `finally`
+- Adicionado campo `signatory: true/false` em cada item do array `labelMarkers` durante `buildMap()` para diferenciar signatários de não-signatários sem varredura de DOM
+
+**Arquivos:** `static/js/nota-pais.js`
+
+---
+
 ## [Não publicado] — 2026-05-15
 
 ### Mapa Georreferenciado — Filtro cascata Região → Estado

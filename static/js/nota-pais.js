@@ -231,6 +231,15 @@ async function imprimirMapa() {
 
   if (btn) { btn.disabled = true; btn.textContent = "Gerando…"; }
 
+  // Hide non-signatory country labels to avoid visual clutter in the print
+  const hiddenLabels = [];
+  labelMarkers.forEach(({ marker, signatory }) => {
+    if (!signatory && map.hasLayer(marker)) {
+      map.removeLayer(marker);
+      hiddenLabels.push(marker);
+    }
+  });
+
   try {
     const canvas = await html2canvas(mapContainer, {
       useCORS: true,
@@ -245,6 +254,9 @@ async function imprimirMapa() {
   } catch (err) {
     console.error("Erro ao gerar imagem:", err);
   } finally {
+    // Restore non-signatory labels
+    hiddenLabels.forEach(marker => marker.addTo(map));
+
     if (btn) {
       btn.disabled = false;
       btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Print Mapa`;
@@ -371,7 +383,7 @@ function buildMap(data) {
     const name = getName(feature.properties);
     if (name) {
       const lbl = addTextMarker([centroid[0] - 1.8, centroid[1]], name, "np-country-label");
-      labelMarkers.push({ marker: lbl, continent: featureContinent });
+      labelMarkers.push({ marker: lbl, continent: featureContinent, signatory: true });
     }
   });
 
@@ -388,7 +400,7 @@ function buildMap(data) {
 
     const featureContinent = getContinent(feature.properties);
     const lbl = addTextMarker(centroid, name, "np-country-label np-country-label--minor");
-    labelMarkers.push({ marker: lbl, continent: featureContinent });
+    labelMarkers.push({ marker: lbl, continent: featureContinent, signatory: false });
   });
 }
 
