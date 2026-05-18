@@ -60,9 +60,13 @@ function initMap() {
     ).addTo(map);
 
     // Pane exclusivo para o overlay do Brasil (abaixo dos marcadores z=400)
+    // Canvas renderer evita o deslocamento no html2canvas: SVG paths sofrem do
+    // bug de translate3d herdado do .leaflet-map-pane; canvas é capturado corretamente.
     map.createPane('brasilPane').style.zIndex = 210;
+    const brasilRenderer = L.canvas({ pane: 'brasilPane', padding: 0.5 });
     L.geoJSON(BRAZIL_POLY, {
-        pane: 'brasilPane',
+        pane:     'brasilPane',
+        renderer: brasilRenderer,
         style: {
             fillColor:   '#1a4a2e',
             fillOpacity: 0.22,
