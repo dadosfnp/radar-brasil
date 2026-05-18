@@ -274,7 +274,7 @@ body.lp-body .rb-main {
 .lp-card-img img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
 }
 
