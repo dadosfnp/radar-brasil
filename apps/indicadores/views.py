@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from apps.indicadores.services.painel_multinivel import dados_para_grafico
+from apps.indicadores.services.painel_multinivel import dados_para_grafico, get_total_municipios
 
 
 def painel_multinivel_view(request):
-    return render(request, "municipios/painel-multinivel.html")
+    try:
+        total_municipios = get_total_municipios()
+    except Exception:
+        total_municipios = "—"
+    return render(request, "municipios/painel-multinivel.html", {"total_municipios": total_municipios})
 
 
 def api_painel_multinivel(request):

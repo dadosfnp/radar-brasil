@@ -79,6 +79,15 @@ def _ler_parametros() -> pd.DataFrame:
     return df
 
 
+def get_total_municipios() -> int:
+    df = _ler_parametros()
+    if df.empty or not {"Eixo", "Avaliação", "Nível"}.issubset(df.columns):
+        return 0
+    df_valid = df[df["Nível"].isin(CORES_NIVEL.keys())]
+    contagem = df_valid.groupby(["Eixo", "Avaliação"]).size()
+    return int(contagem.max()) if not contagem.empty else 0
+
+
 def dados_para_grafico(eixo_front: str) -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front)
     if not eixo_busca:
