@@ -1,3 +1,5 @@
+import json
+import os
 import time
 import unicodedata
 import gspread
@@ -50,7 +52,11 @@ def _get_client():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
     ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
+    creds_json = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
+    if creds_json:
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(creds_json), scope)
+    else:
+        creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
     return gspread.authorize(creds)
 
 

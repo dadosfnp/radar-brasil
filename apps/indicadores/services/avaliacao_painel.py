@@ -1,10 +1,12 @@
+import json
+import os
 import time
 import unicodedata
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
-CREDS_PATH      = ".secrets/fnp-radar-sheets.json"
+CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 SHEET_FICHAS_ID = "1Xifo1yjrByw2XBSjTk1WdjjFPIewUsanyuDO9ZMzo28"
 SHEET_PARAMS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
 CACHE_TTL       = 1800  # 30 min
@@ -58,7 +60,11 @@ def _get_client():
         "https://spreadsheets.google.com/feeds",
         "https://www.googleapis.com/auth/drive",
     ]
-    creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
+    creds_json = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
+    if creds_json:
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(creds_json), scope)
+    else:
+        creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
     return gspread.authorize(creds)
 
 
