@@ -53,9 +53,8 @@ coverage.xml
 # ── SCRIPTS DE TESTE LOCAIS ───────────────────────────────────────
 teste_sheets.py
 
-# ── CLAUDE CODE (configurações locais do IDE) ─────────────────────
-.claude/settings.local.json
-.claude/scheduled_tasks.lock
+# # ── CLAUDE CODE (configurações locais do IDE) ─────────────────────
+.claude/
 
 # ── EDITORES / IDEs ───────────────────────────────────────────────
 .vscode/
