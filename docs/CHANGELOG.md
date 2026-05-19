@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## [Não publicado] — 2026-05-19
+
+### Security Hardening — Auditoria OWASP aplicada
+
+- **SECRET_KEY**: sem valor padrão em produção — levanta `ImproperlyConfigured` se ausente
+- **DEBUG**: forçado `False` quando `ENV=production`, independente da variável `DEBUG`
+- **ALLOWED_HOSTS**: removido wildcard `*`; fallback para `localhost` apenas em dev; em produção exige configuração explícita
+- **Headers HTTP**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `XSS-Protection`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **HTTPS em produção**: HSTS 1 ano + `includeSubDomains` + `preload`, `SECURE_SSL_REDIRECT`, `SECURE_PROXY_SSL_HEADER` para proxy do Render
+- **Cookies seguros**: `SESSION_COOKIE_SECURE`, `CSRF_COOKIE_SECURE`, `SESSION_COOKIE_HTTPONLY`, `CSRF_COOKIE_HTTPONLY` em produção
+- **Logging estruturado**: exceções internas logadas com `logger.exception()`; respostas de erro retornam mensagem genérica (sem expor stack trace ao cliente)
+- **Validação de input**: parâmetro `?eixo=` validado contra whitelist `_EIXOS_VALIDOS` antes de consultar serviços
+- **REST Framework**: `DEFAULT_PERMISSION_CLASSES` definido explicitamente como `AllowAny`
+
+**Arquivos:** `setup/settings.py`, `apps/indicadores/views.py`
+
+---
+
 ## [Não publicado] — 2026-05-18
 
 ### Nota País — Print exibe apenas países signatários
@@ -19,6 +37,7 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 ## [Não publicado] — 2026-05-15
 
 ### Mapa Georreferenciado — Filtro cascata Região → Estado
+
 - Adicionado mapeamento fixo `REGIAO_UFS` no JS: Norte, Nordeste, Centro-Oeste, Sudeste, Sul com suas respectivas siglas de UF
 - Adicionada variável `allUfOptions` para guardar todas as opções de estado após o primeiro carregamento
 - Nova função `atualizarEstadosPorRegiao(regiao)`: reconstrói o select de Estado exibindo apenas os estados da região selecionada; ao limpar a região restaura todos os estados
@@ -32,6 +51,7 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 ## 2026-05-15 — `0816524`
 
 ### Redesign Metodologia + legibilidade Nota País + link Mapa na Landing
+
 - Metodologia: hero reformulado com badge pill, `h1` em `#1a2e3a` com `<em>` em `#356073`, layout grid 2 colunas `1fr 400px`
 - Metodologia: cards de passo com glassmorphism (`rgba(255,255,255,.72)`, backdrop-filter), cabeçalho com gradiente escuro
 - Metodologia: animações de entrada (hero translateX, seções translateY staggered, count-up nos KPIs)
