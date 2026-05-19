@@ -21,14 +21,14 @@
                     <p>Impulsionando a Ação Climática Federativa</p>
                 </div>
                 <div class="rb-header-logo">
-                    <a href="{% url 'municipios:landing' %}">
+                    <a href="{% url 'municipios:home' %}">
                         <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="rb-header-logo-img">
                     </a>
                 </div>
             </div>
         </header>
         <nav class="rb-main-nav">
-            <a href="{% url 'municipios:home' %}"
+            <a href="{% url 'municipios:inicio' %}"
                class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
             <a href="{% url 'municipios:metodologia' %}"
                class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
