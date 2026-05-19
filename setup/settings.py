@@ -1,14 +1,23 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-troque-em-producao")
-DEBUG = os.getenv("DEBUG", "True") == "True"
+IS_PRODUCTION = os.getenv("ENV") == "production"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    if IS_PRODUCTION:
+        raise ImproperlyConfigured("SECRET_KEY não configurado. Defina a variável de ambiente SECRET_KEY.")
+    SECRET_KEY = "dev-secret-key-apenas-para-desenvolvimento-local-nao-usar-em-producao"
+
+DEBUG = False if IS_PRODUCTION else os.getenv("DEBUG", "True") == "True"
+
+_hosts = [h.strip() for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h.strip()]
+ALLOWED_HOSTS = _hosts if _hosts else (["localhost", "127.0.0.1"] if not IS_PRODUCTION else [])
 
 
 INSTALLED_APPS = [
@@ -104,4 +113,59 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 20,
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+}
+
+# ── Headers de segurança ──────────────────────────────────────
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+
+if IS_PRODUCTION:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# ── Logging ───────────────────────────────────────────────────
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}] {asctime} {module}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "apps": {
+            "handlers": ["console"],
+            "level": "INFO" if not IS_PRODUCTION else "WARNING",
+            "propagate": False,
+        },
+        "django.security": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
 }
