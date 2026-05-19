@@ -23,15 +23,15 @@
                 <p>Impulsionando a Ação Climática Federativa</p>
             </div>
             <div class="rb-header-logo">
-                <a href="{% url 'municipios:landing' %}">
+                <a href="{% url 'municipios:home' %}">
                     <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="rb-header-logo-img">
                 </a>
             </div>
         </div>
         <nav class="rb-main-nav">
             <ul>
-                <li><a href="{% url 'municipios:landing' %}" class="{% block menu_landing_active %}{% endblock %}">Home</a></li>
-                <li><a href="{% url 'municipios:home' %}" class="{% block menu_inicio_active %}{% endblock %}">Inicio</a></li>
+                <li><a href="{% url 'municipios:home' %}" class="{% block menu_landing_active %}{% endblock %}">Home</a></li>
+                <li><a href="{% url 'municipios:inicio' %}" class="{% block menu_inicio_active %}{% endblock %}">Inicio</a></li>
                 <li><a href="#">Metodologia</a></li>
                 <li><a href="#">Painel Multinível</a></li>
                 <li><a href="#">Avaliação Painel Multinível</a></li>
