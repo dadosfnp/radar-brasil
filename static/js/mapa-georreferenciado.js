@@ -365,7 +365,7 @@ function atualizarEstadosPorRegiao(regiao) {
 
 function limparFiltros() {
     ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-porte"].forEach(id => {
+     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });

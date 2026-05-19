@@ -319,7 +319,11 @@ function addTextMarker(latlng, text, className) {
 
 // ── MAP BUILD ─────────────────────────────────────────────────────
 function buildMap(data) {
+  // Canvas renderer prevents html2canvas from losing SVG layers in print
+  const countriesRenderer = L.canvas({ padding: 0.5 });
+
   geoLayer = L.geoJSON(data, {
+    renderer: countriesRenderer,
     style: feature => {
       const continent = getContinent(feature.properties);
       return {
