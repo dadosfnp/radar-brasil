@@ -587,12 +587,21 @@ body.avaliacao-painel-page .rb-main {
 }
 
 @media (max-width: 480px) {
-    /* Abas: ícone em cima + label abreviado embaixo (padrão iOS/Android) */
+    /* Abas: largura igual + ícone em cima + label abreviado (padrão iOS/Android) */
+    .ap-card-header { overflow-x: visible; }
+    .ap-tabs ul { overflow-x: visible; }
+    .ap-tabs li {
+        flex: 1;
+        justify-content: center;
+    }
     .ap-tabs button {
         flex-direction: column;
         align-items: center;
-        padding: 8px 10px 6px;
+        justify-content: center;
+        width: 100%;
+        padding: 8px 4px 7px;
         gap: 3px;
+        white-space: normal;
     }
     .ap-tab-icon-img { width: 16px; height: 16px; }
     .ap-tabs li.active .ap-tab-icon-img { filter: none; opacity: 1; }
@@ -603,7 +612,7 @@ body.avaliacao-painel-page .rb-main {
     }
     .ap-tabs button span::after {
         content: attr(data-short);
-        font-size: 9px;
+        font-size: 9.5px;
         font-weight: 600;
         letter-spacing: .02em;
         line-height: 1;
