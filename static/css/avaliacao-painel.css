@@ -587,11 +587,28 @@ body.avaliacao-painel-page .rb-main {
 }
 
 @media (max-width: 480px) {
-    /* Abas: só ícone, sem texto */
-    .ap-tabs button span { display: none; }
-    .ap-tabs button { padding: 10px 14px; gap: 0; }
-    .ap-tab-icon-img { width: 18px; height: 18px; }
+    /* Abas: ícone em cima + label abreviado embaixo (padrão iOS/Android) */
+    .ap-tabs button {
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 10px 6px;
+        gap: 3px;
+    }
+    .ap-tab-icon-img { width: 16px; height: 16px; }
     .ap-tabs li.active .ap-tab-icon-img { filter: none; opacity: 1; }
+    .ap-tabs button span {
+        font-size: 0;
+        line-height: 0;
+        display: block;
+    }
+    .ap-tabs button span::after {
+        content: attr(data-short);
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: .02em;
+        line-height: 1;
+        white-space: nowrap;
+    }
 
     /* Corpo ainda mais compacto */
     .ap-main { padding: 14px 12px 12px; }
