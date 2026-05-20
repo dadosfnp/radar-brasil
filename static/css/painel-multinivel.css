@@ -251,14 +251,32 @@ body.painel-multinivel-page .rb-main {
 
 @media (max-width: 900px) {
     .pm-wrapper { margin: 8px; padding: 0; }
-    .pm-kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .pm-tabs ul { flex-wrap: wrap; gap: 4px; }
-    .pm-tabs button { font-size: 11px; padding: 8px 10px; }
-    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 280px !important; }
-    .pm-panel-card { padding: 16px 14px; }
+    .pm-kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+    .pm-kpi-card { padding: 12px 14px; }
+    .pm-kpi-value { font-size: 22px; }
+
+    /* Tab bar: esconde label "PAINEL MULTINÍVEL", abas rolam horizontalmente */
+    .pm-panel-label { display: none; }
+    .pm-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
+    .pm-tabs ul { flex-wrap: nowrap; gap: 2px; }
+    .pm-tabs button { padding: 10px 12px; font-size: 11.5px; gap: 5px; white-space: nowrap; }
+
+    .pm-chart-area { padding: 16px 12px 14px; }
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 300px !important; }
+    .pm-chart-footer { margin-top: 12px; justify-content: center; }
+    .pm-criteria-badge { width: 100%; text-align: center; }
 }
 
 @media (max-width: 480px) {
     .pm-kpi-strip { grid-template-columns: 1fr; gap: 8px; }
-    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 240px !important; }
+    .pm-kpi-card { padding: 10px 12px; }
+
+    /* Abas: só ícone, sem texto */
+    .pm-tabs button span { display: none; }
+    .pm-tabs button { padding: 10px 14px; gap: 0; }
+    .pm-tab-icon-img { width: 18px; height: 18px; }
+    .pm-tabs li.active .pm-tab-icon-img { filter: none; opacity: 1; }
+
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 260px !important; }
+    .pm-chart-area { padding: 12px 8px 10px; }
 }

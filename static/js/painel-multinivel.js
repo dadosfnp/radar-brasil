@@ -52,6 +52,27 @@ function renderizarGrafico(dados) {
     },
   };
 
+  const isMobile = window.innerWidth < 600;
+  const maxLen   = isMobile ? 15 : 24;
+  const tickSize = isMobile ? 10 : 11;
+  const yWidth   = isMobile ? 115 : 160;
+
+  function wrapLabel(label) {
+    if (label.length <= maxLen) return label;
+    const words = label.split(" ");
+    const lines = [];
+    let line = "";
+    words.forEach((w) => {
+      if ((line + w).length > maxLen) {
+        if (line) lines.push(line.trim());
+        line = "";
+      }
+      line += w + " ";
+    });
+    if (line.trim()) lines.push(line.trim());
+    return lines;
+  }
+
   chartInstance = new Chart(ctx, {
     type: "bar",
     data: {
@@ -60,18 +81,22 @@ function renderizarGrafico(dados) {
     },
     plugins: [barLabelsPlugin],
     options: {
-      indexAxis: "y",                 // ← barras HORIZONTAIS
+      indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 300 },   // animação rápida
+      animation: { duration: 300 },
+      layout: {
+        padding: { left: isMobile ? 0 : 8, right: isMobile ? 4 : 8 },
+      },
       plugins: {
         legend: {
           position: "bottom",
           labels: {
             usePointStyle: true,
             pointStyle: "rect",
-            font: { size: 12 },
-            padding: 16,
+            font: { size: isMobile ? 10 : 12 },
+            padding: isMobile ? 10 : 16,
+            boxWidth: isMobile ? 10 : 14,
           },
         },
         tooltip: {
@@ -87,30 +112,18 @@ function renderizarGrafico(dados) {
         x: {
           stacked: true,
           beginAtZero: true,
-          ticks: { stepSize: 1, precision: 0 },
+          ticks: { stepSize: 1, precision: 0, font: { size: tickSize } },
           grid: { color: "rgba(0,0,0,0.06)" },
         },
         y: {
           stacked: true,
+          afterFit(scale) {
+            scale.width = Math.max(scale.width, yWidth);
+          },
           ticks: {
-            font: { size: 11 },
-            // quebra labels longos em múltiplas linhas
+            font: { size: tickSize },
             callback: function (value) {
-              const label = this.getLabelForValue(value);
-              const maxLen = 24;
-              if (label.length <= maxLen) return label;
-              const words = label.split(" ");
-              const lines = [];
-              let line = "";
-              words.forEach((w) => {
-                if ((line + w).length > maxLen) {
-                  if (line) lines.push(line.trim());
-                  line = "";
-                }
-                line += w + " ";
-              });
-              if (line.trim()) lines.push(line.trim());
-              return lines;
+              return wrapLabel(this.getLabelForValue(value));
             },
           },
         },
