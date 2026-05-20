@@ -29,10 +29,20 @@
   <div class="mg-layout">
 
     {# SIDEBAR DE FILTROS #}
-    <aside class="mg-sidebar">
+    <aside class="mg-sidebar" id="mg-sidebar">
 
       <div class="mg-sidebar-header">
-        <h3>Filtros</h3>
+        <h3>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7">
+            <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+          </svg>
+          Filtros
+        </h3>
+        <button class="mg-sidebar-close" id="mg-sidebar-close" aria-label="Fechar filtros">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
 
       <div class="mg-filters">
@@ -156,6 +166,13 @@
     {# ÁREA DO MAPA #}
     <div class="mg-map-area">
 
+      {# FAB de filtros — visível apenas no mobile #}
+      <button class="mg-filter-fab" id="mg-filter-fab" aria-label="Abrir filtros">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+      </button>
+
       {# Loader #}
       <div id="mg-loader" class="mg-map-loader">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c6174" stroke-width="2" stroke-linecap="round">
@@ -186,6 +203,9 @@
 
   </div>{# /mg-layout #}
 
+  {# Backdrop do filtro mobile #}
+  <div class="mg-sidebar-backdrop" id="mg-sidebar-backdrop"></div>
+
 </div>{# /mg-page #}
 {% endblock %}
 
@@ -193,4 +213,17 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="{% static 'js/mapa-georreferenciado.js' %}"></script>
+    <script>
+    (function () {
+      var sidebar  = document.getElementById('mg-sidebar');
+      var fab      = document.getElementById('mg-filter-fab');
+      var closeBtn = document.getElementById('mg-sidebar-close');
+      var backdrop = document.getElementById('mg-sidebar-backdrop');
+      function open()  { sidebar.classList.add('mg-open'); backdrop.classList.add('mg-open'); document.body.style.overflow = 'hidden'; }
+      function close() { sidebar.classList.remove('mg-open'); backdrop.classList.remove('mg-open'); document.body.style.overflow = ''; }
+      if (fab)      fab.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (backdrop) backdrop.addEventListener('click', close);
+    })();
+    </script>
 {% endblock %}

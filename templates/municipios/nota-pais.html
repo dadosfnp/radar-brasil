@@ -29,10 +29,20 @@
   <div class="np-card">
 
     {# SIDEBAR #}
-    <aside class="np-sidebar">
+    <aside class="np-sidebar" id="np-sidebar">
 
       <div class="np-sidebar-header">
-        <span class="np-sidebar-title">ESCALA DA NOTA-PAÍS</span>
+        <span class="np-sidebar-title">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.6;vertical-align:middle">
+            <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+          </svg>
+          FILTROS
+        </span>
+        <button class="np-sidebar-close" id="np-sidebar-close" aria-label="Fechar filtros">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
 
       <div class="np-filters">
@@ -135,10 +145,19 @@
 
     {# MAPA #}
     <div class="np-map-container">
+      {# FAB de filtros — visível apenas no mobile #}
+      <button class="np-filter-fab" id="np-filter-fab" aria-label="Abrir filtros">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+      </button>
       <div id="np-map"></div>
     </div>
 
-  </div>{# /np-card #}
+    {# Backdrop do filtro mobile #}
+  <div class="np-sidebar-backdrop" id="np-sidebar-backdrop"></div>
+
+</div>{# /np-card #}
 
   {# KPI STRIP #}
   <div class="np-kpi-strip">
@@ -213,4 +232,17 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="{% static 'js/nota-pais.js' %}"></script>
+    <script>
+    (function () {
+      var sidebar  = document.getElementById('np-sidebar');
+      var fab      = document.getElementById('np-filter-fab');
+      var closeBtn = document.getElementById('np-sidebar-close');
+      var backdrop = document.getElementById('np-sidebar-backdrop');
+      function open()  { sidebar.classList.add('np-open'); backdrop.classList.add('np-open'); document.body.style.overflow = 'hidden'; }
+      function close() { sidebar.classList.remove('np-open'); backdrop.classList.remove('np-open'); document.body.style.overflow = ''; }
+      if (fab)      fab.addEventListener('click', open);
+      if (closeBtn) closeBtn.addEventListener('click', close);
+      if (backdrop) backdrop.addEventListener('click', close);
+    })();
+    </script>
 {% endblock %}

@@ -281,6 +281,60 @@ body.np-body .rb-main {
     flex-shrink: 0;
 }
 
+/* ── FAB de filtros (visível apenas no mobile) ── */
+.np-filter-fab {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #103758;
+    border: none;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: 0 4px 18px rgba(0,0,0,.32);
+    transition: transform .2s, background .2s;
+}
+.np-filter-fab:hover  { background: #1a4d6e; transform: scale(1.08); }
+.np-filter-fab:active { transform: scale(0.93); }
+
+/* ── Botão fechar sidebar (visível apenas no mobile) ── */
+.np-sidebar-close {
+    display: none;
+    background: none;
+    border: none;
+    color: #4a6a7c;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    transition: color .15s, background .15s;
+    flex-shrink: 0;
+}
+.np-sidebar-close:hover { color: #103758; background: #eef2f6; }
+
+/* ── Backdrop do painel mobile ── */
+.np-sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    z-index: 2099;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .28s;
+}
+.np-sidebar-backdrop.np-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ── REMOVE FOCUS OUTLINE ON MAP PATHS ── */
 #np-map path.leaflet-interactive:focus,
 #np-map .leaflet-interactive:focus {
@@ -391,16 +445,74 @@ body.np-body .rb-main {
 }
 
 @media (max-width: 900px) {
-    .np-page { padding: 16px 14px 24px; }
-    .np-card { flex-direction: column; min-height: unset; }
-    .np-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #eef2f6; }
-    .np-filters { flex-direction: row; flex-wrap: wrap; }
-    .np-filter-group { min-width: 160px; flex: 1; }
-    .np-actions { flex-direction: row; padding: 10px 16px; }
-    .np-btn { width: auto; }
-    .np-map-container { min-height: 420px; }
-    #np-map { position: relative; height: 420px; }
+    .np-page { padding: 8px 8px 16px; gap: 10px; }
+    .np-intro h2 { font-size: 17px; }
+    .np-intro p  { font-size: 12.5px; }
+    .np-card { flex-direction: column; min-height: unset; overflow: visible; }
+
+    /* Sidebar → bottom sheet fixo fora do fluxo */
+    .np-sidebar {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        width: 100%;
+        max-height: 78vh;
+        overflow-y: auto;
+        border-radius: 16px 16px 0 0;
+        border-right: none;
+        border-bottom: none;
+        z-index: 2100;
+        transform: translateY(calc(100% + 4px));
+        transition: transform .32s cubic-bezier(.32,0,.68,0);
+        box-shadow: 0 -8px 40px rgba(0,0,0,.22);
+        -webkit-overflow-scrolling: touch;
+    }
+    .np-sidebar::before {
+        content: '';
+        display: block;
+        width: 36px; height: 4px;
+        background: #cddde5;
+        border-radius: 2px;
+        margin: 10px auto 0;
+    }
+    .np-sidebar.np-open {
+        transform: translateY(0);
+        transition-timing-function: cubic-bezier(.22,1,.36,1);
+    }
+
+    .np-sidebar-backdrop { display: block; }
+    .np-sidebar-close    { display: flex; }
+    .np-filter-fab       { display: flex; }
+
+    /* Cabeçalho da sidebar: título + botão fechar */
+    .np-sidebar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 1;
+        border-bottom: 1px solid #eef2f6;
+        padding: 14px 18px 12px;
+    }
+
+    /* Mapa ocupa toda a área do card */
+    .np-map-container { min-height: 58vh; position: relative; }
+    #np-map { position: absolute; inset: 0; height: 100%; }
+
+    /* FAB sobre o mapa */
+    .np-filter-fab { position: absolute; bottom: 20px; left: 20px; }
+
     .np-kpi-strip { flex-wrap: wrap; padding: 14px 16px; gap: 14px; }
     .np-kpi { flex: 0 0 calc(50% - 14px); padding: 0; }
     .np-kpi-sep { display: none; }
+}
+
+@media (max-width: 480px) {
+    .np-intro { display: none; }
+    .np-page  { padding: 0 0 12px; gap: 8px; }
+    .np-map-container { min-height: 65vh; }
+    .np-kpi  { flex: 0 0 100%; }
+    .np-kpi-value { font-size: 20px; }
+    .np-kpi-icon { width: 42px; height: 42px; }
 }
