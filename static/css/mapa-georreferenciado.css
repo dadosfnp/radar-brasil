@@ -623,8 +623,24 @@ body.mapa-page .rb-main {
 /* ================== RESPONSIVO ================== */
 
 @media (max-width: 900px) {
-    .mg-page { padding: 12px 12px 0; }
-    .mg-layout { flex-direction: column; min-height: auto; }
-    .mg-sidebar { width: 100%; max-height: 280px; }
-    #mg-map { min-height: 380px; }
+    .mg-page { padding: 8px 8px 0; }
+    .mg-layout { flex-direction: column; min-height: auto; gap: 0; }
+    .mg-sidebar {
+        width: 100%;
+        max-height: 320px;
+        overflow-y: auto;
+        border-radius: 12px 12px 0 0;
+        border-right: none;
+        border-bottom: 1px solid #e0eaf0;
+    }
+    #mg-map { min-height: 420px; border-radius: 0 0 12px 12px; }
+}
+
+@media (max-width: 480px) {
+    .mg-sidebar { max-height: 260px; }
+    #mg-map { min-height: 360px; }
+    .mg-sidebar-header { padding: 10px 14px; }
+    .mg-filter-label { font-size: 10px; }
+    .mg-totals-card { padding: 10px 12px; gap: 10px; }
+    .mg-total-value { font-size: 20px; }
 }

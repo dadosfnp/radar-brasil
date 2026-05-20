@@ -232,10 +232,11 @@ body.inicio-page .rb-main {
 
 /* ---- RESPONSIVO ---- */
 @media (max-width: 680px) {
-    .ini-grid {
-        grid-template-columns: 1fr;
-    }
-    .ini-page {
-        padding: 24px 0 48px;
-    }
+    .ini-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ini-page { padding: 16px 0 32px; }
+}
+
+@media (max-width: 480px) {
+    .ini-card { padding: 18px 16px; }
+    .ini-page { padding: 12px 0 24px; }
 }

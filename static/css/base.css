@@ -359,8 +359,119 @@ body.rb-body {
     opacity: 1;
 }
 
+/* ── Hamburger (oculto no desktop) ───────────────────── */
+.rb-nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 10px;
+    margin: 4px 8px 4px auto;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.rb-nav-hamburger:hover {
+    background: rgba(167, 212, 206, 0.15);
+}
+.rb-nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--hdr-700);
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+    transform-origin: center;
+}
+.rb-main-nav.nav-open .rb-nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.rb-main-nav.nav-open .rb-nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.rb-main-nav.nav-open .rb-nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Wrapper dos links (sempre visível no desktop) ───── */
+.rb-nav-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex: 1;
+}
+
 /* ---- RESPONSIVO ---- */
 @media (max-width: 768px) {
+    /* Header compacto */
+    .rb-header {
+        padding: 0 14px;
+    }
+    .rb-header-top {
+        grid-template-columns: 1fr auto;
+        padding: 10px 0 6px;
+    }
+    .rb-header-title {
+        grid-column: 1 / 2;
+        text-align: left;
+    }
+    .rb-header-title h1 {
+        font-size: 18px;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
+    .rb-header-title p {
+        font-size: 11px;
+    }
+    .rb-header-logo {
+        grid-column: 2 / 3;
+    }
+    .rb-header-logo-img {
+        height: 36px;
+    }
+
+    /* Navbar mobile com hamburger */
+    .rb-main-nav {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+        justify-content: flex-start;
+    }
+    .rb-nav-hamburger {
+        display: flex;
+    }
+    .rb-nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        border-top: 1px solid var(--hdr-50);
+        padding-bottom: 4px;
+    }
+    .rb-main-nav.nav-open .rb-nav-links {
+        display: flex;
+    }
+    .rb-nav-link {
+        padding: 13px 20px;
+        border-bottom: 1px solid rgba(167, 212, 206, 0.25);
+        border-left: 3px solid transparent;
+        white-space: normal;
+        text-align: left;
+        font-size: 14px;
+    }
+    .rb-nav-link.active {
+        border-bottom-color: rgba(167, 212, 206, 0.25);
+        border-left-color: var(--hdr-500);
+        padding-left: 17px;
+        background: rgba(167, 212, 206, 0.10);
+    }
+
+    /* Conteúdo principal */
+    .rb-main {
+        margin: 8px;
+        padding: 14px;
+        border-radius: 12px;
+    }
+
+    /* Footer */
     .rb-footer-inner {
         flex-direction: column;
         align-items: flex-start;

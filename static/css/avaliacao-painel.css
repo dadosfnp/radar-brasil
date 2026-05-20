@@ -554,15 +554,18 @@ body.avaliacao-painel-page .rb-main {
    ══════════════════════════════ */
 
 @media (max-width: 900px) {
-    .ap-wrapper { margin: 16px 8px; padding: 0; }
+    .ap-wrapper { margin: 8px; padding: 0; }
+    .ap-filters { grid-template-columns: 1fr; gap: 10px; }
+    .ap-tabs ul { flex-wrap: wrap; gap: 4px; }
+    .ap-tabs button { font-size: 11px; padding: 8px 10px; }
+    .ap-main { padding: 14px 12px 12px; }
+    .ap-footer-actions { padding: 12px; flex-wrap: wrap; gap: 8px; }
+    .ap-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .ap-table { min-width: 520px; }
+    .ap-table th, .ap-table td { padding: 8px 10px; font-size: 12px; }
+}
 
-    .ap-filters { grid-template-columns: 1fr; }
-
-    .ap-tabs ul { flex-wrap: wrap; }
-
-    .ap-tabs button { font-size: 11px; padding: 9px 12px; }
-
-    .ap-main { padding: 18px 16px 16px; }
-
-    .ap-footer-actions { padding: 16px; }
+@media (max-width: 480px) {
+    .ap-tabs button { font-size: 10px; padding: 7px 8px; }
+    .ap-main { padding: 10px 8px; }
 }

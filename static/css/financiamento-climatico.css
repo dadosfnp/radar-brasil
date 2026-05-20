@@ -451,9 +451,16 @@ body.fin-cli-page .rb-main {
 }
 
 @media (max-width: 768px) {
-    .fc-page { padding: 12px 12px 32px; }
-    .fc-filters-bar { flex-direction: column; }
+    .fc-page { padding: 8px 8px 24px; }
+    .fc-filters-bar { flex-direction: column; gap: 8px; }
     .fc-filter-item { min-width: 100%; }
-    .fc-actions { flex-wrap: wrap; }
-    .fc-table-wrap { overflow-x: auto; }
+    .fc-actions { flex-wrap: wrap; gap: 8px; }
+    .fc-actions button { flex: 1 1 calc(50% - 4px); }
+    .fc-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .fc-table th, .fc-table td { font-size: 12px; padding: 8px 10px; white-space: nowrap; }
+}
+
+@media (max-width: 480px) {
+    .fc-actions button { flex: 1 1 100%; }
+    .fc-charts canvas { max-height: 220px; }
 }
