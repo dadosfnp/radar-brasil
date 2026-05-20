@@ -238,11 +238,26 @@
       var fab      = document.getElementById('np-filter-fab');
       var closeBtn = document.getElementById('np-sidebar-close');
       var backdrop = document.getElementById('np-sidebar-backdrop');
+
+      function isMobile() { return window.innerWidth <= 900; }
       function open()  { sidebar.classList.add('np-open'); backdrop.classList.add('np-open'); document.body.style.overflow = 'hidden'; }
       function close() { sidebar.classList.remove('np-open'); backdrop.classList.remove('np-open'); document.body.style.overflow = ''; }
+
       if (fab)      fab.addEventListener('click', open);
       if (closeBtn) closeBtn.addEventListener('click', close);
       if (backdrop) backdrop.addEventListener('click', close);
+
+      /* Auto-fecha ao selecionar qualquer filtro no mobile */
+      sidebar.querySelectorAll('select').forEach(function (sel) {
+        sel.addEventListener('change', function () {
+          if (isMobile()) setTimeout(close, 350);
+        });
+      });
+      /* Fecha ao clicar nos botões de ação */
+      ['np-btn-limpar', 'np-btn-baixar', 'np-btn-print'].forEach(function (id) {
+        var btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', function () { if (isMobile()) close(); });
+      });
     })();
     </script>
 {% endblock %}
