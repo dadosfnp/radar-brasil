@@ -6,6 +6,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## [Não publicado] — 2026-05-20
 
+### Mobile UX — Filtros como bottom sheet com FAB flutuante (Mapas)
+
+Padrão inspirado no projeto IFEM aplicado a **Mapa Georreferenciado** e **Nota País**:
+
+- Mapa ocupa 100% da área disponível em mobile (sidebar removida do fluxo)
+- Botão FAB circular flutuante (ícone de filtro) no canto inferior esquerdo do mapa
+- Toque no FAB → painel desliza de baixo para cima (bottom sheet, `max-height: 78vh`)
+- Drag handle visual (pill cinza) no topo do painel indica que é arrastável
+- Backdrop semitransparente cobre o mapa; toque fora ou no botão X fecha o painel
+- `document.body.style.overflow = 'hidden'` enquanto painel está aberto (previne scroll do body)
+- Em ≤480px: intro text oculta para maximizar área do mapa; mapa ocupa 65-70vh
+
+**Arquivos:** `static/css/mapa-georreferenciado.css`, `static/css/nota-pais.css`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/nota-pais.html`
+
+---
+
 ### Mobile UX — Abas com largura igual (flex:1) preenchendo a barra inteira
 
 - Adicionado `flex: 1` em cada `li` das abas a ≤480px — abas ocupam largura igual e preenchem 100% da barra, eliminando o scroll horizontal (padrão nativo iOS/Android)
