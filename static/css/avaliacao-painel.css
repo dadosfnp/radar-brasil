@@ -555,17 +555,50 @@ body.avaliacao-painel-page .rb-main {
 
 @media (max-width: 900px) {
     .ap-wrapper { margin: 8px; padding: 0; }
-    .ap-filters { grid-template-columns: 1fr; gap: 10px; }
-    .ap-tabs ul { flex-wrap: wrap; gap: 4px; }
-    .ap-tabs button { font-size: 11px; padding: 8px 10px; }
-    .ap-main { padding: 14px 12px 12px; }
-    .ap-footer-actions { padding: 12px; flex-wrap: wrap; gap: 8px; }
-    .ap-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .ap-table { min-width: 520px; }
-    .ap-table th, .ap-table td { padding: 8px 10px; font-size: 12px; }
+
+    /* Tab bar: esconde label, abas rolam horizontalmente */
+    .ap-panel-label { display: none; }
+    .ap-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
+    .ap-tabs ul { flex-wrap: nowrap; gap: 2px; }
+    .ap-tabs button { padding: 10px 12px; font-size: 11.5px; gap: 5px; white-space: nowrap; }
+
+    /* Corpo */
+    .ap-main { padding: 18px 14px 16px; }
+    .ap-eixo-title { font-size: 17px; }
+    .ap-eixo-sub { font-size: 12.5px; }
+
+    /* Filtros empilhados */
+    .ap-filters { grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px; }
+
+    /* Tabela com scroll horizontal */
+    .ap-table-area { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .ap-table { min-width: 480px; }
+    .ap-table th, .ap-table td { padding: 9px 10px; font-size: 12.5px; }
+
+    /* Botão rodapé centralizado */
+    .ap-footer-actions { padding: 12px 14px; justify-content: center; }
+    .ap-ficha-btn { width: 100%; text-align: center; }
+
+    /* Modal ocupa quase toda a tela */
+    .ap-modal-overlay { padding: 12px; }
+    .ap-modal-box { max-height: 92vh; border-radius: 12px; }
+    .ap-modal-body { padding: 16px 14px; }
+    .ap-modal-footer { padding: 10px 14px; }
 }
 
 @media (max-width: 480px) {
-    .ap-tabs button { font-size: 10px; padding: 7px 8px; }
-    .ap-main { padding: 10px 8px; }
+    /* Abas: só ícone, sem texto */
+    .ap-tabs button span { display: none; }
+    .ap-tabs button { padding: 10px 14px; gap: 0; }
+    .ap-tab-icon-img { width: 18px; height: 18px; }
+    .ap-tabs li.active .ap-tab-icon-img { filter: none; opacity: 1; }
+
+    /* Corpo ainda mais compacto */
+    .ap-main { padding: 14px 12px 12px; }
+    .ap-eixo-title { font-size: 15px; }
+    .ap-desc { margin-bottom: 14px; }
+
+    /* Modal full screen */
+    .ap-modal-overlay { padding: 0; align-items: flex-end; }
+    .ap-modal-box { border-radius: 16px 16px 0 0; max-height: 96vh; }
 }
