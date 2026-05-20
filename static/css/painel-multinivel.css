@@ -250,27 +250,15 @@ body.painel-multinivel-page .rb-main {
    ══════════════════════════════ */
 
 @media (max-width: 900px) {
-    .pm-wrapper {
-        margin: 16px 8px;
-        padding: 0;
-    }
+    .pm-wrapper { margin: 8px; padding: 0; }
+    .pm-kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .pm-tabs ul { flex-wrap: wrap; gap: 4px; }
+    .pm-tabs button { font-size: 11px; padding: 8px 10px; }
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 280px !important; }
+    .pm-panel-card { padding: 16px 14px; }
+}
 
-    .pm-kpi-strip {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .pm-tabs ul {
-        flex-wrap: wrap;
-    }
-
-    .pm-tabs button {
-        font-size: 11px;
-        padding: 9px 12px;
-    }
-
-    .pm-chart-wrapper,
-    .pm-chart-wrapper canvas {
-        height: 300px !important;
-    }
+@media (max-width: 480px) {
+    .pm-kpi-strip { grid-template-columns: 1fr; gap: 8px; }
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 240px !important; }
 }
