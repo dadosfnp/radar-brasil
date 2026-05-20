@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## [Não publicado] — 2026-05-20
 
+### Mobile UX — Abas com largura igual (flex:1) preenchendo a barra inteira
+
+- Adicionado `flex: 1` em cada `li` das abas a ≤480px — abas ocupam largura igual e preenchem 100% da barra, eliminando o scroll horizontal (padrão nativo iOS/Android)
+- Label abreviado ajustado de 9px para 9.5px para melhor legibilidade
+- `overflow-x: visible` no card-header a ≤480px para cancelar o scroll ativado em 900px
+- `width: 100%` no button para que o clique funcione em toda a área da aba
+
+**Arquivos:** `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`
+
+---
+
 ### Mobile UX — Abas com ícone + label abreviado (padrão iOS/Android)
 
 - Substituído layout de ícone-somente a ≤480px por coluna ícone+label nas páginas **Painel Multinível** e **Avaliação Painel Multinível**
