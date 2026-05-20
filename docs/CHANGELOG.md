@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## [Não publicado] — 2026-05-20
+
+### Mobile UX — Abas com ícone + label abreviado (padrão iOS/Android)
+
+- Substituído layout de ícone-somente a ≤480px por coluna ícone+label nas páginas **Painel Multinível** e **Avaliação Painel Multinível**
+- Adicionado atributo `data-short` nos `<span>` das abas com versões abreviadas: "Govern.", "Políticas", "Programas", "Financ."
+- CSS usa `font-size: 0` no span + `::after { content: attr(data-short); font-size: 9px }` para exibir o label abreviado sem duplicar markup
+- Botão reestruturado com `flex-direction: column; gap: 3px` — segue padrão de tab bar nativo mobile
+- Cor do label herda da cor do botão (inativo: teal translúcido; ativo: navy escuro)
+
+**Arquivos:** `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`, `templates/municipios/painel-multinivel.html`, `templates/municipios/avaliacao-painel.html`
+
+---
+
 ## [Não publicado] — 2026-05-19
 
 ### Security Hardening — Auditoria OWASP aplicada
