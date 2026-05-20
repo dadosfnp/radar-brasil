@@ -496,11 +496,15 @@ body.np-body .rb-main {
         padding: 14px 18px 12px;
     }
 
-    /* Mapa ocupa toda a área do card */
-    .np-map-container { min-height: 58vh; position: relative; }
-    #np-map { position: absolute; inset: 0; height: 100%; }
+    /* Mapa: altura explícita para ancorar corretamente position:absolute filhos */
+    .np-map-container {
+        position: relative;
+        height: 65vh;
+        flex-shrink: 0;
+    }
+    #np-map { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-    /* FAB sobre o mapa */
+    /* FAB sobre o mapa (dentro de np-map-container) */
     .np-filter-fab { position: absolute; bottom: 20px; left: 20px; }
 
     .np-kpi-strip { flex-wrap: wrap; padding: 14px 16px; gap: 14px; }
@@ -510,8 +514,11 @@ body.np-body .rb-main {
 
 @media (max-width: 480px) {
     .np-intro { display: none; }
-    .np-page  { padding: 0 0 12px; gap: 8px; }
-    .np-map-container { min-height: 65vh; }
+    .np-page  { padding: 0; gap: 8px; }
+    .np-map-container {
+        height: calc(100vh - 70px);
+        border-radius: 0;
+    }
     .np-kpi  { flex: 0 0 100%; }
     .np-kpi-value { font-size: 20px; }
     .np-kpi-icon { width: 42px; height: 42px; }

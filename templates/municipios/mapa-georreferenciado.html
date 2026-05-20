@@ -219,11 +219,26 @@
       var fab      = document.getElementById('mg-filter-fab');
       var closeBtn = document.getElementById('mg-sidebar-close');
       var backdrop = document.getElementById('mg-sidebar-backdrop');
+
+      function isMobile() { return window.innerWidth <= 900; }
       function open()  { sidebar.classList.add('mg-open'); backdrop.classList.add('mg-open'); document.body.style.overflow = 'hidden'; }
       function close() { sidebar.classList.remove('mg-open'); backdrop.classList.remove('mg-open'); document.body.style.overflow = ''; }
+
       if (fab)      fab.addEventListener('click', open);
       if (closeBtn) closeBtn.addEventListener('click', close);
       if (backdrop) backdrop.addEventListener('click', close);
+
+      /* Auto-fecha ao selecionar qualquer filtro no mobile */
+      sidebar.querySelectorAll('select').forEach(function (sel) {
+        sel.addEventListener('change', function () {
+          if (isMobile()) setTimeout(close, 350);
+        });
+      });
+      /* Também fecha ao clicar nos botões de ação */
+      ['mg-btn-limpar', 'mg-btn-baixar', 'mg-btn-print'].forEach(function (id) {
+        var btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', function () { if (isMobile()) close(); });
+      });
     })();
     </script>
 {% endblock %}
