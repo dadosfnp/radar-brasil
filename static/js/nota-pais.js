@@ -108,6 +108,168 @@ const NOMES_PT = {
   NZL:"Nova Zelândia", FJI:"Fiji",
 };
 
+// Posições corretas dos labels — substitui o centróide calculado para países
+// com geometria problemática (territórios ultramarinos, ilhas, países muito pequenos)
+const LABEL_OVERRIDES = {
+  // ── Europa ──
+  FRA: [46.5,  2.5],   // exclui Guiana Francesa / outros territórios
+  GBR: [53.5, -1.5],   // foco na ilha principal
+  NOR: [64.5, 14.5],   // evita Svalbard e ilhas do Ártico
+  ISL: [64.9,-18.5],
+  SWE: [60.1, 15.0],
+  FIN: [63.5, 25.5],
+  DNK: [56.0, 10.0],   // exclui Groenlândia
+  IRL: [53.2, -8.0],
+  NLD: [52.3,  5.3],
+  BEL: [50.5,  4.3],
+  LUX: [49.8,  6.1],
+  DEU: [51.0, 10.0],
+  POL: [52.0, 19.5],
+  CZE: [49.8, 15.5],
+  SVK: [48.7, 19.5],
+  AUT: [47.5, 13.5],
+  CHE: [46.8,  8.3],
+  SVN: [46.1, 14.8],
+  HRV: [45.4, 16.5],
+  BIH: [44.2, 17.5],
+  SRB: [44.0, 21.0],
+  MNE: [42.8, 19.4],
+  MKD: [41.6, 21.7],
+  ALB: [41.2, 20.2],
+  HUN: [47.0, 19.5],
+  ROU: [45.9, 24.9],
+  BGR: [42.7, 25.5],
+  GRC: [39.5, 22.5],
+  MDA: [47.1, 28.4],
+  EST: [58.7, 25.0],
+  LVA: [57.0, 24.9],
+  LTU: [55.7, 23.9],
+  BLR: [53.7, 27.8],
+  UKR: [49.0, 32.0],
+  PRT: [39.7, -8.0],
+  ESP: [40.2, -3.7],
+  ITA: [42.8, 12.6],
+  RUS: [61.5, 90.0],   // centro real da Rússia; não Europa
+  // ── Américas ──
+  USA: [38.0,-97.0],
+  CAN: [56.0,-96.0],
+  MEX: [23.5,-102.5],
+  BRA: [-14.0,-51.9],
+  CHL: [-35.0,-71.5],  // país muito comprido
+  ARG: [-38.0,-65.0],
+  COL: [  4.5,-74.0],
+  BOL: [-16.5,-64.5],
+  PRY: [-23.4,-58.4],
+  URY: [-32.5,-56.0],
+  PER: [-10.0,-75.0],
+  ECU: [ -1.8,-78.2],
+  VEN: [  8.0,-66.0],
+  GUY: [  4.8,-58.9],
+  SUR: [  4.0,-56.0],
+  GTM: [ 15.8,-90.3],
+  NIC: [ 12.9,-85.2],
+  CRI: [  9.7,-84.0],
+  PAN: [  8.5,-80.0],
+  // Caribe (ilhas pequenas)
+  BHS: [ 25.0,-77.5],
+  JAM: [ 18.1,-77.3],
+  DOM: [ 18.9,-70.2],
+  VCT: [ 13.2,-61.2],
+  TTO: [ 10.7,-61.2],
+  CUB: [ 22.0,-79.5],
+  HTI: [ 19.0,-72.5],
+  // ── Ásia ──
+  TUR: [ 39.0, 35.0],
+  IRN: [ 32.0, 53.0],
+  IRQ: [ 33.0, 44.0],
+  SAU: [ 24.0, 45.0],
+  JOR: [ 31.3, 36.5],
+  ARE: [ 24.0, 54.0],
+  CHN: [ 35.0,103.0],
+  MNG: [ 46.5,103.0],
+  KAZ: [ 48.0, 67.0],
+  UZB: [ 41.5, 63.5],
+  TKM: [ 39.0, 59.0],
+  TJK: [ 38.9, 71.0],
+  KGZ: [ 41.2, 74.5],
+  AFG: [ 33.5, 65.0],
+  PAK: [ 30.0, 69.0],
+  IND: [ 22.0, 79.0],
+  BGD: [ 24.0, 90.0],
+  BTN: [ 27.5, 90.5],
+  NPL: [ 28.2, 83.9],
+  LKA: [  7.9, 80.7],
+  MMR: [ 19.0, 96.5],
+  THA: [ 15.0,101.0],
+  VNM: [ 16.0,107.0],
+  KHM: [ 12.5,104.9],
+  LAO: [ 18.2,103.9],
+  JPN: [ 36.5,138.0],
+  KOR: [ 36.5,128.0],
+  PHL: [ 12.5,123.0],  // arquipélago
+  MYS: [  4.0,109.5],  // dividido Malásia peninsular + Bornéu
+  IDN: [ -2.5,118.0],  // arquipélago extenso
+  BRN: [  4.5,114.7],
+  SGP: [  1.4,103.8],
+  ARM: [ 40.1, 45.0],
+  AZE: [ 40.3, 47.5],
+  GEO: [ 42.0, 43.5],
+  ISR: [ 31.4, 35.0],
+  // ── África ──
+  MAR: [ 31.8, -7.0],
+  DZA: [ 28.0,  2.5],
+  TUN: [ 34.0,  9.0],
+  LBY: [ 27.0, 17.0],
+  EGY: [ 26.0, 30.0],
+  SDN: [ 15.0, 30.0],
+  SSD: [  7.5, 30.0],
+  ETH: [  9.0, 40.5],
+  ERI: [ 15.2, 39.5],
+  KEN: [ -0.5, 37.8],
+  TZA: [ -6.5, 35.0],
+  UGA: [  1.4, 32.5],
+  RWA: [ -2.0, 30.0],
+  BDI: [ -3.4, 29.9],
+  MOZ: [-18.5, 35.5],
+  ZMB: [-13.5, 27.5],
+  ZWE: [-19.0, 29.5],
+  NAM: [-22.0, 18.0],
+  BWA: [-22.3, 24.7],
+  ZAF: [-29.0, 25.0],
+  LSO: [-29.6, 28.2],
+  SWZ: [-26.5, 31.5],
+  AGO: [-11.5, 17.5],
+  COD: [ -4.0, 24.0],
+  COG: [ -0.5, 15.5],
+  CAF: [  7.0, 21.0],
+  CMR: [  5.7, 12.7],
+  NGA: [  9.0,  8.0],
+  GHA: [  8.0,  -1.0],
+  CIV: [  7.5, -5.5],
+  SEN: [ 14.5,-14.5],
+  MLI: [ 17.5,  -4.0],
+  BFA: [ 12.4,  -1.5],
+  NER: [ 17.5,   8.0],
+  TCD: [ 15.0, 18.5],
+  MRT: [ 20.0,-11.0],
+  SOM: [  6.0, 46.0],
+  MDG: [-20.0, 47.0],
+  // Ilhas africanas
+  CPV: [ 16.0,-24.0],
+  SYC: [ -4.7, 55.5],
+  COM: [-11.6, 43.3],
+  MUS: [-20.3, 57.6],
+  // ── Oceania ──
+  AUS: [-25.5,134.0],
+  NZL: [-41.0,174.0],
+  PNG: [ -6.0,145.0],
+  FJI: [-17.7,178.0],
+  PLW: [  7.5,134.6],
+  KIR: [  1.0,-157.0],
+  SLB: [ -8.5,160.0],
+  VUT: [-16.0,167.5],
+};
+
 // CHAMP Coalition signatories (ISO A3)
 const CHAMP_SIGNATORIES = new Set([
   "CAN","USA","MEX","GTM","NIC","CRI","COL",
@@ -289,6 +451,14 @@ function getContinent(props) {
   return ISO_CONTINENT[getIso(props)] || "Other";
 }
 
+function ringArea(ring) {
+  let area = 0;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    area += (ring[j][0] + ring[i][0]) * (ring[j][1] - ring[i][1]);
+  }
+  return Math.abs(area / 2);
+}
+
 function getCentroid(feature) {
   const geom = feature.geometry;
   if (!geom) return null;
@@ -296,9 +466,10 @@ function getCentroid(feature) {
   if (geom.type === "Polygon") {
     ring = geom.coordinates[0];
   } else if (geom.type === "MultiPolygon") {
-    let maxLen = 0;
+    let maxArea = 0;
     geom.coordinates.forEach(poly => {
-      if (poly[0].length > maxLen) { maxLen = poly[0].length; ring = poly[0]; }
+      const a = ringArea(poly[0]);
+      if (a > maxArea) { maxArea = a; ring = poly[0]; }
     });
   }
   if (!ring.length) return null;
@@ -377,7 +548,7 @@ function buildMap(data) {
     const iso = getIso(feature.properties);
     if (!iso || !CHAMP_SIGNATORIES.has(iso)) return;
 
-    const centroid = getCentroid(feature);
+    const centroid = LABEL_OVERRIDES[iso] || getCentroid(feature);
     if (!centroid) return;
 
     const pin = L.marker(centroid, { icon: PIN_ICON, interactive: false, zIndexOffset: 500 }).addTo(map);
@@ -396,7 +567,7 @@ function buildMap(data) {
     const iso = getIso(feature.properties);
     if (!iso || CHAMP_SIGNATORIES.has(iso)) return;
 
-    const centroid = getCentroid(feature);
+    const centroid = LABEL_OVERRIDES[iso] || getCentroid(feature);
     if (!centroid) return;
 
     const name = getName(feature.properties);
@@ -410,3 +581,4 @@ function buildMap(data) {
 
 // ── BOOT ──────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", init);
+
