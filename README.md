@@ -1,20 +1,20 @@
-# 🌎 Radar Brasil — Federalismo Climático
+#  Radar Brasil — Federalismo Climático
 Inteligência Climática e Interfederativa para Municípios Brasileiros.
 
 O **Radar Brasil** é uma plataforma desenvolvida em Django para análise, processamento e visualização de dados sobre ações climáticas no território nacional. O sistema integra planilhas, APIs geográficas e dados públicos em painéis interativos, permitindo avaliar a cooperação interfederativa nas políticas climáticas e identificar o posicionamento de cada município no contexto nacional e global.
 
 ---
 
-## ✨ Destaques do Sistema
+##  Destaques do Sistema
 
-- 🗺️ **Mapa Georreferenciado:** Visualização geográfica interativa (Leaflet.js) dos municípios com financiamento climático, com filtros por região, estado, porte, eixo e modalidade de financiamento.
-- 🌍 **Nota País:** Mapa-múndi com a coalizão CHAMP de signatários, scores por país e filtros por continente — com exportação via html2canvas.
-- 📊 **Painel Multinível:** Avaliação dos municípios em quatro eixos (Governança, Políticas e Planos, Programas, Linha de Financiamento), com dados lidos dinamicamente do Google Sheets.
-- 💰 **Financiamento Climático:** Painel de análise dos fluxos de financiamento climático no Brasil com gráficos e indicadores agregados.
-- 🏆 **Avaliação e Ranking:** Ferramentas de avaliação comparativa e ranking entre municípios.
-- 📅 **Linha do Tempo:** Histórico visual das ações e marcos do Federalismo Climático no Brasil.
-- ⚙️ **Data Engine:** Leitura automatizada do Google Sheets com cache de 30 minutos, suporte a planilhas `.xlsx`/`.xls` e pipeline de importação via management commands.
-- 🎨 **Design Glassmorphism:** Interface com backdrop-filter, cards translúcidos, tipografia Sora + DM Sans + DM Mono e background `#bdd6e0`.
+-  **Mapa Georreferenciado:** Visualização geográfica interativa (Leaflet.js) dos municípios com financiamento climático, com filtros por região, estado, porte, eixo e modalidade de financiamento.
+-  **Nota País:** Mapa-múndi com a coalizão CHAMP de signatários, scores por país e filtros por continente — com exportação via html2canvas.
+-  **Painel Multinível:** Avaliação dos municípios em quatro eixos (Governança, Políticas e Planos, Programas, Linha de Financiamento), com dados lidos dinamicamente do Google Sheets.
+-  **Financiamento Climático:** Painel de análise dos fluxos de financiamento climático no Brasil com gráficos e indicadores agregados.
+-  **Avaliação e Ranking:** Ferramentas de avaliação comparativa e ranking entre municípios.
+-  **Linha do Tempo:** Histórico visual das ações e marcos do Federalismo Climático no Brasil.
+-  **Data Engine:** Leitura automatizada do Google Sheets com cache de 30 minutos, suporte a planilhas `.xlsx`/`.xls` e pipeline de importação via management commands.
+-  **Design Glassmorphism:** Interface com backdrop-filter, cards translúcidos, tipografia Sora + DM Sans + DM Mono e background `#bdd6e0`.
 
 ---
 
@@ -33,7 +33,7 @@ O **Radar Brasil** é uma plataforma desenvolvida em Django para análise, proce
 
 ---
 
-## 🚀 Como Começar
+##  Como Começar
 
 ### Pré-requisitos
 
@@ -86,7 +86,7 @@ Os dados dinâmicos (Painel Multinível, Financiamento Climático, Avaliação) 
 
 ---
 
-## 🗂️ Estrutura do Projeto
+##  Estrutura do Projeto
 
 ```text
 radar-brasil/
@@ -116,7 +116,7 @@ radar-brasil/
 
 ---
 
-## 🤝 Desenvolvimento e Contribuição
+##  Desenvolvimento e Contribuição
 
 Para manter a integridade e uniformidade do projeto, seguimos padrões rigorosos de desenvolvimento.
 
@@ -128,7 +128,7 @@ Para manter a integridade e uniformidade do projeto, seguimos padrões rigorosos
 
 ---
 
-## 📄 Documentação Técnica
+##  Documentação Técnica
 
 A pasta [`docs/`](docs/) contém a documentação técnica detalhada de cada módulo:
 
@@ -141,4 +141,4 @@ A pasta [`docs/`](docs/) contém a documentação técnica detalhada de cada mó
 
 ---
 
-✍️ **Desenvolvido por:** FNP — Frente Nacional de Prefeitos | 📄 **Licença:** Uso Interno / Restrito
+ **Desenvolvido por:** FNP — Frente Nacional de Prefeitos | 📄 **Licença:** Uso Interno / Restrito
