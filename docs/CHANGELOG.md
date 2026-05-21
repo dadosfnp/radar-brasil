@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## [Não publicado] — 2026-05-21
+
+### Fix — Posicionamento dos labels de países no mapa Nota País
+
+- Adicionado `LABEL_OVERRIDES` (~110 entradas) com coordenadas corretas para países problemáticos: territórios ultramarinos (França, Reino Unido, Dinamarca/Groenlândia, Noruega/Svalbard), arquipélagos (Filipinas, Indonésia, Japão), países compridos (Chile, Rússia), ilhas pequenas (Caribe, Oceania, África)
+- Adicionada função `ringArea` (fórmula de Shoelace) para calcular área real de anéis poligonais
+- Corrigida função `getCentroid`: MultiPolygon agora seleciona o polígono com **maior área** (`ringArea`) em vez de maior número de pontos — evita que países com muitas ilhas pequenas tenham o centróide na ilha errada
+- `buildMap` agora usa `LABEL_OVERRIDES[iso] || getCentroid(feature)` tanto para países signatários (pin + label) quanto não-signatários (label)
+
+**Arquivo:** `static/js/nota-pais.js`
+
+---
+
 ## [Não publicado] — 2026-05-20
 
 ### Mobile UX — Filtros como bottom sheet com FAB flutuante (Mapas)
