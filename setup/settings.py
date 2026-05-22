@@ -11,7 +11,9 @@ IS_PRODUCTION = os.getenv("ENV") == "production"
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     if IS_PRODUCTION:
-        raise ImproperlyConfigured("SECRET_KEY não configurado. Defina a variável de ambiente SECRET_KEY.")
+        raise ImproperlyConfigured(
+            "SECRET_KEY não configurado. Defina a variável de ambiente SECRET_KEY."
+        )
     SECRET_KEY = "dev-secret-key-apenas-para-desenvolvimento-local-nao-usar-em-producao"
 
 DEBUG = False if IS_PRODUCTION else os.getenv("DEBUG", "True") == "True"
@@ -75,6 +77,7 @@ WSGI_APPLICATION = "setup.wsgi.application"
 # Banco: SQLite em dev, PostgreSQL no Render
 if os.getenv("ENV") == "production":
     import dj_database_url
+
     DATABASES = {
         "default": dj_database_url.config(
             default=os.getenv("DATABASE_URL"),

@@ -7,14 +7,24 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID   = "1lrT6g8JvB3wVZnlVK1JziffzW1mfSYSrGyOqsPZZJG4"
-SHEET_GID  = 992060842
-CACHE_TTL  = 1800
+SHEET_ID = "1lrT6g8JvB3wVZnlVK1JziffzW1mfSYSrGyOqsPZZJG4"
+SHEET_GID = 992060842
+CACHE_TTL = 1800
 
 _cache = {"df": None, "ts": 0}
 
-CHART_COLORS = ["#2c7873", "#1a3d4d", "#6fb3b8", "#f4a261", "#e76f51",
-                "#52b788", "#90e0ef", "#ffd166", "#ef476f", "#118ab2"]
+CHART_COLORS = [
+    "#2c7873",
+    "#1a3d4d",
+    "#6fb3b8",
+    "#f4a261",
+    "#e76f51",
+    "#52b788",
+    "#90e0ef",
+    "#ffd166",
+    "#ef476f",
+    "#118ab2",
+]
 
 
 def _get_client():
@@ -35,9 +45,9 @@ def _ler_sheet() -> pd.DataFrame:
     if _cache["df"] is not None and (agora - _cache["ts"]) < CACHE_TTL:
         return _cache["df"]
     client = _get_client()
-    ws     = client.open_by_key(SHEET_ID).get_worksheet_by_id(SHEET_GID)
-    dados  = ws.get_all_records()
-    df     = pd.DataFrame(dados)
+    ws = client.open_by_key(SHEET_ID).get_worksheet_by_id(SHEET_GID)
+    dados = ws.get_all_records()
+    df = pd.DataFrame(dados)
     df.columns = [str(c).strip() for c in df.columns]
     _cache["df"] = df
     _cache["ts"] = agora
@@ -103,11 +113,11 @@ def _split_multi(val_str: str) -> list:
 
 
 def _aplicar_filtros(df: pd.DataFrame, filtros: dict) -> pd.DataFrame:
-    prog_col  = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
+    prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
     setor_col = _col(df, "Setor")
-    mod_col   = _col(df, "Modalidade")
-    orig_col  = _col(df, "Origem dos Recursos", "Origem")
-    ente_col  = _col(df, "Ente", "Ente Federado")
+    mod_col = _col(df, "Modalidade")
+    orig_col = _col(df, "Origem dos Recursos", "Origem")
+    ente_col = _col(df, "Ente", "Ente Federado")
 
     def _filtrar(col, val_str):
         nonlocal df
@@ -115,28 +125,28 @@ def _aplicar_filtros(df: pd.DataFrame, filtros: dict) -> pd.DataFrame:
         if col and vals:
             df = df[df[col].apply(_limpar).isin(vals)]
 
-    _filtrar(prog_col,  filtros.get("programa", ""))
+    _filtrar(prog_col, filtros.get("programa", ""))
     _filtrar(setor_col, filtros.get("setor", ""))
-    _filtrar(mod_col,   filtros.get("modalidade", ""))
-    _filtrar(orig_col,  filtros.get("origem", ""))
-    _filtrar(ente_col,  filtros.get("ente", ""))
+    _filtrar(mod_col, filtros.get("modalidade", ""))
+    _filtrar(orig_col, filtros.get("origem", ""))
+    _filtrar(ente_col, filtros.get("ente", ""))
     return df
 
 
 # ── Pública: filtros disponíveis ───────────────────────────────
 def get_filtros() -> dict:
     df = _ler_sheet()
-    prog_col  = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
+    prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
     setor_col = _col(df, "Setor")
-    mod_col   = _col(df, "Modalidade")
-    orig_col  = _col(df, "Origem dos Recursos", "Origem")
-    ente_col  = _col(df, "Ente", "Ente Federado")
+    mod_col = _col(df, "Modalidade")
+    orig_col = _col(df, "Origem dos Recursos", "Origem")
+    ente_col = _col(df, "Ente", "Ente Federado")
     return {
-        "programas":   _uniq(df, prog_col),
-        "setores":     _uniq(df, setor_col),
+        "programas": _uniq(df, prog_col),
+        "setores": _uniq(df, setor_col),
         "modalidades": _uniq(df, mod_col),
-        "origens":     _uniq(df, orig_col),
-        "entes":       _uniq(df, ente_col),
+        "origens": _uniq(df, orig_col),
+        "entes": _uniq(df, ente_col),
     }
 
 
@@ -145,30 +155,31 @@ def get_tabela(filtros: dict) -> list:
     df = _ler_sheet()
     df = _aplicar_filtros(df, filtros)
 
-    prog_col  = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
+    prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
     setor_col = _col(df, "Setor")
-    mod_col   = _col(df, "Modalidade")
-    orig_col  = _col(df, "Origem dos Recursos", "Origem")
-    val_col   = _col(df, "Valor de Financiamento", "Valor de financiamento",
-                       "Valor do Financiamento")
+    mod_col = _col(df, "Modalidade")
+    orig_col = _col(df, "Origem dos Recursos", "Origem")
+    val_col = _col(df, "Valor de Financiamento", "Valor de financiamento", "Valor do Financiamento")
     cpart_col = _col(df, "Contrapartida", "Contrapatida mínima", "Contrapartida mínima")
-    fed_col   = _col(df, "Federal", "Repasse Federal")
-    est_col   = _col(df, "Estadual", "Repasse Estadual")
-    mun_col   = _col(df, "Municipal", "Repasse Municipal")
+    fed_col = _col(df, "Federal", "Repasse Federal")
+    est_col = _col(df, "Estadual", "Repasse Estadual")
+    mun_col = _col(df, "Municipal", "Repasse Municipal")
 
     rows = []
     for _, row in df.iterrows():
-        rows.append({
-            "programa":      _limpar(row.get(prog_col,  "") if prog_col  else ""),
-            "setor":         _limpar(row.get(setor_col, "") if setor_col else ""),
-            "modalidade":    _limpar(row.get(mod_col,   "") if mod_col   else ""),
-            "origem":        _limpar(row.get(orig_col,  "") if orig_col  else ""),
-            "valor":         _limpar(row.get(val_col,   "") if val_col   else ""),
-            "contrapartida": _limpar(row.get(cpart_col, "") if cpart_col else ""),
-            "federal":       _limpar(row.get(fed_col,   "") if fed_col   else ""),
-            "estadual":      _limpar(row.get(est_col,   "") if est_col   else ""),
-            "municipal":     _limpar(row.get(mun_col,   "") if mun_col   else ""),
-        })
+        rows.append(
+            {
+                "programa": _limpar(row.get(prog_col, "") if prog_col else ""),
+                "setor": _limpar(row.get(setor_col, "") if setor_col else ""),
+                "modalidade": _limpar(row.get(mod_col, "") if mod_col else ""),
+                "origem": _limpar(row.get(orig_col, "") if orig_col else ""),
+                "valor": _limpar(row.get(val_col, "") if val_col else ""),
+                "contrapartida": _limpar(row.get(cpart_col, "") if cpart_col else ""),
+                "federal": _limpar(row.get(fed_col, "") if fed_col else ""),
+                "estadual": _limpar(row.get(est_col, "") if est_col else ""),
+                "municipal": _limpar(row.get(mun_col, "") if mun_col else ""),
+            }
+        )
     return rows
 
 
@@ -178,13 +189,11 @@ def get_graficos(filtros: dict) -> dict:
     df = _aplicar_filtros(df, filtros)
 
     setor_col = _col(df, "Setor")
-    orig_col  = _col(df, "Origem dos Recursos", "Origem")
-    val_col   = _col(df, "Valor de Financiamento", "Valor de financiamento",
-                       "Valor do Financiamento")
-    ente_col  = _col(df, "Ente", "Ente Federado")
-    fed_col   = _col(df, "Federal", "Repasse Federal")
-    est_col   = _col(df, "Estadual", "Repasse Estadual")
-    mun_col   = _col(df, "Municipal", "Repasse Municipal")
+    orig_col = _col(df, "Origem dos Recursos", "Origem")
+    val_col = _col(df, "Valor de Financiamento", "Valor de financiamento", "Valor do Financiamento")
+    fed_col = _col(df, "Federal", "Repasse Federal")
+    est_col = _col(df, "Estadual", "Repasse Estadual")
+    mun_col = _col(df, "Municipal", "Repasse Municipal")
 
     # ── Gráfico 1: Valor do Financiamento por Setor ────────────
     setor_data = {"labels": [], "values": [], "texts": []}
@@ -201,7 +210,7 @@ def get_graficos(filtros: dict) -> dict:
         setor_data = {
             "labels": g["setor"].tolist(),
             "values": [round(v, 2) for v in g["total"].tolist()],
-            "texts":  [_fmt_brl(v) for v in g["total"].tolist()],
+            "texts": [_fmt_brl(v) for v in g["total"].tolist()],
         }
 
     # ── Gráfico 2: Origem dos Recursos (donut) ─────────────────
@@ -215,7 +224,7 @@ def get_graficos(filtros: dict) -> dict:
         origem_data = {
             "labels": labels,
             "values": g["count"].tolist(),
-            "colors": CHART_COLORS[:len(labels)],
+            "colors": CHART_COLORS[: len(labels)],
         }
 
     # ── Gráfico 3: Repasse por Ente Federado (pizza) ──────────────────
@@ -231,11 +240,11 @@ def get_graficos(filtros: dict) -> dict:
     ente_data = {
         "labels": ["Federal", "Estadual", "Municipal"],
         "values": [round(fed_v, 2), round(est_v, 2), round(mun_v, 2)],
-        "texts":  [_fmt_brl(fed_v), _fmt_brl(est_v), _fmt_brl(mun_v)],
+        "texts": [_fmt_brl(fed_v), _fmt_brl(est_v), _fmt_brl(mun_v)],
     }
 
     return {
-        "setor":  setor_data,
+        "setor": setor_data,
         "origem": origem_data,
-        "ente":   ente_data,
+        "ente": ente_data,
     }

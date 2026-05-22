@@ -98,6 +98,7 @@ body.rb-body {
 
 /* MENU NAV */
 :root {
+    /* ── Paleta de cores base ── */
     --hdr-900: #122e38;
     --hdr-800: #1e4d5c;
     --hdr-700: #2c6174;
@@ -109,6 +110,58 @@ body.rb-body {
     --bdy-200: #a7c7c7;
     --bdy-100: #ccdeea;
     --bdy-50:  #dee9f4;
+
+    /* ── Aliases semânticos de cor ── */
+    --color-primary:       #2c6174;   /* = --hdr-700 */
+    --color-primary-dark:  #1a3d4d;   /* botões, nav escuro */
+    --color-primary-deep:  #103758;   /* headings, títulos */
+    --color-primary-light: #427a88;   /* = --hdr-500, hovers */
+    --color-teal:          #2c7873;   /* accent teal (gráficos, focus) */
+
+    /* ── Texto ── */
+    --color-text-primary:   #103758;
+    --color-text-secondary: #3a6070;
+    --color-text-muted:     #6b8a96;
+    --color-text-faint:     #4a6a7c;
+    --color-text-dark:      #2a4a5a;
+
+    /* ── Backgrounds ── */
+    --color-bg-page:   #bdd6e0;
+    --color-bg-card:   #ffffff;
+    --color-bg-input:  #f5f8fa;
+    --color-bg-subtle: #eef2f6;
+    --color-bg-ocean:  #bdd8e8;
+
+    /* ── Bordas ── */
+    --color-border:        #e4ecf0;
+    --color-border-input:  #ccdde5;
+    --color-border-subtle: #c8dde5;
+
+    /* ── Tipografia ── */
+    --font-sans:    'Roboto', system-ui, sans-serif;
+    --font-display: 'Sora', 'Roboto', sans-serif;
+    --font-ui:      'DM Sans', 'Roboto', sans-serif;
+
+    /* ── Border radius ── */
+    --radius-sm:   4px;
+    --radius-md:   6px;
+    --radius-lg:   10px;
+    --radius-xl:   14px;
+    --radius-2xl:  16px;
+    --radius-full: 9999px;
+
+    /* ── Sombras ── */
+    --shadow-sm: 0 2px 8px  rgba(16,55,88,.08);
+    --shadow-md: 0 4px 16px rgba(16,55,88,.10);
+    --shadow-lg: 0 4px 28px rgba(16,55,88,.12);
+    --shadow-xl: 0 8px 40px rgba(16,55,88,.16);
+
+    /* ── Transições ── */
+    --transition-fast: 150ms;
+    --transition-base: 200ms;
+    --transition-slow: 300ms;
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .rb-main-nav {

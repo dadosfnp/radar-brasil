@@ -7,10 +7,10 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 # ── Configuração ──────────────────────────────────────────────
-CREDS_PATH          = ".secrets/fnp-radar-sheets.json"
+CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 SHEET_PARAMETROS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
-WORKSHEET_NAME      = "dados"
-CACHE_TTL           = 1800  # 30 minutos
+WORKSHEET_NAME = "dados"
+CACHE_TTL = 1800  # 30 minutos
 
 CORES_NIVEL = {
     "Nível 0": "#bdc5d0",
@@ -23,15 +23,15 @@ CORES_NIVEL = {
 
 # O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
 EIXO_MAP = {
-    "Governanca":             "Governanca",
-    "Politicas e Planos":     "Politicas e Planos",
-    "Programas":              "Programas",
-    "Linhas de Financiamento":"Linhas de Financiamento",
+    "Governanca": "Governanca",
+    "Politicas e Planos": "Politicas e Planos",
+    "Programas": "Programas",
+    "Linhas de Financiamento": "Linhas de Financiamento",
 }
 
 # Cache em memória
 _cache = {
-    "df":        None,
+    "df": None,
     "timestamp": 0,
 }
 
@@ -69,12 +69,12 @@ def _ler_parametros() -> pd.DataFrame:
 
     print("[CACHE MISS] Buscando dados do Google Sheets...")
     client = _get_client()
-    sh     = client.open_by_key(SHEET_PARAMETROS_ID)
-    ws     = sh.worksheet(WORKSHEET_NAME)
-    dados  = ws.get_all_records()
-    df     = pd.DataFrame(dados)
+    sh = client.open_by_key(SHEET_PARAMETROS_ID)
+    ws = sh.worksheet(WORKSHEET_NAME)
+    dados = ws.get_all_records()
+    df = pd.DataFrame(dados)
 
-    _cache["df"]        = df
+    _cache["df"] = df
     _cache["timestamp"] = agora
 
     # LOG: mostra os valores únicos da coluna Eixo para diagnóstico
@@ -98,7 +98,7 @@ def dados_para_grafico(eixo_front: str) -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front)
     if not eixo_busca:
         return {
-            "labels":   [],
+            "labels": [],
             "datasets": [],
             "erro": f"Eixo desconhecido: {eixo_front}",
         }
@@ -109,71 +109,63 @@ def dados_para_grafico(eixo_front: str) -> dict:
     colunas_esperadas = {"Eixo", "Avaliação", "Nível"}
     if not colunas_esperadas.issubset(set(df.columns)):
         return {
-            "labels":   [],
+            "labels": [],
             "datasets": [],
             "erro": f"Colunas encontradas: {list(df.columns)}",
         }
 
     # Normaliza para comparação sem acento
     df = df.copy()
-    df["Eixo_norm"]     = df["Eixo"].astype(str).apply(_normalizar)
-    df["Avaliação"]     = df["Avaliação"].astype(str).str.strip()
-    df["Nível"]         = df["Nível"].astype(str).str.strip()
+    df["Eixo_norm"] = df["Eixo"].astype(str).apply(_normalizar)
+    df["Avaliação"] = df["Avaliação"].astype(str).str.strip()
+    df["Nível"] = df["Nível"].astype(str).str.strip()
 
     eixo_norm = _normalizar(eixo_busca)
 
     # Filtra pelo eixo e por níveis válidos
-    df_eixo = df[
-        (df["Eixo_norm"] == eixo_norm) &
-        (df["Nível"].isin(CORES_NIVEL.keys()))
-    ].copy()
+    df_eixo = df[(df["Eixo_norm"] == eixo_norm) & (df["Nível"].isin(CORES_NIVEL.keys()))].copy()
 
-    print(f"[FILTRO] Eixo '{eixo_front}' → '{eixo_busca}' → norm '{eixo_norm}': {len(df_eixo)} registros")
+    print(
+        f"[FILTRO] Eixo '{eixo_front}' → '{eixo_busca}' → norm '{eixo_norm}': "
+        f"{len(df_eixo)} registros"
+    )
 
     if df_eixo.empty:
         return {"labels": [], "datasets": []}
 
     # Ordena Avaliações pelo score de Nível 5 (igual ao R)
     score = (
-        df_eixo[df_eixo["Nível"] == "Nível 5"]
-        .groupby("Avaliação")
-        .size()
-        .reset_index(name="score")
+        df_eixo[df_eixo["Nível"] == "Nível 5"].groupby("Avaliação").size().reset_index(name="score")
     )
-    todas    = df_eixo["Avaliação"].unique().tolist()
+    todas = df_eixo["Avaliação"].unique().tolist()
     score_df = pd.DataFrame({"Avaliação": todas})
     score_df = score_df.merge(score, on="Avaliação", how="left").fillna(0)
     score_df = score_df.sort_values("score", ascending=True)
-    labels   = score_df["Avaliação"].tolist()
+    labels = score_df["Avaliação"].tolist()
 
     # Contagem por Avaliação + Nível
-    contagem = (
-        df_eixo.groupby(["Avaliação", "Nível"])
-        .size()
-        .reset_index(name="qtd")
-    )
+    contagem = df_eixo.groupby(["Avaliação", "Nível"]).size().reset_index(name="qtd")
 
     # Monta datasets — um por nível
     datasets = []
     for nivel, cor in CORES_NIVEL.items():
         data = []
         for avaliacao in labels:
-            filtro = contagem[
-                (contagem["Avaliação"] == avaliacao) &
-                (contagem["Nível"] == nivel)
-            ]
+            filtro = contagem[(contagem["Avaliação"] == avaliacao) & (contagem["Nível"] == nivel)]
             data.append(int(filtro["qtd"].sum()))
 
-        datasets.append({
-            "label":           nivel,
-            "data":            data,
-            "backgroundColor": cor,
-            "borderWidth":     0,
-            "borderRadius":    3,
-            "stack":           "stack1",
-        })
+        datasets.append(
+            {
+                "label": nivel,
+                "data": data,
+                "backgroundColor": cor,
+                "borderWidth": 0,
+                "borderRadius": 3,
+                "stack": "stack1",
+            }
+        )
 
     return {
-        "labels":   labels,
+        "labels": labels,
         "datasets": datasets,
     }

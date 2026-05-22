@@ -22,7 +22,9 @@ def painel_multinivel_view(request):
         total_municipios = get_total_municipios()
     except Exception:
         total_municipios = "—"
-    return render(request, "municipios/painel-multinivel.html", {"total_municipios": total_municipios})
+    return render(
+        request, "municipios/painel-multinivel.html", {"total_municipios": total_municipios}
+    )
 
 
 def api_painel_multinivel(request):
@@ -47,6 +49,7 @@ def api_avaliacao_filtros(request):
         return err
     try:
         from apps.indicadores.services.avaliacao_painel import get_filtros
+
         return JsonResponse(get_filtros(eixo))
     except Exception:
         logger.exception("Erro em api_avaliacao_filtros")
@@ -59,6 +62,7 @@ def api_avaliacao_tabela(request):
         return JsonResponse({"rows": []})
     try:
         from apps.indicadores.services.avaliacao_painel import get_tabela
+
         return JsonResponse({"rows": get_tabela(estrutura)})
     except Exception:
         logger.exception("Erro em api_avaliacao_tabela")
@@ -71,6 +75,7 @@ def api_avaliacao_ficha(request):
         return JsonResponse({"campos": []})
     try:
         from apps.indicadores.services.avaliacao_painel import get_ficha
+
         return JsonResponse(get_ficha(estrutura))
     except Exception:
         logger.exception("Erro em api_avaliacao_ficha")
@@ -89,6 +94,7 @@ def mapa_georreferenciado_view(request):
 def api_mapa_dados(request):
     try:
         from apps.indicadores.services.mapa_georreferenciado import get_dados_mapa
+
         return JsonResponse(get_dados_mapa())
     except Exception:
         logger.exception("Erro em api_mapa_dados")
@@ -98,6 +104,7 @@ def api_mapa_dados(request):
 def api_mapa_filtros(request):
     try:
         from apps.indicadores.services.mapa_georreferenciado import get_filtros_mapa
+
         return JsonResponse(get_filtros_mapa())
     except Exception:
         logger.exception("Erro em api_mapa_filtros")
@@ -115,6 +122,7 @@ def financiamento_climatico_view(request):
 def api_fin_cli_filtros(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_filtros
+
         return JsonResponse(get_filtros())
     except Exception:
         logger.exception("Erro em api_fin_cli_filtros")
@@ -123,14 +131,15 @@ def api_fin_cli_filtros(request):
 
 def api_fin_cli_tabela(request):
     filtros = {
-        "programa":   request.GET.get("programa", "").strip(),
-        "setor":      request.GET.get("setor", "").strip(),
+        "programa": request.GET.get("programa", "").strip(),
+        "setor": request.GET.get("setor", "").strip(),
         "modalidade": request.GET.get("modalidade", "").strip(),
-        "origem":     request.GET.get("origem", "").strip(),
-        "ente":       request.GET.get("ente", "").strip(),
+        "origem": request.GET.get("origem", "").strip(),
+        "ente": request.GET.get("ente", "").strip(),
     }
     try:
         from apps.indicadores.services.financiamento_climatico import get_tabela
+
         return JsonResponse({"rows": get_tabela(filtros)})
     except Exception:
         logger.exception("Erro em api_fin_cli_tabela")
@@ -139,14 +148,15 @@ def api_fin_cli_tabela(request):
 
 def api_fin_cli_graficos(request):
     filtros = {
-        "programa":   request.GET.get("programa", "").strip(),
-        "setor":      request.GET.get("setor", "").strip(),
+        "programa": request.GET.get("programa", "").strip(),
+        "setor": request.GET.get("setor", "").strip(),
         "modalidade": request.GET.get("modalidade", "").strip(),
-        "origem":     request.GET.get("origem", "").strip(),
-        "ente":       request.GET.get("ente", "").strip(),
+        "origem": request.GET.get("origem", "").strip(),
+        "ente": request.GET.get("ente", "").strip(),
     }
     try:
         from apps.indicadores.services.financiamento_climatico import get_graficos
+
         return JsonResponse(get_graficos(filtros))
     except Exception:
         logger.exception("Erro em api_fin_cli_graficos")
