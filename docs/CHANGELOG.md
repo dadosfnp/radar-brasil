@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## [Não publicado] — 2026-05-21
 
+### Dev — Ferramentas de qualidade e suite de testes
+
+- Criado `requirements-dev.txt` com `black`, `flake8`, `pytest-django`, `pytest-cov` — **não enviado ao Render**, apenas para uso local
+- Criado `pytest.ini` apontando para `setup.settings`
+- 13 testes em `apps/indicadores/tests.py` cobrindo todos os endpoints da API e páginas principais: status HTTP, formato JSON, validação de parâmetros, respostas padrão sem filtros, e blindagem contra injeção em parâmetros de query string
+- Todos os 13 testes passam localmente em 13s
+
+**Arquivos:** `requirements-dev.txt`, `pytest.ini`, `apps/indicadores/tests.py`
+
+---
+
 ### Fix — Posicionamento dos labels de países no mapa Nota País
 
 - Adicionado `LABEL_OVERRIDES` (~110 entradas) com coordenadas corretas para países problemáticos: territórios ultramarinos (França, Reino Unido, Dinamarca/Groenlândia, Noruega/Svalbard), arquipélagos (Filipinas, Indonésia, Japão), países compridos (Chile, Rússia), ilhas pequenas (Caribe, Oceania, África)
