@@ -6,6 +6,37 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## [Não publicado] — 2026-05-21
 
+### Padronização — Design tokens, qualidade de código e CI
+
+**CSS Design Tokens** (`static/css/base.css`)
+- Adicionados aliases semânticos ao `:root` existente: `--color-primary`, `--color-primary-dark`, `--color-primary-deep`, `--color-text-*`, `--color-bg-*`, `--color-border-*`, `--font-sans/display/ui`, `--radius-*`, `--shadow-*`, `--transition-*`, `--ease-*`
+- As variáveis `--hdr-*` e `--bdy-*` existentes foram mantidas para compatibilidade retroativa
+
+**Configuração de qualidade** (`.flake8`, `pyproject.toml`)
+- `.flake8`: max-line-length 100, exclude migrations/.venv, per-file-ignores para arquivos gerados pelo Django
+- `pyproject.toml`: configuração do Black (line-length 100, target Python 3.12) e isort
+- Formatação Black aplicada em 17 arquivos Python (sem mudança de comportamento)
+- Corrigida variável não usada `ente_col` em `financiamento_climatico.py`
+- Corrigida linha longa em `painel_multinivel.py`
+- Flake8 passa sem erros; Black passa sem reformatações
+
+**Documentação de ambiente** (`.env.example`)
+- Template com todas as variáveis necessárias e comentários em português
+
+**Política de segurança** (`SECURITY.md`)
+- Documento de divulgação responsável e tabela de configurações ativas em produção
+
+**Guia de contribuição** (`CONTRIBUTING.md`)
+- Fluxo Git completo (feature → next → main), padrão de commit, estrutura de arquivos, padrões de CSS/JS/Python
+
+**GitHub Actions CI** (`.github/workflows/ci.yml`)
+- Pipeline CI que roda em push para `next`/`main` e PRs para `next`
+- Etapas: `flake8` → `black --check` → `pytest` (com SQLite em memória, sem PostgreSQL)
+
+**Arquivos:** `static/css/base.css`, `.flake8`, `pyproject.toml`, `.env.example`, `SECURITY.md`, `CONTRIBUTING.md`, `.github/workflows/ci.yml`, `apps/indicadores/services/financiamento_climatico.py`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
 ### Dev — Ferramentas de qualidade e suite de testes
 
 - Criado `requirements-dev.txt` com `black`, `flake8`, `pytest-django`, `pytest-cov` — **não enviado ao Render**, apenas para uso local

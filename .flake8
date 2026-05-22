@@ -1,0 +1,18 @@
+[flake8]
+max-line-length = 100
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    migrations,
+    .eggs,
+    *.egg,
+    staticfiles
+per-file-ignores =
+    # Arquivos gerados automaticamente pelo Django startapp
+    */admin.py:F401
+    */models.py:F401
+    */views.py:F401
+    */tests.py:F401
+    __init__.py:F401
+ignore = E203, W503, W391, E226
