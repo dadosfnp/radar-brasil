@@ -533,18 +533,65 @@ body.fin-cli-page .rb-main {
         flex-shrink: 0;
     }
 
-    /* Tabela */
+    /* Tabela — layout de cartão no mobile */
     .fc-table-wrap {
         border-radius: 10px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: visible;
+        box-shadow: none;
+        background: transparent;
     }
-    .fc-table th,
-    .fc-table td {
-        font-size: 11px;
-        padding: 8px 9px;
-        white-space: nowrap;
+    .fc-table thead { display: none; }
+    .fc-table,
+    .fc-table tbody { display: block; width: 100%; }
+
+    .fc-table tbody tr {
+        display: block;
+        background: #fff;
+        border: 1px solid #e4ecf0;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(16,55,88,.07);
     }
+
+    .fc-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 9px 12px;
+        border-right: none;
+        border-bottom: 1px solid #f0f5f8;
+        font-size: 12px;
+        white-space: normal;
+        color: #2a4a5a;
+        font-weight: 400;
+    }
+    .fc-table tbody td:last-child { border-bottom: none; }
+    .fc-table tbody td.fc-td-ente { border-left: none; }
+
+    .fc-table tbody td::before {
+        content: attr(data-label);
+        font-size: 10px;
+        font-weight: 700;
+        color: #2c6174;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        min-width: 38%;
+        flex-shrink: 0;
+    }
+
+    /* Primeira célula vira cabeçalho do cartão */
+    .fc-table tbody td:first-child {
+        display: block;
+        background: #eef6fa;
+        font-size: 13px;
+        font-weight: 600;
+        color: #103758;
+        border-bottom: 2px solid #d4e8ef;
+        padding: 10px 12px;
+    }
+    .fc-table tbody td:first-child::before { display: none; }
 
     /* Paginação */
     .fc-pagination {
