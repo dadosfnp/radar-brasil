@@ -314,6 +314,15 @@ const REGION_MAP = {
   "oceania":  ["Oceania"],
 };
 
+// SW / NE corners for each region — tight bounds so flyToBounds zooms close
+const REGION_BOUNDS = {
+  "americas": [[-55, -118], [ 70,  -35]],
+  "europe":   [[ 35,  -22], [ 71,   42]],
+  "africa":   [[-35,  -17], [ 37,   51]],
+  "asia":     [[  1,   26], [ 77,  148]],
+  "oceania":  [[-47,  112], [ 20,  180]],
+};
+
 let map, geoLayer;
 let currentRegion = "";
 let pinMarkers = [];
@@ -345,6 +354,18 @@ function applyRegionFilter(region) {
       if (map.hasLayer(marker)) map.removeLayer(marker);
     }
   });
+
+  // Zoom animado ao continente selecionado; volta à visão mundial ao limpar
+  if (region && REGION_BOUNDS[region]) {
+    map.flyToBounds(REGION_BOUNDS[region], {
+      padding: [10, 10],
+      maxZoom: 5,
+      animate: true,
+      duration: 0.9,
+    });
+  } else if (!region) {
+    map.flyTo([20, 15], 2, { animate: true, duration: 0.9 });
+  }
 }
 
 // ── INIT ──────────────────────────────────────────────────────────

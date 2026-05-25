@@ -451,16 +451,169 @@ body.fin-cli-page .rb-main {
 }
 
 @media (max-width: 768px) {
-    .fc-page { padding: 8px 8px 24px; }
-    .fc-filters-bar { flex-direction: column; gap: 8px; }
-    .fc-filter-item { min-width: 100%; }
-    .fc-actions { flex-wrap: wrap; gap: 8px; }
-    .fc-actions button { flex: 1 1 calc(50% - 4px); }
-    .fc-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .fc-table th, .fc-table td { font-size: 12px; padding: 8px 10px; white-space: nowrap; }
+
+    /* Página */
+    .fc-page {
+        padding: 12px 12px 32px;
+        gap: 14px;
+    }
+
+    /* Intro */
+    .fc-intro h2 {
+        font-size: 17px;
+        margin-bottom: 4px;
+    }
+    .fc-intro p {
+        font-size: 12.5px;
+        line-height: 1.55;
+    }
+
+    /* Painel */
+    .fc-panel {
+        padding: 14px 12px 14px;
+        gap: 14px;
+        border-radius: 10px;
+    }
+
+    /* Filtros */
+    .fc-filters-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding-bottom: 14px;
+    }
+    .fc-filter-item {
+        min-width: 100%;
+    }
+    .fc-ms-trigger {
+        padding: 10px 12px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+
+    /* Gráficos */
+    .fc-charts {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .fc-chart-card {
+        padding: 12px 10px 10px;
+        border-radius: 8px;
+    }
+    .fc-chart-title {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    .fc-chart-area {
+        min-height: 200px;
+        height: 220px;
+    }
+    .fc-origem-scroll {
+        max-height: 220px;
+    }
+
+    /* Ações */
+    .fc-actions {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 14px;
+        align-items: stretch;
+    }
+    .fc-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 16px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 8px;
+        gap: 8px;
+    }
+    .fc-btn svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+    }
+
+    /* Tabela — layout de cartão no mobile */
+    .fc-table-wrap {
+        border-radius: 10px;
+        overflow-x: visible;
+        box-shadow: none;
+        background: transparent;
+    }
+    .fc-table thead { display: none; }
+    .fc-table,
+    .fc-table tbody { display: block; width: 100%; }
+
+    .fc-table tbody tr {
+        display: block;
+        background: #fff;
+        border: 1px solid #e4ecf0;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(16,55,88,.07);
+    }
+
+    .fc-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 9px 12px;
+        border-right: none;
+        border-bottom: 1px solid #f0f5f8;
+        font-size: 12px;
+        white-space: normal;
+        color: #2a4a5a;
+        font-weight: 400;
+    }
+    .fc-table tbody td:last-child { border-bottom: none; }
+    .fc-table tbody td.fc-td-ente { border-left: none; }
+
+    .fc-table tbody td::before {
+        content: attr(data-label);
+        font-size: 10px;
+        font-weight: 700;
+        color: #2c6174;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        min-width: 38%;
+        flex-shrink: 0;
+    }
+
+    /* Primeira célula vira cabeçalho do cartão */
+    .fc-table tbody td:first-child {
+        display: block;
+        background: #eef6fa;
+        font-size: 13px;
+        font-weight: 600;
+        color: #103758;
+        border-bottom: 2px solid #d4e8ef;
+        padding: 10px 12px;
+    }
+    .fc-table tbody td:first-child::before { display: none; }
+
+    /* Paginação */
+    .fc-pagination {
+        padding: 10px 12px;
+        gap: 4px;
+    }
+    .fc-page-btn {
+        min-width: 28px;
+        height: 28px;
+        font-size: 11px;
+    }
 }
 
-@media (max-width: 480px) {
-    .fc-actions button { flex: 1 1 100%; }
-    .fc-charts canvas { max-height: 220px; }
+@media (max-width: 400px) {
+    .fc-page {
+        padding: 8px 8px 24px;
+    }
+    .fc-panel {
+        padding: 12px 10px;
+    }
+    .fc-btn {
+        padding: 12px 14px;
+        font-size: 12.5px;
+    }
 }

@@ -194,6 +194,13 @@ class MultiSelect {
 // ══════════════════════════════════════════════════════════════
 function _qs(id) { return document.getElementById(id); }
 
+function _scrollToTabela() {
+    const wrap = document.querySelector(".fc-table-wrap");
+    if (!wrap) return;
+    const top = wrap.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({ top, behavior: "smooth" });
+}
+
 function _getFilters() {
     return {
         programa:   (msInstances.programa   || { getSelected: () => [] }).getSelected().join(","),
@@ -431,15 +438,15 @@ function renderTabela() {
 
     tbody.innerHTML = page.map(r => `
         <tr>
-          <td>${_esc(r.programa)}</td>
-          <td>${_esc(r.setor)}</td>
-          <td>${_esc(r.modalidade)}</td>
-          <td>${_esc(r.origem)}</td>
-          <td>${_esc(r.valor)}</td>
-          <td>${_esc(r.contrapartida)}</td>
-          <td class="fc-td-ente">${_esc(r.federal)}</td>
-          <td>${_esc(r.estadual)}</td>
-          <td>${_esc(r.municipal)}</td>
+          <td data-label="Programa">${_esc(r.programa)}</td>
+          <td data-label="Setor">${_esc(r.setor)}</td>
+          <td data-label="Modalidade">${_esc(r.modalidade)}</td>
+          <td data-label="Origem">${_esc(r.origem)}</td>
+          <td data-label="Valor">${_esc(r.valor)}</td>
+          <td data-label="Contrapartida">${_esc(r.contrapartida)}</td>
+          <td class="fc-td-ente" data-label="Federal">${_esc(r.federal)}</td>
+          <td data-label="Estadual">${_esc(r.estadual)}</td>
+          <td data-label="Municipal">${_esc(r.municipal)}</td>
         </tr>`).join("");
 
     renderPaginacao();
@@ -471,10 +478,10 @@ function renderPaginacao() {
     html += `<button class="fc-page-btn" id="fc-pg-next" ${currentPage === pages ? "disabled" : ""}>Próximo</button>`;
     el.innerHTML = html;
 
-    _qs("fc-pg-prev")?.addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderTabela(); } });
-    _qs("fc-pg-next")?.addEventListener("click", () => { if (currentPage < pages) { currentPage++; renderTabela(); } });
+    _qs("fc-pg-prev")?.addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderTabela(); _scrollToTabela(); } });
+    _qs("fc-pg-next")?.addEventListener("click", () => { if (currentPage < pages) { currentPage++; renderTabela(); _scrollToTabela(); } });
     el.querySelectorAll(".fc-page-btn[data-page]").forEach(btn => {
-        btn.addEventListener("click", () => { currentPage = parseInt(btn.dataset.page); renderTabela(); });
+        btn.addEventListener("click", () => { currentPage = parseInt(btn.dataset.page); renderTabela(); _scrollToTabela(); });
     });
 }
 
