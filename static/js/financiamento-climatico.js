@@ -194,6 +194,13 @@ class MultiSelect {
 // ══════════════════════════════════════════════════════════════
 function _qs(id) { return document.getElementById(id); }
 
+function _scrollToTabela() {
+    const wrap = document.querySelector(".fc-table-wrap");
+    if (!wrap) return;
+    const top = wrap.getBoundingClientRect().top + window.scrollY - 16;
+    window.scrollTo({ top, behavior: "smooth" });
+}
+
 function _getFilters() {
     return {
         programa:   (msInstances.programa   || { getSelected: () => [] }).getSelected().join(","),
@@ -471,10 +478,10 @@ function renderPaginacao() {
     html += `<button class="fc-page-btn" id="fc-pg-next" ${currentPage === pages ? "disabled" : ""}>Próximo</button>`;
     el.innerHTML = html;
 
-    _qs("fc-pg-prev")?.addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderTabela(); } });
-    _qs("fc-pg-next")?.addEventListener("click", () => { if (currentPage < pages) { currentPage++; renderTabela(); } });
+    _qs("fc-pg-prev")?.addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderTabela(); _scrollToTabela(); } });
+    _qs("fc-pg-next")?.addEventListener("click", () => { if (currentPage < pages) { currentPage++; renderTabela(); _scrollToTabela(); } });
     el.querySelectorAll(".fc-page-btn[data-page]").forEach(btn => {
-        btn.addEventListener("click", () => { currentPage = parseInt(btn.dataset.page); renderTabela(); });
+        btn.addEventListener("click", () => { currentPage = parseInt(btn.dataset.page); renderTabela(); _scrollToTabela(); });
     });
 }
 
