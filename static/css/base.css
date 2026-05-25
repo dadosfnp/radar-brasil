@@ -22,7 +22,7 @@ body.rb-body {
     background-repeat: no-repeat;
     width: 100%;
     flex-shrink: 0;
-    padding-top: 20px;
+    padding: 10px 0;
     margin-top: 0;
     position: relative;
 }
@@ -30,10 +30,10 @@ body.rb-body {
 .rb-header-wrapper::before {
     content: '';
     position: absolute;
-    top: -20px;
+    top: -10px;
     left: 0;
     right: 0;
-    height: 20px;
+    height: 10px;
     background-color: #061e1b;
     background-image:
         linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
@@ -54,7 +54,7 @@ body.rb-body {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 20px 0 8px;
+    padding: 0;
 }
 
 .rb-header-title {
@@ -64,14 +64,14 @@ body.rb-body {
 }
 
 .rb-header-title h1 {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: 1px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .rb-header-title p {
-    font-size: 15px;
+    font-size: 13px;
     opacity: 0.9;
 }
 
@@ -85,7 +85,7 @@ body.rb-body {
 }
 
 .rb-header-radar-img {
-    height: 52px;
+    height: 62px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
@@ -107,7 +107,7 @@ body.rb-body {
 }
 
 .rb-header-logo-img {
-    height: 52px;
+    height: 40px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);

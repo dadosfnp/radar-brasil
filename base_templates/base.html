@@ -32,28 +32,28 @@
                 </div>
             </div>
         </header>
-        <nav class="rb-main-nav" id="rb-main-nav">
-            <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-            <div class="rb-nav-links" id="rb-nav-links">
-                <a href="{% url 'municipios:inicio' %}"
-                   class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
-                <a href="{% url 'municipios:metodologia' %}"
-                   class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
-                <a href="{% url 'indicadores:painel_multinivel' %}"
-                   class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
-                <a href="{% url 'indicadores:avaliacao_painel' %}"
-                   class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
-                <a href="{% url 'indicadores:nota_pais' %}"
-                   class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
-                <a href="{% url 'indicadores:financiamento_climatico' %}"
-                   class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
-                <a href="{% url 'indicadores:mapa_georreferenciado' %}"
-                   class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
-            </div>
-        </nav>
     </div>
+    <nav class="rb-main-nav" id="rb-main-nav">
+        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="rb-nav-links" id="rb-nav-links">
+            <a href="{% url 'municipios:inicio' %}"
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
+            <a href="{% url 'municipios:metodologia' %}"
+               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
+            <a href="{% url 'indicadores:painel_multinivel' %}"
+               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
+            <a href="{% url 'indicadores:avaliacao_painel' %}"
+               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+            <a href="{% url 'indicadores:nota_pais' %}"
+               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
+            <a href="{% url 'indicadores:financiamento_climatico' %}"
+               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
+            <a href="{% url 'indicadores:mapa_georreferenciado' %}"
+               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
+        </div>
+    </nav>
 
     <main class="rb-main">
         {% block content %}{% endblock %}
