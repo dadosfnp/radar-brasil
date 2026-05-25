@@ -16,39 +16,44 @@
     <div class="rb-header-wrapper">
         <header class="rb-header">
             <div class="rb-header-top">
+                <div class="rb-header-logo-radar">
+                    <a href="{% url 'municipios:home' %}">
+                        <img src="{% static 'img/logo-radar.svg' %}" alt="Radar Brasil" class="rb-header-radar-img">
+                    </a>
+                </div>
                 <div class="rb-header-title">
                     <h1>RADAR BRASIL</h1>
                     <p>Impulsionando a Ação Climática Federativa</p>
                 </div>
                 <div class="rb-header-logo">
-                    <a href="{% url 'municipios:home' %}">
+                    <a href="https://fnp.org.br/index.php" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="rb-header-logo-img">
                     </a>
                 </div>
             </div>
         </header>
-        <nav class="rb-main-nav" id="rb-main-nav">
-            <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
-                <span></span><span></span><span></span>
-            </button>
-            <div class="rb-nav-links" id="rb-nav-links">
-                <a href="{% url 'municipios:inicio' %}"
-                   class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
-                <a href="{% url 'municipios:metodologia' %}"
-                   class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
-                <a href="{% url 'indicadores:painel_multinivel' %}"
-                   class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
-                <a href="{% url 'indicadores:avaliacao_painel' %}"
-                   class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
-                <a href="{% url 'indicadores:nota_pais' %}"
-                   class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
-                <a href="{% url 'indicadores:financiamento_climatico' %}"
-                   class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
-                <a href="{% url 'indicadores:mapa_georreferenciado' %}"
-                   class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
-            </div>
-        </nav>
     </div>
+    <nav class="rb-main-nav" id="rb-main-nav">
+        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="rb-nav-links" id="rb-nav-links">
+            <a href="{% url 'municipios:inicio' %}"
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
+            <a href="{% url 'municipios:metodologia' %}"
+               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
+            <a href="{% url 'indicadores:painel_multinivel' %}"
+               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
+            <a href="{% url 'indicadores:avaliacao_painel' %}"
+               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+            <a href="{% url 'indicadores:nota_pais' %}"
+               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
+            <a href="{% url 'indicadores:financiamento_climatico' %}"
+               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
+            <a href="{% url 'indicadores:mapa_georreferenciado' %}"
+               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
+        </div>
+    </nav>
 
     <main class="rb-main">
         {% block content %}{% endblock %}
