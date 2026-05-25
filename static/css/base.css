@@ -477,33 +477,51 @@ body.rb-body {
 /* ---- RESPONSIVO ---- */
 @media (max-width: 768px) {
     /* Header compacto */
+    .rb-header-wrapper {
+        padding: 6px 0;
+    }
     .rb-header {
-        padding: 0 14px;
+        padding: 0 12px;
     }
     .rb-header-top {
-        grid-template-columns: 1fr auto;
-        padding: 10px 0 6px;
+        grid-template-columns: auto 1fr auto;
+        gap: 8px;
+        padding: 0;
     }
+
+    /* Radar logo — visível no mobile, menor e clicável */
     .rb-header-logo-radar {
-        display: none;
-    }
-    .rb-header-title {
+        display: block;
         grid-column: 1 / 2;
-        text-align: left;
+        justify-self: start;
+    }
+    .rb-header-radar-img {
+        height: 34px;
+    }
+
+    /* Título centralizado entre os dois logos */
+    .rb-header-title {
+        grid-column: 2 / 3;
+        justify-self: center;
+        text-align: center;
     }
     .rb-header-title h1 {
-        font-size: 18px;
+        font-size: 15px;
         letter-spacing: 0.5px;
-        margin-bottom: 2px;
+        margin-bottom: 1px;
     }
     .rb-header-title p {
-        font-size: 11px;
+        font-size: 10px;
+        opacity: 0.85;
     }
+
+    /* FNP logo */
     .rb-header-logo {
-        grid-column: 2 / 3;
+        grid-column: 3 / 4;
+        justify-self: end;
     }
     .rb-header-logo-img {
-        height: 36px;
+        height: 30px;
     }
 
     /* Navbar mobile com hamburger */
