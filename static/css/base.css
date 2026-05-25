@@ -75,6 +75,28 @@ body.rb-body {
     opacity: 0.9;
 }
 
+.rb-header-logo-radar {
+    grid-column: 1 / 2;
+    justify-self: start;
+}
+
+.rb-header-logo-radar a {
+    display: block;
+}
+
+.rb-header-radar-img {
+    height: 52px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+    transition: opacity var(--transition-base);
+}
+
+.rb-header-logo-radar a:hover .rb-header-radar-img {
+    opacity: 1;
+}
+
 .rb-header-logo {
     grid-column: 3 / 4;
     justify-self: end;
@@ -90,6 +112,7 @@ body.rb-body {
     display: block;
     filter: brightness(0) invert(1);
     opacity: 0.85;
+    transition: opacity var(--transition-base);
 }
 
 .rb-header-logo a:hover .rb-header-logo-img {
@@ -460,6 +483,9 @@ body.rb-body {
     .rb-header-top {
         grid-template-columns: 1fr auto;
         padding: 10px 0 6px;
+    }
+    .rb-header-logo-radar {
+        display: none;
     }
     .rb-header-title {
         grid-column: 1 / 2;
