@@ -1,3 +1,6 @@
+import pandas as pd
+from unittest.mock import patch
+
 from django.test import TestCase, Client
 from django.urls import reverse
 
@@ -5,6 +8,14 @@ from django.urls import reverse
 class PainelMultinivelAPITest(TestCase):
     def setUp(self):
         self.client = Client()
+        self.patcher = patch(
+            "apps.indicadores.services.painel_multinivel._ler_parametros",
+            return_value=pd.DataFrame(),
+        )
+        self.patcher.start()
+
+    def tearDown(self):
+        self.patcher.stop()
 
     def test_eixo_valido_retorna_200(self):
         for eixo in ["Governanca", "Politicas e Planos", "Programas", "Linhas de Financiamento"]:
@@ -25,6 +36,14 @@ class PainelMultinivelAPITest(TestCase):
 class AvaliacaoAPITest(TestCase):
     def setUp(self):
         self.client = Client()
+        self.patcher = patch(
+            "apps.indicadores.services.avaliacao_painel._fichas",
+            return_value=pd.DataFrame(),
+        )
+        self.patcher.start()
+
+    def tearDown(self):
+        self.patcher.stop()
 
     def test_filtros_eixo_valido_retorna_200(self):
         res = self.client.get(reverse("indicadores:api_avaliacao_filtros"), {"eixo": "Governanca"})
@@ -49,6 +68,14 @@ class AvaliacaoAPITest(TestCase):
 class MapaAPITest(TestCase):
     def setUp(self):
         self.client = Client()
+        self.patcher = patch(
+            "apps.indicadores.services.mapa_georreferenciado._ler_sheet",
+            return_value=pd.DataFrame(),
+        )
+        self.patcher.start()
+
+    def tearDown(self):
+        self.patcher.stop()
 
     def test_filtros_mapa_retorna_200(self):
         res = self.client.get(reverse("indicadores:api_mapa_filtros"))
@@ -64,6 +91,14 @@ class MapaAPITest(TestCase):
 class FinanciamentoAPITest(TestCase):
     def setUp(self):
         self.client = Client()
+        self.patcher = patch(
+            "apps.indicadores.services.financiamento_climatico._ler_sheet",
+            return_value=pd.DataFrame(),
+        )
+        self.patcher.start()
+
+    def tearDown(self):
+        self.patcher.stop()
 
     def test_filtros_retorna_200(self):
         res = self.client.get(reverse("indicadores:api_fin_cli_filtros"))
