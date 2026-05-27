@@ -751,9 +751,10 @@ body.mapa-page .rb-main {
 @media (max-width: 480px) {
     .mg-intro { display: none; }
     .mg-page  { padding: 0; gap: 0; }
-    /* Mapa ocupa a tela inteira menos o cabeçalho (~70px) */
+    /* Mapa ocupa a tela inteira menos header (~46px) + nav (~44px) + buffer (6px) = 96px */
     .mg-map-area {
-        height: calc(100vh - 70px);
+        height: calc(100vh - 96px);
+        height: calc(100svh - 96px); /* svh: viewport height com chrome do browser visível */
         border-radius: 0;
         flex-shrink: 0;
     }
@@ -761,7 +762,9 @@ body.mapa-page .rb-main {
     .mg-stats-panel { min-width: 150px; padding: 9px 12px; top: 10px; right: 10px; }
     .mg-stats-valor { font-size: 13px; }
     .mg-stats-label, .mg-stats-municipios { font-size: 10px; }
-    .mg-legend { bottom: 16px; right: 8px; padding: 8px 10px; }
+    /* Legenda e FAB com margem extra do fundo para não serem cortados */
+    .mg-legend { bottom: 20px; right: 8px; padding: 8px 10px; }
+    .mg-filter-fab { bottom: 24px; }
     .mg-legend-title { font-size: 9px; }
     .mg-legend-item { font-size: 10px; }
 }
