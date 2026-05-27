@@ -151,6 +151,7 @@ body.fin-cli-page .rb-main {
     display: none;
     flex-direction: column;
     max-height: 260px;
+    overflow: hidden;
 }
 
 /* Dropdown abrindo para cima (quando não há espaço abaixo) */
@@ -158,10 +159,19 @@ body.fin-cli-page .rb-main {
     top: auto;
     bottom: calc(100% + 3px);
     box-shadow: 0 -6px 20px rgba(22,64,75,.14);
-    border-radius: 8px;
 }
 
 .fc-ms-dropdown.open { display: flex; }
+
+/* Modo fixed (mobile) — JS sobrescreve position/left/top via inline style;
+   anulamos right:0 para não conflitar com a largura calculada pelo JS */
+@media (max-width: 768px) {
+    .fc-ms-dropdown {
+        right: auto; /* largura controlada por JS (width inline) */
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(22,64,75,.22);
+    }
+}
 
 .fc-ms-search {
     padding: 7px 8px 5px;
@@ -492,16 +502,44 @@ body.fin-cli-page .rb-main {
     /* Filtros */
     .fc-filters-bar {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         padding-bottom: 14px;
     }
     .fc-filter-item {
         min-width: 100%;
     }
+    /* Trigger maior para touch + feedback visual claro */
     .fc-ms-trigger {
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+        min-height: 48px; /* mínimo recomendado para touch targets (WCAG) */
+    }
+    /* Filtro ativo ganha borda destacada para indicar seleção em andamento */
+    .fc-multiselect.is-open .fc-ms-trigger {
+        border-color: #2c6174;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(44,97,116,.12);
+    }
+    /* Itens do dropdown maiores para toque */
+    .fc-ms-option {
         padding: 10px 12px;
         font-size: 13px;
-        border-radius: 8px;
+    }
+    .fc-ms-option input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+    /* Buscar input maior */
+    .fc-ms-search input {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+    /* Botões Todos/Nenhum mais acessíveis */
+    .fc-ms-action-btn {
+        font-size: 12px;
+        padding: 4px 10px;
+        min-height: 32px;
     }
 
     /* Gráficos */

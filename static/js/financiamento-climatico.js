@@ -9,6 +9,10 @@ let msInstances = {};   // { key: MultiSelect }
 // MultiSelect — dropdown com checkboxes
 // ══════════════════════════════════════════════════════════════
 class MultiSelect {
+    // Registro global de todas as instâncias para garantir
+    // que apenas um dropdown fique aberto por vez.
+    static _all = [];
+
     constructor({ containerId, placeholder, onChange }) {
         this.el          = document.getElementById(containerId);
         this.placeholder = placeholder || "Todos";
@@ -16,6 +20,8 @@ class MultiSelect {
         this.options     = [];
         this.selected    = new Set();   // vazio = "todos selecionados"
         this.isOpen      = false;
+        this._fixedMode  = false;       // true quando usando position:fixed (mobile)
+        MultiSelect._all.push(this);
         this._build();
     }
 
@@ -51,9 +57,17 @@ class MultiSelect {
         this.el.querySelector(".js-clear-all").addEventListener("click",  () => this._clearAll());
         this._searchEl.addEventListener("input", () => this._renderOptions(this._searchEl.value.toLowerCase()));
 
+        // Fecha ao clicar fora (desktop)
         document.addEventListener("click", e => {
-            if (!this.el.contains(e.target)) this._close();
+            if (!this.el.contains(e.target) &&
+                !this._dropdown.contains(e.target)) this._close();
         });
+
+        // Fecha ao fazer scroll (evita dropdown "voando" na tela)
+        window.addEventListener("scroll", () => { if (this.isOpen) this._close(); }, { passive: true });
+
+        // Reposiciona ao redimensionar janela (portrait ↔ landscape)
+        window.addEventListener("resize", () => { if (this.isOpen) this._close(); });
     }
 
     // ── API pública ───────────────────────────────────────────
@@ -73,33 +87,83 @@ class MultiSelect {
     }
 
     // ── Internos ──────────────────────────────────────────────
+    _isMobile() { return window.innerWidth <= 768; }
+
     _toggle() { this.isOpen ? this._close() : this._open(); }
 
     _open() {
+        // ── Fecha todos os outros antes de abrir este ──────────
+        MultiSelect._all.forEach(ms => { if (ms !== this) ms._close(); });
+
         this.isOpen = true;
         this._dropdown.classList.add("open");
         this._trigger.classList.add("open");
         this.el.classList.add("is-open");
         this._searchEl.value = "";
         this._renderOptions();
-        this._smartPosition();
+
+        if (this._isMobile()) {
+            this._openFixed();
+        } else {
+            this._smartPosition();
+        }
+
         this._searchEl.focus();
     }
 
     _close() {
+        if (!this.isOpen) return;
         this.isOpen = false;
         this._dropdown.classList.remove("open");
         this._trigger.classList.remove("open");
         this.el.classList.remove("is-open");
         this._dropdown.classList.remove("drop-up");
-        this._dropdown.style.maxHeight = "";
+
+        // Limpa estilos inline aplicados pelo modo fixed (mobile)
+        if (this._fixedMode) {
+            const s = this._dropdown.style;
+            s.position = s.width = s.left = s.top = s.bottom = s.maxHeight = "";
+            this._fixedMode = false;
+            MultiSelect._hideBackdrop();
+        } else {
+            this._dropdown.style.maxHeight = "";
+        }
     }
 
-    /* Verifica se há espaço abaixo; se não houver, abre para cima.
-       Também limita a altura máxima para caber no viewport. */
-    _smartPosition() {
-        const DROPDOWN_MIN_H = 180; // altura mínima útil em px
+    // ── Posicionamento mobile: position:fixed flutua acima de tudo ──
+    _openFixed() {
+        this._fixedMode = true;
+        const r       = this._trigger.getBoundingClientRect();
+        const vw      = window.innerWidth;
+        const vh      = window.innerHeight;
+        const w       = r.width;
+        const left    = Math.min(r.left, vw - w - 4); // não sai pela direita
+        const below   = vh - r.bottom - 8;
+        const above   = r.top - 8;
+        const maxH    = Math.min(260, Math.max(below, above, 180));
 
+        const s = this._dropdown.style;
+        s.position = "fixed";
+        s.width    = w + "px";
+        s.left     = left + "px";
+        s.maxHeight= maxH + "px";
+        s.zIndex   = "9999";
+
+        if (below >= 180 || below >= above) {
+            s.top    = (r.bottom + 3) + "px";
+            s.bottom = "auto";
+        } else {
+            this._dropdown.classList.add("drop-up");
+            s.top    = "auto";
+            s.bottom = (vh - r.top + 3) + "px";
+        }
+
+        MultiSelect._showBackdrop(() => this._close());
+    }
+
+    // ── Posicionamento desktop: abre para cima se não houver espaço ──
+    _smartPosition() {
+        const DROPDOWN_MIN_H = 180;
         this._dropdown.classList.remove("drop-up");
         this._dropdown.style.maxHeight = "";
 
@@ -108,13 +172,31 @@ class MultiSelect {
         const spaceAbove  = triggerRect.top - 8;
 
         if (spaceBelow < DROPDOWN_MIN_H && spaceAbove > spaceBelow) {
-            // Abre para cima
             this._dropdown.classList.add("drop-up");
             this._dropdown.style.maxHeight = Math.min(260, spaceAbove) + "px";
         } else {
-            // Abre para baixo (padrão), limitando à altura disponível
             this._dropdown.style.maxHeight = Math.min(260, spaceBelow) + "px";
         }
+    }
+
+    // ── Backdrop (mobile) ────────────────────────────────────
+    static _showBackdrop(onClose) {
+        let bd = document.getElementById("fc-ms-backdrop");
+        if (!bd) {
+            bd = document.createElement("div");
+            bd.id = "fc-ms-backdrop";
+            document.body.appendChild(bd);
+        }
+        bd.style.cssText = `
+            position:fixed;inset:0;z-index:9998;
+            background:rgba(0,0,0,.25);`;
+        bd._handler = onClose;
+        bd.onclick  = onClose;
+    }
+
+    static _hideBackdrop() {
+        const bd = document.getElementById("fc-ms-backdrop");
+        if (bd) bd.style.cssText = "";
     }
 
     _selectAll() {
