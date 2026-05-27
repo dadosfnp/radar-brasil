@@ -189,7 +189,7 @@ class MultiSelect {
         }
         bd.style.cssText = `
             position:fixed;inset:0;z-index:9998;
-            background:rgba(0,0,0,.25);`;
+            background:transparent;`;
         bd._handler = onClose;
         bd.onclick  = onClose;
     }
