@@ -55,6 +55,10 @@ body.fin-cli-page .rb-main {
     align-items: flex-end;
     border-bottom: 1px solid #eef2f5;
     padding-bottom: 16px;
+    /* Cria stacking context acima dos gráficos (flex items posteriores
+       competem por z-index com o dropdown — sem isso o dropdown vai para trás) */
+    position: relative;
+    z-index: 10;
 }
 
 .fc-filter-item {
@@ -76,6 +80,8 @@ body.fin-cli-page .rb-main {
 
 /* ── MULTI-SELECT DROPDOWN COM CHECKBOXES ── */
 .fc-multiselect { position: relative; }
+/* Eleva o filtro ativo acima dos irmãos no mesmo flex container */
+.fc-multiselect.is-open { z-index: 20; }
 
 .fc-ms-trigger {
     width: 100%;
@@ -141,10 +147,18 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 8px;
     box-shadow: 0 6px 20px rgba(22,64,75,.14);
-    z-index: 200;
+    z-index: 1000;
     display: none;
     flex-direction: column;
     max-height: 260px;
+}
+
+/* Dropdown abrindo para cima (quando não há espaço abaixo) */
+.fc-ms-dropdown.drop-up {
+    top: auto;
+    bottom: calc(100% + 3px);
+    box-shadow: 0 -6px 20px rgba(22,64,75,.14);
+    border-radius: 8px;
 }
 
 .fc-ms-dropdown.open { display: flex; }

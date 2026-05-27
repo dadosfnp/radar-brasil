@@ -79,8 +79,10 @@ class MultiSelect {
         this.isOpen = true;
         this._dropdown.classList.add("open");
         this._trigger.classList.add("open");
+        this.el.classList.add("is-open");
         this._searchEl.value = "";
         this._renderOptions();
+        this._smartPosition();
         this._searchEl.focus();
     }
 
@@ -88,6 +90,31 @@ class MultiSelect {
         this.isOpen = false;
         this._dropdown.classList.remove("open");
         this._trigger.classList.remove("open");
+        this.el.classList.remove("is-open");
+        this._dropdown.classList.remove("drop-up");
+        this._dropdown.style.maxHeight = "";
+    }
+
+    /* Verifica se há espaço abaixo; se não houver, abre para cima.
+       Também limita a altura máxima para caber no viewport. */
+    _smartPosition() {
+        const DROPDOWN_MIN_H = 180; // altura mínima útil em px
+
+        this._dropdown.classList.remove("drop-up");
+        this._dropdown.style.maxHeight = "";
+
+        const triggerRect = this._trigger.getBoundingClientRect();
+        const spaceBelow  = window.innerHeight - triggerRect.bottom - 8;
+        const spaceAbove  = triggerRect.top - 8;
+
+        if (spaceBelow < DROPDOWN_MIN_H && spaceAbove > spaceBelow) {
+            // Abre para cima
+            this._dropdown.classList.add("drop-up");
+            this._dropdown.style.maxHeight = Math.min(260, spaceAbove) + "px";
+        } else {
+            // Abre para baixo (padrão), limitando à altura disponível
+            this._dropdown.style.maxHeight = Math.min(260, spaceBelow) + "px";
+        }
     }
 
     _selectAll() {
