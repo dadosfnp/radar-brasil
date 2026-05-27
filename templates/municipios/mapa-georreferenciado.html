@@ -229,8 +229,8 @@
       if (backdrop) backdrop.addEventListener('click', close);
 
       /* Auto-fecha ao selecionar qualquer filtro no mobile */
-      sidebar.querySelectorAll('select').forEach(function (sel) {
-        sel.addEventListener('change', function () {
+      sidebar.querySelectorAll('select, input[type="checkbox"]').forEach(function (el) {
+        el.addEventListener('change', function () {
           if (isMobile()) setTimeout(close, 350);
         });
       });
