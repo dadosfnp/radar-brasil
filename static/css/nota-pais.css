@@ -543,9 +543,12 @@ body.np-body .rb-main {
     .np-intro { display: none; }
     .np-page  { padding: 0; gap: 8px; }
     .np-map-container {
-        height: calc(100vh - 70px);
+        height: calc(100vh - 96px);
+        height: calc(100svh - 96px); /* svh: viewport height com chrome do browser visível */
         border-radius: 0;
     }
+    /* FAB com margem extra do fundo para não ser cortado */
+    .np-filter-fab { bottom: 24px; }
     /* Mantém 2×2 no mobile pequeno, só ajusta tamanhos */
     .np-kpi { padding: 10px 10px; gap: 8px; }
     .np-kpi-icon { width: 32px; height: 32px; }
