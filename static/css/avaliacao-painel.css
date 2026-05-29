@@ -570,9 +570,9 @@ body.avaliacao-painel-page .rb-main {
     /* Filtros empilhados */
     .ap-filters { grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px; }
 
-    /* Tabela com scroll horizontal */
-    .ap-table-area { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .ap-table { min-width: 480px; }
+    /* Tabela: scroll horizontal quando necessário */
+    .ap-table-area { overflow: auto; -webkit-overflow-scrolling: touch; }
+    .ap-table { min-width: 460px; }
     .ap-table th, .ap-table td { padding: 9px 10px; font-size: 12.5px; }
 
     /* Botão rodapé centralizado */
@@ -623,6 +623,15 @@ body.avaliacao-painel-page .rb-main {
     .ap-main { padding: 14px 12px 12px; }
     .ap-eixo-title { font-size: 15px; }
     .ap-desc { margin-bottom: 14px; }
+
+    /* Tabela cabe na tela sem scroll horizontal */
+    .ap-table-area { overflow: visible; }
+    .ap-table { min-width: 0; width: 100%; table-layout: fixed; }
+    .ap-table th, .ap-table td { padding: 8px 7px; font-size: 11.5px; }
+    .ap-table td:first-child { font-size: 11.5px; }
+    .ap-table td:nth-child(2) { font-size: 11px; }
+    .ap-th-nivel { width: 76px; }
+    .ap-nivel-badge { padding: 4px 6px; font-size: 10px; white-space: nowrap; }
 
     /* Modal full screen */
     .ap-modal-overlay { padding: 0; align-items: flex-end; }
