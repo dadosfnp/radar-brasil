@@ -165,11 +165,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".pm-tabs li");
   let abaIdxAtual = 0;
 
+  function ativarAba(idx) {
+    const tabpanel = document.getElementById("pm-chart-wrapper");
+    tabs.forEach((t) => {
+      t.classList.remove("active");
+      const btn = t.querySelector("button");
+      if (btn) btn.setAttribute("aria-selected", "false");
+    });
+    tabs[idx].classList.add("active");
+    const activeBtn = tabs[idx].querySelector("button");
+    if (activeBtn) {
+      activeBtn.setAttribute("aria-selected", "true");
+      if (tabpanel) tabpanel.setAttribute("aria-labelledby", activeBtn.id);
+    }
+  }
+
   tabs.forEach((tab, idx) => {
     tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
       abaIdxAtual = idx;
+      ativarAba(idx);
       carregarDados(EIXOS[idx]);
     });
   });
@@ -178,8 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const abaParam = new URLSearchParams(window.location.search).get("aba");
   abaIdxAtual    = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
 
-  tabs.forEach((t) => t.classList.remove("active"));
-  if (tabs[abaIdxAtual]) tabs[abaIdxAtual].classList.add("active");
+  ativarAba(abaIdxAtual);
 
   carregarDados(EIXOS[abaIdxAtual]);
 

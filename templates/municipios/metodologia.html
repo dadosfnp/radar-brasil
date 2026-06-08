@@ -181,25 +181,40 @@
 {% block extra_js %}
 <script>
 (function () {
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     /* Hero mapped card */
     var mc = document.getElementById('meto-mapped-card');
-    mc.style.cssText += 'opacity:0;transform:translateX(24px);transition:opacity .5s ease,transform .5s ease';
-    setTimeout(function () { mc.style.opacity = '1'; mc.style.transform = 'translateX(0)'; }, 200);
+    if (reducedMotion) {
+        mc.style.opacity = '1';
+    } else {
+        mc.style.cssText += 'opacity:0;transform:translateX(24px);transition:opacity .5s ease,transform .5s ease';
+        setTimeout(function () { mc.style.opacity = '1'; mc.style.transform = 'translateX(0)'; }, 200);
+    }
 
     /* Text sections */
     document.querySelectorAll('#meto-text-col .meto-section').forEach(function (s, i) {
-        s.style.cssText += 'opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease';
-        setTimeout(function () { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 300 + i * 130);
+        if (reducedMotion) {
+            s.style.opacity = '1';
+        } else {
+            s.style.cssText += 'opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .4s ease';
+            setTimeout(function () { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, 300 + i * 130);
+        }
     });
 
     /* Sidebar items */
     document.querySelectorAll('#meto-sidebar > *').forEach(function (el, i) {
-        el.style.cssText += 'opacity:0;transform:translateY(12px);transition:opacity .38s ease,transform .38s ease';
-        setTimeout(function () { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 280 + i * 90);
+        if (reducedMotion) {
+            el.style.opacity = '1';
+        } else {
+            el.style.cssText += 'opacity:0;transform:translateY(12px);transition:opacity .38s ease,transform .38s ease';
+            setTimeout(function () { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 280 + i * 90);
+        }
     });
 
     /* Count-up animation */
     function animateCount(el, target, duration) {
+        if (reducedMotion) { el.textContent = target; return; }
         var start = performance.now();
         (function step(now) {
             var p = Math.min((now - start) / duration, 1);
@@ -215,7 +230,7 @@
         document.querySelectorAll('.meto-step-big').forEach(function (el) {
             animateCount(el, parseInt(el.textContent), 900);
         });
-    }, 500);
+    }, reducedMotion ? 0 : 500);
 }());
 </script>
 {% endblock %}

@@ -18,29 +18,29 @@
   {# CABEÇALHO: título + abas #}
   <div class="ap-card-header">
     <span class="ap-panel-label">Avaliação Painel Multinível</span>
-    <nav class="ap-tabs">
-      <ul>
-        <li class="active">
-          <button type="button" data-eixo="Governanca">
-            <img src="{% static 'img/governanca.svg' %}" alt="" class="ap-tab-icon-img">
+    <nav class="ap-tabs" aria-label="Eixos de avaliação">
+      <ul role="tablist">
+        <li class="active" role="presentation">
+          <button type="button" role="tab" aria-selected="true" aria-controls="ap-tabpanel" data-eixo="Governanca" id="ap-tab-governanca">
+            <img src="{% static 'img/governanca.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
             <span data-short="Govern.">Governança</span>
           </button>
         </li>
-        <li>
-          <button type="button" data-eixo="Politicas e Planos">
-            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ap-tab-icon-img">
+        <li role="presentation">
+          <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Politicas e Planos" id="ap-tab-politicas">
+            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
             <span data-short="Políticas">Políticas e Planos</span>
           </button>
         </li>
-        <li>
-          <button type="button" data-eixo="Programas">
-            <img src="{% static 'img/programas.svg' %}" alt="" class="ap-tab-icon-img">
+        <li role="presentation">
+          <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Programas" id="ap-tab-programas">
+            <img src="{% static 'img/programas.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
             <span data-short="Programas">Programas</span>
           </button>
         </li>
-        <li>
-          <button type="button" data-eixo="Linhas de Financiamento">
-            <img src="{% static 'img/financiamento.svg' %}" alt="" class="ap-tab-icon-img">
+        <li role="presentation">
+          <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Linhas de Financiamento" id="ap-tab-financiamento">
+            <img src="{% static 'img/financiamento.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
             <span data-short="Financ.">Linha de Financiamento</span>
           </button>
         </li>
@@ -49,7 +49,7 @@
   </div>
 
   {# ÁREA PRINCIPAL #}
-  <main class="ap-main">
+  <main class="ap-main" id="ap-tabpanel" role="tabpanel" aria-labelledby="ap-tab-governanca">
 
     {# DESCRIÇÃO #}
     <div class="ap-desc">
@@ -86,12 +86,12 @@
     </div>
 
     {# ÁREA DA TABELA #}
-    <div class="ap-table-area" id="ap-table-area">
+    <div class="ap-table-area" id="ap-table-area" aria-live="polite" aria-atomic="false">
 
       {# Loader #}
-      <div id="ap-loader" class="ap-loader" style="display:none;">
+      <div id="ap-loader" class="ap-loader" style="display:none;" role="status" aria-label="Carregando dados">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round">
+             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
                    M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate"
@@ -102,17 +102,17 @@
       </div>
 
       {# Placeholder inicial #}
-      <div id="ap-placeholder" class="ap-placeholder">
+      <div id="ap-placeholder" class="ap-placeholder" role="status">
         Selecione um item para visualizar a avaliação.
       </div>
 
       {# Tabela de avaliação #}
-      <table class="ap-table" id="ap-table" style="display:none;">
+      <table class="ap-table" id="ap-table" style="display:none;" aria-label="Critérios de avaliação">
         <thead>
           <tr>
-            <th>Critério</th>
-            <th>Parâmetro</th>
-            <th class="ap-th-nivel">Nível</th>
+            <th scope="col">Critério</th>
+            <th scope="col">Parâmetro</th>
+            <th scope="col" class="ap-th-nivel">Nível</th>
           </tr>
         </thead>
         <tbody id="ap-table-body"></tbody>
@@ -139,7 +139,7 @@
       <h3 id="ap-modal-title">Ficha Técnica</h3>
       <button type="button" id="ap-pdf-btn" class="ap-pdf-header-btn" title="Salvar PDF">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
@@ -150,9 +150,9 @@
       <button class="ap-modal-close" id="ap-modal-close" aria-label="Fechar">&times;</button>
     </div>
     <div class="ap-modal-body" id="ap-modal-body">
-      <div class="ap-loader" id="ap-modal-loader">
+      <div class="ap-loader" id="ap-modal-loader" role="status" aria-label="Carregando ficha técnica">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round">
+             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
                    M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate"

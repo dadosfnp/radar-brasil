@@ -1,4 +1,4 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA LINHA DO TEMPO
    ============================== */
 
@@ -49,7 +49,7 @@ body.linha-do-tempo-page .rb-main {
 }
 
 .lt-panel-title h2 {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: .09em;
@@ -70,7 +70,7 @@ body.linha-do-tempo-page .rb-main {
 }
 
 .lt-estrutura-label {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 800;
     color: #2c6174;
     text-transform: uppercase;
@@ -82,14 +82,14 @@ body.linha-do-tempo-page .rb-main {
 
 .lt-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1a3d4d;
     margin: 0 0 10px;
 }
 
 .lt-desc {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     line-height: 1.7;
     margin: 0;
@@ -125,14 +125,14 @@ body.linha-do-tempo-page .rb-main {
 
 .lt-construction-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1a3d4d;
     margin: 0;
 }
 
 .lt-construction-sub {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     margin: 0;
     font-style: italic;
@@ -163,6 +163,14 @@ body.linha-do-tempo-page .rb-main {
     100% { width: 40%; opacity: 1;   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .lt-progress-fill {
+        animation: none;
+        width: 24%;
+        opacity: 0.8;
+    }
+}
+
 /* ================== RODAPÉ ================== */
 
 .lt-footer-actions {
@@ -177,7 +185,7 @@ body.linha-do-tempo-page .rb-main {
     border: 1.5px solid #2c6174;
     border-radius: 6px;
     padding: 7px 16px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .06em;
     text-transform: uppercase;
@@ -205,6 +213,6 @@ body.linha-do-tempo-page .rb-main {
         min-height: 280px;
     }
     .lt-construction-title {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 }

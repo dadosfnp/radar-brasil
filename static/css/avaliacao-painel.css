@@ -1,4 +1,4 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA AVALIAÇÃO PAINEL MULTINÍVEL
    ============================== */
 
@@ -49,7 +49,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-panel-label {
-    font-size: 9.5px;
+    font-size: 0.59375rem;
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
@@ -88,7 +88,7 @@ body.avaliacao-painel-page .rb-main {
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 12.5px;
+    font-size: 0.78125rem;
     font-weight: 500;
     color: rgba(194,237,231,.60);
     cursor: pointer;
@@ -146,14 +146,14 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-eixo-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1a2e3a;
     margin: 0 0 8px;
 }
 
 .ap-eixo-sub {
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: #4a5c6a;
     line-height: 1.65;
     margin: 0;
@@ -176,7 +176,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-filter-label {
-    font-size: 9.5px;
+    font-size: 0.59375rem;
     font-weight: 700;
     letter-spacing: .14em;
     text-transform: uppercase;
@@ -194,7 +194,7 @@ body.avaliacao-painel-page .rb-main {
     border-radius: 10px;
     padding: 11px 40px 11px 14px;
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 0.84375rem;
     font-weight: 500;
     color: #1e3040;
     cursor: pointer;
@@ -208,9 +208,11 @@ body.avaliacao-painel-page .rb-main {
     box-shadow: 0 3px 12px rgba(53,96,115,.14);
 }
 
-.ap-select-wrap select:focus {
+.ap-select-wrap select:focus-visible {
+    outline: 2px solid #2c6174;
+    outline-offset: 2px;
     border-color: #2c6174;
-    box-shadow: 0 0 0 3px rgba(53,96,115,.14);
+    box-shadow: 0 0 0 3px rgba(53,96,115,.20);
 }
 
 .ap-select-wrap select:disabled {
@@ -246,7 +248,7 @@ body.avaliacao-painel-page .rb-main {
     justify-content: center;
     gap: 10px;
     padding: 32px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #2c6174;
 }
 
@@ -255,7 +257,7 @@ body.avaliacao-painel-page .rb-main {
     align-items: center;
     justify-content: center;
     padding: 40px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #6a8fa0;
     font-style: italic;
 }
@@ -263,7 +265,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 .ap-table thead tr {
@@ -274,7 +276,7 @@ body.avaliacao-painel-page .rb-main {
     padding: 13px 20px;
     text-align: left;
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     letter-spacing: .16em;
     text-transform: uppercase;
@@ -307,13 +309,13 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-table td:first-child {
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 600;
     color: #1e3040;
 }
 
 .ap-table td:nth-child(2) {
-    font-size: 12.5px;
+    font-size: 0.78125rem;
     color: #4a5c6a;
     font-weight: 400;
 }
@@ -324,7 +326,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-nivel-badge {
     display: inline-block;
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .04em;
     padding: 5px 14px;
@@ -372,7 +374,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-ficha-btn {
     font-family: "Roboto", sans-serif;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .10em;
     text-transform: uppercase;
@@ -440,7 +442,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-modal-header h3 {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     color: rgba(194,237,231,.82);
     letter-spacing: .18em;
@@ -455,8 +457,9 @@ body.avaliacao-painel-page .rb-main {
     border: 1px solid rgba(255,255,255,.40);
     color: rgba(255,255,255,.90);
     border-radius: 6px;
-    padding: 5px 12px;
-    font-size: 11px;
+    padding: 8px 12px;
+    min-height: 2rem;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .06em;
     cursor: pointer;
@@ -481,10 +484,15 @@ body.avaliacao-painel-page .rb-main {
     background: none;
     border: none;
     color: rgba(255,255,255,.70);
-    font-size: 22px;
+    font-size: 1.375rem;
     line-height: 1;
     cursor: pointer;
-    padding: 0 4px;
+    padding: 4px 8px;
+    min-width: 2rem;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: color .15s;
     flex-shrink: 0;
 }
@@ -513,7 +521,7 @@ body.avaliacao-painel-page .rb-main {
     border: 1.5px solid #2c6174;
     border-radius: 8px;
     padding: 8px 18px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -534,7 +542,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-ficha-campo:last-child { margin-bottom: 0; border-bottom: none; }
 
 .ap-ficha-campo-label {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #0d2530;
     text-transform: uppercase;
@@ -543,7 +551,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-ficha-campo-valor {
-    font-size: 13.5px;
+    font-size: 0.84375rem;
     color: #4a6a78;
     line-height: 1.6;
     white-space: pre-wrap;
@@ -560,12 +568,12 @@ body.avaliacao-painel-page .rb-main {
     .ap-panel-label { display: none; }
     .ap-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
     .ap-tabs ul { flex-wrap: nowrap; gap: 2px; }
-    .ap-tabs button { padding: 10px 12px; font-size: 11.5px; gap: 5px; white-space: nowrap; }
+    .ap-tabs button { padding: 10px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; }
 
     /* Corpo */
     .ap-main { padding: 18px 14px 16px; }
-    .ap-eixo-title { font-size: 17px; }
-    .ap-eixo-sub { font-size: 12.5px; }
+    .ap-eixo-title { font-size: 1.0625rem; }
+    .ap-eixo-sub { font-size: 0.78125rem; }
 
     /* Filtros empilhados */
     .ap-filters { grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px; }
@@ -573,7 +581,7 @@ body.avaliacao-painel-page .rb-main {
     /* Tabela: scroll horizontal quando necessário */
     .ap-table-area { overflow: auto; -webkit-overflow-scrolling: touch; }
     .ap-table { min-width: 460px; }
-    .ap-table th, .ap-table td { padding: 9px 10px; font-size: 12.5px; }
+    .ap-table th, .ap-table td { padding: 9px 10px; font-size: 0.78125rem; }
 
     /* Botão rodapé centralizado */
     .ap-footer-actions { padding: 12px 14px; justify-content: center; }
@@ -612,7 +620,7 @@ body.avaliacao-painel-page .rb-main {
     }
     .ap-tabs button span::after {
         content: attr(data-short);
-        font-size: 9.5px;
+        font-size: 0.59375rem;
         font-weight: 600;
         letter-spacing: .02em;
         line-height: 1;
@@ -621,17 +629,17 @@ body.avaliacao-painel-page .rb-main {
 
     /* Corpo ainda mais compacto */
     .ap-main { padding: 14px 12px 12px; }
-    .ap-eixo-title { font-size: 15px; }
+    .ap-eixo-title { font-size: 0.9375rem; }
     .ap-desc { margin-bottom: 14px; }
 
     /* Tabela cabe na tela sem scroll horizontal */
     .ap-table-area { overflow: visible; }
     .ap-table { min-width: 0; width: 100%; table-layout: fixed; }
-    .ap-table th, .ap-table td { padding: 8px 7px; font-size: 11.5px; }
-    .ap-table td:first-child { font-size: 11.5px; }
-    .ap-table td:nth-child(2) { font-size: 11px; }
+    .ap-table th, .ap-table td { padding: 8px 7px; font-size: 0.71875rem; }
+    .ap-table td:first-child { font-size: 0.71875rem; }
+    .ap-table td:nth-child(2) { font-size: 0.6875rem; }
     .ap-th-nivel { width: 76px; }
-    .ap-nivel-badge { padding: 4px 6px; font-size: 10px; white-space: nowrap; }
+    .ap-nivel-badge { padding: 4px 6px; font-size: 0.625rem; white-space: nowrap; }
 
     /* Modal full screen */
     .ap-modal-overlay { padding: 0; align-items: flex-end; }

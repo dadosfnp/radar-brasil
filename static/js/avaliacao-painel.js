@@ -42,8 +42,19 @@ tabs.forEach((tab) => {
 });
 
 function ativarAba(eixo, tabEl) {
-    tabs.forEach((t) => t.classList.remove("active"));
-    if (tabEl) tabEl.classList.add("active");
+    tabs.forEach((t) => {
+        t.classList.remove("active");
+        const btn = t.querySelector("button");
+        if (btn) btn.setAttribute("aria-selected", "false");
+    });
+    if (tabEl) {
+        tabEl.classList.add("active");
+        const btn = tabEl.querySelector("button");
+        if (btn) {
+            btn.setAttribute("aria-selected", "true");
+            document.getElementById("ap-tabpanel").setAttribute("aria-labelledby", btn.id);
+        }
+    }
 
     eixoAtual      = eixo;
     estruturaAtual = "";
@@ -186,9 +197,38 @@ function resetarTabela(mostrarLoader = false) {
 }
 
 // ── Modal Ficha Técnica ───────────────────────────────────────
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function abrirModal() {
+    modal.style.display = "flex";
+    const focusable = modal.querySelectorAll(FOCUSABLE);
+    if (focusable.length) focusable[0].focus();
+    document.addEventListener("keydown", trapFocus);
+}
+
+function fecharModal() {
+    modal.style.display = "none";
+    document.removeEventListener("keydown", trapFocus);
+    fichaBtn.focus();
+}
+
+function trapFocus(e) {
+    if (e.key === "Escape") { fecharModal(); return; }
+    if (e.key !== "Tab") return;
+    const focusable = Array.from(modal.querySelectorAll(FOCUSABLE)).filter(el => !el.closest('[style*="display: none"]') && !el.closest('[style*="display:none"]'));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+}
+
 fichaBtn.addEventListener("click", () => abrirFicha(estruturaAtual));
-modalClose.addEventListener("click", () => { modal.style.display = "none"; });
-modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
+modalClose.addEventListener("click", fecharModal);
+modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
 
 pdfBtn.addEventListener("click", () => {
     const titulo  = modalTitle.textContent || "Ficha Técnica";
@@ -249,7 +289,7 @@ async function abrirFicha(estrutura) {
     modalBody.innerHTML    = "";
     modalBody.appendChild(modalLoader);
     modalLoader.style.display = "flex";
-    modal.style.display = "flex";
+    abrirModal();
 
     linhaTempoBtn.href = `/indicadores/linha-do-tempo/?estrutura=${encodeURIComponent(estrutura)}`;
 

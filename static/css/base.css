@@ -1,6 +1,24 @@
 ﻿* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { margin: 0; padding: 0; }
+html { margin: 0; padding: 0; font-size: 100%; }
+body { margin: 0; padding: 0; }
+
+/* ── Skip link ── */
+.rb-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 8px;
+    z-index: 9999;
+    padding: 8px 16px;
+    background: #1B3333;
+    color: #c2ede7;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0 0 6px 6px;
+    text-decoration: none;
+    transition: top .1s;
+}
+.rb-skip-link:focus { top: 0; }
 
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
@@ -52,14 +70,14 @@ body.rb-body {
 }
 
 .rb-header-title h1 {
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 2px;
 }
 
 .rb-header-title p {
-    font-size: 13px;
+    font-size: 0.8125rem;
     opacity: 0.9;
 }
 
@@ -192,7 +210,7 @@ body.rb-body {
     text-decoration: none;
     color: var(--hdr-700);
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 500;
     padding: 10px 16px;
     border-bottom: 3px solid transparent;
@@ -211,6 +229,19 @@ body.rb-body {
     font-weight: 600;
     border-bottom-color: var(--hdr-500);
     background: rgba(167, 212, 206, 0.14);
+}
+
+.rb-nav-link:focus-visible {
+    outline: 2px solid var(--hdr-500);
+    outline-offset: -2px;
+    border-radius: 4px;
+}
+
+.rb-nav-hamburger:focus-visible,
+.rb-social-icon:focus-visible {
+    outline: 2px solid #c2ede7;
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 /* MAIN - CARDS*/
@@ -273,14 +304,14 @@ body.rb-body {
 }
 
 .rb-footer-col-left h3 {
-    font-size: 21px;
+    font-size: 1.3125rem;
     font-weight: 900;
     color: rgba(194, 237, 231, 0.90);
     margin-bottom: 6px;
 }
 
 .rb-footer-col-left p {
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
     line-height: 1.5;
     margin-bottom: 4px;
@@ -290,7 +321,7 @@ body.rb-body {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
     flex-wrap: wrap;
     margin-top: 4px;
@@ -312,14 +343,14 @@ body.rb-body {
 
 .rb-footer-sep {
     color: rgba(194, 237, 231, 0.40);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .rb-footer-whats {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
 }
 
@@ -334,7 +365,7 @@ body.rb-body {
 }
 
 .rb-footer-copy {
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.38);
     line-height: 1.4;
     white-space: nowrap;
@@ -357,7 +388,7 @@ body.rb-body {
 }
 
 .rb-footer-social-block h3 {
-    font-size: 21px;
+    font-size: 1.3125rem;
     font-weight: 900;
     color: rgba(194, 237, 231, 0.90);
 }
@@ -488,12 +519,12 @@ body.rb-body {
         text-align: center;
     }
     .rb-header-title h1 {
-        font-size: 15px;
+        font-size: 0.9375rem;
         letter-spacing: 0.5px;
         margin-bottom: 1px;
     }
     .rb-header-title p {
-        font-size: 10px;
+        font-size: 0.625rem;
         opacity: 0.85;
     }
 
@@ -534,7 +565,7 @@ body.rb-body {
         border-left: 3px solid transparent;
         white-space: normal;
         text-align: left;
-        font-size: 14px;
+        font-size: 0.875rem;
     }
     .rb-nav-link.active {
         border-bottom-color: rgba(167, 212, 206, 0.25);
@@ -569,24 +600,24 @@ body.rb-body {
         border-bottom: 1px solid rgba(194,237,231,.12);
     }
     .rb-footer-col-left h3 {
-        font-size: 15px;
+        font-size: 0.9375rem;
         margin-bottom: 8px;
     }
     .rb-footer-col-left p {
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.55;
         margin-bottom: 4px;
     }
     .rb-footer-fone {
-        font-size: 13px;
+        font-size: 0.8125rem;
         gap: 5px;
         margin-top: 6px;
     }
     .rb-footer-sep {
-        font-size: 13px;
+        font-size: 0.8125rem;
     }
     .rb-footer-whats {
-        font-size: 13px;
+        font-size: 0.8125rem;
     }
 
     /* Copyright — separado como bloco central */
@@ -600,7 +631,7 @@ body.rb-body {
     }
     .rb-footer-copy {
         white-space: normal;
-        font-size: 11px;
+        font-size: 0.6875rem;
         text-align: center;
         line-height: 1.5;
     }
@@ -620,7 +651,7 @@ body.rb-body {
         width: 100%;
     }
     .rb-footer-social-block h3 {
-        font-size: 15px;
+        font-size: 0.9375rem;
     }
     .rb-footer-social {
         gap: 8px;

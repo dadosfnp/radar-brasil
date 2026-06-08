@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="{% url 'municipios:metodologia' %}" class="lp-btn-card">Saiba mais</a>
+                <a href="{% url 'municipios:metodologia' %}" class="lp-btn-card" aria-label="Saiba mais sobre a Metodologia do Radar Brasil">Saiba mais</a>
             </div>
         </div>
 
@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="#" class="lp-btn-card">Saiba mais</a>
+                <a href="#" class="lp-btn-card" aria-label="Saiba mais sobre o Ecossistema de Colaboração">Saiba mais</a>
             </div>
         </div>
 
@@ -130,11 +130,16 @@
 
 {% block extra_js %}
 <script>
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.lp-content-card').forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(18px)';
-    card.style.transition = 'opacity .45s ease, transform .45s ease';
-    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 120 + i * 110);
+    if (reducedMotion) {
+        card.style.opacity = '1';
+    } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(18px)';
+        card.style.transition = 'opacity .45s ease, transform .45s ease';
+        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 120 + i * 110);
+    }
 });
 </script>
 {% endblock %}

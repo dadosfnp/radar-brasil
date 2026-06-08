@@ -1,4 +1,4 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA INÍCIO – redesign
    ============================== */
 
@@ -48,7 +48,7 @@ body.inicio-page .rb-main {
     border-radius: 999px;
     padding: 5px 14px;
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     color: #356073;
     letter-spacing: .14em;
@@ -73,7 +73,7 @@ body.inicio-page .rb-main {
 
 .ini-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 26px;
+    font-size: 1.625rem;
     font-weight: 800;
     color: #1a2e3a;
     line-height: 1.3;
@@ -88,7 +88,7 @@ body.inicio-page .rb-main {
 
 .ini-intro p {
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 13.5px;
+    font-size: 0.84375rem;
     color: #4a5c6a;
     line-height: 1.75;
     max-width: 640px;
@@ -137,7 +137,7 @@ body.inicio-page .rb-main {
 
 .ini-card-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
@@ -216,7 +216,7 @@ body.inicio-page .rb-main {
 
 .ini-card-desc strong {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--hdr-800);
     line-height: 1.3;
@@ -224,7 +224,7 @@ body.inicio-page .rb-main {
 
 .ini-card-desc p {
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 0.8125rem;
     color: var(--hdr-700);
     line-height: 1.65;
     opacity: 0.85;

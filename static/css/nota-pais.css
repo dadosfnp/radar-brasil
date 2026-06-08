@@ -1,4 +1,4 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA NOTA PAÍS
    ============================== */
 
@@ -25,14 +25,14 @@ body.np-body .rb-main {
 /* ── INTRO ── */
 .np-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
     color: #103758;
     margin: 0 0 8px;
 }
 
 .np-intro p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     line-height: 1.65;
     margin: 0;
@@ -75,7 +75,7 @@ body.np-body .rb-main {
 
 .np-sidebar-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #1a3d4d;
     letter-spacing: .08em;
@@ -98,7 +98,7 @@ body.np-body .rb-main {
 }
 
 .np-filter-label {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 600;
     color: #4a6a7c;
     letter-spacing: .02em;
@@ -123,7 +123,7 @@ body.np-body .rb-main {
     top: 50%;
     transform: translateY(-50%);
     color: #4a7a90;
-    font-size: 10px;
+    font-size: 0.625rem;
     pointer-events: none;
 }
 
@@ -135,15 +135,16 @@ body.np-body .rb-main {
     border: 1px solid #ccdde5;
     border-radius: 5px;
     color: #3a5a6a;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: inherit;
     appearance: none;
     cursor: pointer;
     transition: border-color .15s, background .15s;
 }
 
-.np-select-wrap select:focus {
-    outline: none;
+.np-select-wrap select:focus-visible {
+    outline: 2px solid #2c7873;
+    outline-offset: 2px;
     border-color: #2c7873;
     background: #fff;
 }
@@ -183,7 +184,7 @@ body.np-body .rb-main {
     height: 36px;
     padding: 0 14px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
@@ -259,14 +260,14 @@ body.np-body .rb-main {
 
 .np-kpi-value {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 26px;
+    font-size: 1.625rem;
     font-weight: 700;
     color: #103758;
     line-height: 1;
 }
 
 .np-kpi-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     color: #6b8a96;
     letter-spacing: .06em;
@@ -335,10 +336,11 @@ body.np-body .rb-main {
     pointer-events: auto;
 }
 
-/* ── REMOVE FOCUS OUTLINE ON MAP PATHS ── */
-#np-map path.leaflet-interactive:focus,
-#np-map .leaflet-interactive:focus {
-    outline: none;
+/* ── FOCUS ON MAP PATHS — usa stroke visível em vez de outline padrão ── */
+#np-map path.leaflet-interactive:focus-visible,
+#np-map .leaflet-interactive:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 1px;
 }
 
 /* ── LEAFLET OVERRIDES ── */
@@ -366,7 +368,7 @@ body.np-body .rb-main {
 }
 
 .np-map-container .leaflet-control-attribution {
-    font-size: 9px;
+    font-size: 0.5625rem;
     background: rgba(255,255,255,.55);
     padding: 1px 5px;
     border-radius: 3px 0 0 0;
@@ -379,7 +381,7 @@ body.np-body .rb-main {
     border-radius: 7px !important;
     color: #fff !important;
     font-family: 'Roboto', sans-serif !important;
-    font-size: 12px !important;
+    font-size: 0.75rem !important;
     padding: 7px 12px !important;
     box-shadow: 0 4px 18px rgba(0,0,0,.30) !important;
     white-space: nowrap;
@@ -401,7 +403,7 @@ body.np-body .rb-main {
     border: none !important;
     box-shadow: none !important;
     font-family: 'Roboto', sans-serif !important;
-    font-size: 7px !important;
+    font-size: 0.4375rem !important;
     font-weight: 700 !important;
     color: rgba(26,61,77,.90) !important;
     text-transform: uppercase !important;
@@ -415,7 +417,7 @@ body.np-body .rb-main {
 .leaflet-tooltip.np-country-label::before { display: none !important; }
 
 .leaflet-tooltip.np-country-label.np-country-label--minor {
-    font-size: 7px !important;
+    font-size: 0.4375rem !important;
     font-weight: 600 !important;
     color: rgba(26,61,77,.80) !important;
 }
@@ -426,7 +428,7 @@ body.np-body .rb-main {
     border: none !important;
     box-shadow: none !important;
     font-family: 'Roboto', sans-serif !important;
-    font-size: 11px !important;
+    font-size: 0.6875rem !important;
     font-weight: 400 !important;
     color: rgba(44,100,160,.55) !important;
     letter-spacing: 0.10em !important;
@@ -441,13 +443,13 @@ body.np-body .rb-main {
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
     .np-kpi { padding: 0 12px; gap: 10px; }
-    .np-kpi-value { font-size: 22px; }
+    .np-kpi-value { font-size: 1.375rem; }
 }
 
 @media (max-width: 900px) {
     .np-page { padding: 8px 8px 16px; gap: 10px; }
-    .np-intro h2 { font-size: 17px; }
-    .np-intro p  { font-size: 12.5px; }
+    .np-intro h2 { font-size: 1.0625rem; }
+    .np-intro p  { font-size: 0.78125rem; }
     .np-card { flex-direction: column; min-height: unset; overflow: visible; }
 
     /* Sidebar → bottom sheet fixo fora do fluxo */
@@ -534,8 +536,8 @@ body.np-body .rb-main {
         flex-shrink: 0;
     }
     .np-kpi-icon svg { width: 17px; height: 17px; }
-    .np-kpi-value { font-size: 22px; }
-    .np-kpi-label { white-space: normal; font-size: 9px; line-height: 1.3; }
+    .np-kpi-value { font-size: 1.375rem; }
+    .np-kpi-label { white-space: normal; font-size: 0.5625rem; line-height: 1.3; }
     .np-kpi-sep { display: none; }
 }
 
@@ -553,6 +555,6 @@ body.np-body .rb-main {
     .np-kpi { padding: 10px 10px; gap: 8px; }
     .np-kpi-icon { width: 32px; height: 32px; }
     .np-kpi-icon svg { width: 15px; height: 15px; }
-    .np-kpi-value { font-size: 20px; }
-    .np-kpi-label { font-size: 8.5px; }
+    .np-kpi-value { font-size: 1.25rem; }
+    .np-kpi-label { font-size: 0.53125rem; }
 }

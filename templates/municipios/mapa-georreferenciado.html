@@ -33,13 +33,13 @@
 
       <div class="mg-sidebar-header">
         <h3>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7" aria-hidden="true">
             <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
           </svg>
           Filtros
         </h3>
         <button class="mg-sidebar-close" id="mg-sidebar-close" aria-label="Fechar filtros">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
@@ -117,7 +117,7 @@
           <label class="mg-filter-label" for="mg-f-municipio">Município</label>
           <div class="mg-mun-wrap">
             <input id="mg-f-municipio" class="mg-mun-input" type="text"
-                   placeholder="Buscar município...">
+                   placeholder="Buscar município..." autocomplete="off">
             <button id="mg-f-municipio-clear" class="mg-mun-clear" type="button" hidden>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
@@ -138,14 +138,14 @@
 
       <div class="mg-sidebar-actions">
         <button id="mg-btn-limpar" class="mg-btn mg-btn-outline">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="1 4 1 10 7 10"></polyline>
             <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
           </svg>
           Limpar filtros
         </button>
         <button id="mg-btn-baixar" class="mg-btn mg-btn-primary">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -153,7 +153,7 @@
           Baixar dados (CSV)
         </button>
         <button id="mg-btn-print" class="mg-btn mg-btn-outline">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
             <circle cx="12" cy="13" r="4"></circle>
           </svg>
@@ -168,14 +168,14 @@
 
       {# FAB de filtros — visível apenas no mobile #}
       <button class="mg-filter-fab" id="mg-filter-fab" aria-label="Abrir filtros">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
         </svg>
       </button>
 
       {# Loader #}
-      <div id="mg-loader" class="mg-map-loader">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c6174" stroke-width="2" stroke-linecap="round">
+      <div id="mg-loader" class="mg-map-loader" role="status" aria-label="Carregando dados do mapa">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2c6174" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
           </path>

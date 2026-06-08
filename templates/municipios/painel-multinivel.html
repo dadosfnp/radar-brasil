@@ -49,29 +49,29 @@
     <div class="pm-card-header">
       <span class="pm-panel-label">Painel Multinível</span>
       <div class="pm-header-sep"></div>
-      <nav class="pm-tabs">
-        <ul>
-          <li class="active">
-            <button type="button">
-              <img src="{% static 'img/governanca.svg' %}" alt="" class="pm-tab-icon-img">
+      <nav class="pm-tabs" aria-label="Dimensões do painel">
+        <ul role="tablist">
+          <li class="active" role="presentation">
+            <button type="button" role="tab" aria-selected="true" aria-controls="pm-chart-wrapper" id="pm-tab-governanca">
+              <img src="{% static 'img/governanca.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
               <span data-short="Govern.">Governança</span>
             </button>
           </li>
-          <li>
-            <button type="button">
-              <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="pm-tab-icon-img">
+          <li role="presentation">
+            <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-politicas">
+              <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
               <span data-short="Políticas">Políticas e Planos</span>
             </button>
           </li>
-          <li>
-            <button type="button">
-              <img src="{% static 'img/programas.svg' %}" alt="" class="pm-tab-icon-img">
+          <li role="presentation">
+            <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-programas">
+              <img src="{% static 'img/programas.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
               <span data-short="Programas">Programas</span>
             </button>
           </li>
-          <li>
-            <button type="button">
-              <img src="{% static 'img/financiamento.svg' %}" alt="" class="pm-tab-icon-img">
+          <li role="presentation">
+            <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-financiamento">
+              <img src="{% static 'img/financiamento.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
               <span data-short="Financ.">Linha de Financiamento</span>
             </button>
           </li>
@@ -80,9 +80,9 @@
     </div>
 
     {# ÁREA DO GRÁFICO #}
-    <div class="pm-chart-area">
+    <div class="pm-chart-area" aria-live="polite" aria-atomic="false">
 
-      <div id="pm-loader" style="
+      <div id="pm-loader" role="status" aria-label="Carregando dados do gráfico" style="
         display: none;
         position: absolute;
         inset: 0;
@@ -94,7 +94,7 @@
         gap: 10px;
       ">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="#2f8ca8" stroke-width="2.5" stroke-linecap="round">
+             stroke="#2f8ca8" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
                    M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate"
@@ -104,8 +104,8 @@
         Carregando dados...
       </div>
 
-      <div id="pm-chart-wrapper" class="pm-chart-wrapper">
-        <canvas id="pm-chart-governanca"></canvas>
+      <div id="pm-chart-wrapper" class="pm-chart-wrapper" role="tabpanel" aria-labelledby="pm-tab-governanca">
+        <canvas id="pm-chart-governanca" role="img" aria-label="Gráfico de distribuição por nível de maturidade"></canvas>
       </div>
 
       <div class="pm-chart-footer">
