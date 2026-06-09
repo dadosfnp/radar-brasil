@@ -669,3 +669,21 @@ body.fin-cli-page .rb-main {
         font-size: 0.78125rem;
     }
 }
+
+@media print {
+    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing,
+    .fc-filters-bar, .fc-charts, .fc-actions,
+    .fc-loader, .fc-pagination { display: none !important; }
+
+    body, .fc-page { background: #fff !important; padding: 0 !important; }
+    .fc-table-wrap { box-shadow: none !important; border: 1px solid #ccc; border-radius: 0; overflow: visible; }
+    .fc-table thead { display: table-header-group !important; }
+    .fc-table tbody tr { display: table-row !important; background: #fff !important; border: none; border-radius: 0; box-shadow: none; margin: 0; }
+    .fc-table td { display: table-cell !important; }
+    .fc-table thead tr:first-child th,
+    .fc-table thead tr:nth-child(2) th {
+        background: #2c6174 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

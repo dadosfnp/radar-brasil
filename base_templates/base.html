@@ -5,6 +5,27 @@
     <meta charset="UTF-8">
     <title>{% block title %}Radar Brasil{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{% block meta_description %}Radar Brasil — Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional.{% endblock %}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Radar Brasil">
+    <meta property="og:title" content="{% block og_title %}Radar Brasil — Federalismo Climático{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional.{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar.svg' %}">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% block twitter_title %}Radar Brasil — Federalismo Climático{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Plataforma de monitoramento do federalismo climático brasileiro.{% endblock %}">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar.svg' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo-radar.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/logo-radar.svg' %}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -41,7 +62,7 @@
         </button>
         <div class="rb-nav-links" id="rb-nav-links">
             <a href="{% url 'municipios:inicio' %}"
-               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Inicio</a>
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Início</a>
             <a href="{% url 'municipios:metodologia' %}"
                class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
             <a href="{% url 'indicadores:painel_multinivel' %}"
@@ -93,7 +114,7 @@
             </div>
 
             <div class="rb-footer-col rb-footer-col-center">
-                <p class="rb-footer-copy">Frente Nacional de Prefeitas e Prefeitos &copy; 2026 Todos os direitos reservados</p>
+                <p class="rb-footer-copy">Frente Nacional de Prefeitas e Prefeitos &copy; {% now "Y" %} Todos os direitos reservados</p>
             </div>
 
             <div class="rb-footer-col rb-footer-col-right">

@@ -267,6 +267,16 @@ body.painel-multinivel-page .rb-main {
     .pm-criteria-badge { width: 100%; text-align: center; }
 }
 
+@media print {
+    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing,
+    .pm-chart-footer, .pm-criteria-badge { display: none !important; }
+
+    body, .pm-wrapper { background: #fff !important; }
+    .pm-panel-card { box-shadow: none !important; border: 1px solid #ccc !important; }
+    .pm-card-header { background: #264a57 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: auto !important; max-height: 340px !important; }
+}
+
 @media (max-width: 480px) {
     .pm-kpi-strip { grid-template-columns: 1fr; gap: 8px; }
     .pm-kpi-card { padding: 10px 12px; }

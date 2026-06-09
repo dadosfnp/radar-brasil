@@ -46,7 +46,7 @@
                 Agenda Radar Brasil
             </div>
             <div class="lp-agenda-icon">
-                <img src="{% static 'img/agenda-land.png' %}" alt="Agenda">
+                <img src="{% static 'img/agenda-land.png' %}" alt="Agenda" loading="lazy">
             </div>
             <button class="lp-btn-side">Ver Agenda</button>
         </div>
@@ -60,7 +60,7 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_metodologia.png' %}" alt="Metodologia">
+                    <img src="{% static 'img/card_metodologia.png' %}" alt="Metodologia" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
                     <span class="lp-card-number">01 — Metodologia</span>
@@ -77,7 +77,7 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_paineis_avaliacao.png' %}" alt="Painéis">
+                    <img src="{% static 'img/card_paineis_avaliacao.png' %}" alt="Painéis" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
                     <span class="lp-card-number">02 — Painéis</span>
@@ -94,7 +94,7 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_mapa_interfederativo.png' %}" alt="Mapa">
+                    <img src="{% static 'img/card_mapa_interfederativo.png' %}" alt="Mapa" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
                     <span class="lp-card-number">03 — Mapa</span>
@@ -111,7 +111,7 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_ecossistema_colaboracao.png' %}" alt="Ecossistema">
+                    <img src="{% static 'img/card_ecossistema_colaboracao.png' %}" alt="Ecossistema" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
                     <span class="lp-card-number">04 — Ecossistema</span>
@@ -120,7 +120,10 @@
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="#" class="lp-btn-card" aria-label="Saiba mais sobre o Ecossistema de Colaboração">Saiba mais</a>
+                <span class="lp-btn-card lp-btn-card--soon" aria-disabled="true" title="Em breve">
+                    Saiba mais
+                    <span class="lp-soon-badge">Em breve</span>
+                </span>
             </div>
         </div>
 
