@@ -383,8 +383,8 @@ Implementada no commit `55ef5ec` seguindo **WCAG 2.1 AA**.
 
 | Área                  | Implementação                                                         |
 |-----------------------|-----------------------------------------------------------------------|
-| Skip link             | `<a href="#rb-main-content" class="rb-skip-link">` visível no foco   |
-| Roles ARIA            | `role="tablist"`, `role="tab"`, `role="tabpanel"` nos painéis        |
+| Skip link             | `<a href="#rb-main-content" class="rb-skip-link">` visível no foco    |
+| Roles ARIA            | `role="tablist"`, `role="tab"`, `role="tabpanel"` nos painéis         |
 | `aria-selected`       | Atualizado dinamicamente nas abas ao trocar eixo                      |
 | `aria-controls`       | Tab → tabpanel vinculados por ID                                      |
 | `aria-live="polite"`  | Área da tabela de avaliação notifica leitores de tela                 |
@@ -395,7 +395,7 @@ Implementada no commit `55ef5ec` seguindo **WCAG 2.1 AA**.
 | `alt=""` em ícones    | Ícones de tab com `alt=""` (decorativos)                              |
 | `loading="lazy"`      | Imagens não críticas na landing page                                  |
 | `role="status"`       | Loaders e placeholders                                                |
-| Contraste             | Todos os textos principais ≥ 4.5:1 (AA)                              |
+| Contraste             | Todos os textos principais ≥ 4.5:1 (AA)                               |
 
 ### SVG Loaders — padrão
 
@@ -454,31 +454,31 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 
 | Data       | Commit    | Descrição                                                       |
 |------------|-----------|-----------------------------------------------------------------|
-| —          | `9f16467` | Primeiro commit do projeto                                      |
-| —          | `0184cea` | Layout inicial — página início, header e rodapé                 |
-| —          | `9a7fa06` | Header e nav padronizados em todas as páginas                   |
-| —          | `091f596` | Redesign Metodologia com glassmorphism e hero zone              |
-| —          | `41c5600` | Painel Multinível com Chart.js                                  |
-| —          | `b283ffa` | Página Avaliação Painel Multinível                               |
-| —          | `b55d2a2` | Redesign visual global — glassmorphism                          |
-| —          | `e0565ff` | Header/rodapé verde-escuro, menu branco, fundo `#bdd6e0`        |
-| —          | `d4dd9bd` | Página Nota País com mapa mundi                                 |
-| —          | `788d560` | Página Financiamento Climático com gráficos e filtros           |
-| —          | `03c178f` | Página Mapa Georreferenciado com Leaflet                        |
-| —          | `ab11c10` | Landing page vira página inicial (`/`)                          |
-| —          | `33ae061` | Responsividade mobile completa + hamburger menu                 |
-| —          | `0cf9be1` | Abas mobile: ícone + label abreviado (padrão iOS/Android)       |
-| —          | `f13438a` | Abas mobile: flex:1 (largura igual)                             |
-| —          | `51ccb3e` | Mapas: sidebar → FAB + bottom sheet no mobile                   |
-| —          | `dc69471` | Header reorganizado 3 colunas, logos harmonizados               |
-| —          | `f54ef12` | Logo Radar Brasil adicionado ao header (esquerda)               |
-| —          | `f4649e0` | Remove texturas — cor sólida `#1B3333` + fundo `#bdd6e0`        |
-| —          | `46cc5a5` | Design tokens iniciais em `base.css`                            |
-| —          | `55ef5ec` | Acessibilidade WCAG 2.1 AA em toda a plataforma                 |
-| —          | `d82d7b6` | Polimento profissional: meta tags, favicon, robots.txt, print   |
-| —          | `4c53e08` | Remove apps e arquivos boilerplate sem uso                      |
-| —          | `9ac604a` | Design system completo: `tokens.css` + `components.css`         |
-| —          | `f4682bb` | 23 melhorias de UX/UI: erros, teclado, empty state, FAB, etc.   |
+| 2026-04-14 | `9f16467` | Primeiro commit do projeto                                      |
+| 2026-04-15 | `0184cea` | Layout inicial — página início, header e rodapé                 |
+| 2026-04-24 | `9a7fa06` | Header e nav padronizados em todas as páginas                   |
+| 2026-04-24 | `41c5600` | Painel Multinível com Chart.js                                  |
+| 2026-05-04 | `091f596` | Redesign Metodologia com glassmorphism e hero zone              |
+| 2026-05-05 | `b283ffa` | Página Avaliação Painel Multinível                               |
+| 2026-05-07 | `03c178f` | Página Mapa Georreferenciado com Leaflet                        |
+| 2026-05-12 | `788d560` | Página Financiamento Climático com gráficos e filtros           |
+| 2026-05-12 | `d4dd9bd` | Página Nota País com mapa mundi                                 |
+| 2026-05-14 | `b55d2a2` | Redesign visual global — glassmorphism                          |
+| 2026-05-14 | `e0565ff` | Header/rodapé verde-escuro, menu branco, fundo `#bdd6e0`        |
+| 2026-05-19 | `ab11c10` | Landing page vira página inicial (`/`)                          |
+| 2026-05-20 | `33ae061` | Responsividade mobile completa + hamburger menu                 |
+| 2026-05-20 | `0cf9be1` | Abas mobile: ícone + label abreviado (padrão iOS/Android)       |
+| 2026-05-20 | `f13438a` | Abas mobile: flex:1 (largura igual)                             |
+| 2026-05-20 | `51ccb3e` | Mapas: sidebar → FAB + bottom sheet no mobile                   |
+| 2026-05-22 | `46cc5a5` | Design tokens iniciais em `base.css`                            |
+| 2026-05-25 | `dc69471` | Header reorganizado 3 colunas, logos harmonizados               |
+| 2026-05-25 | `f54ef12` | Logo Radar Brasil adicionado ao header (esquerda)               |
+| 2026-05-28 | `f4649e0` | Remove texturas — cor sólida `#1B3333` + fundo `#bdd6e0`        |
+| 2026-06-08 | `55ef5ec` | Acessibilidade WCAG 2.1 AA em toda a plataforma                 |
+| 2026-06-09 | `d82d7b6` | Polimento profissional: meta tags, favicon, robots.txt, print   |
+| 2026-06-10 | `4c53e08` | Remove apps e arquivos boilerplate sem uso                      |
+| 2026-06-10 | `9ac604a` | Design system completo: `tokens.css` + `components.css`         |
+| 2026-06-10 | `f4682bb` | 23 melhorias de UX/UI: erros, teclado, empty state, FAB, etc.   |
 | 2026-06-10 | `5380679` | Logos parceiros no rodapé: `height` 72px → 44px                 |
 | 2026-06-10 | `f8cb3e3` | Scroll-to-top oculto em páginas de mapa (conflito com legenda)  |
 
