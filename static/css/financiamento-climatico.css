@@ -72,7 +72,7 @@ body.fin-cli-page .rb-main {
 .fc-filter-label {
     font-size: 0.625rem;
     font-weight: 700;
-    color: #2c6174;
+    color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: .07em;
     white-space: nowrap;
@@ -98,13 +98,13 @@ body.fin-cli-page .rb-main {
     align-items: center;
     justify-content: space-between;
     gap: 6px;
-    transition: border-color .15s, background .15s;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
     position: relative;
 }
 
 .fc-ms-trigger:hover,
 .fc-ms-trigger.open {
-    border-color: #2c6174;
+    border-color: var(--color-primary);
     background: #fff;
 }
 
@@ -116,12 +116,12 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-ms-trigger-label.has-selection {
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     font-weight: 600;
 }
 
 .fc-ms-badge {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
     border-radius: 999px;
     font-size: 0.625rem;
@@ -132,8 +132,8 @@ body.fin-cli-page .rb-main {
 
 .fc-ms-arrow {
     flex-shrink: 0;
-    color: #2c6174;
-    transition: transform .15s;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
 }
 
 .fc-ms-trigger.open .fc-ms-arrow { transform: rotate(180deg); }
@@ -185,12 +185,12 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 4px;
     font-family: inherit;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     background: #f9fbfc;
     box-sizing: border-box;
 }
 
-.fc-ms-search input:focus-visible { outline: 2px solid #2c6174; outline-offset: 1px; border-color: #2c6174; }
+.fc-ms-search input:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; border-color: var(--color-primary); }
 
 .fc-ms-actions {
     display: flex;
@@ -202,7 +202,7 @@ body.fin-cli-page .rb-main {
 
 .fc-ms-action-btn {
     font-size: 0.625rem;
-    color: #2c6174;
+    color: var(--color-primary);
     background: none;
     border: none;
     cursor: pointer;
@@ -252,7 +252,7 @@ body.fin-cli-page .rb-main {
 .fc-ms-option.is-checked { background: #edf6f9; }
 
 .fc-ms-option input[type="checkbox"] {
-    accent-color: #2c6174;
+    accent-color: var(--color-primary);
     width: 13px;
     height: 13px;
     flex-shrink: 0;
@@ -287,7 +287,7 @@ body.fin-cli-page .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.8125rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     text-align: center;
     margin-bottom: 8px;
 }
@@ -318,19 +318,19 @@ body.fin-cli-page .rb-main {
     cursor: pointer;
     border: none;
     font-family: inherit;
-    transition: background .15s, opacity .15s;
+    transition: background var(--transition-fast), opacity var(--transition-fast);
 }
 
 .fc-btn-primary {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
 }
 .fc-btn-primary:hover { background: #3a7a90; }
 
 .fc-btn-outline {
     background: transparent;
-    color: #2c6174;
-    border: 1px solid #2c6174;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
 }
 .fc-btn-outline:hover { background: #f0f8fb; }
 
@@ -352,7 +352,7 @@ body.fin-cli-page .rb-main {
     justify-content: center;
     gap: 10px;
     font-size: 0.875rem;
-    color: #2c6174;
+    color: var(--color-primary);
     z-index: 10;
     font-family: 'Roboto', sans-serif;
 }
@@ -367,7 +367,7 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-table thead tr:first-child th {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
     font-size: 0.6875rem;
     font-weight: 600;
@@ -381,7 +381,7 @@ body.fin-cli-page .rb-main {
 .fc-table thead tr:first-child th:last-child { border-right: none; }
 
 .fc-table thead tr:nth-child(2) th {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
     font-size: 0.6875rem;
     font-weight: 500;
@@ -414,7 +414,7 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-table td:last-child { border-right: none; }
-.fc-table td:first-child { font-weight: 500; color: #1a3d4d; }
+.fc-table td:first-child { font-weight: 500; color: var(--color-primary-dark); }
 
 .fc-table td.fc-td-ente { border-left: 1px solid #dde8ed; }
 
@@ -427,7 +427,7 @@ body.fin-cli-page .rb-main {
     padding: 14px 16px;
     border-top: 1px solid #eef2f5;
     font-size: 0.75rem;
-    color: #2c6174;
+    color: var(--color-primary);
     flex-wrap: wrap;
 }
 
@@ -444,7 +444,7 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 5px;
     background: #fff;
-    color: #2c6174;
+    color: var(--color-primary);
     font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
@@ -452,7 +452,7 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-page-btn:hover { background: #f0f8fb; }
-.fc-page-btn.active { background: #2c6174; color: #fff; border-color: #2c6174; }
+.fc-page-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .fc-page-btn:disabled { opacity: .4; cursor: not-allowed; }
 
 /* ── ORIGEM DOS RECURSOS – WRAPPER SCROLL ── */
@@ -517,7 +517,7 @@ body.fin-cli-page .rb-main {
     }
     /* Filtro ativo ganha borda destacada para indicar seleção em andamento */
     .fc-multiselect.is-open .fc-ms-trigger {
-        border-color: #2c6174;
+        border-color: var(--color-primary);
         background: #fff;
         box-shadow: 0 0 0 3px rgba(44,97,116,.12);
     }
@@ -626,7 +626,7 @@ body.fin-cli-page .rb-main {
         content: attr(data-label);
         font-size: 0.625rem;
         font-weight: 700;
-        color: #2c6174;
+        color: var(--color-primary);
         text-transform: uppercase;
         letter-spacing: 0.06em;
         min-width: 38%;
@@ -682,7 +682,7 @@ body.fin-cli-page .rb-main {
     .fc-table td { display: table-cell !important; }
     .fc-table thead tr:first-child th,
     .fc-table thead tr:nth-child(2) th {
-        background: #2c6174 !important;
+        background: var(--color-primary) !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }

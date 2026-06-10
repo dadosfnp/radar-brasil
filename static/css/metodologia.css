@@ -3,7 +3,7 @@
    ============================== */
 
 body.metodologia-page {
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     margin: 0;
     padding: 0;
     position: relative;
@@ -114,7 +114,7 @@ body.metodologia-page .rb-main {
 }
 
 .meto-step-card-header {
-    background: linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
+    background: var(--gradient-landing);
     padding: 14px 20px;
     position: relative;
     overflow: hidden;
@@ -145,7 +145,7 @@ body.metodologia-page .rb-main {
     gap: 16px;
     padding: 14px 20px;
     border-bottom: 1px solid rgba(53,96,115,.08);
-    transition: background .15s;
+    transition: background var(--transition-fast);
 }
 
 .meto-step-item:last-child { border-bottom: none; }
@@ -366,7 +366,7 @@ body.metodologia-page .rb-main {
     display: flex;
     align-items: center;
     gap: 14px;
-    transition: all .2s;
+    transition: all var(--transition-base);
 }
 
 .meto-stat-pill:hover {

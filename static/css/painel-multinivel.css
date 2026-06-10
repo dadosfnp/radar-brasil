@@ -3,7 +3,7 @@
    ============================== */
 
 body.painel-multinivel-page {
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     font-family: "Roboto", "Segoe UI", Arial, sans-serif;
 }
 
@@ -47,14 +47,14 @@ body.painel-multinivel-page .rb-main {
     font-weight: 700;
     letter-spacing: .10em;
     text-transform: uppercase;
-    color: #2c6174;
+    color: var(--color-primary);
     margin-bottom: 6px;
 }
 
 .pm-kpi-value {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     line-height: 1;
 }
 
@@ -66,28 +66,9 @@ body.painel-multinivel-page .rb-main {
 }
 
 /* ══════════════════════════════
-   PANEL CARD
+   PANEL CARD + TAB BAR
+   → .pm-panel-card e .pm-card-header definidos em components.css
    ══════════════════════════════ */
-
-.pm-panel-card {
-    background: rgba(255,255,255,.74);
-    backdrop-filter: blur(26px) saturate(1.3);
-    -webkit-backdrop-filter: blur(26px) saturate(1.3);
-    border: 1.5px solid rgba(255,255,255,.88);
-    border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(10,45,41,.12), 0 1px 4px rgba(10,45,41,.06);
-    overflow: hidden;
-}
-
-/* ── Tab bar ── */
-.pm-card-header {
-    display: flex;
-    align-items: stretch;
-    background: linear-gradient(135deg, #1e424f 0%, #2c6174 55%, #356073 100%);
-    padding: 0 10px;
-    gap: 2px;
-    border-bottom: 1px solid rgba(255,255,255,.12);
-}
 
 .pm-panel-label {
     font-size: 0.59375rem;
@@ -149,7 +130,7 @@ body.painel-multinivel-page .rb-main {
 /* aba ativa: pílula branca que "cola" na área do gráfico */
 .pm-tabs li.active button {
     background: rgba(255,255,255,.96);
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     font-weight: 600;
     box-shadow: 0 -3px 12px rgba(0,0,0,.12);
 }
@@ -206,40 +187,7 @@ body.painel-multinivel-page .rb-main {
     margin-top: 16px;
 }
 
-/* ══════════════════════════════
-   BOTÃO CRITÉRIOS
-   ══════════════════════════════ */
-
-.pm-criteria-badge {
-    font-family: "Roboto", sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: .10em;
-    text-transform: uppercase;
-    color: #fff;
-    background: linear-gradient(135deg, #1e424f 0%, #2c6174 60%, #356073 100%);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 22px;
-    cursor: pointer;
-    transition: transform .2s, box-shadow .2s;
-    box-shadow: 0 4px 16px rgba(38,74,87,.35), inset 0 1px 0 rgba(255,255,255,.14);
-    position: relative;
-    overflow: hidden;
-}
-
-.pm-criteria-badge::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, transparent 60%);
-    pointer-events: none;
-}
-
-.pm-criteria-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(38,74,87,.42), inset 0 1px 0 rgba(255,255,255,.16);
-}
+/* ── .pm-criteria-badge → definido em components.css ── */
 
 .pm-criteria-badge:active {
     transform: translateY(0);

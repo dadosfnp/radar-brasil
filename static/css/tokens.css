@@ -1,0 +1,89 @@
+/* ============================================================
+   RADAR BRASIL — DESIGN TOKENS
+   Fonte única de verdade para cores, tipografia, sombras,
+   raios de borda, gradientes e transições.
+   Carregado antes de base.css e components.css.
+   ============================================================ */
+
+:root {
+
+    /* ── Paleta de escala de tons ── */
+    --hdr-900: #122e38;
+    --hdr-800: #1e4d5c;
+    --hdr-700: #2c6174;
+    --hdr-500: #427a88;
+    --hdr-300: #5c97aa;
+    --hdr-200: #75b3a6;
+    --hdr-100: #a7d4ce;
+    --hdr-50:  #d4ecea;
+
+    /* ── Aliases semânticos — cores ── */
+    --color-header-bg:         #1B3333;   /* cabeçalho e rodapé */
+    --color-primary:           #2c6174;   /* ação principal */
+    --color-primary-dark:      #1a3d4d;   /* botões dark, hover escuro */
+    --color-primary-deep:      #103758;   /* títulos e headings */
+    --color-primary-light:     #427a88;   /* hovers suaves */
+    --color-primary-mid:       #356073;   /* acento, gradientes */
+    --color-primary-grad-start:#1e424f;   /* início dos gradientes de painel */
+    --color-teal:              #2c7873;   /* accent teal, focus em fundos escuros */
+
+    /* ── Texto ── */
+    --color-text-primary:   #103758;
+    --color-text-secondary: #3a6070;
+    --color-text-muted:     #6b8a96;
+    --color-text-faint:     #4a6a7c;
+    --color-text-dark:      #2a4a5a;
+
+    /* ── Backgrounds ── */
+    --color-bg-page:   #bdd6e0;
+    --color-bg-card:   #ffffff;
+    --color-bg-input:  #f5f8fa;
+    --color-bg-subtle: #eef2f6;
+
+    /* ── Bordas ── */
+    --color-border:        #e4ecf0;
+    --color-border-input:  #ccdde5;
+    --color-border-subtle: #c8dde5;
+
+    /* ── Gradientes reutilizáveis ── */
+    --gradient-panel-header: linear-gradient(135deg, var(--color-primary-grad-start) 0%, var(--color-primary) 55%, var(--color-primary-mid) 100%);
+    --gradient-btn-primary:  linear-gradient(135deg, var(--color-primary-grad-start) 0%, var(--color-primary) 60%, var(--color-primary-mid) 100%);
+    --gradient-landing:      linear-gradient(135deg, #264a57 0%, var(--color-primary-mid) 60%, #3d6e85 100%);
+
+    /* ── Tipografia ── */
+    --font-sans:    'Roboto', system-ui, sans-serif;
+    --font-display: 'Sora', 'Roboto', sans-serif;
+    --font-ui:      'DM Sans', 'Roboto', sans-serif;
+
+    /* Escala de tamanhos */
+    --text-xs:   0.625rem;    /* 10px  — rótulos pequenos, badges  */
+    --text-sm:   0.6875rem;   /* 11px  — botões, labels de filtro  */
+    --text-base: 0.875rem;    /* 14px  — corpo de texto padrão     */
+    --text-lg:   1rem;        /* 16px  — texto destacado           */
+    --text-xl:   1.25rem;     /* 20px  — títulos de card           */
+    --text-2xl:  1.375rem;    /* 22px  — títulos de seção          */
+    --text-3xl:  1.625rem;    /* 26px  — títulos de página         */
+
+    /* ── Border radius ── */
+    --radius-sm:   4px;      /* inputs internos, badges    */
+    --radius-md:   6px;      /* botões de ação, inputs     */
+    --radius-lg:   10px;     /* botões CTA, selects        */
+    --radius-xl:   14px;     /* cards compactos            */
+    --radius-2xl:  16px;     /* cards secundários          */
+    --radius-3xl:  20px;     /* cards principais           */
+    --radius-full: 9999px;   /* pílulas, toggles           */
+
+    /* ── Sombras ── */
+    --shadow-sm:    0 2px 8px  rgba(16,55,88,.08);
+    --shadow-md:    0 2px 16px rgba(16,55,88,.10);
+    --shadow-lg:    0 4px 28px rgba(16,55,88,.12);
+    --shadow-card:  0 6px 32px rgba(10,45,41,.11), 0 1px 4px rgba(10,45,41,.06);
+    --shadow-glass: 0 8px 40px rgba(10,45,41,.12), 0 1px 4px rgba(10,45,41,.06);
+
+    /* ── Transições ── */
+    --transition-fast: .15s;
+    --transition-base: .20s;
+    --transition-slow: .30s;
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
+}

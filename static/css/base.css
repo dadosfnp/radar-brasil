@@ -10,7 +10,7 @@ body { margin: 0; padding: 0; }
     left: 8px;
     z-index: 9999;
     padding: 8px 16px;
-    background: #1B3333;
+    background: var(--color-header-bg);
     color: #c2ede7;
     font-size: 0.875rem;
     font-weight: 600;
@@ -22,7 +22,7 @@ body { margin: 0; padding: 0; }
 
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     color: #123;
     min-height: 100vh;
     display: flex;
@@ -31,7 +31,7 @@ body.rb-body {
 
 /* HEADER */
 .rb-header-wrapper {
-    background-color: #1B3333;
+    background-color: var(--color-header-bg);
     width: 100%;
     flex-shrink: 0;
     padding: 10px 0;
@@ -46,7 +46,7 @@ body.rb-body {
     left: 0;
     right: 0;
     height: 10px;
-    background-color: #1B3333;
+    background-color: var(--color-header-bg);
 }
 
 .rb-header {
@@ -125,73 +125,7 @@ body.rb-body {
     opacity: 1;
 }
 
-/* MENU NAV */
-:root {
-    /* ── Paleta de cores base ── */
-    --hdr-900: #122e38;
-    --hdr-800: #1e4d5c;
-    --hdr-700: #2c6174;
-    --hdr-500: #427a88;
-    --hdr-300: #5c97aa;
-    --hdr-200: #75b3a6;
-    --hdr-100: #a7d4ce;
-    --hdr-50:  #d4ecea;
-    --bdy-200: #a7c7c7;
-    --bdy-100: #ccdeea;
-    --bdy-50:  #dee9f4;
-
-    /* ── Aliases semânticos de cor ── */
-    --color-primary:       #2c6174;   /* = --hdr-700 */
-    --color-primary-dark:  #1a3d4d;   /* botões, nav escuro */
-    --color-primary-deep:  #103758;   /* headings, títulos */
-    --color-primary-light: #427a88;   /* = --hdr-500, hovers */
-    --color-teal:          #2c7873;   /* accent teal (gráficos, focus) */
-
-    /* ── Texto ── */
-    --color-text-primary:   #103758;
-    --color-text-secondary: #3a6070;
-    --color-text-muted:     #6b8a96;
-    --color-text-faint:     #4a6a7c;
-    --color-text-dark:      #2a4a5a;
-
-    /* ── Backgrounds ── */
-    --color-bg-page:   #bdd6e0;
-    --color-bg-card:   #ffffff;
-    --color-bg-input:  #f5f8fa;
-    --color-bg-subtle: #eef2f6;
-    --color-bg-ocean:  #bdd8e8;
-
-    /* ── Bordas ── */
-    --color-border:        #e4ecf0;
-    --color-border-input:  #ccdde5;
-    --color-border-subtle: #c8dde5;
-
-    /* ── Tipografia ── */
-    --font-sans:    'Roboto', system-ui, sans-serif;
-    --font-display: 'Sora', 'Roboto', sans-serif;
-    --font-ui:      'DM Sans', 'Roboto', sans-serif;
-
-    /* ── Border radius ── */
-    --radius-sm:   4px;
-    --radius-md:   6px;
-    --radius-lg:   10px;
-    --radius-xl:   14px;
-    --radius-2xl:  16px;
-    --radius-full: 9999px;
-
-    /* ── Sombras ── */
-    --shadow-sm: 0 2px 8px  rgba(16,55,88,.08);
-    --shadow-md: 0 4px 16px rgba(16,55,88,.10);
-    --shadow-lg: 0 4px 28px rgba(16,55,88,.12);
-    --shadow-xl: 0 8px 40px rgba(16,55,88,.16);
-
-    /* ── Transições ── */
-    --transition-fast: 150ms;
-    --transition-base: 200ms;
-    --transition-slow: 300ms;
-    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
-}
+/* MENU NAV — variáveis definidas em tokens.css */
 
 .rb-main-nav {
     position: sticky;
@@ -249,7 +183,7 @@ body.rb-body {
     max-width: 1000px;
     margin: 16px auto 0;
     padding: 24px;
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     border-radius: 16px;
     min-height: 70vh;
     flex-grow: 1;
@@ -259,7 +193,7 @@ body.rb-body {
 .rb-footer-landing {
     position: relative;
     width: 100%;
-    background-color: #1B3333;
+    background-color: var(--color-header-bg);
     overflow: hidden;
     flex-shrink: 0;
 }
