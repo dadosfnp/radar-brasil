@@ -34,10 +34,6 @@ INSTALLED_APPS = [
     # Apps do Radar Brasil
     "apps.municipios",
     "apps.indicadores",
-    "apps.usuarios",
-    "apps.ranking",
-    "apps.relatorios",
-    "apps.api",
 ]
 
 MIDDLEWARE = [
