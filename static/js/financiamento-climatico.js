@@ -375,6 +375,13 @@ let _origemData = null;
 
 async function carregarGraficos() {
     const qs = _buildQS(_getFilters());
+    const _chartIds = ["fc-chart-setor", "fc-chart-origem", "fc-chart-ente"];
+
+    _chartIds.forEach(id => {
+        const el = _qs(id);
+        if (el) { el.style.transition = "opacity .18s"; el.style.opacity = "0.25"; }
+    });
+
     try {
         const resp = await fetch(`/indicadores/api/financiamento/graficos/${qs ? "?" + qs : ""}`);
         const data = await resp.json();
@@ -383,6 +390,13 @@ async function carregarGraficos() {
         renderChartEnte(data.ente    || {});
     } catch (e) {
         console.error("Erro gráficos:", e);
+    } finally {
+        setTimeout(() => {
+            _chartIds.forEach(id => {
+                const el = _qs(id);
+                if (el) el.style.opacity = "1";
+            });
+        }, 60);
     }
 }
 

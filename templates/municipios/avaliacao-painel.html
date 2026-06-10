@@ -91,7 +91,7 @@
       {# Loader #}
       <div id="ap-loader" class="ap-loader" style="display:none;" role="status" aria-label="Carregando dados">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+             stroke="#2c6174" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
                    M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate"
@@ -103,7 +103,13 @@
 
       {# Placeholder inicial #}
       <div id="ap-placeholder" class="ap-placeholder" role="status">
-        Selecione um item para visualizar a avaliação.
+        <svg class="ap-placeholder-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="2"/>
+          <line x1="9" y1="12" x2="15" y2="12"/>
+          <line x1="9" y1="16" x2="13" y2="16"/>
+        </svg>
+        <span id="ap-placeholder-text" class="ap-placeholder-text">Selecione um item para visualizar a avaliação.</span>
       </div>
 
       {# Tabela de avaliação #}
@@ -152,7 +158,7 @@
     <div class="ap-modal-body" id="ap-modal-body">
       <div class="ap-loader" id="ap-modal-loader" role="status" aria-label="Carregando ficha técnica">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-             stroke="#2c6174" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+             stroke="#2c6174" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
                    M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
             <animateTransform attributeName="transform" type="rotate"

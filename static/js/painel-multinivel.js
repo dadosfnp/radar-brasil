@@ -132,6 +132,24 @@ function renderizarGrafico(dados) {
   });
 }
 
+// Overlay de erro no gráfico (não destrói o canvas)
+function _mostrarErroGrafico(msg) {
+  const area = document.querySelector(".pm-chart-area");
+  let err = area && area.querySelector(".pm-chart-error");
+  if (!err) {
+    err = document.createElement("div");
+    err.className = "pm-chart-error";
+    if (area) area.prepend(err);
+  }
+  err.textContent = msg;
+  err.style.display = "flex";
+}
+
+function _ocultarErroGrafico() {
+  const err = document.querySelector(".pm-chart-area .pm-chart-error");
+  if (err) err.style.display = "none";
+}
+
 // Mostra spinner enquanto carrega
 function mostrarLoader(visivel) {
   const loader = document.getElementById("pm-loader");
@@ -143,6 +161,7 @@ function mostrarLoader(visivel) {
 async function carregarDados(eixo) {
   const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
 
+  _ocultarErroGrafico();
   mostrarLoader(true);
 
   try {
@@ -151,11 +170,14 @@ async function carregarDados(eixo) {
 
     if (dados.erro) {
       console.error("Erro API:", dados.erro);
+      _mostrarErroGrafico("⚠ " + dados.erro);
       return;
     }
+    _ocultarErroGrafico();
     renderizarGrafico(dados);
   } catch (e) {
     console.error("Erro fetch:", e);
+    _mostrarErroGrafico("⚠ Não foi possível carregar os dados. Verifique sua conexão e recarregue a página.");
   } finally {
     mostrarLoader(false);
   }
@@ -186,6 +208,22 @@ document.addEventListener("DOMContentLoaded", () => {
       ativarAba(idx);
       carregarDados(EIXOS[idx]);
     });
+
+    const btn = tab.querySelector("button");
+    if (btn) {
+      btn.addEventListener("keydown", (e) => {
+        let newIdx = idx;
+        if      (e.key === "ArrowRight") { e.preventDefault(); newIdx = (idx + 1) % tabs.length; }
+        else if (e.key === "ArrowLeft")  { e.preventDefault(); newIdx = (idx - 1 + tabs.length) % tabs.length; }
+        else if (e.key === "Home")       { e.preventDefault(); newIdx = 0; }
+        else if (e.key === "End")        { e.preventDefault(); newIdx = tabs.length - 1; }
+        else return;
+        abaIdxAtual = newIdx;
+        ativarAba(newIdx);
+        carregarDados(EIXOS[newIdx]);
+        tabs[newIdx].querySelector("button")?.focus();
+      });
+    }
   });
 
   // Ativa aba via query param ?aba=0..3 (vindo da página inicial)

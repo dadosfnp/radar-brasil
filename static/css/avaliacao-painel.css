@@ -107,7 +107,7 @@ body.avaliacao-painel-page .rb-main {
     height: 14px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: 0.72;
+    opacity: 0.88;
 }
 
 .ap-tabs li.active .ap-tab-icon-img {
@@ -236,12 +236,38 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-placeholder {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    gap: 14px;
+    padding: 48px 40px;
+    text-align: center;
+}
+
+.ap-placeholder-icon {
+    width: 44px;
+    height: 44px;
+    stroke: var(--color-primary);
+    opacity: 0.30;
+    flex-shrink: 0;
+}
+
+.ap-placeholder-text {
     font-size: 0.875rem;
     color: #6a8fa0;
     font-style: italic;
+    line-height: 1.5;
+    max-width: 340px;
+}
+
+.ap-placeholder--error .ap-placeholder-icon {
+    stroke: #c44040;
+    opacity: 0.55;
+}
+
+.ap-placeholder--error .ap-placeholder-text {
+    color: #b03030;
+    font-style: normal;
 }
 
 .ap-table {

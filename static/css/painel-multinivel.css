@@ -152,7 +152,7 @@ body.painel-multinivel-page .rb-main {
     height: 14px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: 0.72;
+    opacity: 0.88;
 }
 
 .pm-tabs li.active .pm-tab-icon-img {

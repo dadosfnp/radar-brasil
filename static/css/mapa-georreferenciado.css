@@ -3,6 +3,12 @@
    ============================== */
 
 body.mapa-page .rb-footer-landing { display: none; }
+
+/* Oculta o FAB quando a sidebar estiver aberta (mobile) */
+body.mg-sidebar-open .mg-filter-fab {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 body.mapa-page .rb-main {
     background: transparent;
     max-width: 100%;
@@ -643,6 +649,25 @@ body.mapa-page .rb-main {
 }
 .mg-filter-fab:hover  { background: var(--color-primary); transform: scale(1.08); }
 .mg-filter-fab:active { transform: scale(0.93); }
+.mg-filter-fab { transition: transform var(--transition-base), background var(--transition-base), opacity var(--transition-base); }
+
+/* Badge de filtros ativos no botão Limpar */
+.mg-filter-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: rgba(255,255,255,.90);
+    color: #1a3d4d;
+    font-size: 0.625rem;
+    font-weight: 800;
+    border-radius: 999px;
+    line-height: 1;
+    margin-left: 2px;
+    flex-shrink: 0;
+}
 
 /* ── Botão fechar sidebar (visível apenas no mobile) ── */
 .mg-sidebar-close {

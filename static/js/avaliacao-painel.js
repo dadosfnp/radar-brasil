@@ -21,6 +21,7 @@ const estruturaSelect = document.getElementById("ap-estrutura-select");
 const eixoLabel       = document.getElementById("ap-eixo-label");
 const loader          = document.getElementById("ap-loader");
 const placeholder     = document.getElementById("ap-placeholder");
+const placeholderText = document.getElementById("ap-placeholder-text");
 const tabela          = document.getElementById("ap-table");
 const tabelaBody      = document.getElementById("ap-table-body");
 const footerActions   = document.getElementById("ap-footer-actions");
@@ -34,11 +35,29 @@ const linhaTempoBtn   = document.getElementById("ap-linha-tempo-btn");
 const pdfBtn          = document.getElementById("ap-pdf-btn");
 
 // ── Tabs ──────────────────────────────────────────────────────
-tabs.forEach((tab) => {
+const tabsArr = Array.from(tabs);
+
+tabs.forEach((tab, idx) => {
     tab.addEventListener("click", () => {
         const eixo = tab.querySelector("button").dataset.eixo;
         ativarAba(eixo, tab);
     });
+
+    const btn = tab.querySelector("button");
+    if (btn) {
+        btn.addEventListener("keydown", (e) => {
+            let newIdx = idx;
+            if      (e.key === "ArrowRight") { e.preventDefault(); newIdx = (idx + 1) % tabsArr.length; }
+            else if (e.key === "ArrowLeft")  { e.preventDefault(); newIdx = (idx - 1 + tabsArr.length) % tabsArr.length; }
+            else if (e.key === "Home")       { e.preventDefault(); newIdx = 0; }
+            else if (e.key === "End")        { e.preventDefault(); newIdx = tabsArr.length - 1; }
+            else return;
+            const next    = tabsArr[newIdx];
+            const nextBtn = next.querySelector("button");
+            ativarAba(nextBtn.dataset.eixo, next);
+            nextBtn.focus();
+        });
+    }
 });
 
 function ativarAba(eixo, tabEl) {
@@ -97,6 +116,9 @@ async function carregarFiltros(eixo) {
         }
     } catch (e) {
         console.error("Erro ao carregar filtros:", e);
+        estruturaSelect.innerHTML = '<option value="">Não foi possível carregar os dados</option>';
+        _setPlaceholderMsg("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.", true);
+        placeholder.style.display = "flex";
     }
 }
 
@@ -148,7 +170,7 @@ async function carregarTabela(estrutura) {
         loader.style.display = "none";
 
         if (!data.rows || data.rows.length === 0) {
-            placeholder.textContent = "Nenhum dado encontrado para esta estrutura.";
+            _setPlaceholderMsg("Nenhum dado encontrado para esta estrutura.");
             placeholder.style.display = "flex";
             return;
         }
@@ -175,10 +197,16 @@ async function carregarTabela(estrutura) {
 
     } catch (e) {
         loader.style.display = "none";
-        placeholder.textContent = "Erro ao carregar dados.";
+        _setPlaceholderMsg("Erro ao carregar dados. Verifique sua conexão e tente novamente.", true);
         placeholder.style.display = "flex";
         console.error("Erro tabela:", e);
     }
+}
+
+function _setPlaceholderMsg(msg, isError = false) {
+    placeholder.className = isError ? "ap-placeholder ap-placeholder--error" : "ap-placeholder";
+    if (placeholderText) placeholderText.textContent = msg;
+    else placeholder.textContent = msg;
 }
 
 function resetarTabela(mostrarLoader = false) {
@@ -191,8 +219,8 @@ function resetarTabela(mostrarLoader = false) {
         loader.style.display      = "flex";
     } else {
         loader.style.display      = "none";
+        _setPlaceholderMsg("Selecione um item para visualizar a avaliação.");
         placeholder.style.display = "flex";
-        placeholder.textContent   = "Selecione um item para visualizar a avaliação.";
     }
 }
 
