@@ -301,6 +301,10 @@
 
 .rb-scroll-top:active { transform: translateY(0); }
 
+/* Oculta em páginas de mapa full-screen (scroll mínimo + conflito com legenda) */
+body.mapa-page .rb-scroll-top,
+body.np-body   .rb-scroll-top { display: none !important; }
+
 /* error state in pm chart area */
 .pm-chart-error {
     display: flex;
