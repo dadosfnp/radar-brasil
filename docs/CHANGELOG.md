@@ -4,6 +4,200 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-06-10 — `ce03282`
+
+### Docs — Datas preenchidas no histórico de design.md
+
+- Tabela do histórico de alterações em `docs/design.md` com as datas corretas de todos os commits
+
+**Arquivos:** `docs/design.md`
+
+---
+
+## 2026-06-10 — `2db2dfd`
+
+### Docs — Documentação completa de design da plataforma
+
+- Criado `docs/design.md` com histórico e decisões de design desde o primeiro commit
+- Cobre: identidade visual, tipografia, design system, componentes globais, todas as páginas, responsividade, acessibilidade e melhorias de UX/UI
+
+**Arquivos:** `docs/design.md`
+
+---
+
+## 2026-06-10 — `f8cb3e3`
+
+### Fix — Scroll-to-top oculto em páginas de mapa
+
+- Botão `.rb-scroll-top` ocultado com `display: none !important` nas páginas `body.mapa-page` e `body.np-body` para evitar conflito com a legenda do mapa no canto inferior direito
+
+**Arquivos:** `static/css/components.css`
+
+---
+
+## 2026-06-10 — `5380679`
+
+### Style — Logos parceiros no rodapé reduzidos para 44px
+
+- `.rb-footer-logo { height: 72px → 44px; max-width: 150px → 110px }` para melhor harmonia com o restante do rodapé
+
+**Arquivos:** `static/css/base.css`
+
+---
+
+## 2026-06-10 — `f4682bb`
+
+### Feat — 23 melhorias de UX/UI em toda a plataforma
+
+**Alta prioridade:**
+
+- Tratamento de erros de API com feedback visual em Avaliação Painel e Painel Multinível
+- Navegação por teclado ArrowLeft/Right/Home/End nos tab bars
+- FAB some ao abrir sidebar no mobile (classe `body.mg-sidebar-open`)
+- Remove delay de 350ms no fechamento da sidebar do mapa
+
+**Média prioridade:**
+
+- Empty state com ícone SVG clipboard e texto estruturado na Avaliação Painel
+- Badge contador de filtros ativos no botão "Limpar filtros" do mapa
+- Normalização de `stroke-width="2"` em todos os loaders SVG
+- Botão scroll-to-top global (aparece após 400px de scroll)
+- Fade suave (opacity 0.25 → 1) nos gráficos de Financiamento ao trocar filtros
+- Opacidade dos ícones de tab inativo: 0.72 → 0.88
+
+**Baixa prioridade:**
+
+- Componentes `.rb-page-intro` e `.rb-empty-state` padronizados em `components.css`
+- Persistência de filtros do mapa via localStorage (`mg-filtros`)
+- Tooltips nativos (`title=""`) nos valores KPI do Painel Multinível
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/mapa-georreferenciado.js`, `static/js/financiamento-climatico.js`, `templates/municipios/avaliacao-painel.html`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/painel-multinivel.html`, `base_templates/base.html`, `static/css/avaliacao-painel.css`, `static/css/painel-multinivel.css`, `static/css/mapa-georreferenciado.css`, `static/css/components.css`
+
+---
+
+## 2026-06-10 — `9ac604a`
+
+### Feat — Design system completo: tokens.css + components.css
+
+- Criado `static/css/tokens.css` com todos os design tokens (cores, gradientes, sombras, raios, transições) como CSS custom properties
+- Criado `static/css/components.css` com classes reutilizáveis entre páginas usando multi-seletores (elimina CSS duplicado sem alterar HTML)
+- `base.html` carrega `tokens.css` → `components.css` → `base.css` → CSS de página
+- Removidas definições duplicadas de `.pm-panel-card`, `.ap-card`, `.pm-card-header`, `.ap-card-header`, `.pm-criteria-badge`, `.ap-ficha-btn` dos arquivos de página
+
+**Arquivos:** `static/css/tokens.css` (novo), `static/css/components.css` (novo), `base_templates/base.html`, `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`
+
+---
+
+## 2026-06-09 — `d82d7b6`
+
+### Chore — Polimento profissional em toda a plataforma
+
+- Meta tags Open Graph e Twitter Card em todas as páginas
+- Favicon SVG + `<link rel="apple-touch-icon">` em `base.html`
+- Ano do copyright dinâmico: `{% now "Y" %}` no rodapé
+- Typo corrigido: "Inicio" → "Início" nos templates e nav
+- `scroll-behavior: smooth` no seletor `html`
+- `@media print` styles nos painéis (Painel Multinível e Avaliação)
+- `robots.txt` servido via Django TemplateView
+- Card "Ecossistema" (em breve): link morto substituído por `<span aria-disabled="true">` + badge "Em breve"
+- `loading="lazy"` em imagens não críticas da landing
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`, `templates/municipios/landing.html`, `setup/urls.py`
+
+---
+
+## 2026-06-08 — `55ef5ec`
+
+### Feat — Acessibilidade WCAG 2.1 AA em toda a plataforma
+
+- Skip link `<a href="#rb-main-content">` visível no foco em `base.html`
+- `role="tablist"`, `role="tab"`, `role="tabpanel"` nos tab bars de Painel Multinível e Avaliação
+- `aria-selected`, `aria-controls`, `aria-labelledby` atualizados dinamicamente ao trocar abas
+- `aria-live="polite"` na área da tabela de avaliação
+- Trap de foco no modal Ficha Técnica (Tab/Shift+Tab + Escape fecha o modal)
+- `aria-hidden="true"` em todos os SVGs decorativos
+- `alt=""` em ícones de tab (decorativos)
+- `role="status"` em loaders e placeholders
+- Contraste de todos os textos principais verificado (≥ 4.5:1)
+
+**Arquivos:** `base_templates/base.html`, `templates/municipios/painel-multinivel.html`, `templates/municipios/avaliacao-painel.html`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/nota-pais.html`, `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`
+
+---
+
+## 2026-05-28 — `f4649e0`
+
+### Style — Remove texturas e aplica cor sólida no header e rodapé
+
+- Header e rodapé: `background: #1B3333` sólido (removida imagem `bg-header.png` e overlay)
+- Fundo global: `background: #bdd6e0` sólido (removida imagem `bg-body.png`)
+- Onda do footer: `fill: #bdd6e0` alinhado ao novo fundo
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`
+
+---
+
+## 2026-05-25 — `dc69471` / `f54ef12`
+
+### Feat — Header reorganizado em 3 colunas, logo Radar Brasil adicionado
+
+- Layout do header reestruturado: `[logo-radar] [título + subtítulo] [logo-FNP]` em 3 colunas
+- Nav (`rb-main-nav`) movida para fora do wrapper do header
+- Logo Radar Brasil (SVG) adicionado no canto esquerdo com link para a landing page
+- Logo FNP harmonizada no canto direito com link externo para fnp.org.br
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`
+
+---
+
+## 2026-05-25 — `181ea3a` / `f104f2a` / `42e60f9` / `e1777cf`
+
+### Fix — Mobile: rodapé, header e tabela de Financiamento
+
+- Rodapé mobile: redesign completo em coluna única com logos e tipografia ajustadas
+- Header mobile: logo Radar Brasil visível com layout harmônico 3 colunas
+- Tabela de Financiamento Climático: layout de card no mobile (cada linha vira card com `data-label`)
+- Financiamento Climático mobile: melhoria estética geral (dropdowns, gráficos)
+
+**Arquivos:** `static/css/base.css`, `static/css/financiamento-climatico.css`, `templates/municipios/financiamento-climatico.html`
+
+---
+
+## 2026-05-22 — `46cc5a5`
+
+### Chore — Design tokens iniciais + ferramentas de qualidade e CI
+
+- Aliases semânticos adicionados ao `:root` em `base.css`: `--color-primary`, `--color-primary-dark`, `--color-text-*`, `--color-bg-*`, `--color-border-*`, `--font-*`, `--radius-*`, `--shadow-*`, `--transition-*`
+- `.flake8` e `pyproject.toml` (Black + isort) configurados
+- GitHub Actions CI configurado
+
+**Arquivos:** `static/css/base.css`, `.flake8`, `pyproject.toml`, `.github/workflows/ci.yml`
+
+---
+
+## 2026-05-19 — `ab11c10`
+
+### Feat — Landing page vira página inicial da aplicação (`/`)
+
+- Rota `/` aponta para a landing page (antes apontava para `/inicio/`)
+- Início (`/inicio/`) mantido como página de acesso rápido
+
+**Arquivos:** `setup/urls.py`, `apps/indicadores/urls.py`
+
+---
+
+## 2026-05-18 — `6f1eb79` / `29af3dc` / `92234a3` / `f4a9faa` / `e9f6e87` / `cc127c2`
+
+### Style — Landing page: bolinha verde pulsante e novas miniaturas dos cards
+
+- Badge pill verde pulsante (CSS animation) nas seções Início e Metodologia
+- Miniaturas dos cards da landing atualizadas com novas ilustrações SVG
+- Fundo das miniaturas padronizado em branco com `object-fit: contain`
+- Travessão decorativo removido do card hero
+
+**Arquivos:** `static/css/landing.css`, `templates/municipios/landing.html`, `static/img/`
+
+---
+
 ## [Não publicado] — 2026-05-21
 
 ### Padronização — Design tokens, qualidade de código e CI
