@@ -368,9 +368,9 @@ body.rb-body {
 }
 
 .rb-footer-logo {
-    height: 72px;
+    height: 44px;
     width: auto;
-    max-width: 150px;
+    max-width: 110px;
     object-fit: contain;
     display: block;
     filter: brightness(0) invert(1);
