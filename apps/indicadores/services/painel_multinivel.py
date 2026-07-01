@@ -125,11 +125,6 @@ def dados_para_grafico(eixo_front: str) -> dict:
     # Filtra pelo eixo e por níveis válidos
     df_eixo = df[(df["Eixo_norm"] == eixo_norm) & (df["Nível"].isin(CORES_NIVEL.keys()))].copy()
 
-    print(
-        f"[FILTRO] Eixo '{eixo_front}' → '{eixo_busca}' → norm '{eixo_norm}': "
-        f"{len(df_eixo)} registros"
-    )
-
     if df_eixo.empty:
         return {"labels": [], "datasets": []}
 
