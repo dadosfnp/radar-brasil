@@ -223,7 +223,7 @@ body.rb-body {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 40px 5px 40px;
+    padding: 0 40px 0 40px;
     min-height: 80px;
     box-sizing: border-box;
 }
@@ -288,18 +288,16 @@ body.rb-body {
     color: rgba(194, 237, 231, 0.65);
 }
 
-/* ---- COLUNA CENTRAL ---- */
-.rb-footer-col-center {
-    flex: 1;
+/* ---- BARRA DE COPYRIGHT ---- */
+.rb-footer-bottom {
+    width: 100%;
     text-align: center;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 5px;
+    padding: 8px 40px 18px;
+    box-sizing: border-box;
 }
 
 .rb-footer-copy {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: rgba(194, 237, 231, 0.38);
     line-height: 1.4;
     white-space: nowrap;
