@@ -28,7 +28,7 @@ EIXO_MAP = {
 }
 
 LABEL_ESTRUTURA = {
-    "Governanca": "Estrutura de Governança",
+    "Governanca": "Instância de Governança",
     "Politicas e Planos": "Política / Plano",
     "Programas": "Programa",
     "Linhas de Financiamento": "Linha de Financiamento",
@@ -114,6 +114,11 @@ def get_filtros(eixo_front: str) -> dict:
         and df_eixo["Setor"].astype(str).str.strip().ne("").any()
     )
 
+    todas_estruturas = sorted([
+        e for e in df_eixo["Estrutura"].astype(str).str.strip().unique()
+        if e and e != "nan"
+    ])
+
     if tem_setor:
         df_eixo["Setor"] = df_eixo["Setor"].astype(str).str.strip()
         df_eixo["Estrutura"] = df_eixo["Estrutura"].astype(str).str.strip()
@@ -123,19 +128,22 @@ def get_filtros(eixo_front: str) -> dict:
             s: sorted(df_eixo[df_eixo["Setor"] == s]["Estrutura"].unique().tolist())
             for s in setores
         }
-        return {
-            "setores": setores,
-            "estruturas_por_setor": estruturas_por_setor,
-            "estruturas": [],
-            "label_estrutura": label_estrutura,
-            "label_setor": label_setor,
+        setor_por_estrutura = {
+            str(r["Estrutura"]).strip(): str(r["Setor"]).strip()
+            for _, r in df_eixo.iterrows()
+            if str(r.get("Estrutura", "")).strip() not in ("", "nan")
+            and str(r.get("Setor", "")).strip() not in ("", "nan")
         }
+    else:
+        setores = []
+        estruturas_por_setor = {}
+        setor_por_estrutura = {}
 
-    estruturas = sorted(df_eixo["Estrutura"].astype(str).str.strip().unique().tolist())
     return {
-        "setores": [],
-        "estruturas_por_setor": {},
-        "estruturas": estruturas,
+        "setores": setores,
+        "estruturas_por_setor": estruturas_por_setor,
+        "estruturas": todas_estruturas,
+        "setor_por_estrutura": setor_por_estrutura,
         "label_estrutura": label_estrutura,
         "label_setor": label_setor,
     }
@@ -184,6 +192,7 @@ def get_ficha(estrutura: str) -> dict:
     row = rows.iloc[0]
 
     campos = [
+        ("Setor", "Setor"),
         ("Descricao", "Descrição"),
         ("Orgao_responsavel", "Órgão Responsável"),
         ("Status", "Status"),

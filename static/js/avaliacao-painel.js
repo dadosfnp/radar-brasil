@@ -1,5 +1,171 @@
 /* Avaliação Painel Multinível */
 
+/* ── Combobox ─────────────────────────────────────────────────
+   Combobox customizado: busca por digitação, X para limpar,
+   seta toggle, navegação por teclado, auto-fill bidirecional.
+   ──────────────────────────────────────────────────────────── */
+class Combobox {
+    constructor(wrapId, { onSelect, onClear } = {}) {
+        this.wrap     = document.getElementById(wrapId + "-wrap");
+        this.input    = document.getElementById(wrapId + "-input");
+        this.clearBtn = document.getElementById(wrapId + "-clear");
+        this.toggle   = document.getElementById(wrapId + "-toggle");
+        this.dropdown = document.getElementById(wrapId + "-dropdown");
+        this.onSelect = onSelect || (() => {});
+        this.onClear  = onClear  || (() => {});
+        this._opts    = [];
+        this._active  = -1;
+        this._open    = false;
+        this._bind();
+    }
+
+    setOptions(opts) {
+        this._opts   = opts || [];
+        this._active = -1;
+        if (this._open) this._render(this.input.value);
+    }
+
+    setValue(val, silent = false) {
+        this.input.value = val || "";
+        this.clearBtn.style.display = val ? "flex" : "none";
+        this._close();
+        if (!silent && val) this.onSelect(val);
+    }
+
+    clear(silent = false) {
+        this.input.value = "";
+        this.clearBtn.style.display = "none";
+        this._close();
+        if (!silent) this.onClear();
+    }
+
+    _open_() {
+        this._render(this.input.value);
+        this.dropdown.hidden = false;
+        this.wrap.dataset.open = "true";
+        this.input.setAttribute("aria-expanded", "true");
+        this._open = true;
+    }
+
+    _close() {
+        this.dropdown.hidden = true;
+        this.wrap.dataset.open = "false";
+        this.input.setAttribute("aria-expanded", "false");
+        this._active = -1;
+        this._open = false;
+    }
+
+    _render(query) {
+        const q = query.trim().toLowerCase();
+        const filtered = q
+            ? this._opts.filter(o => o.toLowerCase().includes(q))
+            : this._opts;
+
+        this.dropdown.innerHTML = "";
+        this._active = -1;
+
+        if (!filtered.length) {
+            const li = document.createElement("li");
+            li.className = "ap-combo-empty";
+            li.textContent = "Nenhum resultado encontrado";
+            this.dropdown.appendChild(li);
+            return;
+        }
+
+        filtered.forEach((opt) => {
+            const li = document.createElement("li");
+            li.className = "ap-combo-item";
+            li.setAttribute("role", "option");
+            li.dataset.value = opt;
+
+            if (q) {
+                const idx = opt.toLowerCase().indexOf(q);
+                if (idx >= 0) {
+                    li.appendChild(document.createTextNode(opt.slice(0, idx)));
+                    const mark = document.createElement("mark");
+                    mark.textContent = opt.slice(idx, idx + q.length);
+                    li.appendChild(mark);
+                    li.appendChild(document.createTextNode(opt.slice(idx + q.length)));
+                } else {
+                    li.textContent = opt;
+                }
+            } else {
+                li.textContent = opt;
+            }
+
+            li.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                this._select(opt);
+            });
+
+            this.dropdown.appendChild(li);
+        });
+    }
+
+    _select(val) {
+        this.input.value = val;
+        this.clearBtn.style.display = "flex";
+        this._close();
+        this.onSelect(val);
+    }
+
+    _moveActive(dir) {
+        const items = this.dropdown.querySelectorAll(".ap-combo-item");
+        if (!items.length) return;
+        items[this._active]?.classList.remove("ap-combo-active");
+        this._active = Math.max(0, Math.min(this._active + dir, items.length - 1));
+        items[this._active].classList.add("ap-combo-active");
+        items[this._active].scrollIntoView({ block: "nearest" });
+    }
+
+    _bind() {
+        this.input.addEventListener("focus", () => {
+            if (!this._open) this._open_();
+        });
+
+        this.input.addEventListener("input", () => {
+            const val = this.input.value;
+            this.clearBtn.style.display = val ? "flex" : "none";
+            if (this._open) this._render(val);
+            else this._open_();
+        });
+
+        this.input.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                if (!this._open) this._open_();
+                else this._moveActive(1);
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                this._moveActive(-1);
+            } else if (e.key === "Enter") {
+                e.preventDefault();
+                const active = this.dropdown.querySelector(".ap-combo-active");
+                if (active) this._select(active.dataset.value);
+                else this._close();
+            } else if (e.key === "Escape" || e.key === "Tab") {
+                this._close();
+            }
+        });
+
+        this.input.addEventListener("blur", () => {
+            setTimeout(() => { if (this._open) this._close(); }, 150);
+        });
+
+        this.toggle.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            if (this._open) { this._close(); }
+            else { this.input.focus(); this._open_(); }
+        });
+
+        this.clearBtn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            this.clear();
+            this.input.focus();
+        });
+    }
+}
+
 const EIXO_LABELS = {
     "Governanca":              "Governança",
     "Politicas e Planos":      "Políticas e Planos",
@@ -7,17 +173,54 @@ const EIXO_LABELS = {
     "Linhas de Financiamento": "Linhas de Financiamento",
 };
 
-let eixoAtual         = "Governanca";
-let estruturasData    = {};   // { setor: [estruturas] } or {}
-let estruturaAtual    = "";
+let eixoAtual          = "Governanca";
+let estruturaAtual     = "";
+let todasEstruturas    = [];
+let todosSetores       = [];
+let estruturasPorSetor = {};
+let setorPorEstrutura  = {};
 
 // ── Elementos ─────────────────────────────────────────────────
-const tabs            = document.querySelectorAll(".ap-tabs li");
-const setorGroup      = document.getElementById("ap-setor-group");
-const setorLabel      = document.getElementById("ap-setor-label");
-const setorSelect     = document.getElementById("ap-setor-select");
-const estruturaLabel  = document.getElementById("ap-estrutura-label");
-const estruturaSelect = document.getElementById("ap-estrutura-select");
+const tabs           = document.querySelectorAll(".ap-tabs li");
+const setorGroup     = document.getElementById("ap-setor-group");
+const setorLabel     = document.getElementById("ap-setor-label");
+const estruturaLabel = document.getElementById("ap-estrutura-label");
+
+// Comboboxes
+const comboEstrutura = new Combobox("ap-estrutura", {
+    onSelect(val) {
+        estruturaAtual = val;
+        const setor = setorPorEstrutura[val];
+        if (setor) comboSetor.setValue(setor, true);
+        carregarTabela(val);
+    },
+    onClear() {
+        estruturaAtual = "";
+        comboSetor.clear(true);
+        comboEstrutura.setOptions(todasEstruturas);
+        resetarTabela();
+    },
+});
+
+const comboSetor = new Combobox("ap-setor", {
+    onSelect(setor) {
+        const filtradas = estruturasPorSetor[setor] || [];
+        comboEstrutura.setOptions(filtradas);
+        if (filtradas.length === 1) {
+            comboEstrutura.setValue(filtradas[0]);
+        } else if (!filtradas.includes(estruturaAtual)) {
+            comboEstrutura.clear(true);
+            estruturaAtual = "";
+            resetarTabela();
+        }
+    },
+    onClear() {
+        comboEstrutura.setOptions(todasEstruturas);
+        if (estruturaAtual) {
+            comboEstrutura.setValue(estruturaAtual, true);
+        }
+    },
+});
 const eixoLabel       = document.getElementById("ap-eixo-label");
 const loader          = document.getElementById("ap-loader");
 const placeholder     = document.getElementById("ap-placeholder");
@@ -77,7 +280,7 @@ function ativarAba(eixo, tabEl) {
 
     eixoAtual      = eixo;
     estruturaAtual = "";
-    eixoLabel.textContent = EIXO_LABELS[eixo] || eixo;
+    eixoLabel.textContent  = EIXO_LABELS[eixo] || eixo;
 
     resetarTabela();
     carregarFiltros(eixo);
@@ -85,79 +288,38 @@ function ativarAba(eixo, tabEl) {
 
 // ── Filtros ───────────────────────────────────────────────────
 async function carregarFiltros(eixo) {
+    comboEstrutura.clear(true);
+    comboSetor.clear(true);
     setorGroup.style.display = "none";
-    estruturaSelect.innerHTML = '<option value="">Selecione para mostrar a avaliação do item</option>';
-    estruturaSelect.disabled  = true;
-    estruturasData = {};
+    todasEstruturas    = [];
+    todosSetores       = [];
+    estruturasPorSetor = {};
+    setorPorEstrutura  = {};
 
     try {
         const resp = await fetch(`/indicadores/api/avaliacao/filtros/?eixo=${encodeURIComponent(eixo)}`);
         const data = await resp.json();
 
-        // Label da estrutura
-        estruturaLabel.textContent = data.label_estrutura || "Estrutura";
+        estruturaLabel.textContent = data.label_estrutura || "Instância";
+        setorLabel.textContent     = data.label_setor     || "Setor";
 
-        if (data.setores && data.setores.length > 0) {
-            // Modo cascata: Setor → Estrutura
-            estruturasData = data.estruturas_por_setor || {};
-            setorLabel.textContent = data.label_setor || "Setor";
+        todasEstruturas    = data.estruturas          || [];
+        todosSetores       = data.setores             || [];
+        estruturasPorSetor = data.estruturas_por_setor || {};
+        setorPorEstrutura  = data.setor_por_estrutura  || {};
 
-            setorSelect.innerHTML = '<option value="">Selecione o Setor</option>';
-            data.setores.forEach((s) => {
-                const opt = document.createElement("option");
-                opt.value       = s;
-                opt.textContent = s;
-                setorSelect.appendChild(opt);
-            });
+        comboEstrutura.setOptions(todasEstruturas);
+        comboSetor.setOptions(todosSetores);
+
+        if (todosSetores.length > 0) {
             setorGroup.style.display = "flex";
-        } else if (data.estruturas && data.estruturas.length > 0) {
-            // Modo direto: só Estrutura
-            preencherEstruturas(data.estruturas);
         }
     } catch (e) {
         console.error("Erro ao carregar filtros:", e);
-        estruturaSelect.innerHTML = '<option value="">Não foi possível carregar os dados</option>';
         _setPlaceholderMsg("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.", true);
         placeholder.style.display = "flex";
     }
 }
-
-function preencherEstruturas(lista) {
-    estruturaSelect.innerHTML = '<option value="">Selecione para mostrar a avaliação do item</option>';
-    lista.forEach((e) => {
-        const opt = document.createElement("option");
-        opt.value       = e;
-        opt.textContent = e;
-        estruturaSelect.appendChild(opt);
-    });
-    estruturaSelect.disabled = false;
-}
-
-// Cascata: Setor → Estrutura
-setorSelect.addEventListener("change", () => {
-    const setor = setorSelect.value;
-    estruturaAtual = "";
-    resetarTabela();
-
-    if (!setor) {
-        estruturaSelect.innerHTML = '<option value="">Selecione para mostrar a avaliação do item</option>';
-        estruturaSelect.disabled  = true;
-        return;
-    }
-
-    const lista = estruturasData[setor] || [];
-    preencherEstruturas(lista);
-});
-
-// Seleção de Estrutura → carrega tabela
-estruturaSelect.addEventListener("change", () => {
-    estruturaAtual = estruturaSelect.value;
-    if (!estruturaAtual) {
-        resetarTabela();
-        return;
-    }
-    carregarTabela(estruturaAtual);
-});
 
 // ── Tabela ────────────────────────────────────────────────────
 async function carregarTabela(estrutura) {

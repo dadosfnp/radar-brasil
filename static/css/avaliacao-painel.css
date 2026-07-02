@@ -165,6 +165,148 @@ body.avaliacao-painel-page .rb-main {
     color: var(--color-primary);
 }
 
+/* ══════════════════════════════
+   COMBOBOX CUSTOMIZADO
+   ══════════════════════════════ */
+
+.ap-combo-wrap {
+    position: relative;
+}
+
+.ap-combo-input {
+    width: 100%;
+    background: rgba(255,255,255,.85);
+    border: 1.5px solid rgba(53,96,115,.22);
+    border-radius: 10px;
+    padding: 11px 72px 11px 14px;
+    font-family: inherit;
+    font-size: 0.84375rem;
+    font-weight: 500;
+    color: #1e3040;
+    transition: border-color .18s, box-shadow .18s;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(53,96,115,.08);
+    box-sizing: border-box;
+    cursor: text;
+}
+
+.ap-combo-input::placeholder { color: #9aabb8; font-weight: 400; }
+
+.ap-combo-input:hover {
+    border-color: rgba(53,96,115,.42);
+    box-shadow: 0 3px 12px rgba(53,96,115,.14);
+}
+
+.ap-combo-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(53,96,115,.18);
+}
+
+.ap-combo-wrap[data-open="true"] .ap-combo-input {
+    border-color: var(--color-primary);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: 0 0 0 3px rgba(53,96,115,.18);
+}
+
+/* Botões dentro do input */
+.ap-combo-clear,
+.ap-combo-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background .15s, color .15s;
+    color: #7a8a9a;
+}
+
+.ap-combo-clear {
+    right: 36px;
+    width: 24px;
+    height: 24px;
+}
+
+.ap-combo-clear:hover { background: rgba(220,50,50,.10); color: #c0392b; }
+
+.ap-combo-toggle {
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    color: var(--color-primary);
+    transition: transform .2s, color .15s;
+}
+
+.ap-combo-toggle:hover { color: var(--color-primary-dark); }
+
+.ap-combo-wrap[data-open="true"] .ap-combo-toggle {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Dropdown */
+.ap-combo-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1.5px solid var(--color-primary);
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 8px 24px rgba(30,60,90,.14);
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 200;
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(53,96,115,.3) transparent;
+}
+
+.ap-combo-dropdown::-webkit-scrollbar { width: 6px; }
+.ap-combo-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(53,96,115,.25);
+    border-radius: 3px;
+}
+
+.ap-combo-item {
+    padding: 9px 14px;
+    font-size: 0.84375rem;
+    color: #1e3040;
+    cursor: pointer;
+    transition: background .12s;
+    line-height: 1.4;
+}
+
+.ap-combo-item:hover,
+.ap-combo-item.ap-combo-active {
+    background: rgba(53,96,115,.09);
+    color: var(--color-primary-dark);
+}
+
+.ap-combo-item mark {
+    background: none;
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.ap-combo-empty {
+    padding: 12px 14px;
+    font-size: 0.8125rem;
+    color: #9aabb8;
+    font-style: italic;
+    cursor: default;
+}
+
+/* ── Mantém o <select> legado caso usado em outro lugar ── */
 .ap-select-wrap { position: relative; }
 
 .ap-select-wrap select {

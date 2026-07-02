@@ -55,31 +55,71 @@
     <div class="ap-desc">
       <p id="ap-titulo-eixo" class="ap-eixo-title">Critérios de Avaliação <span id="ap-eixo-label">Governança</span></p>
       <p class="ap-eixo-sub">
-        <strong>No campo abaixo, selecione, primeiro, o Setor para, então, selecionar a instância que deseja pesquisar.</strong><br>
-        Cada parâmetro possui critérios de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes.
+        <strong>No campo abaixo, selecione o Setor ou a Instância de Governança para realizar a pesquisa.</strong><br>
+        Cada critério possui parâmetros de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes.
       </p>
     </div>
 
     {# FILTROS #}
     <div class="ap-filters" id="ap-filters">
 
-      {# Filtro Setor (oculto se não houver setores) #}
-      <div class="ap-filter-group" id="ap-setor-group" style="display:none;">
-        <label class="ap-filter-label" id="ap-setor-label">Setor</label>
-        <div class="ap-select-wrap">
-          <select id="ap-setor-select">
-            <option value="">Selecione o Setor</option>
-          </select>
+      {# Filtro Instância de Governança (primeiro) #}
+      <div class="ap-filter-group">
+        <label class="ap-filter-label" id="ap-estrutura-label" for="ap-estrutura-input">Instância de Governança</label>
+        <div class="ap-combo-wrap" id="ap-estrutura-wrap">
+          <input type="text" id="ap-estrutura-input" class="ap-combo-input"
+                 placeholder="Busque ou selecione uma instância…"
+                 autocomplete="off" spellcheck="false"
+                 role="combobox" aria-expanded="false"
+                 aria-haspopup="listbox" aria-autocomplete="list"
+                 aria-controls="ap-estrutura-dropdown">
+          <button type="button" class="ap-combo-clear" id="ap-estrutura-clear"
+                  aria-label="Limpar instância" style="display:none">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          <button type="button" class="ap-combo-toggle" id="ap-estrutura-toggle"
+                  aria-label="Abrir lista de instâncias" tabindex="-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <ul class="ap-combo-dropdown" id="ap-estrutura-dropdown"
+              role="listbox" aria-label="Instâncias disponíveis" hidden></ul>
         </div>
       </div>
 
-      {# Filtro Estrutura #}
-      <div class="ap-filter-group">
-        <label class="ap-filter-label" id="ap-estrutura-label">Estrutura de Governança</label>
-        <div class="ap-select-wrap">
-          <select id="ap-estrutura-select" disabled>
-            <option value="">Selecione para mostrar a avaliação do item</option>
-          </select>
+      {# Filtro Setor (segundo, oculto se não houver setores) #}
+      <div class="ap-filter-group" id="ap-setor-group" style="display:none;">
+        <label class="ap-filter-label" id="ap-setor-label" for="ap-setor-input">Setor</label>
+        <div class="ap-combo-wrap" id="ap-setor-wrap">
+          <input type="text" id="ap-setor-input" class="ap-combo-input"
+                 placeholder="Busque ou selecione um setor…"
+                 autocomplete="off" spellcheck="false"
+                 role="combobox" aria-expanded="false"
+                 aria-haspopup="listbox" aria-autocomplete="list"
+                 aria-controls="ap-setor-dropdown">
+          <button type="button" class="ap-combo-clear" id="ap-setor-clear"
+                  aria-label="Limpar setor" style="display:none">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          <button type="button" class="ap-combo-toggle" id="ap-setor-toggle"
+                  aria-label="Abrir lista de setores" tabindex="-1">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <ul class="ap-combo-dropdown" id="ap-setor-dropdown"
+              role="listbox" aria-label="Setores disponíveis" hidden></ul>
         </div>
       </div>
 
