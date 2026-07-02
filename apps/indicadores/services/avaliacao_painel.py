@@ -114,10 +114,9 @@ def get_filtros(eixo_front: str) -> dict:
         and df_eixo["Setor"].astype(str).str.strip().ne("").any()
     )
 
-    todas_estruturas = sorted([
-        e for e in df_eixo["Estrutura"].astype(str).str.strip().unique()
-        if e and e != "nan"
-    ])
+    todas_estruturas = sorted(
+        [e for e in df_eixo["Estrutura"].astype(str).str.strip().unique() if e and e != "nan"]
+    )
 
     if tem_setor:
         df_eixo["Setor"] = df_eixo["Setor"].astype(str).str.strip()

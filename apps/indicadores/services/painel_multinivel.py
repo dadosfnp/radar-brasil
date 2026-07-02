@@ -162,11 +162,13 @@ def dados_para_grafico(eixo_front: str) -> dict:
     ordem = ORDEM_CRITERIOS.get(eixo_front, [])
     if ordem:
         ordem_norm = [_normalizar(o) for o in ordem]
+
         def _sort_key(av):
             try:
                 return ordem_norm.index(_normalizar(av))
             except ValueError:
                 return len(ordem_norm)
+
         labels = sorted(todas, key=_sort_key)
     else:
         labels = sorted(todas)
