@@ -69,7 +69,7 @@ def _limpar(v):
 def _uniq(df, col):
     if not col or col not in df.columns:
         return []
-    return sorted({_limpar(v) for v in df[col] if _limpar(v)})
+    return sorted({_limpar(v) for v in df[col] if _limpar(v) and not _limpar(v).isdigit()})
 
 
 def _parse_num(v):

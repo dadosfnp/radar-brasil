@@ -232,9 +232,15 @@ function buildPopup(p) {
           <div class="mg-popup-body">
             <div class="mg-popup-row">
               <span class="mg-popup-icon">${_IC.porte}</span>
-              <span class="mg-popup-lbl">Porte</span>
+              <span class="mg-popup-lbl">Porte Populacional</span>
               <span class="mg-popup-val">${fmt(p.porte)}</span>
             </div>
+            ${p.populacao ? `
+            <div class="mg-popup-row">
+              <span class="mg-popup-icon">${_IC.perfil}</span>
+              <span class="mg-popup-lbl">População</span>
+              <span class="mg-popup-val">${Number(p.populacao).toLocaleString("pt-BR")}</span>
+            </div>` : ""}
             <div class="mg-popup-row">
               <span class="mg-popup-icon">${_IC.regiao}</span>
               <span class="mg-popup-lbl">Região</span>
@@ -278,6 +284,8 @@ function buildPopup(p) {
         ? "1 programa de investimento"
         : `${nProg} programas de investimento`;
 
+    const estimativaTotal = p.estimativa_total > 0 ? _fmtValor(p.estimativa_total) : "—";
+
     return `
     <div class="mg-popup">
       <div class="mg-popup-header">
@@ -287,8 +295,25 @@ function buildPopup(p) {
       <div class="mg-popup-body">
         <div class="mg-popup-row">
           <span class="mg-popup-icon">${_IC.porte}</span>
-          <span class="mg-popup-lbl">Porte</span>
+          <span class="mg-popup-lbl">Porte Populacional</span>
           <span class="mg-popup-val">${fmt(p.porte)}</span>
+        </div>
+        ${p.populacao ? `
+        <div class="mg-popup-row">
+          <span class="mg-popup-icon">${_IC.perfil}</span>
+          <span class="mg-popup-lbl">População</span>
+          <span class="mg-popup-val">${Number(p.populacao).toLocaleString("pt-BR")}</span>
+        </div>` : ""}
+        ${p.perfil ? `
+        <div class="mg-popup-row">
+          <span class="mg-popup-icon">${_IC.emp}</span>
+          <span class="mg-popup-lbl">Perfil Investimento</span>
+          <span class="mg-popup-val">${fmt(p.perfil)}</span>
+        </div>` : ""}
+        <div class="mg-popup-row">
+          <span class="mg-popup-icon">${_IC.valor}</span>
+          <span class="mg-popup-lbl">Estimativa Total</span>
+          <span class="mg-popup-val">${estimativaTotal}</span>
         </div>
         <div class="mg-popup-progs${programas.length > 3 ? " mg-popup-progs--scroll" : ""}">
           ${progsHtml}

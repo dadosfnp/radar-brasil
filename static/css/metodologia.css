@@ -330,12 +330,11 @@ body.metodologia-page .rb-main {
     color: #fff;
 }
 
-.pip-0 { background: #a0b4c0; }
-.pip-1 { background: #2d7a72; }
-.pip-2 { background: #239080; }
-.pip-3 { background: #279080; }
-.pip-4 { background: #1f7268; }
-.pip-5 { background: #154f49; }
+.pip-1 { background: #e06b6b; }
+.pip-2 { background: #f09a50; }
+.pip-3 { background: #e8c53a; color: #555; }
+.pip-4 { background: #72be79; }
+.pip-5 { background: #7aaed4; }
 
 .meto-scale-legend {
     display: flex;
@@ -347,12 +346,36 @@ body.metodologia-page .rb-main {
 }
 
 .meto-scale-note {
-    font-size: 0.71875rem;
-    color: #4a5c6a;
-    line-height: 1.65;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(53,96,115,.1);
 }
 
-.meto-scale-note strong { font-weight: 600; color: #264a57; }
+.meto-scale-note-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.71875rem;
+    color: #4a5c6a;
+    line-height: 1.5;
+}
+
+.meto-scale-note-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
 
 /* Stat cards */
 .meto-stat-pill {

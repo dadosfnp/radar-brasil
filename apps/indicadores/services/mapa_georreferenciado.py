@@ -167,6 +167,7 @@ def get_dados_mapa() -> dict:
 
         perfil = str(row.get("Perfil", "")).strip()
         est = float(row.get("Estimativa_2023_2030", 0) or 0)
+        populacao = str(row.get("Populacao", row.get("População", ""))).strip()
         emp = str(row.get("Empreendimento", "")).strip()
         eixo = str(row.get("Eixo", "")).strip()
         mod = str(row.get("Modalidade", "")).strip()
@@ -182,6 +183,7 @@ def get_dados_mapa() -> dict:
                 "code_muni": code_muni,
                 "municipio": mun,
                 "uf": uf,
+                "populacao": populacao,
                 "unico_ests": [],  # estimativas de Investimento Único
                 "agrupado_emps": {},  # empreendimento → estimativa (Agrupado)
                 "agrupado_prog_keys": set(),  # (emp, estagio) já adicionados
@@ -269,6 +271,7 @@ def get_dados_mapa() -> dict:
             unico_min = min(d["unico_ests"]) if d["unico_ests"] else 0
             n_prog = len(d["programas"])
             first = d["first"] or {}
+            estimativa_total = sum(p.get("estimativa", 0) for p in d["programas"])
 
             features.append(
                 {
@@ -280,6 +283,7 @@ def get_dados_mapa() -> dict:
                         "uf": uf,
                         "regiao": REGIAO_POR_UF.get(uf, ""),
                         "porte": porte,
+                        "populacao": d.get("populacao", ""),
                         # flags para visualização (replica R: tem_financiamento)
                         "tem_financiamento": True,
                         "n_programas": n_prog,
@@ -302,6 +306,7 @@ def get_dados_mapa() -> dict:
                         "perfil": first.get("perfil", ""),
                         "empreendimento": first.get("empreendimento", ""),
                         "estimativa": first.get("estimativa", 0),
+                        "estimativa_total": estimativa_total,
                         "percentual": first.get("percentual", 0),
                     },
                 }
