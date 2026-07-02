@@ -13,12 +13,40 @@ WORKSHEET_NAME = "dados"
 CACHE_TTL = 1800  # 30 minutos
 
 CORES_NIVEL = {
-    "Nível 0": "#bdc5d0",
     "Nível 1": "#e06b6b",
     "Nível 2": "#f09a50",
     "Nível 3": "#e8c53a",
     "Nível 4": "#72be79",
     "Nível 5": "#7aaed4",
+}
+
+# Ordem de exibição dos critérios (label[0] = topo do gráfico)
+ORDEM_CRITERIOS = {
+    "Governanca": [
+        "Operacionalidade",
+        "Espaço de diálogo federativo",
+        "Financiamento",
+        "Representação de Gênero, Raça e Etnia",
+        "Comunicação e Transparência",
+    ],
+    "Politicas e Planos": [
+        "Operacionalidade",
+        "Espaço de diálogo federativo",
+        "Financiamento",
+        "Comunicação e Transparência",
+    ],
+    "Programas": [
+        "Cooperação Federativa",
+        "Capilaridade e Alcance Territorial",
+        "Fortalecimento da Capacidade Local",
+        "Monitoramento e Participação Local",
+        "Financiamento",
+    ],
+    "Linhas de Financiamento": [
+        "Desenho Participativo da Linha de Financiamento",
+        "Capacidade de Execução Descentralizada",
+        "Monitoramento e Prestação de Contas",
+    ],
 }
 
 # O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
@@ -128,15 +156,20 @@ def dados_para_grafico(eixo_front: str) -> dict:
     if df_eixo.empty:
         return {"labels": [], "datasets": []}
 
-    # Ordena Avaliações pelo score de Nível 5 (igual ao R)
-    score = (
-        df_eixo[df_eixo["Nível"] == "Nível 5"].groupby("Avaliação").size().reset_index(name="score")
-    )
     todas = df_eixo["Avaliação"].unique().tolist()
-    score_df = pd.DataFrame({"Avaliação": todas})
-    score_df = score_df.merge(score, on="Avaliação", how="left").fillna(0)
-    score_df = score_df.sort_values("score", ascending=True)
-    labels = score_df["Avaliação"].tolist()
+
+    # Ordena conforme a sequência definida por eixo
+    ordem = ORDEM_CRITERIOS.get(eixo_front, [])
+    if ordem:
+        ordem_norm = [_normalizar(o) for o in ordem]
+        def _sort_key(av):
+            try:
+                return ordem_norm.index(_normalizar(av))
+            except ValueError:
+                return len(ordem_norm)
+        labels = sorted(todas, key=_sort_key)
+    else:
+        labels = sorted(todas)
 
     # Contagem por Avaliação + Nível
     contagem = df_eixo.groupby(["Avaliação", "Nível"]).size().reset_index(name="qtd")

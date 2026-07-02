@@ -33,7 +33,7 @@ function renderizarGrafico(dados) {
         meta.data.forEach((bar, i) => {
           const value = dataset.data[i];
           if (!value || value <= 0) return;
-          const text    = String(value);
+          const text    = dataset.label;
           const centerX = (bar.base + bar.x) / 2;
           const centerY = bar.y;
           c.save();

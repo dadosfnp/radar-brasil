@@ -23,22 +23,41 @@
 {% block content %}
 <div class="pm-wrapper">
 
+  {# BACK TO INÍCIO #}
+  <a href="{% url 'municipios:inicio' %}" class="pm-back-card" aria-label="Voltar para a página Início e ver todos os eixos">
+    <span class="pm-back-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </span>
+    <span class="pm-back-content">
+      <span class="pm-back-title">Explorar todos os eixos</span>
+      <span class="pm-back-sub">Governança &middot; Políticas e Planos &middot; Programas &middot; Linhas de Financiamento</span>
+    </span>
+    <span class="pm-back-chips" aria-hidden="true">
+      <span class="pm-back-chip">Governança</span>
+      <span class="pm-back-chip">Políticas e Planos</span>
+      <span class="pm-back-chip">Programas</span>
+      <span class="pm-back-chip">Linhas de Financiamento</span>
+    </span>
+  </a>
+
   {# KPI STRIP #}
   <div class="pm-kpi-strip">
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">Municípios Avaliados</div>
-      <div class="pm-kpi-value" title="Total de municípios brasileiros com avaliação registrada na edição 2024">{{ total_municipios }}</div>
+      <div class="pm-kpi-label">Instâncias Avaliadas</div>
+      <div class="pm-kpi-value" title="Total de instâncias com avaliação registrada na edição 2024">{{ total_municipios }}</div>
       <div class="pm-kpi-sub">Edição 2024</div>
     </div>
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">Dimensões Analisadas</div>
-      <div class="pm-kpi-value" title="Governança · Políticas e Planos · Programas · Linha de Financiamento">4</div>
-      <div class="pm-kpi-sub">Governança &middot; Políticas e Planos &middot; Programas &middot; Linha de Financiamento</div>
+      <div class="pm-kpi-label">Eixos Analisados</div>
+      <div class="pm-kpi-value" title="Governança · Políticas e Planos · Programas · Linhas de Financiamento">4</div>
+      <div class="pm-kpi-sub">Governança &middot; Políticas e Planos &middot; Programas &middot; Linhas de Financiamento</div>
     </div>
     <div class="pm-kpi-card">
       <div class="pm-kpi-label">Níveis de Maturidade</div>
-      <div class="pm-kpi-value" title="Escala de 0 (sem evidência) a 5 (excelência) que mede o grau de institucionalização climática">6</div>
-      <div class="pm-kpi-sub">Nível 0 &rarr; Nível 5</div>
+      <div class="pm-kpi-value" title="Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de institucionalização climática">5</div>
+      <div class="pm-kpi-sub">Nível 1 &rarr; Nível 5</div>
     </div>
   </div>
 
