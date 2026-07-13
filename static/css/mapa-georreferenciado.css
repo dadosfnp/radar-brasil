@@ -452,8 +452,8 @@ body.mapa-page .rb-main {
 /* ── Popup card ── */
 .mg-popup {
     font-family: 'Roboto', sans-serif;
-    min-width: 300px;
-    max-width: 340px;
+    min-width: 290px;
+    max-width: 320px;
 }
 
 .mg-popup-header {
