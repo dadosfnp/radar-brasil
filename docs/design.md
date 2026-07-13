@@ -265,6 +265,14 @@ Badge pulsante verde nas seções Início e Metodologia (`6f1eb79`).
 
 **Filtros em cascata:** Setor → Estrutura (grid 2 colunas)
 
+**Filtros com Combobox (commit `4366baf`):**
+
+- Substituídos `<select>`/`<datalist>` por componente `Combobox` JS customizado
+- Campos: Instância de Governança (primeiro) → Setor (segundo)
+- Preenchimento bidirecional: selecionar Instância → Setor preenchido automaticamente; selecionar Setor → filtra Instâncias
+- Dropdown com `role="listbox"` / `role="option"`, busca por digitação com `<mark>` no trecho digitado
+- Botão `×` de limpar + chevron toggle + navegação ArrowUp/Down/Enter/Escape
+
 **Empty State (`#ap-placeholder`):**
 - Ícone SVG clipboard (44px, `opacity: 0.30`)
 - Texto em `<span id="ap-placeholder-text">` (itálico, `#6a8fa0`)
@@ -481,6 +489,10 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-06-10 | `f4682bb` | 23 melhorias de UX/UI: erros, teclado, empty state, FAB, etc.   |
 | 2026-06-10 | `5380679` | Logos parceiros no rodapé: `height` 72px → 44px                 |
 | 2026-06-10 | `f8cb3e3` | Scroll-to-top oculto em páginas de mapa (conflito com legenda)  |
+| 2026-07-02 | `4366baf` | Avaliação Painel: filtros substituídos por combobox customizado |
+| 2026-07-02 | `09f10d6` | Rodapé: copyright em linha própria abaixo das colunas           |
+| 2026-07-02 | `abd7175` | Rodapé: centralização do copyright corrigida (flex)             |
+| 2026-07-03 | `bd6c8a5` | Avaliação Painel: texto de instrução do empty state atualizado  |
 
 ---
 

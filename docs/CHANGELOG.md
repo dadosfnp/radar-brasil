@@ -4,6 +4,65 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-03 — `bd6c8a5`
+
+### Fix — Texto de instrução na Avaliação Painel Multinível
+
+- Atualizado texto de instrução do empty state para refletir o novo fluxo de filtros com combobox
+
+**Arquivos:** `templates/municipios/avaliacao-painel.html`
+
+---
+
+## 2026-07-02 — `abd7175`
+
+### Fix — Centralização do copyright no rodapé (ajuste flex)
+
+- Corrigida centralização do `.rb-footer-copy` com `justify-content` no container flex
+
+**Arquivos:** `static/css/base.css`
+
+---
+
+## 2026-07-02 — `09f10d6`
+
+### Fix — Copyright do rodapé em linha própria abaixo das colunas
+
+- `.rb-footer-col-center` substituído por `.rb-footer-bottom` — faixa de largura total abaixo das 3 colunas
+- Texto de copyright: `font-size` 1rem → 0.9rem, `padding` ajustado para `8px 40px 18px`
+- HTML do `base.html` atualizado com novo elemento `.rb-footer-bottom`
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`
+
+---
+
+## 2026-07-02 — `623a1da`
+
+### Style — Formatação Black nos services
+
+- Black aplicado em `avaliacao_painel.py` e `painel_multinivel.py` (sem mudança de comportamento)
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
+## 2026-07-02 — `4366baf`
+
+### Feat — Filtros da Avaliação Painel com combobox customizado acessível
+
+- Substituídos `<select>`/`<datalist>` por componente `Combobox` JS com dropdown acessível (`role="listbox"`, `role="option"`, `aria-expanded`, `aria-activedescendant`)
+- Botão `×` (limpar) e chevron toggle em cada campo de filtro
+- Busca por digitação com destaque (`<mark>`) do trecho digitado nas opções
+- Navegação por teclado: ArrowUp/Down, Enter, Escape, Tab
+- **Ordem dos campos invertida:** Instância de Governança aparece primeiro, Setor em segundo
+- Preenchimento bidirecional: selecionar Instância → preenche Setor automaticamente; selecionar Setor → filtra Instâncias disponíveis
+- Campo "Setor" adicionado como primeiro campo na Ficha Técnica do modal
+- Label `LABEL_ESTRUTURA['Governanca']` atualizado para `'Instância de Governança'`
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `static/css/avaliacao-painel.css`, `static/js/avaliacao-painel.js`, `templates/municipios/avaliacao-painel.html`
+
+---
+
 ## 2026-06-10 — `ce03282`
 
 ### Docs — Datas preenchidas no histórico de design.md
