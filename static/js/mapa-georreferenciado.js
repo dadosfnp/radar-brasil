@@ -185,8 +185,8 @@ function renderMarkers(features, fitBounds) {
         });
 
         marker.bindPopup(buildPopup(p), {
-            maxWidth: 340,
-            minWidth: 300,
+            maxWidth: 400,
+            minWidth: 320,
             autoPanPaddingTopLeft:     L.point(20, 80),
             autoPanPaddingBottomRight: L.point(20, 20),
         });

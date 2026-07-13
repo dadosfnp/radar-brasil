@@ -543,6 +543,7 @@ body.mapa-page .rb-main {
     color: #3a6070;
     flex: 1;
     line-height: 1.35;
+    white-space: nowrap;
 }
 
 /* ── Programs list ── */
