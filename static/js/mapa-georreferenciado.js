@@ -370,7 +370,6 @@ function filtrar() {
     if (legendSemFin) legendSemFin.style.display = exibirSemFin ? "" : "none";
 
     _atualizarBadgeFiltros();
-    _salvarFiltros();
 }
 
 function atualizarEstadosPorRegiao(regiao) {
@@ -404,7 +403,6 @@ function limparFiltros() {
     if (munClearBtn) munClearBtn.hidden = true;
     const toggle = document.getElementById("mg-f-sem-financiamento");
     if (toggle) toggle.checked = false;
-    try { localStorage.removeItem("mg-filtros"); } catch (_) {}
     map.fitBounds(BR_BOUNDS);
     filtrar();
 }
@@ -424,46 +422,6 @@ function _atualizarBadgeFiltros() {
 }
 
 // ── localStorage – filtros persistentes ───────────────────────
-const _MG_LS_KEY = "mg-filtros";
-
-function _salvarFiltros() {
-    const state = {};
-    ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor",
-     "mg-f-regiao","mg-f-uf","mg-f-porte"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) state[id] = el.value;
-    });
-    const munEl = document.getElementById("mg-f-municipio");
-    if (munEl) state["mg-f-municipio"] = munEl.value;
-    const toggle = document.getElementById("mg-f-sem-financiamento");
-    if (toggle) state["mg-f-sem-financiamento"] = toggle.checked;
-    try { localStorage.setItem(_MG_LS_KEY, JSON.stringify(state)); } catch (_) {}
-}
-
-function _restaurarFiltros() {
-    let state;
-    try { state = JSON.parse(localStorage.getItem(_MG_LS_KEY)); } catch (_) {}
-    if (!state) return;
-    ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor","mg-f-porte"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && state[id]) el.value = state[id];
-    });
-    if (state["mg-f-regiao"]) {
-        const regiaoEl = document.getElementById("mg-f-regiao");
-        if (regiaoEl) regiaoEl.value = state["mg-f-regiao"];
-        atualizarEstadosPorRegiao(state["mg-f-regiao"]);
-    }
-    const ufEl = document.getElementById("mg-f-uf");
-    if (ufEl && state["mg-f-uf"]) ufEl.value = state["mg-f-uf"];
-    const munEl = document.getElementById("mg-f-municipio");
-    const munClear = document.getElementById("mg-f-municipio-clear");
-    if (munEl && state["mg-f-municipio"]) {
-        munEl.value = state["mg-f-municipio"];
-        if (munClear) munClear.hidden = !munEl.value;
-    }
-    const toggle = document.getElementById("mg-f-sem-financiamento");
-    if (toggle && state["mg-f-sem-financiamento"] != null) toggle.checked = state["mg-f-sem-financiamento"];
-}
 
 // ── Painel de totais ───────────────────────────────────────────
 function atualizarStats(features) {
@@ -614,7 +572,6 @@ function baixarDados() {
 document.addEventListener("DOMContentLoaded", async () => {
     initMap();
     await carregarFiltros();
-    _restaurarFiltros();
     await carregarDados();
 
     ["mg-f-eixo","mg-f-modalidade","mg-f-estagio","mg-f-executor","mg-f-uf","mg-f-porte"].forEach(id => {

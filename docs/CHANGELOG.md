@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-13 — `pendente`
+
+### Fix — Filtros do mapa resetam ao navegar para outra aba
+
+- Removida persistência de filtros via localStorage (`mg-filtros`) no Mapa Georreferenciado
+- Removidas funções `_salvarFiltros`, `_restaurarFiltros` e constante `_MG_LS_KEY`
+- Filtros agora sempre iniciam limpos ao carregar a página, consistente com o comportamento das demais páginas
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`
+
+---
+
 ## 2026-07-13 — `011fa3c`
 
 ### Fix — Popup do mapa: largura ajustada para "Perfil Investimento" sem quebra de linha
