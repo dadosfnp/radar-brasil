@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-13 — `pendente`
+
+### Fix — Popup do mapa: largura aumentada para evitar quebra de linha em "Perfil Investimento"
+
+- `minWidth: 260 → 300` e `maxWidth: 310 → 340` no `bindPopup` do mapa georreferenciado
+- "Investimento Agrupado" agora cabe na mesma linha que o label
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`
+
+---
+
 ## 2026-07-03 — `bd6c8a5`
 
 ### Fix — Texto de instrução na Avaliação Painel Multinível
@@ -262,10 +273,12 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 ### Padronização — Design tokens, qualidade de código e CI
 
 **CSS Design Tokens** (`static/css/base.css`)
+
 - Adicionados aliases semânticos ao `:root` existente: `--color-primary`, `--color-primary-dark`, `--color-primary-deep`, `--color-text-*`, `--color-bg-*`, `--color-border-*`, `--font-sans/display/ui`, `--radius-*`, `--shadow-*`, `--transition-*`, `--ease-*`
 - As variáveis `--hdr-*` e `--bdy-*` existentes foram mantidas para compatibilidade retroativa
 
 **Configuração de qualidade** (`.flake8`, `pyproject.toml`)
+
 - `.flake8`: max-line-length 100, exclude migrations/.venv, per-file-ignores para arquivos gerados pelo Django
 - `pyproject.toml`: configuração do Black (line-length 100, target Python 3.12) e isort
 - Formatação Black aplicada em 17 arquivos Python (sem mudança de comportamento)
@@ -274,15 +287,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Flake8 passa sem erros; Black passa sem reformatações
 
 **Documentação de ambiente** (`.env.example`)
+
 - Template com todas as variáveis necessárias e comentários em português
 
 **Política de segurança** (`SECURITY.md`)
+
 - Documento de divulgação responsável e tabela de configurações ativas em produção
 
 **Guia de contribuição** (`CONTRIBUTING.md`)
+
 - Fluxo Git completo (feature → next → main), padrão de commit, estrutura de arquivos, padrões de CSS/JS/Python
 
 **GitHub Actions CI** (`.github/workflows/ci.yml`)
+
 - Pipeline CI que roda em push para `next`/`main` e PRs para `next`
 - Etapas: `flake8` → `black --check` → `pytest` (com SQLite em memória, sem PostgreSQL)
 
