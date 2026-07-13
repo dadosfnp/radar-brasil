@@ -452,8 +452,8 @@ body.mapa-page .rb-main {
 /* ── Popup card ── */
 .mg-popup {
     font-family: 'Roboto', sans-serif;
-    min-width: 250px;
-    max-width: 290px;
+    min-width: 300px;
+    max-width: 340px;
 }
 
 .mg-popup-header {
@@ -543,7 +543,6 @@ body.mapa-page .rb-main {
     color: #3a6070;
     flex: 1;
     line-height: 1.35;
-    white-space: nowrap;
 }
 
 /* ── Programs list ── */
