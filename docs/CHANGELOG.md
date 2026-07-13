@@ -4,14 +4,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
-## 2026-07-13 — `pendente`
+## 2026-07-13 — `011fa3c`
 
-### Fix — Popup do mapa: largura aumentada para evitar quebra de linha em "Perfil Investimento"
+### Fix — Popup do mapa: largura ajustada para "Perfil Investimento" sem quebra de linha
 
-- `minWidth: 260 → 300` e `maxWidth: 310 → 340` no `bindPopup` do mapa georreferenciado
-- "Investimento Agrupado" agora cabe na mesma linha que o label
+- `.mg-popup` redimensionado de `250/290px` para `290/320px` — dimensão calculada para acomodar ícone (18px) + label "Perfil Investimento" (125px) + valor "Investimento Agrupado" (136px) + padding (28px) + respiro (6px)
+- `bindPopup` com `minWidth: 320` e `maxWidth: 400` alinhados ao novo tamanho do card
 
-**Arquivos:** `static/js/mapa-georreferenciado.js`
+**Arquivos:** `static/css/mapa-georreferenciado.css`, `static/js/mapa-georreferenciado.js`
 
 ---
 
