@@ -1,6 +1,6 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="{{ request.LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Radar Brasil{% endblock %}</title>
@@ -36,7 +36,7 @@
 </head>
 <body class="{% block body_class %}rb-body{% endblock %}">
 
-    <a href="#rb-main-content" class="rb-skip-link">Ir para o conteúdo principal</a>
+    <a href="#rb-main-content" class="rb-skip-link">{% trans "Ir para o conteúdo principal" %}</a>
 
     <div class="rb-header-wrapper">
         <header class="rb-header">
@@ -48,35 +48,46 @@
                 </div>
                 <div class="rb-header-title">
                     <h1>RADAR BRASIL</h1>
-                    <p>Impulsionando a Ação Climática Federativa</p>
+                    <p>{% trans "Impulsionando a Ação Climática Federativa" %}</p>
                 </div>
                 <div class="rb-header-logo">
                     <a href="https://fnp.org.br/index.php" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="rb-header-logo-img">
                     </a>
+                    <form action="{% url 'set_language' %}" method="post" class="rb-lang-form">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}">
+                        <div class="rb-lang-toggle" role="group" aria-label="{% trans 'Selecionar idioma' %}">
+                            <button type="submit" name="language" value="pt-br"
+                                    class="rb-lang-btn{% if request.LANGUAGE_CODE == 'pt-br' %} active{% endif %}">PT</button>
+                            <span class="rb-lang-sep" aria-hidden="true">|</span>
+                            <button type="submit" name="language" value="en"
+                                    class="rb-lang-btn{% if request.LANGUAGE_CODE == 'en' %} active{% endif %}">EN</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </header>
     </div>
     <nav class="rb-main-nav" id="rb-main-nav">
-        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="{% trans 'Abrir menu' %}" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
         <div class="rb-nav-links" id="rb-nav-links">
             <a href="{% url 'municipios:inicio' %}"
-               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Início</a>
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">{% trans "Início" %}</a>
             <a href="{% url 'municipios:metodologia' %}"
-               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
+               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
             <a href="{% url 'indicadores:painel_multinivel' %}"
-               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
+               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painel Multinível" %}</a>
             <a href="{% url 'indicadores:avaliacao_painel' %}"
-               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Avaliação Painel Multinível" %}</a>
             <a href="{% url 'indicadores:nota_pais' %}"
-               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
+               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nota País" %}</a>
             <a href="{% url 'indicadores:financiamento_climatico' %}"
-               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
+               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">{% trans "Financiamento Climático" %}</a>
             <a href="{% url 'indicadores:mapa_georreferenciado' %}"
-               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
+               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa Georreferenciado" %}</a>
         </div>
     </nav>
 
@@ -154,9 +165,10 @@
 
     </footer>
 
+    <script src="{% static 'js/i18n.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
-    <button id="rb-scroll-top" class="rb-scroll-top" aria-label="Voltar ao topo" hidden>
+    <button id="rb-scroll-top" class="rb-scroll-top" aria-label="{% trans 'Voltar ao topo' %}" hidden>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="18 15 12 9 6 15"/>
         </svg>

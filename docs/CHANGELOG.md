@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-22 — (branch feat/i18n-english)
+
+### Feature — Tradução para inglês com seletor de idioma no header
+
+- Suporte a i18n via Django `LocaleMiddleware` + `set_language` view
+- Seletor `PT | EN` adicionado ao header (canto superior direito, abaixo do logo FNP)
+- `base.html`: `{% load i18n %}`, `{% trans %}` aplicado nos links de nav e subtítulo do header
+- `locale/en/LC_MESSAGES/django.po` e `django.mo` compilado com 103 strings traduzidas
+- `static/js/i18n.js`: objeto global `RBi18n` com dicionário PT→EN para strings dinâmicas dos dados
+- `setup/settings.py`: `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
+- `setup/urls.py`: rota `i18n/` para o endpoint `set_language`
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/js/i18n.js`, `setup/settings.py`, `setup/urls.py`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## 2026-07-13 — `pendente`
 
 ### Fix — Filtros do mapa resetam ao navegar para outra aba

@@ -494,6 +494,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-07-02 | `abd7175` | Rodapé: centralização do copyright corrigida (flex)             |
 | 2026-07-03 | `bd6c8a5` | Avaliação Painel: texto de instrução do empty state atualizado  |
 | 2026-07-13 | `011fa3c` | Popup do mapa: largura 290–320px para Perfil Investimento       |
+| 2026-07-22 | (branch)  | i18n: seletor PT\|EN no header, `{% trans %}` na nav e subtítulo |
 
 ---
 
