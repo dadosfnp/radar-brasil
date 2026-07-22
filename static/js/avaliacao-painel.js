@@ -172,6 +172,12 @@ const EIXO_LABELS = {
     "Programas":               "Programas",
     "Linhas de Financiamento": "Linhas de Financiamento",
 };
+const EIXO_LABELS_EN = {
+    "Governanca":              "Governance",
+    "Politicas e Planos":      "Policies & Plans",
+    "Programas":               "Programs",
+    "Linhas de Financiamento": "Financing Lines",
+};
 
 let eixoAtual          = "Governanca";
 let estruturaAtual     = "";
@@ -280,7 +286,9 @@ function ativarAba(eixo, tabEl) {
 
     eixoAtual      = eixo;
     estruturaAtual = "";
-    eixoLabel.textContent  = RBi18n.t(EIXO_LABELS[eixo] || eixo);
+    eixoLabel.textContent  = RBi18n.getLang() === "en"
+        ? (EIXO_LABELS_EN[eixo] || eixo)
+        : (EIXO_LABELS[eixo] || eixo);
 
     resetarTabela();
     carregarFiltros(eixo);
@@ -300,8 +308,8 @@ async function carregarFiltros(eixo) {
         const resp = await fetch(`/indicadores/api/avaliacao/filtros/?eixo=${encodeURIComponent(eixo)}`);
         const data = await resp.json();
 
-        estruturaLabel.textContent = data.label_estrutura || "Instância";
-        setorLabel.textContent     = data.label_setor     || "Setor";
+        estruturaLabel.textContent = RBi18n.t(data.label_estrutura || "Instância");
+        setorLabel.textContent     = RBi18n.t(data.label_setor     || "Setor");
 
         todasEstruturas    = data.estruturas          || [];
         todosSetores       = data.setores             || [];

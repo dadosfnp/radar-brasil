@@ -123,6 +123,13 @@
             "estrutura":              "structure",
             "estruturas":             "structures",
 
+            // ── Labels da API (carregarFiltros) ──────────────────
+            "Instância":              "Instance",
+            "Setor":                  "Sector",
+            "Política / Plano":       "Policy / Plan",
+            "Programa":               "Program",
+            "Linha de Financiamento": "Financing Line",
+
             // ── Financiamento Climático ──────────────────────────
             "Distribuição por Setor": "Distribution by Sector",
             "Origem dos Recursos":    "Source of Funds",

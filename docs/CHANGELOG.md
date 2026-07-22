@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-22 — (branch feat/i18n-english)
 
+### Fix — Avaliação Painel Multinível: strings dinâmicas não traduzidas no modo EN
+
+- **`avaliacao-painel.js`:** Adicionado `EIXO_LABELS_EN` com chaves ASCII e valores em inglês; `ativarAba()` agora usa este dict diretamente quando `lang === "en"`, contornando possível mismatch de encoding Unicode NFC/NFD
+- **`avaliacao-painel.js`:** `carregarFiltros()` agora envolve os labels vindos da API com `RBi18n.t()` (eram setados direto sem tradução): `estruturaLabel` e `setorLabel`
+- **`static/js/i18n.js`:** Adicionadas 5 entradas ao `DICT.en` para cobrir os valores reais da API: `"Instância"→"Instance"`, `"Setor"→"Sector"`, `"Política / Plano"→"Policy / Plan"`, `"Programa"→"Program"`, `"Linha de Financiamento"→"Financing Line"`
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
 ### Feature — Tradução completa da plataforma para inglês (i18n full-coverage)
 
 - **Templates HTML (9 páginas):** `{% load i18n %}` + `{% trans %}` aplicados em todas as strings visíveis de todas as páginas: `landing.html`, `inicio.html`, `metodologia.html`, `linha-do-tempo.html`, `mapa-georreferenciado.html`, `nota-pais.html`, `painel-multinivel.html`, `avaliacao-painel.html`, `financiamento-climatico.html`
