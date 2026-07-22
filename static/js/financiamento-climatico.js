@@ -35,11 +35,11 @@ class MultiSelect {
           </button>
           <div class="fc-ms-dropdown" role="listbox" aria-multiselectable="true">
             <div class="fc-ms-search">
-              <input type="text" placeholder="Buscar..." autocomplete="off" spellcheck="false">
+              <input type="text" placeholder="${RBi18n.t("Buscar...")}" autocomplete="off" spellcheck="false">
             </div>
             <div class="fc-ms-actions">
-              <button type="button" class="fc-ms-action-btn js-select-all">Todos</button>
-              <button type="button" class="fc-ms-action-btn js-clear-all">Nenhum</button>
+              <button type="button" class="fc-ms-action-btn js-select-all">${RBi18n.t("Todos")}</button>
+              <button type="button" class="fc-ms-action-btn js-clear-all">${RBi18n.t("Nenhum")}</button>
               <span class="fc-ms-count-label"></span>
             </div>
             <div class="fc-ms-options"></div>
@@ -244,7 +244,7 @@ class MultiSelect {
             : this.options;
 
         if (!visible.length) {
-            this._optionsEl.innerHTML = `<div class="fc-ms-empty">Nenhum resultado</div>`;
+            this._optionsEl.innerHTML = `<div class="fc-ms-empty">${RBi18n.t("Nenhum resultado")}</div>`;
             return;
         }
 
@@ -283,8 +283,8 @@ class MultiSelect {
             const excluded = n;
             const shown    = this.options.length - excluded;
             this._label.textContent = shown === 0
-                ? "Nenhum selecionado"
-                : `${shown} selecionado${shown !== 1 ? "s" : ""}`;
+                ? RBi18n.t("Nenhum selecionado")
+                : `${shown} ${shown !== 1 ? RBi18n.t("selecionados") : RBi18n.t("selecionado")}`;
             this._label.classList.add("has-selection");
 
             let badge = this.el.querySelector(".fc-ms-badge");
@@ -335,12 +335,13 @@ function _showLoader(vis) {
 // Inicialização dos MultiSelects
 // ══════════════════════════════════════════════════════════════
 function _initMultiSelects() {
+    const t = RBi18n.t;
     const defs = [
-        { key: "programa",   id: "ms-programa",   placeholder: "Todos os Programas" },
-        { key: "setor",      id: "ms-setor",      placeholder: "Todos os Setores"   },
-        { key: "modalidade", id: "ms-modalidade", placeholder: "Todas as Modalidades" },
-        { key: "origem",     id: "ms-origem",     placeholder: "Todas as Origens"   },
-        { key: "ente",       id: "ms-ente",       placeholder: "Todos os Entes"     },
+        { key: "programa",   id: "ms-programa",   placeholder: t("Todos os Programas") },
+        { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores")   },
+        { key: "modalidade", id: "ms-modalidade", placeholder: t("Todas as Modalidades") },
+        { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens")   },
+        { key: "ente",       id: "ms-ente",       placeholder: t("Todos os Entes")     },
     ];
     defs.forEach(({ key, id, placeholder }) => {
         msInstances[key] = new MultiSelect({
@@ -521,7 +522,7 @@ function _abbrevLabel(s, max) {
 }
 
 function _emptyMsg() {
-    return `<div style="text-align:center;color:#9bb;padding:30px 0;font-size:12px;">Sem dados</div>`;
+    return `<div style="text-align:center;color:#9bb;padding:30px 0;font-size:12px;">${RBi18n.t("Sem dados")}</div>`;
 }
 
 function _plotConfig() { return { displayModeBar: false, responsive: true, scrollZoom: false }; }
@@ -554,7 +555,7 @@ function renderTabela() {
 
     if (!page.length) {
         tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:#9bb;">
-            Nenhum dado encontrado.</td></tr>`;
+            ${RBi18n.t("Nenhum dado encontrado.")}</td></tr>`;
         renderPaginacao();
         return;
     }
@@ -586,8 +587,9 @@ function renderPaginacao() {
 
     if (total === 0) { el.innerHTML = ""; return; }
 
-    let html = `<span class="fc-page-info">${start}–${end} de ${total}</span>`;
-    html += `<button class="fc-page-btn" id="fc-pg-prev" ${currentPage === 1 ? "disabled" : ""}>Anterior</button>`;
+    const t = RBi18n.t;
+    let html = `<span class="fc-page-info">${start}–${end} ${t("de")} ${total}</span>`;
+    html += `<button class="fc-page-btn" id="fc-pg-prev" ${currentPage === 1 ? "disabled" : ""}>${t("Anterior")}</button>`;
 
     const maxBtns = 5;
     let pStart = Math.max(1, currentPage - Math.floor(maxBtns / 2));
@@ -598,7 +600,7 @@ function renderPaginacao() {
         html += `<button class="fc-page-btn ${p === currentPage ? "active" : ""}" data-page="${p}">${p}</button>`;
     }
 
-    html += `<button class="fc-page-btn" id="fc-pg-next" ${currentPage === pages ? "disabled" : ""}>Próximo</button>`;
+    html += `<button class="fc-page-btn" id="fc-pg-next" ${currentPage === pages ? "disabled" : ""}>${t("Próximo")}</button>`;
     el.innerHTML = html;
 
     _qs("fc-pg-prev")?.addEventListener("click", () => { if (currentPage > 1) { currentPage--; renderTabela(); _scrollToTabela(); } });
@@ -632,9 +634,10 @@ function limparFiltros() {
 // ══════════════════════════════════════════════════════════════
 function baixarDados() {
     if (!allRows.length) return;
-    const headers = ["Programas e Linhas de Financiamento", "Setor", "Modalidade",
-                     "Origem dos Recursos", "Valor do Financiamento", "Contrapartida",
-                     "Repasse Federal", "Repasse Estadual", "Repasse Municipal"];
+    const t = RBi18n.t;
+    const headers = [t("Programas e Linhas de Financiamento"), t("Setor"), t("Modalidade"),
+                     t("Origem dos Recursos"), t("Valor do Financiamento"), t("Contrapartida"),
+                     t("Repasse Federal"), t("Repasse Estadual"), t("Repasse Municipal")];
     const rows = allRows.map(r =>
         [r.programa, r.setor, r.modalidade, r.origem, r.valor,
          r.contrapartida, r.federal, r.estadual, r.municipal]

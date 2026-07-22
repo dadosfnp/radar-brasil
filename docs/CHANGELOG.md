@@ -6,6 +6,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-22 — (branch feat/i18n-english)
 
+### Feature — Tradução completa da plataforma para inglês (i18n full-coverage)
+
+- **Templates HTML (9 páginas):** `{% load i18n %}` + `{% trans %}` aplicados em todas as strings visíveis de todas as páginas: `landing.html`, `inicio.html`, `metodologia.html`, `linha-do-tempo.html`, `mapa-georreferenciado.html`, `nota-pais.html`, `painel-multinivel.html`, `avaliacao-painel.html`, `financiamento-climatico.html`
+- **JavaScript (5 arquivos):** `RBi18n.t()` aplicado em todas as strings dinâmicas: popups do mapa, legendas, stats panel, cabeçalhos CSV, MultiSelect, paginação, mensagens de erro e estado vazio — em `mapa-georreferenciado.js`, `financiamento-climatico.js`, `avaliacao-painel.js`, `painel-multinivel.js`, `nota-pais.js`
+- **`static/js/i18n.js`:** Dicionário expandido de ~30 para ~80 entradas cobrindo labels de popup, valores de dados (porte, perfil investimento), nomes de oceanos, botões de ação, mensagens de sistema e cabeçalhos de CSV
+- **`nota-pais.js`:** `getName()` agora retorna o nome em inglês do GeoJSON Natural Earth (`props.NAME`) quando `lang === "en"`, sem necessidade de traduzir os ~80 nomes de países
+- **`locale/en/LC_MESSAGES/django.po`:** Expandido de 103 para 236 strings
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado com `compile_po.py`
+- Infraestrutura i18n base (settings, URLs, header PT|EN, `base.html`): implementada em entrada anterior
+
+**Arquivos:** todos os 9 templates em `templates/municipios/`, `static/js/i18n.js`, `static/js/mapa-georreferenciado.js`, `static/js/financiamento-climatico.js`, `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/nota-pais.js`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
+## 2026-07-22 — (branch feat/i18n-english) — infraestrutura
+
 ### Feature — Tradução para inglês com seletor de idioma no header
 
 - Suporte a i18n via Django `LocaleMiddleware` + `set_language` view

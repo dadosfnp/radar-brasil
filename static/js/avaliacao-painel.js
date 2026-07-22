@@ -67,7 +67,7 @@ class Combobox {
         if (!filtered.length) {
             const li = document.createElement("li");
             li.className = "ap-combo-empty";
-            li.textContent = "Nenhum resultado encontrado";
+            li.textContent = RBi18n.t("Nenhum resultado encontrado");
             this.dropdown.appendChild(li);
             return;
         }
@@ -280,7 +280,7 @@ function ativarAba(eixo, tabEl) {
 
     eixoAtual      = eixo;
     estruturaAtual = "";
-    eixoLabel.textContent  = EIXO_LABELS[eixo] || eixo;
+    eixoLabel.textContent  = RBi18n.t(EIXO_LABELS[eixo] || eixo);
 
     resetarTabela();
     carregarFiltros(eixo);
@@ -316,7 +316,7 @@ async function carregarFiltros(eixo) {
         }
     } catch (e) {
         console.error("Erro ao carregar filtros:", e);
-        _setPlaceholderMsg("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.", true);
+        _setPlaceholderMsg(RBi18n.t("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página."), true);
         placeholder.style.display = "flex";
     }
 }
@@ -332,7 +332,7 @@ async function carregarTabela(estrutura) {
         loader.style.display = "none";
 
         if (!data.rows || data.rows.length === 0) {
-            _setPlaceholderMsg("Nenhum dado encontrado para esta estrutura.");
+            _setPlaceholderMsg(RBi18n.t("Nenhum dado encontrado para esta estrutura."));
             placeholder.style.display = "flex";
             return;
         }
@@ -359,7 +359,7 @@ async function carregarTabela(estrutura) {
 
     } catch (e) {
         loader.style.display = "none";
-        _setPlaceholderMsg("Erro ao carregar dados. Verifique sua conexão e tente novamente.", true);
+        _setPlaceholderMsg(RBi18n.t("Erro ao carregar dados. Verifique sua conexão e tente novamente."), true);
         placeholder.style.display = "flex";
         console.error("Erro tabela:", e);
     }
@@ -381,7 +381,7 @@ function resetarTabela(mostrarLoader = false) {
         loader.style.display      = "flex";
     } else {
         loader.style.display      = "none";
-        _setPlaceholderMsg("Selecione um item para visualizar a avaliação.");
+        _setPlaceholderMsg(RBi18n.t("Selecione um item para visualizar a avaliação."));
         placeholder.style.display = "flex";
     }
 }
@@ -461,7 +461,7 @@ pdfBtn.addEventListener("click", () => {
 <body>
 <h1>${escHtml(titulo)}</h1>
 ${linhas}
-<div class="print-footer">RADAR BRASIL &ndash; Impulsionando a Ação Climática Federativa</div>
+<div class="print-footer">${RBi18n.t("RADAR BRASIL – Impulsionando a Ação Climática Federativa")}</div>
 </body>
 </html>`;
 
@@ -490,7 +490,7 @@ async function abrirFicha(estrutura) {
         modalLoader.style.display = "none";
 
         if (!data.campos || data.campos.length === 0) {
-            modalBody.innerHTML = '<p style="color:#6a8fa0;font-style:italic;padding:20px;">Nenhuma informação disponível.</p>';
+            modalBody.innerHTML = `<p style="color:#6a8fa0;font-style:italic;padding:20px;">${RBi18n.t("Nenhuma informação disponível.")}</p>`;
             return;
         }
 
@@ -508,7 +508,7 @@ async function abrirFicha(estrutura) {
 
     } catch (e) {
         modalLoader.style.display = "none";
-        modalBody.innerHTML = '<p style="color:#c00;padding:20px;">Erro ao carregar ficha técnica.</p>';
+        modalBody.innerHTML = `<p style="color:#c00;padding:20px;">${RBi18n.t("Erro ao carregar ficha técnica.")}</p>`;
         console.error("Erro ficha:", e);
     }
 }

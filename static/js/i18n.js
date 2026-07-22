@@ -43,6 +43,10 @@
             "Todas as Regiões":       "All Regions",
             "Todos os Estados":       "All States",
             "Todas as regiões":       "All regions",
+            "Todos os Programas":     "All Programs",
+            "Todos os Setores":       "All Sectors",
+            "Todas as Origens":       "All Sources",
+            "Todos os Entes":         "All Entities",
             "Américas":               "Americas",
             "Europa":                 "Europe",
             "África":                 "Africa",
@@ -57,6 +61,26 @@
             "programa de investimento":  "investment program",
             "programas de investimento": "investment programs",
             "Financiamento":          "Financing",
+            "População":              "Population",
+            "Região":                 "Region",
+
+            // ── Mapa — CSV headers ───────────────────────────────
+            "UF":                         "State",
+            "Empreendimento":             "Project",
+            "Modalidade":                 "Modality",
+            "Executor":                   "Executor",
+            "Estágio":                    "Stage",
+            "Estimativa 2023-2030":       "Estimate 2023-2030",
+            "% Executado":                "% Executed",
+            "Eixo":                       "Axis",
+
+            // ── Financiamento Climático — CSV headers ────────────
+            "Programas e Linhas de Financiamento": "Programs and Financing Lines",
+            "Valor do Financiamento":              "Financing Value",
+            "Contrapartida":                       "Counterpart",
+            "Repasse Federal":                     "Federal Transfer",
+            "Repasse Estadual":                    "State Transfer",
+            "Repasse Municipal":                   "Municipal Transfer",
 
             // ── Mensagens de estado ──────────────────────────────
             "Carregando...":                        "Loading...",
@@ -67,12 +91,27 @@
             "Não foi possível carregar os dados. Verifique sua conexão e recarregue a página.":
                 "Could not load data. Check your connection and reload the page.",
             "Nenhum resultado encontrado":          "No results found",
+            "Nenhum resultado":                     "No results",
+            "Nenhuma informação disponível.":       "No information available.",
+            "Erro ao carregar ficha técnica.":      "Error loading technical sheet.",
+            "Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.":
+                "Failed to connect to the server. Check your connection and reload the page.",
+            "Nenhum dado encontrado para esta estrutura.": "No data found for this structure.",
+            "Erro ao carregar dados. Verifique sua conexão e tente novamente.":
+                "Error loading data. Check your connection and try again.",
+            "Sem dados":                            "No data",
+            "Nenhum selecionado":                   "None selected",
+            "Nenhum":                               "None",
+            "selecionado":                          "selected",
+            "selecionados":                         "selected",
 
             // ── Avaliação / Ficha ────────────────────────────────
             "Instância de Governança": "Governance Instance",
             "Setor":                  "Sector",
             "Buscar...":              "Search...",
             "Fechar":                 "Close",
+            "RADAR BRASIL – Impulsionando a Ação Climática Federativa":
+                "RADAR BRASIL – Driving Federative Climate Action",
 
             // ── Painel Multinível (abas) ─────────────────────────
             "Governança":             "Governance",
@@ -81,6 +120,8 @@
             "Politicas e Planos":     "Policies & Plans",
             "Programas":              "Programs",
             "Linhas de Financiamento":"Financing Lines",
+            "estrutura":              "structure",
+            "estruturas":             "structures",
 
             // ── Financiamento Climático ──────────────────────────
             "Distribuição por Setor": "Distribution by Sector",
@@ -92,6 +133,21 @@
             "Para":                   "For",
             "Município":              "Municipality",
             "municípios":             "municipalities",
+
+            // ── Print / Botões ───────────────────────────────────
+            "Gerando…":               "Generating…",
+            "Print Mapa":             "Print Map",
+            "Imprimir Tela":          "Print Page",
+            "Baixar Dados":           "Download Data",
+            "contribuidores":         "contributors",
+
+            // ── Nota País ────────────────────────────────────────
+            "OCEANO PACÍFICO":        "PACIFIC OCEAN",
+            "OCEANO ATLÂNTICO":       "ATLANTIC OCEAN",
+            "OCEANO ÍNDICO":          "INDIAN OCEAN",
+            "Nota":                   "Score",
+            "Nota não atribuída":     "Score not assigned",
+            "Nível 3,0":              "Level 3.0",
         },
     };
 

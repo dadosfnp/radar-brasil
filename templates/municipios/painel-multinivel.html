@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Painel Multinível{% endblock %}
+{% block title %}Radar Brasil - {% trans "Painel Multinível" %}{% endblock %}
 {% block body_class %}rb-body painel-multinivel-page{% endblock %}
 {% block menu_painel_active %}active{% endblock %}
 
@@ -24,40 +24,40 @@
 <div class="pm-wrapper">
 
   {# BACK TO INÍCIO #}
-  <a href="{% url 'municipios:inicio' %}" class="pm-back-card" aria-label="Voltar para a página Início e ver todos os eixos">
+  <a href="{% url 'municipios:inicio' %}" class="pm-back-card" aria-label="{% trans 'Voltar para a página Início e ver todos os eixos' %}">
     <span class="pm-back-icon">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <polyline points="15 18 9 12 15 6"></polyline>
       </svg>
     </span>
     <span class="pm-back-content">
-      <span class="pm-back-title">Explorar todos os eixos</span>
-      <span class="pm-back-sub">Governança &middot; Políticas e Planos &middot; Programas &middot; Linhas de Financiamento</span>
+      <span class="pm-back-title">{% trans "Explorar todos os eixos" %}</span>
+      <span class="pm-back-sub">{% trans "Governança · Políticas e Planos · Programas · Linhas de Financiamento" %}</span>
     </span>
     <span class="pm-back-chips" aria-hidden="true">
-      <span class="pm-back-chip">Governança</span>
-      <span class="pm-back-chip">Políticas e Planos</span>
-      <span class="pm-back-chip">Programas</span>
-      <span class="pm-back-chip">Linhas de Financiamento</span>
+      <span class="pm-back-chip">{% trans "Governança" %}</span>
+      <span class="pm-back-chip">{% trans "Políticas e Planos" %}</span>
+      <span class="pm-back-chip">{% trans "Programas" %}</span>
+      <span class="pm-back-chip">{% trans "Linhas de Financiamento" %}</span>
     </span>
   </a>
 
   {# KPI STRIP #}
   <div class="pm-kpi-strip">
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">Instâncias Avaliadas</div>
-      <div class="pm-kpi-value" title="Total de instâncias com avaliação registrada na edição 2024">{{ total_municipios }}</div>
-      <div class="pm-kpi-sub">Edição 2024</div>
+      <div class="pm-kpi-label">{% trans "Instâncias Avaliadas" %}</div>
+      <div class="pm-kpi-value" title="{% trans 'Total de instâncias com avaliação registrada na edição 2024' %}">{{ total_municipios }}</div>
+      <div class="pm-kpi-sub">{% trans "Edição 2024" %}</div>
     </div>
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">Eixos Analisados</div>
-      <div class="pm-kpi-value" title="Governança · Políticas e Planos · Programas · Linhas de Financiamento">4</div>
-      <div class="pm-kpi-sub">Governança &middot; Políticas e Planos &middot; Programas &middot; Linhas de Financiamento</div>
+      <div class="pm-kpi-label">{% trans "Eixos Analisados" %}</div>
+      <div class="pm-kpi-value" title="{% trans 'Governança · Políticas e Planos · Programas · Linhas de Financiamento' %}">4</div>
+      <div class="pm-kpi-sub">{% trans "Governança" %} &middot; {% trans "Políticas e Planos" %} &middot; {% trans "Programas" %} &middot; {% trans "Linhas de Financiamento" %}</div>
     </div>
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">Níveis de Maturidade</div>
-      <div class="pm-kpi-value" title="Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de institucionalização climática">5</div>
-      <div class="pm-kpi-sub">Nível 1 &rarr; Nível 5</div>
+      <div class="pm-kpi-label">{% trans "Níveis de Maturidade" %}</div>
+      <div class="pm-kpi-value" title="{% trans 'Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de institucionalização climática' %}">5</div>
+      <div class="pm-kpi-sub">{% trans "Nível 1" %} &rarr; {% trans "Nível 5" %}</div>
     </div>
   </div>
 
@@ -66,32 +66,32 @@
 
     {# TAB BAR #}
     <div class="pm-card-header">
-      <span class="pm-panel-label">Painel Multinível</span>
+      <span class="pm-panel-label">{% trans "Painel Multinível" %}</span>
       <div class="pm-header-sep"></div>
-      <nav class="pm-tabs" aria-label="Dimensões do painel">
+      <nav class="pm-tabs" aria-label="{% trans 'Dimensões do painel' %}">
         <ul role="tablist">
           <li class="active" role="presentation">
             <button type="button" role="tab" aria-selected="true" aria-controls="pm-chart-wrapper" id="pm-tab-governanca">
               <img src="{% static 'img/governanca.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
-              <span data-short="Govern.">Governança</span>
+              <span data-short="{% trans 'Govern.' %}">{% trans "Governança" %}</span>
             </button>
           </li>
           <li role="presentation">
             <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-politicas">
               <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
-              <span data-short="Políticas">Políticas e Planos</span>
+              <span data-short="{% trans 'Políticas' %}">{% trans "Políticas e Planos" %}</span>
             </button>
           </li>
           <li role="presentation">
             <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-programas">
               <img src="{% static 'img/programas.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
-              <span data-short="Programas">Programas</span>
+              <span data-short="{% trans 'Programas' %}">{% trans "Programas" %}</span>
             </button>
           </li>
           <li role="presentation">
             <button type="button" role="tab" aria-selected="false" aria-controls="pm-chart-wrapper" id="pm-tab-financiamento">
               <img src="{% static 'img/financiamento.svg' %}" alt="" class="pm-tab-icon-img" aria-hidden="true">
-              <span data-short="Financ.">Linha de Financiamento</span>
+              <span data-short="{% trans 'Financ.' %}">{% trans "Linha de Financiamento" %}</span>
             </button>
           </li>
         </ul>
@@ -101,7 +101,7 @@
     {# ÁREA DO GRÁFICO #}
     <div class="pm-chart-area" aria-live="polite" aria-atomic="false">
 
-      <div id="pm-loader" role="status" aria-label="Carregando dados do gráfico" style="
+      <div id="pm-loader" role="status" aria-label="{% trans 'Carregando dados do gráfico' %}" style="
         display: none;
         position: absolute;
         inset: 0;
@@ -120,16 +120,16 @@
               from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
           </path>
         </svg>
-        Carregando dados...
+        {% trans "Carregando dados..." %}
       </div>
 
       <div id="pm-chart-wrapper" class="pm-chart-wrapper" role="tabpanel" aria-labelledby="pm-tab-governanca">
-        <canvas id="pm-chart-governanca" role="img" aria-label="Gráfico de distribuição por nível de maturidade"></canvas>
+        <canvas id="pm-chart-governanca" role="img" aria-label="{% trans 'Gráfico de distribuição por nível de maturidade' %}"></canvas>
       </div>
 
       <div class="pm-chart-footer">
         <button type="button" class="pm-criteria-badge">
-          Critérios e Parâmetros de Avaliação
+          {% trans "Critérios e Parâmetros de Avaliação" %}
         </button>
       </div>
 
