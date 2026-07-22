@@ -134,6 +134,11 @@
             "Município":              "Municipality",
             "municípios":             "municipalities",
 
+            // ── Paginação ────────────────────────────────────────
+            "Anterior":               "Previous",
+            "Próximo":                "Next",
+            "de":                     "of",
+
             // ── Print / Botões ───────────────────────────────────
             "Gerando…":               "Generating…",
             "Print Mapa":             "Print Map",
