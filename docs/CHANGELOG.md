@@ -6,6 +6,12 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — (branch feat/i18n-english)
 
+### Fix — Cor dos hiperlinks da ficha técnica
+
+- **`avaliacao-painel.css`:** Links no título do modal herdam `rgba(194,237,231,.82)` (cor original do h3 no header escuro); links nos campos herdam `#4a6a78` (cor original do campo-valor); sublinhado sutil com `text-decoration-color` semi-transparente; hover com teal `#2c7873`
+
+---
+
 ### Feature — Atualização do banco de dados + hiperlinks nas fichas técnicas
 
 - **Services (4 arquivos):** IDs das planilhas Google Sheets atualizados para os novos bancos de dados

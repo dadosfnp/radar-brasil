@@ -570,6 +570,15 @@ body.avaliacao-painel-page .rb-main {
     flex: 1;
     min-width: 0;
 }
+.ap-modal-header h3 a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(194,237,231,.45);
+}
+.ap-modal-header h3 a:hover {
+    text-decoration-color: rgba(194,237,231,.85);
+}
 
 .ap-pdf-header-btn {
     background: rgba(255,255,255,.15);
@@ -674,6 +683,16 @@ body.avaliacao-painel-page .rb-main {
     color: #4a6a78;
     line-height: 1.6;
     white-space: pre-wrap;
+}
+.ap-ficha-campo-valor a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgba(74,106,120,.4);
+}
+.ap-ficha-campo-valor a:hover {
+    color: #2c7873;
+    text-decoration-color: #2c7873;
 }
 
 /* ══════════════════════════════
