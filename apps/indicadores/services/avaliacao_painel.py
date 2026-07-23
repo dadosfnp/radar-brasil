@@ -7,8 +7,8 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_FICHAS_ID = "1Xifo1yjrByw2XBSjTk1WdjjFPIewUsanyuDO9ZMzo28"
-SHEET_PARAMS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
+SHEET_FICHAS_ID = "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8"
+SHEET_PARAMS_ID = "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE"
 CACHE_TTL = 1800  # 30 min
 
 CORES_NIVEL = {
@@ -190,29 +190,44 @@ def get_ficha(estrutura: str) -> dict:
 
     row = rows.iloc[0]
 
+    # (col, label, link_col) — link_col é None quando não há hiperlink
     campos = [
-        ("Setor", "Setor"),
-        ("Descricao", "Descrição"),
-        ("Orgao_responsavel", "Órgão Responsável"),
-        ("Status", "Status"),
-        ("Arcabouco_normativo", "Arcabouço Normativo"),
-        ("Contrapartida", "Contrapartida"),
-        ("Espaco_dialogo_federativo", "Espaço de Diálogo Federativo"),
-        ("Financiamento", "Financiamento"),
-        ("Periodicidade", "Periodicidade"),
-        ("Composicao", "Composição"),
-        ("Carater_decisorio", "Caráter Decisório"),
-        ("Politica_Plano_relacionado", "Política ou Plano Relacionado"),
-        ("Modalidade", "Modalidade"),
-        ("Repasse", "Repasse"),
-        ("Fontes", "Fontes"),
+        ("Setor",                    "Setor",                        None),
+        ("Descricao",                "Descrição",                    None),
+        ("Orgao_responsavel",        "Órgão Responsável",            "Link_orgao"),
+        ("Status",                   "Status",                       None),
+        ("Arcabouco_normativo",      "Arcabouço Normativo",          "Link_arcabouco"),
+        ("Contrapartida",            "Contrapartida",                None),
+        ("Espaco_dialogo_federativo","Espaço de Diálogo Federativo", None),
+        ("Financiamento",            "Financiamento",                None),
+        ("Periodicidade",            "Periodicidade",                None),
+        ("Composicao",               "Composição",                   None),
+        ("Carater_decisorio",        "Caráter Decisório",            None),
+        ("Politica_Plano_relacionado","Política ou Plano Relacionado",None),
+        ("Modalidade",               "Modalidade",                   None),
+        ("Repasse",                  "Repasse",                      None),
+        ("Fontes",                   "Fontes",                       None),
     ]
 
-    resultado = {"estrutura": estrutura, "campos": []}
-    for col, label in campos:
+    _INVALID = {"nan", "Ñ aplica", "N/A", ""}
+
+    def _safe_link(val: str) -> str | None:
+        v = str(val).strip()
+        return v if v not in _INVALID and v.startswith("http") else None
+
+    resultado = {
+        "estrutura": estrutura,
+        "campos": [],
+        "link_eixo": _safe_link(row.get("Link_eixo", "")),
+    }
+
+    for col, label, link_col in campos:
         if col in row.index:
             val = str(row[col]).strip()
-            if val and val not in ("nan", "Ñ aplica", "N/A", ""):
-                resultado["campos"].append({"label": label, "valor": val})
+            if val and val not in _INVALID:
+                campo = {"label": label, "valor": val}
+                if link_col and link_col in row.index:
+                    campo["url"] = _safe_link(row[link_col])
+                resultado["campos"].append(campo)
 
     return resultado

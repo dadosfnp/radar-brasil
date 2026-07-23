@@ -113,6 +113,10 @@
             "RADAR BRASIL – Impulsionando a Ação Climática Federativa":
                 "RADAR BRASIL – Driving Federative Climate Action",
 
+            // ── Painel Multinível — critérios renomeados ─────────
+            "Sustentabilidade Financeira":       "Financial Sustainability",
+            "Diversidade e Representatividade":  "Diversity and Representativeness",
+
             // ── Painel Multinível (abas) ─────────────────────────
             "Governança":             "Governance",
             "Governanca":             "Governance",

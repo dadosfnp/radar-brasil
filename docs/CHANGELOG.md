@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-23 — (branch feat/i18n-english)
+
+### Feature — Atualização do banco de dados + hiperlinks nas fichas técnicas
+
+- **Services (4 arquivos):** IDs das planilhas Google Sheets atualizados para os novos bancos de dados
+  - `avaliacao_painel.py`: `SHEET_FICHAS_ID` → `16s59h5uE0R6GZT...`, `SHEET_PARAMS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `painel_multinivel.py`: `SHEET_PARAMETROS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `mapa_georreferenciado.py`: `SHEET_ID` → `1qMPAIB5e6IoG_cd...`, `SHEET_GID` → `1619423236`
+  - `financiamento_climatico.py`: `SHEET_ID` → `1sxKa2yu8GL8U6m4...`, `SHEET_GID` → `793540087`
+- **`avaliacao_painel.py` — `get_ficha()`:** Refatorado para suportar hiperlinks; retorna `link_eixo` (link do nome da estrutura) e campo `url` em `Órgão Responsável` (`Link_orgao`) e `Arcabouço Normativo` (`Link_arcabouco`)
+- **`painel_multinivel.py` — `ORDEM_CRITERIOS`:** Labels atualizados: `"Financiamento"` → `"Sustentabilidade Financeira"`, `"Representação de Gênero, Raça e Etnia"` → `"Diversidade e Representatividade"` (todos os eixos aplicáveis)
+- **`avaliacao-painel.js` — `abrirFicha()`:** Título do modal vira hiperlink quando `link_eixo` presente; campos com URL renderizados como `<a>`; labels passam por `RBi18n.t()`
+- **`i18n.js`:** 2 novas entradas EN: `"Sustentabilidade Financeira"→"Financial Sustainability"`, `"Diversidade e Representatividade"→"Diversity and Representativeness"`
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/services/financiamento_climatico.py`, `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
 ## 2026-07-22 — (branch feat/i18n-english)
 
 ### Fix — Varredura completa: todas as strings PT remanescentes corrigidas no modo EN

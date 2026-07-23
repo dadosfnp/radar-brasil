@@ -497,6 +497,13 @@ async function abrirFicha(estrutura) {
 
         modalLoader.style.display = "none";
 
+        // Título vira hiperlink quando a ficha tem Link_eixo
+        if (data.link_eixo) {
+            modalTitle.innerHTML = `<a href="${data.link_eixo}" target="_blank" rel="noopener noreferrer">${escHtml(estrutura)}</a>`;
+        } else {
+            modalTitle.textContent = estrutura;
+        }
+
         if (!data.campos || data.campos.length === 0) {
             modalBody.innerHTML = `<p style="color:#6a8fa0;font-style:italic;padding:20px;">${RBi18n.t("Nenhuma informação disponível.")}</p>`;
             return;
@@ -506,9 +513,12 @@ async function abrirFicha(estrutura) {
         data.campos.forEach((c) => {
             const div = document.createElement("div");
             div.className = "ap-ficha-campo";
+            const valorHtml = c.url
+                ? `<a href="${c.url}" target="_blank" rel="noopener noreferrer">${escHtml(c.valor)}</a>`
+                : escHtml(c.valor);
             div.innerHTML = `
-                <div class="ap-ficha-campo-label">${escHtml(c.label)}</div>
-                <div class="ap-ficha-campo-valor">${escHtml(c.valor)}</div>
+                <div class="ap-ficha-campo-label">${escHtml(RBi18n.t(c.label))}</div>
+                <div class="ap-ficha-campo-valor">${valorHtml}</div>
             `;
             frag.appendChild(div);
         });

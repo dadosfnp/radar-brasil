@@ -7,8 +7,8 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID = "1lrT6g8JvB3wVZnlVK1JziffzW1mfSYSrGyOqsPZZJG4"
-SHEET_GID = 992060842
+SHEET_ID = "1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c"
+SHEET_GID = 793540087
 CACHE_TTL = 1800
 
 _cache = {"df": None, "ts": 0}

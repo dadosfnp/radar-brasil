@@ -8,7 +8,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # ── Configuração ──────────────────────────────────────────────
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_PARAMETROS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
+SHEET_PARAMETROS_ID = "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE"
 WORKSHEET_NAME = "dados"
 CACHE_TTL = 1800  # 30 minutos
 
@@ -25,14 +25,14 @@ ORDEM_CRITERIOS = {
     "Governanca": [
         "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Financiamento",
-        "Representação de Gênero, Raça e Etnia",
+        "Sustentabilidade Financeira",
+        "Diversidade e Representatividade",
         "Comunicação e Transparência",
     ],
     "Politicas e Planos": [
         "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Financiamento",
+        "Sustentabilidade Financeira",
         "Comunicação e Transparência",
     ],
     "Programas": [
@@ -40,7 +40,7 @@ ORDEM_CRITERIOS = {
         "Capilaridade e Alcance Territorial",
         "Fortalecimento da Capacidade Local",
         "Monitoramento e Participação Local",
-        "Financiamento",
+        "Sustentabilidade Financeira",
     ],
     "Linhas de Financiamento": [
         "Desenho Participativo da Linha de Financiamento",

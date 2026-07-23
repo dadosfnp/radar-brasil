@@ -6,8 +6,8 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID = "1un9DCK_ZGdqe54xapZbQAl4hscyBX5O0E93orhiDiyA"
-SHEET_GID = 1543493122
+SHEET_ID = "1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs"
+SHEET_GID = 1619423236
 CACHE_TTL = 1800
 
 COORDS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "municipios_coords.json")
