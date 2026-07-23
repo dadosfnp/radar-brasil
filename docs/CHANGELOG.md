@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-23 — `pendente`
+
+### Refactor — Limpeza de arquivos sem serventia
+
+- Removido `apps/municipios/inicio.html` (template órfão fora da hierarquia `<app>/templates/`)
+- Removido `setup/asgi.py` (deploy usa WSGI/gunicorn; `ASGI_APPLICATION` não configurado)
+- Removidas 15 imagens sem referência em `static/img/`: 4 × `card_*_novo.svg`, 4 × `*-land.png`, 5 × `mapeamento*.svg`, `criterios-de-avaliacao.svg`, `mensuracao-dos-resultados.svg`
+- Removido `rest_framework` de `INSTALLED_APPS` e bloco `REST_FRAMEWORK` do `settings.py` (zero views DRF no projeto)
+- Removidos `djangorestframework==3.17.1`, `openpyxl==3.1.5` e `et_xmlfile==2.0.0` do `requirements.txt`
+- Substituídas 4 chamadas `print()` por `logger.info/debug` em `apps/indicadores/services/painel_multinivel.py`
+
+**Arquivos:** `apps/municipios/inicio.html` (removido), `setup/asgi.py` (removido), `static/img/` (15 removidos), `setup/settings.py`, `requirements.txt`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
 ## 2026-07-13 — `pendente`
 
 ### Fix — Filtros do mapa resetam ao navegar para outra aba

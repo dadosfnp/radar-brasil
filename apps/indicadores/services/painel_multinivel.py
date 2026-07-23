@@ -1,10 +1,13 @@
 import json
+import logging
 import os
 import time
 import unicodedata
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
+
+logger = logging.getLogger(__name__)
 
 # ── Configuração ──────────────────────────────────────────────
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
@@ -92,10 +95,10 @@ def _ler_parametros() -> pd.DataFrame:
     agora = time.time()
 
     if _cache["df"] is not None and (agora - _cache["timestamp"]) < CACHE_TTL:
-        print("[CACHE HIT] Usando dados em memória.")
+        logger.info("painel_multinivel: cache hit")
         return _cache["df"]
 
-    print("[CACHE MISS] Buscando dados do Google Sheets...")
+    logger.info("painel_multinivel: cache miss — buscando Google Sheets")
     client = _get_client()
     sh = client.open_by_key(SHEET_PARAMETROS_ID)
     ws = sh.worksheet(WORKSHEET_NAME)
@@ -105,11 +108,10 @@ def _ler_parametros() -> pd.DataFrame:
     _cache["df"] = df
     _cache["timestamp"] = agora
 
-    # LOG: mostra os valores únicos da coluna Eixo para diagnóstico
     if "Eixo" in df.columns:
-        print("[CACHE] Eixos na planilha:", df["Eixo"].unique().tolist())
+        logger.debug("painel_multinivel: eixos=%s", df["Eixo"].unique().tolist())
 
-    print(f"[CACHE] {len(df)} registros. Expira em {CACHE_TTL // 60} min.")
+    logger.info("painel_multinivel: %d registros carregados, expira em %d min", len(df), CACHE_TTL // 60)
     return df
 
 
