@@ -429,7 +429,7 @@ modalClose.addEventListener("click", fecharModal);
 modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
 
 pdfBtn.addEventListener("click", () => {
-    const titulo  = modalTitle.textContent || "Ficha Técnica";
+    const titulo  = modalTitle.textContent || RBi18n.t("Ficha Técnica");
     const campos  = modalBody.querySelectorAll(".ap-ficha-campo");
     if (!campos.length) return;
 
@@ -445,7 +445,7 @@ pdfBtn.addEventListener("click", () => {
     });
 
     const html = `<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="${RBi18n.getLang() === 'en' ? 'en-US' : 'pt-BR'}">
 <head>
 <meta charset="UTF-8">
 <title>Ficha Técnica – ${escHtml(titulo)}</title>

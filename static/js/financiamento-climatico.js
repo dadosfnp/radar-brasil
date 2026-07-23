@@ -15,7 +15,7 @@ class MultiSelect {
 
     constructor({ containerId, placeholder, onChange }) {
         this.el          = document.getElementById(containerId);
-        this.placeholder = placeholder || "Todos";
+        this.placeholder = placeholder || RBi18n.t("Todos");
         this.onChange    = onChange;
         this.options     = [];
         this.selected    = new Set();   // vazio = "todos selecionados"
@@ -269,7 +269,7 @@ class MultiSelect {
         // Contagem
         const sel = this.selected.size;
         const tot = this.options.length;
-        this._countEl.textContent = sel === 0 ? `${tot} de ${tot}` : `${tot - sel} de ${tot}`;
+        this._countEl.textContent = sel === 0 ? `${tot} ${RBi18n.t("de")} ${tot}` : `${tot - sel} ${RBi18n.t("de")} ${tot}`;
     }
 
     _updateLabel() {
@@ -468,7 +468,7 @@ function _drawOrigem() {
         textposition: "inside",
         insidetextanchor: "middle",
         textfont: { color: "#fff", size: 9 },
-        hovertemplate: "<b>%{y}</b><br>%{x} registros<extra></extra>",
+        hovertemplate: `<b>%{y}</b><br>%{x} ${RBi18n.t("registros")}<extra></extra>`,
         marker: { color: items.map(item => item.color) },
     }], {
         margin: { l: 170, r: 40, t: 4, b: 20 },
@@ -562,15 +562,15 @@ function renderTabela() {
 
     tbody.innerHTML = page.map(r => `
         <tr>
-          <td data-label="Programa">${_esc(r.programa)}</td>
-          <td data-label="Setor">${_esc(r.setor)}</td>
-          <td data-label="Modalidade">${_esc(r.modalidade)}</td>
-          <td data-label="Origem">${_esc(r.origem)}</td>
-          <td data-label="Valor">${_esc(r.valor)}</td>
-          <td data-label="Contrapartida">${_esc(r.contrapartida)}</td>
+          <td data-label="${RBi18n.t('Programa')}">${_esc(r.programa)}</td>
+          <td data-label="${RBi18n.t('Setor')}">${_esc(r.setor)}</td>
+          <td data-label="${RBi18n.t('Modalidade')}">${_esc(r.modalidade)}</td>
+          <td data-label="${RBi18n.t('Origem')}">${_esc(r.origem)}</td>
+          <td data-label="${RBi18n.t('Valor')}">${_esc(r.valor)}</td>
+          <td data-label="${RBi18n.t('Contrapartida')}">${_esc(r.contrapartida)}</td>
           <td class="fc-td-ente" data-label="Federal">${_esc(r.federal)}</td>
-          <td data-label="Estadual">${_esc(r.estadual)}</td>
-          <td data-label="Municipal">${_esc(r.municipal)}</td>
+          <td data-label="${RBi18n.t('Estadual')}">${_esc(r.estadual)}</td>
+          <td data-label="${RBi18n.t('Municipal')}">${_esc(r.municipal)}</td>
         </tr>`).join("");
 
     renderPaginacao();

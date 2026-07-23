@@ -130,6 +130,16 @@
             "Programa":               "Program",
             "Linha de Financiamento": "Financing Line",
 
+            // ── Financiamento – tabela data-label / tooltip ───────
+            "Modalidade":             "Modality",
+            "Origem":                 "Source",
+            "Valor":                  "Value",
+            "Estadual":               "State",
+            "registros":              "records",
+
+            // ── PDF da ficha técnica ──────────────────────────────
+            "Ficha Técnica":          "Technical Sheet",
+
             // ── Financiamento Climático ──────────────────────────
             "Distribuição por Setor": "Distribution by Sector",
             "Origem dos Recursos":    "Source of Funds",

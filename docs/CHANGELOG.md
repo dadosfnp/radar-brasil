@@ -6,6 +6,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-22 — (branch feat/i18n-english)
 
+### Fix — Varredura completa: todas as strings PT remanescentes corrigidas no modo EN
+
+- **`base_templates/base.html`:** `{% trans %}` adicionado nas meta tags padrão (`description`, `og:title`, `og:description`, `twitter:title`, `twitter:description`), endereço do footer e nome da organização no copyright; `og:locale` agora dinâmico (`en_US` / `pt_BR`)
+- **`locale/en/LC_MESSAGES/django.po`:** 9 novas entradas: `"Filtros"→"Filters"`, meta descriptions, og/twitter titles, endereço (versão EN), `"Frente Nacional de Prefeitas e Prefeitos"→"National Front of Mayors"`
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado — 243 strings
+- **`avaliacao-painel.js`:** Fallback `"Ficha Técnica"` agora usa `RBi18n.t()`; atributo `lang` do HTML do PDF gerado agora dinâmico (`en-US` / `pt-BR`)
+- **`financiamento-climatico.js`:** `"de"` no contador MultiSelect agora usa `RBi18n.t("de")`; `"registros"` no tooltip Plotly usa `RBi18n.t()`; atributos `data-label` da tabela mobile agora traduzidos via `RBi18n.t()`; fallback `"Todos"` no construtor usa `RBi18n.t()`
+- **`static/js/i18n.js`:** 7 novas entradas no `DICT.en`: `"Modalidade"→"Modality"`, `"Origem"→"Source"`, `"Valor"→"Value"`, `"Estadual"→"State"`, `"registros"→"records"`, `"Ficha Técnica"→"Technical Sheet"`
+
+**Arquivos:** `base_templates/base.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `static/js/avaliacao-painel.js`, `static/js/financiamento-climatico.js`, `static/js/i18n.js`
+
+---
+
 ### Fix — Avaliação Painel Multinível: strings dinâmicas não traduzidas no modo EN
 
 - **`avaliacao-painel.js`:** Adicionado `EIXO_LABELS_EN` com chaves ASCII e valores em inglês; `ativarAba()` agora usa este dict diretamente quando `lang === "en"`, contornando possível mismatch de encoding Unicode NFC/NFD

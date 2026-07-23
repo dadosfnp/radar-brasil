@@ -514,6 +514,9 @@ msgid "← Voltar para Avaliação Painel Multinível"
 msgstr "← Back to Multilevel Dashboard Assessment"
 
 # ── Mapa Georreferenciado – sidebar ───────────────────────────
+msgid "Filtros"
+msgstr "Filters"
+
 msgid "Filtrar por Financiamento"
 msgstr "Filter by Financing"
 
@@ -736,3 +739,23 @@ msgstr "ACTIVE INITIATIVES"
 
 msgid "REGIÕES MONITORADAS"
 msgstr "MONITORED REGIONS"
+
+# ── Base – Meta tags / SEO ────────────────────────────────────
+msgid "Radar Brasil — Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional."
+msgstr "Radar Brasil — Brazil's federative climate monitoring platform. Assess, compare and explore climate data from municipalities across the national territory."
+
+msgid "Radar Brasil — Federalismo Climático"
+msgstr "Radar Brasil — Federative Climate Action"
+
+msgid "Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional."
+msgstr "Brazil's federative climate monitoring platform. Assess, compare and explore climate data from municipalities across the national territory."
+
+msgid "Plataforma de monitoramento do federalismo climático brasileiro."
+msgstr "Brazil's federative climate monitoring platform."
+
+# ── Base – Footer ─────────────────────────────────────────────
+msgid "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, Brasília/DF"
+msgstr "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8th floor, room 827, Brasília/DF"
+
+msgid "Frente Nacional de Prefeitas e Prefeitos"
+msgstr "National Front of Mayors"

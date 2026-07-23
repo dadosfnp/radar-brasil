@@ -497,6 +497,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-07-22 | (branch)  | i18n: seletor PT\|EN no header, `{% trans %}` na nav e subtítulo|
 | 2026-07-22 | (branch)  | i18n full-coverage: 9 templates + 5 JS files, 236 strings EN    |
 | 2026-07-22 | (branch)  | i18n fix: Avaliação Painel — eixo title, filter labels EN       |
+| 2026-07-22 | (branch)  | i18n fix: varredura completa — 15 strings PT restantes corr.    |
 
 ---
 
