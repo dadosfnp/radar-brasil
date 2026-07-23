@@ -134,8 +134,8 @@ def _ler_sheet(cfg: dict, cache_lang: dict) -> pd.DataFrame:
         if "Eixo" in df.columns:
             df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
         if "Nível" in df.columns:
-            df["Nível"] = df["Nível"].astype(str).str.replace(
-                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            df["Nível"] = (
+                df["Nível"].astype(str).str.replace(r"^Level\s+(\d+)$", r"Nível \1", regex=True)
             )
     cache_lang["df"] = df
     cache_lang["ts"] = agora
