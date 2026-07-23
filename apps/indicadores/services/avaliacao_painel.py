@@ -7,9 +7,52 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_FICHAS_ID = "1Xifo1yjrByw2XBSjTk1WdjjFPIewUsanyuDO9ZMzo28"
-SHEET_PARAMS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
 CACHE_TTL = 1800  # 30 min
+
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    # Colunas comuns (fichas + params)
+    "Structure":                  "Estrutura",
+    "Axis":                       "Eixo",
+    "Axis_link":                  "Link_eixo",
+    "Sector":                     "Setor",
+    "Level":                      "Nível",
+    "Criterion":                  "Critério",
+    "Descriptive":                "Descritivo",
+    "Evaluation":                 "Avaliação",
+    "Classification":             "Classificação",
+    # Colunas das fichas técnicas (nomes confirmados via diagnóstico)
+    "Description":                "Descricao",
+    "Responsible_agency":         "Orgao_responsavel",   # nome real na sheet
+    "Responsible_body":           "Orgao_responsavel",   # variação alternativa
+    "Agency_link":                "Link_orgao",          # nome real na sheet
+    "Body_link":                  "Link_orgao",          # variação alternativa
+    "Regulatory_framework":       "Arcabouco_normativo", # nome real na sheet
+    "Normative_framework":        "Arcabouco_normativo", # variação alternativa
+    "Framework_link":             "Link_arcabouco",
+    "Federative_dialogue_space":  "Espaco_dialogo_federativo",
+    "Financing":                  "Financiamento",
+    "Periodicity":                "Periodicidade",
+    "Composition":                "Composicao",
+    "Decision_authority":         "Carater_decisorio",   # nome real na sheet
+    "Decision_character":         "Carater_decisorio",   # variação alternativa
+    "Related_policy_plan":        "Politica_Plano_relacionado",
+    "Counterpart_funding":        "Contrapartida",       # nome real na sheet
+    "Counterpart":                "Contrapartida",       # variação alternativa
+    "Modality":                   "Modalidade",
+    "Transfer":                   "Repasse",
+    "Sources":                    "Fontes",
+}
+
+# ── Sheet IDs por idioma ──────────────────────────────────────
+SHEET_FICHAS = {
+    "pt": {"id": "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8", "gid": None},
+    "en": {"id": "1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g", "gid": 1400373985},
+}
+SHEET_PARAMS = {
+    "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
+    "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
+}
 
 CORES_NIVEL = {
     "Nível 0": "#E0E0E0",
@@ -28,7 +71,7 @@ EIXO_MAP = {
 }
 
 LABEL_ESTRUTURA = {
-    "Governanca": "Estrutura de Governança",
+    "Governanca": "Instância de Governança",
     "Politicas e Planos": "Política / Plano",
     "Programas": "Programa",
     "Linhas de Financiamento": "Linha de Financiamento",
@@ -41,8 +84,18 @@ LABEL_SETOR = {
     "Linhas de Financiamento": "Setor",
 }
 
-_cache_fichas = {"df": None, "ts": 0}
-_cache_params = {"df": None, "ts": 0}
+# Valores EN → PT para colunas discriminadoras
+_EN_EIXO = {
+    "Governance":         "Governanca",
+    "Policies & Plans":   "Politicas e Planos",
+    "Policies and Plans": "Politicas e Planos",
+    "Programs":           "Programas",
+    "Financing Lines":    "Linhas de Financiamento",
+    "Financing Line":     "Linhas de Financiamento",
+}
+
+_cache_fichas = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
+_cache_params = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 
 
 def _normalizar(texto: str) -> str:
@@ -68,29 +121,38 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_sheet(sheet_id: str, worksheet: str, cache: dict) -> pd.DataFrame:
+def _ler_sheet(cfg: dict, cache_lang: dict) -> pd.DataFrame:
     agora = time.time()
-    if cache["df"] is not None and (agora - cache["ts"]) < CACHE_TTL:
-        return cache["df"]
+    if cache_lang["df"] is not None and (agora - cache_lang["ts"]) < CACHE_TTL:
+        return cache_lang["df"]
     client = _get_client()
-    dados = client.open_by_key(sheet_id).worksheet(worksheet).get_all_records()
-    df = pd.DataFrame(dados)
-    cache["df"] = df
-    cache["ts"] = agora
+    sh = client.open_by_key(cfg["id"])
+    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
+    df = pd.DataFrame(ws.get_all_records())
+    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
+        df.rename(columns=_EN_COLS, inplace=True)
+        if "Eixo" in df.columns:
+            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
+        if "Nível" in df.columns:
+            df["Nível"] = df["Nível"].astype(str).str.replace(
+                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            )
+    cache_lang["df"] = df
+    cache_lang["ts"] = agora
     return df
 
 
-def _fichas() -> pd.DataFrame:
-    return _ler_sheet(SHEET_FICHAS_ID, "dados", _cache_fichas)
+def _fichas(lang: str = "pt") -> pd.DataFrame:
+    return _ler_sheet(SHEET_FICHAS[lang], _cache_fichas[lang])
 
 
-def _parametros() -> pd.DataFrame:
-    return _ler_sheet(SHEET_PARAMS_ID, "dados", _cache_params)
+def _parametros(lang: str = "pt") -> pd.DataFrame:
+    return _ler_sheet(SHEET_PARAMS[lang], _cache_params[lang])
 
 
-def get_filtros(eixo_front: str) -> dict:
+def get_filtros(eixo_front: str, lang: str = "pt") -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front, eixo_front)
-    df = _fichas()
+    df = _fichas(lang)
 
     label_estrutura = LABEL_ESTRUTURA.get(eixo_front, "Estrutura")
     label_setor = LABEL_SETOR.get(eixo_front, "Setor")
@@ -114,6 +176,10 @@ def get_filtros(eixo_front: str) -> dict:
         and df_eixo["Setor"].astype(str).str.strip().ne("").any()
     )
 
+    todas_estruturas = sorted(
+        [e for e in df_eixo["Estrutura"].astype(str).str.strip().unique() if e and e != "nan"]
+    )
+
     if tem_setor:
         df_eixo["Setor"] = df_eixo["Setor"].astype(str).str.strip()
         df_eixo["Estrutura"] = df_eixo["Estrutura"].astype(str).str.strip()
@@ -123,26 +189,29 @@ def get_filtros(eixo_front: str) -> dict:
             s: sorted(df_eixo[df_eixo["Setor"] == s]["Estrutura"].unique().tolist())
             for s in setores
         }
-        return {
-            "setores": setores,
-            "estruturas_por_setor": estruturas_por_setor,
-            "estruturas": [],
-            "label_estrutura": label_estrutura,
-            "label_setor": label_setor,
+        setor_por_estrutura = {
+            str(r["Estrutura"]).strip(): str(r["Setor"]).strip()
+            for _, r in df_eixo.iterrows()
+            if str(r.get("Estrutura", "")).strip() not in ("", "nan")
+            and str(r.get("Setor", "")).strip() not in ("", "nan")
         }
+    else:
+        setores = []
+        estruturas_por_setor = {}
+        setor_por_estrutura = {}
 
-    estruturas = sorted(df_eixo["Estrutura"].astype(str).str.strip().unique().tolist())
     return {
-        "setores": [],
-        "estruturas_por_setor": {},
-        "estruturas": estruturas,
+        "setores": setores,
+        "estruturas_por_setor": estruturas_por_setor,
+        "estruturas": todas_estruturas,
+        "setor_por_estrutura": setor_por_estrutura,
         "label_estrutura": label_estrutura,
         "label_setor": label_setor,
     }
 
 
-def get_tabela(estrutura: str) -> list:
-    df = _parametros()
+def get_tabela(estrutura: str, lang: str = "pt") -> list:
+    df = _parametros(lang)
     if "Estrutura" not in df.columns:
         return []
 
@@ -160,20 +229,46 @@ def get_tabela(estrutura: str) -> list:
     for _, row in df_est.iterrows():
         nivel = row["Nível"]
         cor = CORES_NIVEL.get(nivel, "#E0E0E0")
+        nivel_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         result.append(
             {
                 "avaliacao": str(row.get("Avaliação", "")).strip(),
                 "criterio": str(row.get("Critério", "")).strip(),
                 "descritivo": str(row.get("Descritivo", "")).strip(),
-                "nivel": nivel,
+                "nivel": nivel_display,
                 "cor": cor,
             }
         )
     return result
 
 
-def get_ficha(estrutura: str) -> dict:
-    df = _fichas()
+_CAMPOS_LABELS = {
+    # (col_interna): (label_pt, label_en)
+    "Setor":                      ("Setor",                       "Sector"),
+    "Descricao":                  ("Descrição",                   "Description"),
+    "Orgao_responsavel":          ("Órgão Responsável",           "Responsible Agency"),
+    "Status":                     ("Status",                      "Status"),
+    "Arcabouco_normativo":        ("Arcabouço Normativo",         "Regulatory Framework"),
+    "Contrapartida":              ("Contrapartida",               "Counterpart"),
+    "Espaco_dialogo_federativo":  ("Espaço de Diálogo Federativo","Federative Dialogue Space"),
+    "Financiamento":              ("Financiamento",               "Financing"),
+    "Periodicidade":              ("Periodicidade",               "Periodicity"),
+    "Composicao":                 ("Composição",                  "Composition"),
+    "Carater_decisorio":          ("Caráter Decisório",           "Decision Authority"),
+    "Politica_Plano_relacionado": ("Política ou Plano Relacionado","Related Policy or Plan"),
+    "Modalidade":                 ("Modalidade",                  "Modality"),
+    "Repasse":                    ("Repasse",                     "Transfer"),
+    "Fontes":                     ("Fontes",                      "Sources"),
+}
+
+_CAMPOS_ORDER = list(_CAMPOS_LABELS.keys())
+
+_INVALID_PT = {"nan", "Ñ aplica", "N/A", ""}
+_INVALID_EN = {"nan", "Does not apply", "N/A", "Not applicable", "N/A - Does not apply", ""}
+
+
+def get_ficha(estrutura: str, lang: str = "pt") -> dict:
+    df = _fichas(lang)
     if "Estrutura" not in df.columns:
         return {}
 
@@ -182,29 +277,35 @@ def get_ficha(estrutura: str) -> dict:
         return {}
 
     row = rows.iloc[0]
+    invalid = _INVALID_EN if lang == "en" else _INVALID_PT
+    label_idx = 1 if lang == "en" else 0
 
-    campos = [
-        ("Descricao", "Descrição"),
-        ("Orgao_responsavel", "Órgão Responsável"),
-        ("Status", "Status"),
-        ("Arcabouco_normativo", "Arcabouço Normativo"),
-        ("Contrapartida", "Contrapartida"),
-        ("Espaco_dialogo_federativo", "Espaço de Diálogo Federativo"),
-        ("Financiamento", "Financiamento"),
-        ("Periodicidade", "Periodicidade"),
-        ("Composicao", "Composição"),
-        ("Carater_decisorio", "Caráter Decisório"),
-        ("Politica_Plano_relacionado", "Política ou Plano Relacionado"),
-        ("Modalidade", "Modalidade"),
-        ("Repasse", "Repasse"),
-        ("Fontes", "Fontes"),
-    ]
+    def _safe_link(val: str) -> str | None:
+        v = str(val).strip()
+        return v if v not in invalid and v.startswith("http") else None
 
-    resultado = {"estrutura": estrutura, "campos": []}
-    for col, label in campos:
-        if col in row.index:
-            val = str(row[col]).strip()
-            if val and val not in ("nan", "Ñ aplica", "N/A", ""):
-                resultado["campos"].append({"label": label, "valor": val})
+    resultado = {
+        "estrutura": estrutura,
+        "campos": [],
+        "link_eixo": _safe_link(row.get("Link_eixo", "")),
+    }
+
+    link_map = {
+        "Orgao_responsavel": "Link_orgao",
+        "Arcabouco_normativo": "Link_arcabouco",
+    }
+
+    for col in _CAMPOS_ORDER:
+        if col not in row.index:
+            continue
+        val = str(row[col]).strip()
+        if not val or val in invalid:
+            continue
+        label = _CAMPOS_LABELS[col][label_idx]
+        campo = {"label": label, "valor": val}
+        link_col = link_map.get(col)
+        if link_col and link_col in row.index:
+            campo["url"] = _safe_link(row[link_col])
+        resultado["campos"].append(campo)
 
     return resultado

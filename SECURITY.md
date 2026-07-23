@@ -4,7 +4,7 @@
 
 Se você encontrar uma vulnerabilidade de segurança neste projeto, **não abra uma issue pública**.
 
-Entre em contato diretamente pelo e-mail: **[bruno.marra@fnp.org.br](mailto:bruno.marra@fnp.org.br)**
+Entre em contato diretamente pelo e-mail: **[nucleo.dados@fnp.org.br](mailto:nucleo.dados@fnp.org.br)**
 
 Inclua na mensagem:
 - Descrição clara do problema

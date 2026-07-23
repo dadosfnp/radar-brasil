@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Linha do Tempo{% endblock %}
+{% block title %}Radar Brasil - {% trans "Linha do Tempo" %}{% endblock %}
 {% block body_class %}rb-body linha-do-tempo-page{% endblock %}
 {% block menu_avaliacao_active %}active{% endblock %}
 
@@ -17,7 +17,7 @@
   {# CABEÇALHO #}
   <div class="lt-card-header">
     <section class="lt-panel-title">
-      <h2>Linha do Tempo</h2>
+      <h2>{% trans "Linha do Tempo" %}</h2>
     </section>
   </div>
 
@@ -30,11 +30,7 @@
         <p class="lt-estrutura-label">{{ estrutura }}</p>
       {% endif %}
       <p class="lt-desc">
-        A Linha do Tempo trará informações sobre a progressão dos acontecimentos
-        ao longo do tempo (marco legal, financiamento, participação etc.) em ordem
-        cronológica, permitindo uma compreensão mais clara da sequência e evolução
-        da instância selecionada, conforme os parâmetros de avaliação definidos.
-        O painel encontra-se em construção.
+        {% trans "A Linha do Tempo trará informações sobre a progressão dos acontecimentos ao longo do tempo (marco legal, financiamento, participação etc.) em ordem cronológica, permitindo uma compreensão mais clara da sequência e evolução da instância selecionada, conforme os critérios de avaliação definidos. O painel encontra-se em construção." %}
       </p>
     </div>
 
@@ -49,8 +45,8 @@
           <path d="M40 12L52 24M46 12L52 18" stroke="#2c6174" stroke-width="2.5" stroke-linecap="round"/>
           <path d="M12 40L24 52M12 46L18 52" stroke="#2c6174" stroke-width="2.5" stroke-linecap="round"/>
         </svg>
-        <p class="lt-construction-title">Linha do Tempo</p>
-        <p class="lt-construction-sub">Conteúdo em construção...</p>
+        <p class="lt-construction-title">{% trans "Linha do Tempo" %}</p>
+        <p class="lt-construction-sub">{% trans "Conteúdo em construção..." %}</p>
         <div class="lt-progress-bar">
           <div class="lt-progress-fill"></div>
         </div>
@@ -60,7 +56,7 @@
     {# RODAPÉ COM BOTÃO VOLTAR #}
     <div class="lt-footer-actions">
       <a href="{% url 'indicadores:avaliacao_painel' %}" class="lt-voltar-btn">
-        ← Voltar para Avaliação Painel Multinível
+        {% trans "← Voltar para Avaliação Painel Multinível" %}
       </a>
     </div>
 

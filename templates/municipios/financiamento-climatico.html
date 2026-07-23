@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Financiamento Climático{% endblock %}
+{% block title %}Radar Brasil - {% trans "Financiamento Climático" %}{% endblock %}
 {% block body_class %}rb-body fin-cli-page{% endblock %}
 {% block menu_fin_cli_active %}active{% endblock %}
 
@@ -16,10 +16,9 @@
 
   {# INTRO #}
   <div class="fc-intro">
-    <h2>Financiamento Climático</h2>
+    <h2>{% trans "Financiamento Climático" %}</h2>
     <p>
-      Nesta página será possível acessar informações sobre o financiamento climático no Brasil,
-      os programas e linhas de financiamento disponíveis, conforme os seguintes filtros:
+      {% trans "Nesta página será possível acessar informações sobre o financiamento climático no Brasil, os programas e linhas de financiamento disponíveis, conforme os seguintes filtros:" %}
     </p>
   </div>
 
@@ -30,27 +29,27 @@
     <div class="fc-filters-bar">
 
       <div class="fc-filter-item">
-        <span class="fc-filter-label">Programas e linhas de Financiamento</span>
+        <span class="fc-filter-label">{% trans "Programas e linhas de Financiamento" %}</span>
         <div class="fc-multiselect" id="ms-programa"></div>
       </div>
 
       <div class="fc-filter-item">
-        <span class="fc-filter-label">Setor</span>
+        <span class="fc-filter-label">{% trans "Setor" %}</span>
         <div class="fc-multiselect" id="ms-setor"></div>
       </div>
 
       <div class="fc-filter-item">
-        <span class="fc-filter-label">Modalidade</span>
+        <span class="fc-filter-label">{% trans "Modalidade" %}</span>
         <div class="fc-multiselect" id="ms-modalidade"></div>
       </div>
 
       <div class="fc-filter-item">
-        <span class="fc-filter-label">Origem dos Recursos</span>
+        <span class="fc-filter-label">{% trans "Origem dos Recursos" %}</span>
         <div class="fc-multiselect" id="ms-origem"></div>
       </div>
 
       <div class="fc-filter-item">
-        <span class="fc-filter-label">Ente Federado</span>
+        <span class="fc-filter-label">{% trans "Ente Federado" %}</span>
         <div class="fc-multiselect" id="ms-ente"></div>
       </div>
 
@@ -60,19 +59,19 @@
     <div class="fc-charts">
 
       <div class="fc-chart-card">
-        <div class="fc-chart-title">Valor do Financiamento por Setor</div>
+        <div class="fc-chart-title">{% trans "Valor do Financiamento por Setor" %}</div>
         <div id="fc-chart-setor" class="fc-chart-area"></div>
       </div>
 
       <div class="fc-chart-card">
-        <div class="fc-chart-title">Origem dos Recursos</div>
+        <div class="fc-chart-title">{% trans "Origem dos Recursos" %}</div>
         <div class="fc-origem-scroll">
           <div id="fc-chart-origem"></div>
         </div>
       </div>
 
       <div class="fc-chart-card">
-        <div class="fc-chart-title">Repasse de recursos por Ente Federado</div>
+        <div class="fc-chart-title">{% trans "Repasses de Recursos por Nível de Governo" %}</div>
         <div id="fc-chart-ente" class="fc-chart-area"></div>
       </div>
 
@@ -85,7 +84,7 @@
           <polyline points="1 4 1 10 7 10"></polyline>
           <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
         </svg>
-        Limpar filtros
+        {% trans "Limpar filtros" %}
       </button>
       <button id="fc-btn-baixar" class="fc-btn fc-btn-primary">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -93,7 +92,7 @@
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
-        Baixar Dados
+        {% trans "Baixar Dados" %}
       </button>
       <button id="fc-btn-print" class="fc-btn fc-btn-outline">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,7 +100,7 @@
           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
           <rect x="6" y="14" width="12" height="8"></rect>
         </svg>
-        Imprimir Tela
+        {% trans "Imprimir Tela" %}
       </button>
     </div>
 
@@ -116,24 +115,24 @@
           <animateTransform attributeName="transform" type="rotate" from="0 12 12" to="360 12 12" dur="1s" repeatCount="indefinite"/>
         </path>
       </svg>
-      Carregando dados...
+      {% trans "Carregando dados..." %}
     </div>
 
-    <table class="fc-table" id="fc-table">
+    <table class="fc-table" id="fc-table" aria-label="{% trans 'Programas e linhas de financiamento climático' %}">
       <thead>
         <tr>
-          <th rowspan="2">Programas e Linhas de<br>Financiamento</th>
-          <th rowspan="2">Setor</th>
-          <th rowspan="2">Modalidade</th>
-          <th rowspan="2">Origem<br>dos Recursos</th>
-          <th rowspan="2">Valor do Financiamento</th>
-          <th rowspan="2">Contrapartida</th>
-          <th colspan="3" class="fc-th-group">Repasse de recursos por ente federado</th>
+          <th scope="col" rowspan="2">{% trans "Programas e Linhas de Financiamento" %}</th>
+          <th scope="col" rowspan="2">{% trans "Setor" %}</th>
+          <th scope="col" rowspan="2">{% trans "Modalidade" %}</th>
+          <th scope="col" rowspan="2">{% trans "Origem dos Recursos" %}</th>
+          <th scope="col" rowspan="2">{% trans "Valor do Financiamento" %}</th>
+          <th scope="col" rowspan="2">{% trans "Contrapartida" %}</th>
+          <th scope="colgroup" colspan="3" class="fc-th-group">{% trans "Repasses de Recursos por Nível de Governo" %}</th>
         </tr>
         <tr>
-          <th>Federal</th>
-          <th>Estadual</th>
-          <th>Municipal</th>
+          <th scope="col">{% trans "Federal" %}</th>
+          <th scope="col">{% trans "Estadual" %}</th>
+          <th scope="col">{% trans "Municipal" %}</th>
         </tr>
       </thead>
       <tbody id="fc-tbody"></tbody>

@@ -1,9 +1,9 @@
-/* ==============================
+﻿/* ==============================
    LANDING PAGE
    ============================== */
 
 body.lp-body {
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     font-family: 'DM Sans', 'Roboto', sans-serif;
 }
 
@@ -11,7 +11,7 @@ body.lp-body .rb-main-nav { display: none !important; }
 
 /* Onda do footer: fill branco para combinar com o fundo da página */
 body.lp-body .rb-footer-wave svg path {
-    fill: #bdd6e0;
+    fill: var(--color-bg-page);
 }
 
 body.lp-body .rb-main {
@@ -47,11 +47,11 @@ body.lp-body .rb-main {
 
 /* Hero card */
 .lp-hero-card {
-    background: linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
+    background: var(--gradient-landing);
     border-radius: 16px;
     padding: 22px 20px;
     cursor: pointer;
-    transition: all .2s;
+    transition: all var(--transition-base);
     border: 1.5px solid rgba(255,255,255,.15);
     box-shadow: 0 6px 24px rgba(38,74,87,.28), inset 0 1px 0 rgba(255,255,255,.12);
 }
@@ -99,7 +99,7 @@ body.lp-body .rb-main {
     width: 18px;
     height: 18px;
     stroke: rgba(255,255,255,.65);
-    transition: transform .2s;
+    transition: transform var(--transition-base);
 }
 
 .lp-hero-card:hover .lp-hero-arrow svg {
@@ -193,13 +193,13 @@ body.lp-body .rb-main {
     text-transform: uppercase;
     color: #fff;
     text-align: center;
-    background: linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
+    background: var(--gradient-landing);
     border: none;
     border-radius: 8px;
     padding: 10px 16px;
     cursor: pointer;
     box-shadow: 0 3px 12px rgba(38,74,87,.28), inset 0 1px 0 rgba(255,255,255,.12);
-    transition: all .2s;
+    transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
 }
@@ -321,13 +321,13 @@ body.lp-body .rb-main {
     text-transform: uppercase;
     color: #fff;
     text-decoration: none;
-    background: linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
+    background: var(--gradient-landing);
     border: none;
     border-radius: 8px;
     padding: 9px 20px;
     cursor: pointer;
     box-shadow: 0 3px 12px rgba(38,74,87,.24), inset 0 1px 0 rgba(255,255,255,.12);
-    transition: all .2s;
+    transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
     display: inline-block;
@@ -345,6 +345,35 @@ body.lp-body .rb-main {
     transform: translateY(-1px);
     box-shadow: 0 6px 20px rgba(38,74,87,.35);
     color: #fff;
+}
+
+.lp-btn-card--soon {
+    background: rgba(53,96,115,.18);
+    color: rgba(38,74,87,.45);
+    box-shadow: none;
+    cursor: default;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lp-btn-card--soon:hover {
+    transform: none;
+    box-shadow: none;
+    color: rgba(38,74,87,.45);
+}
+
+.lp-soon-badge {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    background: rgba(38,74,87,.12);
+    color: rgba(38,74,87,.55);
+    border-radius: 4px;
+    padding: 2px 6px;
+    white-space: nowrap;
 }
 
 /* ══════════════════════════════

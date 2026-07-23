@@ -1,4 +1,4 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA FINANCIAMENTO CLIMÁTICO
    ============================== */
 
@@ -22,14 +22,14 @@ body.fin-cli-page .rb-main {
 /* ── INTRO ── */
 .fc-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
     color: #103758;
     margin: 0 0 6px;
 }
 
 .fc-intro p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     font-style: italic;
     line-height: 1.65;
@@ -55,6 +55,10 @@ body.fin-cli-page .rb-main {
     align-items: flex-end;
     border-bottom: 1px solid #eef2f5;
     padding-bottom: 16px;
+    /* Cria stacking context acima dos gráficos (flex items posteriores
+       competem por z-index com o dropdown — sem isso o dropdown vai para trás) */
+    position: relative;
+    z-index: 10;
 }
 
 .fc-filter-item {
@@ -66,9 +70,9 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-filter-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
-    color: #2c6174;
+    color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: .07em;
     white-space: nowrap;
@@ -76,6 +80,8 @@ body.fin-cli-page .rb-main {
 
 /* ── MULTI-SELECT DROPDOWN COM CHECKBOXES ── */
 .fc-multiselect { position: relative; }
+/* Eleva o filtro ativo acima dos irmãos no mesmo flex container */
+.fc-multiselect.is-open { z-index: 20; }
 
 .fc-ms-trigger {
     width: 100%;
@@ -84,7 +90,7 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #6b8a96;
     font-family: inherit;
     text-align: left;
@@ -92,13 +98,13 @@ body.fin-cli-page .rb-main {
     align-items: center;
     justify-content: space-between;
     gap: 6px;
-    transition: border-color .15s, background .15s;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
     position: relative;
 }
 
 .fc-ms-trigger:hover,
 .fc-ms-trigger.open {
-    border-color: #2c6174;
+    border-color: var(--color-primary);
     background: #fff;
 }
 
@@ -110,15 +116,15 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-ms-trigger-label.has-selection {
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     font-weight: 600;
 }
 
 .fc-ms-badge {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
     border-radius: 999px;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     padding: 1px 6px;
     flex-shrink: 0;
@@ -126,8 +132,8 @@ body.fin-cli-page .rb-main {
 
 .fc-ms-arrow {
     flex-shrink: 0;
-    color: #2c6174;
-    transition: transform .15s;
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
 }
 
 .fc-ms-trigger.open .fc-ms-arrow { transform: rotate(180deg); }
@@ -141,13 +147,31 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 8px;
     box-shadow: 0 6px 20px rgba(22,64,75,.14);
-    z-index: 200;
+    z-index: 1000;
     display: none;
     flex-direction: column;
     max-height: 260px;
+    overflow: hidden;
+}
+
+/* Dropdown abrindo para cima (quando não há espaço abaixo) */
+.fc-ms-dropdown.drop-up {
+    top: auto;
+    bottom: calc(100% + 3px);
+    box-shadow: 0 -6px 20px rgba(22,64,75,.14);
 }
 
 .fc-ms-dropdown.open { display: flex; }
+
+/* Modo fixed (mobile) — JS sobrescreve position/left/top via inline style;
+   anulamos right:0 para não conflitar com a largura calculada pelo JS */
+@media (max-width: 768px) {
+    .fc-ms-dropdown {
+        right: auto; /* largura controlada por JS (width inline) */
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(22,64,75,.22);
+    }
+}
 
 .fc-ms-search {
     padding: 7px 8px 5px;
@@ -157,16 +181,16 @@ body.fin-cli-page .rb-main {
 .fc-ms-search input {
     width: 100%;
     padding: 4px 8px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     border: 1px solid #c8dde5;
     border-radius: 4px;
     font-family: inherit;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     background: #f9fbfc;
     box-sizing: border-box;
 }
 
-.fc-ms-search input:focus { outline: none; border-color: #2c6174; }
+.fc-ms-search input:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; border-color: var(--color-primary); }
 
 .fc-ms-actions {
     display: flex;
@@ -177,8 +201,8 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-ms-action-btn {
-    font-size: 10px;
-    color: #2c6174;
+    font-size: 0.625rem;
+    color: var(--color-primary);
     background: none;
     border: none;
     cursor: pointer;
@@ -192,7 +216,7 @@ body.fin-cli-page .rb-main {
 .fc-ms-action-btn:hover { background: #edf6f9; }
 
 .fc-ms-count-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     color: #9bb;
     margin-left: auto;
 }
@@ -217,7 +241,7 @@ body.fin-cli-page .rb-main {
     gap: 8px;
     padding: 6px 10px;
     cursor: pointer;
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: #2a4a5a;
     line-height: 1.4;
     transition: background .1s;
@@ -228,7 +252,7 @@ body.fin-cli-page .rb-main {
 .fc-ms-option.is-checked { background: #edf6f9; }
 
 .fc-ms-option input[type="checkbox"] {
-    accent-color: #2c6174;
+    accent-color: var(--color-primary);
     width: 13px;
     height: 13px;
     flex-shrink: 0;
@@ -238,7 +262,7 @@ body.fin-cli-page .rb-main {
 
 .fc-ms-empty {
     padding: 14px 10px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: #9bb;
     text-align: center;
 }
@@ -261,9 +285,9 @@ body.fin-cli-page .rb-main {
 
 .fc-chart-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     text-align: center;
     margin-bottom: 8px;
 }
@@ -289,24 +313,24 @@ body.fin-cli-page .rb-main {
     gap: 7px;
     padding: 8px 16px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
     font-family: inherit;
-    transition: background .15s, opacity .15s;
+    transition: background var(--transition-fast), opacity var(--transition-fast);
 }
 
 .fc-btn-primary {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
 }
 .fc-btn-primary:hover { background: #3a7a90; }
 
 .fc-btn-outline {
     background: transparent;
-    color: #2c6174;
-    border: 1px solid #2c6174;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
 }
 .fc-btn-outline:hover { background: #f0f8fb; }
 
@@ -327,8 +351,8 @@ body.fin-cli-page .rb-main {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-size: 14px;
-    color: #2c6174;
+    font-size: 0.875rem;
+    color: var(--color-primary);
     z-index: 10;
     font-family: 'Roboto', sans-serif;
 }
@@ -338,14 +362,14 @@ body.fin-cli-page .rb-main {
 .fc-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: 'Roboto', sans-serif;
 }
 
 .fc-table thead tr:first-child th {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 600;
     padding: 10px 12px;
     text-align: center;
@@ -357,9 +381,9 @@ body.fin-cli-page .rb-main {
 .fc-table thead tr:first-child th:last-child { border-right: none; }
 
 .fc-table thead tr:nth-child(2) th {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 500;
     padding: 7px 12px;
     text-align: center;
@@ -390,7 +414,7 @@ body.fin-cli-page .rb-main {
 }
 
 .fc-table td:last-child { border-right: none; }
-.fc-table td:first-child { font-weight: 500; color: #1a3d4d; }
+.fc-table td:first-child { font-weight: 500; color: var(--color-primary-dark); }
 
 .fc-table td.fc-td-ente { border-left: 1px solid #dde8ed; }
 
@@ -402,14 +426,14 @@ body.fin-cli-page .rb-main {
     gap: 6px;
     padding: 14px 16px;
     border-top: 1px solid #eef2f5;
-    font-size: 12px;
-    color: #2c6174;
+    font-size: 0.75rem;
+    color: var(--color-primary);
     flex-wrap: wrap;
 }
 
 .fc-page-info {
     color: #6b8a96;
-    font-size: 11px;
+    font-size: 0.6875rem;
     margin-right: 6px;
 }
 
@@ -420,15 +444,15 @@ body.fin-cli-page .rb-main {
     border: 1px solid #c8dde5;
     border-radius: 5px;
     background: #fff;
-    color: #2c6174;
-    font-size: 12px;
+    color: var(--color-primary);
+    font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
     transition: background .12s, color .12s;
 }
 
 .fc-page-btn:hover { background: #f0f8fb; }
-.fc-page-btn.active { background: #2c6174; color: #fff; border-color: #2c6174; }
+.fc-page-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .fc-page-btn:disabled { opacity: .4; cursor: not-allowed; }
 
 /* ── ORIGEM DOS RECURSOS – WRAPPER SCROLL ── */
@@ -460,11 +484,11 @@ body.fin-cli-page .rb-main {
 
     /* Intro */
     .fc-intro h2 {
-        font-size: 17px;
+        font-size: 1.0625rem;
         margin-bottom: 4px;
     }
     .fc-intro p {
-        font-size: 12.5px;
+        font-size: 0.78125rem;
         line-height: 1.55;
     }
 
@@ -478,16 +502,44 @@ body.fin-cli-page .rb-main {
     /* Filtros */
     .fc-filters-bar {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
         padding-bottom: 14px;
     }
     .fc-filter-item {
         min-width: 100%;
     }
+    /* Trigger maior para touch + feedback visual claro */
     .fc-ms-trigger {
+        padding: 12px 14px;
+        font-size: 0.875rem;
+        border-radius: 10px;
+        min-height: 48px; /* mínimo recomendado para touch targets (WCAG) */
+    }
+    /* Filtro ativo ganha borda destacada para indicar seleção em andamento */
+    .fc-multiselect.is-open .fc-ms-trigger {
+        border-color: var(--color-primary);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(44,97,116,.12);
+    }
+    /* Itens do dropdown maiores para toque */
+    .fc-ms-option {
         padding: 10px 12px;
-        font-size: 13px;
-        border-radius: 8px;
+        font-size: 0.8125rem;
+    }
+    .fc-ms-option input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+    }
+    /* Buscar input maior */
+    .fc-ms-search input {
+        font-size: 0.8125rem;
+        padding: 6px 10px;
+    }
+    /* Botões Todos/Nenhum mais acessíveis */
+    .fc-ms-action-btn {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        min-height: 32px;
     }
 
     /* Gráficos */
@@ -500,7 +552,7 @@ body.fin-cli-page .rb-main {
         border-radius: 8px;
     }
     .fc-chart-title {
-        font-size: 12px;
+        font-size: 0.75rem;
         margin-bottom: 6px;
     }
     .fc-chart-area {
@@ -522,7 +574,7 @@ body.fin-cli-page .rb-main {
         width: 100%;
         justify-content: center;
         padding: 13px 16px;
-        font-size: 13px;
+        font-size: 0.8125rem;
         font-weight: 600;
         border-radius: 8px;
         gap: 8px;
@@ -562,7 +614,7 @@ body.fin-cli-page .rb-main {
         padding: 9px 12px;
         border-right: none;
         border-bottom: 1px solid #f0f5f8;
-        font-size: 12px;
+        font-size: 0.75rem;
         white-space: normal;
         color: #2a4a5a;
         font-weight: 400;
@@ -572,9 +624,9 @@ body.fin-cli-page .rb-main {
 
     .fc-table tbody td::before {
         content: attr(data-label);
-        font-size: 10px;
+        font-size: 0.625rem;
         font-weight: 700;
-        color: #2c6174;
+        color: var(--color-primary);
         text-transform: uppercase;
         letter-spacing: 0.06em;
         min-width: 38%;
@@ -585,7 +637,7 @@ body.fin-cli-page .rb-main {
     .fc-table tbody td:first-child {
         display: block;
         background: #eef6fa;
-        font-size: 13px;
+        font-size: 0.8125rem;
         font-weight: 600;
         color: #103758;
         border-bottom: 2px solid #d4e8ef;
@@ -601,7 +653,7 @@ body.fin-cli-page .rb-main {
     .fc-page-btn {
         min-width: 28px;
         height: 28px;
-        font-size: 11px;
+        font-size: 0.6875rem;
     }
 }
 
@@ -614,6 +666,24 @@ body.fin-cli-page .rb-main {
     }
     .fc-btn {
         padding: 12px 14px;
-        font-size: 12.5px;
+        font-size: 0.78125rem;
+    }
+}
+
+@media print {
+    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing,
+    .fc-filters-bar, .fc-charts, .fc-actions,
+    .fc-loader, .fc-pagination { display: none !important; }
+
+    body, .fc-page { background: #fff !important; padding: 0 !important; }
+    .fc-table-wrap { box-shadow: none !important; border: 1px solid #ccc; border-radius: 0; overflow: visible; }
+    .fc-table thead { display: table-header-group !important; }
+    .fc-table tbody tr { display: table-row !important; background: #fff !important; border: none; border-radius: 0; box-shadow: none; margin: 0; }
+    .fc-table td { display: table-cell !important; }
+    .fc-table thead tr:first-child th,
+    .fc-table thead tr:nth-child(2) th {
+        background: var(--color-primary) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }

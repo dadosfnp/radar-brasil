@@ -1,9 +1,9 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA LINHA DO TEMPO
    ============================== */
 
 body.linha-do-tempo-page {
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -41,7 +41,7 @@ body.linha-do-tempo-page .rb-main {
 /* ================== CABEÇALHO ================== */
 
 .lt-card-header {
-    background: #2c6174;
+    background: var(--color-primary);
     padding: 11px 24px;
     display: flex;
     align-items: center;
@@ -49,7 +49,7 @@ body.linha-do-tempo-page .rb-main {
 }
 
 .lt-panel-title h2 {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: .09em;
@@ -70,9 +70,9 @@ body.linha-do-tempo-page .rb-main {
 }
 
 .lt-estrutura-label {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 800;
-    color: #2c6174;
+    color: var(--color-primary);
     text-transform: uppercase;
     letter-spacing: .06em;
     margin: 0 0 12px;
@@ -82,14 +82,14 @@ body.linha-do-tempo-page .rb-main {
 
 .lt-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     margin: 0 0 10px;
 }
 
 .lt-desc {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     line-height: 1.7;
     margin: 0;
@@ -125,14 +125,14 @@ body.linha-do-tempo-page .rb-main {
 
 .lt-construction-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     margin: 0;
 }
 
 .lt-construction-sub {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     margin: 0;
     font-style: italic;
@@ -163,6 +163,14 @@ body.linha-do-tempo-page .rb-main {
     100% { width: 40%; opacity: 1;   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .lt-progress-fill {
+        animation: none;
+        width: 24%;
+        opacity: 0.8;
+    }
+}
+
 /* ================== RODAPÉ ================== */
 
 .lt-footer-actions {
@@ -173,22 +181,22 @@ body.linha-do-tempo-page .rb-main {
 
 .lt-voltar-btn {
     background: transparent;
-    color: #2c6174;
-    border: 1.5px solid #2c6174;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-primary);
     border-radius: 6px;
     padding: 7px 16px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .06em;
     text-transform: uppercase;
     cursor: pointer;
     text-decoration: none;
-    transition: background .15s, color .15s;
+    transition: background var(--transition-fast), color var(--transition-fast);
     font-family: inherit;
 }
 
 .lt-voltar-btn:hover {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
 }
 
@@ -205,6 +213,6 @@ body.linha-do-tempo-page .rb-main {
         min-height: 280px;
     }
     .lt-construction-title {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 }

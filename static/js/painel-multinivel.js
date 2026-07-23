@@ -33,7 +33,7 @@ function renderizarGrafico(dados) {
         meta.data.forEach((bar, i) => {
           const value = dataset.data[i];
           if (!value || value <= 0) return;
-          const text    = String(value);
+          const text    = dataset.label;
           const centerX = (bar.base + bar.x) / 2;
           const centerY = bar.y;
           c.save();
@@ -103,7 +103,8 @@ function renderizarGrafico(dados) {
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed.x;
-              return ` ${ctx.dataset.label}: ${v} estrutura${v !== 1 ? "s" : ""}`;
+              const label = v !== 1 ? RBi18n.t("estruturas") : RBi18n.t("estrutura");
+              return ` ${ctx.dataset.label}: ${v} ${label}`;
             },
           },
         },
@@ -132,6 +133,24 @@ function renderizarGrafico(dados) {
   });
 }
 
+// Overlay de erro no gráfico (não destrói o canvas)
+function _mostrarErroGrafico(msg) {
+  const area = document.querySelector(".pm-chart-area");
+  let err = area && area.querySelector(".pm-chart-error");
+  if (!err) {
+    err = document.createElement("div");
+    err.className = "pm-chart-error";
+    if (area) area.prepend(err);
+  }
+  err.textContent = msg;
+  err.style.display = "flex";
+}
+
+function _ocultarErroGrafico() {
+  const err = document.querySelector(".pm-chart-area .pm-chart-error");
+  if (err) err.style.display = "none";
+}
+
 // Mostra spinner enquanto carrega
 function mostrarLoader(visivel) {
   const loader = document.getElementById("pm-loader");
@@ -143,6 +162,7 @@ function mostrarLoader(visivel) {
 async function carregarDados(eixo) {
   const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
 
+  _ocultarErroGrafico();
   mostrarLoader(true);
 
   try {
@@ -151,11 +171,14 @@ async function carregarDados(eixo) {
 
     if (dados.erro) {
       console.error("Erro API:", dados.erro);
+      _mostrarErroGrafico("⚠ " + dados.erro);
       return;
     }
+    _ocultarErroGrafico();
     renderizarGrafico(dados);
   } catch (e) {
     console.error("Erro fetch:", e);
+    _mostrarErroGrafico("⚠ " + RBi18n.t("Não foi possível carregar os dados. Verifique sua conexão e recarregue a página."));
   } finally {
     mostrarLoader(false);
   }
@@ -165,21 +188,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const tabs = document.querySelectorAll(".pm-tabs li");
   let abaIdxAtual = 0;
 
+  function ativarAba(idx) {
+    const tabpanel = document.getElementById("pm-chart-wrapper");
+    tabs.forEach((t) => {
+      t.classList.remove("active");
+      const btn = t.querySelector("button");
+      if (btn) btn.setAttribute("aria-selected", "false");
+    });
+    tabs[idx].classList.add("active");
+    const activeBtn = tabs[idx].querySelector("button");
+    if (activeBtn) {
+      activeBtn.setAttribute("aria-selected", "true");
+      if (tabpanel) tabpanel.setAttribute("aria-labelledby", activeBtn.id);
+    }
+  }
+
   tabs.forEach((tab, idx) => {
     tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
       abaIdxAtual = idx;
+      ativarAba(idx);
       carregarDados(EIXOS[idx]);
     });
+
+    const btn = tab.querySelector("button");
+    if (btn) {
+      btn.addEventListener("keydown", (e) => {
+        let newIdx = idx;
+        if      (e.key === "ArrowRight") { e.preventDefault(); newIdx = (idx + 1) % tabs.length; }
+        else if (e.key === "ArrowLeft")  { e.preventDefault(); newIdx = (idx - 1 + tabs.length) % tabs.length; }
+        else if (e.key === "Home")       { e.preventDefault(); newIdx = 0; }
+        else if (e.key === "End")        { e.preventDefault(); newIdx = tabs.length - 1; }
+        else return;
+        abaIdxAtual = newIdx;
+        ativarAba(newIdx);
+        carregarDados(EIXOS[newIdx]);
+        tabs[newIdx].querySelector("button")?.focus();
+      });
+    }
   });
 
   // Ativa aba via query param ?aba=0..3 (vindo da página inicial)
   const abaParam = new URLSearchParams(window.location.search).get("aba");
   abaIdxAtual    = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
 
-  tabs.forEach((t) => t.classList.remove("active"));
-  if (tabs[abaIdxAtual]) tabs[abaIdxAtual].classList.add("active");
+  ativarAba(abaIdxAtual);
 
   carregarDados(EIXOS[abaIdxAtual]);
 

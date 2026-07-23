@@ -1,8 +1,14 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA MAPA GEORREFERENCIADO
    ============================== */
 
 body.mapa-page .rb-footer-landing { display: none; }
+
+/* Oculta o FAB quando a sidebar estiver aberta (mobile) */
+body.mg-sidebar-open .mg-filter-fab {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 body.mapa-page .rb-main {
     background: transparent;
     max-width: 100%;
@@ -27,14 +33,14 @@ body.mapa-page .rb-main {
 
 .mg-intro h2 {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     margin: 0 0 8px;
 }
 
 .mg-intro p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #3a6070;
     line-height: 1.65;
     margin: 0;
@@ -59,7 +65,7 @@ body.mapa-page .rb-main {
 .mg-sidebar {
     width: 260px;
     flex-shrink: 0;
-    background: #1a3d4d;
+    background: var(--color-primary-dark);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -72,7 +78,7 @@ body.mapa-page .rb-main {
 }
 
 .mg-sidebar-header h3 {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #fff;
     letter-spacing: .10em;
@@ -95,7 +101,7 @@ body.mapa-page .rb-main {
 }
 
 .mg-filter-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     color: rgba(255,255,255,0.60);
     text-transform: uppercase;
@@ -107,7 +113,7 @@ body.mapa-page .rb-main {
 .mg-select-wrap select {
     width: 100%;
     padding: 7px 28px 7px 10px;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #e0ecef;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
@@ -116,16 +122,17 @@ body.mapa-page .rb-main {
     -webkit-appearance: none;
     cursor: pointer;
     font-family: inherit;
-    transition: border-color .15s, background .15s;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
 }
 
-.mg-select-wrap select:focus {
-    outline: none;
+.mg-select-wrap select:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.70);
+    outline-offset: 2px;
     border-color: rgba(255,255,255,0.40);
     background: rgba(255,255,255,0.13);
 }
 
-.mg-select-wrap select option { background: #1a3d4d; color: #e0ecef; }
+.mg-select-wrap select option { background: var(--color-primary-dark); color: #e0ecef; }
 
 .mg-select-wrap::after {
     content: '';
@@ -147,7 +154,7 @@ body.mapa-page .rb-main {
 .mg-mun-input {
     width: 100%;
     padding: 7px 28px 7px 10px;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #e0ecef;
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
@@ -156,8 +163,9 @@ body.mapa-page .rb-main {
     box-sizing: border-box;
 }
 
-.mg-mun-input:focus {
-    outline: none;
+.mg-mun-input:focus-visible {
+    outline: 2px solid rgba(255,255,255,0.70);
+    outline-offset: 2px;
     border-color: rgba(255,255,255,0.40);
     background: rgba(255,255,255,0.13);
 }
@@ -178,7 +186,7 @@ body.mapa-page .rb-main {
     align-items: center;
     justify-content: center;
     border-radius: 3px;
-    transition: color .15s;
+    transition: color var(--transition-fast);
 }
 
 .mg-mun-clear:hover { color: #fff; }
@@ -211,7 +219,7 @@ body.mapa-page .rb-main {
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 999px;
     position: relative;
-    transition: background .2s, border-color .2s;
+    transition: background var(--transition-base), border-color var(--transition-base);
 }
 
 .mg-toggle-thumb {
@@ -220,7 +228,7 @@ body.mapa-page .rb-main {
     width: 11px; height: 11px;
     background: rgba(255,255,255,0.55);
     border-radius: 50%;
-    transition: transform .2s, background .2s;
+    transition: transform var(--transition-base), background var(--transition-base);
 }
 
 .mg-toggle-switch input:checked + .mg-toggle-track {
@@ -234,7 +242,7 @@ body.mapa-page .rb-main {
 }
 
 .mg-toggle-text {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     color: rgba(255,255,255,0.60);
     text-transform: uppercase;
@@ -259,16 +267,16 @@ body.mapa-page .rb-main {
     gap: 7px;
     padding: 8px 12px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
     font-family: inherit;
-    transition: background .15s, opacity .15s;
+    transition: background var(--transition-fast), opacity var(--transition-fast);
 }
 
 .mg-btn-primary {
-    background: #2c6174;
+    background: var(--color-primary);
     color: #fff;
 }
 .mg-btn-primary:hover { background: #3a7a90; }
@@ -308,8 +316,8 @@ body.mapa-page .rb-main {
     justify-content: center;
     gap: 12px;
     z-index: 1100;
-    font-size: 14px;
-    color: #2c6174;
+    font-size: 0.875rem;
+    color: var(--color-primary);
     font-family: 'Roboto', sans-serif;
 }
 
@@ -332,22 +340,22 @@ body.mapa-page .rb-main {
 
 .mg-stats-valor {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 800;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     line-height: 1.2;
     letter-spacing: -.02em;
 }
 
 .mg-stats-label {
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: #2e7d5e;
     letter-spacing: .02em;
     margin-top: 4px;
 }
 
 .mg-stats-municipios {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
     color: #2e7d5e;
     margin-top: 3px;
@@ -368,9 +376,9 @@ body.mapa-page .rb-main {
 }
 
 .mg-legend-title {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     text-transform: uppercase;
     letter-spacing: .07em;
     margin-bottom: 7px;
@@ -380,7 +388,7 @@ body.mapa-page .rb-main {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 11px;
+    font-size: 0.6875rem;
     color: #3a6070;
     margin-bottom: 4px;
 }
@@ -420,7 +428,7 @@ body.mapa-page .rb-main {
 }
 
 .mg-legend-size-label {
-    font-size: 10px;
+    font-size: 0.625rem;
     color: #3a6070;
     letter-spacing: .01em;
     white-space: nowrap;
@@ -444,17 +452,17 @@ body.mapa-page .rb-main {
 /* ── Popup card ── */
 .mg-popup {
     font-family: 'Roboto', sans-serif;
-    min-width: 250px;
-    max-width: 290px;
+    min-width: 290px;
+    max-width: 320px;
 }
 
 .mg-popup-header {
-    background: #1a3d4d;
+    background: var(--color-primary-dark);
     padding: 12px 14px 10px;
 }
 
 .mg-popup-header h4 {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 700;
     color: #fff;
     margin: 0 0 7px;
@@ -464,14 +472,14 @@ body.mapa-page .rb-main {
 .mg-popup-uf {
     font-weight: 400;
     opacity: .75;
-    font-size: 13px;
+    font-size: 0.8125rem;
 }
 
 .mg-popup-status-tag {
     display: inline-block;
     padding: 2px 7px;
     border-radius: 4px;
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .04em;
@@ -492,7 +500,7 @@ body.mapa-page .rb-main {
 }
 
 .mg-popup-count-badge {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 500;
     color: rgba(255,255,255,.60);
     letter-spacing: .02em;
@@ -509,13 +517,13 @@ body.mapa-page .rb-main {
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #3a6070;
     padding: 0 14px 8px;
 }
 
 .mg-popup-icon {
-    color: #2c6174;
+    color: var(--color-primary);
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -523,15 +531,15 @@ body.mapa-page .rb-main {
 }
 
 .mg-popup-lbl {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 600;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     min-width: 52px;
     flex-shrink: 0;
 }
 
 .mg-popup-val {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #3a6070;
     flex: 1;
     line-height: 1.35;
@@ -565,9 +573,9 @@ body.mapa-page .rb-main {
 }
 
 .mg-popup-prog-name {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     line-height: 1.4;
     margin-bottom: 5px;
 }
@@ -582,9 +590,9 @@ body.mapa-page .rb-main {
 }
 
 .mg-popup-prog-valor {
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     white-space: nowrap;
     margin-left: auto;
 }
@@ -612,9 +620,9 @@ body.mapa-page .rb-main {
 }
 
 .mg-popup-pct {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 700;
-    color: #2c6174;
+    color: var(--color-primary);
     white-space: nowrap;
     min-width: 28px;
     text-align: right;
@@ -629,7 +637,7 @@ body.mapa-page .rb-main {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #1a3d4d;
+    background: var(--color-primary-dark);
     border: none;
     color: #fff;
     align-items: center;
@@ -637,10 +645,29 @@ body.mapa-page .rb-main {
     cursor: pointer;
     z-index: 1001;
     box-shadow: 0 4px 18px rgba(0,0,0,.32);
-    transition: transform .2s, background .2s;
+    transition: transform var(--transition-base), background var(--transition-base);
 }
-.mg-filter-fab:hover  { background: #2c6174; transform: scale(1.08); }
+.mg-filter-fab:hover  { background: var(--color-primary); transform: scale(1.08); }
 .mg-filter-fab:active { transform: scale(0.93); }
+.mg-filter-fab { transition: transform var(--transition-base), background var(--transition-base), opacity var(--transition-base); }
+
+/* Badge de filtros ativos no botão Limpar */
+.mg-filter-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: rgba(255,255,255,.90);
+    color: #1a3d4d;
+    font-size: 0.625rem;
+    font-weight: 800;
+    border-radius: 999px;
+    line-height: 1;
+    margin-left: 2px;
+    flex-shrink: 0;
+}
 
 /* ── Botão fechar sidebar (visível apenas no mobile) ── */
 .mg-sidebar-close {
@@ -653,7 +680,7 @@ body.mapa-page .rb-main {
     border-radius: 5px;
     align-items: center;
     justify-content: center;
-    transition: color .15s, background .15s;
+    transition: color var(--transition-fast), background var(--transition-fast);
     flex-shrink: 0;
 }
 .mg-sidebar-close:hover { color: #fff; background: rgba(255,255,255,.12); }
@@ -678,8 +705,8 @@ body.mapa-page .rb-main {
 
 @media (max-width: 900px) {
     .mg-page { padding: 8px 8px 0; gap: 8px; }
-    .mg-intro h2 { font-size: 17px; }
-    .mg-intro p { font-size: 12.5px; }
+    .mg-intro h2 { font-size: 1.0625rem; }
+    .mg-intro p { font-size: 0.78125rem; }
     .mg-layout { flex-direction: column; min-height: 0; gap: 0; margin-bottom: 0; }
 
     /* Sidebar → bottom sheet fixo fora do fluxo */
@@ -721,7 +748,7 @@ body.mapa-page .rb-main {
         justify-content: space-between;
         position: sticky;
         top: 0;
-        background: #1a3d4d;
+        background: var(--color-primary-dark);
         z-index: 1;
         padding: 12px 16px 10px;
     }
@@ -760,11 +787,11 @@ body.mapa-page .rb-main {
     }
     #mg-map { border-radius: 0; }
     .mg-stats-panel { min-width: 150px; padding: 9px 12px; top: 10px; right: 10px; }
-    .mg-stats-valor { font-size: 13px; }
-    .mg-stats-label, .mg-stats-municipios { font-size: 10px; }
+    .mg-stats-valor { font-size: 0.8125rem; }
+    .mg-stats-label, .mg-stats-municipios { font-size: 0.625rem; }
     /* Legenda e FAB com margem extra do fundo para não serem cortados */
     .mg-legend { bottom: 20px; right: 8px; padding: 8px 10px; }
     .mg-filter-fab { bottom: 24px; }
-    .mg-legend-title { font-size: 9px; }
-    .mg-legend-item { font-size: 10px; }
+    .mg-legend-title { font-size: 0.5625rem; }
+    .mg-legend-item { font-size: 0.625rem; }
 }

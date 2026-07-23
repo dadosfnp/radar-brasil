@@ -4,15 +4,444 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-23 — `pendente`
+
+### Fix — Labels de nivel exibem "Level N" em vez de "Nivel N" no modo EN
+
+- **`painel_multinivel.py` `dados_para_grafico`:** Label do dataset usa `nivel.replace("Nivel ", "Level ")` quando `lang="en"`. Corrige: legenda e barras do grafico Painel Multinivel mostrando "Nivel 1"..."Nivel 5" em EN.
+- **`avaliacao_painel.py` `get_tabela`:** Campo `nivel` retorna "Level N" quando `lang="en"`. Corrige: badge de nivel na tabela de Avaliacao Painel mostrando "Nivel N" em EN.
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
+### Fix — Colunas Sector, Modality, State do financiamento EN
+
+- **`financiamento_climatico.py` `_EN_COLS`:** Sheet EN usa `Sector`, `Modality`, `State` (inglês) para essas colunas. Adicionado mapeamento correto para `Setor`, `Modalidade`, `Estadual`. Corrige: coluna Sector e Modality exibindo "—" na tabela EN.
+
+**Arquivo:** `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
+### Fix — Labels e filtragem de campos na ficha técnica EN
+
+- **`avaliacao_painel.py` `get_ficha`:** Labels das seções (DESCRIÇÃO, ÓRGÃO RESPONSÁVEL, ARCABOUÇO NORMATIVO, etc.) agora são exibidas em inglês quando `lang="en"`. Adicionado `_CAMPOS_LABELS` com pares `(label_pt, label_en)` e `_CAMPOS_ORDER` para ordem dos campos.
+- **`avaliacao_painel.py` `get_ficha`:** Adicionado `_INVALID_EN` com `"Does not apply"` e variações; substitui `_INVALID` no modo EN, ocultando campos marcados como "Does not apply" na sheet EN (equivalente ao "Ñ aplica" em PT). Corrige campos extras exibidos em EN que ficam ocultos em PT.
+
+**Arquivo:** `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
+### Fix — Normalização de valores EN→PT em colunas discriminadoras
+
+- **Causa raiz:** As sheets EN têm não só os cabeçalhos em inglês, mas também os *valores* das colunas discriminadoras (`Axis`, `Level`) em inglês — ex: `"Governance"`, `"Level 1"`. O código interno compara com `"Governanca"`, `"Nível 1"` → resultado sempre 0 / vazio.
+- **`painel_multinivel.py`:** Adicionado `_EN_EIXO` (dict valor EN→PT para Eixo) e regex `Level N → Nível N` aplicados após o rename de colunas. Corrige: ASSESSED INSTANCES = 0 e gráfico em branco.
+- **`avaliacao_painel.py`:** Mesmo mecanismo (`_EN_EIXO` + regex Nível). Corrige: dropdown de instâncias vazio na aba Assessment.
+- **`avaliacao_painel.py` `_EN_COLS`:** Nomes reais das colunas da sheet fichas EN confirmados via diagnóstico e corrigidos: `Responsible_agency` (era `Responsible_body`), `Agency_link` (era `Body_link`), `Regulatory_framework` (era `Normative_framework`), `Decision_authority` (era `Decision_character`), `Counterpart_funding` (era `Counterpart`). Corrige: campos de ficha técnica em branco no modo EN.
+- **`financiamento_climatico.py` `_EN_COLS`:** Nomes reais confirmados via diagnóstico: `Programs_and_funding_lines`, `Resource_origin`, `Funding_amount`, `Minimum_counterpart`, `Transfer_funding_type`. Corrige: coluna Programas mostrando "—" e donut Origem sem dados.
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
+### Feat — Banco de dados EN: Google Sheets em inglês por idioma
+
+- **`avaliacao_painel.py`:** `SHEET_FICHAS` e `SHEET_PARAMS` agora são dicts `{"pt": ..., "en": ...}`; cache separado por idioma (`_cache_fichas["pt"/"en"]`); funções `get_filtros`, `get_tabela`, `get_ficha` recebem `lang="pt"`
+- **`painel_multinivel.py`:** `SHEET_PARAMETROS` dict por idioma; cache `_cache["pt"/"en"]`; `get_total_municipios` e `dados_para_grafico` recebem `lang="pt"`
+- **`financiamento_climatico.py`:** `SHEET_FIN` dict por idioma; cache `_cache["pt"/"en"]`; `get_filtros`, `get_tabela`, `get_graficos` recebem `lang="pt"`
+- **`mapa_georreferenciado.py`:** `SHEET_MAPA` dict por idioma (EN sem GID usa primeira aba); cache `_cache_sheet["pt"/"en"]`; `get_dados_mapa` e `get_filtros_mapa` recebem `lang="pt"`
+- **`views.py`:** Adicionada função `_lang(request)` que extrai idioma de `request.LANGUAGE_CODE`; todas as views de API passam `lang=_lang(request)` aos services
+
+**Sheets EN:**
+
+- Fichas: `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` (GID `1400373985`)
+- Parâmetros: `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` (GID `1708988989`)
+- Financiamento Climático: `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` (GID `449650871`)
+- Mapa: `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` (primeira aba)
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/views.py`
+
+---
+
+### Refactor — Limpeza de arquivos sem serventia
+
+- Removido `apps/municipios/inicio.html` (template órfão fora da hierarquia `<app>/templates/`)
+- Removido `setup/asgi.py` (deploy usa WSGI/gunicorn; `ASGI_APPLICATION` não configurado)
+- Removidas 15 imagens sem referência em `static/img/`: 4 × `card_*_novo.svg`, 4 × `*-land.png`, 5 × `mapeamento*.svg`, `criterios-de-avaliacao.svg`, `mensuracao-dos-resultados.svg`
+- Removido `rest_framework` de `INSTALLED_APPS` e bloco `REST_FRAMEWORK` do `settings.py` (zero views DRF no projeto)
+- Removidos `djangorestframework==3.17.1`, `openpyxl==3.1.5` e `et_xmlfile==2.0.0` do `requirements.txt`
+- Substituídas 4 chamadas `print()` por `logger.info/debug` em `apps/indicadores/services/painel_multinivel.py`
+
+**Arquivos:** `apps/municipios/inicio.html` (removido), `setup/asgi.py` (removido), `static/img/` (15 removidos), `setup/settings.py`, `requirements.txt`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
+## 2026-07-23 — (branch feat/i18n-english)
+
+### Fix — Cor dos hiperlinks da ficha técnica
+
+- **`avaliacao-painel.css`:** Links no título do modal herdam `rgba(194,237,231,.82)` (cor original do h3 no header escuro); links nos campos herdam `#4a6a78` (cor original do campo-valor); sublinhado sutil com `text-decoration-color` semi-transparente; hover com teal `#2c7873`
+
+---
+
+### Feature — Atualização do banco de dados + hiperlinks nas fichas técnicas
+
+- **Services (4 arquivos):** IDs das planilhas Google Sheets atualizados para os novos bancos de dados
+  - `avaliacao_painel.py`: `SHEET_FICHAS_ID` → `16s59h5uE0R6GZT...`, `SHEET_PARAMS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `painel_multinivel.py`: `SHEET_PARAMETROS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `mapa_georreferenciado.py`: `SHEET_ID` → `1qMPAIB5e6IoG_cd...`, `SHEET_GID` → `1619423236`
+  - `financiamento_climatico.py`: `SHEET_ID` → `1sxKa2yu8GL8U6m4...`, `SHEET_GID` → `793540087`
+- **`avaliacao_painel.py` — `get_ficha()`:** Refatorado para suportar hiperlinks; retorna `link_eixo` (link do nome da estrutura) e campo `url` em `Órgão Responsável` (`Link_orgao`) e `Arcabouço Normativo` (`Link_arcabouco`)
+- **`painel_multinivel.py` — `ORDEM_CRITERIOS`:** Labels atualizados: `"Financiamento"` → `"Sustentabilidade Financeira"`, `"Representação de Gênero, Raça e Etnia"` → `"Diversidade e Representatividade"` (todos os eixos aplicáveis)
+- **`avaliacao-painel.js` — `abrirFicha()`:** Título do modal vira hiperlink quando `link_eixo` presente; campos com URL renderizados como `<a>`; labels passam por `RBi18n.t()`
+- **`i18n.js`:** 2 novas entradas EN: `"Sustentabilidade Financeira"→"Financial Sustainability"`, `"Diversidade e Representatividade"→"Diversity and Representativeness"`
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/services/financiamento_climatico.py`, `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
+## 2026-07-22 — (branch feat/i18n-english)
+
+### Fix — Varredura completa: todas as strings PT remanescentes corrigidas no modo EN
+
+- **`base_templates/base.html`:** `{% trans %}` adicionado nas meta tags padrão (`description`, `og:title`, `og:description`, `twitter:title`, `twitter:description`), endereço do footer e nome da organização no copyright; `og:locale` agora dinâmico (`en_US` / `pt_BR`)
+- **`locale/en/LC_MESSAGES/django.po`:** 9 novas entradas: `"Filtros"→"Filters"`, meta descriptions, og/twitter titles, endereço (versão EN), `"Frente Nacional de Prefeitas e Prefeitos"→"National Front of Mayors"`
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado — 243 strings
+- **`avaliacao-painel.js`:** Fallback `"Ficha Técnica"` agora usa `RBi18n.t()`; atributo `lang` do HTML do PDF gerado agora dinâmico (`en-US` / `pt-BR`)
+- **`financiamento-climatico.js`:** `"de"` no contador MultiSelect agora usa `RBi18n.t("de")`; `"registros"` no tooltip Plotly usa `RBi18n.t()`; atributos `data-label` da tabela mobile agora traduzidos via `RBi18n.t()`; fallback `"Todos"` no construtor usa `RBi18n.t()`
+- **`static/js/i18n.js`:** 7 novas entradas no `DICT.en`: `"Modalidade"→"Modality"`, `"Origem"→"Source"`, `"Valor"→"Value"`, `"Estadual"→"State"`, `"registros"→"records"`, `"Ficha Técnica"→"Technical Sheet"`
+
+**Arquivos:** `base_templates/base.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `static/js/avaliacao-painel.js`, `static/js/financiamento-climatico.js`, `static/js/i18n.js`
+
+---
+
+### Fix — Avaliação Painel Multinível: strings dinâmicas não traduzidas no modo EN
+
+- **`avaliacao-painel.js`:** Adicionado `EIXO_LABELS_EN` com chaves ASCII e valores em inglês; `ativarAba()` agora usa este dict diretamente quando `lang === "en"`, contornando possível mismatch de encoding Unicode NFC/NFD
+- **`avaliacao-painel.js`:** `carregarFiltros()` agora envolve os labels vindos da API com `RBi18n.t()` (eram setados direto sem tradução): `estruturaLabel` e `setorLabel`
+- **`static/js/i18n.js`:** Adicionadas 5 entradas ao `DICT.en` para cobrir os valores reais da API: `"Instância"→"Instance"`, `"Setor"→"Sector"`, `"Política / Plano"→"Policy / Plan"`, `"Programa"→"Program"`, `"Linha de Financiamento"→"Financing Line"`
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
+### Feature — Tradução completa da plataforma para inglês (i18n full-coverage)
+
+- **Templates HTML (9 páginas):** `{% load i18n %}` + `{% trans %}` aplicados em todas as strings visíveis de todas as páginas: `landing.html`, `inicio.html`, `metodologia.html`, `linha-do-tempo.html`, `mapa-georreferenciado.html`, `nota-pais.html`, `painel-multinivel.html`, `avaliacao-painel.html`, `financiamento-climatico.html`
+- **JavaScript (5 arquivos):** `RBi18n.t()` aplicado em todas as strings dinâmicas: popups do mapa, legendas, stats panel, cabeçalhos CSV, MultiSelect, paginação, mensagens de erro e estado vazio — em `mapa-georreferenciado.js`, `financiamento-climatico.js`, `avaliacao-painel.js`, `painel-multinivel.js`, `nota-pais.js`
+- **`static/js/i18n.js`:** Dicionário expandido de ~30 para ~80 entradas cobrindo labels de popup, valores de dados (porte, perfil investimento), nomes de oceanos, botões de ação, mensagens de sistema e cabeçalhos de CSV
+- **`nota-pais.js`:** `getName()` agora retorna o nome em inglês do GeoJSON Natural Earth (`props.NAME`) quando `lang === "en"`, sem necessidade de traduzir os ~80 nomes de países
+- **`locale/en/LC_MESSAGES/django.po`:** Expandido de 103 para 236 strings
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado com `compile_po.py`
+- Infraestrutura i18n base (settings, URLs, header PT|EN, `base.html`): implementada em entrada anterior
+
+**Arquivos:** todos os 9 templates em `templates/municipios/`, `static/js/i18n.js`, `static/js/mapa-georreferenciado.js`, `static/js/financiamento-climatico.js`, `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/nota-pais.js`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
+## 2026-07-22 — (branch feat/i18n-english) — infraestrutura
+
+### Feature — Tradução para inglês com seletor de idioma no header
+
+- Suporte a i18n via Django `LocaleMiddleware` + `set_language` view
+- Seletor `PT | EN` adicionado ao header (canto superior direito, abaixo do logo FNP)
+- `base.html`: `{% load i18n %}`, `{% trans %}` aplicado nos links de nav e subtítulo do header
+- `locale/en/LC_MESSAGES/django.po` e `django.mo` compilado com 103 strings traduzidas
+- `static/js/i18n.js`: objeto global `RBi18n` com dicionário PT→EN para strings dinâmicas dos dados
+- `setup/settings.py`: `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
+- `setup/urls.py`: rota `i18n/` para o endpoint `set_language`
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/js/i18n.js`, `setup/settings.py`, `setup/urls.py`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
+## 2026-07-13 — `pendente`
+
+### Fix — Filtros do mapa resetam ao navegar para outra aba
+
+- Removida persistência de filtros via localStorage (`mg-filtros`) no Mapa Georreferenciado
+- Removidas funções `_salvarFiltros`, `_restaurarFiltros` e constante `_MG_LS_KEY`
+- Filtros agora sempre iniciam limpos ao carregar a página, consistente com o comportamento das demais páginas
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`
+
+---
+
+## 2026-07-13 — `011fa3c`
+
+### Fix — Popup do mapa: largura ajustada para "Perfil Investimento" sem quebra de linha
+
+- `.mg-popup` redimensionado de `250/290px` para `290/320px` — dimensão calculada para acomodar ícone (18px) + label "Perfil Investimento" (125px) + valor "Investimento Agrupado" (136px) + padding (28px) + respiro (6px)
+- `bindPopup` com `minWidth: 320` e `maxWidth: 400` alinhados ao novo tamanho do card
+
+**Arquivos:** `static/css/mapa-georreferenciado.css`, `static/js/mapa-georreferenciado.js`
+
+---
+
+## 2026-07-03 — `bd6c8a5`
+
+### Fix — Texto de instrução na Avaliação Painel Multinível
+
+- Atualizado texto de instrução do empty state para refletir o novo fluxo de filtros com combobox
+
+**Arquivos:** `templates/municipios/avaliacao-painel.html`
+
+---
+
+## 2026-07-02 — `abd7175`
+
+### Fix — Centralização do copyright no rodapé (ajuste flex)
+
+- Corrigida centralização do `.rb-footer-copy` com `justify-content` no container flex
+
+**Arquivos:** `static/css/base.css`
+
+---
+
+## 2026-07-02 — `09f10d6`
+
+### Fix — Copyright do rodapé em linha própria abaixo das colunas
+
+- `.rb-footer-col-center` substituído por `.rb-footer-bottom` — faixa de largura total abaixo das 3 colunas
+- Texto de copyright: `font-size` 1rem → 0.9rem, `padding` ajustado para `8px 40px 18px`
+- HTML do `base.html` atualizado com novo elemento `.rb-footer-bottom`
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`
+
+---
+
+## 2026-07-02 — `623a1da`
+
+### Style — Formatação Black nos services
+
+- Black aplicado em `avaliacao_painel.py` e `painel_multinivel.py` (sem mudança de comportamento)
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
+## 2026-07-02 — `4366baf`
+
+### Feat — Filtros da Avaliação Painel com combobox customizado acessível
+
+- Substituídos `<select>`/`<datalist>` por componente `Combobox` JS com dropdown acessível (`role="listbox"`, `role="option"`, `aria-expanded`, `aria-activedescendant`)
+- Botão `×` (limpar) e chevron toggle em cada campo de filtro
+- Busca por digitação com destaque (`<mark>`) do trecho digitado nas opções
+- Navegação por teclado: ArrowUp/Down, Enter, Escape, Tab
+- **Ordem dos campos invertida:** Instância de Governança aparece primeiro, Setor em segundo
+- Preenchimento bidirecional: selecionar Instância → preenche Setor automaticamente; selecionar Setor → filtra Instâncias disponíveis
+- Campo "Setor" adicionado como primeiro campo na Ficha Técnica do modal
+- Label `LABEL_ESTRUTURA['Governanca']` atualizado para `'Instância de Governança'`
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `static/css/avaliacao-painel.css`, `static/js/avaliacao-painel.js`, `templates/municipios/avaliacao-painel.html`
+
+---
+
+## 2026-06-10 — `ce03282`
+
+### Docs — Datas preenchidas no histórico de design.md
+
+- Tabela do histórico de alterações em `docs/design.md` com as datas corretas de todos os commits
+
+**Arquivos:** `docs/design.md`
+
+---
+
+## 2026-06-10 — `2db2dfd`
+
+### Docs — Documentação completa de design da plataforma
+
+- Criado `docs/design.md` com histórico e decisões de design desde o primeiro commit
+- Cobre: identidade visual, tipografia, design system, componentes globais, todas as páginas, responsividade, acessibilidade e melhorias de UX/UI
+
+**Arquivos:** `docs/design.md`
+
+---
+
+## 2026-06-10 — `f8cb3e3`
+
+### Fix — Scroll-to-top oculto em páginas de mapa
+
+- Botão `.rb-scroll-top` ocultado com `display: none !important` nas páginas `body.mapa-page` e `body.np-body` para evitar conflito com a legenda do mapa no canto inferior direito
+
+**Arquivos:** `static/css/components.css`
+
+---
+
+## 2026-06-10 — `5380679`
+
+### Style — Logos parceiros no rodapé reduzidos para 44px
+
+- `.rb-footer-logo { height: 72px → 44px; max-width: 150px → 110px }` para melhor harmonia com o restante do rodapé
+
+**Arquivos:** `static/css/base.css`
+
+---
+
+## 2026-06-10 — `f4682bb`
+
+### Feat — 23 melhorias de UX/UI em toda a plataforma
+
+**Alta prioridade:**
+
+- Tratamento de erros de API com feedback visual em Avaliação Painel e Painel Multinível
+- Navegação por teclado ArrowLeft/Right/Home/End nos tab bars
+- FAB some ao abrir sidebar no mobile (classe `body.mg-sidebar-open`)
+- Remove delay de 350ms no fechamento da sidebar do mapa
+
+**Média prioridade:**
+
+- Empty state com ícone SVG clipboard e texto estruturado na Avaliação Painel
+- Badge contador de filtros ativos no botão "Limpar filtros" do mapa
+- Normalização de `stroke-width="2"` em todos os loaders SVG
+- Botão scroll-to-top global (aparece após 400px de scroll)
+- Fade suave (opacity 0.25 → 1) nos gráficos de Financiamento ao trocar filtros
+- Opacidade dos ícones de tab inativo: 0.72 → 0.88
+
+**Baixa prioridade:**
+
+- Componentes `.rb-page-intro` e `.rb-empty-state` padronizados em `components.css`
+- Persistência de filtros do mapa via localStorage (`mg-filtros`)
+- Tooltips nativos (`title=""`) nos valores KPI do Painel Multinível
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/mapa-georreferenciado.js`, `static/js/financiamento-climatico.js`, `templates/municipios/avaliacao-painel.html`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/painel-multinivel.html`, `base_templates/base.html`, `static/css/avaliacao-painel.css`, `static/css/painel-multinivel.css`, `static/css/mapa-georreferenciado.css`, `static/css/components.css`
+
+---
+
+## 2026-06-10 — `9ac604a`
+
+### Feat — Design system completo: tokens.css + components.css
+
+- Criado `static/css/tokens.css` com todos os design tokens (cores, gradientes, sombras, raios, transições) como CSS custom properties
+- Criado `static/css/components.css` com classes reutilizáveis entre páginas usando multi-seletores (elimina CSS duplicado sem alterar HTML)
+- `base.html` carrega `tokens.css` → `components.css` → `base.css` → CSS de página
+- Removidas definições duplicadas de `.pm-panel-card`, `.ap-card`, `.pm-card-header`, `.ap-card-header`, `.pm-criteria-badge`, `.ap-ficha-btn` dos arquivos de página
+
+**Arquivos:** `static/css/tokens.css` (novo), `static/css/components.css` (novo), `base_templates/base.html`, `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`
+
+---
+
+## 2026-06-09 — `d82d7b6`
+
+### Chore — Polimento profissional em toda a plataforma
+
+- Meta tags Open Graph e Twitter Card em todas as páginas
+- Favicon SVG + `<link rel="apple-touch-icon">` em `base.html`
+- Ano do copyright dinâmico: `{% now "Y" %}` no rodapé
+- Typo corrigido: "Inicio" → "Início" nos templates e nav
+- `scroll-behavior: smooth` no seletor `html`
+- `@media print` styles nos painéis (Painel Multinível e Avaliação)
+- `robots.txt` servido via Django TemplateView
+- Card "Ecossistema" (em breve): link morto substituído por `<span aria-disabled="true">` + badge "Em breve"
+- `loading="lazy"` em imagens não críticas da landing
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`, `templates/municipios/landing.html`, `setup/urls.py`
+
+---
+
+## 2026-06-08 — `55ef5ec`
+
+### Feat — Acessibilidade WCAG 2.1 AA em toda a plataforma
+
+- Skip link `<a href="#rb-main-content">` visível no foco em `base.html`
+- `role="tablist"`, `role="tab"`, `role="tabpanel"` nos tab bars de Painel Multinível e Avaliação
+- `aria-selected`, `aria-controls`, `aria-labelledby` atualizados dinamicamente ao trocar abas
+- `aria-live="polite"` na área da tabela de avaliação
+- Trap de foco no modal Ficha Técnica (Tab/Shift+Tab + Escape fecha o modal)
+- `aria-hidden="true"` em todos os SVGs decorativos
+- `alt=""` em ícones de tab (decorativos)
+- `role="status"` em loaders e placeholders
+- Contraste de todos os textos principais verificado (≥ 4.5:1)
+
+**Arquivos:** `base_templates/base.html`, `templates/municipios/painel-multinivel.html`, `templates/municipios/avaliacao-painel.html`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/nota-pais.html`, `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`
+
+---
+
+## 2026-05-28 — `f4649e0`
+
+### Style — Remove texturas e aplica cor sólida no header e rodapé
+
+- Header e rodapé: `background: #1B3333` sólido (removida imagem `bg-header.png` e overlay)
+- Fundo global: `background: #bdd6e0` sólido (removida imagem `bg-body.png`)
+- Onda do footer: `fill: #bdd6e0` alinhado ao novo fundo
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`
+
+---
+
+## 2026-05-25 — `dc69471` / `f54ef12`
+
+### Feat — Header reorganizado em 3 colunas, logo Radar Brasil adicionado
+
+- Layout do header reestruturado: `[logo-radar] [título + subtítulo] [logo-FNP]` em 3 colunas
+- Nav (`rb-main-nav`) movida para fora do wrapper do header
+- Logo Radar Brasil (SVG) adicionado no canto esquerdo com link para a landing page
+- Logo FNP harmonizada no canto direito com link externo para fnp.org.br
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`
+
+---
+
+## 2026-05-25 — `181ea3a` / `f104f2a` / `42e60f9` / `e1777cf`
+
+### Fix — Mobile: rodapé, header e tabela de Financiamento
+
+- Rodapé mobile: redesign completo em coluna única com logos e tipografia ajustadas
+- Header mobile: logo Radar Brasil visível com layout harmônico 3 colunas
+- Tabela de Financiamento Climático: layout de card no mobile (cada linha vira card com `data-label`)
+- Financiamento Climático mobile: melhoria estética geral (dropdowns, gráficos)
+
+**Arquivos:** `static/css/base.css`, `static/css/financiamento-climatico.css`, `templates/municipios/financiamento-climatico.html`
+
+---
+
+## 2026-05-22 — `46cc5a5`
+
+### Chore — Design tokens iniciais + ferramentas de qualidade e CI
+
+- Aliases semânticos adicionados ao `:root` em `base.css`: `--color-primary`, `--color-primary-dark`, `--color-text-*`, `--color-bg-*`, `--color-border-*`, `--font-*`, `--radius-*`, `--shadow-*`, `--transition-*`
+- `.flake8` e `pyproject.toml` (Black + isort) configurados
+- GitHub Actions CI configurado
+
+**Arquivos:** `static/css/base.css`, `.flake8`, `pyproject.toml`, `.github/workflows/ci.yml`
+
+---
+
+## 2026-05-19 — `ab11c10`
+
+### Feat — Landing page vira página inicial da aplicação (`/`)
+
+- Rota `/` aponta para a landing page (antes apontava para `/inicio/`)
+- Início (`/inicio/`) mantido como página de acesso rápido
+
+**Arquivos:** `setup/urls.py`, `apps/indicadores/urls.py`
+
+---
+
+## 2026-05-18 — `6f1eb79` / `29af3dc` / `92234a3` / `f4a9faa` / `e9f6e87` / `cc127c2`
+
+### Style — Landing page: bolinha verde pulsante e novas miniaturas dos cards
+
+- Badge pill verde pulsante (CSS animation) nas seções Início e Metodologia
+- Miniaturas dos cards da landing atualizadas com novas ilustrações SVG
+- Fundo das miniaturas padronizado em branco com `object-fit: contain`
+- Travessão decorativo removido do card hero
+
+**Arquivos:** `static/css/landing.css`, `templates/municipios/landing.html`, `static/img/`
+
+---
+
 ## [Não publicado] — 2026-05-21
 
 ### Padronização — Design tokens, qualidade de código e CI
 
 **CSS Design Tokens** (`static/css/base.css`)
+
 - Adicionados aliases semânticos ao `:root` existente: `--color-primary`, `--color-primary-dark`, `--color-primary-deep`, `--color-text-*`, `--color-bg-*`, `--color-border-*`, `--font-sans/display/ui`, `--radius-*`, `--shadow-*`, `--transition-*`, `--ease-*`
 - As variáveis `--hdr-*` e `--bdy-*` existentes foram mantidas para compatibilidade retroativa
 
 **Configuração de qualidade** (`.flake8`, `pyproject.toml`)
+
 - `.flake8`: max-line-length 100, exclude migrations/.venv, per-file-ignores para arquivos gerados pelo Django
 - `pyproject.toml`: configuração do Black (line-length 100, target Python 3.12) e isort
 - Formatação Black aplicada em 17 arquivos Python (sem mudança de comportamento)
@@ -21,15 +450,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Flake8 passa sem erros; Black passa sem reformatações
 
 **Documentação de ambiente** (`.env.example`)
+
 - Template com todas as variáveis necessárias e comentários em português
 
 **Política de segurança** (`SECURITY.md`)
+
 - Documento de divulgação responsável e tabela de configurações ativas em produção
 
 **Guia de contribuição** (`CONTRIBUTING.md`)
+
 - Fluxo Git completo (feature → next → main), padrão de commit, estrutura de arquivos, padrões de CSS/JS/Python
 
 **GitHub Actions CI** (`.github/workflows/ci.yml`)
+
 - Pipeline CI que roda em push para `next`/`main` e PRs para `next`
 - Etapas: `flake8` → `black --check` → `pytest` (com SQLite em memória, sem PostgreSQL)
 

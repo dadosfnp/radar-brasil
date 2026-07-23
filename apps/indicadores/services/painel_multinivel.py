@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import time
 import unicodedata
@@ -6,19 +7,75 @@ import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
+logger = logging.getLogger(__name__)
+
 # ── Configuração ──────────────────────────────────────────────
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_PARAMETROS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
-WORKSHEET_NAME = "dados"
 CACHE_TTL = 1800  # 30 minutos
 
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    "Structure":      "Estrutura",
+    "Axis":           "Eixo",
+    "Axis_link":      "Link_eixo",
+    "Sector":         "Setor",
+    "Level":          "Nível",
+    "Criterion":      "Critério",
+    "Descriptive":    "Descritivo",
+    "Evaluation":     "Avaliação",
+    "Classification": "Classificação",
+}
+
+# Valores EN → PT para colunas discriminadoras (eixo, nível)
+_EN_EIXO = {
+    "Governance":         "Governanca",
+    "Policies & Plans":   "Politicas e Planos",
+    "Policies and Plans": "Politicas e Planos",
+    "Programs":           "Programas",
+    "Financing Lines":    "Linhas de Financiamento",
+    "Financing Line":     "Linhas de Financiamento",
+}
+
+SHEET_PARAMETROS = {
+    "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
+    "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
+}
+
 CORES_NIVEL = {
-    "Nível 0": "#bdc5d0",
     "Nível 1": "#e06b6b",
     "Nível 2": "#f09a50",
     "Nível 3": "#e8c53a",
     "Nível 4": "#72be79",
     "Nível 5": "#7aaed4",
+}
+
+# Ordem de exibição dos critérios (label[0] = topo do gráfico)
+ORDEM_CRITERIOS = {
+    "Governanca": [
+        "Operacionalidade",
+        "Espaço de diálogo federativo",
+        "Sustentabilidade Financeira",
+        "Diversidade e Representatividade",
+        "Comunicação e Transparência",
+    ],
+    "Politicas e Planos": [
+        "Operacionalidade",
+        "Espaço de diálogo federativo",
+        "Sustentabilidade Financeira",
+        "Comunicação e Transparência",
+    ],
+    "Programas": [
+        "Cooperação Federativa",
+        "Capilaridade e Alcance Territorial",
+        "Fortalecimento da Capacidade Local",
+        "Monitoramento e Participação Local",
+        "Sustentabilidade Financeira",
+    ],
+    "Linhas de Financiamento": [
+        "Desenho Participativo da Linha de Financiamento",
+        "Capacidade de Execução Descentralizada",
+        "Monitoramento e Prestação de Contas",
+    ],
 }
 
 # O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
@@ -29,10 +86,10 @@ EIXO_MAP = {
     "Linhas de Financiamento": "Linhas de Financiamento",
 }
 
-# Cache em memória
+# Cache em memória por idioma
 _cache = {
-    "df": None,
-    "timestamp": 0,
+    "pt": {"df": None, "timestamp": 0},
+    "en": {"df": None, "timestamp": 0},
 }
 
 
@@ -60,33 +117,41 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_parametros() -> pd.DataFrame:
+def _ler_parametros(lang: str = "pt") -> pd.DataFrame:
     agora = time.time()
+    c = _cache[lang]
 
-    if _cache["df"] is not None and (agora - _cache["timestamp"]) < CACHE_TTL:
-        print("[CACHE HIT] Usando dados em memória.")
-        return _cache["df"]
+    if c["df"] is not None and (agora - c["timestamp"]) < CACHE_TTL:
+        logger.info("painel_multinivel[%s]: cache hit", lang)
+        return c["df"]
 
-    print("[CACHE MISS] Buscando dados do Google Sheets...")
+    logger.info("painel_multinivel[%s]: cache miss — buscando Google Sheets", lang)
+    cfg = SHEET_PARAMETROS[lang]
     client = _get_client()
-    sh = client.open_by_key(SHEET_PARAMETROS_ID)
-    ws = sh.worksheet(WORKSHEET_NAME)
-    dados = ws.get_all_records()
-    df = pd.DataFrame(dados)
+    sh = client.open_by_key(cfg["id"])
+    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
+    df = pd.DataFrame(ws.get_all_records())
+    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
+        df.rename(columns=_EN_COLS, inplace=True)
+        if "Eixo" in df.columns:
+            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
+        if "Nível" in df.columns:
+            df["Nível"] = df["Nível"].astype(str).str.replace(
+                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            )
 
-    _cache["df"] = df
-    _cache["timestamp"] = agora
+    c["df"] = df
+    c["timestamp"] = agora
 
-    # LOG: mostra os valores únicos da coluna Eixo para diagnóstico
     if "Eixo" in df.columns:
-        print("[CACHE] Eixos na planilha:", df["Eixo"].unique().tolist())
+        logger.debug("painel_multinivel[%s]: eixos=%s", lang, df["Eixo"].unique().tolist())
 
-    print(f"[CACHE] {len(df)} registros. Expira em {CACHE_TTL // 60} min.")
+    logger.info("painel_multinivel: %d registros, expira em %d min", len(df), CACHE_TTL // 60)
     return df
 
 
-def get_total_municipios() -> int:
-    df = _ler_parametros()
+def get_total_municipios(lang: str = "pt") -> int:
+    df = _ler_parametros(lang)
     if df.empty or not {"Eixo", "Avaliação", "Nível"}.issubset(df.columns):
         return 0
     df_valid = df[df["Nível"].isin(CORES_NIVEL.keys())]
@@ -94,7 +159,7 @@ def get_total_municipios() -> int:
     return int(contagem.max()) if not contagem.empty else 0
 
 
-def dados_para_grafico(eixo_front: str) -> dict:
+def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front)
     if not eixo_busca:
         return {
@@ -103,7 +168,7 @@ def dados_para_grafico(eixo_front: str) -> dict:
             "erro": f"Eixo desconhecido: {eixo_front}",
         }
 
-    df = _ler_parametros()
+    df = _ler_parametros(lang)
 
     # Verifica colunas mínimas
     colunas_esperadas = {"Eixo", "Avaliação", "Nível"}
@@ -125,23 +190,25 @@ def dados_para_grafico(eixo_front: str) -> dict:
     # Filtra pelo eixo e por níveis válidos
     df_eixo = df[(df["Eixo_norm"] == eixo_norm) & (df["Nível"].isin(CORES_NIVEL.keys()))].copy()
 
-    print(
-        f"[FILTRO] Eixo '{eixo_front}' → '{eixo_busca}' → norm '{eixo_norm}': "
-        f"{len(df_eixo)} registros"
-    )
-
     if df_eixo.empty:
         return {"labels": [], "datasets": []}
 
-    # Ordena Avaliações pelo score de Nível 5 (igual ao R)
-    score = (
-        df_eixo[df_eixo["Nível"] == "Nível 5"].groupby("Avaliação").size().reset_index(name="score")
-    )
     todas = df_eixo["Avaliação"].unique().tolist()
-    score_df = pd.DataFrame({"Avaliação": todas})
-    score_df = score_df.merge(score, on="Avaliação", how="left").fillna(0)
-    score_df = score_df.sort_values("score", ascending=True)
-    labels = score_df["Avaliação"].tolist()
+
+    # Ordena conforme a sequência definida por eixo
+    ordem = ORDEM_CRITERIOS.get(eixo_front, [])
+    if ordem:
+        ordem_norm = [_normalizar(o) for o in ordem]
+
+        def _sort_key(av):
+            try:
+                return ordem_norm.index(_normalizar(av))
+            except ValueError:
+                return len(ordem_norm)
+
+        labels = sorted(todas, key=_sort_key)
+    else:
+        labels = sorted(todas)
 
     # Contagem por Avaliação + Nível
     contagem = df_eixo.groupby(["Avaliação", "Nível"]).size().reset_index(name="qtd")
@@ -154,9 +221,10 @@ def dados_para_grafico(eixo_front: str) -> dict:
             filtro = contagem[(contagem["Avaliação"] == avaliacao) & (contagem["Nível"] == nivel)]
             data.append(int(filtro["qtd"].sum()))
 
+        label_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         datasets.append(
             {
-                "label": nivel,
+                "label": label_display,
                 "data": data,
                 "backgroundColor": cor,
                 "borderWidth": 0,

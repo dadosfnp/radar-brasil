@@ -1,10 +1,28 @@
 ﻿* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body { margin: 0; padding: 0; }
+html { margin: 0; padding: 0; font-size: 100%; scroll-behavior: smooth; }
+body { margin: 0; padding: 0; }
+
+/* ── Skip link ── */
+.rb-skip-link {
+    position: absolute;
+    top: -100%;
+    left: 8px;
+    z-index: 9999;
+    padding: 8px 16px;
+    background: var(--color-header-bg);
+    color: #c2ede7;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0 0 6px 6px;
+    text-decoration: none;
+    transition: top .1s;
+}
+.rb-skip-link:focus { top: 0; }
 
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     color: #123;
     min-height: 100vh;
     display: flex;
@@ -13,13 +31,7 @@ body.rb-body {
 
 /* HEADER */
 .rb-header-wrapper {
-    background-color: #061e1b;
-    background-image:
-        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
-        url('/static/img/bg-header.png');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-color: var(--color-header-bg);
     width: 100%;
     flex-shrink: 0;
     padding: 10px 0;
@@ -34,13 +46,7 @@ body.rb-body {
     left: 0;
     right: 0;
     height: 10px;
-    background-color: #061e1b;
-    background-image:
-        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
-        url('/static/img/bg-header.png');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background-color: var(--color-header-bg);
 }
 
 .rb-header {
@@ -64,14 +70,14 @@ body.rb-body {
 }
 
 .rb-header-title h1 {
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 2px;
 }
 
 .rb-header-title p {
-    font-size: 13px;
+    font-size: 0.8125rem;
     opacity: 0.9;
 }
 
@@ -119,73 +125,58 @@ body.rb-body {
     opacity: 1;
 }
 
-/* MENU NAV */
-:root {
-    /* ── Paleta de cores base ── */
-    --hdr-900: #122e38;
-    --hdr-800: #1e4d5c;
-    --hdr-700: #2c6174;
-    --hdr-500: #427a88;
-    --hdr-300: #5c97aa;
-    --hdr-200: #75b3a6;
-    --hdr-100: #a7d4ce;
-    --hdr-50:  #d4ecea;
-    --bdy-200: #a7c7c7;
-    --bdy-100: #ccdeea;
-    --bdy-50:  #dee9f4;
-
-    /* ── Aliases semânticos de cor ── */
-    --color-primary:       #2c6174;   /* = --hdr-700 */
-    --color-primary-dark:  #1a3d4d;   /* botões, nav escuro */
-    --color-primary-deep:  #103758;   /* headings, títulos */
-    --color-primary-light: #427a88;   /* = --hdr-500, hovers */
-    --color-teal:          #2c7873;   /* accent teal (gráficos, focus) */
-
-    /* ── Texto ── */
-    --color-text-primary:   #103758;
-    --color-text-secondary: #3a6070;
-    --color-text-muted:     #6b8a96;
-    --color-text-faint:     #4a6a7c;
-    --color-text-dark:      #2a4a5a;
-
-    /* ── Backgrounds ── */
-    --color-bg-page:   #bdd6e0;
-    --color-bg-card:   #ffffff;
-    --color-bg-input:  #f5f8fa;
-    --color-bg-subtle: #eef2f6;
-    --color-bg-ocean:  #bdd8e8;
-
-    /* ── Bordas ── */
-    --color-border:        #e4ecf0;
-    --color-border-input:  #ccdde5;
-    --color-border-subtle: #c8dde5;
-
-    /* ── Tipografia ── */
-    --font-sans:    'Roboto', system-ui, sans-serif;
-    --font-display: 'Sora', 'Roboto', sans-serif;
-    --font-ui:      'DM Sans', 'Roboto', sans-serif;
-
-    /* ── Border radius ── */
-    --radius-sm:   4px;
-    --radius-md:   6px;
-    --radius-lg:   10px;
-    --radius-xl:   14px;
-    --radius-2xl:  16px;
-    --radius-full: 9999px;
-
-    /* ── Sombras ── */
-    --shadow-sm: 0 2px 8px  rgba(16,55,88,.08);
-    --shadow-md: 0 4px 16px rgba(16,55,88,.10);
-    --shadow-lg: 0 4px 28px rgba(16,55,88,.12);
-    --shadow-xl: 0 8px 40px rgba(16,55,88,.16);
-
-    /* ── Transições ── */
-    --transition-fast: 150ms;
-    --transition-base: 200ms;
-    --transition-slow: 300ms;
-    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-spring:  cubic-bezier(0.22, 1, 0.36, 1);
+/* ── Seletor de idioma ─────────────────────────────────── */
+.rb-header-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
 }
+
+.rb-lang-form {
+    margin: 0;
+}
+
+.rb-lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rb-lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: color 0.15s, background 0.15s;
+    line-height: 1;
+}
+
+.rb-lang-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.rb-lang-btn.active {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.rb-lang-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.6875rem;
+    line-height: 1;
+    user-select: none;
+}
+
+/* MENU NAV — variáveis definidas em tokens.css */
 
 .rb-main-nav {
     position: sticky;
@@ -204,7 +195,7 @@ body.rb-body {
     text-decoration: none;
     color: var(--hdr-700);
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 500;
     padding: 10px 16px;
     border-bottom: 3px solid transparent;
@@ -225,12 +216,25 @@ body.rb-body {
     background: rgba(167, 212, 206, 0.14);
 }
 
+.rb-nav-link:focus-visible {
+    outline: 2px solid var(--hdr-500);
+    outline-offset: -2px;
+    border-radius: 4px;
+}
+
+.rb-nav-hamburger:focus-visible,
+.rb-social-icon:focus-visible {
+    outline: 2px solid #c2ede7;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
 /* MAIN - CARDS*/
 .rb-main {
     max-width: 1000px;
     margin: 16px auto 0;
     padding: 24px;
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     border-radius: 16px;
     min-height: 70vh;
     flex-grow: 1;
@@ -240,13 +244,7 @@ body.rb-body {
 .rb-footer-landing {
     position: relative;
     width: 100%;
-    background-color: #061e1b;
-    background-image:
-        linear-gradient(rgba(6, 20, 18, 0.72), rgba(6, 20, 18, 0.72)),
-        url('/static/img/bg-header.png');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    background-color: var(--color-header-bg);
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -276,7 +274,7 @@ body.rb-body {
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    padding: 0 40px 5px 40px;
+    padding: 0 40px 0 40px;
     min-height: 80px;
     box-sizing: border-box;
 }
@@ -291,14 +289,14 @@ body.rb-body {
 }
 
 .rb-footer-col-left h3 {
-    font-size: 21px;
+    font-size: 1.3125rem;
     font-weight: 900;
     color: rgba(194, 237, 231, 0.90);
     margin-bottom: 6px;
 }
 
 .rb-footer-col-left p {
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
     line-height: 1.5;
     margin-bottom: 4px;
@@ -308,7 +306,7 @@ body.rb-body {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
     flex-wrap: wrap;
     margin-top: 4px;
@@ -330,31 +328,34 @@ body.rb-body {
 
 .rb-footer-sep {
     color: rgba(194, 237, 231, 0.40);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 .rb-footer-whats {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    font-size: 16px;
+    font-size: 1rem;
     color: rgba(194, 237, 231, 0.65);
 }
 
-/* ---- COLUNA CENTRAL ---- */
-.rb-footer-col-center {
-    flex: 1;
-    text-align: center;
+/* ---- BARRA DE COPYRIGHT ---- */
+.rb-footer-bottom {
     display: flex;
-    align-items: flex-end;
     justify-content: center;
-    padding-bottom: 5px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin-top: 12px;
 }
 
 .rb-footer-copy {
-    font-size: 16px;
+    font-size: 0.875rem;
     color: rgba(194, 237, 231, 0.38);
     line-height: 1.4;
+    margin: 0;
     white-space: nowrap;
 }
 
@@ -375,7 +376,7 @@ body.rb-body {
 }
 
 .rb-footer-social-block h3 {
-    font-size: 21px;
+    font-size: 1.3125rem;
     font-weight: 900;
     color: rgba(194, 237, 231, 0.90);
 }
@@ -421,9 +422,9 @@ body.rb-body {
 }
 
 .rb-footer-logo {
-    height: 72px;
+    height: 44px;
     width: auto;
-    max-width: 150px;
+    max-width: 110px;
     object-fit: contain;
     display: block;
     filter: brightness(0) invert(1);
@@ -506,12 +507,12 @@ body.rb-body {
         text-align: center;
     }
     .rb-header-title h1 {
-        font-size: 15px;
+        font-size: 0.9375rem;
         letter-spacing: 0.5px;
         margin-bottom: 1px;
     }
     .rb-header-title p {
-        font-size: 10px;
+        font-size: 0.625rem;
         opacity: 0.85;
     }
 
@@ -552,7 +553,7 @@ body.rb-body {
         border-left: 3px solid transparent;
         white-space: normal;
         text-align: left;
-        font-size: 14px;
+        font-size: 0.875rem;
     }
     .rb-nav-link.active {
         border-bottom-color: rgba(167, 212, 206, 0.25);
@@ -587,24 +588,24 @@ body.rb-body {
         border-bottom: 1px solid rgba(194,237,231,.12);
     }
     .rb-footer-col-left h3 {
-        font-size: 15px;
+        font-size: 0.9375rem;
         margin-bottom: 8px;
     }
     .rb-footer-col-left p {
-        font-size: 13px;
+        font-size: 0.8125rem;
         line-height: 1.55;
         margin-bottom: 4px;
     }
     .rb-footer-fone {
-        font-size: 13px;
+        font-size: 0.8125rem;
         gap: 5px;
         margin-top: 6px;
     }
     .rb-footer-sep {
-        font-size: 13px;
+        font-size: 0.8125rem;
     }
     .rb-footer-whats {
-        font-size: 13px;
+        font-size: 0.8125rem;
     }
 
     /* Copyright — separado como bloco central */
@@ -618,7 +619,7 @@ body.rb-body {
     }
     .rb-footer-copy {
         white-space: normal;
-        font-size: 11px;
+        font-size: 0.6875rem;
         text-align: center;
         line-height: 1.5;
     }
@@ -638,26 +639,33 @@ body.rb-body {
         width: 100%;
     }
     .rb-footer-social-block h3 {
-        font-size: 15px;
+        font-size: 0.9375rem;
     }
     .rb-footer-social {
         gap: 8px;
+        justify-content: space-between;
+        width: 100%;
     }
     .rb-social-icon {
         width: 38px;
         height: 38px;
         border-radius: 9px;
+        flex: 1;
+        max-width: 54px;
     }
 
     /* Logos parceiros */
     .rb-footer-logos {
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 12px;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: 8px;
         width: 100%;
+        align-items: center;
     }
     .rb-footer-logo {
-        height: 38px;
-        max-width: 100px;
+        height: 34px;
+        max-width: none;
+        flex: 1;
+        object-fit: contain;
     }
 }

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,8 +16,8 @@
 
         <!-- Hero CTA -->
         <div class="lp-hero-card">
-            <div class="lp-hero-eyebrow">Conheça</div>
-            <div class="lp-hero-title">O que é o <em>Radar Brasil</em> — Federalismo Climático?</div>
+            <div class="lp-hero-eyebrow">{% trans "Conheça" %}</div>
+            <div class="lp-hero-title">{% trans "O que é o Radar Brasil — Federalismo Climático?" %}</div>
             <div class="lp-hero-arrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </div>
@@ -27,15 +27,15 @@
         <div class="lp-side-card">
             <div class="lp-side-card-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
-                O Radar Brasil na mídia
+                {% trans "O Radar Brasil na mídia" %}
             </div>
             <div class="lp-news-item">
-                <div class="lp-news-tag">Iniciativa</div>
-                <p class="lp-news-text">Brasil lança iniciativa para estruturar 100 ações climáticas de impacto nos municípios.</p>
+                <div class="lp-news-tag">{% trans "Iniciativa" %}</div>
+                <p class="lp-news-text">{% trans "Brasil lança iniciativa para estruturar 100 ações climáticas de impacto nos municípios." %}</p>
             </div>
             <div class="lp-news-item">
-                <div class="lp-news-tag">Evento</div>
-                <p class="lp-news-text">Cidades selecionadas para primeira fase do Cidades Modelo Verdes Resilientes foram anunciadas durante o 1º Encontro Cidades Verdes Resilientes. A iniciativa oferta suporte técnico para desenvolver duas ações climáticas de grande impacto.</p>
+                <div class="lp-news-tag">{% trans "Evento" %}</div>
+                <p class="lp-news-text">{% trans "Cidades selecionadas para primeira fase do Cidades Modelo Verdes Resilientes foram anunciadas durante o 1º Encontro Cidades Verdes Resilientes. A iniciativa oferta suporte técnico para desenvolver duas ações climáticas de grande impacto." %}</p>
             </div>
         </div>
 
@@ -43,12 +43,12 @@
         <div class="lp-side-card">
             <div class="lp-side-card-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                Agenda Radar Brasil
+                {% trans "Agenda Radar Brasil" %}
             </div>
             <div class="lp-agenda-icon">
-                <img src="{% static 'img/agenda-land.png' %}" alt="Agenda">
+                <img src="{% static 'img/agenda-land.png' %}" alt="{% trans 'Agenda' %}" loading="lazy">
             </div>
-            <button class="lp-btn-side">Ver Agenda</button>
+            <button class="lp-btn-side">{% trans "Ver Agenda" %}</button>
         </div>
 
     </aside>
@@ -60,16 +60,16 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_metodologia.png' %}" alt="Metodologia">
+                    <img src="{% static 'img/card_metodologia.png' %}" alt="{% trans 'Metodologia' %}" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
-                    <span class="lp-card-number">01 — Metodologia</span>
-                    <div class="lp-card-title">Desvendando o Federalismo Climático: <em>Nossa Metodologia</em></div>
-                    <p class="lp-card-desc">Desenvolvemos uma metodologia robusta que avalia a cooperação interfederativa nas ações climáticas.</p>
+                    <span class="lp-card-number">01 — {% trans "Metodologia" %}</span>
+                    <div class="lp-card-title">{% trans "Desvendando o Federalismo Climático: Nossa Metodologia" %}</div>
+                    <p class="lp-card-desc">{% trans "Desenvolvemos uma metodologia robusta que avalia a cooperação interfederativa nas ações climáticas." %}</p>
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="{% url 'municipios:metodologia' %}" class="lp-btn-card">Saiba mais</a>
+                <a href="{% url 'municipios:metodologia' %}" class="lp-btn-card" aria-label="{% trans 'Saiba mais sobre a Metodologia do Radar Brasil' %}">{% trans "Saiba mais" %}</a>
             </div>
         </div>
 
@@ -77,16 +77,16 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_paineis_avaliacao.png' %}" alt="Painéis">
+                    <img src="{% static 'img/card_paineis_avaliacao.png' %}" alt="{% trans 'Painéis' %}" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
-                    <span class="lp-card-number">02 — Painéis</span>
-                    <div class="lp-card-title">Painéis de Avaliação Interativos: <em>Radiografia Federativa</em></div>
-                    <p class="lp-card-desc">Explore dados climáticos através de painéis interativos que oferecem uma visão completa das ações federativas em todo o Brasil.</p>
+                    <span class="lp-card-number">02 — {% trans "Painéis" %}</span>
+                    <div class="lp-card-title">{% trans "Painéis de Avaliação Interativos: Radiografia Federativa" %}</div>
+                    <p class="lp-card-desc">{% trans "Explore dados climáticos através de painéis interativos que oferecem uma visão completa das ações federativas em todo o Brasil." %}</p>
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="{% url 'municipios:inicio' %}" class="lp-btn-card">Acessar painéis</a>
+                <a href="{% url 'municipios:inicio' %}" class="lp-btn-card">{% trans "Acessar painéis" %}</a>
             </div>
         </div>
 
@@ -94,16 +94,16 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_mapa_interfederativo.png' %}" alt="Mapa">
+                    <img src="{% static 'img/card_mapa_interfederativo.png' %}" alt="{% trans 'Mapa' %}" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
-                    <span class="lp-card-number">03 — Mapa</span>
-                    <div class="lp-card-title">Conectando Ações: <em>Mapa Inter-federativo</em></div>
-                    <p class="lp-card-desc">Visualize geograficamente as conexões e sinergias entre diferentes níveis de governo nas ações climáticas em todo o território nacional.</p>
+                    <span class="lp-card-number">03 — {% trans "Mapa" %}</span>
+                    <div class="lp-card-title">{% trans "Conectando Ações: Mapa Inter-federativo" %}</div>
+                    <p class="lp-card-desc">{% trans "Visualize geograficamente as conexões e sinergias entre diferentes níveis de governo nas ações climáticas em todo o território nacional." %}</p>
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="{% url 'indicadores:mapa_georreferenciado' %}" class="lp-btn-card">Explorar mapa</a>
+                <a href="{% url 'indicadores:mapa_georreferenciado' %}" class="lp-btn-card">{% trans "Explorar mapa" %}</a>
             </div>
         </div>
 
@@ -111,16 +111,19 @@
         <div class="lp-content-card">
             <div class="lp-card-inner">
                 <div class="lp-card-img">
-                    <img src="{% static 'img/card_ecossistema_colaboracao.png' %}" alt="Ecossistema">
+                    <img src="{% static 'img/card_ecossistema_colaboracao.png' %}" alt="{% trans 'Ecossistema' %}" loading="lazy">
                 </div>
                 <div class="lp-card-text-wrap">
-                    <span class="lp-card-number">04 — Ecossistema</span>
-                    <div class="lp-card-title">Ecossistema de Colaboração: <em>Outras Iniciativas e Recursos</em></div>
-                    <p class="lp-card-desc">Conecte-se com uma rede ampla de organizações, iniciativas e recursos que fortalecem a ação climática no Brasil.</p>
+                    <span class="lp-card-number">04 — {% trans "Ecossistema" %}</span>
+                    <div class="lp-card-title">{% trans "Ecossistema de Colaboração: Outras Iniciativas e Recursos" %}</div>
+                    <p class="lp-card-desc">{% trans "Conecte-se com uma rede ampla de organizações, iniciativas e recursos que fortalecem a ação climática no Brasil." %}</p>
                 </div>
             </div>
             <div class="lp-card-footer">
-                <a href="#" class="lp-btn-card">Saiba mais</a>
+                <span class="lp-btn-card lp-btn-card--soon" aria-disabled="true" title="{% trans 'Em breve' %}">
+                    {% trans "Saiba mais" %}
+                    <span class="lp-soon-badge">{% trans "Em breve" %}</span>
+                </span>
             </div>
         </div>
 
@@ -130,11 +133,16 @@
 
 {% block extra_js %}
 <script>
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.lp-content-card').forEach((card, i) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(18px)';
-    card.style.transition = 'opacity .45s ease, transform .45s ease';
-    setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 120 + i * 110);
+    if (reducedMotion) {
+        card.style.opacity = '1';
+    } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(18px)';
+        card.style.transition = 'opacity .45s ease, transform .45s ease';
+        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 120 + i * 110);
+    }
 });
 </script>
 {% endblock %}

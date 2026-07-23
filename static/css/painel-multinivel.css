@@ -1,9 +1,9 @@
-/* ==============================
+﻿/* ==============================
    PÁGINA PAINEL MULTINÍVEL
    ============================== */
 
 body.painel-multinivel-page {
-    background: #bdd6e0;
+    background: var(--color-bg-page);
     font-family: "Roboto", "Segoe UI", Arial, sans-serif;
 }
 
@@ -20,6 +20,94 @@ body.painel-multinivel-page .rb-main {
     max-width: 1080px;
     margin: 32px auto 40px;
     padding: 0 20px;
+}
+
+/* ══════════════════════════════
+   BACK TO INÍCIO CARD
+   ══════════════════════════════ */
+
+.pm-back-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,.60);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(200,220,230,.65);
+    border-radius: 14px;
+    padding: 12px 18px;
+    margin-bottom: 16px;
+    text-decoration: none;
+    transition: background .18s, box-shadow .18s, transform .15s;
+    cursor: pointer;
+}
+
+.pm-back-card:hover {
+    background: rgba(255,255,255,.85);
+    box-shadow: 0 4px 16px rgba(30,70,90,.10);
+    transform: translateY(-1px);
+}
+
+.pm-back-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gradient-landing);
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.pm-back-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.pm-back-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    line-height: 1.2;
+}
+
+.pm-back-sub {
+    font-size: 0.6875rem;
+    color: #7a8a9a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pm-back-chips {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.pm-back-chip {
+    font-size: 0.59375rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--color-primary);
+    background: rgba(53,96,115,.10);
+    border: 1px solid rgba(53,96,115,.18);
+    border-radius: 20px;
+    padding: 3px 9px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .pm-back-chips { display: none; }
+    .pm-back-sub { display: none; }
+}
+
+@media (max-width: 480px) {
+    .pm-back-card { padding: 10px 14px; }
 }
 
 /* ══════════════════════════════
@@ -43,54 +131,35 @@ body.painel-multinivel-page .rb-main {
 }
 
 .pm-kpi-label {
-    font-size: 10.5px;
+    font-size: 0.65625rem;
     font-weight: 700;
     letter-spacing: .10em;
     text-transform: uppercase;
-    color: #2c6174;
+    color: var(--color-primary);
     margin-bottom: 6px;
 }
 
 .pm-kpi-value {
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: 700;
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     line-height: 1;
 }
 
 .pm-kpi-sub {
-    font-size: 11.5px;
+    font-size: 0.71875rem;
     color: #7a8a9a;
     margin-top: 5px;
     line-height: 1.4;
 }
 
 /* ══════════════════════════════
-   PANEL CARD
+   PANEL CARD + TAB BAR
+   → .pm-panel-card e .pm-card-header definidos em components.css
    ══════════════════════════════ */
 
-.pm-panel-card {
-    background: rgba(255,255,255,.74);
-    backdrop-filter: blur(26px) saturate(1.3);
-    -webkit-backdrop-filter: blur(26px) saturate(1.3);
-    border: 1.5px solid rgba(255,255,255,.88);
-    border-radius: 20px;
-    box-shadow: 0 8px 40px rgba(10,45,41,.12), 0 1px 4px rgba(10,45,41,.06);
-    overflow: hidden;
-}
-
-/* ── Tab bar ── */
-.pm-card-header {
-    display: flex;
-    align-items: stretch;
-    background: linear-gradient(135deg, #1e424f 0%, #2c6174 55%, #356073 100%);
-    padding: 0 10px;
-    gap: 2px;
-    border-bottom: 1px solid rgba(255,255,255,.12);
-}
-
 .pm-panel-label {
-    font-size: 9.5px;
+    font-size: 0.59375rem;
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
@@ -132,7 +201,7 @@ body.painel-multinivel-page .rb-main {
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 12.5px;
+    font-size: 0.78125rem;
     font-weight: 500;
     color: rgba(194,237,231,.60);
     cursor: pointer;
@@ -149,7 +218,7 @@ body.painel-multinivel-page .rb-main {
 /* aba ativa: pílula branca que "cola" na área do gráfico */
 .pm-tabs li.active button {
     background: rgba(255,255,255,.96);
-    color: #1a3d4d;
+    color: var(--color-primary-dark);
     font-weight: 600;
     box-shadow: 0 -3px 12px rgba(0,0,0,.12);
 }
@@ -171,7 +240,7 @@ body.painel-multinivel-page .rb-main {
     height: 14px;
     object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: 0.72;
+    opacity: 0.88;
 }
 
 .pm-tabs li.active .pm-tab-icon-img {
@@ -206,40 +275,7 @@ body.painel-multinivel-page .rb-main {
     margin-top: 16px;
 }
 
-/* ══════════════════════════════
-   BOTÃO CRITÉRIOS
-   ══════════════════════════════ */
-
-.pm-criteria-badge {
-    font-family: "Roboto", sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .10em;
-    text-transform: uppercase;
-    color: #fff;
-    background: linear-gradient(135deg, #1e424f 0%, #2c6174 60%, #356073 100%);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 22px;
-    cursor: pointer;
-    transition: transform .2s, box-shadow .2s;
-    box-shadow: 0 4px 16px rgba(38,74,87,.35), inset 0 1px 0 rgba(255,255,255,.14);
-    position: relative;
-    overflow: hidden;
-}
-
-.pm-criteria-badge::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, transparent 60%);
-    pointer-events: none;
-}
-
-.pm-criteria-badge:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(38,74,87,.42), inset 0 1px 0 rgba(255,255,255,.16);
-}
+/* ── .pm-criteria-badge → definido em components.css ── */
 
 .pm-criteria-badge:active {
     transform: translateY(0);
@@ -253,18 +289,28 @@ body.painel-multinivel-page .rb-main {
     .pm-wrapper { margin: 8px; padding: 0; }
     .pm-kpi-strip { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
     .pm-kpi-card { padding: 12px 14px; }
-    .pm-kpi-value { font-size: 22px; }
+    .pm-kpi-value { font-size: 1.375rem; }
 
     /* Tab bar: esconde label "PAINEL MULTINÍVEL", abas rolam horizontalmente */
     .pm-panel-label { display: none; }
     .pm-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
     .pm-tabs ul { flex-wrap: nowrap; gap: 2px; }
-    .pm-tabs button { padding: 10px 12px; font-size: 11.5px; gap: 5px; white-space: nowrap; }
+    .pm-tabs button { padding: 10px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; }
 
     .pm-chart-area { padding: 16px 12px 14px; }
     .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 300px !important; }
     .pm-chart-footer { margin-top: 12px; justify-content: center; }
     .pm-criteria-badge { width: 100%; text-align: center; }
+}
+
+@media print {
+    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing,
+    .pm-chart-footer, .pm-criteria-badge { display: none !important; }
+
+    body, .pm-wrapper { background: #fff !important; }
+    .pm-panel-card { box-shadow: none !important; border: 1px solid #ccc !important; }
+    .pm-card-header { background: #264a57 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: auto !important; max-height: 340px !important; }
 }
 
 @media (max-width: 480px) {
@@ -296,7 +342,7 @@ body.painel-multinivel-page .rb-main {
     }
     .pm-tabs button span::after {
         content: attr(data-short);
-        font-size: 9.5px;
+        font-size: 0.59375rem;
         font-weight: 600;
         letter-spacing: .02em;
         line-height: 1;
