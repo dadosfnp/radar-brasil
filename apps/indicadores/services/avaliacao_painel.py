@@ -298,7 +298,7 @@ def get_ficha(estrutura: str, lang: str = "pt") -> dict:
     for col in _CAMPOS_ORDER:
         if col not in row.index:
             continue
-        val = str(row[col]).strip()
+        val = str(row[col]).strip().replace("\r\n", "\n").replace("\r", "\n")
         if not val or val in invalid:
             continue
         label = _CAMPOS_LABELS[col][label_idx]
