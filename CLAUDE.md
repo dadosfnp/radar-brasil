@@ -9,9 +9,8 @@
 
 **Radar Brasil** é uma plataforma Django para monitoramento do federalismo climático brasileiro. Permite avaliar, comparar e explorar dados climáticos de municípios em todo o território nacional. Desenvolvida pela FNP — Frente Nacional de Prefeitas e Prefeitos.
 
-URL de produção: Render (branch `main`)
+URL de produção: Render (branch `main` do remoto `prod`)
 Branch de desenvolvimento ativo: `next`
-Branch de feature atual: `feat/i18n-english`
 
 ---
 
@@ -20,10 +19,9 @@ Branch de feature atual: `feat/i18n-english`
 | Camada | Tecnologia |
 |---|---|
 | Backend | Django 6.0.1 · Python 3.10+ |
-| API | Django REST Framework |
 | Banco (dev) | SQLite |
 | Banco (prod) | PostgreSQL via Render |
-| Dados dinâmicos | gspread (Google Sheets) · pandas · openpyxl · xlrd |
+| Dados dinâmicos | gspread (Google Sheets) · pandas |
 | Mapas | Leaflet.js · html2canvas |
 | Estáticos | WhiteNoise |
 | Env vars | python-dotenv |
@@ -44,7 +42,6 @@ apps/
       financiamento_climatico.py ← tabela de financiamentos
       mapa_georreferenciado.py   ← dados do mapa Leaflet
   municipios/          ← views e urls principais
-  api/                 ← DRF (pouco usado)
   usuarios/            ← autenticação
 static/
   css/                 ← um arquivo por página
@@ -64,17 +61,47 @@ docs/
 
 ---
 
+## Git — Remotos
+
+O projeto tem **dois remotos**:
+
+| Remoto | URL | Uso |
+|---|---|---|
+| `origin` | `https://github.com/brunofnp/radar-brasil.git` | Repositório pessoal — CI GitHub Actions |
+| `prod` | `https://github.com/dadosfnp/radar-brasil.git` | Repositório da organização FNP — **Render monitora este** |
+
+**CRÍTICO:** Para subir para produção é obrigatório fazer push nos dois:
+```powershell
+git push origin main
+git push prod main
+```
+Fazer push só em `origin` NÃO aciona o deploy no Render.
+
+---
+
 ## Fontes de Dados — Google Sheets
 
-Todos os serviços leem via `gspread` com cache em memória de **1800s (30 min)**. Reiniciar o servidor ou aguardar o TTL para ver novos dados.
+Todos os serviços leem via `gspread` com cache em memória de **1800s (30 min)**. Reiniciar o servidor ou aguardar o TTL para ver novos dados. Cada serviço tem cache separado por idioma (`{"pt": ..., "en": ...}`).
 
-| Serviço | Arquivo | Sheet ID | GID |
-|---|---|---|---|
-| `avaliacao_painel.py` | Fichas Técnicas | `16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8` | (worksheet "dados") |
-| `avaliacao_painel.py` | Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | (worksheet "dados") |
-| `painel_multinivel.py` | Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | (worksheet "dados") |
-| `financiamento_climatico.py` | Financiamentos | `1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c` | `793540087` |
-| `mapa_georreferenciado.py` | Mapa | `1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs` | `1619423236` |
+### Sheets PT
+
+| Serviço | Sheet ID | GID / worksheet |
+|---|---|---|
+| `avaliacao_painel.py` — Fichas | `16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8` | worksheet "dados" |
+| `avaliacao_painel.py` — Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
+| `painel_multinivel.py` — Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
+| `financiamento_climatico.py` | `1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c` | GID `793540087` |
+| `mapa_georreferenciado.py` | `1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs` | GID `1619423236` |
+
+### Sheets EN
+
+| Serviço | Sheet ID | GID |
+|---|---|---|
+| `avaliacao_painel.py` — Fichas EN | `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` | `1400373985` |
+| `avaliacao_painel.py` — Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
+| `painel_multinivel.py` — Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
+| `financiamento_climatico.py` EN | `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` | `449650871` |
+| `mapa_georreferenciado.py` EN | `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` | primeira aba |
 
 **Colunas relevantes de `avaliacao_painel.py`:**
 - `Link_eixo` — URL do eixo (usado no título da ficha técnica)
@@ -115,6 +142,18 @@ RBi18n.getLang()                  // → "pt" ou "en"
 **Problema conhecido — encoding NFC/NFD:**
 Strings com ã, ç etc. podem falhar no lookup do dict por discrepância de normalização Unicode entre arquivos. Solução: usar chaves ASCII no dict ou criar dicts paralelos com chaves ASCII (ex.: `EIXO_LABELS_EN` em `avaliacao-painel.js`).
 
+### Normalização EN → PT nos services
+
+Sheets EN têm cabeçalhos e valores em inglês. Cada service aplica:
+1. `df.rename(columns=_EN_COLS)` — mapeia nomes de colunas EN → PT
+2. `df["Eixo"].replace(_EN_EIXO)` — mapeia valores do eixo EN → PT
+3. Regex `Level N → Nível N` na coluna Nível
+4. Na camada de saída, converte de volta: `nivel.replace("Nível ", "Level ")` quando `lang == "en"`
+
+**Quebras de linha em campos de texto (fichas técnicas):**
+- Backend (`get_ficha`): normaliza `\r\n` e `\r` → `\n` em todos os valores de campo
+- Frontend (`avaliacao-painel.js`): converte `\n` → `<br>` explicitamente ao montar o HTML
+
 ---
 
 ## CSS — Convenções de Nomenclatura
@@ -143,19 +182,34 @@ Design: Glassmorphism com `backdrop-filter`, cards translúcidos, fundo `#bdd6e0
 
 ---
 
+## CI — GitHub Actions
+
+Arquivo: `.github/workflows/ci.yml`
+
+Roda em push para `next` e `main` (remoto `origin`):
+1. `flake8 apps setup` — lint Python (max-line-length=100, config em `.flake8`)
+2. `black apps setup --check` — formatação Python
+3. `pytest apps/indicadores/tests.py -v --tb=short` — 13 testes
+
+**Antes de commitar código Python**: sempre rodar `python -m flake8 apps setup` e `python -m black apps setup --check` localmente.
+
+---
+
 ## Git — Fluxo de Trabalho
 
 ```
-feature/nome  →  next  →  main (produção Render)
-bugfix/nome   ↗
-feat/i18n-english  ← branch atual de i18n EN
+feature/nome  →  next  →  main
+bugfix/nome   ↗           ↓
+                    push origin main + push prod main
+                           ↓
+                        Render (produção)
 ```
 
 **Regras:**
 - Nunca commitar diretamente em `next` ou `main`
 - Sempre partir de `next` para criar branches de trabalho
 - `main` só recebe via merge de `next`
-- Branch `feat/i18n-english` é desenvolvimento — **não subir para produção ainda**
+- Ao subir para produção: `git push origin main` **E** `git push prod main`
 
 ---
 
@@ -187,54 +241,38 @@ Padrão: **Conventional Commits**, descrições em **português**
 2. **Nunca** inserir "Generated with Claude Code" no corpo de PRs
 3. **Todo commit** deve incluir atualização de `docs/CHANGELOG.md` no mesmo commit
 4. **Toda alteração de design** deve ser registrada em `docs/design.md` antes do commit
-5. Branch `feat/i18n-english` é **somente desenvolvimento** — não fazer push para produção
-6. Commits via PowerShell: usar variável `$msg = @'...'@` + `git commit -m $msg` para evitar problemas com acentos
+5. Commits via PowerShell: usar variável `$msg = @'...'@` + `git commit -m $msg` para evitar problemas com acentos
+6. **Produção** exige push nos dois remotos: `git push origin main` + `git push prod main`
 
 ---
 
 ## Estado Atual do Projeto (2026-07-23)
 
-### Branch `next` — publicado no remoto
+### Branch `next` e `main` — publicados em ambos os remotos
 
-Limpeza de arquivos sem uso mergeada e publicada em `next` (commit `a2d4513`):
-- 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
-- `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
-- `openpyxl` e `et_xmlfile` removidos do `requirements.txt`
-- `print()` convertidos para `logger` em `painel_multinivel.py`
-- `CLAUDE.md` criado e commitado
-- Fix flake8 E501 aplicado (`a2d4513`)
+Commit atual: `e5f3e8e` (next) / merge em main
 
-### Branch `feat/i18n-english` — LOCAL, não publicado
-
-Branch integra i18n EN completo + limpeza. Commits recentes:
-
-```
-34101b3 fix: corrige linha longa no logger do painel_multinivel (flake8 E501)
-9ac82e0 merge next: integra limpeza de arquivos sem uso ao branch i18n-english
-0ccd55d fix: cor dos hiperlinks da ficha tecnica herda cor original do texto
-8b8364b feat: atualiza banco de dados e adiciona hiperlinks nas fichas tecnicas
-6224cc6 fix: corrige todas as strings PT remanescentes no modo EN
-43d9be3 fix: traduz strings dinâmicas do Avaliação Painel Multinível no modo EN
-5309290 fix: traduz rodapé e aria-labels do menu hamburguer para EN no base.html
-020ea9f fix: adiciona 'Anterior', 'Próximo' e 'de' ao dicionário i18n.js
-964113e feat: aplica i18n completo em toda a plataforma (9 templates + 5 JS)
-e3b847d feat: implementa tradução EN com seletor PT|EN no header
-```
-
-**O que está no branch:**
+**i18n EN completo em produção** — tudo mergeado e publicado:
 - Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
 - `locale/en/LC_MESSAGES/django.po` com 243 strings + `django.mo` compilado
 - `static/js/i18n.js` com `DICT.en` cobrindo todos os módulos
 - i18n aplicado em 9 templates + 5 arquivos JS
-- Fichas técnicas com hyperlinks nas palavras (`link_eixo`, `link_orgao`, `link_arcabouco`)
-- Serviços atualizados para novos Google Sheets (5 fontes)
-- Toda a limpeza do `next` já incorporada via merge
+- Fichas técnicas com hyperlinks (`link_eixo`, `link_orgao`, `link_arcabouco`)
+- Banco de dados EN: 5 Google Sheets em inglês com cache por idioma
+- Normalização EN→PT de colunas e valores nos 4 services
+- Labels de ficha técnica em inglês no modo EN (`_CAMPOS_LABELS`)
+- Exibição "Level N" (em vez de "Nível N") nos gráficos e tabelas EN
+- Filtro correto de campos "Does not apply" no modo EN
+- Quebras de linha normalizadas no campo Composição das fichas
+
+**Limpeza incorporada:**
+- 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
+- `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
+- `print()` convertidos para `logger` em `painel_multinivel.py`
 
 ### Pendências
 
-- **Banco de dados EN**: usuário mencionou possibilidade de fornecer URLs de Google Sheets em inglês para abastecer a versão EN da plataforma. Aguardando URLs.
-- **Merge feat/i18n-english → next**: branch local pronto, aguardando decisão de quando publicar.
-- **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado.
+- **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado, aguardando decisão.
 
 ---
 
@@ -244,7 +282,7 @@ Quando o usuário sinalizar fim do dia:
 
 1. Atualizar este arquivo (`CLAUDE.md`) com o estado atual do projeto
 2. Verificar se `docs/CHANGELOG.md` e `docs/design.md` estão atualizados
-3. Confirmar quais commits estão locais e quais foram publicados
+3. Confirmar quais commits estão locais e quais foram publicados (origin + prod)
 4. Registrar pendências e próximos passos na seção "Estado Atual"
 
 ---
