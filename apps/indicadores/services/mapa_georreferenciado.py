@@ -10,19 +10,19 @@ CACHE_TTL = 1800
 
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
 _EN_COLS = {
-    "Municipality":        "Municípios",
-    "Municipalities":      "Municípios",
-    "Axis":                "Eixo",
-    "Stage":               "Estágio",
-    "Profile":             "Perfil",
-    "Estimate_2023_2030":  "Estimativa_2023_2030",
-    "Population":          "Populacao",
-    "Enterprise":          "Empreendimento",
-    "Project":             "Empreendimento",
-    "Type_of_Executor":    "Tipo de Executor",
-    "Executor_Type":       "Tipo de Executor",
+    "Municipality": "Municípios",
+    "Municipalities": "Municípios",
+    "Axis": "Eixo",
+    "Stage": "Estágio",
+    "Profile": "Perfil",
+    "Estimate_2023_2030": "Estimativa_2023_2030",
+    "Population": "Populacao",
+    "Enterprise": "Empreendimento",
+    "Project": "Empreendimento",
+    "Type_of_Executor": "Tipo de Executor",
+    "Executor_Type": "Tipo de Executor",
     "Percentage_executed": "Percentual_executado",
-    "Modality":            "Modalidade",
+    "Modality": "Modalidade",
 }
 
 SHEET_MAPA = {

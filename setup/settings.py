@@ -99,7 +99,7 @@ TIME_ZONE = "America/Sao_Paulo"
 USE_I18N = True
 USE_TZ = True
 
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _  # noqa: E402
 LANGUAGES = [
     ("pt-br", _("Português")),
     ("en", _("English")),

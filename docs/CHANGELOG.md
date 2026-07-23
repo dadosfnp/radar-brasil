@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-23 — `next` / `main`
+
+### Fix — flake8 E241, E402, F401 (CI desbloqueado)
+
+- **`mapa_georreferenciado.py` `_EN_COLS`:** Removidos espaços de alinhamento após `:` (E241). Mesmo padrão já corrigido em `avaliacao_painel.py`, `financiamento_climatico.py` e `painel_multinivel.py` em commit anterior.
+- **`setup/settings.py` linha 102:** Adicionado `# noqa: E402` no import `gettext_lazy as _` (import após `USE_TZ = True`, linha não-import).
+- **`setup/urls.py` linha 4:** Removido `from django.conf.urls.i18n import i18n_patterns` (F401 — importado mas nunca usado; `i18n_urls` na linha seguinte é o que o código efetivamente usa).
+
+**Arquivos:** `apps/indicadores/services/mapa_georreferenciado.py`, `setup/settings.py`, `setup/urls.py`
+
+---
+
 ## 2026-07-23 — `pendente`
 
 ### Fix — Labels de nivel exibem "Level N" em vez de "Nivel N" no modo EN
