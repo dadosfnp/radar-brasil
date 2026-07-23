@@ -111,7 +111,7 @@ def _ler_parametros() -> pd.DataFrame:
     if "Eixo" in df.columns:
         logger.debug("painel_multinivel: eixos=%s", df["Eixo"].unique().tolist())
 
-    logger.info("painel_multinivel: %d registros carregados, expira em %d min", len(df), CACHE_TTL // 60)
+    logger.info("painel_multinivel: %d registros, expira em %d min", len(df), CACHE_TTL // 60)
     return df
 
 
