@@ -6,6 +6,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Fix — Normalização de valores EN→PT em colunas discriminadoras
+
+- **Causa raiz:** As sheets EN têm não só os cabeçalhos em inglês, mas também os *valores* das colunas discriminadoras (`Axis`, `Level`) em inglês — ex: `"Governance"`, `"Level 1"`. O código interno compara com `"Governanca"`, `"Nível 1"` → resultado sempre 0 / vazio.
+- **`painel_multinivel.py`:** Adicionado `_EN_EIXO` (dict valor EN→PT para Eixo) e regex `Level N → Nível N` aplicados após o rename de colunas. Corrige: ASSESSED INSTANCES = 0 e gráfico em branco.
+- **`avaliacao_painel.py`:** Mesmo mecanismo (`_EN_EIXO` + regex Nível). Corrige: dropdown de instâncias vazio na aba Assessment.
+- **`avaliacao_painel.py` `_EN_COLS`:** Nomes reais das colunas da sheet fichas EN confirmados via diagnóstico e corrigidos: `Responsible_agency` (era `Responsible_body`), `Agency_link` (era `Body_link`), `Regulatory_framework` (era `Normative_framework`), `Decision_authority` (era `Decision_character`), `Counterpart_funding` (era `Counterpart`). Corrige: campos de ficha técnica em branco no modo EN.
+- **`financiamento_climatico.py` `_EN_COLS`:** Nomes reais confirmados via diagnóstico: `Programs_and_funding_lines`, `Resource_origin`, `Funding_amount`, `Minimum_counterpart`, `Transfer_funding_type`. Corrige: coluna Programas mostrando "—" e donut Origem sem dados.
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
 ### Feat — Banco de dados EN: Google Sheets em inglês por idioma
 
 - **`avaliacao_painel.py`:** `SHEET_FICHAS` e `SHEET_PARAMS` agora são dicts `{"pt": ..., "en": ...}`; cache separado por idioma (`_cache_fichas["pt"/"en"]`); funções `get_filtros`, `get_tabela`, `get_ficha` recebem `lang="pt"`

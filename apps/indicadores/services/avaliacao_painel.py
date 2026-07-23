@@ -11,6 +11,7 @@ CACHE_TTL = 1800  # 30 min
 
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
 _EN_COLS = {
+    # Colunas comuns (fichas + params)
     "Structure":                  "Estrutura",
     "Axis":                       "Eixo",
     "Axis_link":                  "Link_eixo",
@@ -20,21 +21,27 @@ _EN_COLS = {
     "Descriptive":                "Descritivo",
     "Evaluation":                 "Avaliação",
     "Classification":             "Classificação",
+    # Colunas das fichas técnicas (nomes confirmados via diagnóstico)
     "Description":                "Descricao",
-    "Responsible_body":           "Orgao_responsavel",
-    "Normative_framework":        "Arcabouco_normativo",
-    "Counterpart":                "Contrapartida",
+    "Responsible_agency":         "Orgao_responsavel",   # nome real na sheet
+    "Responsible_body":           "Orgao_responsavel",   # variação alternativa
+    "Agency_link":                "Link_orgao",          # nome real na sheet
+    "Body_link":                  "Link_orgao",          # variação alternativa
+    "Regulatory_framework":       "Arcabouco_normativo", # nome real na sheet
+    "Normative_framework":        "Arcabouco_normativo", # variação alternativa
+    "Framework_link":             "Link_arcabouco",
     "Federative_dialogue_space":  "Espaco_dialogo_federativo",
     "Financing":                  "Financiamento",
     "Periodicity":                "Periodicidade",
     "Composition":                "Composicao",
-    "Decision_character":         "Carater_decisorio",
+    "Decision_authority":         "Carater_decisorio",   # nome real na sheet
+    "Decision_character":         "Carater_decisorio",   # variação alternativa
     "Related_policy_plan":        "Politica_Plano_relacionado",
+    "Counterpart_funding":        "Contrapartida",       # nome real na sheet
+    "Counterpart":                "Contrapartida",       # variação alternativa
     "Modality":                   "Modalidade",
     "Transfer":                   "Repasse",
     "Sources":                    "Fontes",
-    "Body_link":                  "Link_orgao",
-    "Framework_link":             "Link_arcabouco",
 }
 
 # ── Sheet IDs por idioma ──────────────────────────────────────
@@ -77,6 +84,16 @@ LABEL_SETOR = {
     "Linhas de Financiamento": "Setor",
 }
 
+# Valores EN → PT para colunas discriminadoras
+_EN_EIXO = {
+    "Governance":         "Governanca",
+    "Policies & Plans":   "Politicas e Planos",
+    "Policies and Plans": "Politicas e Planos",
+    "Programs":           "Programas",
+    "Financing Lines":    "Linhas de Financiamento",
+    "Financing Line":     "Linhas de Financiamento",
+}
+
 _cache_fichas = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 _cache_params = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 
@@ -112,8 +129,14 @@ def _ler_sheet(cfg: dict, cache_lang: dict) -> pd.DataFrame:
     sh = client.open_by_key(cfg["id"])
     ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
     df = pd.DataFrame(ws.get_all_records())
-    if cfg.get("gid"):  # sheet EN — normaliza nomes de coluna para PT
+    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
         df.rename(columns=_EN_COLS, inplace=True)
+        if "Eixo" in df.columns:
+            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
+        if "Nível" in df.columns:
+            df["Nível"] = df["Nível"].astype(str).str.replace(
+                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            )
     cache_lang["df"] = df
     cache_lang["ts"] = agora
     return df

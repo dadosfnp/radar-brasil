@@ -10,21 +10,31 @@ CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 CACHE_TTL = 1800
 
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
+# Nomes reais confirmados via shell: underscores, mix PT/EN
 _EN_COLS = {
-    "Programs and Financing Lines":  "Programas e Linhas de Financiamento",
-    "Program":                        "Programas e Linhas de Financiamento",
-    "Sector":                         "Setor",
-    "Modality":                       "Modalidade",
-    "Source of Funds":                "Origem dos Recursos",
-    "Resource Origin":                "Origem dos Recursos",
-    "Origin":                         "Origem dos Recursos",
-    "Entity":                         "Ente",
-    "Federal Entity":                 "Ente",
-    "Financing Value":                "Valor de Financiamento",
-    "Financing_Value":                "Valor de Financiamento",
-    "Counterpart":                    "Contrapartida",
-    "State":                          "Estadual",
-    "Municipal":                      "Municipal",
+    # Programas
+    "Programs_and_funding_lines":          "Programas e Linhas de Financiamento",
+    "Programs and Financing Lines":        "Programas e Linhas de Financiamento",
+    "Program":                             "Programas e Linhas de Financiamento",
+    "Programs":                            "Programas e Linhas de Financiamento",
+    # Origem dos recursos
+    "Resource_origin":                     "Origem dos Recursos",
+    "Source of Funds":                     "Origem dos Recursos",
+    "Sources of Funds":                    "Origem dos Recursos",
+    "Resource Origin":                     "Origem dos Recursos",
+    "Origin":                              "Origem dos Recursos",
+    # Valor
+    "Funding_amount":                      "Valor de Financiamento",
+    "Financing Value":                     "Valor de Financiamento",
+    "Financing Amount":                    "Valor de Financiamento",
+    # Contrapartida
+    "Minimum_counterpart":                 "Contrapartida",
+    "Counterpart":                         "Contrapartida",
+    # Ente
+    "Transfer_funding_type":               "Ente",
+    "Entity":                              "Ente",
+    "Federal Entity":                      "Ente",
+    # Setor, Modalidade, Federal, Estadual, Municipal já estão com nomes PT na sheet
 }
 
 SHEET_FIN = {

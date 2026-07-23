@@ -15,15 +15,25 @@ CACHE_TTL = 1800  # 30 minutos
 
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
 _EN_COLS = {
-    "Structure":    "Estrutura",
-    "Axis":         "Eixo",
-    "Axis_link":    "Link_eixo",
-    "Sector":       "Setor",
-    "Level":        "Nível",
-    "Criterion":    "Critério",
-    "Descriptive":  "Descritivo",
-    "Evaluation":   "Avaliação",
+    "Structure":      "Estrutura",
+    "Axis":           "Eixo",
+    "Axis_link":      "Link_eixo",
+    "Sector":         "Setor",
+    "Level":          "Nível",
+    "Criterion":      "Critério",
+    "Descriptive":    "Descritivo",
+    "Evaluation":     "Avaliação",
     "Classification": "Classificação",
+}
+
+# Valores EN → PT para colunas discriminadoras (eixo, nível)
+_EN_EIXO = {
+    "Governance":         "Governanca",
+    "Policies & Plans":   "Politicas e Planos",
+    "Policies and Plans": "Politicas e Planos",
+    "Programs":           "Programas",
+    "Financing Lines":    "Linhas de Financiamento",
+    "Financing Line":     "Linhas de Financiamento",
 }
 
 SHEET_PARAMETROS = {
@@ -121,8 +131,14 @@ def _ler_parametros(lang: str = "pt") -> pd.DataFrame:
     sh = client.open_by_key(cfg["id"])
     ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
     df = pd.DataFrame(ws.get_all_records())
-    if cfg.get("gid"):  # sheet EN — normaliza colunas para PT
+    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
         df.rename(columns=_EN_COLS, inplace=True)
+        if "Eixo" in df.columns:
+            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
+        if "Nível" in df.columns:
+            df["Nível"] = df["Nível"].astype(str).str.replace(
+                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            )
 
     c["df"] = df
     c["timestamp"] = agora
