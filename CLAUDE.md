@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-07-23
+> Última atualização: 2026-07-23 (atualização automática)
 
 ---
 
@@ -194,33 +194,46 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-07-23)
 
-### Branch `feat/i18n-english` — i18n EN completo (LOCAL, não publicado)
+### Branch `next` — publicado no remoto
 
-**O que foi feito:**
-- Implementado seletor PT|EN no header (`base.html`)
-- `LocaleMiddleware` + `LANGUAGES` + `LOCALE_PATHS` no `settings.py`
-- `locale/en/LC_MESSAGES/django.po` com 243 strings traduzidas
+Limpeza de arquivos sem uso mergeada e publicada em `next` (commit `a2d4513`):
+- 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
+- `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
+- `openpyxl` e `et_xmlfile` removidos do `requirements.txt`
+- `print()` convertidos para `logger` em `painel_multinivel.py`
+- `CLAUDE.md` criado e commitado
+- Fix flake8 E501 aplicado (`a2d4513`)
+
+### Branch `feat/i18n-english` — LOCAL, não publicado
+
+Branch integra i18n EN completo + limpeza. Commits recentes:
+
+```
+34101b3 fix: corrige linha longa no logger do painel_multinivel (flake8 E501)
+9ac82e0 merge next: integra limpeza de arquivos sem uso ao branch i18n-english
+0ccd55d fix: cor dos hiperlinks da ficha tecnica herda cor original do texto
+8b8364b feat: atualiza banco de dados e adiciona hiperlinks nas fichas tecnicas
+6224cc6 fix: corrige todas as strings PT remanescentes no modo EN
+43d9be3 fix: traduz strings dinâmicas do Avaliação Painel Multinível no modo EN
+5309290 fix: traduz rodapé e aria-labels do menu hamburguer para EN no base.html
+020ea9f fix: adiciona 'Anterior', 'Próximo' e 'de' ao dicionário i18n.js
+964113e feat: aplica i18n completo em toda a plataforma (9 templates + 5 JS)
+e3b847d feat: implementa tradução EN com seletor PT|EN no header
+```
+
+**O que está no branch:**
+- Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
+- `locale/en/LC_MESSAGES/django.po` com 243 strings + `django.mo` compilado
 - `static/js/i18n.js` com `DICT.en` cobrindo todos os módulos
 - i18n aplicado em 9 templates + 5 arquivos JS
-- Todos os textos restantes em PT traduzidos (auditoria completa)
 - Fichas técnicas com hyperlinks nas palavras (`link_eixo`, `link_orgao`, `link_arcabouco`)
-- CSS para links nas fichas (`color: inherit`, underline sutil, hover teal)
-- `avaliacao_painel.py` refatorado para retornar `link_eixo` e `url` por campo
 - Serviços atualizados para novos Google Sheets (5 fontes)
-
-**Commits no branch (locais):**
-```
-e3b847d feat: implementa tradução EN com seletor PT|EN no header
-964113e feat: aplica i18n completo em toda a plataforma (9 templates + 5 JS)
-020ea9f fix: adiciona 'Anterior', 'Próximo' e 'de' ao dicionário i18n.js
-5309290 fix: traduz rodapé e aria-labels do menu hamburguer para EN
-43d9be3 fix: traduz strings dinâmicas do Avaliação Painel Multinível no modo EN
-+ commits de hyperlinks e novos Google Sheets
-```
+- Toda a limpeza do `next` já incorporada via merge
 
 ### Pendências
 
 - **Banco de dados EN**: usuário mencionou possibilidade de fornecer URLs de Google Sheets em inglês para abastecer a versão EN da plataforma. Aguardando URLs.
+- **Merge feat/i18n-english → next**: branch local pronto, aguardando decisão de quando publicar.
 - **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado.
 
 ---
