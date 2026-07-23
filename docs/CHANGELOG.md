@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Fix — Labels de nivel exibem "Level N" em vez de "Nivel N" no modo EN
+
+- **`painel_multinivel.py` `dados_para_grafico`:** Label do dataset usa `nivel.replace("Nivel ", "Level ")` quando `lang="en"`. Corrige: legenda e barras do grafico Painel Multinivel mostrando "Nivel 1"..."Nivel 5" em EN.
+- **`avaliacao_painel.py` `get_tabela`:** Campo `nivel` retorna "Level N" quando `lang="en"`. Corrige: badge de nivel na tabela de Avaliacao Painel mostrando "Nivel N" em EN.
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
 ### Fix — Colunas Sector, Modality, State do financiamento EN
 
 - **`financiamento_climatico.py` `_EN_COLS`:** Sheet EN usa `Sector`, `Modality`, `State` (inglês) para essas colunas. Adicionado mapeamento correto para `Setor`, `Modalidade`, `Estadual`. Corrige: coluna Sector e Modality exibindo "—" na tabela EN.

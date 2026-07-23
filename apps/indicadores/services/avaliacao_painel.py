@@ -229,12 +229,13 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
     for _, row in df_est.iterrows():
         nivel = row["Nível"]
         cor = CORES_NIVEL.get(nivel, "#E0E0E0")
+        nivel_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         result.append(
             {
                 "avaliacao": str(row.get("Avaliação", "")).strip(),
                 "criterio": str(row.get("Critério", "")).strip(),
                 "descritivo": str(row.get("Descritivo", "")).strip(),
-                "nivel": nivel,
+                "nivel": nivel_display,
                 "cor": cor,
             }
         )

@@ -221,9 +221,10 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
             filtro = contagem[(contagem["Avaliação"] == avaliacao) & (contagem["Nível"] == nivel)]
             data.append(int(filtro["qtd"].sum()))
 
+        label_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         datasets.append(
             {
-                "label": nivel,
+                "label": label_display,
                 "data": data,
                 "backgroundColor": cor,
                 "borderWidth": 0,
