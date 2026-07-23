@@ -15,25 +15,25 @@ CACHE_TTL = 1800  # 30 minutos
 
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
 _EN_COLS = {
-    "Structure":      "Estrutura",
-    "Axis":           "Eixo",
-    "Axis_link":      "Link_eixo",
-    "Sector":         "Setor",
-    "Level":          "Nível",
-    "Criterion":      "Critério",
-    "Descriptive":    "Descritivo",
-    "Evaluation":     "Avaliação",
+    "Structure": "Estrutura",
+    "Axis": "Eixo",
+    "Axis_link": "Link_eixo",
+    "Sector": "Setor",
+    "Level": "Nível",
+    "Criterion": "Critério",
+    "Descriptive": "Descritivo",
+    "Evaluation": "Avaliação",
     "Classification": "Classificação",
 }
 
 # Valores EN → PT para colunas discriminadoras (eixo, nível)
 _EN_EIXO = {
-    "Governance":         "Governanca",
-    "Policies & Plans":   "Politicas e Planos",
+    "Governance": "Governanca",
+    "Policies & Plans": "Politicas e Planos",
     "Policies and Plans": "Politicas e Planos",
-    "Programs":           "Programas",
-    "Financing Lines":    "Linhas de Financiamento",
-    "Financing Line":     "Linhas de Financiamento",
+    "Programs": "Programas",
+    "Financing Lines": "Linhas de Financiamento",
+    "Financing Line": "Linhas de Financiamento",
 }
 
 SHEET_PARAMETROS = {

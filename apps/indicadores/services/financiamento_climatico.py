@@ -13,31 +13,31 @@ CACHE_TTL = 1800
 # Nomes reais confirmados via shell: underscores, mix PT/EN
 _EN_COLS = {
     # Programas
-    "Programs_and_funding_lines":          "Programas e Linhas de Financiamento",
-    "Programs and Financing Lines":        "Programas e Linhas de Financiamento",
-    "Program":                             "Programas e Linhas de Financiamento",
-    "Programs":                            "Programas e Linhas de Financiamento",
+    "Programs_and_funding_lines": "Programas e Linhas de Financiamento",
+    "Programs and Financing Lines": "Programas e Linhas de Financiamento",
+    "Program": "Programas e Linhas de Financiamento",
+    "Programs": "Programas e Linhas de Financiamento",
     # Origem dos recursos
-    "Resource_origin":                     "Origem dos Recursos",
-    "Source of Funds":                     "Origem dos Recursos",
-    "Sources of Funds":                    "Origem dos Recursos",
-    "Resource Origin":                     "Origem dos Recursos",
-    "Origin":                              "Origem dos Recursos",
+    "Resource_origin": "Origem dos Recursos",
+    "Source of Funds": "Origem dos Recursos",
+    "Sources of Funds": "Origem dos Recursos",
+    "Resource Origin": "Origem dos Recursos",
+    "Origin": "Origem dos Recursos",
     # Valor
-    "Funding_amount":                      "Valor de Financiamento",
-    "Financing Value":                     "Valor de Financiamento",
-    "Financing Amount":                    "Valor de Financiamento",
+    "Funding_amount": "Valor de Financiamento",
+    "Financing Value": "Valor de Financiamento",
+    "Financing Amount": "Valor de Financiamento",
     # Contrapartida
-    "Minimum_counterpart":                 "Contrapartida",
-    "Counterpart":                         "Contrapartida",
+    "Minimum_counterpart": "Contrapartida",
+    "Counterpart": "Contrapartida",
     # Ente
-    "Transfer_funding_type":               "Ente",
-    "Entity":                              "Ente",
-    "Federal Entity":                      "Ente",
+    "Transfer_funding_type": "Ente",
+    "Entity": "Ente",
+    "Federal Entity": "Ente",
     # Colunas que o sheet EN usa em inglês
-    "Sector":                              "Setor",
-    "Modality":                            "Modalidade",
-    "State":                               "Estadual",
+    "Sector": "Setor",
+    "Modality": "Modalidade",
+    "State": "Estadual",
 }
 
 SHEET_FIN = {
