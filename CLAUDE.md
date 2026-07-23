@@ -248,11 +248,9 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-07-23)
 
-### Branch `next` e `main` — publicados em ambos os remotos
+### Branch `next` — `8a6a2df` | Branch `main` — `6739c9e` (ambos publicados)
 
-Commit atual: `e5f3e8e` (next) / merge em main
-
-**i18n EN completo em produção** — tudo mergeado e publicado:
+**i18n EN completo em produção** — tudo mergeado e publicado em `origin` e `prod`:
 - Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
 - `locale/en/LC_MESSAGES/django.po` com 243 strings + `django.mo` compilado
 - `static/js/i18n.js` com `DICT.en` cobrindo todos os módulos
@@ -263,15 +261,27 @@ Commit atual: `e5f3e8e` (next) / merge em main
 - Labels de ficha técnica em inglês no modo EN (`_CAMPOS_LABELS`)
 - Exibição "Level N" (em vez de "Nível N") nos gráficos e tabelas EN
 - Filtro correto de campos "Does not apply" no modo EN
-- Quebras de linha normalizadas no campo Composição das fichas
+- Quebras de linha normalizadas no campo Composição das fichas (PT e EN)
+- Heurística de split para itens concatenados sem separador na sheet EN
 
 **Limpeza incorporada:**
 - 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
 - `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
 - `print()` convertidos para `logger` em `painel_multinivel.py`
 
+### Divergência `next` / `main` — problema cosmético pendente
+
+O `main` acumulou commits de merge ("Merge branch 'next'") que o `next` não tem. Isso:
+- Impede `git merge --ff-only next` (fast-forward)
+- Faz o Render exibir "Merge branch 'next'" no histórico de deploys em vez do nome real do commit
+
+**Fix planejado (requer autorização):** `git push origin main --force-with-lease` e `git push prod main --force-with-lease` apontando `main` para o mesmo commit do `next`. Aguardando confirmação do usuário.
+
+**Workaround atual:** usar `git merge next -m "<mensagem descritiva>"` ao invés do merge padrão para que o Render exiba algo útil.
+
 ### Pendências
 
+- **Divergência next/main**: corrigir com force push em `main` (aguardando autorização)
 - **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado, aguardando decisão.
 
 ---
