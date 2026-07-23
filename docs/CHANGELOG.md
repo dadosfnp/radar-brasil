@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `next` / `main`
 
+### Fix — Composição da ficha técnica EN: itens concatenados sem separador
+
+- **`avaliacao_painel.py` `get_ficha`:** Adicionada heurística para valores sem quebra de linha: se o valor tem mais de 50 caracteres e não contém `\n`, aplica regex `(?<=[a-z])(?=[A-Z])` para inserir `\n` nas transições minúscula→maiúscula. Detecta e corrige itens de lista que a sheet EN armazena concatenados sem nenhum separador (ex: `"Union: 06 representativesStates: 06..."` → três linhas separadas). Valores curtos ou já com `\n` não são afetados.
+- Adicionado `import re` no topo do arquivo.
+
+**Arquivo:** `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
 ### Fix — Quebras de linha no campo Composição da ficha técnica EN
 
 - **`avaliacao_painel.py` `get_ficha`:** Normaliza separadores de linha no valor de cada campo (`\r\n` e `\r` → `\n`). Corrige: sheet EN usa `\r` ou `\r\n`, que o browser ignorava mesmo com `white-space: pre-wrap`, exibindo itens da Composição colados sem espaço.

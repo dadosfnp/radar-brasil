@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 import unicodedata
 import gspread
@@ -299,6 +300,10 @@ def get_ficha(estrutura: str, lang: str = "pt") -> dict:
         if col not in row.index:
             continue
         val = str(row[col]).strip().replace("\r\n", "\n").replace("\r", "\n")
+        # Sheet EN às vezes armazena itens de lista concatenados sem separador.
+        # Detecta transição direta minúscula→maiúscula e insere quebra de linha.
+        if "\n" not in val and len(val) > 50:
+            val = re.sub(r"(?<=[a-z])(?=[A-Z])", "\n", val)
         if not val or val in invalid:
             continue
         label = _CAMPOS_LABELS[col][label_idx]
