@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `next` / `main`
 
+### Style — formatação black (CI desbloqueado)
+
+- **`avaliacao_painel.py`, `painel_multinivel.py`, `setup/settings.py`:** Aplicada formatação automática `black` para alinhar ao padrão do CI. Arquivos reprovavam no step `black apps setup --check`.
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `setup/settings.py`
+
+---
+
 ### Fix — flake8 E241, E402, F401 (CI desbloqueado)
 
 - **`mapa_georreferenciado.py` `_EN_COLS`:** Removidos espaços de alinhamento após `:` (E241). Mesmo padrão já corrigido em `avaliacao_painel.py`, `financiamento_climatico.py` e `painel_multinivel.py` em commit anterior.
