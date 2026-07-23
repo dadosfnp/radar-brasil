@@ -6,9 +6,12 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID = "1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs"
-SHEET_GID = 1619423236
 CACHE_TTL = 1800
+
+SHEET_MAPA = {
+    "pt": {"id": "1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs", "gid": 1619423236},
+    "en": {"id": "1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk", "gid": None},
+}
 
 COORDS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "municipios_coords.json")
 
@@ -42,7 +45,7 @@ REGIAO_POR_UF = {
     "SC": "Sul",
 }
 
-_cache_sheet = {"df": None, "ts": 0}
+_cache_sheet = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 _coords_cache = None
 _nome_idx = None  # "nome_lower|UF" → entry
 
@@ -81,17 +84,20 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_sheet() -> pd.DataFrame:
+def _ler_sheet(lang: str = "pt") -> pd.DataFrame:
     agora = time.time()
-    if _cache_sheet["df"] is not None and (agora - _cache_sheet["ts"]) < CACHE_TTL:
-        return _cache_sheet["df"]
+    c = _cache_sheet[lang]
+    if c["df"] is not None and (agora - c["ts"]) < CACHE_TTL:
+        return c["df"]
+    cfg = SHEET_MAPA[lang]
     client = _get_client()
-    ws = client.open_by_key(SHEET_ID).get_worksheet_by_id(SHEET_GID)
+    sh = client.open_by_key(cfg["id"])
+    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.get_worksheet(0)
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
-    df.columns = [str(c).strip() for c in df.columns]
-    _cache_sheet["df"] = df
-    _cache_sheet["ts"] = agora
+    df.columns = [str(col).strip() for col in df.columns]
+    c["df"] = df
+    c["ts"] = agora
     return df
 
 
@@ -136,14 +142,14 @@ def _col(df, *names):
     return None
 
 
-def get_dados_mapa() -> dict:
+def get_dados_mapa(lang: str = "pt") -> dict:
     """
     Retorna um GeoJSON com UM feature por município (todos os 5.571 do Brasil).
     Municípios com financiamento: tem_financiamento=True + dados agregados.
     Municípios sem financiamento: tem_financiamento=False + dados geográficos apenas.
     Replica a lógica do app R: distinct(code_muni) + radius por porte populacional.
     """
-    df = _ler_sheet()
+    df = _ler_sheet(lang)
     coords = _load_coords()
 
     municipio_col = _col(df, "Municípios", "Municipios", "Município", "Municipio")
@@ -345,8 +351,8 @@ def get_dados_mapa() -> dict:
     return {"type": "FeatureCollection", "features": features}
 
 
-def get_filtros_mapa() -> dict:
-    df = _ler_sheet()
+def get_filtros_mapa(lang: str = "pt") -> dict:
+    df = _ler_sheet(lang)
 
     def uniq(col, *alts):
         name = _col(df, col, *alts)

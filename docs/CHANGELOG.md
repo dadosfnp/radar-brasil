@@ -6,6 +6,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Feat — Banco de dados EN: Google Sheets em inglês por idioma
+
+- **`avaliacao_painel.py`:** `SHEET_FICHAS` e `SHEET_PARAMS` agora são dicts `{"pt": ..., "en": ...}`; cache separado por idioma (`_cache_fichas["pt"/"en"]`); funções `get_filtros`, `get_tabela`, `get_ficha` recebem `lang="pt"`
+- **`painel_multinivel.py`:** `SHEET_PARAMETROS` dict por idioma; cache `_cache["pt"/"en"]`; `get_total_municipios` e `dados_para_grafico` recebem `lang="pt"`
+- **`financiamento_climatico.py`:** `SHEET_FIN` dict por idioma; cache `_cache["pt"/"en"]`; `get_filtros`, `get_tabela`, `get_graficos` recebem `lang="pt"`
+- **`mapa_georreferenciado.py`:** `SHEET_MAPA` dict por idioma (EN sem GID usa primeira aba); cache `_cache_sheet["pt"/"en"]`; `get_dados_mapa` e `get_filtros_mapa` recebem `lang="pt"`
+- **`views.py`:** Adicionada função `_lang(request)` que extrai idioma de `request.LANGUAGE_CODE`; todas as views de API passam `lang=_lang(request)` aos services
+
+**Sheets EN:**
+- Fichas: `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` (GID `1400373985`)
+- Parâmetros: `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` (GID `1708988989`)
+- Financiamento Climático: `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` (GID `449650871`)
+- Mapa: `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` (primeira aba)
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/views.py`
+
+---
+
 ### Refactor — Limpeza de arquivos sem serventia
 
 - Removido `apps/municipios/inicio.html` (template órfão fora da hierarquia `<app>/templates/`)

@@ -10,6 +10,11 @@ _EIXOS_VALIDOS = {"Governanca", "Politicas e Planos", "Programas", "Linhas de Fi
 _ERRO_GENERICO = "Erro ao processar a requisição."
 
 
+def _lang(request) -> str:
+    code = getattr(request, "LANGUAGE_CODE", "pt-br")
+    return "en" if str(code).startswith("en") else "pt"
+
+
 def _eixo_valido(request):
     eixo = request.GET.get("eixo", "Governanca")
     if eixo not in _EIXOS_VALIDOS:
@@ -19,7 +24,7 @@ def _eixo_valido(request):
 
 def painel_multinivel_view(request):
     try:
-        total_municipios = get_total_municipios()
+        total_municipios = get_total_municipios(lang=_lang(request))
     except Exception:
         total_municipios = "—"
     return render(
@@ -32,7 +37,7 @@ def api_painel_multinivel(request):
     if err:
         return err
     try:
-        dados = dados_para_grafico(eixo)
+        dados = dados_para_grafico(eixo, lang=_lang(request))
         return JsonResponse(dados)
     except Exception:
         logger.exception("Erro em api_painel_multinivel")
@@ -50,7 +55,7 @@ def api_avaliacao_filtros(request):
     try:
         from apps.indicadores.services.avaliacao_painel import get_filtros
 
-        return JsonResponse(get_filtros(eixo))
+        return JsonResponse(get_filtros(eixo, lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_avaliacao_filtros")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -63,7 +68,7 @@ def api_avaliacao_tabela(request):
     try:
         from apps.indicadores.services.avaliacao_painel import get_tabela
 
-        return JsonResponse({"rows": get_tabela(estrutura)})
+        return JsonResponse({"rows": get_tabela(estrutura, lang=_lang(request))})
     except Exception:
         logger.exception("Erro em api_avaliacao_tabela")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -76,7 +81,7 @@ def api_avaliacao_ficha(request):
     try:
         from apps.indicadores.services.avaliacao_painel import get_ficha
 
-        return JsonResponse(get_ficha(estrutura))
+        return JsonResponse(get_ficha(estrutura, lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_avaliacao_ficha")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -95,7 +100,7 @@ def api_mapa_dados(request):
     try:
         from apps.indicadores.services.mapa_georreferenciado import get_dados_mapa
 
-        return JsonResponse(get_dados_mapa())
+        return JsonResponse(get_dados_mapa(lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_mapa_dados")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -105,7 +110,7 @@ def api_mapa_filtros(request):
     try:
         from apps.indicadores.services.mapa_georreferenciado import get_filtros_mapa
 
-        return JsonResponse(get_filtros_mapa())
+        return JsonResponse(get_filtros_mapa(lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_mapa_filtros")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -123,7 +128,7 @@ def api_fin_cli_filtros(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_filtros
 
-        return JsonResponse(get_filtros())
+        return JsonResponse(get_filtros(lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_fin_cli_filtros")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -140,7 +145,7 @@ def api_fin_cli_tabela(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_tabela
 
-        return JsonResponse({"rows": get_tabela(filtros)})
+        return JsonResponse({"rows": get_tabela(filtros, lang=_lang(request))})
     except Exception:
         logger.exception("Erro em api_fin_cli_tabela")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -157,7 +162,7 @@ def api_fin_cli_graficos(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_graficos
 
-        return JsonResponse(get_graficos(filtros))
+        return JsonResponse(get_graficos(filtros, lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_fin_cli_graficos")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)

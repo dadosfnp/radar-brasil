@@ -7,9 +7,17 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_FICHAS_ID = "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8"
-SHEET_PARAMS_ID = "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE"
 CACHE_TTL = 1800  # 30 min
+
+# ── Sheet IDs por idioma ──────────────────────────────────────
+SHEET_FICHAS = {
+    "pt": {"id": "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8", "gid": None},
+    "en": {"id": "1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g", "gid": 1400373985},
+}
+SHEET_PARAMS = {
+    "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
+    "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
+}
 
 CORES_NIVEL = {
     "Nível 0": "#E0E0E0",
@@ -41,8 +49,8 @@ LABEL_SETOR = {
     "Linhas de Financiamento": "Setor",
 }
 
-_cache_fichas = {"df": None, "ts": 0}
-_cache_params = {"df": None, "ts": 0}
+_cache_fichas = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
+_cache_params = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 
 
 def _normalizar(texto: str) -> str:
@@ -68,29 +76,30 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_sheet(sheet_id: str, worksheet: str, cache: dict) -> pd.DataFrame:
+def _ler_sheet(cfg: dict, cache_lang: dict) -> pd.DataFrame:
     agora = time.time()
-    if cache["df"] is not None and (agora - cache["ts"]) < CACHE_TTL:
-        return cache["df"]
+    if cache_lang["df"] is not None and (agora - cache_lang["ts"]) < CACHE_TTL:
+        return cache_lang["df"]
     client = _get_client()
-    dados = client.open_by_key(sheet_id).worksheet(worksheet).get_all_records()
-    df = pd.DataFrame(dados)
-    cache["df"] = df
-    cache["ts"] = agora
+    sh = client.open_by_key(cfg["id"])
+    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
+    df = pd.DataFrame(ws.get_all_records())
+    cache_lang["df"] = df
+    cache_lang["ts"] = agora
     return df
 
 
-def _fichas() -> pd.DataFrame:
-    return _ler_sheet(SHEET_FICHAS_ID, "dados", _cache_fichas)
+def _fichas(lang: str = "pt") -> pd.DataFrame:
+    return _ler_sheet(SHEET_FICHAS[lang], _cache_fichas[lang])
 
 
-def _parametros() -> pd.DataFrame:
-    return _ler_sheet(SHEET_PARAMS_ID, "dados", _cache_params)
+def _parametros(lang: str = "pt") -> pd.DataFrame:
+    return _ler_sheet(SHEET_PARAMS[lang], _cache_params[lang])
 
 
-def get_filtros(eixo_front: str) -> dict:
+def get_filtros(eixo_front: str, lang: str = "pt") -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front, eixo_front)
-    df = _fichas()
+    df = _fichas(lang)
 
     label_estrutura = LABEL_ESTRUTURA.get(eixo_front, "Estrutura")
     label_setor = LABEL_SETOR.get(eixo_front, "Setor")
@@ -148,8 +157,8 @@ def get_filtros(eixo_front: str) -> dict:
     }
 
 
-def get_tabela(estrutura: str) -> list:
-    df = _parametros()
+def get_tabela(estrutura: str, lang: str = "pt") -> list:
+    df = _parametros(lang)
     if "Estrutura" not in df.columns:
         return []
 
@@ -179,8 +188,8 @@ def get_tabela(estrutura: str) -> list:
     return result
 
 
-def get_ficha(estrutura: str) -> dict:
-    df = _fichas()
+def get_ficha(estrutura: str, lang: str = "pt") -> dict:
+    df = _fichas(lang)
     if "Estrutura" not in df.columns:
         return {}
 

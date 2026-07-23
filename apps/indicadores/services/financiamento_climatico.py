@@ -7,11 +7,14 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_ID = "1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c"
-SHEET_GID = 793540087
 CACHE_TTL = 1800
 
-_cache = {"df": None, "ts": 0}
+SHEET_FIN = {
+    "pt": {"id": "1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c", "gid": 793540087},
+    "en": {"id": "1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk", "gid": 449650871},
+}
+
+_cache = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 
 CHART_COLORS = [
     "#2c7873",
@@ -40,17 +43,19 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_sheet() -> pd.DataFrame:
+def _ler_sheet(lang: str = "pt") -> pd.DataFrame:
     agora = time.time()
-    if _cache["df"] is not None and (agora - _cache["ts"]) < CACHE_TTL:
-        return _cache["df"]
+    c = _cache[lang]
+    if c["df"] is not None and (agora - c["ts"]) < CACHE_TTL:
+        return c["df"]
+    cfg = SHEET_FIN[lang]
     client = _get_client()
-    ws = client.open_by_key(SHEET_ID).get_worksheet_by_id(SHEET_GID)
+    ws = client.open_by_key(cfg["id"]).get_worksheet_by_id(cfg["gid"])
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
-    df.columns = [str(c).strip() for c in df.columns]
-    _cache["df"] = df
-    _cache["ts"] = agora
+    df.columns = [str(col).strip() for col in df.columns]
+    c["df"] = df
+    c["ts"] = agora
     return df
 
 
@@ -134,8 +139,8 @@ def _aplicar_filtros(df: pd.DataFrame, filtros: dict) -> pd.DataFrame:
 
 
 # ── Pública: filtros disponíveis ───────────────────────────────
-def get_filtros() -> dict:
-    df = _ler_sheet()
+def get_filtros(lang: str = "pt") -> dict:
+    df = _ler_sheet(lang)
     prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
     setor_col = _col(df, "Setor")
     mod_col = _col(df, "Modalidade")
@@ -151,8 +156,8 @@ def get_filtros() -> dict:
 
 
 # ── Pública: dados da tabela ───────────────────────────────────
-def get_tabela(filtros: dict) -> list:
-    df = _ler_sheet()
+def get_tabela(filtros: dict, lang: str = "pt") -> list:
+    df = _ler_sheet(lang)
     df = _aplicar_filtros(df, filtros)
 
     prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
@@ -184,8 +189,8 @@ def get_tabela(filtros: dict) -> list:
 
 
 # ── Pública: dados dos gráficos ────────────────────────────────
-def get_graficos(filtros: dict) -> dict:
-    df = _ler_sheet()
+def get_graficos(filtros: dict, lang: str = "pt") -> dict:
+    df = _ler_sheet(lang)
     df = _aplicar_filtros(df, filtros)
 
     setor_col = _col(df, "Setor")
