@@ -34,7 +34,10 @@ _EN_COLS = {
     "Transfer_funding_type":               "Ente",
     "Entity":                              "Ente",
     "Federal Entity":                      "Ente",
-    # Setor, Modalidade, Federal, Estadual, Municipal já estão com nomes PT na sheet
+    # Colunas que o sheet EN usa em inglês
+    "Sector":                              "Setor",
+    "Modality":                            "Modalidade",
+    "State":                               "Estadual",
 }
 
 SHEET_FIN = {

@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Fix — Colunas Sector, Modality, State do financiamento EN
+
+- **`financiamento_climatico.py` `_EN_COLS`:** Sheet EN usa `Sector`, `Modality`, `State` (inglês) para essas colunas. Adicionado mapeamento correto para `Setor`, `Modalidade`, `Estadual`. Corrige: coluna Sector e Modality exibindo "—" na tabela EN.
+
+**Arquivo:** `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
 ### Fix — Labels e filtragem de campos na ficha técnica EN
 
 - **`avaliacao_painel.py` `get_ficha`:** Labels das seções (DESCRIÇÃO, ÓRGÃO RESPONSÁVEL, ARCABOUÇO NORMATIVO, etc.) agora são exibidas em inglês quando `lang="en"`. Adicionado `_CAMPOS_LABELS` com pares `(label_pt, label_en)` e `_CAMPOS_ORDER` para ordem dos campos.
