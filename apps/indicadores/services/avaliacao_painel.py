@@ -12,36 +12,36 @@ CACHE_TTL = 1800  # 30 min
 # ── Mapeamento de colunas EN → PT ─────────────────────────────
 _EN_COLS = {
     # Colunas comuns (fichas + params)
-    "Structure":                  "Estrutura",
-    "Axis":                       "Eixo",
-    "Axis_link":                  "Link_eixo",
-    "Sector":                     "Setor",
-    "Level":                      "Nível",
-    "Criterion":                  "Critério",
-    "Descriptive":                "Descritivo",
-    "Evaluation":                 "Avaliação",
-    "Classification":             "Classificação",
+    "Structure": "Estrutura",
+    "Axis": "Eixo",
+    "Axis_link": "Link_eixo",
+    "Sector": "Setor",
+    "Level": "Nível",
+    "Criterion": "Critério",
+    "Descriptive": "Descritivo",
+    "Evaluation": "Avaliação",
+    "Classification": "Classificação",
     # Colunas das fichas técnicas (nomes confirmados via diagnóstico)
-    "Description":                "Descricao",
-    "Responsible_agency":         "Orgao_responsavel",   # nome real na sheet
-    "Responsible_body":           "Orgao_responsavel",   # variação alternativa
-    "Agency_link":                "Link_orgao",          # nome real na sheet
-    "Body_link":                  "Link_orgao",          # variação alternativa
-    "Regulatory_framework":       "Arcabouco_normativo", # nome real na sheet
-    "Normative_framework":        "Arcabouco_normativo", # variação alternativa
-    "Framework_link":             "Link_arcabouco",
-    "Federative_dialogue_space":  "Espaco_dialogo_federativo",
-    "Financing":                  "Financiamento",
-    "Periodicity":                "Periodicidade",
-    "Composition":                "Composicao",
-    "Decision_authority":         "Carater_decisorio",   # nome real na sheet
-    "Decision_character":         "Carater_decisorio",   # variação alternativa
-    "Related_policy_plan":        "Politica_Plano_relacionado",
-    "Counterpart_funding":        "Contrapartida",       # nome real na sheet
-    "Counterpart":                "Contrapartida",       # variação alternativa
-    "Modality":                   "Modalidade",
-    "Transfer":                   "Repasse",
-    "Sources":                    "Fontes",
+    "Description": "Descricao",
+    "Responsible_agency": "Orgao_responsavel",  # nome real na sheet
+    "Responsible_body": "Orgao_responsavel",  # variação alternativa
+    "Agency_link": "Link_orgao",  # nome real na sheet
+    "Body_link": "Link_orgao",  # variação alternativa
+    "Regulatory_framework": "Arcabouco_normativo",  # nome real na sheet
+    "Normative_framework": "Arcabouco_normativo",  # variação alternativa
+    "Framework_link": "Link_arcabouco",
+    "Federative_dialogue_space": "Espaco_dialogo_federativo",
+    "Financing": "Financiamento",
+    "Periodicity": "Periodicidade",
+    "Composition": "Composicao",
+    "Decision_authority": "Carater_decisorio",  # nome real na sheet
+    "Decision_character": "Carater_decisorio",  # variação alternativa
+    "Related_policy_plan": "Politica_Plano_relacionado",
+    "Counterpart_funding": "Contrapartida",  # nome real na sheet
+    "Counterpart": "Contrapartida",  # variação alternativa
+    "Modality": "Modalidade",
+    "Transfer": "Repasse",
+    "Sources": "Fontes",
 }
 
 # ── Sheet IDs por idioma ──────────────────────────────────────
@@ -86,12 +86,12 @@ LABEL_SETOR = {
 
 # Valores EN → PT para colunas discriminadoras
 _EN_EIXO = {
-    "Governance":         "Governanca",
-    "Policies & Plans":   "Politicas e Planos",
+    "Governance": "Governanca",
+    "Policies & Plans": "Politicas e Planos",
     "Policies and Plans": "Politicas e Planos",
-    "Programs":           "Programas",
-    "Financing Lines":    "Linhas de Financiamento",
-    "Financing Line":     "Linhas de Financiamento",
+    "Programs": "Programas",
+    "Financing Lines": "Linhas de Financiamento",
+    "Financing Line": "Linhas de Financiamento",
 }
 
 _cache_fichas = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
@@ -244,21 +244,21 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
 
 _CAMPOS_LABELS = {
     # (col_interna): (label_pt, label_en)
-    "Setor":                      ("Setor",                       "Sector"),
-    "Descricao":                  ("Descrição",                   "Description"),
-    "Orgao_responsavel":          ("Órgão Responsável",           "Responsible Agency"),
-    "Status":                     ("Status",                      "Status"),
-    "Arcabouco_normativo":        ("Arcabouço Normativo",         "Regulatory Framework"),
-    "Contrapartida":              ("Contrapartida",               "Counterpart"),
-    "Espaco_dialogo_federativo":  ("Espaço de Diálogo Federativo","Federative Dialogue Space"),
-    "Financiamento":              ("Financiamento",               "Financing"),
-    "Periodicidade":              ("Periodicidade",               "Periodicity"),
-    "Composicao":                 ("Composição",                  "Composition"),
-    "Carater_decisorio":          ("Caráter Decisório",           "Decision Authority"),
-    "Politica_Plano_relacionado": ("Política ou Plano Relacionado","Related Policy or Plan"),
-    "Modalidade":                 ("Modalidade",                  "Modality"),
-    "Repasse":                    ("Repasse",                     "Transfer"),
-    "Fontes":                     ("Fontes",                      "Sources"),
+    "Setor": ("Setor", "Sector"),
+    "Descricao": ("Descrição", "Description"),
+    "Orgao_responsavel": ("Órgão Responsável", "Responsible Agency"),
+    "Status": ("Status", "Status"),
+    "Arcabouco_normativo": ("Arcabouço Normativo", "Regulatory Framework"),
+    "Contrapartida": ("Contrapartida", "Counterpart"),
+    "Espaco_dialogo_federativo": ("Espaço de Diálogo Federativo", "Federative Dialogue Space"),
+    "Financiamento": ("Financiamento", "Financing"),
+    "Periodicidade": ("Periodicidade", "Periodicity"),
+    "Composicao": ("Composição", "Composition"),
+    "Carater_decisorio": ("Caráter Decisório", "Decision Authority"),
+    "Politica_Plano_relacionado": ("Política ou Plano Relacionado", "Related Policy or Plan"),
+    "Modalidade": ("Modalidade", "Modality"),
+    "Repasse": ("Repasse", "Transfer"),
+    "Fontes": ("Fontes", "Sources"),
 }
 
 _CAMPOS_ORDER = list(_CAMPOS_LABELS.keys())
