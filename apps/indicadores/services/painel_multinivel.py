@@ -11,9 +11,35 @@ logger = logging.getLogger(__name__)
 
 # ── Configuração ──────────────────────────────────────────────
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-SHEET_PARAMETROS_ID = "1ewpocM6__tTge6KMK5wuRqv_kfx50bnlp9iA-HmB4O0"
-WORKSHEET_NAME = "dados"
 CACHE_TTL = 1800  # 30 minutos
+
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    "Structure":      "Estrutura",
+    "Axis":           "Eixo",
+    "Axis_link":      "Link_eixo",
+    "Sector":         "Setor",
+    "Level":          "Nível",
+    "Criterion":      "Critério",
+    "Descriptive":    "Descritivo",
+    "Evaluation":     "Avaliação",
+    "Classification": "Classificação",
+}
+
+# Valores EN → PT para colunas discriminadoras (eixo, nível)
+_EN_EIXO = {
+    "Governance":         "Governanca",
+    "Policies & Plans":   "Politicas e Planos",
+    "Policies and Plans": "Politicas e Planos",
+    "Programs":           "Programas",
+    "Financing Lines":    "Linhas de Financiamento",
+    "Financing Line":     "Linhas de Financiamento",
+}
+
+SHEET_PARAMETROS = {
+    "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
+    "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
+}
 
 CORES_NIVEL = {
     "Nível 1": "#e06b6b",
@@ -28,14 +54,14 @@ ORDEM_CRITERIOS = {
     "Governanca": [
         "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Financiamento",
-        "Representação de Gênero, Raça e Etnia",
+        "Sustentabilidade Financeira",
+        "Diversidade e Representatividade",
         "Comunicação e Transparência",
     ],
     "Politicas e Planos": [
         "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Financiamento",
+        "Sustentabilidade Financeira",
         "Comunicação e Transparência",
     ],
     "Programas": [
@@ -43,7 +69,7 @@ ORDEM_CRITERIOS = {
         "Capilaridade e Alcance Territorial",
         "Fortalecimento da Capacidade Local",
         "Monitoramento e Participação Local",
-        "Financiamento",
+        "Sustentabilidade Financeira",
     ],
     "Linhas de Financiamento": [
         "Desenho Participativo da Linha de Financiamento",
@@ -60,10 +86,10 @@ EIXO_MAP = {
     "Linhas de Financiamento": "Linhas de Financiamento",
 }
 
-# Cache em memória
+# Cache em memória por idioma
 _cache = {
-    "df": None,
-    "timestamp": 0,
+    "pt": {"df": None, "timestamp": 0},
+    "en": {"df": None, "timestamp": 0},
 }
 
 
@@ -91,32 +117,41 @@ def _get_client():
     return gspread.authorize(creds)
 
 
-def _ler_parametros() -> pd.DataFrame:
+def _ler_parametros(lang: str = "pt") -> pd.DataFrame:
     agora = time.time()
+    c = _cache[lang]
 
-    if _cache["df"] is not None and (agora - _cache["timestamp"]) < CACHE_TTL:
-        logger.info("painel_multinivel: cache hit")
-        return _cache["df"]
+    if c["df"] is not None and (agora - c["timestamp"]) < CACHE_TTL:
+        logger.info("painel_multinivel[%s]: cache hit", lang)
+        return c["df"]
 
-    logger.info("painel_multinivel: cache miss — buscando Google Sheets")
+    logger.info("painel_multinivel[%s]: cache miss — buscando Google Sheets", lang)
+    cfg = SHEET_PARAMETROS[lang]
     client = _get_client()
-    sh = client.open_by_key(SHEET_PARAMETROS_ID)
-    ws = sh.worksheet(WORKSHEET_NAME)
-    dados = ws.get_all_records()
-    df = pd.DataFrame(dados)
+    sh = client.open_by_key(cfg["id"])
+    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
+    df = pd.DataFrame(ws.get_all_records())
+    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
+        df.rename(columns=_EN_COLS, inplace=True)
+        if "Eixo" in df.columns:
+            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
+        if "Nível" in df.columns:
+            df["Nível"] = df["Nível"].astype(str).str.replace(
+                r"^Level\s+(\d+)$", r"Nível \1", regex=True
+            )
 
-    _cache["df"] = df
-    _cache["timestamp"] = agora
+    c["df"] = df
+    c["timestamp"] = agora
 
     if "Eixo" in df.columns:
-        logger.debug("painel_multinivel: eixos=%s", df["Eixo"].unique().tolist())
+        logger.debug("painel_multinivel[%s]: eixos=%s", lang, df["Eixo"].unique().tolist())
 
     logger.info("painel_multinivel: %d registros, expira em %d min", len(df), CACHE_TTL // 60)
     return df
 
 
-def get_total_municipios() -> int:
-    df = _ler_parametros()
+def get_total_municipios(lang: str = "pt") -> int:
+    df = _ler_parametros(lang)
     if df.empty or not {"Eixo", "Avaliação", "Nível"}.issubset(df.columns):
         return 0
     df_valid = df[df["Nível"].isin(CORES_NIVEL.keys())]
@@ -124,7 +159,7 @@ def get_total_municipios() -> int:
     return int(contagem.max()) if not contagem.empty else 0
 
 
-def dados_para_grafico(eixo_front: str) -> dict:
+def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     eixo_busca = EIXO_MAP.get(eixo_front)
     if not eixo_busca:
         return {
@@ -133,7 +168,7 @@ def dados_para_grafico(eixo_front: str) -> dict:
             "erro": f"Eixo desconhecido: {eixo_front}",
         }
 
-    df = _ler_parametros()
+    df = _ler_parametros(lang)
 
     # Verifica colunas mínimas
     colunas_esperadas = {"Eixo", "Avaliação", "Nível"}
@@ -186,9 +221,10 @@ def dados_para_grafico(eixo_front: str) -> dict:
             filtro = contagem[(contagem["Avaliação"] == avaliacao) & (contagem["Nível"] == nivel)]
             data.append(int(filtro["qtd"].sum()))
 
+        label_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         datasets.append(
             {
-                "label": nivel,
+                "label": label_display,
                 "data": data,
                 "backgroundColor": cor,
                 "borderWidth": 0,

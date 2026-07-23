@@ -381,7 +381,7 @@ function init() {
 
   // Add ocean text labels
   OCEAN_LABELS.forEach(({ pos, text }) => {
-    addTextMarker(pos, text, "np-ocean-label");
+    addTextMarker(pos, RBi18n.t(text), "np-ocean-label");
   });
 
   fetch(GEOJSON_URL)
@@ -412,7 +412,7 @@ async function imprimirMapa() {
   const mapContainer = document.querySelector(".np-map-container");
   if (!mapContainer) return;
 
-  if (btn) { btn.disabled = true; btn.textContent = "Gerando…"; }
+  if (btn) { btn.disabled = true; btn.textContent = RBi18n.t("Gerando…"); }
 
   // Hide non-signatory country labels to avoid visual clutter in the print
   const hiddenLabels = [];
@@ -442,7 +442,7 @@ async function imprimirMapa() {
 
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Print Mapa`;
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> ${RBi18n.t("Print Mapa")}`;
     }
   }
 }
@@ -463,6 +463,9 @@ function getIso(props) {
 
 function getName(props) {
   const iso = getIso(props);
+  if (RBi18n.getLang() === "en") {
+    return props.NAME || props.ADMIN || props.name || NOMES_PT[iso] || "";
+  }
   return NOMES_PT[iso] || props.NAME || props.ADMIN || props.name || "";
 }
 
@@ -534,8 +537,8 @@ function buildMap(data) {
       // Hover tooltip
       const tipClass = nota ? "np-tooltip np-tooltip-brazil" : "np-tooltip";
       const tipHtml  = nota
-        ? `<strong>Nota</strong><br>${name}: ${nota}`
-        : "Nota não atribuída";
+        ? `<strong>${RBi18n.t("Nota")}</strong><br>${name}: ${RBi18n.t(nota)}`
+        : RBi18n.t("Nota não atribuída");
 
       layer.bindTooltip(tipHtml, {
         sticky:    true,

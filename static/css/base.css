@@ -125,6 +125,57 @@ body.rb-body {
     opacity: 1;
 }
 
+/* ── Seletor de idioma ─────────────────────────────────── */
+.rb-header-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.rb-lang-form {
+    margin: 0;
+}
+
+.rb-lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rb-lang-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: color 0.15s, background 0.15s;
+    line-height: 1;
+}
+
+.rb-lang-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.rb-lang-btn.active {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.rb-lang-sep {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.6875rem;
+    line-height: 1;
+    user-select: none;
+}
+
 /* MENU NAV — variáveis definidas em tokens.css */
 
 .rb-main-nav {

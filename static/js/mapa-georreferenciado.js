@@ -55,7 +55,7 @@ function initMap() {
         {
             maxZoom: 19,
             attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contribuidores',
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' + RBi18n.t("contribuidores"),
         }
     ).addTo(map);
 
@@ -111,12 +111,13 @@ async function carregarFiltros() {
         const resp = await fetch("/indicadores/api/mapa/filtros/");
         const data = await resp.json();
 
-        populateSelect("mg-f-eixo",       data.eixos,       "Todos");
-        populateSelect("mg-f-modalidade", data.modalidades,  "Todas as Modalidades");
-        populateSelect("mg-f-estagio",    data.estagios,     "Todos os Estágios");
-        populateSelect("mg-f-executor",   data.executores,   "Todos os Executores");
-        populateSelect("mg-f-regiao",     data.regioes,      "Todas as Regiões");
-        populateSelect("mg-f-uf",         data.ufs,          "Todos os Estados");
+        const t = RBi18n.t;
+        populateSelect("mg-f-eixo",       data.eixos,       t("Todos"));
+        populateSelect("mg-f-modalidade", data.modalidades,  t("Todas as Modalidades"));
+        populateSelect("mg-f-estagio",    data.estagios,     t("Todos os Estágios"));
+        populateSelect("mg-f-executor",   data.executores,   t("Todos os Executores"));
+        populateSelect("mg-f-regiao",     data.regioes,      t("Todas as Regiões"));
+        populateSelect("mg-f-uf",         data.ufs,          t("Todos os Estados"));
 
         const ufSel = document.getElementById("mg-f-uf");
         allUfOptions = Array.from(ufSel.options).slice(1).map(o => ({ value: o.value, text: o.textContent }));
@@ -222,29 +223,30 @@ function _fmtValor(est) {
 function buildPopup(p) {
     const fmt = v => (v && v !== "nan") ? v : "—";
 
+    const t = RBi18n.t;
     if (!p.tem_financiamento) {
         return `
         <div class="mg-popup">
           <div class="mg-popup-header">
             <h4>${fmt(p.municipio)}<span class="mg-popup-uf"> — ${fmt(p.uf)}</span></h4>
-            <span class="mg-popup-status-tag mg-popup-status-no">Sem Financiamento</span>
+            <span class="mg-popup-status-tag mg-popup-status-no">${t("Sem Financiamento")}</span>
           </div>
           <div class="mg-popup-body">
             <div class="mg-popup-row">
               <span class="mg-popup-icon">${_IC.porte}</span>
-              <span class="mg-popup-lbl">Porte Populacional</span>
-              <span class="mg-popup-val">${fmt(p.porte)}</span>
+              <span class="mg-popup-lbl">${t("Porte Populacional")}</span>
+              <span class="mg-popup-val">${t(fmt(p.porte))}</span>
             </div>
             ${p.populacao ? `
             <div class="mg-popup-row">
               <span class="mg-popup-icon">${_IC.perfil}</span>
-              <span class="mg-popup-lbl">População</span>
+              <span class="mg-popup-lbl">${t("População")}</span>
               <span class="mg-popup-val">${Number(p.populacao).toLocaleString("pt-BR")}</span>
             </div>` : ""}
             <div class="mg-popup-row">
               <span class="mg-popup-icon">${_IC.regiao}</span>
-              <span class="mg-popup-lbl">Região</span>
-              <span class="mg-popup-val">${fmt(p.regiao)}</span>
+              <span class="mg-popup-lbl">${t("Região")}</span>
+              <span class="mg-popup-val">${t(fmt(p.regiao))}</span>
             </div>
           </div>
         </div>`;
@@ -281,8 +283,8 @@ function buildPopup(p) {
     }).join("");
 
     const countLabel = nProg === 1
-        ? "1 programa de investimento"
-        : `${nProg} programas de investimento`;
+        ? `1 ${t("programa de investimento")}`
+        : `${nProg} ${t("programas de investimento")}`;
 
     const estimativaTotal = p.estimativa_total > 0 ? _fmtValor(p.estimativa_total) : "—";
 
@@ -295,24 +297,24 @@ function buildPopup(p) {
       <div class="mg-popup-body">
         <div class="mg-popup-row">
           <span class="mg-popup-icon">${_IC.porte}</span>
-          <span class="mg-popup-lbl">Porte Populacional</span>
-          <span class="mg-popup-val">${fmt(p.porte)}</span>
+          <span class="mg-popup-lbl">${t("Porte Populacional")}</span>
+          <span class="mg-popup-val">${t(fmt(p.porte))}</span>
         </div>
         ${p.populacao ? `
         <div class="mg-popup-row">
           <span class="mg-popup-icon">${_IC.perfil}</span>
-          <span class="mg-popup-lbl">População</span>
+          <span class="mg-popup-lbl">${t("População")}</span>
           <span class="mg-popup-val">${Number(p.populacao).toLocaleString("pt-BR")}</span>
         </div>` : ""}
         ${p.perfil ? `
         <div class="mg-popup-row">
           <span class="mg-popup-icon">${_IC.emp}</span>
-          <span class="mg-popup-lbl">Perfil Investimento</span>
-          <span class="mg-popup-val">${fmt(p.perfil)}</span>
+          <span class="mg-popup-lbl">${t("Perfil Investimento")}</span>
+          <span class="mg-popup-val">${t(fmt(p.perfil))}</span>
         </div>` : ""}
         <div class="mg-popup-row">
           <span class="mg-popup-icon">${_IC.valor}</span>
-          <span class="mg-popup-lbl">Estimativa Total</span>
+          <span class="mg-popup-lbl">${t("Estimativa Total")}</span>
           <span class="mg-popup-val">${estimativaTotal}</span>
         </div>
         <div class="mg-popup-progs${programas.length > 3 ? " mg-popup-progs--scroll" : ""}">
@@ -377,7 +379,7 @@ function atualizarEstadosPorRegiao(regiao) {
     if (!sel) return;
     const ufsFiltrados = regiao ? (REGIAO_UFS[regiao] || []) : null;
     const currentVal = sel.value;
-    sel.innerHTML = `<option value="">Todos os Estados</option>`;
+    sel.innerHTML = `<option value="">${RBi18n.t("Todos os Estados")}</option>`;
     const opcoes = ufsFiltrados
         ? allUfOptions.filter(o => ufsFiltrados.includes(o.value))
         : allUfOptions;
@@ -462,7 +464,9 @@ function atualizarStats(features) {
             : "—";
     }
     if (elMunis) {
-        elMunis.textContent = `Para ${munis.toLocaleString("pt-BR")} Município${munis !== 1 ? "s" : ""}`;
+        const t = RBi18n.t;
+        const munLabel = munis !== 1 ? t("municípios") : t("Município");
+        elMunis.textContent = `${t("Para")} ${munis.toLocaleString("pt-BR")} ${munLabel}`;
     }
 }
 
@@ -470,28 +474,29 @@ function atualizarStats(features) {
 function buildLegend() {
     const body = document.getElementById("mg-legend-body");
     if (!body) return;
+    const t = RBi18n.t;
     body.innerHTML = `
       <div class="mg-legend-item">
         <span class="mg-legend-dot" style="background:${COR_FINANCIAMENTO};"></span>
-        <span>Financiamento</span>
+        <span>${t("Financiamento")}</span>
       </div>
       <div class="mg-legend-item" id="mg-legend-sem-fin" style="display:none">
         <span class="mg-legend-dot" style="background:${COR_SEM_FINANCIAMENTO};"></span>
-        <span>Sem Financiamento</span>
+        <span>${t("Sem Financiamento")}</span>
       </div>
       <div class="mg-legend-size">
         <div class="mg-legend-size-row">
           <div class="mg-legend-size-item">
             <span class="mg-legend-circle" style="width:10px;height:10px;"></span>
-            <span class="mg-legend-size-label">Abaixo 80k</span>
+            <span class="mg-legend-size-label">${t("Abaixo 80k")}</span>
           </div>
           <div class="mg-legend-size-item">
             <span class="mg-legend-circle" style="width:22px;height:22px;"></span>
-            <span class="mg-legend-size-label">Acima 80k</span>
+            <span class="mg-legend-size-label">${t("Acima 80k")}</span>
           </div>
           <div class="mg-legend-size-item">
             <span class="mg-legend-circle" style="width:40px;height:40px;"></span>
-            <span class="mg-legend-size-label">Capital</span>
+            <span class="mg-legend-size-label">${t("Capital")}</span>
           </div>
         </div>
       </div>`;
@@ -508,7 +513,7 @@ async function imprimirMapa() {
     const mapArea = document.querySelector(".mg-map-area");
     if (!mapArea) return;
 
-    if (btn) { btn.disabled = true; btn.textContent = "Gerando…"; }
+    if (btn) { btn.disabled = true; btn.textContent = RBi18n.t("Gerando…"); }
     mostrarLoader(true);
 
     try {
@@ -529,7 +534,7 @@ async function imprimirMapa() {
         mostrarLoader(false);
         if (btn) {
             btn.disabled = false;
-            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Print Mapa`;
+            btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> ${RBi18n.t("Print Mapa")}`;
         }
     }
 }
@@ -550,8 +555,9 @@ function baixarDados() {
         return true;
     });
 
-    const header = ["Município","UF","Região","Empreendimento","Modalidade","Executor",
-                    "Estágio","Estimativa 2023-2030","% Executado","Porte Populacional","Eixo"];
+    const t = RBi18n.t;
+    const header = [t("Município"),t("UF"),t("Região"),t("Empreendimento"),t("Modalidade"),t("Executor"),
+                    t("Estágio"),t("Estimativa 2023-2030"),t("% Executado"),t("Porte Populacional"),t("Eixo")];
     const rows = filtered.map(f => {
         const p = f.properties;
         return [p.municipio, p.uf, p.regiao, p.empreendimento, p.modalidade,

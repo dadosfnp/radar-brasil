@@ -1,0 +1,761 @@
+# English translations for Radar Brasil
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# ── Navegação ──────────────────────────────────────────────────
+msgid "Início"
+msgstr "Home"
+
+msgid "Metodologia"
+msgstr "Methodology"
+
+msgid "Painel Multinível"
+msgstr "Multilevel Dashboard"
+
+msgid "Avaliação Painel Multinível"
+msgstr "Multilevel Dashboard Assessment"
+
+msgid "Nota País"
+msgstr "Country Score"
+
+msgid "Financiamento Climático"
+msgstr "Climate Finance"
+
+msgid "Mapa Georreferenciado"
+msgstr "Georeferenced Map"
+
+# ── Header / Footer ───────────────────────────────────────────
+msgid "Impulsionando a Ação Climática Federativa"
+msgstr "Driving Federative Climate Action"
+
+msgid "Siga-nos"
+msgstr "Follow us"
+
+msgid "Contato"
+msgstr "Contact"
+
+msgid "Todos os direitos reservados."
+msgstr "All rights reserved."
+
+# ── Landing page ──────────────────────────────────────────────
+msgid "Uma plataforma de dados abertos"
+msgstr "An open data platform"
+
+msgid "para a ação climática municipal"
+msgstr "for municipal climate action"
+
+msgid "Saiba mais"
+msgstr "Learn more"
+
+msgid "Em breve"
+msgstr "Coming soon"
+
+msgid "Notícias"
+msgstr "News"
+
+msgid "Agenda"
+msgstr "Events"
+
+# ── Painel Multinível ─────────────────────────────────────────
+msgid "Mapa Interfederativo Georreferenciado"
+msgstr "Georeferenced Interfederative Map"
+
+msgid "Visualize os investimentos climáticos e transferências interfederativas, utilizando os filtros para refinar a busca."
+msgstr "Visualize climate investments and interfederative transfers, using filters to refine the search."
+
+msgid "Selecione um município"
+msgstr "Select a municipality"
+
+msgid "Selecione uma UF"
+msgstr "Select a state"
+
+msgid "Filtrar"
+msgstr "Filter"
+
+msgid "Limpar filtros"
+msgstr "Clear filters"
+
+msgid "Baixar dados (CSV)"
+msgstr "Download data (CSV)"
+
+msgid "Print Mapa"
+msgstr "Print Map"
+
+msgid "Exibir sem financiamento"
+msgstr "Show without financing"
+
+msgid "Total Estimado"
+msgstr "Estimated Total"
+
+msgid "Para"
+msgstr "For"
+
+msgid "Município"
+msgstr "Municipality"
+
+msgid "municípios"
+msgstr "municipalities"
+
+msgid "programa de investimento"
+msgstr "investment program"
+
+msgid "programas de investimento"
+msgstr "investment programs"
+
+# ── Mapa — sidebar filtros ────────────────────────────────────
+msgid "FILTROS"
+msgstr "FILTERS"
+
+msgid "FILTRAR POR FINANCIAMENTO"
+msgstr "FILTER BY FINANCING"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "MODALIDADE"
+msgstr "MODALITY"
+
+msgid "Todas as Modalidades"
+msgstr "All Modalities"
+
+msgid "ESTÁGIO"
+msgstr "STAGE"
+
+msgid "Todos os Estágios"
+msgstr "All Stages"
+
+msgid "EXECUTOR"
+msgstr "EXECUTOR"
+
+msgid "Todos os Executores"
+msgstr "All Executors"
+
+msgid "REGIÃO"
+msgstr "REGION"
+
+msgid "Todas as Regiões"
+msgstr "All Regions"
+
+msgid "ESTADO"
+msgstr "STATE"
+
+msgid "Todos os Estados"
+msgstr "All States"
+
+msgid "FILTRAR POR PORTE POPULACIONAL"
+msgstr "FILTER BY POPULATION SIZE"
+
+msgid "MUNICÍPIO"
+msgstr "MUNICIPALITY"
+
+# ── Mapa — popup ──────────────────────────────────────────────
+msgid "Porte Populacional"
+msgstr "Population Size"
+
+msgid "Perfil Investimento"
+msgstr "Investment Profile"
+
+msgid "Estimativa Total"
+msgstr "Total Estimate"
+
+msgid "Sem Financiamento"
+msgstr "No Financing"
+
+msgid "PROGRAMA / EIXO"
+msgstr "PROGRAM / AXIS"
+
+msgid "Financiamento"
+msgstr "Financing"
+
+msgid "Abaixo 80k"
+msgstr "Below 80k"
+
+msgid "Acima 80k"
+msgstr "Above 80k"
+
+msgid "Capital"
+msgstr "Capital"
+
+# ── Avaliação Painel ──────────────────────────────────────────
+msgid "Selecione um item para visualizar a avaliação."
+msgstr "Select an item to view the assessment."
+
+msgid "Falha ao conectar. Verifique sua conexão."
+msgstr "Connection failed. Check your connection."
+
+msgid "Erro ao carregar dados."
+msgstr "Error loading data."
+
+msgid "Nenhum dado encontrado."
+msgstr "No data found."
+
+msgid "Instância de Governança"
+msgstr "Governance Instance"
+
+msgid "Setor"
+msgstr "Sector"
+
+msgid "Buscar..."
+msgstr "Search..."
+
+msgid "Critérios e Parâmetros de Avaliação"
+msgstr "Evaluation Criteria and Parameters"
+
+msgid "Ficha Técnica"
+msgstr "Technical Sheet"
+
+msgid "Baixar PDF"
+msgstr "Download PDF"
+
+msgid "Linha do Tempo"
+msgstr "Timeline"
+
+msgid "Critério"
+msgstr "Criterion"
+
+msgid "Pontuação"
+msgstr "Score"
+
+msgid "Nível"
+msgstr "Level"
+
+# ── Painel Multinível (abas) ──────────────────────────────────
+msgid "Governança"
+msgstr "Governance"
+
+msgid "Políticas e Planos"
+msgstr "Policies & Plans"
+
+msgid "Programas"
+msgstr "Programs"
+
+msgid "Linhas de Financiamento"
+msgstr "Financing Lines"
+
+msgid "Estruturas avaliadas"
+msgstr "Assessed structures"
+
+msgid "Municípios avaliados"
+msgstr "Assessed municipalities"
+
+msgid "Nota média"
+msgstr "Average score"
+
+# ── Financiamento Climático ───────────────────────────────────
+msgid "Financiamento Climático"
+msgstr "Climate Finance"
+
+msgid "Distribuição por Setor"
+msgstr "Distribution by Sector"
+
+msgid "Origem dos Recursos"
+msgstr "Source of Funds"
+
+msgid "Ente Federativo"
+msgstr "Federal Entity"
+
+msgid "Aplicar filtros"
+msgstr "Apply filters"
+
+msgid "Exportar CSV"
+msgstr "Export CSV"
+
+msgid "Anterior"
+msgstr "Previous"
+
+msgid "Próximo"
+msgstr "Next"
+
+msgid "Página"
+msgstr "Page"
+
+msgid "de"
+msgstr "of"
+
+# ── Nota País ─────────────────────────────────────────────────
+msgid "Países Signatários"
+msgstr "Signatory Countries"
+
+msgid "Nível Brasil"
+msgstr "Brazil Level"
+
+msgid "Todas as regiões"
+msgstr "All regions"
+
+msgid "Américas"
+msgstr "Americas"
+
+msgid "Europa"
+msgstr "Europe"
+
+msgid "África"
+msgstr "Africa"
+
+msgid "Ásia"
+msgstr "Asia"
+
+msgid "Oceania"
+msgstr "Oceania"
+
+# ── Metodologia ───────────────────────────────────────────────
+msgid "Sobre a Metodologia"
+msgstr "About the Methodology"
+
+# ── Header / Acessibilidade ──────────────────────────────────
+msgid "Selecionar idioma"
+msgstr "Select language"
+
+msgid "Ir para o conteúdo principal"
+msgstr "Skip to main content"
+
+msgid "Abrir menu"
+msgstr "Open menu"
+
+msgid "Fechar menu"
+msgstr "Close menu"
+
+# ── Compartilhados ────────────────────────────────────────────
+msgid "Carregando..."
+msgstr "Loading..."
+
+msgid "Erro ao carregar"
+msgstr "Loading error"
+
+msgid "Voltar ao topo"
+msgstr "Back to top"
+
+msgid "Fechar"
+msgstr "Close"
+
+# ── Landing page – hero e mídia ───────────────────────────────
+msgid "Conheça"
+msgstr "Discover"
+
+msgid "O que é o Radar Brasil — Federalismo Climático?"
+msgstr "What is Radar Brasil — Climate Federalism?"
+
+msgid "O Radar Brasil na mídia"
+msgstr "Radar Brasil in the media"
+
+msgid "Iniciativa"
+msgstr "Initiative"
+
+msgid "Brasil lança iniciativa para estruturar 100 ações climáticas de impacto nos municípios."
+msgstr "Brazil launches initiative to structure 100 high-impact climate actions in municipalities."
+
+msgid "Evento"
+msgstr "Event"
+
+msgid "Cidades selecionadas para primeira fase do Cidades Modelo Verdes Resilientes foram anunciadas durante o 1º Encontro Cidades Verdes Resilientes. A iniciativa oferta suporte técnico para desenvolver duas ações climáticas de grande impacto."
+msgstr "Cities selected for the first phase of the Green Resilient Model Cities were announced during the 1st Green Resilient Cities Meeting. The initiative offers technical support to develop two high-impact climate actions."
+
+msgid "Agenda Radar Brasil"
+msgstr "Radar Brasil Calendar"
+
+msgid "Ver Agenda"
+msgstr "View Calendar"
+
+# ── Landing page – cards ──────────────────────────────────────
+msgid "Desvendando o Federalismo Climático: Nossa Metodologia"
+msgstr "Unraveling Climate Federalism: Our Methodology"
+
+msgid "Desenvolvemos uma metodologia robusta que avalia a cooperação interfederativa nas ações climáticas."
+msgstr "We developed a robust methodology that evaluates interfederative cooperation in climate actions."
+
+msgid "Saiba mais sobre a Metodologia do Radar Brasil"
+msgstr "Learn more about Radar Brasil's Methodology"
+
+msgid "Painéis"
+msgstr "Dashboards"
+
+msgid "Painéis de Avaliação Interativos: Radiografia Federativa"
+msgstr "Interactive Assessment Dashboards: Federative X-Ray"
+
+msgid "Explore dados climáticos através de painéis interativos que oferecem uma visão completa das ações federativas em todo o Brasil."
+msgstr "Explore climate data through interactive dashboards that offer a comprehensive view of federative actions throughout Brazil."
+
+msgid "Acessar painéis"
+msgstr "Access dashboards"
+
+msgid "Mapa"
+msgstr "Map"
+
+msgid "Conectando Ações: Mapa Inter-federativo"
+msgstr "Connecting Actions: Interfederative Map"
+
+msgid "Visualize geograficamente as conexões e sinergias entre diferentes níveis de governo nas ações climáticas em todo o território nacional."
+msgstr "Visualize geographically the connections and synergies between different levels of government in climate actions across the national territory."
+
+msgid "Explorar mapa"
+msgstr "Explore map"
+
+msgid "Ecossistema"
+msgstr "Ecosystem"
+
+msgid "Ecossistema de Colaboração: Outras Iniciativas e Recursos"
+msgstr "Collaboration Ecosystem: Other Initiatives and Resources"
+
+msgid "Conecte-se com uma rede ampla de organizações, iniciativas e recursos que fortalecem a ação climática no Brasil."
+msgstr "Connect with a broad network of organizations, initiatives and resources that strengthen climate action in Brazil."
+
+# ── Início ────────────────────────────────────────────────────
+msgid "Federalismo Climático"
+msgstr "Climate Federalism"
+
+msgid "Explore os eixos do Radar Brasil —"
+msgstr "Explore the Radar Brasil axes —"
+
+msgid "Governança, Políticas e Planos, Programas e Financiamento"
+msgstr "Governance, Policies and Plans, Programs and Finance"
+
+msgid "Clique em um dos eixos abaixo para acessar os dados, painéis interativos e avaliações de cada eixo do federalismo climático brasileiro."
+msgstr "Click on one of the axes below to access data, interactive dashboards and assessments for each axis of Brazilian climate federalism."
+
+msgid "Estruturas de Governança"
+msgstr "Governance Structures"
+
+msgid "Acompanhe os arranjos institucionais e mecanismos de participação federativa que estruturam a ação climática multinível."
+msgstr "Follow the institutional arrangements and federative participation mechanisms that structure multilevel climate action."
+
+msgid "Identifique os instrumentos de orientação estratégica existente no enfrentamento das mudanças climáticas."
+msgstr "Identify the existing strategic guidance instruments for addressing climate change."
+
+msgid "Identifique as ações e iniciativas planejadas para reduzir impactos das mudanças climáticas."
+msgstr "Identify the planned actions and initiatives to reduce the impacts of climate change."
+
+msgid "Analise os investimentos e transferências interfederativas em apoio ao enfrentamento das mudanças climáticas."
+msgstr "Analyze the investments and interfederative transfers supporting the fight against climate change."
+
+# ── Metodologia ───────────────────────────────────────────────
+msgid "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, planos, políticas e programas relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias."
+msgstr "Radar Brasil assesses the level of implementation of Climate Federalism in Brazil, mapping governance instances, plans, policies and programs related to climate action, and measuring results through standardized criteria across axes and instances."
+
+msgid "O que foi mapeado"
+msgstr "What was mapped"
+
+msgid "linhas de financiamento do Governo Federal voltadas à ação climática"
+msgstr "federal government financing lines for climate action"
+
+msgid "instâncias de governança"
+msgstr "governance instances"
+
+msgid "planos e políticas públicas"
+msgstr "public plans and policies"
+
+msgid "programas"
+msgstr "programs"
+
+msgid "Mapeamento"
+msgstr "Mapping"
+
+msgid "O mapeamento identificou os principais instrumentos federais de ação climática disponíveis para municípios brasileiros, organizados em quatro eixos:"
+msgstr "The mapping identified the main federal climate action instruments available to Brazilian municipalities, organized into four axes:"
+
+msgid "linhas de financiamento do Governo Federal voltadas à ação climática;"
+msgstr "federal government financing lines for climate action;"
+
+msgid "instâncias de governança;"
+msgstr "governance instances;"
+
+msgid "planos e políticas públicas;"
+msgstr "public plans and policies;"
+
+msgid "programas."
+msgstr "programs."
+
+msgid "Mensuração dos resultados"
+msgstr "Measuring Results"
+
+msgid "Leitura comparativa entre eixos e instâncias avaliadas;"
+msgstr "Comparative analysis across evaluated axes and instances;"
+
+msgid "Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados."
+msgstr "Level of Climate Federalism implementation in Brazil, considering the evaluated parameters and criteria."
+
+msgid "Critérios de avaliação"
+msgstr "Evaluation criteria"
+
+msgid "Estabelecimento de níveis (1 a 5) para cada parâmetro, sendo 1 a ausência de ação ou participação de municípios, e 5 atividade plena."
+msgstr "Establishment of levels (1 to 5) for each parameter, with 1 being the absence of action or municipal participation, and 5 being full activity."
+
+msgid "Escala de Avaliação"
+msgstr "Evaluation Scale"
+
+msgid "Ausência"
+msgstr "Absence"
+
+msgid "Atividade plena"
+msgstr "Full activity"
+
+msgid "ausência de ação ou participação de municípios."
+msgstr "absence of action or municipal participation."
+
+msgid "plena implementação e participação ativa dos municípios."
+msgstr "full implementation and active participation of municipalities."
+
+msgid "linhas de financiamento climático"
+msgstr "climate financing lines"
+
+msgid "programas mapeados"
+msgstr "mapped programs"
+
+# ── Linha do Tempo ────────────────────────────────────────────
+msgid "A Linha do Tempo trará informações sobre a progressão dos acontecimentos ao longo do tempo (marco legal, financiamento, participação etc.) em ordem cronológica, permitindo uma compreensão mais clara da sequência e evolução da instância selecionada, conforme os critérios de avaliação definidos. O painel encontra-se em construção."
+msgstr "The Timeline will provide information on the progression of events over time (legal frameworks, financing, participation, etc.) in chronological order, enabling a clearer understanding of the sequence and evolution of the selected instance, according to the defined evaluation criteria. The dashboard is under construction."
+
+msgid "Conteúdo em construção..."
+msgstr "Content under construction..."
+
+msgid "← Voltar para Avaliação Painel Multinível"
+msgstr "← Back to Multilevel Dashboard Assessment"
+
+# ── Mapa Georreferenciado – sidebar ───────────────────────────
+msgid "Filtros"
+msgstr "Filters"
+
+msgid "Filtrar por Financiamento"
+msgstr "Filter by Financing"
+
+msgid "Modalidade"
+msgstr "Modality"
+
+msgid "Estágio"
+msgstr "Stage"
+
+msgid "Executor"
+msgstr "Executor"
+
+msgid "Região"
+msgstr "Region"
+
+msgid "Estado"
+msgstr "State"
+
+msgid "Filtrar por Porte Populacional"
+msgstr "Filter by Population Size"
+
+msgid "Buscar município..."
+msgstr "Search municipality..."
+
+msgid "Fechar filtros"
+msgstr "Close filters"
+
+msgid "Carregando dados do mapa"
+msgstr "Loading map data"
+
+msgid "Total Estimado 2023 a 2030"
+msgstr "Estimated Total 2023 to 2030"
+
+msgid "Programa / Eixo"
+msgstr "Program / Axis"
+
+msgid "Acima de 80mil"
+msgstr "Above 80k"
+
+msgid "Abaixo de 80mil"
+msgstr "Below 80k"
+
+# ── Painel Multinível – KPIs e abas ───────────────────────────
+msgid "Voltar para a página Início e ver todos os eixos"
+msgstr "Go back to the Home page and see all axes"
+
+msgid "Explorar todos os eixos"
+msgstr "Explore all axes"
+
+msgid "Governança · Políticas e Planos · Programas · Linhas de Financiamento"
+msgstr "Governance · Policies & Plans · Programs · Financing Lines"
+
+msgid "Instâncias Avaliadas"
+msgstr "Assessed Instances"
+
+msgid "Total de instâncias com avaliação registrada na edição 2024"
+msgstr "Total instances with assessment recorded in the 2024 edition"
+
+msgid "Edição 2024"
+msgstr "2024 Edition"
+
+msgid "Eixos Analisados"
+msgstr "Analyzed Axes"
+
+msgid "Níveis de Maturidade"
+msgstr "Maturity Levels"
+
+msgid "Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de institucionalização climática"
+msgstr "Scale from 1 (absence) to 5 (full activity) measuring the degree of climate institutionalization"
+
+msgid "Nível 1"
+msgstr "Level 1"
+
+msgid "Nível 5"
+msgstr "Level 5"
+
+msgid "Dimensões do painel"
+msgstr "Dashboard dimensions"
+
+msgid "Govern."
+msgstr "Gov."
+
+msgid "Políticas"
+msgstr "Policies"
+
+msgid "Financ."
+msgstr "Fin."
+
+msgid "Linha de Financiamento"
+msgstr "Financing Line"
+
+msgid "Carregando dados do gráfico"
+msgstr "Loading chart data"
+
+msgid "Carregando dados..."
+msgstr "Loading data..."
+
+msgid "Gráfico de distribuição por nível de maturidade"
+msgstr "Distribution chart by maturity level"
+
+# ── Avaliação Painel – filtros e tabela ───────────────────────
+msgid "Eixos de avaliação"
+msgstr "Assessment axes"
+
+msgid "Critérios de Avaliação"
+msgstr "Assessment Criteria"
+
+msgid "No campo abaixo, selecione a Instância de Governança ou o Setor para realizar a pesquisa."
+msgstr "In the field below, select the Governance Instance or Sector to perform the search."
+
+msgid "Cada critério possui parâmetros de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes."
+msgstr "Each criterion has specific evaluation parameters, so that level assignment and evolution are objective and transparent."
+
+msgid "Busque ou selecione uma instância…"
+msgstr "Search or select an instance…"
+
+msgid "Limpar instância"
+msgstr "Clear instance"
+
+msgid "Abrir lista de instâncias"
+msgstr "Open instance list"
+
+msgid "Instâncias disponíveis"
+msgstr "Available instances"
+
+msgid "Busque ou selecione um setor…"
+msgstr "Search or select a sector…"
+
+msgid "Limpar setor"
+msgstr "Clear sector"
+
+msgid "Abrir lista de setores"
+msgstr "Open sector list"
+
+msgid "Setores disponíveis"
+msgstr "Available sectors"
+
+msgid "Carregando dados"
+msgstr "Loading data"
+
+msgid "Parâmetro"
+msgstr "Parameter"
+
+msgid "Salvar PDF"
+msgstr "Save PDF"
+
+msgid "Carregando ficha..."
+msgstr "Loading sheet..."
+
+msgid "Carregando ficha técnica"
+msgstr "Loading technical sheet"
+
+# ── Financiamento Climático – intro e tabela ──────────────────
+msgid "Nesta página será possível acessar informações sobre o financiamento climático no Brasil, os programas e linhas de financiamento disponíveis, conforme os seguintes filtros:"
+msgstr "On this page you can access information about climate finance in Brazil, the programs and financing lines available, according to the following filters:"
+
+msgid "Programas e linhas de Financiamento"
+msgstr "Programs and Financing Lines"
+
+msgid "Ente Federado"
+msgstr "Federal Entity"
+
+msgid "Valor do Financiamento por Setor"
+msgstr "Financing Value by Sector"
+
+msgid "Repasses de Recursos por Nível de Governo"
+msgstr "Resource Transfers by Government Level"
+
+msgid "Imprimir Tela"
+msgstr "Print Screen"
+
+msgid "Programas e linhas de financiamento climático"
+msgstr "Climate financing programs and lines"
+
+msgid "Programas e Linhas de Financiamento"
+msgstr "Programs and Financing Lines"
+
+msgid "Valor do Financiamento"
+msgstr "Financing Value"
+
+msgid "Contrapartida"
+msgstr "Counterpart"
+
+msgid "Federal"
+msgstr "Federal"
+
+msgid "Estadual"
+msgstr "State"
+
+msgid "Municipal"
+msgstr "Municipal"
+
+msgid "Baixar Dados"
+msgstr "Download Data"
+
+# ── Nota País – intro, KPIs e filtros ────────────────────────
+msgid "Nota-País - Radar Brasil"
+msgstr "Country Score - Radar Brasil"
+
+msgid "No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão CHAMP e suas respectivas Nota-País, termômetro da capacidade de cada país de execução e de cumprimento dos compromissos climáticos."
+msgstr "On the World Map below, we can identify the signatory countries of the CHAMP Coalition and their respective Country Scores, a thermometer of each country's capacity to implement and fulfill climate commitments."
+
+msgid "Compromissos Climáticos"
+msgstr "Climate Commitments"
+
+msgid "Iniciativas Ativas"
+msgstr "Active Initiatives"
+
+msgid "Regiões Monitoradas"
+msgstr "Monitored Regions"
+
+msgid "PAÍSES SIGNATÁRIOS"
+msgstr "SIGNATORY COUNTRIES"
+
+msgid "COMPROMISSOS CLIMÁTICOS"
+msgstr "CLIMATE COMMITMENTS"
+
+msgid "INICIATIVAS ATIVAS"
+msgstr "ACTIVE INITIATIVES"
+
+msgid "REGIÕES MONITORADAS"
+msgstr "MONITORED REGIONS"
+
+# ── Base – Meta tags / SEO ────────────────────────────────────
+msgid "Radar Brasil — Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional."
+msgstr "Radar Brasil — Brazil's federative climate monitoring platform. Assess, compare and explore climate data from municipalities across the national territory."
+
+msgid "Radar Brasil — Federalismo Climático"
+msgstr "Radar Brasil — Federative Climate Action"
+
+msgid "Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional."
+msgstr "Brazil's federative climate monitoring platform. Assess, compare and explore climate data from municipalities across the national territory."
+
+msgid "Plataforma de monitoramento do federalismo climático brasileiro."
+msgstr "Brazil's federative climate monitoring platform."
+
+# ── Base – Footer ─────────────────────────────────────────────
+msgid "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, Brasília/DF"
+msgstr "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8th floor, room 827, Brasília/DF"
+
+msgid "Frente Nacional de Prefeitas e Prefeitos"
+msgstr "National Front of Mayors"

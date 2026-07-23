@@ -67,7 +67,7 @@ class Combobox {
         if (!filtered.length) {
             const li = document.createElement("li");
             li.className = "ap-combo-empty";
-            li.textContent = "Nenhum resultado encontrado";
+            li.textContent = RBi18n.t("Nenhum resultado encontrado");
             this.dropdown.appendChild(li);
             return;
         }
@@ -171,6 +171,12 @@ const EIXO_LABELS = {
     "Politicas e Planos":      "Políticas e Planos",
     "Programas":               "Programas",
     "Linhas de Financiamento": "Linhas de Financiamento",
+};
+const EIXO_LABELS_EN = {
+    "Governanca":              "Governance",
+    "Politicas e Planos":      "Policies & Plans",
+    "Programas":               "Programs",
+    "Linhas de Financiamento": "Financing Lines",
 };
 
 let eixoAtual          = "Governanca";
@@ -280,7 +286,9 @@ function ativarAba(eixo, tabEl) {
 
     eixoAtual      = eixo;
     estruturaAtual = "";
-    eixoLabel.textContent  = EIXO_LABELS[eixo] || eixo;
+    eixoLabel.textContent  = RBi18n.getLang() === "en"
+        ? (EIXO_LABELS_EN[eixo] || eixo)
+        : (EIXO_LABELS[eixo] || eixo);
 
     resetarTabela();
     carregarFiltros(eixo);
@@ -300,8 +308,8 @@ async function carregarFiltros(eixo) {
         const resp = await fetch(`/indicadores/api/avaliacao/filtros/?eixo=${encodeURIComponent(eixo)}`);
         const data = await resp.json();
 
-        estruturaLabel.textContent = data.label_estrutura || "Instância";
-        setorLabel.textContent     = data.label_setor     || "Setor";
+        estruturaLabel.textContent = RBi18n.t(data.label_estrutura || "Instância");
+        setorLabel.textContent     = RBi18n.t(data.label_setor     || "Setor");
 
         todasEstruturas    = data.estruturas          || [];
         todosSetores       = data.setores             || [];
@@ -316,7 +324,7 @@ async function carregarFiltros(eixo) {
         }
     } catch (e) {
         console.error("Erro ao carregar filtros:", e);
-        _setPlaceholderMsg("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.", true);
+        _setPlaceholderMsg(RBi18n.t("Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página."), true);
         placeholder.style.display = "flex";
     }
 }
@@ -332,7 +340,7 @@ async function carregarTabela(estrutura) {
         loader.style.display = "none";
 
         if (!data.rows || data.rows.length === 0) {
-            _setPlaceholderMsg("Nenhum dado encontrado para esta estrutura.");
+            _setPlaceholderMsg(RBi18n.t("Nenhum dado encontrado para esta estrutura."));
             placeholder.style.display = "flex";
             return;
         }
@@ -359,7 +367,7 @@ async function carregarTabela(estrutura) {
 
     } catch (e) {
         loader.style.display = "none";
-        _setPlaceholderMsg("Erro ao carregar dados. Verifique sua conexão e tente novamente.", true);
+        _setPlaceholderMsg(RBi18n.t("Erro ao carregar dados. Verifique sua conexão e tente novamente."), true);
         placeholder.style.display = "flex";
         console.error("Erro tabela:", e);
     }
@@ -381,7 +389,7 @@ function resetarTabela(mostrarLoader = false) {
         loader.style.display      = "flex";
     } else {
         loader.style.display      = "none";
-        _setPlaceholderMsg("Selecione um item para visualizar a avaliação.");
+        _setPlaceholderMsg(RBi18n.t("Selecione um item para visualizar a avaliação."));
         placeholder.style.display = "flex";
     }
 }
@@ -421,7 +429,7 @@ modalClose.addEventListener("click", fecharModal);
 modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
 
 pdfBtn.addEventListener("click", () => {
-    const titulo  = modalTitle.textContent || "Ficha Técnica";
+    const titulo  = modalTitle.textContent || RBi18n.t("Ficha Técnica");
     const campos  = modalBody.querySelectorAll(".ap-ficha-campo");
     if (!campos.length) return;
 
@@ -437,7 +445,7 @@ pdfBtn.addEventListener("click", () => {
     });
 
     const html = `<!DOCTYPE html>
-<html lang="pt-br">
+<html lang="${RBi18n.getLang() === 'en' ? 'en-US' : 'pt-BR'}">
 <head>
 <meta charset="UTF-8">
 <title>Ficha Técnica – ${escHtml(titulo)}</title>
@@ -461,7 +469,7 @@ pdfBtn.addEventListener("click", () => {
 <body>
 <h1>${escHtml(titulo)}</h1>
 ${linhas}
-<div class="print-footer">RADAR BRASIL &ndash; Impulsionando a Ação Climática Federativa</div>
+<div class="print-footer">${RBi18n.t("RADAR BRASIL – Impulsionando a Ação Climática Federativa")}</div>
 </body>
 </html>`;
 
@@ -489,8 +497,15 @@ async function abrirFicha(estrutura) {
 
         modalLoader.style.display = "none";
 
+        // Título vira hiperlink quando a ficha tem Link_eixo
+        if (data.link_eixo) {
+            modalTitle.innerHTML = `<a href="${data.link_eixo}" target="_blank" rel="noopener noreferrer">${escHtml(estrutura)}</a>`;
+        } else {
+            modalTitle.textContent = estrutura;
+        }
+
         if (!data.campos || data.campos.length === 0) {
-            modalBody.innerHTML = '<p style="color:#6a8fa0;font-style:italic;padding:20px;">Nenhuma informação disponível.</p>';
+            modalBody.innerHTML = `<p style="color:#6a8fa0;font-style:italic;padding:20px;">${RBi18n.t("Nenhuma informação disponível.")}</p>`;
             return;
         }
 
@@ -498,9 +513,12 @@ async function abrirFicha(estrutura) {
         data.campos.forEach((c) => {
             const div = document.createElement("div");
             div.className = "ap-ficha-campo";
+            const valorHtml = c.url
+                ? `<a href="${c.url}" target="_blank" rel="noopener noreferrer">${escHtml(c.valor)}</a>`
+                : escHtml(c.valor);
             div.innerHTML = `
-                <div class="ap-ficha-campo-label">${escHtml(c.label)}</div>
-                <div class="ap-ficha-campo-valor">${escHtml(c.valor)}</div>
+                <div class="ap-ficha-campo-label">${escHtml(RBi18n.t(c.label))}</div>
+                <div class="ap-ficha-campo-valor">${valorHtml}</div>
             `;
             frag.appendChild(div);
         });
@@ -508,7 +526,7 @@ async function abrirFicha(estrutura) {
 
     } catch (e) {
         modalLoader.style.display = "none";
-        modalBody.innerHTML = '<p style="color:#c00;padding:20px;">Erro ao carregar ficha técnica.</p>';
+        modalBody.innerHTML = `<p style="color:#c00;padding:20px;">${RBi18n.t("Erro ao carregar ficha técnica.")}</p>`;
         console.error("Erro ficha:", e);
     }
 }

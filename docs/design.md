@@ -494,6 +494,12 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-07-02 | `abd7175` | Rodapé: centralização do copyright corrigida (flex)             |
 | 2026-07-03 | `bd6c8a5` | Avaliação Painel: texto de instrução do empty state atualizado  |
 | 2026-07-13 | `011fa3c` | Popup do mapa: largura 290–320px para Perfil Investimento       |
+| 2026-07-22 | (branch)  | i18n: seletor PT\|EN no header, `{% trans %}` na nav e subtítulo|
+| 2026-07-22 | (branch)  | i18n full-coverage: 9 templates + 5 JS files, 236 strings EN    |
+| 2026-07-22 | (branch)  | i18n fix: Avaliação Painel — eixo title, filter labels EN       |
+| 2026-07-22 | (branch)  | i18n fix: varredura completa — 15 strings PT restantes corr.    |
+| 2026-07-23 | (branch)  | ficha técnica: links clicáveis em nome, órgão e arcabouço       |
+| 2026-07-23 | (branch)  | ficha técnica: cor dos links herda cor original do texto         |
 
 ---
 

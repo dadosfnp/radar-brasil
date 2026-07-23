@@ -103,7 +103,8 @@ function renderizarGrafico(dados) {
           callbacks: {
             label: (ctx) => {
               const v = ctx.parsed.x;
-              return ` ${ctx.dataset.label}: ${v} estrutura${v !== 1 ? "s" : ""}`;
+              const label = v !== 1 ? RBi18n.t("estruturas") : RBi18n.t("estrutura");
+              return ` ${ctx.dataset.label}: ${v} ${label}`;
             },
           },
         },
@@ -177,7 +178,7 @@ async function carregarDados(eixo) {
     renderizarGrafico(dados);
   } catch (e) {
     console.error("Erro fetch:", e);
-    _mostrarErroGrafico("⚠ Não foi possível carregar os dados. Verifique sua conexão e recarregue a página.");
+    _mostrarErroGrafico("⚠ " + RBi18n.t("Não foi possível carregar os dados. Verifique sua conexão e recarregue a página."));
   } finally {
     mostrarLoader(false);
   }

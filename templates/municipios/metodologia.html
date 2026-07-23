@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Metodologia{% endblock %}
+{% block title %}Radar Brasil - {% trans "Metodologia" %}{% endblock %}
 {% block menu_metodologia_active %}active{% endblock %}
 {% block body_class %}rb-body metodologia-page{% endblock %}
 
@@ -19,48 +19,45 @@
         <div>
             <div class="meto-hero-badge">
                 <span class="meto-hero-badge-dot"></span>
-                <span class="meto-hero-badge-text">Metodologia</span>
+                <span class="meto-hero-badge-text">{% trans "Metodologia" %}</span>
             </div>
-            <h1>Impulsionando a<br><em>Ação Climática</em><br>Federativa</h1>
+            <h1>{% trans "Impulsionando a Ação Climática Federativa" %}</h1>
             <p class="meto-hero-desc">
-                O Radar Brasil avalia o nível de implementação do Federalismo Climático no País,
-                mapeando instâncias de governança, planos, políticas e programas relacionados à
-                ação climática, e mensurando os resultados por meio de critérios padronizados
-                entre eixos e instâncias.
+                {% trans "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, planos, políticas e programas relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias." %}
             </p>
         </div>
 
         <div class="meto-step-card" id="meto-mapped-card">
             <div class="meto-step-card-header">
-                <span class="meto-step-card-header-text">O que foi mapeado</span>
+                <span class="meto-step-card-header-text">{% trans "O que foi mapeado" %}</span>
             </div>
             <div class="meto-step-item">
                 <div class="meto-step-num-wrap">
                     <div class="meto-step-num">1</div>
                     <div class="meto-step-big">17</div>
                 </div>
-                <div class="meto-step-text">linhas de financiamento do Governo Federal voltadas à ação climática</div>
+                <div class="meto-step-text">{% trans "linhas de financiamento do Governo Federal voltadas à ação climática" %}</div>
             </div>
             <div class="meto-step-item">
                 <div class="meto-step-num-wrap">
                     <div class="meto-step-num">2</div>
                     <div class="meto-step-big">31</div>
                 </div>
-                <div class="meto-step-text">instâncias de governança</div>
+                <div class="meto-step-text">{% trans "instâncias de governança" %}</div>
             </div>
             <div class="meto-step-item">
                 <div class="meto-step-num-wrap">
                     <div class="meto-step-num">3</div>
                     <div class="meto-step-big">17</div>
                 </div>
-                <div class="meto-step-text">planos e políticas públicas</div>
+                <div class="meto-step-text">{% trans "planos e políticas públicas" %}</div>
             </div>
             <div class="meto-step-item">
                 <div class="meto-step-num-wrap">
                     <div class="meto-step-num">4</div>
                     <div class="meto-step-big">18</div>
                 </div>
-                <div class="meto-step-text">programas</div>
+                <div class="meto-step-text">{% trans "programas" %}</div>
             </div>
         </div>
 
@@ -74,30 +71,27 @@
         <div class="meto-text-col" id="meto-text-col">
 
             <section class="meto-section">
-                <div class="meto-section-title">Mapeamento</div>
-                <p class="meto-section-body">O mapeamento identificou os principais instrumentos federais de ação climática disponíveis
-                para municípios brasileiros, organizados em quatro eixos:</p>
+                <div class="meto-section-title">{% trans "Mapeamento" %}</div>
+                <p class="meto-section-body">{% trans "O mapeamento identificou os principais instrumentos federais de ação climática disponíveis para municípios brasileiros, organizados em quatro eixos:" %}</p>
                 <ul class="meto-bullet-list">
-                    <li><strong>17</strong> linhas de financiamento do Governo Federal voltadas à ação climática;</li>
-                    <li><strong>31</strong> instâncias de governança;</li>
-                    <li><strong>17</strong> planos e políticas públicas;</li>
-                    <li><strong>18</strong> programas.</li>
+                    <li><strong>17</strong> {% trans "linhas de financiamento do Governo Federal voltadas à ação climática;" %}</li>
+                    <li><strong>31</strong> {% trans "instâncias de governança;" %}</li>
+                    <li><strong>17</strong> {% trans "planos e políticas públicas;" %}</li>
+                    <li><strong>18</strong> {% trans "programas." %}</li>
                 </ul>
             </section>
 
             <section class="meto-section">
-                <div class="meto-section-title">Mensuração dos resultados</div>
+                <div class="meto-section-title">{% trans "Mensuração dos resultados" %}</div>
                 <ul class="meto-bullet-list">
-                    <li>Leitura comparativa entre eixos e instâncias avaliadas;</li>
-                    <li>Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados.</li>
+                    <li>{% trans "Leitura comparativa entre eixos e instâncias avaliadas;" %}</li>
+                    <li>{% trans "Nível de implementação do Federalismo Climático no País, considerando os parâmetros e critérios avaliados." %}</li>
                 </ul>
             </section>
 
             <section class="meto-section">
-                <div class="meto-section-title">Critérios de avaliação</div>
-                <p class="meto-section-body">Estabelecimento de <strong>níveis (1 a 5)</strong> para cada parâmetro,
-                sendo <strong>1</strong> a ausência de ação ou participação de municípios,
-                e <strong>5</strong> atividade plena.</p>
+                <div class="meto-section-title">{% trans "Critérios de avaliação" %}</div>
+                <p class="meto-section-body">{% trans "Estabelecimento de níveis (1 a 5) para cada parâmetro, sendo 1 a ausência de ação ou participação de municípios, e 5 atividade plena." %}</p>
             </section>
 
         </div>
@@ -105,7 +99,7 @@
         <div class="meto-sidebar" id="meto-sidebar">
 
             <div class="meto-scale-card">
-                <div class="meto-scale-title">Escala de Avaliação</div>
+                <div class="meto-scale-title">{% trans "Escala de Avaliação" %}</div>
                 <div class="meto-scale-row">
                     <div class="meto-scale-pip pip-1">1</div>
                     <div class="meto-scale-pip pip-2">2</div>
@@ -114,17 +108,17 @@
                     <div class="meto-scale-pip pip-5">5</div>
                 </div>
                 <div class="meto-scale-legend">
-                    <span>Ausência</span>
-                    <span>Atividade plena</span>
+                    <span>{% trans "Ausência" %}</span>
+                    <span>{% trans "Atividade plena" %}</span>
                 </div>
                 <div class="meto-scale-note">
                     <div class="meto-scale-note-item">
                         <span class="meto-scale-note-badge" style="background:#e06b6b;">1</span>
-                        ausência de ação ou participação de municípios.
+                        {% trans "ausência de ação ou participação de municípios." %}
                     </div>
                     <div class="meto-scale-note-item">
                         <span class="meto-scale-note-badge" style="background:#7aaed4;">5</span>
-                        plena implementação e participação ativa dos municípios.
+                        {% trans "plena implementação e participação ativa dos municípios." %}
                     </div>
                 </div>
             </div>
@@ -137,7 +131,7 @@
                 </div>
                 <div>
                     <div class="meto-stat-val">17</div>
-                    <div class="meto-stat-desc">linhas de financiamento climático</div>
+                    <div class="meto-stat-desc">{% trans "linhas de financiamento climático" %}</div>
                 </div>
             </div>
 
@@ -149,7 +143,7 @@
                 </div>
                 <div>
                     <div class="meto-stat-val">31</div>
-                    <div class="meto-stat-desc">instâncias de governança</div>
+                    <div class="meto-stat-desc">{% trans "instâncias de governança" %}</div>
                 </div>
             </div>
 
@@ -161,7 +155,7 @@
                 </div>
                 <div>
                     <div class="meto-stat-val">17</div>
-                    <div class="meto-stat-desc">planos e políticas públicas</div>
+                    <div class="meto-stat-desc">{% trans "planos e políticas públicas" %}</div>
                 </div>
             </div>
 
@@ -173,7 +167,7 @@
                 </div>
                 <div>
                     <div class="meto-stat-val">18</div>
-                    <div class="meto-stat-desc">programas mapeados</div>
+                    <div class="meto-stat-desc">{% trans "programas mapeados" %}</div>
                 </div>
             </div>
 

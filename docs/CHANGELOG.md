@@ -6,6 +6,63 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Fix — Labels de nivel exibem "Level N" em vez de "Nivel N" no modo EN
+
+- **`painel_multinivel.py` `dados_para_grafico`:** Label do dataset usa `nivel.replace("Nivel ", "Level ")` quando `lang="en"`. Corrige: legenda e barras do grafico Painel Multinivel mostrando "Nivel 1"..."Nivel 5" em EN.
+- **`avaliacao_painel.py` `get_tabela`:** Campo `nivel` retorna "Level N" quando `lang="en"`. Corrige: badge de nivel na tabela de Avaliacao Painel mostrando "Nivel N" em EN.
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
+### Fix — Colunas Sector, Modality, State do financiamento EN
+
+- **`financiamento_climatico.py` `_EN_COLS`:** Sheet EN usa `Sector`, `Modality`, `State` (inglês) para essas colunas. Adicionado mapeamento correto para `Setor`, `Modalidade`, `Estadual`. Corrige: coluna Sector e Modality exibindo "—" na tabela EN.
+
+**Arquivo:** `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
+### Fix — Labels e filtragem de campos na ficha técnica EN
+
+- **`avaliacao_painel.py` `get_ficha`:** Labels das seções (DESCRIÇÃO, ÓRGÃO RESPONSÁVEL, ARCABOUÇO NORMATIVO, etc.) agora são exibidas em inglês quando `lang="en"`. Adicionado `_CAMPOS_LABELS` com pares `(label_pt, label_en)` e `_CAMPOS_ORDER` para ordem dos campos.
+- **`avaliacao_painel.py` `get_ficha`:** Adicionado `_INVALID_EN` com `"Does not apply"` e variações; substitui `_INVALID` no modo EN, ocultando campos marcados como "Does not apply" na sheet EN (equivalente ao "Ñ aplica" em PT). Corrige campos extras exibidos em EN que ficam ocultos em PT.
+
+**Arquivo:** `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
+### Fix — Normalização de valores EN→PT em colunas discriminadoras
+
+- **Causa raiz:** As sheets EN têm não só os cabeçalhos em inglês, mas também os *valores* das colunas discriminadoras (`Axis`, `Level`) em inglês — ex: `"Governance"`, `"Level 1"`. O código interno compara com `"Governanca"`, `"Nível 1"` → resultado sempre 0 / vazio.
+- **`painel_multinivel.py`:** Adicionado `_EN_EIXO` (dict valor EN→PT para Eixo) e regex `Level N → Nível N` aplicados após o rename de colunas. Corrige: ASSESSED INSTANCES = 0 e gráfico em branco.
+- **`avaliacao_painel.py`:** Mesmo mecanismo (`_EN_EIXO` + regex Nível). Corrige: dropdown de instâncias vazio na aba Assessment.
+- **`avaliacao_painel.py` `_EN_COLS`:** Nomes reais das colunas da sheet fichas EN confirmados via diagnóstico e corrigidos: `Responsible_agency` (era `Responsible_body`), `Agency_link` (era `Body_link`), `Regulatory_framework` (era `Normative_framework`), `Decision_authority` (era `Decision_character`), `Counterpart_funding` (era `Counterpart`). Corrige: campos de ficha técnica em branco no modo EN.
+- **`financiamento_climatico.py` `_EN_COLS`:** Nomes reais confirmados via diagnóstico: `Programs_and_funding_lines`, `Resource_origin`, `Funding_amount`, `Minimum_counterpart`, `Transfer_funding_type`. Corrige: coluna Programas mostrando "—" e donut Origem sem dados.
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
+### Feat — Banco de dados EN: Google Sheets em inglês por idioma
+
+- **`avaliacao_painel.py`:** `SHEET_FICHAS` e `SHEET_PARAMS` agora são dicts `{"pt": ..., "en": ...}`; cache separado por idioma (`_cache_fichas["pt"/"en"]`); funções `get_filtros`, `get_tabela`, `get_ficha` recebem `lang="pt"`
+- **`painel_multinivel.py`:** `SHEET_PARAMETROS` dict por idioma; cache `_cache["pt"/"en"]`; `get_total_municipios` e `dados_para_grafico` recebem `lang="pt"`
+- **`financiamento_climatico.py`:** `SHEET_FIN` dict por idioma; cache `_cache["pt"/"en"]`; `get_filtros`, `get_tabela`, `get_graficos` recebem `lang="pt"`
+- **`mapa_georreferenciado.py`:** `SHEET_MAPA` dict por idioma (EN sem GID usa primeira aba); cache `_cache_sheet["pt"/"en"]`; `get_dados_mapa` e `get_filtros_mapa` recebem `lang="pt"`
+- **`views.py`:** Adicionada função `_lang(request)` que extrai idioma de `request.LANGUAGE_CODE`; todas as views de API passam `lang=_lang(request)` aos services
+
+**Sheets EN:**
+
+- Fichas: `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` (GID `1400373985`)
+- Parâmetros: `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` (GID `1708988989`)
+- Financiamento Climático: `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` (GID `449650871`)
+- Mapa: `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` (primeira aba)
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/financiamento_climatico.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/views.py`
+
+---
+
 ### Refactor — Limpeza de arquivos sem serventia
 
 - Removido `apps/municipios/inicio.html` (template órfão fora da hierarquia `<app>/templates/`)
@@ -16,6 +73,85 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Substituídas 4 chamadas `print()` por `logger.info/debug` em `apps/indicadores/services/painel_multinivel.py`
 
 **Arquivos:** `apps/municipios/inicio.html` (removido), `setup/asgi.py` (removido), `static/img/` (15 removidos), `setup/settings.py`, `requirements.txt`, `apps/indicadores/services/painel_multinivel.py`
+
+---
+
+## 2026-07-23 — (branch feat/i18n-english)
+
+### Fix — Cor dos hiperlinks da ficha técnica
+
+- **`avaliacao-painel.css`:** Links no título do modal herdam `rgba(194,237,231,.82)` (cor original do h3 no header escuro); links nos campos herdam `#4a6a78` (cor original do campo-valor); sublinhado sutil com `text-decoration-color` semi-transparente; hover com teal `#2c7873`
+
+---
+
+### Feature — Atualização do banco de dados + hiperlinks nas fichas técnicas
+
+- **Services (4 arquivos):** IDs das planilhas Google Sheets atualizados para os novos bancos de dados
+  - `avaliacao_painel.py`: `SHEET_FICHAS_ID` → `16s59h5uE0R6GZT...`, `SHEET_PARAMS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `painel_multinivel.py`: `SHEET_PARAMETROS_ID` → `1jKGDhsjDYHRKEJ...`
+  - `mapa_georreferenciado.py`: `SHEET_ID` → `1qMPAIB5e6IoG_cd...`, `SHEET_GID` → `1619423236`
+  - `financiamento_climatico.py`: `SHEET_ID` → `1sxKa2yu8GL8U6m4...`, `SHEET_GID` → `793540087`
+- **`avaliacao_painel.py` — `get_ficha()`:** Refatorado para suportar hiperlinks; retorna `link_eixo` (link do nome da estrutura) e campo `url` em `Órgão Responsável` (`Link_orgao`) e `Arcabouço Normativo` (`Link_arcabouco`)
+- **`painel_multinivel.py` — `ORDEM_CRITERIOS`:** Labels atualizados: `"Financiamento"` → `"Sustentabilidade Financeira"`, `"Representação de Gênero, Raça e Etnia"` → `"Diversidade e Representatividade"` (todos os eixos aplicáveis)
+- **`avaliacao-painel.js` — `abrirFicha()`:** Título do modal vira hiperlink quando `link_eixo` presente; campos com URL renderizados como `<a>`; labels passam por `RBi18n.t()`
+- **`i18n.js`:** 2 novas entradas EN: `"Sustentabilidade Financeira"→"Financial Sustainability"`, `"Diversidade e Representatividade"→"Diversity and Representativeness"`
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/mapa_georreferenciado.py`, `apps/indicadores/services/financiamento_climatico.py`, `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
+## 2026-07-22 — (branch feat/i18n-english)
+
+### Fix — Varredura completa: todas as strings PT remanescentes corrigidas no modo EN
+
+- **`base_templates/base.html`:** `{% trans %}` adicionado nas meta tags padrão (`description`, `og:title`, `og:description`, `twitter:title`, `twitter:description`), endereço do footer e nome da organização no copyright; `og:locale` agora dinâmico (`en_US` / `pt_BR`)
+- **`locale/en/LC_MESSAGES/django.po`:** 9 novas entradas: `"Filtros"→"Filters"`, meta descriptions, og/twitter titles, endereço (versão EN), `"Frente Nacional de Prefeitas e Prefeitos"→"National Front of Mayors"`
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado — 243 strings
+- **`avaliacao-painel.js`:** Fallback `"Ficha Técnica"` agora usa `RBi18n.t()`; atributo `lang` do HTML do PDF gerado agora dinâmico (`en-US` / `pt-BR`)
+- **`financiamento-climatico.js`:** `"de"` no contador MultiSelect agora usa `RBi18n.t("de")`; `"registros"` no tooltip Plotly usa `RBi18n.t()`; atributos `data-label` da tabela mobile agora traduzidos via `RBi18n.t()`; fallback `"Todos"` no construtor usa `RBi18n.t()`
+- **`static/js/i18n.js`:** 7 novas entradas no `DICT.en`: `"Modalidade"→"Modality"`, `"Origem"→"Source"`, `"Valor"→"Value"`, `"Estadual"→"State"`, `"registros"→"records"`, `"Ficha Técnica"→"Technical Sheet"`
+
+**Arquivos:** `base_templates/base.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `static/js/avaliacao-painel.js`, `static/js/financiamento-climatico.js`, `static/js/i18n.js`
+
+---
+
+### Fix — Avaliação Painel Multinível: strings dinâmicas não traduzidas no modo EN
+
+- **`avaliacao-painel.js`:** Adicionado `EIXO_LABELS_EN` com chaves ASCII e valores em inglês; `ativarAba()` agora usa este dict diretamente quando `lang === "en"`, contornando possível mismatch de encoding Unicode NFC/NFD
+- **`avaliacao-painel.js`:** `carregarFiltros()` agora envolve os labels vindos da API com `RBi18n.t()` (eram setados direto sem tradução): `estruturaLabel` e `setorLabel`
+- **`static/js/i18n.js`:** Adicionadas 5 entradas ao `DICT.en` para cobrir os valores reais da API: `"Instância"→"Instance"`, `"Setor"→"Sector"`, `"Política / Plano"→"Policy / Plan"`, `"Programa"→"Program"`, `"Linha de Financiamento"→"Financing Line"`
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/i18n.js`
+
+---
+
+### Feature — Tradução completa da plataforma para inglês (i18n full-coverage)
+
+- **Templates HTML (9 páginas):** `{% load i18n %}` + `{% trans %}` aplicados em todas as strings visíveis de todas as páginas: `landing.html`, `inicio.html`, `metodologia.html`, `linha-do-tempo.html`, `mapa-georreferenciado.html`, `nota-pais.html`, `painel-multinivel.html`, `avaliacao-painel.html`, `financiamento-climatico.html`
+- **JavaScript (5 arquivos):** `RBi18n.t()` aplicado em todas as strings dinâmicas: popups do mapa, legendas, stats panel, cabeçalhos CSV, MultiSelect, paginação, mensagens de erro e estado vazio — em `mapa-georreferenciado.js`, `financiamento-climatico.js`, `avaliacao-painel.js`, `painel-multinivel.js`, `nota-pais.js`
+- **`static/js/i18n.js`:** Dicionário expandido de ~30 para ~80 entradas cobrindo labels de popup, valores de dados (porte, perfil investimento), nomes de oceanos, botões de ação, mensagens de sistema e cabeçalhos de CSV
+- **`nota-pais.js`:** `getName()` agora retorna o nome em inglês do GeoJSON Natural Earth (`props.NAME`) quando `lang === "en"`, sem necessidade de traduzir os ~80 nomes de países
+- **`locale/en/LC_MESSAGES/django.po`:** Expandido de 103 para 236 strings
+- **`locale/en/LC_MESSAGES/django.mo`:** Recompilado com `compile_po.py`
+- Infraestrutura i18n base (settings, URLs, header PT|EN, `base.html`): implementada em entrada anterior
+
+**Arquivos:** todos os 9 templates em `templates/municipios/`, `static/js/i18n.js`, `static/js/mapa-georreferenciado.js`, `static/js/financiamento-climatico.js`, `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/nota-pais.js`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
+## 2026-07-22 — (branch feat/i18n-english) — infraestrutura
+
+### Feature — Tradução para inglês com seletor de idioma no header
+
+- Suporte a i18n via Django `LocaleMiddleware` + `set_language` view
+- Seletor `PT | EN` adicionado ao header (canto superior direito, abaixo do logo FNP)
+- `base.html`: `{% load i18n %}`, `{% trans %}` aplicado nos links de nav e subtítulo do header
+- `locale/en/LC_MESSAGES/django.po` e `django.mo` compilado com 103 strings traduzidas
+- `static/js/i18n.js`: objeto global `RBi18n` com dicionário PT→EN para strings dinâmicas dos dados
+- `setup/settings.py`: `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
+- `setup/urls.py`: rota `i18n/` para o endpoint `set_language`
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/js/i18n.js`, `setup/settings.py`, `setup/urls.py`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
 
 ---
 

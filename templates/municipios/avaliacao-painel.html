@@ -1,7 +1,7 @@
-﻿{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Avaliação Painel Multinível{% endblock %}
+{% block title %}Radar Brasil - {% trans "Avaliação Painel Multinível" %}{% endblock %}
 {% block body_class %}rb-body avaliacao-painel-page{% endblock %}
 {% block menu_avaliacao_active %}active{% endblock %}
 
@@ -17,31 +17,31 @@
 
   {# CABEÇALHO: título + abas #}
   <div class="ap-card-header">
-    <span class="ap-panel-label">Avaliação Painel Multinível</span>
-    <nav class="ap-tabs" aria-label="Eixos de avaliação">
+    <span class="ap-panel-label">{% trans "Avaliação Painel Multinível" %}</span>
+    <nav class="ap-tabs" aria-label="{% trans 'Eixos de avaliação' %}">
       <ul role="tablist">
         <li class="active" role="presentation">
           <button type="button" role="tab" aria-selected="true" aria-controls="ap-tabpanel" data-eixo="Governanca" id="ap-tab-governanca">
             <img src="{% static 'img/governanca.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="Govern.">Governança</span>
+            <span data-short="{% trans 'Govern.' %}">{% trans "Governança" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Politicas e Planos" id="ap-tab-politicas">
             <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="Políticas">Políticas e Planos</span>
+            <span data-short="{% trans 'Políticas' %}">{% trans "Políticas e Planos" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Programas" id="ap-tab-programas">
             <img src="{% static 'img/programas.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="Programas">Programas</span>
+            <span data-short="{% trans 'Programas' %}">{% trans "Programas" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Linhas de Financiamento" id="ap-tab-financiamento">
             <img src="{% static 'img/financiamento.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="Financ.">Linha de Financiamento</span>
+            <span data-short="{% trans 'Financ.' %}">{% trans "Linha de Financiamento" %}</span>
           </button>
         </li>
       </ul>
@@ -53,10 +53,10 @@
 
     {# DESCRIÇÃO #}
     <div class="ap-desc">
-      <p id="ap-titulo-eixo" class="ap-eixo-title">Critérios de Avaliação <span id="ap-eixo-label">Governança</span></p>
+      <p id="ap-titulo-eixo" class="ap-eixo-title">{% trans "Critérios de Avaliação" %} <span id="ap-eixo-label">{% trans "Governança" %}</span></p>
       <p class="ap-eixo-sub">
-        <strong>No campo abaixo, selecione a Instância de Governança ou o Setor para realizar a pesquisa.</strong><br>
-        Cada critério possui parâmetros de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes.
+        <strong>{% trans "No campo abaixo, selecione a Instância de Governança ou o Setor para realizar a pesquisa." %}</strong><br>
+        {% trans "Cada critério possui parâmetros de avaliação específicos, para que a atribuição dos níveis e evolução sejam objetivos e transparentes." %}
       </p>
     </div>
 
@@ -65,23 +65,23 @@
 
       {# Filtro Instância de Governança (primeiro) #}
       <div class="ap-filter-group">
-        <label class="ap-filter-label" id="ap-estrutura-label" for="ap-estrutura-input">Instância de Governança</label>
+        <label class="ap-filter-label" id="ap-estrutura-label" for="ap-estrutura-input">{% trans "Instância de Governança" %}</label>
         <div class="ap-combo-wrap" id="ap-estrutura-wrap">
           <input type="text" id="ap-estrutura-input" class="ap-combo-input"
-                 placeholder="Busque ou selecione uma instância…"
+                 placeholder="{% trans 'Busque ou selecione uma instância…' %}"
                  autocomplete="off" spellcheck="false"
                  role="combobox" aria-expanded="false"
                  aria-haspopup="listbox" aria-autocomplete="list"
                  aria-controls="ap-estrutura-dropdown">
           <button type="button" class="ap-combo-clear" id="ap-estrutura-clear"
-                  aria-label="Limpar instância" style="display:none">
+                  aria-label="{% trans 'Limpar instância' %}" style="display:none">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
           <button type="button" class="ap-combo-toggle" id="ap-estrutura-toggle"
-                  aria-label="Abrir lista de instâncias" tabindex="-1">
+                  aria-label="{% trans 'Abrir lista de instâncias' %}" tabindex="-1">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                  stroke-linejoin="round" aria-hidden="true">
@@ -89,29 +89,29 @@
             </svg>
           </button>
           <ul class="ap-combo-dropdown" id="ap-estrutura-dropdown"
-              role="listbox" aria-label="Instâncias disponíveis" hidden></ul>
+              role="listbox" aria-label="{% trans 'Instâncias disponíveis' %}" hidden></ul>
         </div>
       </div>
 
       {# Filtro Setor (segundo, oculto se não houver setores) #}
       <div class="ap-filter-group" id="ap-setor-group" style="display:none;">
-        <label class="ap-filter-label" id="ap-setor-label" for="ap-setor-input">Setor</label>
+        <label class="ap-filter-label" id="ap-setor-label" for="ap-setor-input">{% trans "Setor" %}</label>
         <div class="ap-combo-wrap" id="ap-setor-wrap">
           <input type="text" id="ap-setor-input" class="ap-combo-input"
-                 placeholder="Busque ou selecione um setor…"
+                 placeholder="{% trans 'Busque ou selecione um setor…' %}"
                  autocomplete="off" spellcheck="false"
                  role="combobox" aria-expanded="false"
                  aria-haspopup="listbox" aria-autocomplete="list"
                  aria-controls="ap-setor-dropdown">
           <button type="button" class="ap-combo-clear" id="ap-setor-clear"
-                  aria-label="Limpar setor" style="display:none">
+                  aria-label="{% trans 'Limpar setor' %}" style="display:none">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
           <button type="button" class="ap-combo-toggle" id="ap-setor-toggle"
-                  aria-label="Abrir lista de setores" tabindex="-1">
+                  aria-label="{% trans 'Abrir lista de setores' %}" tabindex="-1">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                  stroke-linejoin="round" aria-hidden="true">
@@ -119,7 +119,7 @@
             </svg>
           </button>
           <ul class="ap-combo-dropdown" id="ap-setor-dropdown"
-              role="listbox" aria-label="Setores disponíveis" hidden></ul>
+              role="listbox" aria-label="{% trans 'Setores disponíveis' %}" hidden></ul>
         </div>
       </div>
 
@@ -129,7 +129,7 @@
     <div class="ap-table-area" id="ap-table-area" aria-live="polite" aria-atomic="false">
 
       {# Loader #}
-      <div id="ap-loader" class="ap-loader" style="display:none;" role="status" aria-label="Carregando dados">
+      <div id="ap-loader" class="ap-loader" style="display:none;" role="status" aria-label="{% trans 'Carregando dados' %}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
              stroke="#2c6174" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
@@ -138,7 +138,7 @@
               from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
           </path>
         </svg>
-        Carregando dados...
+        {% trans "Carregando dados..." %}
       </div>
 
       {# Placeholder inicial #}
@@ -149,16 +149,16 @@
           <line x1="9" y1="12" x2="15" y2="12"/>
           <line x1="9" y1="16" x2="13" y2="16"/>
         </svg>
-        <span id="ap-placeholder-text" class="ap-placeholder-text">Selecione um item para visualizar a avaliação.</span>
+        <span id="ap-placeholder-text" class="ap-placeholder-text">{% trans "Selecione um item para visualizar a avaliação." %}</span>
       </div>
 
       {# Tabela de avaliação #}
-      <table class="ap-table" id="ap-table" style="display:none;" aria-label="Critérios de avaliação">
+      <table class="ap-table" id="ap-table" style="display:none;" aria-label="{% trans 'Critérios de avaliação' %}">
         <thead>
           <tr>
-            <th scope="col">Critério</th>
-            <th scope="col">Parâmetro</th>
-            <th scope="col" class="ap-th-nivel">Nível</th>
+            <th scope="col">{% trans "Critério" %}</th>
+            <th scope="col">{% trans "Parâmetro" %}</th>
+            <th scope="col" class="ap-th-nivel">{% trans "Nível" %}</th>
           </tr>
         </thead>
         <tbody id="ap-table-body"></tbody>
@@ -169,7 +169,7 @@
     {# RODAPÉ DA ÁREA PRINCIPAL #}
     <div class="ap-footer-actions" id="ap-footer-actions" style="display:none;">
       <button type="button" class="ap-ficha-btn" id="ap-ficha-btn">
-        Ficha Técnica
+        {% trans "Ficha Técnica" %}
       </button>
     </div>
 
@@ -182,8 +182,8 @@
 <div class="ap-modal-overlay" id="ap-modal" style="display:none;" role="dialog" aria-modal="true">
   <div class="ap-modal-box">
     <div class="ap-modal-header">
-      <h3 id="ap-modal-title">Ficha Técnica</h3>
-      <button type="button" id="ap-pdf-btn" class="ap-pdf-header-btn" title="Salvar PDF">
+      <h3 id="ap-modal-title">{% trans "Ficha Técnica" %}</h3>
+      <button type="button" id="ap-pdf-btn" class="ap-pdf-header-btn" title="{% trans 'Salvar PDF' %}">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -193,10 +193,10 @@
         PDF
       </button>
       <span class="ap-modal-header-sep" aria-hidden="true"></span>
-      <button class="ap-modal-close" id="ap-modal-close" aria-label="Fechar">&times;</button>
+      <button class="ap-modal-close" id="ap-modal-close" aria-label="{% trans 'Fechar' %}">&times;</button>
     </div>
     <div class="ap-modal-body" id="ap-modal-body">
-      <div class="ap-loader" id="ap-modal-loader" role="status" aria-label="Carregando ficha técnica">
+      <div class="ap-loader" id="ap-modal-loader" role="status" aria-label="{% trans 'Carregando ficha técnica' %}">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
              stroke="#2c6174" stroke-width="2" stroke-linecap="round" aria-hidden="true">
           <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
@@ -205,12 +205,12 @@
               from="0 12 12" to="360 12 12" dur="0.8s" repeatCount="indefinite"/>
           </path>
         </svg>
-        Carregando ficha...
+        {% trans "Carregando ficha..." %}
       </div>
     </div>
     <div class="ap-modal-footer">
       <a href="#" id="ap-linha-tempo-btn" class="ap-linha-tempo-btn">
-        Linha do Tempo
+        {% trans "Linha do Tempo" %}
       </a>
     </div>
   </div>

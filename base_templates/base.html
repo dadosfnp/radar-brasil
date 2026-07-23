@@ -1,25 +1,25 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="{{ request.LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Radar Brasil{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{% block meta_description %}Radar Brasil — Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional.{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% trans "Radar Brasil — Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional." %}{% endblock %}">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Radar Brasil">
-    <meta property="og:title" content="{% block og_title %}Radar Brasil — Federalismo Climático{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional.{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{% trans "Radar Brasil — Federalismo Climático" %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% trans "Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional." %}{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar.svg' %}">
-    <meta property="og:locale" content="pt_BR">
+    <meta property="og:locale" content="{% if request.LANGUAGE_CODE == 'en' %}en_US{% else %}pt_BR{% endif %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{% block twitter_title %}Radar Brasil — Federalismo Climático{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Plataforma de monitoramento do federalismo climático brasileiro.{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{% trans "Radar Brasil — Federalismo Climático" %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% trans "Plataforma de monitoramento do federalismo climático brasileiro." %}{% endblock %}">
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar.svg' %}">
 
     <!-- Favicon -->
@@ -36,7 +36,7 @@
 </head>
 <body class="{% block body_class %}rb-body{% endblock %}">
 
-    <a href="#rb-main-content" class="rb-skip-link">Ir para o conteúdo principal</a>
+    <a href="#rb-main-content" class="rb-skip-link">{% trans "Ir para o conteúdo principal" %}</a>
 
     <div class="rb-header-wrapper">
         <header class="rb-header">
@@ -48,35 +48,46 @@
                 </div>
                 <div class="rb-header-title">
                     <h1>RADAR BRASIL</h1>
-                    <p>Impulsionando a Ação Climática Federativa</p>
+                    <p>{% trans "Impulsionando a Ação Climática Federativa" %}</p>
                 </div>
                 <div class="rb-header-logo">
                     <a href="https://fnp.org.br/index.php" target="_blank" rel="noopener noreferrer">
                         <img src="{% static 'img/logo-FNP.png' %}" alt="FNP" class="rb-header-logo-img">
                     </a>
+                    <form action="{% url 'set_language' %}" method="post" class="rb-lang-form">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}">
+                        <div class="rb-lang-toggle" role="group" aria-label="{% trans 'Selecionar idioma' %}">
+                            <button type="submit" name="language" value="pt-br"
+                                    class="rb-lang-btn{% if request.LANGUAGE_CODE == 'pt-br' %} active{% endif %}">PT</button>
+                            <span class="rb-lang-sep" aria-hidden="true">|</span>
+                            <button type="submit" name="language" value="en"
+                                    class="rb-lang-btn{% if request.LANGUAGE_CODE == 'en' %} active{% endif %}">EN</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </header>
     </div>
     <nav class="rb-main-nav" id="rb-main-nav">
-        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="Abrir menu" aria-expanded="false">
+        <button class="rb-nav-hamburger" id="rb-hamburger" aria-label="{% trans 'Abrir menu' %}" aria-expanded="false">
             <span></span><span></span><span></span>
         </button>
         <div class="rb-nav-links" id="rb-nav-links">
             <a href="{% url 'municipios:inicio' %}"
-               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">Início</a>
+               class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">{% trans "Início" %}</a>
             <a href="{% url 'municipios:metodologia' %}"
-               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">Metodologia</a>
+               class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
             <a href="{% url 'indicadores:painel_multinivel' %}"
-               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">Painel Multinível</a>
+               class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painel Multinível" %}</a>
             <a href="{% url 'indicadores:avaliacao_painel' %}"
-               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">Avaliação Painel Multinível</a>
+               class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Avaliação Painel Multinível" %}</a>
             <a href="{% url 'indicadores:nota_pais' %}"
-               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">Nota País</a>
+               class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nota País" %}</a>
             <a href="{% url 'indicadores:financiamento_climatico' %}"
-               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">Financiamento Climático</a>
+               class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">{% trans "Financiamento Climático" %}</a>
             <a href="{% url 'indicadores:mapa_georreferenciado' %}"
-               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">Mapa Georreferenciado</a>
+               class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa Georreferenciado" %}</a>
         </div>
     </nav>
 
@@ -95,8 +106,8 @@
         <div class="rb-footer-inner">
 
             <div class="rb-footer-col rb-footer-col-left">
-                <h3>Contato</h3>
-                <p>Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, Brasília/DF</p>
+                <h3>{% trans "Contato" %}</h3>
+                <p>{% trans "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, Brasília/DF" %}</p>
                 <p>secretaria@fnp.org.br</p>
                 <div class="rb-footer-fone">
                     <span class="rb-footer-fone-wrap">
@@ -117,7 +128,7 @@
 
             <div class="rb-footer-col rb-footer-col-right">
                 <div class="rb-footer-social-block">
-                    <h3>Siga-nos</h3>
+                    <h3>{% trans "Siga-nos" %}</h3>
                     <div class="rb-footer-social">
                         <a href="https://www.instagram.com/fnprefeitos/" class="rb-social-icon" aria-label="Instagram">
                             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -149,14 +160,15 @@
         </div>
 
         <div class="rb-footer-bottom">
-            <p class="rb-footer-copy">Frente Nacional de Prefeitas e Prefeitos &copy; {% now "Y" %} Todos os direitos reservados</p>
+            <p class="rb-footer-copy">{% trans "Frente Nacional de Prefeitas e Prefeitos" %} &copy; {% now "Y" %} {% trans "Todos os direitos reservados." %}</p>
         </div>
 
     </footer>
 
+    <script src="{% static 'js/i18n.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
-    <button id="rb-scroll-top" class="rb-scroll-top" aria-label="Voltar ao topo" hidden>
+    <button id="rb-scroll-top" class="rb-scroll-top" aria-label="{% trans 'Voltar ao topo' %}" hidden>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polyline points="18 15 12 9 6 15"/>
         </svg>
@@ -170,7 +182,7 @@
             btn.addEventListener('click', function () {
                 var open = nav.classList.toggle('nav-open');
                 btn.setAttribute('aria-expanded', open);
-                btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+                btn.setAttribute('aria-label', open ? '{% trans "Fechar menu" %}' : '{% trans "Abrir menu" %}');
             });
             nav.querySelectorAll('.rb-nav-link').forEach(function (link) {
                 link.addEventListener('click', function () {

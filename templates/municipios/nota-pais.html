@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Radar Brasil - Nota País{% endblock %}
+{% block title %}Radar Brasil - {% trans "Nota País" %}{% endblock %}
 {% block body_class %}rb-body np-body{% endblock %}
 {% block menu_nota_pais_active %}active{% endblock %}
 
@@ -17,11 +17,9 @@
 
   {# INTRO #}
   <div class="np-intro">
-    <h2>Nota-País - Radar Brasil</h2>
+    <h2>{% trans "Nota-País - Radar Brasil" %}</h2>
     <p>
-      No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão CHAMP e suas respectivas
-      <strong>Nota-País</strong>, <strong>termômetro da capacidade de cada país de execução</strong>
-      e de cumprimento dos compromissos climáticos.
+      {% trans "No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão CHAMP e suas respectivas Nota-País, termômetro da capacidade de cada país de execução e de cumprimento dos compromissos climáticos." %}
     </p>
   </div>
 
@@ -36,9 +34,9 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.6;vertical-align:middle">
             <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
           </svg>
-          FILTROS
+          {% trans "FILTROS" %}
         </span>
-        <button class="np-sidebar-close" id="np-sidebar-close" aria-label="Fechar filtros">
+        <button class="np-sidebar-close" id="np-sidebar-close" aria-label="{% trans 'Fechar filtros' %}">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
@@ -48,14 +46,14 @@
       <div class="np-filters">
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-pais">Países Signatários</label>
+          <label class="np-filter-label" for="np-f-pais">{% trans "Países Signatários" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-pais">
-                <option value="">Todos</option>
+                <option value="">{% trans "Todos" %}</option>
               </select>
             </div>
-            <button class="np-search-btn" aria-label="Buscar">
+            <button class="np-search-btn" aria-label="{% trans 'Filtrar' %}">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -65,14 +63,14 @@
         </div>
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-compromisso">Compromissos Climáticos</label>
+          <label class="np-filter-label" for="np-f-compromisso">{% trans "Compromissos Climáticos" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-compromisso">
-                <option value="">Todos</option>
+                <option value="">{% trans "Todos" %}</option>
               </select>
             </div>
-            <button class="np-search-btn" aria-label="Buscar">
+            <button class="np-search-btn" aria-label="{% trans 'Filtrar' %}">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -82,14 +80,14 @@
         </div>
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-iniciativa">Iniciativas Ativas</label>
+          <label class="np-filter-label" for="np-f-iniciativa">{% trans "Iniciativas Ativas" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-iniciativa">
-                <option value="">Todos</option>
+                <option value="">{% trans "Todos" %}</option>
               </select>
             </div>
-            <button class="np-search-btn" aria-label="Buscar">
+            <button class="np-search-btn" aria-label="{% trans 'Filtrar' %}">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -99,19 +97,19 @@
         </div>
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-regiao">Regiões Monitoradas</label>
+          <label class="np-filter-label" for="np-f-regiao">{% trans "Regiões Monitoradas" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-regiao">
-                <option value="">Todos</option>
-                <option value="americas">Américas</option>
-                <option value="europe">Europa</option>
-                <option value="africa">África</option>
-                <option value="asia">Ásia</option>
-                <option value="oceania">Oceania</option>
+                <option value="">{% trans "Todos" %}</option>
+                <option value="americas">{% trans "Américas" %}</option>
+                <option value="europe">{% trans "Europa" %}</option>
+                <option value="africa">{% trans "África" %}</option>
+                <option value="asia">{% trans "Ásia" %}</option>
+                <option value="oceania">{% trans "Oceania" %}</option>
               </select>
             </div>
-            <button class="np-search-btn" aria-label="Buscar">
+            <button class="np-search-btn" aria-label="{% trans 'Filtrar' %}">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -123,21 +121,21 @@
       </div>{# /np-filters #}
 
       <div class="np-actions">
-        <button class="np-btn np-btn-secondary" id="np-btn-limpar">Limpar filtros</button>
+        <button class="np-btn np-btn-secondary" id="np-btn-limpar">{% trans "Limpar filtros" %}</button>
         <button class="np-btn np-btn-primary" id="np-btn-baixar">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          Baixar Dados
+          {% trans "Baixar Dados" %}
         </button>
         <button class="np-btn np-btn-secondary" id="np-btn-print">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
             <circle cx="12" cy="13" r="4"></circle>
           </svg>
-          Print Mapa
+          {% trans "Print Mapa" %}
         </button>
       </div>
 
@@ -146,7 +144,7 @@
     {# MAPA #}
     <div class="np-map-container">
       {# FAB de filtros — visível apenas no mobile #}
-      <button class="np-filter-fab" id="np-filter-fab" aria-label="Abrir filtros">
+      <button class="np-filter-fab" id="np-filter-fab" aria-label="{% trans 'Abrir menu' %}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
         </svg>
@@ -172,7 +170,7 @@
       </div>
       <div class="np-kpi-body">
         <span class="np-kpi-value">77</span>
-        <span class="np-kpi-label">PAÍSES SIGNATÁRIOS</span>
+        <span class="np-kpi-label">{% trans "PAÍSES SIGNATÁRIOS" %}</span>
       </div>
     </div>
 
@@ -189,7 +187,7 @@
       </div>
       <div class="np-kpi-body">
         <span class="np-kpi-value">+120</span>
-        <span class="np-kpi-label">COMPROMISSOS CLIMÁTICOS</span>
+        <span class="np-kpi-label">{% trans "COMPROMISSOS CLIMÁTICOS" %}</span>
       </div>
     </div>
 
@@ -203,7 +201,7 @@
       </div>
       <div class="np-kpi-body">
         <span class="np-kpi-value">23</span>
-        <span class="np-kpi-label">INICIATIVAS ATIVAS</span>
+        <span class="np-kpi-label">{% trans "INICIATIVAS ATIVAS" %}</span>
       </div>
     </div>
 
@@ -219,7 +217,7 @@
       </div>
       <div class="np-kpi-body">
         <span class="np-kpi-value">5</span>
-        <span class="np-kpi-label">REGIÕES MONITORADAS</span>
+        <span class="np-kpi-label">{% trans "REGIÕES MONITORADAS" %}</span>
       </div>
     </div>
 
