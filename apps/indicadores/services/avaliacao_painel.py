@@ -9,6 +9,34 @@ from oauth2client.service_account import ServiceAccountCredentials
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 CACHE_TTL = 1800  # 30 min
 
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    "Structure":                  "Estrutura",
+    "Axis":                       "Eixo",
+    "Axis_link":                  "Link_eixo",
+    "Sector":                     "Setor",
+    "Level":                      "Nível",
+    "Criterion":                  "Critério",
+    "Descriptive":                "Descritivo",
+    "Evaluation":                 "Avaliação",
+    "Classification":             "Classificação",
+    "Description":                "Descricao",
+    "Responsible_body":           "Orgao_responsavel",
+    "Normative_framework":        "Arcabouco_normativo",
+    "Counterpart":                "Contrapartida",
+    "Federative_dialogue_space":  "Espaco_dialogo_federativo",
+    "Financing":                  "Financiamento",
+    "Periodicity":                "Periodicidade",
+    "Composition":                "Composicao",
+    "Decision_character":         "Carater_decisorio",
+    "Related_policy_plan":        "Politica_Plano_relacionado",
+    "Modality":                   "Modalidade",
+    "Transfer":                   "Repasse",
+    "Sources":                    "Fontes",
+    "Body_link":                  "Link_orgao",
+    "Framework_link":             "Link_arcabouco",
+}
+
 # ── Sheet IDs por idioma ──────────────────────────────────────
 SHEET_FICHAS = {
     "pt": {"id": "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8", "gid": None},
@@ -84,6 +112,8 @@ def _ler_sheet(cfg: dict, cache_lang: dict) -> pd.DataFrame:
     sh = client.open_by_key(cfg["id"])
     ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
     df = pd.DataFrame(ws.get_all_records())
+    if cfg.get("gid"):  # sheet EN — normaliza nomes de coluna para PT
+        df.rename(columns=_EN_COLS, inplace=True)
     cache_lang["df"] = df
     cache_lang["ts"] = agora
     return df

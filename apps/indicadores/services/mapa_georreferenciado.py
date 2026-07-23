@@ -8,6 +8,23 @@ from oauth2client.service_account import ServiceAccountCredentials
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 CACHE_TTL = 1800
 
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    "Municipality":        "Municípios",
+    "Municipalities":      "Municípios",
+    "Axis":                "Eixo",
+    "Stage":               "Estágio",
+    "Profile":             "Perfil",
+    "Estimate_2023_2030":  "Estimativa_2023_2030",
+    "Population":          "Populacao",
+    "Enterprise":          "Empreendimento",
+    "Project":             "Empreendimento",
+    "Type_of_Executor":    "Tipo de Executor",
+    "Executor_Type":       "Tipo de Executor",
+    "Percentage_executed": "Percentual_executado",
+    "Modality":            "Modalidade",
+}
+
 SHEET_MAPA = {
     "pt": {"id": "1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs", "gid": 1619423236},
     "en": {"id": "1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk", "gid": None},
@@ -96,6 +113,8 @@ def _ler_sheet(lang: str = "pt") -> pd.DataFrame:
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
     df.columns = [str(col).strip() for col in df.columns]
+    if lang == "en":
+        df.rename(columns=_EN_COLS, inplace=True)
     c["df"] = df
     c["ts"] = agora
     return df

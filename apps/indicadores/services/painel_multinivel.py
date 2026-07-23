@@ -13,6 +13,19 @@ logger = logging.getLogger(__name__)
 CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 CACHE_TTL = 1800  # 30 minutos
 
+# ── Mapeamento de colunas EN → PT ─────────────────────────────
+_EN_COLS = {
+    "Structure":    "Estrutura",
+    "Axis":         "Eixo",
+    "Axis_link":    "Link_eixo",
+    "Sector":       "Setor",
+    "Level":        "Nível",
+    "Criterion":    "Critério",
+    "Descriptive":  "Descritivo",
+    "Evaluation":   "Avaliação",
+    "Classification": "Classificação",
+}
+
 SHEET_PARAMETROS = {
     "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
     "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
@@ -108,6 +121,8 @@ def _ler_parametros(lang: str = "pt") -> pd.DataFrame:
     sh = client.open_by_key(cfg["id"])
     ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
     df = pd.DataFrame(ws.get_all_records())
+    if cfg.get("gid"):  # sheet EN — normaliza colunas para PT
+        df.rename(columns=_EN_COLS, inplace=True)
 
     c["df"] = df
     c["timestamp"] = agora
