@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `next` / `main`
 
+### Fix — Quebras de linha no campo Composição da ficha técnica EN
+
+- **`avaliacao_painel.py` `get_ficha`:** Normaliza separadores de linha no valor de cada campo (`\r\n` e `\r` → `\n`). Corrige: sheet EN usa `\r` ou `\r\n`, que o browser ignorava mesmo com `white-space: pre-wrap`, exibindo itens da Composição colados sem espaço.
+- **`avaliacao-painel.js`:** Converte `\n` em `<br>` explicitamente ao montar o `valorHtml`, em vez de depender apenas do CSS. Garante renderização correta em PT e EN independente do separador original da sheet.
+
+**Arquivos:** `apps/indicadores/services/avaliacao_painel.py`, `static/js/avaliacao-painel.js`
+
+---
+
 ### Style — formatação black (CI desbloqueado)
 
 - **`avaliacao_painel.py`, `painel_multinivel.py`, `setup/settings.py`:** Aplicada formatação automática `black` para alinhar ao padrão do CI. Arquivos reprovavam no step `black apps setup --check`.

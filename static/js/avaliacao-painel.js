@@ -515,7 +515,7 @@ async function abrirFicha(estrutura) {
             div.className = "ap-ficha-campo";
             const valorHtml = c.url
                 ? `<a href="${c.url}" target="_blank" rel="noopener noreferrer">${escHtml(c.valor)}</a>`
-                : escHtml(c.valor);
+                : escHtml(c.valor).replace(/\n/g, "<br>");
             div.innerHTML = `
                 <div class="ap-ficha-campo-label">${escHtml(RBi18n.t(c.label))}</div>
                 <div class="ap-ficha-campo-valor">${valorHtml}</div>
