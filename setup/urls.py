@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from django.conf.urls.i18n import i18n_patterns
 import django.conf.urls.i18n as i18n_urls
 
 urlpatterns = [
