@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-23 — `pendente`
 
+### Fix — Labels e filtragem de campos na ficha técnica EN
+
+- **`avaliacao_painel.py` `get_ficha`:** Labels das seções (DESCRIÇÃO, ÓRGÃO RESPONSÁVEL, ARCABOUÇO NORMATIVO, etc.) agora são exibidas em inglês quando `lang="en"`. Adicionado `_CAMPOS_LABELS` com pares `(label_pt, label_en)` e `_CAMPOS_ORDER` para ordem dos campos.
+- **`avaliacao_painel.py` `get_ficha`:** Adicionado `_INVALID_EN` com `"Does not apply"` e variações; substitui `_INVALID` no modo EN, ocultando campos marcados como "Does not apply" na sheet EN (equivalente ao "Ñ aplica" em PT). Corrige campos extras exibidos em EN que ficam ocultos em PT.
+
+**Arquivo:** `apps/indicadores/services/avaliacao_painel.py`
+
+---
+
 ### Fix — Normalização de valores EN→PT em colunas discriminadoras
 
 - **Causa raiz:** As sheets EN têm não só os cabeçalhos em inglês, mas também os *valores* das colunas discriminadoras (`Axis`, `Level`) em inglês — ex: `"Governance"`, `"Level 1"`. O código interno compara com `"Governanca"`, `"Nível 1"` → resultado sempre 0 / vazio.
@@ -27,6 +36,7 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - **`views.py`:** Adicionada função `_lang(request)` que extrai idioma de `request.LANGUAGE_CODE`; todas as views de API passam `lang=_lang(request)` aos services
 
 **Sheets EN:**
+
 - Fichas: `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` (GID `1400373985`)
 - Parâmetros: `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` (GID `1708988989`)
 - Financiamento Climático: `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` (GID `449650871`)

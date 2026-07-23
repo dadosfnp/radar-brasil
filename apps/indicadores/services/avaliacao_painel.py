@@ -241,6 +241,31 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
     return result
 
 
+_CAMPOS_LABELS = {
+    # (col_interna): (label_pt, label_en)
+    "Setor":                      ("Setor",                       "Sector"),
+    "Descricao":                  ("Descrição",                   "Description"),
+    "Orgao_responsavel":          ("Órgão Responsável",           "Responsible Agency"),
+    "Status":                     ("Status",                      "Status"),
+    "Arcabouco_normativo":        ("Arcabouço Normativo",         "Regulatory Framework"),
+    "Contrapartida":              ("Contrapartida",               "Counterpart"),
+    "Espaco_dialogo_federativo":  ("Espaço de Diálogo Federativo","Federative Dialogue Space"),
+    "Financiamento":              ("Financiamento",               "Financing"),
+    "Periodicidade":              ("Periodicidade",               "Periodicity"),
+    "Composicao":                 ("Composição",                  "Composition"),
+    "Carater_decisorio":          ("Caráter Decisório",           "Decision Authority"),
+    "Politica_Plano_relacionado": ("Política ou Plano Relacionado","Related Policy or Plan"),
+    "Modalidade":                 ("Modalidade",                  "Modality"),
+    "Repasse":                    ("Repasse",                     "Transfer"),
+    "Fontes":                     ("Fontes",                      "Sources"),
+}
+
+_CAMPOS_ORDER = list(_CAMPOS_LABELS.keys())
+
+_INVALID_PT = {"nan", "Ñ aplica", "N/A", ""}
+_INVALID_EN = {"nan", "Does not apply", "N/A", "Not applicable", "N/A - Does not apply", ""}
+
+
 def get_ficha(estrutura: str, lang: str = "pt") -> dict:
     df = _fichas(lang)
     if "Estrutura" not in df.columns:
@@ -251,31 +276,12 @@ def get_ficha(estrutura: str, lang: str = "pt") -> dict:
         return {}
 
     row = rows.iloc[0]
-
-    # (col, label, link_col) — link_col é None quando não há hiperlink
-    campos = [
-        ("Setor",                    "Setor",                        None),
-        ("Descricao",                "Descrição",                    None),
-        ("Orgao_responsavel",        "Órgão Responsável",            "Link_orgao"),
-        ("Status",                   "Status",                       None),
-        ("Arcabouco_normativo",      "Arcabouço Normativo",          "Link_arcabouco"),
-        ("Contrapartida",            "Contrapartida",                None),
-        ("Espaco_dialogo_federativo","Espaço de Diálogo Federativo", None),
-        ("Financiamento",            "Financiamento",                None),
-        ("Periodicidade",            "Periodicidade",                None),
-        ("Composicao",               "Composição",                   None),
-        ("Carater_decisorio",        "Caráter Decisório",            None),
-        ("Politica_Plano_relacionado","Política ou Plano Relacionado",None),
-        ("Modalidade",               "Modalidade",                   None),
-        ("Repasse",                  "Repasse",                      None),
-        ("Fontes",                   "Fontes",                       None),
-    ]
-
-    _INVALID = {"nan", "Ñ aplica", "N/A", ""}
+    invalid = _INVALID_EN if lang == "en" else _INVALID_PT
+    label_idx = 1 if lang == "en" else 0
 
     def _safe_link(val: str) -> str | None:
         v = str(val).strip()
-        return v if v not in _INVALID and v.startswith("http") else None
+        return v if v not in invalid and v.startswith("http") else None
 
     resultado = {
         "estrutura": estrutura,
@@ -283,13 +289,22 @@ def get_ficha(estrutura: str, lang: str = "pt") -> dict:
         "link_eixo": _safe_link(row.get("Link_eixo", "")),
     }
 
-    for col, label, link_col in campos:
-        if col in row.index:
-            val = str(row[col]).strip()
-            if val and val not in _INVALID:
-                campo = {"label": label, "valor": val}
-                if link_col and link_col in row.index:
-                    campo["url"] = _safe_link(row[link_col])
-                resultado["campos"].append(campo)
+    link_map = {
+        "Orgao_responsavel": "Link_orgao",
+        "Arcabouco_normativo": "Link_arcabouco",
+    }
+
+    for col in _CAMPOS_ORDER:
+        if col not in row.index:
+            continue
+        val = str(row[col]).strip()
+        if not val or val in invalid:
+            continue
+        label = _CAMPOS_LABELS[col][label_idx]
+        campo = {"label": label, "valor": val}
+        link_col = link_map.get(col)
+        if link_col and link_col in row.index:
+            campo["url"] = _safe_link(row[link_col])
+        resultado["campos"].append(campo)
 
     return resultado
