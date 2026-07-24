@@ -275,8 +275,11 @@ def get_graficos(filtros: dict, lang: str = "pt") -> dict:
     est_v = _sum_col(est_col)
     mun_v = _sum_col(mun_col)
 
+    ente_labels = (
+        ["Federal", "State", "Municipal"] if lang == "en" else ["Federal", "Estadual", "Municipal"]
+    )
     ente_data = {
-        "labels": ["Federal", "Estadual", "Municipal"],
+        "labels": ente_labels,
         "values": [round(fed_v, 2), round(est_v, 2), round(mun_v, 2)],
         "texts": [_fmt_brl(fed_v), _fmt_brl(est_v), _fmt_brl(mun_v)],
     }
