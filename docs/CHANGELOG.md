@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-07-24 — `next` / `main`
 
+### Fix — Ordem das barras do Painel Multinível EN igual à do PT
+
+- **`painel_multinivel.py`:** Adicionado dict `_EN_CRITERIO` mapeando nomes de critérios em inglês (coluna `Avaliação` da sheet EN) para seus equivalentes em português usados em `ORDEM_CRITERIOS`. No `_sort_key`, quando `lang == "en"`, o nome do critério é traduzido via `_EN_CRITERIO` antes da busca na lista de ordem. Critérios sem mapeamento (`Financing`, `Representation of Gender, Race and Ethnicity`) continuam sem match, ficando ao final — exatamente como ocorre em PT com `Financiamento` e `Representação de Gênero, Raça e Etnia` (que também não batem nos nomes renomeados de `ORDEM_CRITERIOS`). Resultado: ordem das barras EN idêntica à PT nos 4 eixos.
+
+**Arquivo:** `apps/indicadores/services/painel_multinivel.py`
+
+---
+
 ### Fix — Labels "Estadual"/"Municipal" em português no gráfico EN de Repasse por Ente
 
 - **`financiamento_climatico.py` `get_graficos`:** Labels do gráfico de pizza "Repasse por Ente Federado" agora são traduzidos quando `lang == "en"`: `["Federal", "State", "Municipal"]` em vez de `["Federal", "Estadual", "Municipal"]`. O parâmetro `lang` já era passado pela view; faltava apenas aplicá-lo na montagem dos labels.
