@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-24 — `next` / `main`
+
+### Fix — Labels "Estadual"/"Municipal" em português no gráfico EN de Repasse por Ente
+
+- **`financiamento_climatico.py` `get_graficos`:** Labels do gráfico de pizza "Repasse por Ente Federado" agora são traduzidos quando `lang == "en"`: `["Federal", "State", "Municipal"]` em vez de `["Federal", "Estadual", "Municipal"]`. O parâmetro `lang` já era passado pela view; faltava apenas aplicá-lo na montagem dos labels.
+
+**Arquivo:** `apps/indicadores/services/financiamento_climatico.py`
+
+---
+
 ## 2026-07-23 — `next` / `main`
 
 ### Fix — Composição da ficha técnica EN: itens concatenados sem separador
