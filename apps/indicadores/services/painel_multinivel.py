@@ -26,6 +26,20 @@ _EN_COLS = {
     "Classification": "Classificação",
 }
 
+# Valores EN → PT para nomes de critérios (Avaliação) — usado no sort key
+_EN_CRITERIO = {
+    "Operability": "Operacionalidade",
+    "Federative dialogue space": "Espaço de diálogo federativo",
+    "Communication and Transparency": "Comunicação e Transparência",
+    "Federative Cooperation": "Cooperação Federativa",
+    "Capillarity and Territorial Reach": "Capilaridade e Alcance Territorial",
+    "Strengthening Local Capacity": "Fortalecimento da Capacidade Local",
+    "Monitoring and Local Participation": "Monitoramento e Participação Local",
+    "Participatory Design of the Financing Line": "Desenho Participativo da Linha de Financiamento",
+    "Decentralized Execution Capability": "Capacidade de Execução Descentralizada",
+    "Monitoring and Accountability": "Monitoramento e Prestação de Contas",
+}
+
 # Valores EN → PT para colunas discriminadoras (eixo, nível)
 _EN_EIXO = {
     "Governance": "Governanca",
@@ -201,8 +215,9 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
         ordem_norm = [_normalizar(o) for o in ordem]
 
         def _sort_key(av):
+            av_pt = _EN_CRITERIO.get(av, av) if lang == "en" else av
             try:
-                return ordem_norm.index(_normalizar(av))
+                return ordem_norm.index(_normalizar(av_pt))
             except ValueError:
                 return len(ordem_norm)
 
