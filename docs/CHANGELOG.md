@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-07-27 — `next` / `main`
+
+### Docs — Documento de arquitetura do projeto
+
+- **`docs/arquitetura.md`:** Criado documento vivo de arquitetura com diagrama do fluxo de dados (Sheets → Django Services → Views → JS → Navegador), tabelas de módulos/componentes/custos, pipeline de deploy e CI, sistema i18n, histórico de decisões adotadas e descartadas, estado atual e pendências em aberto.
+
+**Arquivo:** `docs/arquitetura.md`
+
+---
+
 ## 2026-07-24 — `next` / `main`
 
 ### Fix — Ordem das barras do Painel Multinível EN igual à do PT
