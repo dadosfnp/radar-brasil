@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-07-23 (atualização automática)
+> Última atualização: 2026-07-24
 
 ---
 
@@ -246,9 +246,20 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-07-23)
+## Estado Atual do Projeto (2026-07-24)
 
-### Branch `next` — `8a6a2df` | Branch `main` — `6739c9e` (ambos publicados)
+### Branch atual: `next` — limpo, sincronizado com `origin/next` e `prod/main`
+
+**Commits recentes (HEAD):**
+
+```
+bcda73c fix: garante ordem das barras EN identica ao PT no Painel Multinivel
+fab14e4 fix: traduz labels Estadual/Municipal no grafico de repasse por ente em EN
+5de85ce docs: atualiza CLAUDE.md com estado atual (2026-07-23 fim do dia)
+8a6a2df fix: detecta e separa itens concatenados no campo Composicao da ficha EN
+840f78a docs: atualiza CLAUDE.md com estado atual do projeto (2026-07-23)
+3e8e773 fix: corrige quebras de linha no campo Composicao da ficha tecnica EN
+```
 
 **i18n EN completo em produção** — tudo mergeado e publicado em `origin` e `prod`:
 - Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
@@ -262,27 +273,40 @@ Padrão: **Conventional Commits**, descrições em **português**
 - Exibição "Level N" (em vez de "Nível N") nos gráficos e tabelas EN
 - Filtro correto de campos "Does not apply" no modo EN
 - Quebras de linha normalizadas no campo Composição das fichas (PT e EN)
-- Heurística de split para itens concatenados sem separador na sheet EN
+- Heurística de split para itens concatenados sem separador na sheet EN (`re.sub` minúscula→maiúscula)
+
+**Fixes EN pós-lançamento (2026-07-24):**
+- Gráfico "Resource Transfers by Government Level": labels `Estadual`/`Municipal` traduzidos para `State`/`Municipal` no modo EN (`financiamento_climatico.py`)
+- Painel Multinível: ordem das barras EN agora idêntica à PT nos 4 eixos — adicionado `_EN_CRITERIO` em `painel_multinivel.py` mapeando nomes de critérios EN → PT para lookup em `ORDEM_CRITERIOS`
 
 **Limpeza incorporada:**
 - 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
 - `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
 - `print()` convertidos para `logger` em `painel_multinivel.py`
 
+### Normalização EN → PT nos services — detalhe `painel_multinivel.py`
+
+`_EN_CRITERIO` mapeia nomes de critérios EN → PT **apenas para fins de ordenação** (não altera os labels exibidos). Critérios sem mapeamento (`Financing`, `Representation of Gender, Race and Ethnicity`) ficam ao final, espelhando o comportamento PT (onde `Financiamento` e `Representação de Gênero, Raça e Etnia` também não batem nos nomes renomeados de `ORDEM_CRITERIOS`).
+
 ### Divergência `next` / `main` — problema cosmético pendente
 
 O `main` acumulou commits de merge ("Merge branch 'next'") que o `next` não tem. Isso:
 - Impede `git merge --ff-only next` (fast-forward)
-- Faz o Render exibir "Merge branch 'next'" no histórico de deploys em vez do nome real do commit
+- Faz o Render exibir o nome do merge commit no histórico de deploys em vez do nome real do commit
 
-**Fix planejado (requer autorização):** `git push origin main --force-with-lease` e `git push prod main --force-with-lease` apontando `main` para o mesmo commit do `next`. Aguardando confirmação do usuário.
+**Fix planejado (requer autorização do usuário):** force push em `main` nos dois remotos para apontar para o mesmo commit do `next`:
+```
+git push origin next:main --force-with-lease
+git push prod next:main --force-with-lease
+```
+Após isso, sempre usar `git push origin next:main` + `git push prod next:main` direto (sem merge local).
 
-**Workaround atual:** usar `git merge next -m "<mensagem descritiva>"` ao invés do merge padrão para que o Render exiba algo útil.
+**Workaround atual:** usar `git merge next -m "<mensagem descritiva>"` para que o Render exiba algo útil.
 
 ### Pendências
 
-- **Divergência next/main**: corrigir com force push em `main` (aguardando autorização)
-- **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado, aguardando decisão.
+- **Divergência next/main**: corrigir com force push em `main` — aguardando autorização do usuário
+- **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado, aguardando decisão
 
 ---
 
