@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-07-24
+> Última atualização: 2026-07-27
 
 ---
 
