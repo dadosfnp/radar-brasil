@@ -5,42 +5,55 @@ Documento vivo com a arquitetura escolhida, o histórico de decisões e as pend�
 
 ---
 
-## 1. Arquitetura adotada: Django + Google Sheets + Render
+## 1. Arquitetura adotada: Django + PostgreSQL DigitalOcean + Render
 
-O objetivo é manter a edição de dados na mão da equipe editorial (Google Sheets) enquanto o backend Django processa, normaliza e serve os dados ao painel web — sem expor o painel diretamente às planilhas e sem infraestrutura de banco de dados relacional para os indicadores.
+Os dados de indicadores saíram do Google Sheets e passaram para um banco PostgreSQL
+gerenciado (DigitalOcean `fnp-database`, database `radar_brasil`). A importação
+(via `sync_sheets_db`) continua lendo as planilhas, mas é um comando administrativo
+avulso — não parte do fluxo de requisição.
 
 ```
-Google Sheets (PT)     Google Sheets (EN)
-  5 planilhas            5 planilhas
-        │                      │
-        └───────────┬──────────┘
-                    │  gspread · cache em memória 30 min
-                    ▼
-       Django Services  (apps/indicadores/services/)
-        avaliacao_painel    painel_multinivel
-        financiamento_climatico    mapa_georreferenciado
-                    │  pandas para normalização · JSON para o frontend
-                    ▼
-            Django Views
-              ├── render() → Templates HTML (server-side)
-              └── JsonResponse → APIs para o JS do painel
-                           │
-                           ▼
-                Vanilla JS (sem bundler, sem build)
-                 Leaflet · Plotly · html2canvas
-                 └── i18n.js (RBi18n) — strings dinâmicas PT↔EN
-                           │
-                           ▼
-                    Navegador (Render)
+Google Sheets PT/EN  ←── sync_sheets_db (comando de importação, não é do fluxo de req)
+                              │ gspread + pandas
+                              ▼
+               PostgreSQL DigitalOcean (fnp-database / radar_brasil)
+                  RegistroFicha · RegistroParametro
+                  RegistroFinanciamento · RegistroMapa
+                              │ Django ORM
+                              ▼
+            Django Services  (apps/indicadores/services/)
+             avaliacao_painel    painel_multinivel
+             financiamento_climatico    mapa_georreferenciado
+                              │  JSON para o frontend
+                              ▼
+                      Django Views
+                        ├── render() → Templates HTML (server-side)
+                        └── JsonResponse → APIs para o JS do painel
+                                   │
+                                   ▼
+                        Vanilla JS (sem bundler, sem build)
+                         Leaflet · Plotly · html2canvas
+                         └── i18n.js (RBi18n) — strings dinâmicas PT↔EN
+                                   │
+                                   ▼
+                            Navegador (Render)
 ```
 
 ### Por que este desenho
 
-- **Google Sheets como banco de indicadores:** a equipe editorial atualiza os dados sem precisar de dev, acesso ao servidor ou interface de administração customizada. O cache de 30 min no Django evita throttling da API do gspread.
-- **Django server-side rendering:** templates renderizados no servidor eliminam a necessidade de um frontend separado (Next.js, SPA). APIs JSON complementam para os componentes interativos (mapa, gráficos, fichas).
-- **Sem bundler no JS:** um arquivo por página, carregados diretamente pelo template. Elimina Node.js da cadeia de deploy e simplifica manutenção por equipe pequena.
-- **Render como hosting:** deploy automático via push no remoto `prod`, PostgreSQL gerenciado, SSL nativo — sem configuração de servidor.
-- **Dois bancos de planilhas (PT + EN):** o conteúdo EN não é tradução automática — a equipe mantém planilhas independentes com adaptações editoriais. Cache independente por idioma.
+- **PostgreSQL como banco de indicadores:** consultas são instantâneas (sem latência de API),
+  sem dependência de quota/throttling do gspread, sem cache em memória com TTL.
+- **Importação explícita via comando:** a equipe editorial atualiza as planilhas e depois
+  um admin roda `python manage.py sync_sheets_db` para sincronizar. Processo deliberado
+  (não automático), que garante revisão antes de atualizar produção.
+- **Django server-side rendering:** templates renderizados no servidor eliminam a necessidade
+  de um frontend separado (Next.js, SPA). APIs JSON complementam para os componentes
+  interativos (mapa, gráficos, fichas).
+- **Sem bundler no JS:** um arquivo por página, carregados diretamente pelo template.
+  Elimina Node.js da cadeia de deploy e simplifica manutenção por equipe pequena.
+- **Render como hosting:** deploy automático via push no remoto `prod`, SSL nativo.
+- **Dois registros por idioma (PT + EN):** cada model tem campo `lang` ("pt"/"en").
+  O conteúdo EN não é tradução automática — a equipe mantém planilhas independentes.
 
 ---
 
@@ -59,8 +72,8 @@ Google Sheets (PT)     Google Sheets (EN)
 
 | Componente | Onde roda | Custo |
 |---|---|---|
-| Dados de indicadores (PT e EN) | Google Sheets (10 planilhas) | Grátis |
-| Leitura + normalização + cache | gspread + pandas no Django | Grátis |
+| Dados de indicadores (PT e EN) | PostgreSQL DigitalOcean (`radar_brasil`) | DigitalOcean cluster compartilhado |
+| Importação de dados | `sync_sheets_db` (gspread + pandas, on-demand) | Grátis |
 | Backend / templates / APIs JSON | Django 6.0 no Render | Render Starter |
 | Banco de autenticação | PostgreSQL via Render | Render Starter |
 | Estáticos (CSS, JS, imagens) | WhiteNoise (embutido no Django) | Grátis |
@@ -158,8 +171,8 @@ O conteúdo EN não é tradução mecânica das planilhas PT — a equipe manté
 **Next.js / SPA como frontend separado**
 Exigiria API REST completa no backend, build step de Node.js no deploy e gestão de dois repos ou um monorepo. O custo de complexidade superava o benefício para o perfil de uso (conteúdo majoritariamente estático com alguns componentes interativos).
 
-**Migração dos indicadores para PostgreSQL DigitalOcean**
-Avaliado como próxima evolução da plataforma. Pausado por decisão da equipe enquanto os benefícios (consultas SQL, sem dependência da API do gspread, sem TTL de cache) não justificam o esforço de migração no volume atual. Ver pendências.
+**Migração dos indicadores para PostgreSQL DigitalOcean** *(foi adotada)*
+Implementada em 2026-08-14 via `feature/migracao-postgresql`. Os benefícios (consultas SQL, sem latência da API gspread, sem TTL de cache) justificaram o esforço. Ver seção "Adotadas" acima.
 
 ---
 
@@ -197,6 +210,15 @@ git push prod next:main --force-with-lease
 
 Após isso, usar `git push origin next:main` + `git push prod next:main` diretamente (sem merge local).
 
-### Migração de indicadores para PostgreSQL DigitalOcean (standby)
+### Popular o banco PostgreSQL (`sync_sheets_db`)
 
-Mover os dados de indicadores do Google Sheets para PostgreSQL na DigitalOcean. Pausado até os benefícios justificarem o esforço de migração no volume atual.
+A migration `0001_initial.py` cria as tabelas. Após fazer o deploy com `DATABASE_URL`
+apontando para o DigitalOcean, rodar:
+
+```
+python manage.py migrate
+python manage.py sync_sheets_db
+```
+
+O comando importa as 8 planilhas (4 PT + 4 EN). Repetir sempre que os dados das
+planilhas forem atualizados pela equipe editorial.
