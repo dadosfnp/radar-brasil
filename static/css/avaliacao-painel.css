@@ -35,7 +35,7 @@ body.avaliacao-painel-page .rb-main {
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: rgba(194,237,231,.48);
+    color: rgba(255,255,255,.48);
     padding: 15px 18px;
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@ body.avaliacao-painel-page .rb-main {
     gap: 7px;
     font-size: 0.78125rem;
     font-weight: 500;
-    color: rgba(194,237,231,.60);
+    color: rgba(255,255,255,.60);
     cursor: pointer;
     transition: background .18s, color .18s;
     position: relative;
@@ -130,18 +130,18 @@ body.avaliacao-painel-page .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #1a2e3a;
+    color: #101d4f;
     margin: 0 0 8px;
 }
 
 .ap-eixo-sub {
     font-size: 0.8125rem;
-    color: #4a5c6a;
+    color: #334488;
     line-height: 1.65;
     margin: 0;
 }
 
-.ap-eixo-sub strong { font-weight: 600; color: #263340; }
+.ap-eixo-sub strong { font-weight: 600; color: #101d4f; }
 
 /* ── Filtros ── */
 .ap-filters {
@@ -176,16 +176,16 @@ body.avaliacao-painel-page .rb-main {
 .ap-combo-input {
     width: 100%;
     background: rgba(255,255,255,.85);
-    border: 1.5px solid rgba(53,96,115,.22);
+    border: 1.5px solid rgba(16,29,79,.22);
     border-radius: 10px;
     padding: 11px 72px 11px 14px;
     font-family: inherit;
     font-size: 0.84375rem;
     font-weight: 500;
-    color: #1e3040;
+    color: #101d4f;
     transition: border-color .18s, box-shadow .18s;
     outline: none;
-    box-shadow: 0 2px 8px rgba(53,96,115,.08);
+    box-shadow: 0 2px 8px rgba(16,29,79,.08);
     box-sizing: border-box;
     cursor: text;
 }
@@ -193,20 +193,20 @@ body.avaliacao-painel-page .rb-main {
 .ap-combo-input::placeholder { color: #9aabb8; font-weight: 400; }
 
 .ap-combo-input:hover {
-    border-color: rgba(53,96,115,.42);
-    box-shadow: 0 3px 12px rgba(53,96,115,.14);
+    border-color: rgba(16,29,79,.42);
+    box-shadow: 0 3px 12px rgba(16,29,79,.14);
 }
 
 .ap-combo-input:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(53,96,115,.18);
+    box-shadow: 0 0 0 3px rgba(16,29,79,.18);
 }
 
 .ap-combo-wrap[data-open="true"] .ap-combo-input {
     border-color: var(--color-primary);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    box-shadow: 0 0 0 3px rgba(53,96,115,.18);
+    box-shadow: 0 0 0 3px rgba(16,29,79,.18);
 }
 
 /* Botões dentro do input */
@@ -268,19 +268,19 @@ body.avaliacao-painel-page .rb-main {
     margin: 0;
     padding: 4px 0;
     scrollbar-width: thin;
-    scrollbar-color: rgba(53,96,115,.3) transparent;
+    scrollbar-color: rgba(16,29,79,.3) transparent;
 }
 
 .ap-combo-dropdown::-webkit-scrollbar { width: 6px; }
 .ap-combo-dropdown::-webkit-scrollbar-thumb {
-    background: rgba(53,96,115,.25);
+    background: rgba(16,29,79,.25);
     border-radius: 3px;
 }
 
 .ap-combo-item {
     padding: 9px 14px;
     font-size: 0.84375rem;
-    color: #1e3040;
+    color: #101d4f;
     cursor: pointer;
     transition: background .12s;
     line-height: 1.4;
@@ -288,7 +288,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-combo-item:hover,
 .ap-combo-item.ap-combo-active {
-    background: rgba(53,96,115,.09);
+    background: rgba(16,29,79,.09);
     color: var(--color-primary-dark);
 }
 
@@ -314,29 +314,29 @@ body.avaliacao-painel-page .rb-main {
     appearance: none;
     -webkit-appearance: none;
     background: rgba(255,255,255,.85);
-    border: 1.5px solid rgba(53,96,115,.22);
+    border: 1.5px solid rgba(16,29,79,.22);
     border-radius: 10px;
     padding: 11px 40px 11px 14px;
     font-family: inherit;
     font-size: 0.84375rem;
     font-weight: 500;
-    color: #1e3040;
+    color: #101d4f;
     cursor: pointer;
     transition: border-color .18s, box-shadow .18s;
     outline: none;
-    box-shadow: 0 2px 8px rgba(53,96,115,.08);
+    box-shadow: 0 2px 8px rgba(16,29,79,.08);
 }
 
 .ap-select-wrap select:hover {
-    border-color: rgba(53,96,115,.42);
-    box-shadow: 0 3px 12px rgba(53,96,115,.14);
+    border-color: rgba(16,29,79,.42);
+    box-shadow: 0 3px 12px rgba(16,29,79,.14);
 }
 
 .ap-select-wrap select:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(53,96,115,.20);
+    box-shadow: 0 0 0 3px rgba(16,29,79,.20);
 }
 
 .ap-select-wrap select:disabled {
@@ -362,7 +362,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-table-area {
     border-radius: 12px;
     overflow: hidden;
-    border: 1.5px solid rgba(53,96,115,.16);
+    border: 1.5px solid rgba(16,29,79,.16);
     min-height: 80px;
 }
 
@@ -396,7 +396,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-placeholder-text {
     font-size: 0.875rem;
-    color: #6a8fa0;
+    color: #5577aa;
     font-style: italic;
     line-height: 1.5;
     max-width: 340px;
@@ -419,7 +419,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-table thead tr {
-    background: linear-gradient(135deg, var(--color-primary-grad-start) 0%, var(--color-primary) 100%);
+    background: #264584;
 }
 
 .ap-table th {
@@ -440,7 +440,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-table tbody tr {
     background: rgba(255,255,255,.55);
-    border-bottom: 1px solid rgba(53,96,115,.10);
+    border-bottom: 1px solid rgba(16,29,79,.10);
     transition: background var(--transition-fast);
 }
 
@@ -450,7 +450,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-table tbody tr:last-child { border-bottom: none; }
 
-.ap-table tbody tr:hover { background: rgba(53,96,115,.06); }
+.ap-table tbody tr:hover { background: rgba(16,29,79,.06); }
 
 .ap-table td {
     padding: 15px 20px;
@@ -461,12 +461,12 @@ body.avaliacao-painel-page .rb-main {
 .ap-table td:first-child {
     font-size: 0.8125rem;
     font-weight: 600;
-    color: #1e3040;
+    color: #101d4f;
 }
 
 .ap-table td:nth-child(2) {
     font-size: 0.78125rem;
-    color: #4a5c6a;
+    color: #334488;
     font-weight: 400;
 }
 
@@ -490,9 +490,9 @@ body.avaliacao-painel-page .rb-main {
     border: 1px solid rgba(122,174,212,.45);
 }
 .ap-nivel-badge[data-nivel="Nível 4"] {
-    background: rgba(114,190,121,.22);
-    color: #2d7a35;
-    border: 1px solid rgba(114,190,121,.45);
+    background: rgba(38,69,132,.22);
+    color: #264584;
+    border: 1px solid rgba(38,69,132,.45);
 }
 .ap-nivel-badge[data-nivel="Nível 3"] {
     background: rgba(232,197,58,.20);
@@ -563,7 +563,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-modal-header h3 {
     font-size: 0.625rem;
     font-weight: 700;
-    color: rgba(194,237,231,.82);
+    color: rgba(255,255,255,.82);
     letter-spacing: .18em;
     text-transform: uppercase;
     margin: 0;
@@ -574,10 +574,10 @@ body.avaliacao-painel-page .rb-main {
     color: inherit;
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: rgba(194,237,231,.45);
+    text-decoration-color: rgba(255,255,255,.45);
 }
 .ap-modal-header h3 a:hover {
-    text-decoration-color: rgba(194,237,231,.85);
+    text-decoration-color: rgba(255,255,255,.85);
 }
 
 .ap-pdf-header-btn {
@@ -635,7 +635,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-modal-footer {
     padding: 12px 20px;
-    border-top: 1px solid rgba(53,96,115,.14);
+    border-top: 1px solid rgba(16,29,79,.14);
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -664,7 +664,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-ficha-campo {
     margin-bottom: 14px;
     padding-bottom: 14px;
-    border-bottom: 1px solid rgba(53,96,115,.12);
+    border-bottom: 1px solid rgba(16,29,79,.12);
 }
 
 .ap-ficha-campo:last-child { margin-bottom: 0; border-bottom: none; }
@@ -672,7 +672,7 @@ body.avaliacao-painel-page .rb-main {
 .ap-ficha-campo-label {
     font-size: 0.6875rem;
     font-weight: 700;
-    color: #0d2530;
+    color: #070e2a;
     text-transform: uppercase;
     letter-spacing: .09em;
     margin-bottom: 4px;
@@ -680,7 +680,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-ficha-campo-valor {
     font-size: 0.84375rem;
-    color: #4a6a78;
+    color: #334488;
     line-height: 1.6;
     white-space: pre-wrap;
 }
@@ -688,11 +688,11 @@ body.avaliacao-painel-page .rb-main {
     color: inherit;
     text-decoration: underline;
     text-underline-offset: 2px;
-    text-decoration-color: rgba(74,106,120,.4);
+    text-decoration-color: rgba(16,29,79,.4);
 }
 .ap-ficha-campo-valor a:hover {
-    color: #2c7873;
-    text-decoration-color: #2c7873;
+    color: #264584;
+    text-decoration-color: #264584;
 }
 
 /* ══════════════════════════════

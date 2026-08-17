@@ -1,4 +1,4 @@
-/* Financiamento Climático – Radar Brasil */
+﻿/* Financiamento Climático – Radar Brasil */
 
 const ROWS_PER_PAGE = 10;
 let allRows    = [];
@@ -420,8 +420,8 @@ function renderChartSetor(d) {
         hovertext: paired.map(p => `<b>${p.l}</b><br>${p.t}`),
         hoverinfo: "text",
         marker: {
-            color: "#2c7873",
-            line: { color: "#1a5050", width: 0.5 },
+            color: "#264584",
+            line: { color: "#070e2a", width: 0.5 },
         },
     };
     Plotly.newPlot(el, [trace], {
@@ -447,8 +447,8 @@ function _drawOrigem() {
     const el = _qs("fc-chart-origem");
     if (!el || !d) return;
 
-    const COLORS = ["#2c7873","#1a3d4d","#6fb3b8","#f4a261","#e76f51",
-                    "#52b788","#118ab2","#ffd166","#ef476f","#90e0ef"];
+    const COLORS = ["#264584","#101d4f","#3b6cbf","#f4a261","#e76f51",
+                    "#264584","#264584","#ffd166","#ef476f","#8aaad4"];
     const palette = d.colors?.length ? d.colors : COLORS;
 
     // Ordena ascendente para que o maior fique no topo (Plotly inverte eixo Y)
@@ -489,7 +489,7 @@ function renderChartEnte(d) {
     const hasValues = d.values?.some(v => v > 0);
     if (!hasValues) { el.innerHTML = _emptyMsg(); return; }
 
-    const COLORS = ["#2c7873", "#6fb3b8", "#f4a261"];
+    const COLORS = ["#264584", "#3b6cbf", "#f4a261"];
     const texts  = d.texts || d.labels;
 
     Plotly.newPlot(el, [{
