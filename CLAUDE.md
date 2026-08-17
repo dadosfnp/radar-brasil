@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-08-17
+> Última atualização: 2026-08-17 (fim do dia)
 
 ---
 
@@ -272,18 +272,42 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-17)
+## Estado Atual do Projeto (2026-08-17 — fim do dia)
 
 ### Branch atual: `main` — em produção no DigitalOcean
 
-**Deploy DigitalOcean concluído em 2026-08-17:**
+**Commits do dia (nova identidade visual):**
 
 ```
-367a577 fix: adiciona permissao de execucao ao entrypoint.sh via git update-index
-cd391bd fix: atualiza Dockerfile para Python 3.12 (Django 6 exige 3.12+)
-78bc744 chore: deploy inicial Radar Brasil no DigitalOcean
-4498bec chore: adiciona infraestrutura de deploy Docker + Nginx para DigitalOcean
+d2f2653 merge: next -> main (nova identidade visual #264584)
+83ca5e5 merge: nova identidade visual (paleta navy/azul #264584)
+ea60064 style: aplica nova identidade visual Radar Brasil (paleta navy/azul #264584)
+92f915e docs: atualiza CLAUDE.md com contexto completo pos-deploy DigitalOcean
 ```
+
+### Nova Identidade Visual — aplicada
+
+**Paleta de cores substituída:**
+- `--color-primary`: `#264584` (azul de referência da marca FNP)
+- `--color-bg-page`: `#d9e8f5` (azul claro — fundo de todas as páginas)
+- Todos os tons teal/verde eliminados (exceto bolinhas piscantes em `#22c55e`)
+- Degradês removidos — cor sólida `#264584` em cabeçalhos e botões
+
+**Logos e avatares atualizados (`static/img/`):**
+- `logo-radar-fundo-escuro.svg` — header (fundo navy)
+- `logo-radar-fundo-claro.svg` — backgrounds claros
+- `logo-radar-negativo-monocromatico.svg` / `logo-radar-positivo-monocromatico.svg`
+- `avatar-principal.svg` / `avatar-positivo.svg` / `avatar-negativo.svg`
+- `logo-radar.svg` removido
+
+**Arquivos modificados:** 13 CSS, 4 JS, `base.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+### Remotos — estado atual
+
+| Remoto | URL | `next` | `main` |
+|---|---|---|---|
+| `origin` | `brunofnp/radar-brasil` | ✅ atualizado | ✅ atualizado |
+| `prod` | `dadosfnp/radar-brasil` | ✅ criado hoje | ✅ atualizado |
 
 ### Infraestrutura de produção
 
@@ -304,7 +328,7 @@ Google Sheets → sync_sheets_db → PostgreSQL → App (Django ORM)
 ```
 
 - Runtime **nunca** acessa Google Sheets diretamente
-- `python manage.py sync_sheets_db` repovooa o banco a partir das planilhas
+- `python manage.py sync_sheets_db` repovoa o banco a partir das planilhas
 - Rodar novamente quando as planilhas forem atualizadas
 
 **Contagem atual no banco:**
@@ -345,7 +369,10 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Pendências
 
-- Nenhuma pendência crítica
+- **Deploy no droplet:** push feito, falta rodar no servidor:
+  ```bash
+  cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
+  ```
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
