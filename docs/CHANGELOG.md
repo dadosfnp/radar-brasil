@@ -4,6 +4,46 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-17 — `main` (2ª entrada)
+
+### Style — Nova identidade visual: paleta navy/azul (#264584)
+
+Substituição completa da paleta de cores da plataforma, eliminando todos os tons de verde/teal
+e aplicando a nova identidade visual Radar Brasil desenvolvida pelo time de comunicação.
+
+**Tokens (`static/css/tokens.css`):**
+- `--color-primary`: `#2c6174` → `#264584` (azul de referência da marca)
+- `--color-bg-page`: `#bdd6e0` (azul-teal) → `#d9e8f5` (azul claro limpo)
+- Gradientes removidos — todos substituídos por `#264584` sólido
+- Sombras atualizadas para base `rgba(38,69,132,...)`
+
+**Logos e avatares (novos arquivos em `static/img/`):**
+- `logo-radar-fundo-escuro.svg`, `logo-radar-fundo-claro.svg`
+- `logo-radar-negativo-monocromatico.svg`, `logo-radar-positivo-monocromatico.svg`
+- `avatar-principal.svg`, `avatar-positivo.svg`, `avatar-negativo.svg`
+- Removido `logo-radar.svg` (substituído pelos acima)
+
+**CSS (11 arquivos modificados):**
+- Todas as ocorrências de `#356073`, `#264a57`, `#2c7873` e demais tons teal → `#101d4f`/`#264584`
+- Todos os verdes puros (`#22c55e`, `#4CAF50`) → `#264584` (exceto bolinhas piscantes)
+- `rgba(53,96,115,...)` → `rgba(38,69,132,...)` em sombras e overlays
+- `rgba(194,237,231,...)` → `rgba(255,255,255,...)` em textos sobre fundo escuro
+- Gradientes `linear-gradient(135deg, #070e2a...)` → `#264584` sólido
+- `base.html` — onda SVG do footer: `#bdd6e0` → `#d9e8f5`
+
+**JS (4 arquivos modificados):**
+- Paleta Plotly em `financiamento-climatico.js` → azuis navy/brand
+- `COR_FINANCIAMENTO` no mapa → `#264584`
+- Borda do polígono do Brasil → `#264584`
+- Continent colors Nota País: teal/verde → brand blues
+- CSS inline de impressão em `avaliacao-painel.js` → navy
+
+**Exceção deliberada:**
+- Bolinhas piscantes de "METODOLOGIA" e "FEDERALISMO CLIMÁTICO" mantidas em `#22c55e`
+  (verde claro, decisão estética aprovada pelo time)
+
+---
+
 ## 2026-08-17 — `main`
 
 ### Deploy — Radar Brasil no ar em radarbrasil.fnp.org.br

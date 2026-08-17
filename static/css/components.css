@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    RADAR BRASIL — COMPONENTES COMPARTILHADOS
    Classes reutilizáveis entre páginas.
    Multi-seletores eliminam CSS duplicado sem alterar HTML.
@@ -70,7 +70,7 @@
     padding: 12px 22px;
     cursor: pointer;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
-    box-shadow: 0 4px 16px rgba(38,74,87,.35), inset 0 1px 0 rgba(255,255,255,.14);
+    box-shadow: 0 4px 16px rgba(16,29,79,.35), inset 0 1px 0 rgba(255,255,255,.14);
     position: relative;
     overflow: hidden;
 }
@@ -89,7 +89,7 @@
 .pm-criteria-badge:hover,
 .ap-ficha-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(38,74,87,.42), inset 0 1px 0 rgba(255,255,255,.16);
+    box-shadow: 0 8px 24px rgba(16,29,79,.42), inset 0 1px 0 rgba(255,255,255,.16);
 }
 
 .rb-btn-gradient:active,
@@ -236,7 +236,7 @@
 
 .rb-empty-state-desc {
     font-size: 0.8125rem;
-    color: #6a8fa0;
+    color: #5577aa;
     margin: 0;
     line-height: 1.55;
     max-width: 320px;
@@ -262,7 +262,7 @@
 
 .rb-page-intro p {
     font-size: 0.875rem;
-    color: #4a5c6a;
+    color: #334488;
     line-height: 1.65;
     margin: 0;
     max-width: 700px;
@@ -288,7 +288,7 @@
     justify-content: center;
     cursor: pointer;
     z-index: 900;
-    box-shadow: 0 4px 16px rgba(26,61,77,.35);
+    box-shadow: 0 4px 16px rgba(16,29,79,.35);
     transition: transform var(--transition-base), background var(--transition-base), opacity var(--transition-base);
     opacity: 0.88;
 }

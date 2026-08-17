@@ -53,12 +53,12 @@ body.lp-body .rb-main {
     cursor: pointer;
     transition: all var(--transition-base);
     border: 1.5px solid rgba(255,255,255,.15);
-    box-shadow: 0 6px 24px rgba(38,74,87,.28), inset 0 1px 0 rgba(255,255,255,.12);
+    box-shadow: 0 6px 24px rgba(16,29,79,.28), inset 0 1px 0 rgba(255,255,255,.12);
 }
 
 .lp-hero-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 32px rgba(38,74,87,.36);
+    box-shadow: 0 10px 32px rgba(16,29,79,.36);
 }
 
 .lp-hero-eyebrow {
@@ -84,7 +84,7 @@ body.lp-body .rb-main {
 }
 
 .lp-hero-title em {
-    color: #c2ede7;
+    color: #d0e4f5;
     font-style: normal;
 }
 
@@ -115,7 +115,7 @@ body.lp-body .rb-main {
     border: 1.5px solid rgba(255,255,255,.88);
     border-radius: 14px;
     padding: 18px;
-    box-shadow: 0 6px 32px rgba(10,45,41,.11), 0 1px 4px rgba(10,45,41,.06);
+    box-shadow: 0 6px 32px rgba(10,20,60,.11), 0 1px 4px rgba(10,20,60,.06);
 }
 
 .lp-side-card-title {
@@ -124,7 +124,7 @@ body.lp-body .rb-main {
     font-weight: 700;
     letter-spacing: .10em;
     text-transform: uppercase;
-    color: #356073;
+    color: #101d4f;
     margin-bottom: 12px;
     display: flex;
     align-items: center;
@@ -140,7 +140,7 @@ body.lp-body .rb-main {
 /* News */
 .lp-news-item {
     padding: 10px 0;
-    border-bottom: 1px solid rgba(53,96,115,.10);
+    border-bottom: 1px solid rgba(16,29,79,.10);
 }
 
 .lp-news-item:last-child {
@@ -155,8 +155,8 @@ body.lp-body .rb-main {
     font-weight: 700;
     letter-spacing: .10em;
     text-transform: uppercase;
-    color: #356073;
-    background: rgba(53,96,115,.10);
+    color: #101d4f;
+    background: rgba(16,29,79,.10);
     border-radius: 4px;
     padding: 2px 7px;
     margin-bottom: 5px;
@@ -164,7 +164,7 @@ body.lp-body .rb-main {
 
 .lp-news-text {
     font-size: 11.5px;
-    color: #3a4e5c;
+    color: #1a3070;
     line-height: 1.6;
     font-weight: 400;
 }
@@ -198,7 +198,7 @@ body.lp-body .rb-main {
     border-radius: 8px;
     padding: 10px 16px;
     cursor: pointer;
-    box-shadow: 0 3px 12px rgba(38,74,87,.28), inset 0 1px 0 rgba(255,255,255,.12);
+    box-shadow: 0 3px 12px rgba(16,29,79,.28), inset 0 1px 0 rgba(255,255,255,.12);
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
@@ -214,7 +214,7 @@ body.lp-body .rb-main {
 
 .lp-btn-side:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(38,74,87,.36);
+    box-shadow: 0 6px 20px rgba(16,29,79,.36);
 }
 
 /* ══════════════════════════════
@@ -234,7 +234,7 @@ body.lp-body .rb-main {
     border: 1.5px solid rgba(255,255,255,.88);
     border-radius: 16px;
     padding: 22px 24px;
-    box-shadow: 0 6px 32px rgba(10,45,41,.11), 0 1px 4px rgba(10,45,41,.06);
+    box-shadow: 0 6px 32px rgba(10,20,60,.11), 0 1px 4px rgba(10,20,60,.06);
     transition: all .22s;
     display: flex;
     flex-direction: column;
@@ -242,7 +242,7 @@ body.lp-body .rb-main {
 
 .lp-content-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 48px rgba(10,45,41,.16), 0 2px 6px rgba(10,45,41,.08);
+    box-shadow: 0 14px 48px rgba(10,20,60,.16), 0 2px 6px rgba(10,20,60,.08);
 }
 
 .lp-card-inner {
@@ -281,7 +281,7 @@ body.lp-body .rb-main {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     font-weight: 500;
-    color: rgba(53,96,115,.5);
+    color: rgba(16,29,79,.5);
     letter-spacing: .08em;
 }
 
@@ -289,18 +289,18 @@ body.lp-body .rb-main {
     font-family: 'Sora', sans-serif;
     font-size: 15.5px;
     font-weight: 700;
-    color: #1a2e3a;
+    color: #101d4f;
     line-height: 1.35;
 }
 
 .lp-card-title em {
-    color: #356073;
+    color: #101d4f;
     font-style: normal;
 }
 
 .lp-card-desc {
     font-size: 12.5px;
-    color: #4a5c6a;
+    color: #334488;
     line-height: 1.7;
     font-weight: 400;
 }
@@ -310,7 +310,7 @@ body.lp-body .rb-main {
     justify-content: flex-end;
     margin-top: 16px;
     padding-top: 14px;
-    border-top: 1px solid rgba(53,96,115,.10);
+    border-top: 1px solid rgba(16,29,79,.10);
 }
 
 .lp-btn-card {
@@ -326,7 +326,7 @@ body.lp-body .rb-main {
     border-radius: 8px;
     padding: 9px 20px;
     cursor: pointer;
-    box-shadow: 0 3px 12px rgba(38,74,87,.24), inset 0 1px 0 rgba(255,255,255,.12);
+    box-shadow: 0 3px 12px rgba(16,29,79,.24), inset 0 1px 0 rgba(255,255,255,.12);
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
@@ -343,13 +343,13 @@ body.lp-body .rb-main {
 
 .lp-btn-card:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(38,74,87,.35);
+    box-shadow: 0 6px 20px rgba(16,29,79,.35);
     color: #fff;
 }
 
 .lp-btn-card--soon {
-    background: rgba(53,96,115,.18);
-    color: rgba(38,74,87,.45);
+    background: rgba(16,29,79,.18);
+    color: rgba(16,29,79,.45);
     box-shadow: none;
     cursor: default;
     user-select: none;
@@ -361,7 +361,7 @@ body.lp-body .rb-main {
 .lp-btn-card--soon:hover {
     transform: none;
     box-shadow: none;
-    color: rgba(38,74,87,.45);
+    color: rgba(16,29,79,.45);
 }
 
 .lp-soon-badge {
@@ -369,8 +369,8 @@ body.lp-body .rb-main {
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
-    background: rgba(38,74,87,.12);
-    color: rgba(38,74,87,.55);
+    background: rgba(16,29,79,.12);
+    color: rgba(16,29,79,.55);
     border-radius: 4px;
     padding: 2px 6px;
     white-space: nowrap;

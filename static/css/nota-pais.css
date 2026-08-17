@@ -27,13 +27,13 @@ body.np-body .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 1.375rem;
     font-weight: 700;
-    color: #103758;
+    color: #101d4f;
     margin: 0 0 8px;
 }
 
 .np-intro p {
     font-size: 0.875rem;
-    color: #3a6070;
+    color: #1a3070;
     line-height: 1.65;
     margin: 0;
 }
@@ -45,7 +45,7 @@ body.np-body .rb-main {
     min-height: 540px;
     background: #fff;
     border-radius: 14px;
-    box-shadow: 0 4px 28px rgba(16,55,88,.12);
+    box-shadow: 0 4px 28px rgba(16,29,79,.12);
     overflow: hidden;
 }
 
@@ -59,12 +59,12 @@ body.np-body .rb-main {
     flex-direction: column;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(44,97,116,.2) transparent;
+    scrollbar-color: rgba(38,69,132,.2) transparent;
 }
 
 .np-sidebar::-webkit-scrollbar { width: 4px; }
 .np-sidebar::-webkit-scrollbar-thumb {
-    background: rgba(44,97,116,.2);
+    background: rgba(38,69,132,.2);
     border-radius: 4px;
 }
 
@@ -100,7 +100,7 @@ body.np-body .rb-main {
 .np-filter-label {
     font-size: 0.6875rem;
     font-weight: 600;
-    color: #4a6a7c;
+    color: #334488;
     letter-spacing: .02em;
 }
 
@@ -122,7 +122,7 @@ body.np-body .rb-main {
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    color: #4a7a90;
+    color: #264584;
     font-size: 0.625rem;
     pointer-events: none;
 }
@@ -134,7 +134,7 @@ body.np-body .rb-main {
     background: #f5f8fa;
     border: 1px solid #ccdde5;
     border-radius: 5px;
-    color: #3a5a6a;
+    color: #1a3070;
     font-size: 0.75rem;
     font-family: inherit;
     appearance: none;
@@ -143,9 +143,9 @@ body.np-body .rb-main {
 }
 
 .np-select-wrap select:focus-visible {
-    outline: 2px solid #2c7873;
+    outline: 2px solid #264584;
     outline-offset: 2px;
-    border-color: #2c7873;
+    border-color: #264584;
     background: #fff;
 }
 
@@ -164,7 +164,7 @@ body.np-body .rb-main {
     transition: background var(--transition-fast);
 }
 
-.np-search-btn:hover { background: #2a5570; }
+.np-search-btn:hover { background: #0d3a8a; }
 
 /* ── ACTIONS ── */
 .np-actions {
@@ -198,11 +198,11 @@ body.np-body .rb-main {
     color: #fff;
 }
 
-.np-btn-primary:hover { background: #2a5570; }
+.np-btn-primary:hover { background: #0d3a8a; }
 
 .np-btn-secondary {
     background: #e4ecf0;
-    color: #2a4a5a;
+    color: #101d4f;
 }
 
 .np-btn-secondary:hover { background: #d6e4ea; }
@@ -227,7 +227,7 @@ body.np-body .rb-main {
     align-items: center;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(16,55,88,.10);
+    box-shadow: 0 2px 16px rgba(16,29,79,.10);
     padding: 18px 32px;
     gap: 0;
 }
@@ -244,11 +244,11 @@ body.np-body .rb-main {
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    border: 2px solid #2c7873;
+    border: 2px solid #264584;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #2c7873;
+    color: #264584;
     flex-shrink: 0;
 }
 
@@ -262,14 +262,14 @@ body.np-body .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 1.625rem;
     font-weight: 700;
-    color: #103758;
+    color: #101d4f;
     line-height: 1;
 }
 
 .np-kpi-label {
     font-size: 0.625rem;
     font-weight: 700;
-    color: #6b8a96;
+    color: #5577aa;
     letter-spacing: .06em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -291,7 +291,7 @@ body.np-body .rb-main {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #103758;
+    background: #101d4f;
     border: none;
     color: #fff;
     align-items: center;
@@ -301,7 +301,7 @@ body.np-body .rb-main {
     box-shadow: 0 4px 18px rgba(0,0,0,.32);
     transition: transform var(--transition-base), background var(--transition-base);
 }
-.np-filter-fab:hover  { background: #1a4d6e; transform: scale(1.08); }
+.np-filter-fab:hover  { background: #0a2d7a; transform: scale(1.08); }
 .np-filter-fab:active { transform: scale(0.93); }
 
 /* ── Botão fechar sidebar (visível apenas no mobile) ── */
@@ -309,7 +309,7 @@ body.np-body .rb-main {
     display: none;
     background: none;
     border: none;
-    color: #4a6a7c;
+    color: #334488;
     cursor: pointer;
     padding: 4px;
     border-radius: 5px;
@@ -318,7 +318,7 @@ body.np-body .rb-main {
     transition: color var(--transition-fast), background var(--transition-fast);
     flex-shrink: 0;
 }
-.np-sidebar-close:hover { color: #103758; background: #eef2f6; }
+.np-sidebar-close:hover { color: #101d4f; background: #eef2f6; }
 
 /* ── Backdrop do painel mobile ── */
 .np-sidebar-backdrop {
@@ -352,7 +352,7 @@ body.np-body .rb-main {
 }
 
 .np-map-container .leaflet-control-zoom a {
-    background: rgba(16,55,88,.85) !important;
+    background: rgba(16,29,79,.92) !important;
     color: #fff !important;
     border: none !important;
     border-bottom: 1px solid rgba(255,255,255,.15) !important;
@@ -364,7 +364,7 @@ body.np-body .rb-main {
 }
 
 .np-map-container .leaflet-control-zoom a:hover {
-    background: rgba(16,55,88,1) !important;
+    background: rgba(16,29,79,1) !important;
 }
 
 .np-map-container .leaflet-control-attribution {
@@ -376,7 +376,7 @@ body.np-body .rb-main {
 
 /* ── HOVER TOOLTIP ── */
 .leaflet-tooltip.np-tooltip {
-    background: rgba(16,55,88,.92) !important;
+    background: rgba(16,29,79,.92) !important;
     border: 1px solid rgba(255,255,255,.15) !important;
     border-radius: 7px !important;
     color: #fff !important;
@@ -405,7 +405,7 @@ body.np-body .rb-main {
     font-family: 'Roboto', sans-serif !important;
     font-size: 0.4375rem !important;
     font-weight: 700 !important;
-    color: rgba(26,61,77,.90) !important;
+    color: rgba(16,29,79,.90) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.04em !important;
     padding: 0 !important;
@@ -419,7 +419,7 @@ body.np-body .rb-main {
 .leaflet-tooltip.np-country-label.np-country-label--minor {
     font-size: 0.4375rem !important;
     font-weight: 600 !important;
-    color: rgba(26,61,77,.80) !important;
+    color: rgba(16,29,79,.80) !important;
 }
 
 /* ── OCEAN LABELS ── */
@@ -517,7 +517,7 @@ body.np-body .rb-main {
         padding: 10px;
         background: #e8f1f5;
         border-radius: 14px;
-        box-shadow: 0 2px 12px rgba(16,55,88,.09);
+        box-shadow: 0 2px 12px rgba(16,29,79,.09);
     }
     .np-kpi {
         flex: unset;
@@ -526,7 +526,7 @@ body.np-body .rb-main {
         padding: 12px 12px;
         gap: 10px;
         border: 1px solid #ddeaf0;
-        box-shadow: 0 1px 4px rgba(16,55,88,.06);
+        box-shadow: 0 1px 4px rgba(16,29,79,.06);
         align-items: flex-start;
     }
     .np-kpi-icon {

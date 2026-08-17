@@ -44,7 +44,7 @@ body.painel-multinivel-page .rb-main {
 
 .pm-back-card:hover {
     background: rgba(255,255,255,.85);
-    box-shadow: 0 4px 16px rgba(30,70,90,.10);
+    box-shadow: 0 4px 16px rgba(16,29,79,.10);
     transform: translateY(-1px);
 }
 
@@ -94,8 +94,8 @@ body.painel-multinivel-page .rb-main {
     font-weight: 600;
     letter-spacing: .04em;
     color: var(--color-primary);
-    background: rgba(53,96,115,.10);
-    border: 1px solid rgba(53,96,115,.18);
+    background: rgba(16,29,79,.10);
+    border: 1px solid rgba(16,29,79,.18);
     border-radius: 20px;
     padding: 3px 9px;
     white-space: nowrap;
@@ -163,7 +163,7 @@ body.painel-multinivel-page .rb-main {
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: rgba(194,237,231,.48);
+    color: rgba(255,255,255,.48);
     padding: 15px 18px;
     display: flex;
     align-items: center;
@@ -203,7 +203,7 @@ body.painel-multinivel-page .rb-main {
     gap: 7px;
     font-size: 0.78125rem;
     font-weight: 500;
-    color: rgba(194,237,231,.60);
+    color: rgba(255,255,255,.60);
     cursor: pointer;
     transition: background .18s, color .18s;
     position: relative;
@@ -309,7 +309,7 @@ body.painel-multinivel-page .rb-main {
 
     body, .pm-wrapper { background: #fff !important; }
     .pm-panel-card { box-shadow: none !important; border: 1px solid #ccc !important; }
-    .pm-card-header { background: #264a57 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pm-card-header { background: #101d4f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .pm-chart-wrapper, .pm-chart-wrapper canvas { height: auto !important; max-height: 340px !important; }
 }
 
