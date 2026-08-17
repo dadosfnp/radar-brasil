@@ -202,7 +202,10 @@ feature/nome  →  next  →  main
 bugfix/nome   ↗           ↓
                     push origin main + push prod main
                            ↓
-                        Render (produção)
+                  DigitalOcean fnp-web (produção)
+                  SSH: root@142.93.205.222
+                  App: /opt/radar-brasil/
+                  docker compose up -d
 ```
 
 **Regras:**
@@ -210,6 +213,7 @@ bugfix/nome   ↗           ↓
 - Sempre partir de `next` para criar branches de trabalho
 - `main` só recebe via merge de `next`
 - Ao subir para produção: `git push origin main` **E** `git push prod main`
+- No droplet: `cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d`
 
 ---
 
@@ -246,67 +250,81 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-07-24)
+## Estado Atual do Projeto (2026-08-17)
 
-### Branch atual: `next` — limpo, sincronizado com `origin/next` e `prod/main`
+### Branch atual: `main` — em produção no DigitalOcean
 
-**Commits recentes (HEAD):**
+**Deploy DigitalOcean concluído em 2026-08-17:**
 
 ```
-bcda73c fix: garante ordem das barras EN identica ao PT no Painel Multinivel
-fab14e4 fix: traduz labels Estadual/Municipal no grafico de repasse por ente em EN
-5de85ce docs: atualiza CLAUDE.md com estado atual (2026-07-23 fim do dia)
-8a6a2df fix: detecta e separa itens concatenados no campo Composicao da ficha EN
-840f78a docs: atualiza CLAUDE.md com estado atual do projeto (2026-07-23)
-3e8e773 fix: corrige quebras de linha no campo Composicao da ficha tecnica EN
+367a577 fix: adiciona permissao de execucao ao entrypoint.sh via git update-index
+cd391bd fix: atualiza Dockerfile para Python 3.12 (Django 6 exige 3.12+)
+78bc744 chore: deploy inicial Radar Brasil no DigitalOcean
+4498bec chore: adiciona infraestrutura de deploy Docker + Nginx para DigitalOcean
 ```
 
-**i18n EN completo em produção** — tudo mergeado e publicado em `origin` e `prod`:
+### Infraestrutura de produção
+
+| Item | Valor |
+|---|---|
+| Droplet | `fnp-web` — Ubuntu 24.04 — `root@142.93.205.222` |
+| App dir | `/opt/radar-brasil/` |
+| Porta interna | `127.0.0.1:8005` |
+| Domínio | `https://radarbrasil.fnp.org.br` |
+| SSL | Let's Encrypt via certbot (expira 2026-11-15) |
+| Banco | `fnp-database` (DigitalOcean Managed PostgreSQL 18) — database `radar_brasil`, user `radarbrasil` |
+| Container | `radarbrasil` — Python 3.12-slim, Gunicorn 3 workers |
+
+### Arquitetura de dados
+
+```
+Google Sheets → sync_sheets_db → PostgreSQL → App (Django ORM)
+```
+
+- Runtime **nunca** acessa Google Sheets diretamente
+- `python manage.py sync_sheets_db` repovooa o banco a partir das planilhas
+- Rodar novamente quando as planilhas forem atualizadas
+
+**Contagem atual no banco:**
+
+| Tabela | PT | EN |
+|---|---|---|
+| RegistroFicha | 98 | 98 |
+| RegistroParametro | 412 | 412 |
+| RegistroFinanciamento | 46 | 46 |
+| RegistroMapa | 2322 | 2322 |
+
+### Rotina de deploy de atualizações
+
+```powershell
+# Local (após commits em main)
+git push origin main
+git push prod main
+
+# Droplet (SSH)
+cd /opt/radar-brasil
+git pull
+docker compose build
+docker compose up -d
+```
+
+Para atualizar dados das planilhas (sem redeploy):
+```bash
+docker compose exec radarbrasil python manage.py sync_sheets_db
+```
+
+### i18n EN — completo
+
 - Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
 - `locale/en/LC_MESSAGES/django.po` com 243 strings + `django.mo` compilado
 - `static/js/i18n.js` com `DICT.en` cobrindo todos os módulos
 - i18n aplicado em 9 templates + 5 arquivos JS
-- Fichas técnicas com hyperlinks (`link_eixo`, `link_orgao`, `link_arcabouco`)
-- Banco de dados EN: 5 Google Sheets em inglês com cache por idioma
-- Normalização EN→PT de colunas e valores nos 4 services
-- Labels de ficha técnica em inglês no modo EN (`_CAMPOS_LABELS`)
-- Exibição "Level N" (em vez de "Nível N") nos gráficos e tabelas EN
-- Filtro correto de campos "Does not apply" no modo EN
-- Quebras de linha normalizadas no campo Composição das fichas (PT e EN)
-- Heurística de split para itens concatenados sem separador na sheet EN (`re.sub` minúscula→maiúscula)
-
-**Fixes EN pós-lançamento (2026-07-24):**
-- Gráfico "Resource Transfers by Government Level": labels `Estadual`/`Municipal` traduzidos para `State`/`Municipal` no modo EN (`financiamento_climatico.py`)
-- Painel Multinível: ordem das barras EN agora idêntica à PT nos 4 eixos — adicionado `_EN_CRITERIO` em `painel_multinivel.py` mapeando nomes de critérios EN → PT para lookup em `ORDEM_CRITERIOS`
-
-**Limpeza incorporada:**
-- 17 arquivos removidos (template órfão, asgi.py, 15 imagens)
-- `rest_framework` removido de `INSTALLED_APPS` e `requirements.txt`
-- `print()` convertidos para `logger` em `painel_multinivel.py`
-
-### Normalização EN → PT nos services — detalhe `painel_multinivel.py`
-
-`_EN_CRITERIO` mapeia nomes de critérios EN → PT **apenas para fins de ordenação** (não altera os labels exibidos). Critérios sem mapeamento (`Financing`, `Representation of Gender, Race and Ethnicity`) ficam ao final, espelhando o comportamento PT (onde `Financiamento` e `Representação de Gênero, Raça e Etnia` também não batem nos nomes renomeados de `ORDEM_CRITERIOS`).
-
-### Divergência `next` / `main` — problema cosmético pendente
-
-O `main` acumulou commits de merge ("Merge branch 'next'") que o `next` não tem. Isso:
-- Impede `git merge --ff-only next` (fast-forward)
-- Faz o Render exibir o nome do merge commit no histórico de deploys em vez do nome real do commit
-
-**Fix planejado (requer autorização do usuário):** force push em `main` nos dois remotos para apontar para o mesmo commit do `next`:
-```
-git push origin next:main --force-with-lease
-git push prod next:main --force-with-lease
-```
-Após isso, sempre usar `git push origin next:main` + `git push prod next:main` direto (sem merge local).
-
-**Workaround atual:** usar `git merge next -m "<mensagem descritiva>"` para que o Render exiba algo útil.
+- Banco EN populado (fichas, parâmetros, financiamento, mapa)
 
 ### Pendências
 
-- **Divergência next/main**: corrigir com force push em `main` — aguardando autorização do usuário
-- **Migração DigitalOcean** (standby): mover dados do Google Sheets para PostgreSQL DigitalOcean — pausado, aguardando decisão
+- Nenhuma pendência crítica
+- DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
 

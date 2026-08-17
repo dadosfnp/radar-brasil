@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-17 — `main`
+
+### Deploy — Radar Brasil no ar em radarbrasil.fnp.org.br
+
+Deploy completo no droplet `fnp-web` da DigitalOcean. App responde `HTTP 200` com HTTPS.
+
+**Infraestrutura:**
+- Docker + Nginx + certbot (SSL Let's Encrypt até 2026-11-15)
+- PostgreSQL `radar_brasil` no cluster `fnp-database` (DigitalOcean Managed)
+- Banco populado via `sync_sheets_db`: 98 fichas, 412 parâmetros, 46 financiamentos, 2322 mapas (PT + EN)
+
+**Fixes durante o deploy:**
+- Python 3.11 → 3.12 no Dockerfile (Django 6 exige ≥3.12)
+- `git update-index --chmod=+x entrypoint.sh` (bit de execução perdido no Windows)
+- Grant `ALL ON SCHEMA public TO radarbrasil` (PostgreSQL 15+ não concede CREATE por padrão)
+
+---
+
 ## 2026-08-17 — `next`
 
 ### Fix — entrypoint.sh: permissão de execução via git update-index
