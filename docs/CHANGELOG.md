@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-08-17 — `next`
 
+### Fix — entrypoint.sh: permissão de execução via git update-index
+
+Arquivo perdia o bit de execução ao ser commitado no Windows, causando `permission denied` no container Linux.
+
+- `entrypoint.sh` — `git update-index --chmod=+x` para preservar o bit de execução no repositório
+
+---
+
 ### Fix — Dockerfile: Python 3.11 → 3.12 (Django 6 exige 3.12+)
 
 Django 6.0.4 requer Python ≥3.12; o build falhava no `pip install` com Python 3.11-slim.
