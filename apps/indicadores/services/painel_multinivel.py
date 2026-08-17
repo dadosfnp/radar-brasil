@@ -1,60 +1,10 @@
-import json
-import logging
-import os
-import time
 import unicodedata
-import gspread
-import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
 
-logger = logging.getLogger(__name__)
+from django.db.models import Count
 
-# ── Configuração ──────────────────────────────────────────────
-CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-CACHE_TTL = 1800  # 30 minutos
+from apps.indicadores.models import RegistroParametro
 
-# ── Mapeamento de colunas EN → PT ─────────────────────────────
-_EN_COLS = {
-    "Structure": "Estrutura",
-    "Axis": "Eixo",
-    "Axis_link": "Link_eixo",
-    "Sector": "Setor",
-    "Level": "Nível",
-    "Criterion": "Critério",
-    "Descriptive": "Descritivo",
-    "Evaluation": "Avaliação",
-    "Classification": "Classificação",
-}
-
-# Valores EN → PT para nomes de critérios (Avaliação) — usado no sort key
-_EN_CRITERIO = {
-    "Operability": "Operacionalidade",
-    "Federative dialogue space": "Espaço de diálogo federativo",
-    "Communication and Transparency": "Comunicação e Transparência",
-    "Federative Cooperation": "Cooperação Federativa",
-    "Capillarity and Territorial Reach": "Capilaridade e Alcance Territorial",
-    "Strengthening Local Capacity": "Fortalecimento da Capacidade Local",
-    "Monitoring and Local Participation": "Monitoramento e Participação Local",
-    "Participatory Design of the Financing Line": "Desenho Participativo da Linha de Financiamento",
-    "Decentralized Execution Capability": "Capacidade de Execução Descentralizada",
-    "Monitoring and Accountability": "Monitoramento e Prestação de Contas",
-}
-
-# Valores EN → PT para colunas discriminadoras (eixo, nível)
-_EN_EIXO = {
-    "Governance": "Governanca",
-    "Policies & Plans": "Politicas e Planos",
-    "Policies and Plans": "Politicas e Planos",
-    "Programs": "Programas",
-    "Financing Lines": "Linhas de Financiamento",
-    "Financing Line": "Linhas de Financiamento",
-}
-
-SHEET_PARAMETROS = {
-    "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
-    "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
-}
-
+# ── Constantes ────────────────────────────────────────────────────
 CORES_NIVEL = {
     "Nível 1": "#e06b6b",
     "Nível 2": "#f09a50",
@@ -63,7 +13,14 @@ CORES_NIVEL = {
     "Nível 5": "#7aaed4",
 }
 
-# Ordem de exibição dos critérios (label[0] = topo do gráfico)
+# eixo_front → eixo normalizado (forma armazenada no banco)
+EIXO_MAP = {
+    "Governanca": "governanca",
+    "Politicas e Planos": "politicas e planos",
+    "Programas": "programas",
+    "Linhas de Financiamento": "linhas de financiamento",
+}
+
 ORDEM_CRITERIOS = {
     "Governanca": [
         "Operacionalidade",
@@ -92,25 +49,24 @@ ORDEM_CRITERIOS = {
     ],
 }
 
-# O que o front manda → o que buscamos na planilha (sem acento, igual ao R)
-EIXO_MAP = {
-    "Governanca": "Governanca",
-    "Politicas e Planos": "Politicas e Planos",
-    "Programas": "Programas",
-    "Linhas de Financiamento": "Linhas de Financiamento",
-}
-
-# Cache em memória por idioma
-_cache = {
-    "pt": {"df": None, "timestamp": 0},
-    "en": {"df": None, "timestamp": 0},
+# Nomes de critérios EN → PT, usado APENAS para ordenação via ORDEM_CRITERIOS
+_EN_CRITERIO = {
+    "Operability": "Operacionalidade",
+    "Federative dialogue space": "Espaço de diálogo federativo",
+    "Communication and Transparency": "Comunicação e Transparência",
+    "Federative Cooperation": "Cooperação Federativa",
+    "Capillarity and Territorial Reach": "Capilaridade e Alcance Territorial",
+    "Strengthening Local Capacity": "Fortalecimento da Capacidade Local",
+    "Monitoring and Local Participation": "Monitoramento e Participação Local",
+    "Participatory Design of the Financing Line": "Desenho Participativo da Linha de Financiamento",
+    "Decentralized Execution Capability": "Capacidade de Execução Descentralizada",
+    "Monitoring and Accountability": "Monitoramento e Prestação de Contas",
 }
 
 
 def _normalizar(texto: str) -> str:
-    """Remove acentos e coloca em minúsculas para comparação segura."""
     return (
-        unicodedata.normalize("NFKD", texto)
+        unicodedata.normalize("NFKD", str(texto))
         .encode("ascii", "ignore")
         .decode("ascii")
         .lower()
@@ -118,98 +74,32 @@ def _normalizar(texto: str) -> str:
     )
 
 
-def _get_client():
-    scope = [
-        "https://spreadsheets.google.com/feeds",
-        "https://www.googleapis.com/auth/drive",
-    ]
-    creds_json = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
-    if creds_json:
-        creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(creds_json), scope)
-    else:
-        creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
-    return gspread.authorize(creds)
-
-
-def _ler_parametros(lang: str = "pt") -> pd.DataFrame:
-    agora = time.time()
-    c = _cache[lang]
-
-    if c["df"] is not None and (agora - c["timestamp"]) < CACHE_TTL:
-        logger.info("painel_multinivel[%s]: cache hit", lang)
-        return c["df"]
-
-    logger.info("painel_multinivel[%s]: cache miss — buscando Google Sheets", lang)
-    cfg = SHEET_PARAMETROS[lang]
-    client = _get_client()
-    sh = client.open_by_key(cfg["id"])
-    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.worksheet("dados")
-    df = pd.DataFrame(ws.get_all_records())
-    if cfg.get("gid"):  # sheet EN — normaliza colunas e valores para PT
-        df.rename(columns=_EN_COLS, inplace=True)
-        if "Eixo" in df.columns:
-            df["Eixo"] = df["Eixo"].replace(_EN_EIXO)
-        if "Nível" in df.columns:
-            df["Nível"] = (
-                df["Nível"].astype(str).str.replace(r"^Level\s+(\d+)$", r"Nível \1", regex=True)
-            )
-
-    c["df"] = df
-    c["timestamp"] = agora
-
-    if "Eixo" in df.columns:
-        logger.debug("painel_multinivel[%s]: eixos=%s", lang, df["Eixo"].unique().tolist())
-
-    logger.info("painel_multinivel: %d registros, expira em %d min", len(df), CACHE_TTL // 60)
-    return df
+# ── API pública ───────────────────────────────────────────────────
 
 
 def get_total_municipios(lang: str = "pt") -> int:
-    df = _ler_parametros(lang)
-    if df.empty or not {"Eixo", "Avaliação", "Nível"}.issubset(df.columns):
+    qs = (
+        RegistroParametro.objects.filter(lang=lang, nivel__in=CORES_NIVEL.keys())
+        .values("eixo", "avaliacao")
+        .annotate(n=Count("id"))
+    )
+    if not qs.exists():
         return 0
-    df_valid = df[df["Nível"].isin(CORES_NIVEL.keys())]
-    contagem = df_valid.groupby(["Eixo", "Avaliação"]).size()
-    return int(contagem.max()) if not contagem.empty else 0
+    return max(r["n"] for r in qs)
 
 
 def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
-    eixo_busca = EIXO_MAP.get(eixo_front)
-    if not eixo_busca:
-        return {
-            "labels": [],
-            "datasets": [],
-            "erro": f"Eixo desconhecido: {eixo_front}",
-        }
+    eixo_norm = EIXO_MAP.get(eixo_front)
+    if not eixo_norm:
+        return {"labels": [], "datasets": [], "erro": f"Eixo desconhecido: {eixo_front}"}
 
-    df = _ler_parametros(lang)
-
-    # Verifica colunas mínimas
-    colunas_esperadas = {"Eixo", "Avaliação", "Nível"}
-    if not colunas_esperadas.issubset(set(df.columns)):
-        return {
-            "labels": [],
-            "datasets": [],
-            "erro": f"Colunas encontradas: {list(df.columns)}",
-        }
-
-    # Normaliza para comparação sem acento
-    df = df.copy()
-    df["Eixo_norm"] = df["Eixo"].astype(str).apply(_normalizar)
-    df["Avaliação"] = df["Avaliação"].astype(str).str.strip()
-    df["Nível"] = df["Nível"].astype(str).str.strip()
-
-    eixo_norm = _normalizar(eixo_busca)
-
-    # Filtra pelo eixo e por níveis válidos
-    df_eixo = df[(df["Eixo_norm"] == eixo_norm) & (df["Nível"].isin(CORES_NIVEL.keys()))].copy()
-
-    if df_eixo.empty:
+    qs = RegistroParametro.objects.filter(lang=lang, eixo=eixo_norm, nivel__in=CORES_NIVEL.keys())
+    if not qs.exists():
         return {"labels": [], "datasets": []}
 
-    todas = df_eixo["Avaliação"].unique().tolist()
+    todas = sorted(qs.values_list("avaliacao", flat=True).distinct())
 
-    # Ordena conforme a sequência definida por eixo
+    # Ordena conforme ORDEM_CRITERIOS
     ordem = ORDEM_CRITERIOS.get(eixo_front, [])
     if ordem:
         ordem_norm = [_normalizar(o) for o in ordem]
@@ -225,17 +115,15 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     else:
         labels = sorted(todas)
 
-    # Contagem por Avaliação + Nível
-    contagem = df_eixo.groupby(["Avaliação", "Nível"]).size().reset_index(name="qtd")
+    # Contagem por avaliacao + nivel
+    contagem = {}
+    for reg in qs.values("avaliacao", "nivel"):
+        key = (reg["avaliacao"], reg["nivel"])
+        contagem[key] = contagem.get(key, 0) + 1
 
-    # Monta datasets — um por nível
     datasets = []
     for nivel, cor in CORES_NIVEL.items():
-        data = []
-        for avaliacao in labels:
-            filtro = contagem[(contagem["Avaliação"] == avaliacao) & (contagem["Nível"] == nivel)]
-            data.append(int(filtro["qtd"].sum()))
-
+        data = [contagem.get((av, nivel), 0) for av in labels]
         label_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         datasets.append(
             {
@@ -248,7 +136,4 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
             }
         )
 
-    return {
-        "labels": labels,
-        "datasets": datasets,
-    }
+    return {"labels": labels, "datasets": datasets}

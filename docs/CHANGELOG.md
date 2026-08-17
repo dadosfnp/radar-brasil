@@ -4,6 +4,57 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-17 — `next`
+
+### Chore — Infraestrutura de deploy Docker + Nginx (padrão DigitalOcean)
+
+Cria todos os arquivos necessários para deploy no droplet `fnp-web` da DigitalOcean, espelhando o padrão do `legislativo.fnp.org.br`. O app sai do Render e passa a rodar como container Docker sob Nginx, com domínio `radarbrasil.fnp.org.br`.
+
+**Novos arquivos:**
+- `Dockerfile` — Python 3.11-slim, usuário `appuser` (UID 1000), não-root
+- `entrypoint.sh` — roda `migrate` + `collectstatic` e sobe Gunicorn na porta 8005
+- `docker-compose.yml` — serviço `radarbrasil`, porta 127.0.0.1:8005, volumes `staticfiles/` e `media/`, healthcheck
+- `.dockerignore` — exclui `.git`, `.env`, `.secrets/`, `staticfiles/`, `media/`, `*.pyc`
+- `.gitattributes` — força LF em `*.sh` (evita quebra do container em edição no Windows)
+- `deploy/nginx-radarbrasil.conf` — bloco Nginx para `radarbrasil.fnp.org.br`, proxy para 127.0.0.1:8005, static/media direto do host, `client_max_body_size 6M`
+- `.env.example` — template das variáveis de ambiente de produção
+
+**Porta 8005** escolhida para não conflitar com o Legislativo (8004) no mesmo droplet.
+
+---
+
+## 2026-08-14 — `feature/migracao-postgresql`
+
+### Feat — Migração de dados para PostgreSQL DigitalOcean
+
+Substitui o Google Sheets como fonte de dados dos indicadores por um banco PostgreSQL gerenciado (DigitalOcean `fnp-database`, database `radar_brasil`, usuário `radarbrasil`). A leitura de planilhas via gspread permanece apenas no comando de importação; os services passam a consultar o banco diretamente via ORM Django.
+
+**Novos modelos (`apps/indicadores/models.py`):**
+- `RegistroFicha` — fichas técnicas PT e EN (substitui sheets Fichas)
+- `RegistroParametro` — avaliações multinível PT e EN (substitui sheets Parâmetros)
+- `RegistroFinanciamento` — linhas de financiamento climático PT e EN
+- `RegistroMapa` — registros de investimento por município para o mapa Leaflet
+
+**Migration:** `apps/indicadores/migrations/0001_initial.py`
+
+**Novo módulo `apps/indicadores/services/sheets_reader.py`:**
+Centraliza toda a leitura de Google Sheets com normalização de colunas EN→PT e
+eixo→forma canônica (lowercase sem acento). Uso exclusivo do comando de importação.
+
+**Novo comando `python manage.py sync_sheets_db`:**
+Importa dados de todas as planilhas (ou um subset via `--sheet`/`--lang`) para o
+banco PostgreSQL. Idempotente: apaga registros do idioma antes de reinserir.
+
+**Services reescritos — gspread/pandas removidos, agora usam ORM:**
+- `avaliacao_painel.py`: `get_filtros`, `get_tabela`, `get_ficha` via `RegistroFicha`/`RegistroParametro`
+- `painel_multinivel.py`: `dados_para_grafico`, `get_total_municipios` via `RegistroParametro`
+- `financiamento_climatico.py`: filtros, tabela e gráficos via `RegistroFinanciamento`
+- `mapa_georreferenciado.py`: dados e filtros do mapa via `RegistroMapa` + coords JSON local
+
+**Todos os 13 testes continuam passando** (12 API + 1 falha pré-existente de compatibilidade Python 3.14 + Django template, não relacionada à migração).
+
+---
+
 ## 2026-07-27 — `next` / `main`
 
 ### Docs — Documento de arquitetura do projeto

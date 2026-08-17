@@ -1,0 +1,17 @@
+services:
+  radarbrasil:
+    build: .
+    container_name: radarbrasil
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "127.0.0.1:8005:8005"
+    volumes:
+      - ./staticfiles:/app/staticfiles
+      - ./media:/app/media
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-H", "Host: radarbrasil.fnp.org.br", "http://localhost:8005/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

@@ -1,34 +1,7 @@
-import os
 import json
-import time
-import gspread
-import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
+import os
 
-CREDS_PATH = ".secrets/fnp-radar-sheets.json"
-CACHE_TTL = 1800
-
-# ── Mapeamento de colunas EN → PT ─────────────────────────────
-_EN_COLS = {
-    "Municipality": "Municípios",
-    "Municipalities": "Municípios",
-    "Axis": "Eixo",
-    "Stage": "Estágio",
-    "Profile": "Perfil",
-    "Estimate_2023_2030": "Estimativa_2023_2030",
-    "Population": "Populacao",
-    "Enterprise": "Empreendimento",
-    "Project": "Empreendimento",
-    "Type_of_Executor": "Tipo de Executor",
-    "Executor_Type": "Tipo de Executor",
-    "Percentage_executed": "Percentual_executado",
-    "Modality": "Modalidade",
-}
-
-SHEET_MAPA = {
-    "pt": {"id": "1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs", "gid": 1619423236},
-    "en": {"id": "1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk", "gid": None},
-}
+from apps.indicadores.models import RegistroMapa
 
 COORDS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "municipios_coords.json")
 
@@ -62,62 +35,8 @@ REGIAO_POR_UF = {
     "SC": "Sul",
 }
 
-_cache_sheet = {"pt": {"df": None, "ts": 0}, "en": {"df": None, "ts": 0}}
 _coords_cache = None
-_nome_idx = None  # "nome_lower|UF" → entry
-
-
-def _parse_pct(v) -> float:
-    """Retorna percentual em escala 0-100.
-    Aceita: float decimal (0.75→75), inteiro (75), string '75%', formato BR '75,5'.
-    gspread devolve colunas formatadas como % no Sheets como decimais (0.45 = 45%).
-    """
-    try:
-        if v in (None, "", "nan"):
-            return 0.0
-        s = str(v).strip()
-        if s.endswith("%"):
-            s = s[:-1].strip()
-        if "," in s and "." not in s:
-            s = s.replace(",", ".")
-        f = float(s)
-    except (TypeError, ValueError):
-        return 0.0
-    if 0 < f <= 1:
-        return round(f * 100, 1)
-    return round(f, 1)
-
-
-def _get_client():
-    scope = [
-        "https://spreadsheets.google.com/feeds",
-        "https://www.googleapis.com/auth/drive",
-    ]
-    creds_json = os.getenv("GOOGLE_SHEETS_CREDS_JSON")
-    if creds_json:
-        creds = ServiceAccountCredentials.from_json_keyfile_dict(json.loads(creds_json), scope)
-    else:
-        creds = ServiceAccountCredentials.from_json_keyfile_name(CREDS_PATH, scope)
-    return gspread.authorize(creds)
-
-
-def _ler_sheet(lang: str = "pt") -> pd.DataFrame:
-    agora = time.time()
-    c = _cache_sheet[lang]
-    if c["df"] is not None and (agora - c["ts"]) < CACHE_TTL:
-        return c["df"]
-    cfg = SHEET_MAPA[lang]
-    client = _get_client()
-    sh = client.open_by_key(cfg["id"])
-    ws = sh.get_worksheet_by_id(cfg["gid"]) if cfg["gid"] else sh.get_worksheet(0)
-    dados = ws.get_all_records()
-    df = pd.DataFrame(dados)
-    df.columns = [str(col).strip() for col in df.columns]
-    if lang == "en":
-        df.rename(columns=_EN_COLS, inplace=True)
-    c["df"] = df
-    c["ts"] = agora
-    return df
+_nome_idx = None
 
 
 def _load_coords() -> dict:
@@ -142,7 +61,7 @@ def _load_coords() -> dict:
 
 def _lookup_coords(code_muni: str, municipio: str, uf: str):
     coords = _load_coords()
-    if code_muni and code_muni != "0":
+    if code_muni:
         c = coords.get(code_muni)
         if c:
             return c
@@ -154,65 +73,33 @@ def _lookup_coords(code_muni: str, municipio: str, uf: str):
     return None
 
 
-def _col(df, *names):
-    for n in names:
-        if n in df.columns:
-            return n
-    return None
+# ── API pública ───────────────────────────────────────────────────
 
 
 def get_dados_mapa(lang: str = "pt") -> dict:
-    """
-    Retorna um GeoJSON com UM feature por município (todos os 5.571 do Brasil).
-    Municípios com financiamento: tem_financiamento=True + dados agregados.
-    Municípios sem financiamento: tem_financiamento=False + dados geográficos apenas.
-    Replica a lógica do app R: distinct(code_muni) + radius por porte populacional.
-    """
-    df = _ler_sheet(lang)
     coords = _load_coords()
+    registros = list(RegistroMapa.objects.filter(lang=lang))
 
-    municipio_col = _col(df, "Municípios", "Municipios", "Município", "Municipio")
-    estagio_col = _col(df, "Estágio", "Estagio")
-
-    # ── Agrega dados de financiamento por município ────────────────
-    muni = {}  # key → dict com dados agregados
-
-    for _, row in df.iterrows():
-        raw_code = str(row.get("code_muni", "")).strip()
-        code_muni = str(int(float(raw_code))) if raw_code not in ("", "nan", "0") else "0"
-        uf = str(row.get("UF", "")).strip()
-        mun = str(row.get(municipio_col, "")).strip() if municipio_col else ""
-
-        c = _lookup_coords(code_muni, mun, uf)
+    # Agrega por município
+    muni: dict = {}
+    for reg in registros:
+        c = _lookup_coords(reg.code_muni, reg.municipio, reg.uf)
         if c is None:
             continue
 
-        # Chave estável: código IBGE ou fallback por nome+UF
-        key = code_muni if code_muni != "0" else f"\x00{mun.lower().strip()}|{uf}"
-
-        perfil = str(row.get("Perfil", "")).strip()
-        est = float(row.get("Estimativa_2023_2030", 0) or 0)
-        populacao = str(row.get("Populacao", row.get("População", ""))).strip()
-        emp = str(row.get("Empreendimento", "")).strip()
-        eixo = str(row.get("Eixo", "")).strip()
-        mod = str(row.get("Modalidade", "")).strip()
-        etap = str(row.get(estagio_col, "")).strip() if estagio_col else ""
-        exec_ = str(row.get("Tipo de Executor", "")).strip()
-        pct = _parse_pct(row.get("Percentual_executado", 0))
-        if pct == 0 and etap.lower() in ("concluído", "concluido"):
-            pct = 100.0
+        key = reg.code_muni if reg.code_muni else f"\x00{reg.municipio.lower().strip()}|{reg.uf}"
 
         if key not in muni:
             muni[key] = {
                 "c": c,
-                "code_muni": code_muni,
-                "municipio": mun,
-                "uf": uf,
-                "populacao": populacao,
-                "unico_ests": [],  # estimativas de Investimento Único
-                "agrupado_emps": {},  # empreendimento → estimativa (Agrupado)
-                "agrupado_prog_keys": set(),  # (emp, estagio) já adicionados
-                "programas": [],  # lista completa para exibição no popup
+                "code_muni": reg.code_muni,
+                "municipio": reg.municipio,
+                "uf": reg.uf,
+                "populacao": reg.populacao,
+                "unico_ests": [],
+                "agrupado_emps": {},
+                "agrupado_prog_keys": set(),
+                "programas": [],
                 "eixos": set(),
                 "modalidades": set(),
                 "estagios": set(),
@@ -221,74 +108,52 @@ def get_dados_mapa(lang: str = "pt") -> dict:
             }
 
         d = muni[key]
+        est = reg.estimativa_2023_2030
+        pct = reg.percentual_executado
 
-        if perfil == "Investimento Único":
+        programa_entry = {
+            "empreendimento": reg.empreendimento,
+            "perfil": reg.perfil,
+            "estagio": reg.estagio,
+            "estimativa": est,
+            "percentual": pct,
+            "executor": reg.tipo_executor,
+            "modalidade": reg.modalidade,
+            "eixo": reg.eixo,
+        }
+
+        if reg.perfil == "Investimento Único":
             d["unico_ests"].append(est)
-            d["programas"].append(
-                {
-                    "empreendimento": emp,
-                    "perfil": perfil,
-                    "estagio": etap,
-                    "estimativa": est,
-                    "percentual": pct,
-                    "executor": exec_,
-                    "modalidade": mod,
-                    "eixo": eixo,
-                }
-            )
+            d["programas"].append(programa_entry)
         else:
-            if emp not in d["agrupado_emps"]:
-                d["agrupado_emps"][emp] = est  # dedup financeiro por empreendimento
-            prog_key = (emp, etap)
+            if reg.empreendimento not in d["agrupado_emps"]:
+                d["agrupado_emps"][reg.empreendimento] = est
+            prog_key = (reg.empreendimento, reg.estagio)
             if prog_key not in d["agrupado_prog_keys"]:
                 d["agrupado_prog_keys"].add(prog_key)
-                d["programas"].append(
-                    {
-                        "empreendimento": emp,
-                        "perfil": perfil,
-                        "estagio": etap,
-                        "estimativa": est,
-                        "percentual": pct,
-                        "executor": exec_,
-                        "modalidade": mod,
-                        "eixo": eixo,
-                    }
-                )
+                d["programas"].append(programa_entry)
 
         for val, s in [
-            (eixo, d["eixos"]),
-            (mod, d["modalidades"]),
-            (etap, d["estagios"]),
-            (exec_, d["executores"]),
+            (reg.eixo, d["eixos"]),
+            (reg.modalidade, d["modalidades"]),
+            (reg.estagio, d["estagios"]),
+            (reg.tipo_executor, d["executores"]),
         ]:
             if val and val != "nan":
                 s.add(val)
 
         if d["first"] is None:
-            d["first"] = {
-                "empreendimento": emp,
-                "modalidade": mod,
-                "estagio": etap,
-                "estimativa": est,
-                "percentual": pct,
-                "executor": exec_,
-                "perfil": perfil,
-                "eixo": eixo,
-            }
+            d["first"] = programa_entry
 
-    # Índices de lookup para cruzar com coords
-    by_code = {d["code_muni"]: k for k, d in muni.items() if d["code_muni"] != "0"}
+    by_code = {d["code_muni"]: k for k, d in muni.items() if d["code_muni"]}
     by_name = {f"{d['municipio'].lower().strip()}|{d['uf']}": k for k, d in muni.items()}
 
-    # ── Gera um feature para cada município do Brasil ──────────────
     features = []
-
     for code_muni, c in coords.items():
         uf = c.get("uf", "")
         nom = c.get("nome", "")
         porte = c.get("porte", "")
 
-        # Tenta localizar dados de financiamento
         lookup_key = by_code.get(code_muni) or by_name.get(f"{nom.lower().strip()}|{uf}")
         d = muni.get(lookup_key) if lookup_key else None
 
@@ -309,15 +174,12 @@ def get_dados_mapa(lang: str = "pt") -> dict:
                         "regiao": REGIAO_POR_UF.get(uf, ""),
                         "porte": porte,
                         "populacao": d.get("populacao", ""),
-                        # flags para visualização (replica R: tem_financiamento)
                         "tem_financiamento": True,
                         "n_programas": n_prog,
-                        # campos para cálculo do painel de totais
                         "unico_min_est": unico_min,
                         "agrupado_empreendimentos": [
                             {"nome": k, "estimativa": v} for k, v in d["agrupado_emps"].items()
                         ],
-                        # campos para filtros (múltiplos valores por município)
                         "eixo": first.get("eixo", ""),
                         "eixos": list(d["eixos"]),
                         "modalidade": first.get("modalidade", ""),
@@ -326,7 +188,6 @@ def get_dados_mapa(lang: str = "pt") -> dict:
                         "estagios": list(d["estagios"]),
                         "executor": first.get("executor", ""),
                         "executores": list(d["executores"]),
-                        # campos para popup
                         "programas": d["programas"],
                         "perfil": first.get("perfil", ""),
                         "empreendimento": first.get("empreendimento", ""),
@@ -371,23 +232,20 @@ def get_dados_mapa(lang: str = "pt") -> dict:
 
 
 def get_filtros_mapa(lang: str = "pt") -> dict:
-    df = _ler_sheet(lang)
+    qs = RegistroMapa.objects.filter(lang=lang)
 
-    def uniq(col, *alts):
-        name = _col(df, col, *alts)
-        if not name:
-            return []
-        return sorted({v for v in df[name].astype(str).str.strip() if v not in ("", "nan")})
+    def uniq(field):
+        return sorted({v for v in qs.values_list(field, flat=True).distinct() if v and v != "nan"})
 
-    ufs = uniq("UF")
+    ufs = uniq("uf")
     regioes = sorted({REGIAO_POR_UF.get(uf, "") for uf in ufs if uf})
 
     return {
-        "eixos": uniq("Eixo"),
-        "modalidades": uniq("Modalidade"),
-        "estagios": uniq("Estágio", "Estagio"),
-        "executores": uniq("Tipo de Executor"),
-        "perfis": uniq("Perfil"),
+        "eixos": uniq("eixo"),
+        "modalidades": uniq("modalidade"),
+        "estagios": uniq("estagio"),
+        "executores": uniq("tipo_executor"),
+        "perfis": uniq("perfil"),
         "ufs": ufs,
         "regioes": [r for r in regioes if r],
     }
