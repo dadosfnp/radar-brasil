@@ -43,23 +43,23 @@ body.inicio-page .rb-main {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(53, 96, 115, .12);
-    border: 1px solid rgba(53, 96, 115, .22);
+    background: rgba(16,29,79, .12);
+    border: 1px solid rgba(16,29,79, .22);
     border-radius: 999px;
     padding: 5px 14px;
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.625rem;
     font-weight: 700;
-    color: #356073;
+    color: #101d4f;
     letter-spacing: .14em;
     text-transform: uppercase;
     width: fit-content;
 }
 
 @keyframes ini-dot-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.65); }
-    70%  { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    0%   { box-shadow: 0 0 0 0 rgba(34,197,94, 0.65); }
+    70%  { box-shadow: 0 0 0 6px rgba(34,197,94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94, 0); }
 }
 
 .intro-label-dot {
@@ -75,13 +75,13 @@ body.inicio-page .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 1.625rem;
     font-weight: 800;
-    color: #1a2e3a;
+    color: #101d4f;
     line-height: 1.3;
     text-shadow: none;
 }
 
 .ini-intro h2 strong {
-    color: #356073;
+    color: #101d4f;
     font-weight: 800;
     font-style: normal;
 }
@@ -89,7 +89,7 @@ body.inicio-page .rb-main {
 .ini-intro p {
     font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.84375rem;
-    color: #4a5c6a;
+    color: #334488;
     line-height: 1.75;
     max-width: 640px;
 }
@@ -111,8 +111,8 @@ body.inicio-page .rb-main {
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow:
-        0 4px 24px rgba(30, 77, 92, 0.14),
-        0 1px 4px rgba(30, 77, 92, 0.08);
+        0 4px 24px rgba(16,29,79, 0.14),
+        0 1px 4px rgba(16,29,79, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.60);
     text-decoration: none;
     transition: transform 0.22s ease, box-shadow 0.22s ease;
@@ -122,8 +122,8 @@ body.inicio-page .rb-main {
 .ini-card:hover {
     transform: translateY(-6px) scale(1.015);
     box-shadow:
-        0 14px 40px rgba(30, 77, 92, 0.20),
-        0 2px 8px rgba(30, 77, 92, 0.10);
+        0 14px 40px rgba(16,29,79, 0.20),
+        0 2px 8px rgba(16,29,79, 0.10);
 }
 
 /* Card header gradient */
@@ -131,7 +131,7 @@ body.inicio-page .rb-main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(135deg, var(--hdr-800) 0%, var(--hdr-500) 100%);
+    background: #264584;
     padding: 14px 24px 13px;
 }
 
@@ -177,14 +177,14 @@ body.inicio-page .rb-main {
     width: 88px;
     height: 88px;
     border-radius: 22px;
-    background: linear-gradient(145deg, var(--bdy-50), var(--bdy-100));
+    background: var(--hdr-50);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.80),
-        0 4px 12px rgba(30, 77, 92, 0.10);
+        0 4px 12px rgba(16,29,79, 0.10);
     position: relative;
     overflow: hidden;
 }

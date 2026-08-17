@@ -21,30 +21,43 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ## 1. Identidade Visual
 
-### Paleta de Cores
+### Paleta de Cores — versão atual (2026-08-17)
 
-| Token                      | Valor        | Uso                                          |
-|----------------------------|--------------|----------------------------------------------|
-| `--color-header-bg`        | `#1B3333`    | Header, footer wave                          |
-| `--color-primary`          | `#2c6174`    | Botões, bordas ativas, ícones                |
-| `--color-primary-dark`     | `#1a3d4d`    | Textos de destaque, cabeçalhos de painel     |
-| `--color-primary-mid`      | `#356073`    | Gradientes intermediários                    |
-| `--color-primary-grad-start`| `#1e424f`   | Início dos gradientes de painel              |
-| `--color-bg-page`          | `#bdd6e0`    | Fundo geral de todas as páginas              |
+Nova identidade visual desenvolvida pelo time de comunicação da FNP. Paleta navy/azul substitui toda a paleta teal/verde anterior.
 
-**Gradientes principais:**
+| Token                       | Valor        | Uso                                              |
+|-----------------------------|--------------|--------------------------------------------------|
+| `--color-header-bg`         | `#101d4f`    | Header principal e rodapé                        |
+| `--color-primary`           | `#264584`    | Azul de referência: botões, barras, ícones       |
+| `--color-primary-dark`      | `#1a3468`    | Hover escuro sobre primary                       |
+| `--color-primary-deep`      | `#101d4f`    | Títulos e headings                               |
+| `--color-primary-light`     | `#3b6cbf`    | Hover suave                                      |
+| `--color-bg-page`           | `#d9e8f5`    | Fundo geral de todas as páginas (azul claro)     |
+| `--color-text-primary`      | `#101d4f`    | Texto principal                                  |
+| `--color-text-muted`        | `#5577aa`    | Texto secundário/muted                           |
 
-```css
---gradient-panel-header: linear-gradient(135deg, #1e424f 0%, #2c6174 55%, #356073 100%);
---gradient-btn-primary:  linear-gradient(135deg, #1e424f 0%, #2c6174 60%, #356073 100%);
---gradient-landing:      linear-gradient(135deg, #264a57 0%, #356073 60%, #3d6e85 100%);
-```
+**Regra de degradês:** Nenhum `linear-gradient` com cores da marca. Os tokens `--gradient-panel-header`, `--gradient-btn-primary` e `--gradient-landing` valem `#264584` (cor sólida).
+
+**Exceção:** Bolinhas piscantes "METODOLOGIA" e "FEDERALISMO CLIMÁTICO" mantidas em `#22c55e` (verde claro — decisão estética aprovada).
+
+**Logos disponíveis (`static/img/`):**
+
+| Arquivo | Contexto de uso |
+|---|---|
+| `logo-radar-fundo-escuro.svg` | Header (fundo navy) |
+| `logo-radar-fundo-claro.svg` | Backgrounds claros |
+| `logo-radar-negativo-monocromatico.svg` | Impressão / fundo branco |
+| `logo-radar-positivo-monocromatico.svg` | Fundo escuro monocromático |
+| `avatar-principal.svg` | Favicon / ícone de app |
+| `avatar-positivo.svg` | Variante positiva do avatar |
+| `avatar-negativo.svg` | Variante negativa do avatar |
 
 ### Histórico da Paleta
 
 - **Fase inicial:** Header com textura de imagem (`bg-header.png`) e gradiente escuro.
-- **Commit `f4649e0`:** Removidas texturas. Cor sólida `#1B3333` no header e rodapé. Fundo da página migra para `#bdd6e0` (azul-claro).
-- **Commit `9ac604a`:** Toda a paleta encapsulada em `static/css/tokens.css` como CSS custom properties. `base.css` passa a consumir variáveis em vez de valores hardcoded.
+- **Commit `f4649e0`:** Removidas texturas. Cor sólida `#1B3333` no header e rodapé. Fundo da página migra para `#bdd6e0`.
+- **Commit `9ac604a`:** Toda a paleta encapsulada em `static/css/tokens.css` como CSS custom properties.
+- **2026-08-17:** Nova identidade visual — paleta teal/verde substituída por navy/azul `#264584`. Fundo `#bdd6e0` → `#d9e8f5`. Logos e avatares atualizados.
 
 ---
 

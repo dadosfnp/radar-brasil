@@ -1,11 +1,11 @@
-// ── NOTA PAÍS ─────────────────────────────────────────────────────
+﻿// ── NOTA PAÍS ─────────────────────────────────────────────────────
 
 const GEOJSON_URL =
   "https://cdn.jsdelivr.net/gh/martynafford/natural-earth-geojson@master/110m/cultural/ne_110m_admin_0_countries.json";
 
 const CONTINENT_COLORS = {
-  "North America": "#3EC9D4",
-  "South America": "#4AB88A",
+  "North America": "#264584",
+  "South America": "#264584",
   "Europe":        "#4E80C5",
   "Africa":        "#E8943A",
   "Asia":          "#EFC040",
@@ -428,7 +428,7 @@ async function imprimirMapa() {
       useCORS: true,
       allowTaint: true,
       scale: 2,
-      backgroundColor: "#1a3a50",
+      backgroundColor: "#101d4f",
     });
     const link = document.createElement("a");
     link.download = "radar-brasil-nota-pais.png";
