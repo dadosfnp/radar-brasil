@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-07-27
+> Última atualização: 2026-08-17
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Radar Brasil** é uma plataforma Django para monitoramento do federalismo climático brasileiro. Permite avaliar, comparar e explorar dados climáticos de municípios em todo o território nacional. Desenvolvida pela FNP — Frente Nacional de Prefeitas e Prefeitos.
 
-URL de produção: Render (branch `main` do remoto `prod`)
+URL de produção: `https://radarbrasil.fnp.org.br` (DigitalOcean droplet `fnp-web`, branch `main`)
 Branch de desenvolvimento ativo: `next`
 
 ---
@@ -18,10 +18,11 @@ Branch de desenvolvimento ativo: `next`
 
 | Camada | Tecnologia |
 |---|---|
-| Backend | Django 6.0.1 · Python 3.10+ |
+| Backend | Django 6.0.4 · Python 3.12 |
 | Banco (dev) | SQLite |
-| Banco (prod) | PostgreSQL via Render |
-| Dados dinâmicos | gspread (Google Sheets) · pandas |
+| Banco (prod) | PostgreSQL 18 — DigitalOcean Managed (`fnp-database`) |
+| Sincronização de dados | gspread (Google Sheets) · pandas — apenas no `sync_sheets_db` |
+| Deploy | Docker + Gunicorn + Nginx — droplet `fnp-web` |
 | Mapas | Leaflet.js · html2canvas |
 | Estáticos | WhiteNoise |
 | Env vars | python-dotenv |
@@ -36,11 +37,15 @@ apps/
   indicadores/
     views.py           ← views Django (render + JsonResponse)
     urls.py            ← rotas das páginas e APIs
+    models.py          ← RegistroFicha, RegistroParametro, RegistroFinanciamento, RegistroMapa
     services/
-      avaliacao_painel.py        ← Painel Multinível (fichas técnicas)
-      painel_multinivel.py       ← scores/critérios por eixo
-      financiamento_climatico.py ← tabela de financiamentos
-      mapa_georreferenciado.py   ← dados do mapa Leaflet
+      avaliacao_painel.py        ← Painel Multinível (fichas técnicas) — lê do ORM
+      painel_multinivel.py       ← scores/critérios por eixo — lê do ORM
+      financiamento_climatico.py ← tabela de financiamentos — lê do ORM
+      mapa_georreferenciado.py   ← dados do mapa Leaflet — lê do ORM
+      sheets_reader.py           ← lê Google Sheets — usado APENAS pelo sync_sheets_db
+    management/commands/
+      sync_sheets_db.py          ← importa Sheets → PostgreSQL (rodar ao atualizar planilhas)
   municipios/          ← views e urls principais
   usuarios/            ← autenticação
 static/
@@ -54,9 +59,15 @@ locale/
     django.po          ← traduções EN (243 strings)
     django.mo          ← compilado (gerado por compilemessages)
 setup/                 ← settings.py, urls.py, wsgi.py
+deploy/
+  nginx-radarbrasil.conf ← configuração Nginx (copiada para /etc/nginx/sites-available/ no droplet)
 docs/
   CHANGELOG.md         ← histórico completo de alterações
   design.md            ← decisões e alterações de design
+Dockerfile             ← Python 3.12-slim, appuser UID 1000, porta 8005
+entrypoint.sh          ← migrate + collectstatic + gunicorn (roda no container)
+docker-compose.yml     ← serviço radarbrasil, porta 127.0.0.1:8005
+.env.example           ← template das variáveis de ambiente
 ```
 
 ---
@@ -68,42 +79,51 @@ O projeto tem **dois remotos**:
 | Remoto | URL | Uso |
 |---|---|---|
 | `origin` | `https://github.com/brunofnp/radar-brasil.git` | Repositório pessoal — CI GitHub Actions |
-| `prod` | `https://github.com/dadosfnp/radar-brasil.git` | Repositório da organização FNP — **Render monitora este** |
+| `prod` | `https://github.com/dadosfnp/radar-brasil.git` | Repositório da organização FNP |
 
 **CRÍTICO:** Para subir para produção é obrigatório fazer push nos dois:
 ```powershell
 git push origin main
 git push prod main
 ```
-Fazer push só em `origin` NÃO aciona o deploy no Render.
+Depois, no droplet (`ssh root@142.93.205.222`):
+```bash
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
+```
 
 ---
 
-## Fontes de Dados — Google Sheets
+## Fontes de Dados — Google Sheets → PostgreSQL
 
-Todos os serviços leem via `gspread` com cache em memória de **1800s (30 min)**. Reiniciar o servidor ou aguardar o TTL para ver novos dados. Cada serviço tem cache separado por idioma (`{"pt": ..., "en": ...}`).
+O runtime **não acessa** o Google Sheets. Os dados ficam no PostgreSQL e são atualizados via:
 
-### Sheets PT
+```bash
+docker compose exec radarbrasil python manage.py sync_sheets_db
+```
 
-| Serviço | Sheet ID | GID / worksheet |
+O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no banco (apaga e reinsere por idioma).
+
+### Planilhas PT
+
+| Tabela | Sheet ID | GID / worksheet |
 |---|---|---|
-| `avaliacao_painel.py` — Fichas | `16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8` | worksheet "dados" |
-| `avaliacao_painel.py` — Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
-| `painel_multinivel.py` — Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
-| `financiamento_climatico.py` | `1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c` | GID `793540087` |
-| `mapa_georreferenciado.py` | `1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs` | GID `1619423236` |
+| Fichas | `16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8` | worksheet "dados" |
+| Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
+| Financiamento | `1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c` | GID `793540087` |
+| Mapa | `1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs` | GID `1619423236` |
 
-### Sheets EN
+### Planilhas EN
 
-| Serviço | Sheet ID | GID |
+| Tabela | Sheet ID | GID |
 |---|---|---|
-| `avaliacao_painel.py` — Fichas EN | `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` | `1400373985` |
-| `avaliacao_painel.py` — Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
-| `painel_multinivel.py` — Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
-| `financiamento_climatico.py` EN | `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` | `449650871` |
-| `mapa_georreferenciado.py` EN | `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` | primeira aba |
+| Fichas EN | `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` | `1400373985` |
+| Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
+| Financiamento EN | `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` | `449650871` |
+| Mapa EN | `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` | primeira aba |
 
-**Colunas relevantes de `avaliacao_painel.py`:**
+**Credenciais:** `GOOGLE_SHEETS_CREDS_JSON` no `.env` do droplet (JSON da service account em linha única). Arquivo local: `.secrets/fnp-radar-sheets.json`.
+
+**Colunas relevantes (fichas):**
 - `Link_eixo` — URL do eixo (usado no título da ficha técnica)
 - `Link_orgao` — URL do órgão responsável
 - `Link_arcabouco` — URL do arcabouço normativo
@@ -142,17 +162,19 @@ RBi18n.getLang()                  // → "pt" ou "en"
 **Problema conhecido — encoding NFC/NFD:**
 Strings com ã, ç etc. podem falhar no lookup do dict por discrepância de normalização Unicode entre arquivos. Solução: usar chaves ASCII no dict ou criar dicts paralelos com chaves ASCII (ex.: `EIXO_LABELS_EN` em `avaliacao-painel.js`).
 
-### Normalização EN → PT nos services
+### Normalização EN → PT no sync_sheets_db
 
-Sheets EN têm cabeçalhos e valores em inglês. Cada service aplica:
+As planilhas EN têm cabeçalhos e valores em inglês. O `sync_sheets_db` normaliza antes de salvar:
 1. `df.rename(columns=_EN_COLS)` — mapeia nomes de colunas EN → PT
 2. `df["Eixo"].replace(_EN_EIXO)` — mapeia valores do eixo EN → PT
 3. Regex `Level N → Nível N` na coluna Nível
-4. Na camada de saída, converte de volta: `nivel.replace("Nível ", "Level ")` quando `lang == "en"`
+4. `_EN_CRITERIO` em `painel_multinivel.py` — mapeia critérios EN → PT para lookup em `ORDEM_CRITERIOS`
+
+Os services de runtime (`avaliacao_painel.py`, etc.) leem diretamente do ORM — sem normalização em runtime.
 
 **Quebras de linha em campos de texto (fichas técnicas):**
-- Backend (`get_ficha`): normaliza `\r\n` e `\r` → `\n` em todos os valores de campo
-- Frontend (`avaliacao-painel.js`): converte `\n` → `<br>` explicitamente ao montar o HTML
+- `sync_sheets_db`: normaliza `\r\n` e `\r` → `\n` em todos os campos de texto antes de salvar
+- Frontend (`avaliacao-painel.js`): converte `\n` → `<br>` ao montar o HTML
 
 ---
 
