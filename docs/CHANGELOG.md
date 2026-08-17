@@ -4,6 +4,25 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-17 — `next`
+
+### Chore — Infraestrutura de deploy Docker + Nginx (padrão DigitalOcean)
+
+Cria todos os arquivos necessários para deploy no droplet `fnp-web` da DigitalOcean, espelhando o padrão do `legislativo.fnp.org.br`. O app sai do Render e passa a rodar como container Docker sob Nginx, com domínio `radarbrasil.fnp.org.br`.
+
+**Novos arquivos:**
+- `Dockerfile` — Python 3.11-slim, usuário `appuser` (UID 1000), não-root
+- `entrypoint.sh` — roda `migrate` + `collectstatic` e sobe Gunicorn na porta 8005
+- `docker-compose.yml` — serviço `radarbrasil`, porta 127.0.0.1:8005, volumes `staticfiles/` e `media/`, healthcheck
+- `.dockerignore` — exclui `.git`, `.env`, `.secrets/`, `staticfiles/`, `media/`, `*.pyc`
+- `.gitattributes` — força LF em `*.sh` (evita quebra do container em edição no Windows)
+- `deploy/nginx-radarbrasil.conf` — bloco Nginx para `radarbrasil.fnp.org.br`, proxy para 127.0.0.1:8005, static/media direto do host, `client_max_body_size 6M`
+- `.env.example` — template das variáveis de ambiente de produção
+
+**Porta 8005** escolhida para não conflitar com o Legislativo (8004) no mesmo droplet.
+
+---
+
 ## 2026-08-14 — `feature/migracao-postgresql`
 
 ### Feat — Migração de dados para PostgreSQL DigitalOcean
