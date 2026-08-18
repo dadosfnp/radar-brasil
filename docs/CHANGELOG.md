@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main`
+
+### Style — Ajuste de cor primária: #264584 → #161C4E
+
+Substituição global da cor de marca em todos os arquivos CSS e JS.
+
+- `tokens.css`: `--color-primary` `#264584` → `#161C4E`
+- `rgba(38,69,132,...)` → `rgba(22,28,78,...)` em sombras e overlays
+- 13 arquivos atualizados (9 CSS + 4 JS)
+
+---
+
 ## 2026-08-17 — `main` (2ª entrada)
 
 ### Style — Nova identidade visual: paleta navy/azul (#264584)

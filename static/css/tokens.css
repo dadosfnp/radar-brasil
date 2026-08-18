@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    RADAR BRASIL — DESIGN TOKENS
    Fonte única de verdade para cores, tipografia, sombras,
    raios de borda e transições.
@@ -11,7 +11,7 @@
     --hdr-900: #070e2a;
     --hdr-800: #0d1640;
     --hdr-700: #101d4f;
-    --hdr-500: #264584;
+    --hdr-500: #161C4E;
     --hdr-300: #3b6cbf;
     --hdr-200: #5a82d0;
     --hdr-100: #8aaad4;
@@ -19,17 +19,17 @@
 
     /* ── Aliases semânticos — cores ── */
     --color-header-bg:         #101d4f;   /* cabeçalho principal e rodapé */
-    --color-primary:           #264584;   /* azul de referência da marca */
+    --color-primary:           #161C4E;   /* azul de referência da marca */
     --color-primary-dark:      #1a3468;   /* hover escuro sobre primary */
     --color-primary-deep:      #101d4f;   /* títulos e headings */
     --color-primary-light:     #3b6cbf;   /* hover suave */
-    --color-primary-mid:       #264584;   /* acento, barras internas */
-    --color-primary-grad-start:#264584;   /* mantido por compatibilidade */
-    --color-teal:              #264584;   /* substituído pelo azul de marca */
+    --color-primary-mid:       #161C4E;   /* acento, barras internas */
+    --color-primary-grad-start:#161C4E;   /* mantido por compatibilidade */
+    --color-teal:              #161C4E;   /* substituído pelo azul de marca */
 
     /* ── Texto ── */
     --color-text-primary:   #101d4f;
-    --color-text-secondary: #264584;
+    --color-text-secondary: #161C4E;
     --color-text-muted:     #5577aa;
     --color-text-faint:     #334488;
     --color-text-dark:      #070e2a;
@@ -46,9 +46,9 @@
     --color-border-subtle: #c0d4e8;
 
     /* ── Cores de painel (sem degradê) ── */
-    --gradient-panel-header: #264584;
-    --gradient-btn-primary:  #264584;
-    --gradient-landing:      #264584;
+    --gradient-panel-header: #161C4E;
+    --gradient-btn-primary:  #161C4E;
+    --gradient-landing:      #161C4E;
 
     /* ── Tipografia ── */
     --font-sans:    'Roboto', system-ui, sans-serif;
@@ -74,9 +74,9 @@
     --radius-full: 9999px;   /* pílulas, toggles           */
 
     /* ── Sombras ── */
-    --shadow-sm:    0 2px 8px  rgba(38,69,132,.08);
-    --shadow-md:    0 2px 16px rgba(38,69,132,.10);
-    --shadow-lg:    0 4px 28px rgba(38,69,132,.12);
+    --shadow-sm:    0 2px 8px  rgba(22,28,78,.08);
+    --shadow-md:    0 2px 16px rgba(22,28,78,.10);
+    --shadow-lg:    0 4px 28px rgba(22,28,78,.12);
     --shadow-card:  0 6px 32px rgba(16,29,79,.11), 0 1px 4px rgba(16,29,79,.06);
     --shadow-glass: 0 8px 40px rgba(16,29,79,.12), 0 1px 4px rgba(16,29,79,.06);
 
