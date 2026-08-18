@@ -252,6 +252,8 @@ body.fin-cli-page .rb-main {
     line-height: 1.4;
     transition: background .1s;
     user-select: none;
+    touch-action: manipulation;          /* elimina delay de 300ms no iOS */
+    -webkit-tap-highlight-color: transparent; /* remove flash azul no toque */
 }
 
 .fc-ms-option:hover { background: #f4f9fb; }

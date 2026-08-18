@@ -20,6 +20,9 @@ class MultiSelect {
         this.isOpen      = false;
         this._fixedMode  = false;
         this._openedAt   = 0;
+        this._touchY     = 0;
+        this._didScroll  = false;
+        this._lastTouch  = 0;
         MultiSelect._all.push(this);
         this._build();
     }
@@ -60,11 +63,10 @@ class MultiSelect {
         this._searchEl.addEventListener("input",  () => this._renderOptions(this._searchEl.value.toLowerCase()));
         this._searchEl.addEventListener("click",  e  => e.stopPropagation());
 
-        // Fecha ao clicar fora.
-        // Guard isConnected: quando _toggle_option atualiza nós in-place não há nó
-        // desconectado, mas se _renderOptions for chamado por busca o guard é segurança extra.
+        // Fecha ao clicar fora. Guard de 350ms evita ghost-click logo após abrir.
         document.addEventListener("click", e => {
             if (!e.target.isConnected) return;
+            if (Date.now() - this._openedAt < 350) return;
             if (!this.el.contains(e.target) && !this._dropdown.contains(e.target)) {
                 this._close();
             }
@@ -132,7 +134,6 @@ class MultiSelect {
             const s = this._dropdown.style;
             s.position = s.width = s.left = s.top = s.bottom = s.maxHeight = s.zIndex = "";
             this._fixedMode = false;
-            MultiSelect._hideBackdrop();
         } else {
             this._dropdown.style.maxHeight = "";
         }
@@ -166,7 +167,8 @@ class MultiSelect {
             s.bottom = (vh - r.top + 3) + "px";
         }
 
-        MultiSelect._showBackdrop(() => this._close());
+        // Sem backdrop: o document.click listener (com guard _openedAt) fecha ao tocar fora.
+        // O backdrop era position:fixed;inset:0 e interceptava toques no iOS mesmo com z-index inferior.
     }
 
     // ── Posicionamento desktop: abre para cima se não houver espaço ──
@@ -185,25 +187,6 @@ class MultiSelect {
         } else {
             this._dropdown.style.maxHeight = Math.min(260, spaceBelow) + "px";
         }
-    }
-
-    // ── Backdrop (mobile) ────────────────────────────────────
-    static _showBackdrop(onClose) {
-        let bd = document.getElementById("fc-ms-backdrop");
-        if (!bd) {
-            bd = document.createElement("div");
-            bd.id = "fc-ms-backdrop";
-            document.body.appendChild(bd);
-        }
-        bd.onclick = null;
-        bd.style.cssText = "position:fixed;inset:0;z-index:9998;background:transparent;";
-        // Ativa no próximo frame para evitar ghost click do tap no trigger
-        requestAnimationFrame(() => { bd.onclick = onClose; });
-    }
-
-    static _hideBackdrop() {
-        const bd = document.getElementById("fc-ms-backdrop");
-        if (bd) { bd.onclick = null; bd.style.cssText = ""; }
     }
 
     _selectAll() {
@@ -257,7 +240,8 @@ class MultiSelect {
 
         if (!visible.length) {
             this._optionsEl.innerHTML = `<div class="fc-ms-empty">${RBi18n.t("Nenhum resultado")}</div>`;
-            this._optionsEl.onclick = null;
+            this._optionsEl.onclick = this._optionsEl.ontouchstart =
+            this._optionsEl.ontouchmove = this._optionsEl.ontouchend = null;
             return;
         }
 
@@ -271,14 +255,29 @@ class MultiSelect {
               </label>`;
         }).join("");
 
-        // Event delegation: um único listener no container, com stopPropagation.
-        // Antes havia um listener em cada <label>; quando _toggle_option chamava
-        // _renderOptions(), os <label>s eram destruídos e recriados — o evento
-        // propagava com e.target já desconectado do DOM, o document.click via _close().
+        // Touch handler para mobile — dispara em touchend sem delay,
+        // chama e.preventDefault() para suprimir o click sintetizado.
+        this._optionsEl.ontouchstart = e => {
+            this._touchY    = e.changedTouches[0].clientY;
+            this._didScroll = false;
+        };
+        this._optionsEl.ontouchmove = e => {
+            if (!this._didScroll && Math.abs(e.changedTouches[0].clientY - this._touchY) > 8) {
+                this._didScroll = true;
+            }
+        };
+        this._optionsEl.ontouchend = e => {
+            if (this._didScroll) return;
+            const lbl = e.target.closest(".fc-ms-option");
+            if (!lbl) return;
+            e.preventDefault(); // suprime o click sintetizado — evita duplo-toggle
+            this._lastTouch = Date.now();
+            this._toggle_option(lbl.dataset.val);
+        };
+
+        // Fallback para desktop (em dispositivos touch, touchend já tratou e suprimiu o click).
         this._optionsEl.onclick = e => {
-            // iOS Safari sintetiza dois clicks por toque em <label><input>: um no label
-            // e um forwarded para o <input>. Ignoramos o do input para evitar duplo-toggle
-            // (item marcado e imediatamente desmarcado → zero mudança visual).
+            if (Date.now() - this._lastTouch < 600) return;
             if (e.target.tagName === "INPUT") return;
             const lbl = e.target.closest(".fc-ms-option");
             if (!lbl) return;

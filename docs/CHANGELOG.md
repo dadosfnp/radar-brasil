@@ -4,6 +4,41 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (6ª entrada)
+
+### Fix — Causa raiz dos filtros mobile: backdrop interceptando toques no iOS Safari
+
+**Causa raiz identificada:** o backdrop (`position:fixed;inset:0;z-index:9998`) que existia para
+fechar o dropdown ao tocar fora era a origem do problema. No iOS Safari há um bug documentado em
+que elementos transparentes `position:fixed` com `onclick` intercepam eventos de toque mesmo
+quando têm z-index inferior ao elemento sobre eles. O dropdown tinha z-index 9999, mas o iOS
+entregava os toques ao backdrop em vez de às opções.
+
+**Correções aplicadas:**
+
+1. **JS — Remoção do backdrop** (`_showBackdrop`/`_hideBackdrop`):
+   O backdrop `position:fixed;inset:0` foi completamente removido. Fechar ao tocar fora é
+   agora responsabilidade do `document.click` listener com guard `Date.now() - _openedAt < 350`
+   para evitar ghost-click logo após abertura.
+
+2. **JS — Handler `touchend` nas opções** (primário para mobile):
+   `_renderOptions()` agora adiciona `ontouchstart`/`ontouchmove`/`ontouchend` no container
+   `.fc-ms-options`. O `touchend` detecta se houve scroll (deslocamento > 8px) e, se foi toque,
+   chama `_toggle_option()` + `e.preventDefault()` para suprimir o click sintetizado.
+   O `onclick` permanece como fallback para desktop, com guard de 600ms para não duplicar.
+
+3. **JS — Guard `_openedAt < 350` no document.click** (ghost-click):
+   Proteção contra o click sintetizado do toque que abriu o dropdown fechar o dropdown
+   imediatamente.
+
+4. **CSS — `touch-action: manipulation`** em `.fc-ms-option`:
+   Elimina delay de 300ms do iOS para double-tap zoom em elementos não-interativos.
+   `-webkit-tap-highlight-color: transparent` remove o flash azul de seleção no iOS.
+
+**Arquivos modificados:** `static/js/financiamento-climatico.js`, `static/css/financiamento-climatico.css`
+
+---
+
 ## 2026-08-18 — `main` (5ª entrada)
 
 ### Fix — Três bugs nos filtros mobile do Financiamento Climático (diagnóstico definitivo)
