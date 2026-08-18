@@ -4,6 +4,31 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (7ª entrada)
+
+### Feat — Seleção padrão nos filtros dos gráficos + tabela sem filtro
+
+**Seleção padrão por gráfico:**
+- `Valor do Financiamento por Setor` (filtro Setor): top 5 primeiras opções selecionadas por padrão
+- `Origem dos Recursos` (filtro Origem): top 7 primeiras opções selecionadas por padrão
+- `Repasse por Nível de Governo` (filtro Ente): todas selecionadas (padrão, apenas 3 itens)
+- Programa e Modalidade: todos selecionados (sem filtro inicial)
+
+Implementação: `MultiSelect` aceita novo parâmetro `defaultCount` no construtor.
+Em `setOptions()`, se `defaultCount` está definido e `opts.length > defaultCount`, pré-popula
+`selected` com os primeiros `defaultCount` itens. Caso contrário (`opts.length <= defaultCount`),
+mantém `selected = new Set()` (= todos sem filtro). `reset()` (botão Limpar) restaura sempre
+para todos selecionados — sem filtro aplicado.
+
+**Tabela sempre exibe todos os dados:**
+`carregarTabela()` agora faz `fetch("/indicadores/api/financiamento/tabela/")` sem query string —
+ignora completamente o estado dos multiselects. Usuário pode explorar os dados completos na tabela
+enquanto os gráficos mostram o recorte selecionado.
+
+**Arquivos modificados:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (6ª entrada)
 
 ### Fix — Causa raiz dos filtros mobile: backdrop interceptando toques no iOS Safari

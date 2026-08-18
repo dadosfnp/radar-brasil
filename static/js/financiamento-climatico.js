@@ -11,18 +11,19 @@ let msInstances = {};   // { key: MultiSelect }
 class MultiSelect {
     static _all = [];
 
-    constructor({ containerId, placeholder, onChange }) {
-        this.el          = document.getElementById(containerId);
-        this.placeholder = placeholder || RBi18n.t("Todos");
-        this.onChange    = onChange;
-        this.options     = [];
-        this.selected    = new Set();   // vazio = todos selecionados
-        this.isOpen      = false;
-        this._fixedMode  = false;
-        this._openedAt   = 0;
-        this._touchY     = 0;
-        this._didScroll  = false;
-        this._lastTouch  = 0;
+    constructor({ containerId, placeholder, onChange, defaultCount }) {
+        this.el           = document.getElementById(containerId);
+        this.placeholder  = placeholder || RBi18n.t("Todos");
+        this.onChange     = onChange;
+        this.options      = [];
+        this.selected     = new Set();   // vazio = todos selecionados
+        this.defaultCount = defaultCount || null;
+        this.isOpen       = false;
+        this._fixedMode   = false;
+        this._openedAt    = 0;
+        this._touchY      = 0;
+        this._didScroll   = false;
+        this._lastTouch   = 0;
         MultiSelect._all.push(this);
         this._build();
     }
@@ -86,6 +87,11 @@ class MultiSelect {
     setOptions(opts) {
         this.options  = opts;
         this.selected = new Set();
+        // Se defaultCount definido e há mais opções do que o limite, pré-seleciona os primeiros N.
+        // Caso contrário (defaultCount >= total), mantém selected vazio = "todos" (sem filtro).
+        if (this.defaultCount && opts.length > this.defaultCount) {
+            opts.slice(0, this.defaultCount).forEach(o => this.selected.add(o));
+        }
         this._renderOptions();
         this._updateLabel();
     }
@@ -361,16 +367,17 @@ function _showLoader(vis) {
 function _initMultiSelects() {
     const t = RBi18n.t;
     const defs = [
-        { key: "programa",   id: "ms-programa",   placeholder: t("Todos os Programas") },
-        { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores")   },
+        { key: "programa",   id: "ms-programa",   placeholder: t("Todos os Programas")   },
+        { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores"),   defaultCount: 5 },
         { key: "modalidade", id: "ms-modalidade", placeholder: t("Todas as Modalidades") },
-        { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens")   },
-        { key: "ente",       id: "ms-ente",       placeholder: t("Todos os Entes")     },
+        { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens"),   defaultCount: 7 },
+        { key: "ente",       id: "ms-ente",       placeholder: t("Todos os Entes")       },
     ];
-    defs.forEach(({ key, id, placeholder }) => {
+    defs.forEach(({ key, id, placeholder, defaultCount }) => {
         msInstances[key] = new MultiSelect({
             containerId: id,
             placeholder,
+            defaultCount,
             onChange: () => aplicarFiltros(),
         });
     });
@@ -556,9 +563,9 @@ function _plotConfig() { return { displayModeBar: false, responsive: true, scrol
 // ══════════════════════════════════════════════════════════════
 async function carregarTabela() {
     _showLoader(true);
-    const qs = _buildQS(_getFilters());
     try {
-        const resp = await fetch(`/indicadores/api/financiamento/tabela/${qs ? "?" + qs : ""}`);
+        // Tabela exibe sempre todos os dados — não é filtrada pelo multiselect.
+        const resp = await fetch("/indicadores/api/financiamento/tabela/");
         const data = await resp.json();
         allRows = data.rows || [];
         currentPage = 1;
