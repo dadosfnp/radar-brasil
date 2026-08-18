@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-08-17 (fim do dia)
+> Última atualização: 2026-08-18 (fim do dia)
 
 ---
 
@@ -272,42 +272,65 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-17 — fim do dia)
+## Estado Atual do Projeto (2026-08-18 — fim do dia)
 
-### Branch atual: `main` — em produção no DigitalOcean
+### Branch atual: `main` — commits publicados, deploy pendente no droplet
 
-**Commits do dia (nova identidade visual):**
+**Commits do dia (filtros mobile + tabela):**
 
 ```
-d2f2653 merge: next -> main (nova identidade visual #264584)
-83ca5e5 merge: nova identidade visual (paleta navy/azul #264584)
-ea60064 style: aplica nova identidade visual Radar Brasil (paleta navy/azul #264584)
-92f915e docs: atualiza CLAUDE.md com contexto completo pos-deploy DigitalOcean
+bbe5fbe style: melhora tabela mobile - layout empilhado, cabecalho navy, repasses agrupados
+c2e87e4 fix: todos os filtros selecionados por default - remove defaultCount do setor
+00893cd fix: sem dados nos graficos — remove defaultCount origem, corrige labels invertidos
+b35826b fix: fecha dropdown ao rolar pagina — distingue scroll opcoes vs scroll pagina
+a816c25 feat: selecao padrao nos filtros de graficos e tabela sem filtro
+9a5226b fix: remove backdrop e usa touchend nas opcoes — causa raiz dos filtros mobile
 ```
 
-### Nova Identidade Visual — aplicada
+### Financiamento Climático — Componente MultiSelect
 
-**Paleta de cores substituída:**
+O arquivo `static/js/financiamento-climatico.js` contém a classe `MultiSelect` (filtros customizados com checkbox). Contexto importante para futuras sessões:
+
+**Semântica do Set `selected`:**
+- `selected.size === 0` → todos os itens ativos (sem filtro) — exibe placeholder "Todos os X"
+- `selected.size > 0` → apenas os itens no Set são incluídos no filtro do backend
+
+**Comportamento padrão atual:** todos os filtros iniciam com `selected = new Set()` (todos selecionados). O construtor aceita `defaultCount` mas nenhum filtro o usa no momento.
+
+**Tabela:** `carregarTabela()` chama `/indicadores/api/financiamento/tabela/` **sem** query string — sempre mostra todos os dados, independente dos filtros ativos nos gráficos.
+
+**Fix iOS mobile (causa raiz resolvida):**
+- Backdrop `position:fixed` com `onclick` interceptava toques no iOS mesmo com z-index inferior — **removido**
+- Fechamento ao clicar fora: `document.click` + guard `Date.now() - _openedAt < 350ms`
+- Seleção de opções: `ontouchend` no container (detecta scroll >8px antes de toggling)
+- Scroll da página fecha o dropdown via `window.scroll`, mas não quando o usuário rola dentro do dropdown (`_optionsScrolling` flag com timer 200ms)
+
+**Tabela mobile — layout de cartão:**
+- `td:first-child` (Programa) → cabeçalho navy (`var(--color-primary)`) com texto branco
+- Demais `td` → layout empilhado: label (`::before`) acima, valor abaixo (largura total)
+- `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc` com `border-top` separador
+
+### Nova Identidade Visual — aplicada (2026-08-17)
+
+**Paleta de cores:**
 - `--color-primary`: `#264584` (azul de referência da marca FNP)
 - `--color-bg-page`: `#d9e8f5` (azul claro — fundo de todas as páginas)
 - Todos os tons teal/verde eliminados (exceto bolinhas piscantes em `#22c55e`)
 - Degradês removidos — cor sólida `#264584` em cabeçalhos e botões
 
-**Logos e avatares atualizados (`static/img/`):**
+**Logos e avatares (`static/img/`):**
 - `logo-radar-fundo-escuro.svg` — header (fundo navy)
 - `logo-radar-fundo-claro.svg` — backgrounds claros
-- `logo-radar-negativo-monocromatico.svg` / `logo-radar-positivo-monocromatico.svg`
 - `avatar-principal.svg` / `avatar-positivo.svg` / `avatar-negativo.svg`
-- `logo-radar.svg` removido
-
-**Arquivos modificados:** 13 CSS, 4 JS, `base.html`, `docs/CHANGELOG.md`, `docs/design.md`
 
 ### Remotos — estado atual
 
 | Remoto | URL | `next` | `main` |
 |---|---|---|---|
-| `origin` | `brunofnp/radar-brasil` | ✅ atualizado | ✅ atualizado |
-| `prod` | `dadosfnp/radar-brasil` | ✅ criado hoje | ✅ atualizado |
+| `origin` | `brunofnp/radar-brasil` | ✅ `bbe5fbe` | ✅ `bbe5fbe` |
+| `prod` | `dadosfnp/radar-brasil` | — | ✅ `bbe5fbe` |
+
+> `next` e `main` estão no mesmo commit. Ao iniciar nova feature, criar branch a partir de `next`.
 
 ### Infraestrutura de produção
 
@@ -369,7 +392,7 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Pendências
 
-- **Deploy no droplet:** push feito, falta rodar no servidor:
+- **Deploy no droplet:** commits `c2e87e4` e `bbe5fbe` publicados nos remotos, falta rodar no servidor:
   ```bash
   cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
   ```
