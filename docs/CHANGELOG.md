@@ -4,6 +4,23 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (3ª entrada)
+
+### Fix — Filtros mobile Financiamento Climático: dropdown abria e fechava imediatamente
+
+Dois bugs causavam o comportamento de "abre e recolhe" ao tocar nos filtros em dispositivos móveis:
+
+1. **Scroll espúrio (iOS Safari):** o iOS dispara um evento `scroll` ao inserir elementos com
+   `position: fixed` na tela; o listener de scroll existente fechava o dropdown imediatamente.
+   Corrigido com guard de 350 ms: o scroll só fecha o dropdown se passado esse intervalo desde a abertura.
+2. **Ghost click no backdrop:** após o toque no trigger, o browser pode disparar um "ghost click"
+   que cai no backdrop transparente (z-index 9998), chamando `_close()` logo após `_open()`.
+   Corrigido ativando o `onclick` do backdrop apenas no próximo frame (`requestAnimationFrame`).
+
+**Arquivo:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (2ª entrada)
 
 ### Style — Reverte cor primária: #161C4E → #264584

@@ -21,6 +21,7 @@ class MultiSelect {
         this.selected    = new Set();   // vazio = "todos selecionados"
         this.isOpen      = false;
         this._fixedMode  = false;       // true quando usando position:fixed (mobile)
+        this._openedAt   = 0;           // timestamp da última abertura (guarda scroll espúrio iOS)
         MultiSelect._all.push(this);
         this._build();
     }
@@ -63,8 +64,12 @@ class MultiSelect {
                 !this._dropdown.contains(e.target)) this._close();
         });
 
-        // Fecha ao fazer scroll (evita dropdown "voando" na tela)
-        window.addEventListener("scroll", () => { if (this.isOpen) this._close(); }, { passive: true });
+        // Fecha ao fazer scroll (evita dropdown "voando" na tela).
+        // Guarda de 350 ms evita falso fechamento por scroll espúrio que o iOS Safari
+        // dispara ao inserir um elemento position:fixed na tela.
+        window.addEventListener("scroll", () => {
+            if (this.isOpen && Date.now() - this._openedAt > 350) this._close();
+        }, { passive: true });
 
         // Reposiciona ao redimensionar janela (portrait ↔ landscape)
         window.addEventListener("resize", () => { if (this.isOpen) this._close(); });
@@ -95,6 +100,7 @@ class MultiSelect {
         // ── Fecha todos os outros antes de abrir este ──────────
         MultiSelect._all.forEach(ms => { if (ms !== this) ms._close(); });
 
+        this._openedAt = Date.now();    // marca abertura para guard do scroll handler
         this.isOpen = true;
         this._dropdown.classList.add("open");
         this._trigger.classList.add("open");
@@ -187,11 +193,14 @@ class MultiSelect {
             bd.id = "fc-ms-backdrop";
             document.body.appendChild(bd);
         }
+        bd.onclick = null;              // limpa handler anterior
         bd.style.cssText = `
             position:fixed;inset:0;z-index:9998;
             background:transparent;`;
         bd._handler = onClose;
-        bd.onclick  = onClose;
+        // Ativa o handler apenas no próximo frame para evitar que o "ghost click"
+        // gerado pelo toque no trigger caia no backdrop e feche o dropdown.
+        requestAnimationFrame(() => { bd.onclick = onClose; });
     }
 
     static _hideBackdrop() {
