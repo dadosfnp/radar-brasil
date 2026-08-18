@@ -378,7 +378,7 @@ function _initMultiSelects() {
     const t = RBi18n.t;
     const defs = [
         { key: "programa",   id: "ms-programa",   placeholder: t("Todos os Programas")   },
-        { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores"),   defaultCount: 5 },
+        { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores")      },
         { key: "modalidade", id: "ms-modalidade", placeholder: t("Todas as Modalidades") },
         { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens")                   },
         { key: "ente",       id: "ms-ente",       placeholder: t("Todos os Entes")       },

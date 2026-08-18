@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (10ª entrada)
+
+### Fix — Remove pré-seleção de 5 setores por default nos filtros
+
+Remove `defaultCount: 5` do filtro Setor em `_initMultiSelects()`. Com a pré-seleção
+ativa, o backend recebia apenas os 5 setores escolhidos e filtrava TODOS os gráficos,
+alterando os dados exibidos. Agora todos os filtros iniciam com "Todos os X" selecionados
+(selected = Set vazio = sem filtro ativo), e os gráficos mostram todos os dados disponíveis.
+
+**Arquivos modificados:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (9ª entrada)
 
 ### Fix — Gráficos "Sem dados" e label invertido nos filtros
