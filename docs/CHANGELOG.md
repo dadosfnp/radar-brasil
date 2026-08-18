@@ -4,6 +4,30 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (8ª entrada)
+
+### Fix — Dropdown mobile segue a página ao rolar (scroll handler)
+
+**Sintoma:** ao rolar a página com um dropdown de filtro aberto, o dropdown (position:fixed)
+permanecia visível enquanto o trigger e os demais filtros saíam da tela — UX confusa e layout
+visual quebrado.
+
+**Causa:** o fix anterior adicionou `!this._fixedMode` no handler de `window.scroll` para evitar
+que o scroll da lista de opções fechasse o dropdown. O efeito colateral foi que o scroll da
+PÁGINA também parou de fechá-lo.
+
+**Correção:** distinguir scroll das opções vs. scroll da página via listener em `_optionsEl`:
+- `_optionsEl.addEventListener("scroll")` → sinaliza `_optionsScrolling = true` por 200ms
+- `window.scroll` → fecha apenas se `!this._optionsScrolling` (scroll veio da página)
+
+Scroll normal dentro do div de opções não propaga até `window` (scroll não borbulha). O guard
+`_optionsScrolling` cobre casos de overscroll em versões antigas do iOS onde o toque pode
+propagar além do container mesmo com `overscroll-behavior: contain`.
+
+**Arquivos modificados:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (7ª entrada)
 
 ### Feat — Seleção padrão nos filtros dos gráficos + tabela sem filtro

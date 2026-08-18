@@ -18,12 +18,14 @@ class MultiSelect {
         this.options      = [];
         this.selected     = new Set();   // vazio = todos selecionados
         this.defaultCount = defaultCount || null;
-        this.isOpen       = false;
-        this._fixedMode   = false;
-        this._openedAt    = 0;
-        this._touchY      = 0;
-        this._didScroll   = false;
-        this._lastTouch   = 0;
+        this.isOpen            = false;
+        this._fixedMode        = false;
+        this._openedAt         = 0;
+        this._touchY           = 0;
+        this._didScroll        = false;
+        this._lastTouch        = 0;
+        this._optionsScrolling = false;
+        this._optionsScrollTimer = null;
         MultiSelect._all.push(this);
         this._build();
     }
@@ -73,11 +75,20 @@ class MultiSelect {
             }
         });
 
-        // Fecha ao rolar só no modo desktop (position:absolute).
-        // Em mobile o dropdown é position:fixed e não "voa" com o scroll da página.
-        // Fechar em mobile causaria o dropdown se fechar enquanto o usuário rola a lista de opções.
+        // Rastreia se o scroll veio das opções (não da página).
+        // O scroll do div de opções não borbulha até window — mas overscroll pode em iOS antigo.
+        // Guardando o estado aqui, evitamos fechar ao rolar a lista de opções.
+        this._optionsEl.addEventListener("scroll", () => {
+            this._optionsScrolling = true;
+            clearTimeout(this._optionsScrollTimer);
+            this._optionsScrollTimer = setTimeout(() => { this._optionsScrolling = false; }, 200);
+        }, { passive: true });
+
+        // Fecha quando a PÁGINA rola (scroll da janela, não das opções).
+        // Em mobile fixed, o dropdown fica no viewport enquanto o trigger sai de cena —
+        // fechar é o comportamento esperado nesse caso.
         window.addEventListener("scroll", () => {
-            if (this.isOpen && !this._fixedMode && Date.now() - this._openedAt > 350) this._close();
+            if (this.isOpen && !this._optionsScrolling && Date.now() - this._openedAt > 350) this._close();
         }, { passive: true });
 
         window.addEventListener("resize", () => { if (this.isOpen) this._close(); });
