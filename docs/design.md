@@ -513,6 +513,8 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-07-22 | (branch)  | i18n fix: varredura completa — 15 strings PT restantes corr.    |
 | 2026-07-23 | (branch)  | ficha técnica: links clicáveis em nome, órgão e arcabouço       |
 | 2026-07-23 | (branch)  | ficha técnica: cor dos links herda cor original do texto         |
+| 2026-08-18 | `c2e87e4` | Filtros Financiamento: todos selecionados por default (remove defaultCount) |
+| 2026-08-18 | (pendente)| Tabela mobile: layout empilhado, cabeçalho navy, repasses agrupados |
 
 ---
 

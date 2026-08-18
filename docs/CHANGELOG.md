@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (11ª entrada)
+
+### Style — Melhora formatação da tabela no mobile (layout empilhado)
+
+Tabela de financiamentos no mobile passa de layout `flex` lado-a-lado (label esquerda,
+valor direita) para layout empilhado (label acima, valor abaixo). Valores longos
+(ex.: "Estimativa de custos constante do plano de trabalho") agora têm largura total
+disponível sem truncamento ou quebras forçadas. Melhorias adicionais:
+
+- Cabeçalho do cartão com `background: var(--color-primary)` e texto branco (mais destaque)
+- Campos Federal/Estadual/Municipal com fundo `#f4f9fc` e separador `border-top` para agrupar visualmente a seção de Repasses
+- `border-radius` do cartão aumentado para 12px
+- `box-shadow` ligeiramente mais pronunciada
+
+**Arquivos modificados:** `static/css/financiamento-climatico.css`
+
+---
+
 ## 2026-08-18 — `main` (10ª entrada)
 
 ### Fix — Remove pré-seleção de 5 setores por default nos filtros
