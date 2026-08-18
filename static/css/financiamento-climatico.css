@@ -224,6 +224,12 @@ body.fin-cli-page .rb-main {
 .fc-ms-options {
     overflow-y: auto;
     flex: 1;
+    min-height: 0;                     /* flex items têm min-height:auto por padrão — sem isso o
+                                          item expande para mostrar todo o conteúdo em vez de
+                                          restringir a altura e ativar o scroll */
+    -webkit-overflow-scrolling: touch; /* inércia de scroll no iOS */
+    overscroll-behavior: contain;      /* impede que o overscroll da lista propague para o window,
+                                          evitando que o handler de scroll feche o dropdown */
     padding: 3px 0;
     scrollbar-width: thin;
     scrollbar-color: rgba(38,69,132,.2) transparent;
@@ -257,7 +263,9 @@ body.fin-cli-page .rb-main {
     height: 13px;
     flex-shrink: 0;
     margin-top: 1px;
-    cursor: pointer;
+    pointer-events: none; /* todos os cliques vão para o <label> pai — evita que o iOS
+                             sintetize um segundo click forwarded para o <input>,
+                             que causaria duplo-toggle e zero mudança visual */
 }
 
 .fc-ms-empty {
