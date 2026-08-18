@@ -4,6 +4,32 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (9ª entrada)
+
+### Fix — Gráficos "Sem dados" e label invertido nos filtros
+
+**Bug 1 — "Sem dados" (causa raiz):**
+`defaultCount:5` (setor) + `defaultCount:7` (origem) geravam query com lógica AND:
+`setor IN [5 primeiros] AND origem IN [7 primeiras]`. A interseção entre os 5 primeiros setores
+alfabéticos e as 7 primeiras origens alfabéticas era vazia → nenhum registro retornado →
+"Sem dados" em todos os gráficos. Correção: removido `defaultCount` do filtro Origem.
+O gráfico "Origem dos Recursos" agora limita visualmente a top 7 via JS (`.slice(0, 7)`),
+sem restringir a query do backend.
+
+**Bug 2 — Label "19 selecionados" quando 5 estão ativos:**
+`_updateLabel()` usava `shown = options.length - n` (conta de excluídos) em vez de `n`
+(conta de incluídos). Com `defaultCount=5` e 24 opções: 24-5=19 → "19 selecionados" (errado).
+Corrigido: badge e label agora mostram `n` (itens incluídos). Quando `n === options.length`
+(todos explicitamente selecionados via "Nenhum"), exibe o placeholder — igual ao estado "todos".
+
+**Bug 3 — Contador interno `_updateCount()` também invertido:**
+Usava `tot - sel` (excluídos) em vez de `sel` (incluídos). "5 de 24" agora significa
+"5 selecionados de 24 disponíveis" (correto).
+
+**Arquivos modificados:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (8ª entrada)
 
 ### Fix — Dropdown mobile segue a página ao rolar (scroll handler)

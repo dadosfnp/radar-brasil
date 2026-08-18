@@ -310,31 +310,30 @@ class MultiSelect {
         if (!this._countEl) return;
         const sel = this.selected.size;
         const tot = this.options.length;
-        this._countEl.textContent = sel === 0
-            ? `${tot} ${RBi18n.t("de")} ${tot}`
-            : `${tot - sel} ${RBi18n.t("de")} ${tot}`;
+        // Mostra quantos ESTÃO selecionados (incluídos), não quantos foram excluídos.
+        // sel===0 (todos modo) ou sel===tot (todos explicitamente) → "tot de tot".
+        const shown = (sel === 0 || sel === tot) ? tot : sel;
+        this._countEl.textContent = `${shown} ${RBi18n.t("de")} ${tot}`;
     }
 
     _updateLabel() {
-        const n = this.selected.size;
-        if (n === 0) {
+        const n   = this.selected.size;
+        const tot = this.options.length;
+        // n===0 (sem filtro) ou n===tot (todos explicitamente selecionados) → placeholder "Todos".
+        if (n === 0 || n === tot) {
             this._label.textContent = this.placeholder;
             this._label.classList.remove("has-selection");
             this.el.querySelector(".fc-ms-badge")?.remove();
         } else {
-            const shown = this.options.length - n;
-            this._label.textContent = shown === 0
-                ? RBi18n.t("Nenhum selecionado")
-                : `${shown} ${shown !== 1 ? RBi18n.t("selecionados") : RBi18n.t("selecionado")}`;
+            this._label.textContent = `${n} ${n !== 1 ? RBi18n.t("selecionados") : RBi18n.t("selecionado")}`;
             this._label.classList.add("has-selection");
-
             let badge = this.el.querySelector(".fc-ms-badge");
             if (!badge) {
                 badge = document.createElement("span");
                 badge.className = "fc-ms-badge";
                 this._trigger.insertBefore(badge, this.el.querySelector(".fc-ms-arrow"));
             }
-            badge.textContent = shown;
+            badge.textContent = n;
         }
     }
 }
@@ -381,7 +380,7 @@ function _initMultiSelects() {
         { key: "programa",   id: "ms-programa",   placeholder: t("Todos os Programas")   },
         { key: "setor",      id: "ms-setor",      placeholder: t("Todos os Setores"),   defaultCount: 5 },
         { key: "modalidade", id: "ms-modalidade", placeholder: t("Todas as Modalidades") },
-        { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens"),   defaultCount: 7 },
+        { key: "origem",     id: "ms-origem",     placeholder: t("Todas as Origens")                   },
         { key: "ente",       id: "ms-ente",       placeholder: t("Todos os Entes")       },
     ];
     defs.forEach(({ key, id, placeholder, defaultCount }) => {
@@ -493,9 +492,11 @@ function _drawOrigem() {
                     "#264584","#264584","#ffd166","#ef476f","#8aaad4"];
     const palette = d.colors?.length ? d.colors : COLORS;
 
-    // Ordena ascendente para que o maior fique no topo (Plotly inverte eixo Y)
+    // Limita a 7 itens — sort desc para pegar top 7, re-sort asc para Plotly (eixo Y invertido).
     const items = d.labels
         .map((l, i) => ({ label: l, value: d.values[i], color: palette[i % palette.length] }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 7)
         .sort((a, b) => a.value - b.value);
 
     const BAR_H = 30;
