@@ -4,6 +4,44 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (5ª entrada)
+
+### Fix — Três bugs nos filtros mobile do Financiamento Climático (diagnóstico definitivo)
+
+**Bug 1 — Nenhuma mudança visual ao clicar (duplo-toggle)**
+iOS Safari sintetiza dois eventos `click` por toque em `<label><input type="checkbox">`: um
+no `<label>` e um forwarded ao `<input>`. Ambos sobem por bubbling até o handler de delegation
+em `_optionsEl.onclick` → `_toggle_option` chamado duas vezes → item marcado e imediatamente
+desmarcado → zero mudança visual.
+
+Correções (dupla camada):
+- CSS: `pointer-events: none` no `input[type="checkbox"]` dentro de `.fc-ms-option`.
+  Todos os eventos de toque vão diretamente ao `<label>` pai — o browser não gera o segundo
+  click forwarded. Elimina a causa raiz.
+- JS: Guard `if (e.target.tagName === "INPUT") return` no `_optionsEl.onclick`.
+  Segurança extra caso o browser ainda gere o forwarded click em alguma versão.
+
+**Bug 2 — Scroll travado dentro do dropdown**
+`.fc-ms-options` tem `flex: 1` mas sem `min-height: 0`. Flex items têm `min-height: auto`
+por padrão — o elemento EXPANDE para mostrar todo o conteúdo em vez de restringir a altura
+e ativar `overflow-y: auto`. Sem `min-height: 0`, o scroll nunca é necessário para o browser.
+
+Correções CSS em `.fc-ms-options`:
+- `min-height: 0` — permite que o flex item encolha e ative o scroll
+- `-webkit-overflow-scrolling: touch` — scroll com inércia no iOS dentro de position:fixed
+- `overscroll-behavior: contain` — impede overscroll de propagar para o window
+
+**Bug 3 — Scroll dentro das opções fecha o dropdown**
+Ao rolar até o fim da lista e continuar, o overscroll propagava para `window`. O handler
+`window.addEventListener("scroll")` disparava após 350ms e chamava `_close()`.
+
+Correção JS: adiciona `!this._fixedMode` na condição — no mobile o dropdown é `position:fixed`
+e não "voa" com o scroll da página; o handler só fecha em desktop (modo `position:absolute`).
+
+**Arquivos:** `static/js/financiamento-climatico.js`, `static/css/financiamento-climatico.css`
+
+---
+
 ## 2026-08-18 — `main` (4ª entrada)
 
 ### Fix — Reescrita do MultiSelect: filtros mobile funcionam corretamente

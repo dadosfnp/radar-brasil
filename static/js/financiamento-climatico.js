@@ -70,10 +70,11 @@ class MultiSelect {
             }
         });
 
-        // Fecha ao rolar — guard 350 ms evita fechamento por scroll espúrio que o iOS Safari
-        // dispara ao adicionar um elemento position:fixed na página.
+        // Fecha ao rolar só no modo desktop (position:absolute).
+        // Em mobile o dropdown é position:fixed e não "voa" com o scroll da página.
+        // Fechar em mobile causaria o dropdown se fechar enquanto o usuário rola a lista de opções.
         window.addEventListener("scroll", () => {
-            if (this.isOpen && Date.now() - this._openedAt > 350) this._close();
+            if (this.isOpen && !this._fixedMode && Date.now() - this._openedAt > 350) this._close();
         }, { passive: true });
 
         window.addEventListener("resize", () => { if (this.isOpen) this._close(); });
@@ -275,6 +276,10 @@ class MultiSelect {
         // _renderOptions(), os <label>s eram destruídos e recriados — o evento
         // propagava com e.target já desconectado do DOM, o document.click via _close().
         this._optionsEl.onclick = e => {
+            // iOS Safari sintetiza dois clicks por toque em <label><input>: um no label
+            // e um forwarded para o <input>. Ignoramos o do input para evitar duplo-toggle
+            // (item marcado e imediatamente desmarcado → zero mudança visual).
+            if (e.target.tagName === "INPUT") return;
             const lbl = e.target.closest(".fc-ms-option");
             if (!lbl) return;
             e.preventDefault();
