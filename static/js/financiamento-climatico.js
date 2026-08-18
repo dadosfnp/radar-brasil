@@ -9,8 +9,6 @@ let msInstances = {};   // { key: MultiSelect }
 // MultiSelect — dropdown com checkboxes
 // ══════════════════════════════════════════════════════════════
 class MultiSelect {
-    // Registro global de todas as instâncias para garantir
-    // que apenas um dropdown fique aberto por vez.
     static _all = [];
 
     constructor({ containerId, placeholder, onChange }) {
@@ -18,10 +16,10 @@ class MultiSelect {
         this.placeholder = placeholder || RBi18n.t("Todos");
         this.onChange    = onChange;
         this.options     = [];
-        this.selected    = new Set();   // vazio = "todos selecionados"
+        this.selected    = new Set();   // vazio = todos selecionados
         this.isOpen      = false;
-        this._fixedMode  = false;       // true quando usando position:fixed (mobile)
-        this._openedAt   = 0;           // timestamp da última abertura (guarda scroll espúrio iOS)
+        this._fixedMode  = false;
+        this._openedAt   = 0;
         MultiSelect._all.push(this);
         this._build();
     }
@@ -46,32 +44,38 @@ class MultiSelect {
             <div class="fc-ms-options"></div>
           </div>`;
 
-        this._trigger    = this.el.querySelector(".fc-ms-trigger");
-        this._dropdown   = this.el.querySelector(".fc-ms-dropdown");
-        this._label      = this.el.querySelector(".fc-ms-trigger-label");
-        this._optionsEl  = this.el.querySelector(".fc-ms-options");
-        this._searchEl   = this.el.querySelector("input");
-        this._countEl    = this.el.querySelector(".fc-ms-count-label");
+        this._trigger   = this.el.querySelector(".fc-ms-trigger");
+        this._dropdown  = this.el.querySelector(".fc-ms-dropdown");
+        this._label     = this.el.querySelector(".fc-ms-trigger-label");
+        this._optionsEl = this.el.querySelector(".fc-ms-options");
+        this._searchEl  = this.el.querySelector("input");
+        this._countEl   = this.el.querySelector(".fc-ms-count-label");
 
         this._trigger.addEventListener("click", e => { e.stopPropagation(); this._toggle(); });
-        this.el.querySelector(".js-select-all").addEventListener("click", () => this._selectAll());
-        this.el.querySelector(".js-clear-all").addEventListener("click",  () => this._clearAll());
-        this._searchEl.addEventListener("input", () => this._renderOptions(this._searchEl.value.toLowerCase()));
 
-        // Fecha ao clicar fora (desktop)
+        // stopPropagation nos botões internos impede que o document click feche o dropdown
+        this.el.querySelector(".js-select-all").addEventListener("click", e => { e.stopPropagation(); this._selectAll(); });
+        this.el.querySelector(".js-clear-all").addEventListener("click",  e => { e.stopPropagation(); this._clearAll(); });
+
+        this._searchEl.addEventListener("input",  () => this._renderOptions(this._searchEl.value.toLowerCase()));
+        this._searchEl.addEventListener("click",  e  => e.stopPropagation());
+
+        // Fecha ao clicar fora.
+        // Guard isConnected: quando _toggle_option atualiza nós in-place não há nó
+        // desconectado, mas se _renderOptions for chamado por busca o guard é segurança extra.
         document.addEventListener("click", e => {
-            if (!this.el.contains(e.target) &&
-                !this._dropdown.contains(e.target)) this._close();
+            if (!e.target.isConnected) return;
+            if (!this.el.contains(e.target) && !this._dropdown.contains(e.target)) {
+                this._close();
+            }
         });
 
-        // Fecha ao fazer scroll (evita dropdown "voando" na tela).
-        // Guarda de 350 ms evita falso fechamento por scroll espúrio que o iOS Safari
-        // dispara ao inserir um elemento position:fixed na tela.
+        // Fecha ao rolar — guard 350 ms evita fechamento por scroll espúrio que o iOS Safari
+        // dispara ao adicionar um elemento position:fixed na página.
         window.addEventListener("scroll", () => {
             if (this.isOpen && Date.now() - this._openedAt > 350) this._close();
         }, { passive: true });
 
-        // Reposiciona ao redimensionar janela (portrait ↔ landscape)
         window.addEventListener("resize", () => { if (this.isOpen) this._close(); });
     }
 
@@ -97,10 +101,9 @@ class MultiSelect {
     _toggle() { this.isOpen ? this._close() : this._open(); }
 
     _open() {
-        // ── Fecha todos os outros antes de abrir este ──────────
         MultiSelect._all.forEach(ms => { if (ms !== this) ms._close(); });
 
-        this._openedAt = Date.now();    // marca abertura para guard do scroll handler
+        this._openedAt = Date.now();
         this.isOpen = true;
         this._dropdown.classList.add("open");
         this._trigger.classList.add("open");
@@ -112,9 +115,8 @@ class MultiSelect {
             this._openFixed();
         } else {
             this._smartPosition();
+            this._searchEl.focus(); // focus só no desktop — mobile abriria teclado virtual
         }
-
-        this._searchEl.focus();
     }
 
     _close() {
@@ -125,10 +127,9 @@ class MultiSelect {
         this.el.classList.remove("is-open");
         this._dropdown.classList.remove("drop-up");
 
-        // Limpa estilos inline aplicados pelo modo fixed (mobile)
         if (this._fixedMode) {
             const s = this._dropdown.style;
-            s.position = s.width = s.left = s.top = s.bottom = s.maxHeight = "";
+            s.position = s.width = s.left = s.top = s.bottom = s.maxHeight = s.zIndex = "";
             this._fixedMode = false;
             MultiSelect._hideBackdrop();
         } else {
@@ -139,21 +140,21 @@ class MultiSelect {
     // ── Posicionamento mobile: position:fixed flutua acima de tudo ──
     _openFixed() {
         this._fixedMode = true;
-        const r       = this._trigger.getBoundingClientRect();
-        const vw      = window.innerWidth;
-        const vh      = window.innerHeight;
-        const w       = r.width;
-        const left    = Math.min(r.left, vw - w - 4); // não sai pela direita
-        const below   = vh - r.bottom - 8;
-        const above   = r.top - 8;
-        const maxH    = Math.min(260, Math.max(below, above, 180));
+        const r     = this._trigger.getBoundingClientRect();
+        const vw    = window.innerWidth;
+        const vh    = window.innerHeight;
+        const w     = r.width;
+        const left  = Math.min(r.left, vw - w - 4);
+        const below = vh - r.bottom - 8;
+        const above = r.top - 8;
+        const maxH  = Math.min(260, Math.max(below, above, 180));
 
         const s = this._dropdown.style;
-        s.position = "fixed";
-        s.width    = w + "px";
-        s.left     = left + "px";
-        s.maxHeight= maxH + "px";
-        s.zIndex   = "9999";
+        s.position  = "fixed";
+        s.width     = w + "px";
+        s.left      = left + "px";
+        s.maxHeight = maxH + "px";
+        s.zIndex    = "9999";
 
         if (below >= 180 || below >= above) {
             s.top    = (r.bottom + 3) + "px";
@@ -173,9 +174,9 @@ class MultiSelect {
         this._dropdown.classList.remove("drop-up");
         this._dropdown.style.maxHeight = "";
 
-        const triggerRect = this._trigger.getBoundingClientRect();
-        const spaceBelow  = window.innerHeight - triggerRect.bottom - 8;
-        const spaceAbove  = triggerRect.top - 8;
+        const r          = this._trigger.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - r.bottom - 8;
+        const spaceAbove = r.top - 8;
 
         if (spaceBelow < DROPDOWN_MIN_H && spaceAbove > spaceBelow) {
             this._dropdown.classList.add("drop-up");
@@ -193,31 +194,25 @@ class MultiSelect {
             bd.id = "fc-ms-backdrop";
             document.body.appendChild(bd);
         }
-        bd.onclick = null;              // limpa handler anterior
-        bd.style.cssText = `
-            position:fixed;inset:0;z-index:9998;
-            background:transparent;`;
-        bd._handler = onClose;
-        // Ativa o handler apenas no próximo frame para evitar que o "ghost click"
-        // gerado pelo toque no trigger caia no backdrop e feche o dropdown.
+        bd.onclick = null;
+        bd.style.cssText = "position:fixed;inset:0;z-index:9998;background:transparent;";
+        // Ativa no próximo frame para evitar ghost click do tap no trigger
         requestAnimationFrame(() => { bd.onclick = onClose; });
     }
 
     static _hideBackdrop() {
         const bd = document.getElementById("fc-ms-backdrop");
-        if (bd) bd.style.cssText = "";
+        if (bd) { bd.onclick = null; bd.style.cssText = ""; }
     }
 
     _selectAll() {
-        this.selected.clear();                 // vazio = todos
+        this.selected.clear();
         this._renderOptions(this._searchEl.value.toLowerCase());
         this._updateLabel();
         this.onChange([]);
     }
 
     _clearAll() {
-        // "nenhum" = todos marcados como exclusão — usamos Set com todos para indicar "nenhum"
-        // Tratamos: selected tem exatamente todos = "nenhum visível" → API filtra por lista vazia retorna 0
         this.options.forEach(o => this.selected.add(o));
         this._renderOptions(this._searchEl.value.toLowerCase());
         this._updateLabel();
@@ -228,21 +223,28 @@ class MultiSelect {
         const allCount = this.options.length;
 
         if (this.selected.size === 0) {
-            // Estava "todos" → agora remove este: seleciona todos os outros
+            // Todos visíveis → clique = desmarca este (adiciona todos os outros)
             this.options.forEach(o => { if (o !== val) this.selected.add(o); });
         } else if (this.selected.has(val)) {
             this.selected.delete(val);
-            if (this.selected.size === 0) {
-                // Ficou vazio = "todos" novamente
-            }
         } else {
             this.selected.add(val);
             if (this.selected.size === allCount) {
-                this.selected.clear();  // todos marcados = "todos" = limpa
+                this.selected.clear(); // selecionou todos = volta ao estado "todos"
             }
         }
 
-        this._renderOptions(this._searchEl.value.toLowerCase());
+        // Atualiza checkboxes in-place — sem substituir innerHTML, sem nó desconectado.
+        // Este é o ponto crítico: _renderOptions() destruía os elementos e o event bubbling
+        // chegava ao document com e.target desconectado, fazendo _close() ser chamado.
+        this._optionsEl.querySelectorAll(".fc-ms-option").forEach(lbl => {
+            const checked = this.selected.size === 0 || this.selected.has(lbl.dataset.val);
+            lbl.classList.toggle("is-checked", checked);
+            const cb = lbl.querySelector("input[type='checkbox']");
+            if (cb) cb.checked = checked;
+        });
+
+        this._updateCount();
         this._updateLabel();
         this.onChange(this.getSelected());
     }
@@ -254,11 +256,11 @@ class MultiSelect {
 
         if (!visible.length) {
             this._optionsEl.innerHTML = `<div class="fc-ms-empty">${RBi18n.t("Nenhum resultado")}</div>`;
+            this._optionsEl.onclick = null;
             return;
         }
 
         this._optionsEl.innerHTML = visible.map(opt => {
-            // checked se selected está vazio (= todos) OU se este item está no set
             const checked = this.selected.size === 0 || this.selected.has(opt);
             const safeval = opt.replace(/"/g, "&quot;");
             return `
@@ -268,17 +270,28 @@ class MultiSelect {
               </label>`;
         }).join("");
 
-        this._optionsEl.querySelectorAll(".fc-ms-option").forEach(lbl => {
-            lbl.addEventListener("click", e => {
-                e.preventDefault();
-                this._toggle_option(lbl.dataset.val);
-            });
-        });
+        // Event delegation: um único listener no container, com stopPropagation.
+        // Antes havia um listener em cada <label>; quando _toggle_option chamava
+        // _renderOptions(), os <label>s eram destruídos e recriados — o evento
+        // propagava com e.target já desconectado do DOM, o document.click via _close().
+        this._optionsEl.onclick = e => {
+            const lbl = e.target.closest(".fc-ms-option");
+            if (!lbl) return;
+            e.preventDefault();
+            e.stopPropagation();
+            this._toggle_option(lbl.dataset.val);
+        };
 
-        // Contagem
+        this._updateCount();
+    }
+
+    _updateCount() {
+        if (!this._countEl) return;
         const sel = this.selected.size;
         const tot = this.options.length;
-        this._countEl.textContent = sel === 0 ? `${tot} ${RBi18n.t("de")} ${tot}` : `${tot - sel} ${RBi18n.t("de")} ${tot}`;
+        this._countEl.textContent = sel === 0
+            ? `${tot} ${RBi18n.t("de")} ${tot}`
+            : `${tot - sel} ${RBi18n.t("de")} ${tot}`;
     }
 
     _updateLabel() {
@@ -286,11 +299,9 @@ class MultiSelect {
         if (n === 0) {
             this._label.textContent = this.placeholder;
             this._label.classList.remove("has-selection");
-            // Remove badge se existir
             this.el.querySelector(".fc-ms-badge")?.remove();
         } else {
-            const excluded = n;
-            const shown    = this.options.length - excluded;
+            const shown = this.options.length - n;
             this._label.textContent = shown === 0
                 ? RBi18n.t("Nenhum selecionado")
                 : `${shown} ${shown !== 1 ? RBi18n.t("selecionados") : RBi18n.t("selecionado")}`;

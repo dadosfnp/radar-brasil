@@ -4,6 +4,45 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (4ª entrada)
+
+### Fix — Reescrita do MultiSelect: filtros mobile funcionam corretamente
+
+Reescrita completa da classe `MultiSelect` em `financiamento-climatico.js`.
+
+**Causa raiz identificada:** `_toggle_option` chamava `_renderOptions()`, que substitui o `innerHTML`
+do container de opções. O `<label>` clicado ficava **desconectado** do DOM. O listener
+`document.addEventListener("click", ...)` então avaliava `!this.el.contains(e.target)` como `true`
+para um nó desconectado, chamando `_close()` — dropdown abria e fechava instantaneamente.
+
+**Correções aplicadas:**
+
+1. **Event delegation** — substituídos os N listeners individuais em cada `<label>` por um único
+   `this._optionsEl.onclick` com `e.target.closest(".fc-ms-option")`. Após `_renderOptions()`,
+   o novo listener é registrado automaticamente sem acumular handlers.
+
+2. **Update in-place em `_toggle_option`** — não chama mais `_renderOptions()`. Atualiza só
+   `classList.toggle("is-checked")` e `cb.checked` nos elementos existentes. Nenhum nó é
+   destruído, nenhum `e.target` fica desconectado, o event bubbling é interrompido por
+   `e.stopPropagation()` antes de chegar ao `document`.
+
+3. **`e.stopPropagation()` em todos os elementos internos** — trigger, botões "Todos"/"Nenhum",
+   campo de busca e opções; o document click nunca chega a avaliar a condição de fechamento.
+
+4. **Guard `isConnected`** — `document.addEventListener` retorna cedo se `e.target` não estiver
+   conectado ao documento (segurança extra para buscas que substituem o HTML).
+
+5. **Focus apenas no desktop** — `_searchEl.focus()` removido do fluxo mobile; no iOS abre
+   o teclado virtual, que redimensiona o viewport e dispara eventos de scroll/resize que
+   fechavam o dropdown.
+
+6. **`_updateCount()` extraído** como método próprio, chamado tanto por `_renderOptions` quanto
+   por `_toggle_option` sem necessidade de re-renderizar a lista.
+
+**Arquivo:** `static/js/financiamento-climatico.js`
+
+---
+
 ## 2026-08-18 — `main` (3ª entrada)
 
 ### Fix — Filtros mobile Financiamento Climático: dropdown abria e fechava imediatamente
