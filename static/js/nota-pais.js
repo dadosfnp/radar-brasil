@@ -4,8 +4,8 @@ const GEOJSON_URL =
   "https://cdn.jsdelivr.net/gh/martynafford/natural-earth-geojson@master/110m/cultural/ne_110m_admin_0_countries.json";
 
 const CONTINENT_COLORS = {
-  "North America": "#161C4E",
-  "South America": "#161C4E",
+  "North America": "#264584",
+  "South America": "#264584",
   "Europe":        "#4E80C5",
   "Africa":        "#E8943A",
   "Asia":          "#EFC040",

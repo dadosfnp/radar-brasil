@@ -454,12 +454,12 @@ pdfBtn.addEventListener("click", () => {
   body { font-family: 'Roboto', Arial, sans-serif; margin: 0; padding: 12px 20px 48px;
          color: #101d4f; font-size: 13px; }
   h1   { font-size: 15px; font-weight: 700; color: #101d4f; text-transform: uppercase;
-         letter-spacing: .06em; border-bottom: 2px solid #161C4E; padding-bottom: 8px; margin-bottom: 20px; }
+         letter-spacing: .06em; border-bottom: 2px solid #264584; padding-bottom: 8px; margin-bottom: 20px; }
   .campo { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #dbeafe; }
   .campo:last-child { border-bottom: none; }
   .campo-label { font-size: 10px; font-weight: 800; color: #070e2a; text-transform: uppercase;
                  letter-spacing: .07em; margin-bottom: 4px; }
-  .campo-valor { font-size: 13px; color: #161C4E; line-height: 1.6; white-space: pre-wrap; }
+  .campo-valor { font-size: 13px; color: #264584; line-height: 1.6; white-space: pre-wrap; }
   .print-footer { position: fixed; bottom: 0; left: 0; right: 0;
                   font-size: 9px; color: #5577aa; font-family: Arial, sans-serif;
                   padding: 6px 20px; border-top: 1px solid #dbeafe;

@@ -1,7 +1,7 @@
 ﻿/* Mapa Georreferenciado – Radar Brasil */
 /* global L */
 
-const COR_FINANCIAMENTO     = "#161C4E"; // Azul – tem financiamento
+const COR_FINANCIAMENTO     = "#264584"; // Azul – tem financiamento
 const COR_SEM_FINANCIAMENTO = "#F4511E"; // Laranja-vermelho – sem financiamento
 
 // Limites aproximados do Brasil
@@ -68,9 +68,9 @@ function initMap() {
         pane:     'brasilPane',
         renderer: brasilRenderer,
         style: {
-            fillColor:   '#161C4E',
+            fillColor:   '#264584',
             fillOpacity: 0.22,
-            color:       '#161C4E',
+            color:       '#264584',
             weight:      1.2,
             opacity:     0.50,
         },

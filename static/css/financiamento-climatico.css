@@ -226,12 +226,12 @@ body.fin-cli-page .rb-main {
     flex: 1;
     padding: 3px 0;
     scrollbar-width: thin;
-    scrollbar-color: rgba(22,28,78,.2) transparent;
+    scrollbar-color: rgba(38,69,132,.2) transparent;
 }
 
 .fc-ms-options::-webkit-scrollbar { width: 4px; }
 .fc-ms-options::-webkit-scrollbar-thumb {
-    background: rgba(22,28,78,.2);
+    background: rgba(38,69,132,.2);
     border-radius: 4px;
 }
 
@@ -325,7 +325,7 @@ body.fin-cli-page .rb-main {
     background: var(--color-primary);
     color: #fff;
 }
-.fc-btn-primary:hover { background: #161C4E; }
+.fc-btn-primary:hover { background: #264584; }
 
 .fc-btn-outline {
     background: transparent;
@@ -460,12 +460,12 @@ body.fin-cli-page .rb-main {
     overflow-y: auto;
     max-height: 280px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(22,28,78,.2) transparent;
+    scrollbar-color: rgba(38,69,132,.2) transparent;
 }
 
 .fc-origem-scroll::-webkit-scrollbar { width: 4px; }
 .fc-origem-scroll::-webkit-scrollbar-thumb {
-    background: rgba(22,28,78,.2);
+    background: rgba(38,69,132,.2);
     border-radius: 4px;
 }
 
@@ -519,7 +519,7 @@ body.fin-cli-page .rb-main {
     .fc-multiselect.is-open .fc-ms-trigger {
         border-color: var(--color-primary);
         background: #fff;
-        box-shadow: 0 0 0 3px rgba(22,28,78,.12);
+        box-shadow: 0 0 0 3px rgba(38,69,132,.12);
     }
     /* Itens do dropdown maiores para toque */
     .fc-ms-option {

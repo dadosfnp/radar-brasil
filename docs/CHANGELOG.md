@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-18 — `main` (2ª entrada)
+
+### Style — Reverte cor primária: #161C4E → #264584
+
+Revert da alteração anterior. Cor `#161C4E` rejeitada; retorno ao azul de referência da marca `#264584`.
+
+- `tokens.css`: `--color-primary` `#161C4E` → `#264584`
+- `rgba(22,28,78,...)` → `rgba(38,69,132,...)` em sombras e overlays
+- 13 arquivos atualizados (9 CSS + 4 JS)
+
+---
+
 ## 2026-08-18 — `main`
 
 ### Style — Ajuste de cor primária: #264584 → #161C4E
