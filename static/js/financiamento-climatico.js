@@ -420,7 +420,7 @@ function renderChartSetor(d) {
         hovertext: paired.map(p => `<b>${p.l}</b><br>${p.t}`),
         hoverinfo: "text",
         marker: {
-            color: "#161C4E",
+            color: "#264584",
             line: { color: "#070e2a", width: 0.5 },
         },
     };
@@ -447,8 +447,8 @@ function _drawOrigem() {
     const el = _qs("fc-chart-origem");
     if (!el || !d) return;
 
-    const COLORS = ["#161C4E","#101d4f","#3b6cbf","#f4a261","#e76f51",
-                    "#161C4E","#161C4E","#ffd166","#ef476f","#8aaad4"];
+    const COLORS = ["#264584","#101d4f","#3b6cbf","#f4a261","#e76f51",
+                    "#264584","#264584","#ffd166","#ef476f","#8aaad4"];
     const palette = d.colors?.length ? d.colors : COLORS;
 
     // Ordena ascendente para que o maior fique no topo (Plotly inverte eixo Y)
@@ -489,7 +489,7 @@ function renderChartEnte(d) {
     const hasValues = d.values?.some(v => v > 0);
     if (!hasValues) { el.innerHTML = _emptyMsg(); return; }
 
-    const COLORS = ["#161C4E", "#3b6cbf", "#f4a261"];
+    const COLORS = ["#264584", "#3b6cbf", "#f4a261"];
     const texts  = d.texts || d.labels;
 
     Plotly.newPlot(el, [{
