@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-24 — `main` (14ª entrada)
+
+### Style — Remove efeito "bolha de vidro" dos ícones da página Início
+
+Remove o `radial-gradient` no `::before` e o `inset box-shadow` do `.ini-icon-wrap` que
+criavam aspecto de SaaS genérico. Substituído por fundo flat com leve tinte navy:
+`background: rgba(38,69,132,.08)` + `border: 1.5px solid rgba(38,69,132,.14)`.
+
+**Arquivo modificado:** `static/css/inicio.css`
+
+---
+
 ## 2026-08-24 — `main` (13ª entrada)
 
 ### Revert — Restaura página Início para estado do commit bbe5fbe
