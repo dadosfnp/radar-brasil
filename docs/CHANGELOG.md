@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-24 — `main` (13ª entrada)
+
+### Revert + Style — Restaura layout 2×2 da página Início; melhora ícones
+
+Revert do redesign editorial (paleta papel quente + layout assimétrico) que saiu do tema
+visual do site. Layout 2×2 simétrico original restaurado com:
+- Grid `repeat(2, 1fr)`, cards glassmorphism (`backdrop-filter`)
+- Cabeçalho navy `var(--color-primary)` por card com título + seta
+- Ícones SVG existentes mantidos com fundo limpo:
+  `background: rgba(38,69,132,.07)` + `border: 1px solid rgba(38,69,132,.12)`
+  Sem `::before` radial-gradient ("bolha de vidro") que dava aspecto genérico de IA
+
+**Arquivos modificados:** `templates/municipios/inicio.html`, `static/css/inicio.css`
+
+---
+
 ## 2026-08-24 — `main` (12ª entrada)
 
 ### Feat — Redesign editorial da página Início
