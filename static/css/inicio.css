@@ -1,15 +1,10 @@
 /* ==============================
-   PÁGINA INÍCIO — redesign editorial
-   Paleta: papel quente + jade + barro
+   PÁGINA INÍCIO — redesign com identidade visual FNP
+   Paleta: azul primary #264584, fundo #d9e8f5, branco
    ============================== */
 
 body.inicio-page {
-    background: #F3EFE2;
-    --ini-tinta:  #16241F;
-    --ini-papel:  #F3EFE2;
-    --ini-mata:   #2F6E5C;
-    --ini-barro:  #C97A2B;
-    --ini-linha:  #D8D2BE;
+    background: var(--color-bg-page);
 }
 
 body.inicio-page .rb-footer-landing { display: none; }
@@ -29,7 +24,7 @@ body.inicio-page .rb-main {
     padding: 64px 64px 96px;
     display: flex;
     flex-direction: column;
-    gap: 96px;
+    gap: 88px;
 }
 
 /* ── HERO ── */
@@ -40,57 +35,64 @@ body.inicio-page .rb-main {
 }
 
 .ini-eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'DM Mono', 'IBM Plex Mono', monospace;
     font-size: 0.6875rem;
     font-weight: 500;
-    color: var(--ini-mata);
-    letter-spacing: .04em;
-    margin: 0 0 24px;
+    color: var(--color-primary);
+    letter-spacing: .06em;
+    text-transform: lowercase;
+    margin: 0 0 20px;
+    opacity: .75;
 }
 
 .ini-h1 {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.875rem, 5vw, 3.25rem);
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: clamp(1.875rem, 4.5vw, 3rem);
     font-weight: 800;
-    color: var(--ini-tinta);
-    line-height: 1.15;
-    margin: 0 0 28px;
+    color: #101d4f;
+    line-height: 1.18;
+    margin: 0 0 24px;
 }
 
 .ini-lead {
-    font-family: 'Public Sans', 'DM Sans', sans-serif;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 1.0625rem;
-    color: var(--ini-tinta);
-    opacity: .72;
+    color: #334488;
     line-height: 1.7;
     margin: 0 0 36px;
     max-width: 580px;
+    opacity: .88;
 }
 
 .ini-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--ini-mata);
+    background: var(--color-primary);
     color: #fff;
-    font-family: 'Public Sans', 'DM Sans', sans-serif;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.9375rem;
     font-weight: 600;
     padding: 14px 28px;
-    border-radius: 3px;
+    border-radius: 8px;
     text-decoration: none;
-    transition: background .18s;
+    transition: background .18s, box-shadow .18s;
     width: fit-content;
-    margin-bottom: 56px;
+    margin-bottom: 52px;
+    box-shadow: 0 2px 8px rgba(38,69,132,.25);
 }
-.ini-cta:hover { background: #25574A; color: #fff; }
+.ini-cta:hover {
+    background: #1c3470;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(38,69,132,.35);
+}
 
 /* Indicadores */
 .ini-indicators {
     display: flex;
     align-items: flex-start;
     gap: 0;
-    border-top: 1px solid var(--ini-linha);
+    border-top: 1px solid rgba(38,69,132,.18);
     padding-top: 32px;
 }
 
@@ -103,22 +105,22 @@ body.inicio-page .rb-main {
 
 .ini-ind + .ini-ind {
     padding-left: 40px;
-    border-left: 1px solid var(--ini-linha);
+    border-left: 1px solid rgba(38,69,132,.18);
 }
 
 .ini-ind-num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: clamp(1.625rem, 3vw, 2.375rem);
-    font-weight: 600;
-    color: var(--ini-barro);
+    font-weight: 800;
+    color: var(--color-primary);
     line-height: 1;
 }
 
 .ini-ind-label {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.75rem;
-    color: var(--ini-tinta);
-    opacity: .58;
+    color: #334488;
+    opacity: .7;
     letter-spacing: .01em;
 }
 
@@ -126,35 +128,35 @@ body.inicio-page .rb-main {
 .ini-eixos {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 36px;
 }
 
 .ini-eixos-hd {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .ini-eixos-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 700;
-    color: var(--ini-tinta);
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 800;
+    color: #101d4f;
     margin: 0;
     line-height: 1.2;
 }
 
 .ini-eixos-sub {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.9375rem;
-    color: var(--ini-tinta);
-    opacity: .62;
+    color: #334488;
+    opacity: .8;
     margin: 0;
     max-width: 540px;
     line-height: 1.6;
 }
 
-/* Grid assimétrico: ficha hero à esquerda, lista compacta à direita */
+/* Grid assimétrico: ficha hero esquerda + lista compacta direita */
 .ini-eixos-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -166,50 +168,55 @@ body.inicio-page .rb-main {
 .ini-ficha--hero {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 40px;
+    gap: 18px;
+    padding: 36px;
     background: #fff;
-    border: 1px solid var(--ini-linha);
-    border-left: 4px solid var(--ini-linha);
-    border-radius: 2px;
+    border: 1px solid rgba(38,69,132,.14);
+    border-left: 4px solid rgba(38,69,132,.25);
+    border-radius: 12px;
     text-decoration: none;
-    transition: border-left-color .18s;
-    min-height: 280px;
+    box-shadow: 0 2px 12px rgba(38,69,132,.07);
+    transition: border-left-color .18s, box-shadow .18s;
+    min-height: 260px;
 }
-.ini-ficha--hero:hover { border-left-color: var(--ini-barro); }
+.ini-ficha--hero:hover {
+    border-left-color: var(--color-primary);
+    box-shadow: 0 4px 20px rgba(38,69,132,.14);
+}
 
 .ini-ficha-num {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'DM Mono', 'IBM Plex Mono', monospace;
     font-size: 0.6875rem;
     font-weight: 600;
-    color: var(--ini-barro);
+    color: var(--color-primary);
     letter-spacing: .1em;
+    opacity: .6;
 }
 
 .ini-ficha--hero .ini-ficha-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 1.4375rem;
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 1.3125rem;
     font-weight: 700;
-    color: var(--ini-tinta);
+    color: #101d4f;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.25;
 }
 
 .ini-ficha--hero .ini-ficha-desc {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.9375rem;
-    color: var(--ini-tinta);
-    opacity: .68;
+    color: #334488;
+    opacity: .75;
     margin: 0;
     line-height: 1.65;
     flex: 1;
 }
 
 .ini-ficha-cta {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--ini-mata);
+    color: var(--color-primary);
     margin-top: auto;
 }
 
@@ -217,25 +224,27 @@ body.inicio-page .rb-main {
 .ini-fichas-stack {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .ini-ficha--compact {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
-    padding: 24px 28px;
+    gap: 18px;
+    padding: 22px 26px;
     background: #fff;
-    border: 1px solid var(--ini-linha);
-    border-left: 4px solid var(--ini-linha);
-    border-radius: 2px;
+    border: 1px solid rgba(38,69,132,.14);
+    border-left: 4px solid rgba(38,69,132,.18);
+    border-radius: 12px;
     text-decoration: none;
-    transition: border-left-color .18s, background .18s;
+    box-shadow: 0 1px 6px rgba(38,69,132,.06);
+    transition: border-left-color .18s, background .18s, box-shadow .18s;
     flex: 1;
 }
 .ini-ficha--compact:hover {
-    border-left-color: var(--ini-barro);
-    background: rgba(201,122,43,.04);
+    border-left-color: var(--color-primary);
+    background: #f0f5fc;
+    box-shadow: 0 3px 12px rgba(38,69,132,.12);
 }
 
 .ini-ficha--compact .ini-ficha-num {
@@ -251,10 +260,10 @@ body.inicio-page .rb-main {
 }
 
 .ini-ficha--compact .ini-ficha-title {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--ini-tinta);
+    color: #101d4f;
     margin: 0;
     line-height: 1.3;
 }
@@ -266,7 +275,7 @@ body.inicio-page .rb-main {
 
 /* ── INSTITUCIONAL ── */
 .ini-inst {
-    border-top: 1px solid var(--ini-linha);
+    border-top: 1px solid rgba(38,69,132,.18);
     padding-top: 48px;
     display: flex;
     flex-direction: column;
@@ -275,46 +284,47 @@ body.inicio-page .rb-main {
 }
 
 .ini-inst-org {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--ini-tinta);
+    color: #101d4f;
     margin: 0;
 }
 
 .ini-inst-claim {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8125rem;
-    color: var(--ini-tinta);
-    opacity: .6;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.875rem;
+    color: #334488;
+    opacity: .7;
     margin: 0;
-    font-style: italic;
+    line-height: 1.55;
 }
 
 .ini-inst-link {
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--ini-mata);
+    color: var(--color-primary);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
     gap: 6px;
     margin-top: 12px;
+    transition: opacity .15s;
 }
-.ini-inst-link:hover { opacity: .75; }
+.ini-inst-link:hover { opacity: .72; }
 
 /* ── RESPONSIVO ── */
 @media (max-width: 960px) {
-    .ini-page { padding: 48px 32px 72px; gap: 72px; }
+    .ini-page { padding: 48px 32px 72px; gap: 64px; }
     .ini-eixos-grid { grid-template-columns: 1fr; }
-    .ini-fichas-stack { gap: 6px; }
+    .ini-fichas-stack { gap: 8px; }
     .ini-ficha--hero { min-height: auto; }
 }
 
 @media (max-width: 600px) {
-    .ini-page { padding: 28px 20px 56px; gap: 56px; }
-    .ini-h1 { font-size: 1.875rem; }
+    .ini-page { padding: 28px 20px 56px; gap: 52px; }
+    .ini-h1 { font-size: 1.75rem; }
     .ini-indicators {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -322,7 +332,10 @@ body.inicio-page .rb-main {
     }
     .ini-ind { padding: 0; }
     .ini-ind + .ini-ind { padding-left: 0; border-left: none; }
-    .ini-ind:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--ini-linha); }
-    .ini-ficha--hero { padding: 28px 24px; gap: 16px; }
-    .ini-ficha--compact { padding: 20px; gap: 14px; }
+    .ini-ind:nth-child(odd) {
+        padding-right: 20px;
+        border-right: 1px solid rgba(38,69,132,.18);
+    }
+    .ini-ficha--hero { padding: 28px 22px; gap: 14px; }
+    .ini-ficha--compact { padding: 18px 20px; }
 }
