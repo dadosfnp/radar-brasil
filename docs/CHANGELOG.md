@@ -4,6 +4,40 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-24 — `main` (12ª entrada)
+
+### Feat — Redesign editorial da página Início
+
+Redesign completo da home page baseado em análise UX/UI profissional. Motivação: layout
+2×2 simétrico com ícones genéricos de dashboard + copy institucional vazia comunicavam
+como "site de SaaS", não como plataforma de dados públicos sérios.
+
+**Paleta nova (scoped em `body.inicio-page`):**
+- `#F3EFE2` — fundo papel quente (substitui azul-gelo genérico)
+- `#16241F` — tinta/texto principal (verde-pinho quase preto)
+- `#2F6E5C` — jade (CTA primário, links, accents)
+- `#C97A2B` — barro/ocre (números, bordas de hover)
+- `#D8D2BE` — linha (bordas e divisores)
+Outras páginas não afetadas — paleta isolada via `body.inicio-page`.
+
+**Tipografia:**
+- **Fraunces** (serifada) — H1, H2, ficha hero (caractere editorial, não SaaS)
+- **Public Sans** — corpo, botões, UI
+- **IBM Plex Mono** — indicadores numéricos, eyebrow, claim institucional (dado = monospace)
+
+**Estrutura nova:**
+- Hero com H1 em forma de pergunta: "Cada prefeitura brasileira tem um plano?"
+- Régua de indicadores com contador animado: 5.570 municípios · 27 estados · 4 eixos · 46+
+- Eixos como "Fichas de Dossiê" numeradas (01–04) em layout assimétrico:
+  Ficha 01 Governança (destaque, card grande) + Fichas 02–04 (lista compacta à direita)
+- Seção institucional: FNP + claim + link metodologia
+- Hover: borda esquerda 4px `#D8D2BE` → `#C97A2B` (sem sombra flutuante, sem scale)
+- Animação única: contador de 0 até o valor ao entrar na viewport (não repete)
+
+**Arquivos modificados:** `templates/municipios/inicio.html`, `static/css/inicio.css`
+
+---
+
 ## 2026-08-18 — `main` (11ª entrada)
 
 ### Style — Melhora formatação da tabela no mobile (layout empilhado)

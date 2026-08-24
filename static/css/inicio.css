@@ -1,242 +1,328 @@
-﻿/* ==============================
-   PÁGINA INÍCIO – redesign
+/* ==============================
+   PÁGINA INÍCIO — redesign editorial
+   Paleta: papel quente + jade + barro
    ============================== */
 
 body.inicio-page {
-    background: var(--color-bg-page);
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+    background: #F3EFE2;
+    --ini-tinta:  #16241F;
+    --ini-papel:  #F3EFE2;
+    --ini-mata:   #2F6E5C;
+    --ini-barro:  #C97A2B;
+    --ini-linha:  #D8D2BE;
 }
 
-body.inicio-page .rb-footer-landing {
-    display: none;
-}
+body.inicio-page .rb-footer-landing { display: none; }
 
 body.inicio-page .rb-main {
     background: transparent;
-    max-width: 4000px;
-    margin: 0 auto;
-    padding: 0 24px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
     flex-grow: 1;
-    margin-top: 0;
 }
 
-/* ---- PAGE WRAPPER ---- */
+/* ── WRAPPER ── */
 .ini-page {
-    max-width: 860px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 36px 0 60px;
+    padding: 64px 64px 96px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 96px;
 }
 
-/* ---- INTRO ---- */
-.ini-intro {
+/* ── HERO ── */
+.ini-hero {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    max-width: 740px;
 }
 
-.intro-label {
+.ini-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--ini-mata);
+    letter-spacing: .04em;
+    margin: 0 0 24px;
+}
+
+.ini-h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.875rem, 5vw, 3.25rem);
+    font-weight: 800;
+    color: var(--ini-tinta);
+    line-height: 1.15;
+    margin: 0 0 28px;
+}
+
+.ini-lead {
+    font-family: 'Public Sans', 'DM Sans', sans-serif;
+    font-size: 1.0625rem;
+    color: var(--ini-tinta);
+    opacity: .72;
+    line-height: 1.7;
+    margin: 0 0 36px;
+    max-width: 580px;
+}
+
+.ini-cta {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(16,29,79, .12);
-    border: 1px solid rgba(16,29,79, .22);
-    border-radius: 999px;
-    padding: 5px 14px;
-    font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.625rem;
-    font-weight: 700;
-    color: #101d4f;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    width: fit-content;
-}
-
-@keyframes ini-dot-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(34,197,94, 0.65); }
-    70%  { box-shadow: 0 0 0 6px rgba(34,197,94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34,197,94, 0); }
-}
-
-.intro-label-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #22c55e;
-    flex-shrink: 0;
-    animation: ini-dot-pulse 2s ease-out infinite;
-}
-
-.ini-intro h2 {
-    font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 1.625rem;
-    font-weight: 800;
-    color: #101d4f;
-    line-height: 1.3;
-    text-shadow: none;
-}
-
-.ini-intro h2 strong {
-    color: #101d4f;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.ini-intro p {
-    font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 0.84375rem;
-    color: #334488;
-    line-height: 1.75;
-    max-width: 640px;
-}
-
-/* ---- GRID 2×2 ---- */
-.ini-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-}
-
-/* ---- CARD ---- */
-.ini-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 20px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-        0 4px 24px rgba(16,29,79, 0.14),
-        0 1px 4px rgba(16,29,79, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.60);
+    gap: 8px;
+    background: var(--ini-mata);
+    color: #fff;
+    font-family: 'Public Sans', 'DM Sans', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 3px;
     text-decoration: none;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-    cursor: pointer;
+    transition: background .18s;
+    width: fit-content;
+    margin-bottom: 56px;
 }
+.ini-cta:hover { background: #25574A; color: #fff; }
 
-.ini-card:hover {
-    transform: translateY(-6px) scale(1.015);
-    box-shadow:
-        0 14px 40px rgba(16,29,79, 0.20),
-        0 2px 8px rgba(16,29,79, 0.10);
-}
-
-/* Card header gradient */
-.ini-card-head {
+/* Indicadores */
+.ini-indicators {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #264584;
-    padding: 14px 24px 13px;
+    align-items: flex-start;
+    gap: 0;
+    border-top: 1px solid var(--ini-linha);
+    padding-top: 32px;
 }
 
-.ini-card-title {
-    font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
-}
-
-.ini-card-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
-    color: rgba(255, 255, 255, 0.90);
-    flex-shrink: 0;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.ini-card:hover .ini-card-arrow {
-    transform: translateX(3px);
-    background: rgba(255, 255, 255, 0.28);
-}
-
-/* Card body */
-.ini-card-body {
-    padding: 32px 28px 28px;
+.ini-ind {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 18px;
+    gap: 6px;
+    padding-right: 40px;
+}
+
+.ini-ind + .ini-ind {
+    padding-left: 40px;
+    border-left: 1px solid var(--ini-linha);
+}
+
+.ini-ind-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(1.625rem, 3vw, 2.375rem);
+    font-weight: 600;
+    color: var(--ini-barro);
+    line-height: 1;
+}
+
+.ini-ind-label {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--ini-tinta);
+    opacity: .58;
+    letter-spacing: .01em;
+}
+
+/* ── EIXOS ── */
+.ini-eixos {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.ini-eixos-hd {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ini-eixos-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--ini-tinta);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ini-eixos-sub {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--ini-tinta);
+    opacity: .62;
+    margin: 0;
+    max-width: 540px;
+    line-height: 1.6;
+}
+
+/* Grid assimétrico: ficha hero à esquerda, lista compacta à direita */
+.ini-eixos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+/* ── FICHA HERO (01 — Governança) ── */
+.ini-ficha--hero {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px;
+    background: #fff;
+    border: 1px solid var(--ini-linha);
+    border-left: 4px solid var(--ini-linha);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-left-color .18s;
+    min-height: 280px;
+}
+.ini-ficha--hero:hover { border-left-color: var(--ini-barro); }
+
+.ini-ficha-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--ini-barro);
+    letter-spacing: .1em;
+}
+
+.ini-ficha--hero .ini-ficha-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.4375rem;
+    font-weight: 700;
+    color: var(--ini-tinta);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.ini-ficha--hero .ini-ficha-desc {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    color: var(--ini-tinta);
+    opacity: .68;
+    margin: 0;
+    line-height: 1.65;
     flex: 1;
 }
 
-/* Icon wrapper */
-.ini-icon-wrap {
-    width: 88px;
-    height: 88px;
-    border-radius: 22px;
-    background: var(--hdr-50);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.80),
-        0 4px 12px rgba(16,29,79, 0.10);
-    position: relative;
-    overflow: hidden;
+.ini-ficha-cta {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ini-mata);
+    margin-top: auto;
 }
 
-.ini-icon-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.55) 0%, transparent 65%);
-    border-radius: inherit;
-}
-
-.ini-icon-img {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    position: relative;
-    z-index: 1;
-}
-
-/* Card description */
-.ini-card-desc {
+/* ── FICHAS COMPACTAS (02–04) ── */
+.ini-fichas-stack {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
+    gap: 4px;
 }
 
-.ini-card-desc strong {
-    font-family: 'Sora', 'Roboto', sans-serif;
+.ini-ficha--compact {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 28px;
+    background: #fff;
+    border: 1px solid var(--ini-linha);
+    border-left: 4px solid var(--ini-linha);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: border-left-color .18s, background .18s;
+    flex: 1;
+}
+.ini-ficha--compact:hover {
+    border-left-color: var(--ini-barro);
+    background: rgba(201,122,43,.04);
+}
+
+.ini-ficha--compact .ini-ficha-num {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.ini-ficha-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+.ini-ficha--compact .ini-ficha-title {
+    font-family: 'Public Sans', sans-serif;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--hdr-800);
+    color: var(--ini-tinta);
+    margin: 0;
     line-height: 1.3;
 }
 
-.ini-card-desc p {
-    font-family: 'DM Sans', 'Roboto', sans-serif;
+.ini-ficha--compact .ini-ficha-cta {
     font-size: 0.8125rem;
-    color: var(--hdr-700);
-    line-height: 1.65;
-    opacity: 0.85;
+    margin-top: 0;
 }
 
-/* ---- RESPONSIVO ---- */
-@media (max-width: 680px) {
-    .ini-grid { grid-template-columns: 1fr; gap: 12px; }
-    .ini-page { padding: 16px 0 32px; }
+/* ── INSTITUCIONAL ── */
+.ini-inst {
+    border-top: 1px solid var(--ini-linha);
+    padding-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 560px;
 }
 
-@media (max-width: 480px) {
-    .ini-card { padding: 18px 16px; }
-    .ini-page { padding: 12px 0 24px; }
+.ini-inst-org {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ini-tinta);
+    margin: 0;
+}
+
+.ini-inst-claim {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8125rem;
+    color: var(--ini-tinta);
+    opacity: .6;
+    margin: 0;
+    font-style: italic;
+}
+
+.ini-inst-link {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ini-mata);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+.ini-inst-link:hover { opacity: .75; }
+
+/* ── RESPONSIVO ── */
+@media (max-width: 960px) {
+    .ini-page { padding: 48px 32px 72px; gap: 72px; }
+    .ini-eixos-grid { grid-template-columns: 1fr; }
+    .ini-fichas-stack { gap: 6px; }
+    .ini-ficha--hero { min-height: auto; }
+}
+
+@media (max-width: 600px) {
+    .ini-page { padding: 28px 20px 56px; gap: 56px; }
+    .ini-h1 { font-size: 1.875rem; }
+    .ini-indicators {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px 0;
+    }
+    .ini-ind { padding: 0; }
+    .ini-ind + .ini-ind { padding-left: 0; border-left: none; }
+    .ini-ind:nth-child(odd) { padding-right: 20px; border-right: 1px solid var(--ini-linha); }
+    .ini-ficha--hero { padding: 28px 24px; gap: 16px; }
+    .ini-ficha--compact { padding: 20px; gap: 14px; }
 }
