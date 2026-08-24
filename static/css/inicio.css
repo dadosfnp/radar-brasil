@@ -184,13 +184,61 @@ body.inicio-page .rb-main {
     box-shadow: 0 4px 20px rgba(38,69,132,.14);
 }
 
+/* Topo da ficha hero: ícone + número lado a lado */
+.ini-ficha-hero-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Ícone grande — ficha hero */
+.ini-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: rgba(38,69,132,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.ini-icon-img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+/* Ícone pequeno — fichas compactas */
+.ini-icon-sm-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(38,69,132,.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.ini-icon-sm {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
 .ini-ficha-num {
     font-family: 'DM Mono', 'IBM Plex Mono', monospace;
     font-size: 0.6875rem;
     font-weight: 600;
     color: var(--color-primary);
     letter-spacing: .1em;
-    opacity: .6;
+    opacity: .55;
+}
+
+/* Número + título em linha nas fichas compactas */
+.ini-ficha-top-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
 }
 
 .ini-ficha--hero .ini-ficha-title {
@@ -245,11 +293,6 @@ body.inicio-page .rb-main {
     border-left-color: var(--color-primary);
     background: #f0f5fc;
     box-shadow: 0 3px 12px rgba(38,69,132,.12);
-}
-
-.ini-ficha--compact .ini-ficha-num {
-    flex-shrink: 0;
-    margin-top: 2px;
 }
 
 .ini-ficha-body {

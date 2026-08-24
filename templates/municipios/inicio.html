@@ -60,7 +60,12 @@
 
       {# Ficha 01 — destaque #}
       <a href="{% url 'indicadores:painel_multinivel' %}?aba=0" class="ini-ficha ini-ficha--hero">
-        <span class="ini-ficha-num">01</span>
+        <div class="ini-ficha-hero-top">
+          <div class="ini-icon-wrap">
+            <img src="{% static 'img/governanca.svg' %}" alt="" class="ini-icon-img" aria-hidden="true">
+          </div>
+          <span class="ini-ficha-num">01</span>
+        </div>
         <h3 class="ini-ficha-title">{% trans "Estruturas de Governança" %}</h3>
         <p class="ini-ficha-desc">{% trans "Quem decide o quê no clima — da União ao município." %}</p>
         <span class="ini-ficha-cta">{% trans "Abrir governança" %} →</span>
@@ -70,25 +75,40 @@
       <div class="ini-fichas-stack">
 
         <a href="{% url 'indicadores:painel_multinivel' %}?aba=1" class="ini-ficha ini-ficha--compact">
-          <span class="ini-ficha-num">02</span>
+          <div class="ini-icon-sm-wrap">
+            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ini-icon-sm" aria-hidden="true">
+          </div>
           <div class="ini-ficha-body">
-            <h3 class="ini-ficha-title">{% trans "Políticas e Planos" %}</h3>
+            <div class="ini-ficha-top-row">
+              <span class="ini-ficha-num">02</span>
+              <h3 class="ini-ficha-title">{% trans "Políticas e Planos" %}</h3>
+            </div>
             <span class="ini-ficha-cta">{% trans "Abrir políticas" %} →</span>
           </div>
         </a>
 
         <a href="{% url 'indicadores:painel_multinivel' %}?aba=2" class="ini-ficha ini-ficha--compact">
-          <span class="ini-ficha-num">03</span>
+          <div class="ini-icon-sm-wrap">
+            <img src="{% static 'img/programas.svg' %}" alt="" class="ini-icon-sm" aria-hidden="true">
+          </div>
           <div class="ini-ficha-body">
-            <h3 class="ini-ficha-title">{% trans "Programas" %}</h3>
+            <div class="ini-ficha-top-row">
+              <span class="ini-ficha-num">03</span>
+              <h3 class="ini-ficha-title">{% trans "Programas" %}</h3>
+            </div>
             <span class="ini-ficha-cta">{% trans "Abrir programas" %} →</span>
           </div>
         </a>
 
         <a href="{% url 'indicadores:financiamento_climatico' %}" class="ini-ficha ini-ficha--compact">
-          <span class="ini-ficha-num">04</span>
+          <div class="ini-icon-sm-wrap">
+            <img src="{% static 'img/financiamento.svg' %}" alt="" class="ini-icon-sm" aria-hidden="true">
+          </div>
           <div class="ini-ficha-body">
-            <h3 class="ini-ficha-title">{% trans "Linhas de Financiamento" %}</h3>
+            <div class="ini-ficha-top-row">
+              <span class="ini-ficha-num">04</span>
+              <h3 class="ini-ficha-title">{% trans "Linhas de Financiamento" %}</h3>
+            </div>
             <span class="ini-ficha-cta">{% trans "Abrir financiamento" %} →</span>
           </div>
         </a>
