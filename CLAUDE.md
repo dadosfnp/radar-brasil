@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-08-18 (fim do dia)
+> Última atualização: 2026-08-24
 
 ---
 
@@ -272,19 +272,26 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-18 — fim do dia)
+## Estado Atual do Projeto (2026-08-24)
 
-### Branch atual: `main` — commits publicados, deploy pendente no droplet
+### Branch atual: `main` — deploy completo (droplet atualizado)
 
-**Commits do dia (filtros mobile + tabela):**
+**Commits do dia (ícones página Início):**
 
 ```
+7aef68a style: remove efeito bolha de vidro dos icones da pagina Inicio
+362dcac revert: restaura pagina Inicio para estado exato do commit bbe5fbe
+0bad27d revert: restaura layout 2x2 da pagina Inicio; melhora icones
+```
+
+**Commits anteriores (filtros mobile + tabela — 2026-08-18):**
+
+```
+88fa462 docs: atualiza CLAUDE.md com estado atual 2026-08-18
 bbe5fbe style: melhora tabela mobile - layout empilhado, cabecalho navy, repasses agrupados
 c2e87e4 fix: todos os filtros selecionados por default - remove defaultCount do setor
 00893cd fix: sem dados nos graficos — remove defaultCount origem, corrige labels invertidos
 b35826b fix: fecha dropdown ao rolar pagina — distingue scroll opcoes vs scroll pagina
-a816c25 feat: selecao padrao nos filtros de graficos e tabela sem filtro
-9a5226b fix: remove backdrop e usa touchend nas opcoes — causa raiz dos filtros mobile
 ```
 
 ### Financiamento Climático — Componente MultiSelect
@@ -310,6 +317,14 @@ O arquivo `static/js/financiamento-climatico.js` contém a classe `MultiSelect` 
 - Demais `td` → layout empilhado: label (`::before`) acima, valor abaixo (largura total)
 - `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc` com `border-top` separador
 
+### Página Início — estado atual (2026-08-24)
+
+Layout 2×2 com glassmorphism restaurado. Ícone SVG com fundo flat:
+- `.ini-icon-wrap`: `background: rgba(38,69,132,.08)` + `border: 1.5px solid rgba(38,69,132,.14)`
+- **Sem** `::before radial-gradient` (removido — causava aspecto genérico de IA)
+- **Sem** `inset box-shadow` (removido junto com o pseudo-elemento)
+- Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
+
 ### Nova Identidade Visual — aplicada (2026-08-17)
 
 **Paleta de cores:**
@@ -327,8 +342,8 @@ O arquivo `static/js/financiamento-climatico.js` contém a classe `MultiSelect` 
 
 | Remoto | URL | `next` | `main` |
 |---|---|---|---|
-| `origin` | `brunofnp/radar-brasil` | ✅ `bbe5fbe` | ✅ `bbe5fbe` |
-| `prod` | `dadosfnp/radar-brasil` | — | ✅ `bbe5fbe` |
+| `origin` | `brunofnp/radar-brasil` | ✅ `7aef68a` | ✅ `7aef68a` |
+| `prod` | `dadosfnp/radar-brasil` | — | ✅ `7aef68a` |
 
 > `next` e `main` estão no mesmo commit. Ao iniciar nova feature, criar branch a partir de `next`.
 
@@ -392,10 +407,6 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Pendências
 
-- **Deploy no droplet:** commits `c2e87e4` e `bbe5fbe` publicados nos remotos, falta rodar no servidor:
-  ```bash
-  cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
-  ```
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
