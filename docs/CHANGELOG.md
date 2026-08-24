@@ -6,15 +6,12 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-08-24 — `main` (13ª entrada)
 
-### Revert + Style — Restaura layout 2×2 da página Início; melhora ícones
+### Revert — Restaura página Início para estado do commit bbe5fbe
 
-Revert do redesign editorial (paleta papel quente + layout assimétrico) que saiu do tema
-visual do site. Layout 2×2 simétrico original restaurado com:
-- Grid `repeat(2, 1fr)`, cards glassmorphism (`backdrop-filter`)
-- Cabeçalho navy `var(--color-primary)` por card com título + seta
-- Ícones SVG existentes mantidos com fundo limpo:
-  `background: rgba(38,69,132,.07)` + `border: 1px solid rgba(38,69,132,.12)`
-  Sem `::before` radial-gradient ("bolha de vidro") que dava aspecto genérico de IA
+Revert de todos os redesigns subsequentes (paleta papel quente, layout assimétrico, paleta
+FNP adaptada). Arquivos restaurados byte-a-byte para o estado de `bbe5fbe`:
+- Grid 2×2, cards glassmorphism, cabeçalho navy, ícones SVG
+- Layout e CSS idênticos ao estado validado em 2026-08-18
 
 **Arquivos modificados:** `templates/municipios/inicio.html`, `static/css/inicio.css`
 

@@ -516,7 +516,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-08-18 | `c2e87e4` | Filtros Financiamento: todos selecionados por default (remove defaultCount) |
 | 2026-08-18 | `bbe5fbe` | Tabela mobile: layout empilhado, cabeçalho navy, repasses agrupados |
 | 2026-08-24 | (pendente)| Página Início: redesign editorial — paleta papel+jade+barro, Fraunces/Public Sans/IBM Plex Mono, hero com indicadores, fichas de dossiê assimétrico, seção institucional |
-| 2026-08-24 | (pendente)| Página Início: revert para layout 2×2 original; ícone sem radial-gradient (flat badge `rgba(38,69,132,.07)` + borda) |
+| 2026-08-24 | (pendente)| Página Início: revert completo para estado `bbe5fbe` (2×2 glassmorphism, ícones SVG, cabeçalho navy) |
 
 ---
 
