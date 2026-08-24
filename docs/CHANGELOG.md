@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-24 — `main` (15ª entrada)
+
+### Style — Botão "Ver Agenda" desabilitado na landing page
+
+Botão "VER AGENDA" convertido para estado "em breve" — mesmo visual do botão
+do Ecossistema: fundo cinza `rgba(16,29,79,.18)`, texto apagado, badge "Em breve",
+`cursor: default`, sem hover ativo.
+
+**Arquivos modificados:** `templates/municipios/landing.html`, `static/css/landing.css`
+
+---
+
 ## 2026-08-24 — `main` (14ª entrada)
 
 ### Style — Remove efeito "bolha de vidro" dos ícones da página Início

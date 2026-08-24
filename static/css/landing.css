@@ -217,6 +217,25 @@ body.lp-body .rb-main {
     box-shadow: 0 6px 20px rgba(16,29,79,.36);
 }
 
+.lp-btn-side--soon {
+    background: rgba(16,29,79,.18);
+    color: rgba(16,29,79,.45);
+    box-shadow: none;
+    cursor: default;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.lp-btn-side--soon::before { display: none; }
+
+.lp-btn-side--soon:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 /* ══════════════════════════════
    CONTENT CARDS
    ══════════════════════════════ */

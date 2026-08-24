@@ -48,7 +48,10 @@
             <div class="lp-agenda-icon">
                 <img src="{% static 'img/agenda-land.png' %}" alt="{% trans 'Agenda' %}" loading="lazy">
             </div>
-            <button class="lp-btn-side">{% trans "Ver Agenda" %}</button>
+            <span class="lp-btn-side lp-btn-side--soon" aria-disabled="true" title="{% trans 'Em breve' %}">
+                {% trans "Ver Agenda" %}
+                <span class="lp-soon-badge">{% trans "Em breve" %}</span>
+            </span>
         </div>
 
     </aside>

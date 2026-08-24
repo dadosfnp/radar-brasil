@@ -518,6 +518,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-08-24 | (pendente)| Página Início: redesign editorial — paleta papel+jade+barro, Fraunces/Public Sans/IBM Plex Mono, hero com indicadores, fichas de dossiê assimétrico, seção institucional |
 | 2026-08-24 | (pendente)| Página Início: revert completo para estado `bbe5fbe` (2×2 glassmorphism, ícones SVG, cabeçalho navy) |
 | 2026-08-24 | (pendente)| Ícones página Início: remove radial-gradient + inset shadow do `.ini-icon-wrap`; fundo flat `rgba(38,69,132,.08)` + borda |
+| 2026-08-24 | (pendente)| Landing page: botão "Ver Agenda" → estado desabilitado `.lp-btn-side--soon` com badge "Em breve" |
 
 ---
 
