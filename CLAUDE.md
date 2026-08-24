@@ -274,78 +274,35 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-08-24)
 
-### Branch atual: `main` — deploy completo (droplet atualizado)
+### Branch atual: `main` — `c66887a` — droplet pendente de rebuild
 
-**Commits do dia (ícones página Início):**
+**Commits da sessão (2026-08-24):**
 
 ```
+c66887a style: botao Ver Agenda desabilitado na landing page
+98e9cd7 docs: atualiza CLAUDE.md com estado atual 2026-08-24
 7aef68a style: remove efeito bolha de vidro dos icones da pagina Inicio
 362dcac revert: restaura pagina Inicio para estado exato do commit bbe5fbe
-0bad27d revert: restaura layout 2x2 da pagina Inicio; melhora icones
 ```
 
-**Commits anteriores (filtros mobile + tabela — 2026-08-18):**
+### Remotos
 
+| Remoto | `next` | `main` |
+|---|---|---|
+| `origin` (brunofnp) | ✅ `c66887a` | ✅ `c66887a` |
+| `prod` (dadosfnp) | — | ✅ `c66887a` |
+
+> `next` e `main` idênticos. Criar feature branches a partir de `next`.
+
+### Droplet — pendente
+
+O droplet puxou `c66887a` mas não fez `build`. Para aplicar a mudança do `landing.css`:
+
+```bash
+cd /opt/radar-brasil && docker compose build && docker compose up -d
 ```
-88fa462 docs: atualiza CLAUDE.md com estado atual 2026-08-18
-bbe5fbe style: melhora tabela mobile - layout empilhado, cabecalho navy, repasses agrupados
-c2e87e4 fix: todos os filtros selecionados por default - remove defaultCount do setor
-00893cd fix: sem dados nos graficos — remove defaultCount origem, corrige labels invertidos
-b35826b fix: fecha dropdown ao rolar pagina — distingue scroll opcoes vs scroll pagina
-```
 
-### Financiamento Climático — Componente MultiSelect
-
-O arquivo `static/js/financiamento-climatico.js` contém a classe `MultiSelect` (filtros customizados com checkbox). Contexto importante para futuras sessões:
-
-**Semântica do Set `selected`:**
-- `selected.size === 0` → todos os itens ativos (sem filtro) — exibe placeholder "Todos os X"
-- `selected.size > 0` → apenas os itens no Set são incluídos no filtro do backend
-
-**Comportamento padrão atual:** todos os filtros iniciam com `selected = new Set()` (todos selecionados). O construtor aceita `defaultCount` mas nenhum filtro o usa no momento.
-
-**Tabela:** `carregarTabela()` chama `/indicadores/api/financiamento/tabela/` **sem** query string — sempre mostra todos os dados, independente dos filtros ativos nos gráficos.
-
-**Fix iOS mobile (causa raiz resolvida):**
-- Backdrop `position:fixed` com `onclick` interceptava toques no iOS mesmo com z-index inferior — **removido**
-- Fechamento ao clicar fora: `document.click` + guard `Date.now() - _openedAt < 350ms`
-- Seleção de opções: `ontouchend` no container (detecta scroll >8px antes de toggling)
-- Scroll da página fecha o dropdown via `window.scroll`, mas não quando o usuário rola dentro do dropdown (`_optionsScrolling` flag com timer 200ms)
-
-**Tabela mobile — layout de cartão:**
-- `td:first-child` (Programa) → cabeçalho navy (`var(--color-primary)`) com texto branco
-- Demais `td` → layout empilhado: label (`::before`) acima, valor abaixo (largura total)
-- `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc` com `border-top` separador
-
-### Página Início — estado atual (2026-08-24)
-
-Layout 2×2 com glassmorphism restaurado. Ícone SVG com fundo flat:
-- `.ini-icon-wrap`: `background: rgba(38,69,132,.08)` + `border: 1.5px solid rgba(38,69,132,.14)`
-- **Sem** `::before radial-gradient` (removido — causava aspecto genérico de IA)
-- **Sem** `inset box-shadow` (removido junto com o pseudo-elemento)
-- Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
-
-### Nova Identidade Visual — aplicada (2026-08-17)
-
-**Paleta de cores:**
-- `--color-primary`: `#264584` (azul de referência da marca FNP)
-- `--color-bg-page`: `#d9e8f5` (azul claro — fundo de todas as páginas)
-- Todos os tons teal/verde eliminados (exceto bolinhas piscantes em `#22c55e`)
-- Degradês removidos — cor sólida `#264584` em cabeçalhos e botões
-
-**Logos e avatares (`static/img/`):**
-- `logo-radar-fundo-escuro.svg` — header (fundo navy)
-- `logo-radar-fundo-claro.svg` — backgrounds claros
-- `avatar-principal.svg` / `avatar-positivo.svg` / `avatar-negativo.svg`
-
-### Remotos — estado atual
-
-| Remoto | URL | `next` | `main` |
-|---|---|---|---|
-| `origin` | `brunofnp/radar-brasil` | ✅ `7aef68a` | ✅ `7aef68a` |
-| `prod` | `dadosfnp/radar-brasil` | — | ✅ `7aef68a` |
-
-> `next` e `main` estão no mesmo commit. Ao iniciar nova feature, criar branch a partir de `next`.
+**CRÍTICO:** `docker compose up -d` sem `build` não atualiza arquivos estáticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` após mudanças em CSS/JS/templates.
 
 ### Infraestrutura de produção
 
@@ -359,37 +316,17 @@ Layout 2×2 com glassmorphism restaurado. Ícone SVG com fundo flat:
 | Banco | `fnp-database` (DigitalOcean Managed PostgreSQL 18) — database `radar_brasil`, user `radarbrasil` |
 | Container | `radarbrasil` — Python 3.12-slim, Gunicorn 3 workers |
 
-### Arquitetura de dados
-
-```
-Google Sheets → sync_sheets_db → PostgreSQL → App (Django ORM)
-```
-
-- Runtime **nunca** acessa Google Sheets diretamente
-- `python manage.py sync_sheets_db` repovoa o banco a partir das planilhas
-- Rodar novamente quando as planilhas forem atualizadas
-
-**Contagem atual no banco:**
-
-| Tabela | PT | EN |
-|---|---|---|
-| RegistroFicha | 98 | 98 |
-| RegistroParametro | 412 | 412 |
-| RegistroFinanciamento | 46 | 46 |
-| RegistroMapa | 2322 | 2322 |
-
-### Rotina de deploy de atualizações
+### Rotina de deploy
 
 ```powershell
-# Local (após commits em main)
+# Local
 git push origin main
 git push prod main
+git branch -f next main
+git push origin next --force-with-lease
 
-# Droplet (SSH)
-cd /opt/radar-brasil
-git pull
-docker compose build
-docker compose up -d
+# Droplet (SSH root@142.93.205.222)
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
 
 Para atualizar dados das planilhas (sem redeploy):
@@ -397,16 +334,77 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
+### Página Início — estado (2026-08-24)
+
+Layout 2×2 glassmorphism. Ícone SVG com fundo flat — **sem radial-gradient**:
+
+```css
+.ini-icon-wrap {
+    width: 88px; height: 88px; border-radius: 22px;
+    background: rgba(38,69,132,.08);
+    border: 1.5px solid rgba(38,69,132,.14);
+}
+/* SEM ::before, SEM inset box-shadow */
+```
+
+Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
+
+### Landing Page — estado (2026-08-24)
+
+Botão "VER AGENDA" desabilitado com classe `.lp-btn-side--soon`:
+- Template: `templates/municipios/landing.html` linha ~51
+- CSS: `.lp-btn-side--soon` em `static/css/landing.css` — fundo cinza, cursor default, badge "Em breve"
+- Mesmo padrão visual do botão Ecossistema (`.lp-btn-card--soon`)
+
+### Financiamento Climático — Componente MultiSelect
+
+Arquivo: `static/js/financiamento-climatico.js`
+
+**Semântica do Set `selected`:**
+- `selected.size === 0` → todos ativos (sem filtro) — exibe placeholder "Todos os X"
+- `selected.size > 0` → apenas os itens no Set são filtrados
+
+**Estado atual:** todos os filtros iniciam com `selected = new Set()` (nenhum `defaultCount`).
+**Tabela:** `carregarTabela()` chama `/indicadores/api/financiamento/tabela/` sem query string — sempre mostra todos os dados.
+
+**Fix iOS mobile (resolvido):**
+- Backdrop removido (interceptava toques no iOS)
+- Fechamento ao clicar fora: `document.click` + guard 350ms
+- Seleção: `ontouchend` no container (scroll >8px cancela toggle)
+- Scroll da página fecha o dropdown via `window.scroll` (`_optionsScrolling` flag 200ms)
+
+**Tabela mobile:**
+- `td:first-child` → cabeçalho navy, texto branco
+- Demais `td` → label (`::before`) acima + valor abaixo (empilhado)
+- `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc`, `border-top`
+
+### Identidade Visual
+
+- `--color-primary`: `#264584` (navy FNP)
+- `--color-bg-page`: `#d9e8f5` (azul claro, fundo global)
+- Sem degradês, sem teal/verde (exceto bolinha piscante `#22c55e`)
+
 ### i18n EN — completo
 
-- Seletor PT|EN no header, `LocaleMiddleware`, `LANGUAGES`, `LOCALE_PATHS`
-- `locale/en/LC_MESSAGES/django.po` com 243 strings + `django.mo` compilado
-- `static/js/i18n.js` com `DICT.en` cobrindo todos os módulos
-- i18n aplicado em 9 templates + 5 arquivos JS
-- Banco EN populado (fichas, parâmetros, financiamento, mapa)
+- `LocaleMiddleware`, seletor PT|EN no header, `LANGUAGES = [("pt-br",...), ("en",...)]`
+- `locale/en/LC_MESSAGES/django.po` — 243 strings + `django.mo` compilado
+- `static/js/i18n.js` — `RBi18n.t()` / `RBi18n.getLang()` — cobre 9 templates + 5 JS
+- Banco EN populado (98 fichas, 412 parâmetros, 46 financiamentos, 2322 mapas)
+
+### Arquitetura de dados
+
+```
+Google Sheets → sync_sheets_db → PostgreSQL → Django ORM (runtime)
+```
+
+Runtime **nunca** acessa Google Sheets. Para atualizar banco após editar planilhas:
+```bash
+docker compose exec radarbrasil python manage.py sync_sheets_db
+```
 
 ### Pendências
 
+- Droplet: rodar `docker compose build && docker compose up -d` para aplicar `landing.css`
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
