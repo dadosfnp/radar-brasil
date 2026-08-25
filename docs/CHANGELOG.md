@@ -4,16 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
-## 2026-08-25 — `main` (24ª entrada)
+## 2026-08-25 — `main` (25ª entrada)
 
-### Style — Painel Multinível: altura do gráfico responsiva ao viewport
+### Fix — Painel Multinível: remove JS que ocultava o rodapé e restaura gráfico para 380px
 
-- `painel-multinivel.css`: `pm-chart-wrapper` e canvas passam de `height: 380px` fixo para `clamp(260px, calc(100vh - 820px), 380px)` — adapta ao viewport sem ultrapassar 380px nem cair abaixo de 260px
-- `painel-multinivel.html`: cache-buster `painel-multinivel.css?v=2` → `?v=3`
-- Causa: com 380px fixo, a soma de todos os elementos da página (back-card, KPI strip, cabeçalho, chart, footer = ~844px + chart) superava a viewport típica (~935px), deixando o footer a ~1020px e tornando o dark navy invisível mesmo com scroll. Com a altura dinâmica, a página cabe na viewport e o footer fica visível ao rolar.
-- Breakpoints mobile (≤900px → 300px, ≤480px → 260px) mantidos via `!important` nos media queries existentes.
+- `painel-multinivel.html`: remove bloco `<script>` que chamava `querySelector(".rb-footer-landing")` e aplicava `display: none` — a classe `.rb-footer-landing` é o `<footer>` global do site, então o JS escondia o rodapé em TODA a página
+- `painel-multinivel.css`: reverte `pm-chart-wrapper` e canvas de `clamp(260px, calc(100vh - 820px), 380px)` para `height: 380px` — restaura tamanho original do painel
+- Cache-busters: CSS `?v=3` → `?v=4`, JS `?v=2` → `?v=3`
+- O rodapé fica abaixo do fold (normal) e é acessível com scroll
 
-**Arquivos modificados:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`
+**Arquivos modificados:** `templates/municipios/painel-multinivel.html`, `static/css/painel-multinivel.css`
 
 ---
 
