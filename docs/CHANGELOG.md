@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (21ª entrada)
+
+### Chore — Cache-busters nas CSS para garantir reload após mudanças
+
+- `base.html`: adiciona `?v=2` nos links de `tokens.css`, `components.css` e `base.css`
+- Todos os templates de página: adiciona `?v=2` (ou incrementa para `?v=4` em nota-pais) nos links das CSS específicas — garante que o browser re-baixe as versões atualizadas
+
+**Arquivos modificados:** `base_templates/base.html`, todos os templates em `templates/municipios/`
+
+---
+
 ## 2026-08-25 — `main` (20ª entrada)
 
 ### Fix — Footer visível em todas as páginas: corrige min-height do rb-main

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static i18n %}
 
 {% block title %}Radar Brasil - {% trans "Mapa Georreferenciado" %}{% endblock %}
@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="{% static 'css/mapa-georreferenciado.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mapa-georreferenciado.css' %}?v=2">
 {% endblock %}
 
 {% block content %}
