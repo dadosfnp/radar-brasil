@@ -56,6 +56,18 @@ _CAMPOS_ORDER = list(_CAMPOS_LABELS.keys())
 _INVALID_PT = {"nan", "Ñ aplica", "N/A", ""}
 _INVALID_EN = {"nan", "Does not apply", "N/A", "Not applicable", "N/A - Does not apply", ""}
 
+# Renomeia campo `avaliacao` (critério) para exibição na tabela
+_CRITERIO_DISPLAY_PT = {
+    "Financiamento": "Sustentabilidade Financeira",
+    "Representação de Gênero, Raça e Etnia": "Diversidade e Representatividade",
+    "Monitoramento e Participação Local": "Monitoramento e Avaliação",
+}
+_CRITERIO_DISPLAY_EN = {
+    "Financing": "Financial Sustainability",
+    "Gender, Race and Ethnicity Representation": "Diversity and Representativeness",
+    "Monitoring and Local Participation": "Monitoring and Evaluation",
+}
+
 # Mapeamento: atributo do modelo → coluna de link (quando existir)
 _LINK_MAP = {
     "orgao_responsavel": "link_orgao",
@@ -131,6 +143,7 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
     nivel_ordem = {n: i for i, n in enumerate(reversed(list(CORES_NIVEL.keys())))}
     registros = sorted(list(qs), key=lambda r: nivel_ordem.get(r.nivel, 99))
 
+    display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
     result = []
     for reg in registros:
         nivel = reg.nivel
@@ -138,7 +151,7 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
         nivel_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
         result.append(
             {
-                "avaliacao": reg.avaliacao,
+                "avaliacao": display_map.get(reg.avaliacao, reg.avaliacao),
                 "criterio": reg.criterio,
                 "descritivo": reg.descritivo,
                 "nivel": nivel_display,

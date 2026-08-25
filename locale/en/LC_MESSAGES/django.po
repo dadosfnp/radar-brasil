@@ -676,8 +676,8 @@ msgstr "On this page you can access information about climate finance in Brazil,
 msgid "Programas e linhas de Financiamento"
 msgstr "Programs and Financing Lines"
 
-msgid "Ente Federado"
-msgstr "Federal Entity"
+msgid "Nível de Governo"
+msgstr "Government Level"
 
 msgid "Valor do Financiamento por Setor"
 msgstr "Financing Value by Sector"

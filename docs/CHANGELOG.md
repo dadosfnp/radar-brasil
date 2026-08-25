@@ -4,6 +4,38 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (16ª entrada)
+
+### Feat/Style — Ajustes em Metodologia, Financiamento e critérios do Painel Multinível
+
+**Metodologia (`templates/municipios/metodologia.html`, `static/css/metodologia.css`):**
+- Remove card "O que foi mapeado" do hero; hero passa a ser coluna única centralizada
+- Reordena pills da sidebar: instâncias → políticas e planos → programas → linhas de financiamento
+- Move card "Escala de Avaliação" para o final da sidebar (abaixo das pills)
+- Corrige cor do pip-4: `#264584` → `#72be79` (verde do Nível 4, igual ao Painel Multinível)
+- Labels das pills: "programas mapeados" → "programas"; "linhas de financiamento climático" → "linhas de financiamento"; "planos e políticas públicas" → "políticas e planos"
+- Bullet list do Mapeamento reordenada: instâncias → políticas e planos → programas → linhas
+
+**Financiamento Climático (`templates/municipios/financiamento-climatico.html`):**
+- Label do filtro: "Ente Federado" → "Nível de Governo" (PT e EN)
+
+**Painel Multinível (`apps/indicadores/services/painel_multinivel.py`):**
+- Critérios reordenados por eixo (Governança, Políticas e Planos, Programas)
+- Display renames: "Financiamento" → "Sustentabilidade Financeira"; "Representação de Gênero, Raça e Etnia" → "Diversidade e Representatividade"; "Monitoramento e Participação Local" → "Monitoramento e Avaliação"
+
+**Avaliação Painel (`apps/indicadores/services/avaliacao_painel.py`):**
+- Mesmos display renames aplicados à coluna CRITÉRIO da tabela
+
+**i18n (`locale/en/LC_MESSAGES/django.po`):**
+- `"Ente Federado"` / `"Federal Entity"` → `"Nível de Governo"` / `"Government Level"`
+
+**Dockerfile:**
+- Adiciona `gettext` ao apt-get e `RUN python manage.py compilemessages` para compilar `.mo` durante o build
+
+**Arquivos modificados:** `templates/municipios/metodologia.html`, `static/css/metodologia.css`, `templates/municipios/financiamento-climatico.html`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`, `locale/en/LC_MESSAGES/django.po`, `Dockerfile`
+
+---
+
 ## 2026-08-24 — `main` (15ª entrada)
 
 ### Style — Botão "Ver Agenda" desabilitado na landing page

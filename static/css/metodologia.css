@@ -32,13 +32,10 @@ body.metodologia-page .rb-main {
 }
 
 .meto-hero {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 48px;
-    align-items: center;
-    max-width: 1080px;
+    max-width: 680px;
     margin: 0 auto;
     padding: 0 24px;
+    text-align: center;
 }
 
 /* Badge pill */
@@ -97,6 +94,7 @@ body.metodologia-page .rb-main {
     line-height: 1.78;
     font-weight: 400;
     max-width: 520px;
+    margin: 0 auto;
 }
 
 /* ══════════════════════════════
@@ -333,7 +331,7 @@ body.metodologia-page .rb-main {
 .pip-1 { background: #e06b6b; }
 .pip-2 { background: #f09a50; }
 .pip-3 { background: #e8c53a; color: #555; }
-.pip-4 { background: #264584; }
+.pip-4 { background: #72be79; color: #fff; }
 .pip-5 { background: #7aaed4; }
 
 .meto-scale-legend {

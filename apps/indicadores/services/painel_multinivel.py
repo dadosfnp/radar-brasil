@@ -21,26 +21,27 @@ EIXO_MAP = {
     "Linhas de Financiamento": "linhas de financiamento",
 }
 
+# Nomes usados para ORDENAÇÃO (devem bater com os valores no banco)
 ORDEM_CRITERIOS = {
     "Governanca": [
-        "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Sustentabilidade Financeira",
-        "Diversidade e Representatividade",
+        "Financiamento",
+        "Representação de Gênero, Raça e Etnia",
         "Comunicação e Transparência",
+        # Operacionalidade não listado → posição 5 (fim)
     ],
     "Politicas e Planos": [
         "Operacionalidade",
         "Espaço de diálogo federativo",
-        "Sustentabilidade Financeira",
+        "Financiamento",
         "Comunicação e Transparência",
     ],
     "Programas": [
         "Cooperação Federativa",
         "Capilaridade e Alcance Territorial",
+        "Financiamento",
         "Fortalecimento da Capacidade Local",
         "Monitoramento e Participação Local",
-        "Sustentabilidade Financeira",
     ],
     "Linhas de Financiamento": [
         "Desenho Participativo da Linha de Financiamento",
@@ -49,11 +50,25 @@ ORDEM_CRITERIOS = {
     ],
 }
 
+# Nomes exibidos nos gráficos (renomeia valores do banco antes de retornar)
+_CRITERIO_DISPLAY_PT = {
+    "Financiamento": "Sustentabilidade Financeira",
+    "Representação de Gênero, Raça e Etnia": "Diversidade e Representatividade",
+    "Monitoramento e Participação Local": "Monitoramento e Avaliação",
+}
+_CRITERIO_DISPLAY_EN = {
+    "Financing": "Financial Sustainability",
+    "Gender, Race and Ethnicity Representation": "Diversity and Representativeness",
+    "Monitoring and Local Participation": "Monitoring and Evaluation",
+}
+
 # Nomes de critérios EN → PT, usado APENAS para ordenação via ORDEM_CRITERIOS
 _EN_CRITERIO = {
     "Operability": "Operacionalidade",
     "Federative dialogue space": "Espaço de diálogo federativo",
     "Communication and Transparency": "Comunicação e Transparência",
+    "Financing": "Financiamento",
+    "Gender, Race and Ethnicity Representation": "Representação de Gênero, Raça e Etnia",
     "Federative Cooperation": "Cooperação Federativa",
     "Capillarity and Territorial Reach": "Capilaridade e Alcance Territorial",
     "Strengthening Local Capacity": "Fortalecimento da Capacidade Local",
@@ -135,5 +150,9 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
                 "stack": "stack1",
             }
         )
+
+    # Aplica nomes de exibição (renomeia labels do banco antes de retornar)
+    display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
+    labels = [display_map.get(lb, lb) for lb in labels]
 
     return {"labels": labels, "datasets": datasets}
