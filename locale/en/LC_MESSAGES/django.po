@@ -246,9 +246,6 @@ msgid "Nota média"
 msgstr "Average score"
 
 # ── Financiamento Climático ───────────────────────────────────
-msgid "Financiamento Climático"
-msgstr "Climate Finance"
-
 msgid "Distribuição por Setor"
 msgstr "Distribution by Sector"
 
