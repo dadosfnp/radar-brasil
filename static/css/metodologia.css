@@ -10,9 +10,6 @@ body.metodologia-page {
     min-height: 100vh;
 }
 
-body.metodologia-page .rb-footer-landing {
-    display: none;
-}
 
 body.metodologia-page .rb-main {
     background: transparent;

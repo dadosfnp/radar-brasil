@@ -2,7 +2,6 @@
    PÁGINA MAPA GEORREFERENCIADO
    ============================== */
 
-body.mapa-page .rb-footer-landing { display: none; }
 
 /* Oculta o FAB quando a sidebar estiver aberta (mobile) */
 body.mg-sidebar-open .mg-filter-fab {

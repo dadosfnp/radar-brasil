@@ -2,7 +2,6 @@
    PÁGINA NOTA PAÍS
    ============================== */
 
-body.np-body .rb-footer-landing { display: none; }
 body.np-body .rb-main {
     background: transparent;
     max-width: 100%;

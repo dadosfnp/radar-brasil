@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (18ª entrada)
+
+### Style — Rodapé visível em todas as páginas + logo C40 atualizado
+
+- Remove `display: none` do `.rb-footer-landing` em todas as páginas que o ocultavam: Metodologia, Avaliação Painel, Financiamento Climático, Nota País, Mapa Georreferenciado
+- Atualiza `static/img/logo-c40.png` (56KB → 23KB)
+
+**Arquivos modificados:** `static/css/metodologia.css`, `static/css/avaliacao-painel.css`, `static/css/financiamento-climatico.css`, `static/css/nota-pais.css`, `static/css/mapa-georreferenciado.css`, `static/img/logo-c40.png`
+
+---
+
 ## 2026-08-25 — `main` (17ª entrada)
 
 ### Style — Metodologia: badge alinhado à esquerda e texto da descrição corrigido
