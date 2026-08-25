@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (22ª entrada)
+
+### Style — Footer wave menor: dark navy visível ao rolar
+
+- `base.css`: wave do footer `height: 90px` → `50px` (desktop) e `50px` → `35px` (mobile)
+- `base.html`: cache-buster `base.css?v=2` → `?v=3`
+- Causa-raiz: a onda tem `fill: #d9e8f5` (mesma cor do fundo da página), criando 90px de zona invisível entre o conteúdo e o dark navy do rodapé. No Painel Multinível, quando o scroll-to-top aparecia (scrollY ≥ 400px), o dark navy começava em y≈1017 enquanto o viewport terminava em y≈1000 — 17px fora da visão. Reduzindo a onda para 50px, o dark navy passa a aparecer em y≈967, ficando visível (~33px) exatamente quando o botão scroll-to-top é exibido.
+
+**Arquivos modificados:** `static/css/base.css`, `base_templates/base.html`
+
+---
+
 ## 2026-08-25 — `main` (21ª entrada)
 
 ### Chore — Cache-busters nas CSS para garantir reload após mudanças

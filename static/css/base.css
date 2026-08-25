@@ -257,7 +257,7 @@ body.rb-body {
 .rb-footer-wave svg {
     display: block;
     width: 100%;
-    height: 90px;
+    height: 50px;
 }
 
 .rb-footer-wave svg path {
@@ -575,7 +575,7 @@ body.rb-body {
 
     /* Footer — redesign mobile */
     .rb-footer-wave svg {
-        height: 50px;
+        height: 35px;
     }
 
     .rb-footer-inner {

@@ -523,6 +523,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-08-25 | (pendente)| Metodologia: pip-4 corrigida — `#264584` → `#72be79` (verde Nível 4 do Painel Multinível) |
 | 2026-08-25 | (pendente)| Financiamento: label filtro "Ente Federado" → "Nível de Governo" |
 | 2026-08-25 | (pendente)| Layout global: `min-height: 70vh` → `0` em `.rb-main` (base.css, metodologia.css, mapa-georreferenciado.css) — footer visível sem scroll |
+| 2026-08-25 | (pendente)| Footer wave: `height: 90px` → `50px` (desktop) e `50px` → `35px` (mobile) — reduz zona invisível da onda (mesma cor do fundo), tornando o dark navy visível quando scroll-to-top aparece |
 
 ---
 
