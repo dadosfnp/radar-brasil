@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (17ª entrada)
+
+### Style — Metodologia: badge alinhado à esquerda e texto da descrição corrigido
+
+- Badge "METODOLOGIA" deixa de ser centralizado; alinha à esquerda junto com o título
+- Texto da descrição do hero: "planos, políticas e programas" → "políticas e planos, programas e linhas de financiamento" (ordem e itens corretos)
+- `django.po` EN atualizado com nova string do hero
+
+**Arquivos modificados:** `templates/municipios/metodologia.html`, `static/css/metodologia.css`, `locale/en/LC_MESSAGES/django.po`
+
+---
+
 ## 2026-08-25 — `main` (16ª entrada)
 
 ### Feat/Style — Ajustes em Metodologia, Financiamento e critérios do Painel Multinível

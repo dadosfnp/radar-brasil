@@ -428,8 +428,8 @@ msgid "Analise os investimentos e transferências interfederativas em apoio ao e
 msgstr "Analyze the investments and interfederative transfers supporting the fight against climate change."
 
 # ── Metodologia ───────────────────────────────────────────────
-msgid "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, planos, políticas e programas relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias."
-msgstr "Radar Brasil assesses the level of implementation of Climate Federalism in Brazil, mapping governance instances, plans, policies and programs related to climate action, and measuring results through standardized criteria across axes and instances."
+msgid "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, políticas e planos, programas e linhas de financiamento relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias."
+msgstr "Radar Brasil assesses the level of implementation of Climate Federalism in Brazil, mapping governance instances, policies and plans, programs and financing lines related to climate action, and measuring results through standardized criteria across axes and instances."
 
 msgid "O que foi mapeado"
 msgstr "What was mapped"
