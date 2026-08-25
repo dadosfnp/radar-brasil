@@ -187,9 +187,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-content-wrap {
-    background: rgba(255,255,255,.38);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: transparent;
     border-top: 1px solid rgba(200,220,230,.5);
     padding: 52px 0 60px;
 }

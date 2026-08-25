@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (19ª entrada)
+
+### Fix — Footer em todas as páginas + cor da onda corrigida
+
+- Remove `display: none` do footer em `inicio.css` (era multi-linha, não detectado na varredura anterior)
+- `meto-content-wrap`: remove `background: rgba(255,255,255,.38)` e `backdrop-filter` — seção fica transparente (body `#d9e8f5` aparece diretamente, mesma cor da onda do footer)
+- `base.css`: adiciona `.rb-footer-wave svg path { fill: var(--color-bg-page) }` — CSS prevalece sobre atributo SVG, garantindo consistência em todas as páginas
+
+**Arquivos modificados:** `static/css/inicio.css`, `static/css/metodologia.css`, `static/css/base.css`
+
+---
+
 ## 2026-08-25 — `main` (18ª entrada)
 
 ### Style — Rodapé visível em todas as páginas + logo C40 atualizado

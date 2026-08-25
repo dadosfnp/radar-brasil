@@ -9,9 +9,6 @@ body.inicio-page {
     min-height: 100vh;
 }
 
-body.inicio-page .rb-footer-landing {
-    display: none;
-}
 
 body.inicio-page .rb-main {
     background: transparent;

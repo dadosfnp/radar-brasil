@@ -260,6 +260,10 @@ body.rb-body {
     height: 90px;
 }
 
+.rb-footer-wave svg path {
+    fill: var(--color-bg-page);
+}
+
 /* Links dentro do footer */
 .rb-footer-landing a[href^="tel"],
 .rb-footer-landing a[href^="mailto"],
