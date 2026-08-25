@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (24ª entrada)
+
+### Style — Painel Multinível: altura do gráfico responsiva ao viewport
+
+- `painel-multinivel.css`: `pm-chart-wrapper` e canvas passam de `height: 380px` fixo para `clamp(260px, calc(100vh - 820px), 380px)` — adapta ao viewport sem ultrapassar 380px nem cair abaixo de 260px
+- `painel-multinivel.html`: cache-buster `painel-multinivel.css?v=2` → `?v=3`
+- Causa: com 380px fixo, a soma de todos os elementos da página (back-card, KPI strip, cabeçalho, chart, footer = ~844px + chart) superava a viewport típica (~935px), deixando o footer a ~1020px e tornando o dark navy invisível mesmo com scroll. Com a altura dinâmica, a página cabe na viewport e o footer fica visível ao rolar.
+- Breakpoints mobile (≤900px → 300px, ≤480px → 260px) mantidos via `!important` nos media queries existentes.
+
+**Arquivos modificados:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`
+
+---
+
 ## 2026-08-25 — `main` (23ª entrada)
 
 ### Fix — Painel Multinível: esconde pm-chart-wrapper no estado de erro

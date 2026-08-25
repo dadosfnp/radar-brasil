@@ -259,13 +259,13 @@ body.painel-multinivel-page .rb-main {
 
 .pm-chart-wrapper {
     position: relative;
-    height: 380px;
+    height: clamp(260px, calc(100vh - 820px), 380px);
     width: 100%;
 }
 
 .pm-chart-wrapper canvas {
     width: 100% !important;
-    height: 380px !important;
+    height: clamp(260px, calc(100vh - 820px), 380px) !important;
 }
 
 /* footer com botão à direita */
