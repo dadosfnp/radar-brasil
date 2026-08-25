@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-08-24
+> Última atualização: 2026-08-25
 
 ---
 
@@ -272,34 +272,35 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-24)
+## Estado Atual do Projeto (2026-08-25)
 
-### Branch atual: `main` — `c66887a` — droplet pendente de rebuild
+### Branch atual: `main` — `0289e69` — droplet pendente de rebuild
 
-**Commits da sessão (2026-08-24):**
+**Commits da sessão (2026-08-25):**
 
 ```
-c66887a style: botao Ver Agenda desabilitado na landing page
-98e9cd7 docs: atualiza CLAUDE.md com estado atual 2026-08-24
-7aef68a style: remove efeito bolha de vidro dos icones da pagina Inicio
-362dcac revert: restaura pagina Inicio para estado exato do commit bbe5fbe
+0289e69 fix: remove JS que ocultava rodape no painel multinivel
+f6c172f style: restaura logo-c40.png para versao anterior
+03bb903 style: altura do grafico Painel Multinivel responsiva ao viewport  ← revertido em 0289e69
+d85deff fix: esconde pm-chart-wrapper no estado de erro do Painel Multinivel
+f666e1a style: reduz wave do footer — dark navy visivel ao rolar
 ```
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | ✅ `c66887a` | ✅ `c66887a` |
-| `prod` (dadosfnp) | — | ✅ `c66887a` |
+| `origin` (brunofnp) | ✅ `0289e69` | ✅ `0289e69` |
+| `prod` (dadosfnp) | — | ✅ `0289e69` |
 
 > `next` e `main` idênticos. Criar feature branches a partir de `next`.
 
-### Droplet — pendente
+### Droplet — pendente de rebuild
 
-O droplet puxou `c66887a` mas não fez `build`. Para aplicar a mudança do `landing.css`:
+Commits `0289e69` e anteriores estão publicados nos remotos mas **o droplet ainda não fez build**. Para aplicar:
 
 ```bash
-cd /opt/radar-brasil && docker compose build && docker compose up -d
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
 
 **CRÍTICO:** `docker compose up -d` sem `build` não atualiza arquivos estáticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` após mudanças em CSS/JS/templates.
@@ -402,9 +403,18 @@ Runtime **nunca** acessa Google Sheets. Para atualizar banco após editar planil
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
+### Painel Multinível — estado (2026-08-25)
+
+Rodapé corrigido: o template tinha um `<script>` que fazia `querySelector(".rb-footer-landing").style.display = "none"`, ocultando o `<footer>` global. Removido. Gráfico mantido em `380px` fixo.
+
+Arquivos relevantes:
+- `templates/municipios/painel-multinivel.html` — cache-buster CSS `?v=4`, JS `?v=3`
+- `static/css/painel-multinivel.css` — `pm-chart-wrapper: height: 380px`
+- `static/js/painel-multinivel.js` — `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro
+
 ### Pendências
 
-- Droplet: rodar `docker compose build && docker compose up -d` para aplicar `landing.css`
+- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits da sessão (rodapé, logo, wave)
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
