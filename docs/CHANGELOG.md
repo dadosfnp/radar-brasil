@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (20ª entrada)
+
+### Fix — Footer visível em todas as páginas: corrige min-height do rb-main
+
+- `base.css`: `min-height: 70vh` → `min-height: 0` em `.rb-main` — o `flex-grow: 1` já garante que o main preenche o espaço disponível; o `min-height: 70vh` forçava o main a ultrapassar 100vh e empurrava o footer para fora da viewport
+- `metodologia.css`: mesmo fix — `min-height: 70vh` → `min-height: 0` em `body.metodologia-page .rb-main`
+- `mapa-georreferenciado.css`: `min-height: calc(100vh - 120px)` → `min-height: 0` — chain de `flex-grow: 1` e `flex: 1` já garante que o mapa preenche o espaço corretamente
+
+**Arquivos modificados:** `static/css/base.css`, `static/css/metodologia.css`, `static/css/mapa-georreferenciado.css`
+
+---
+
 ## 2026-08-25 — `main` (19ª entrada)
 
 ### Fix — Footer em todas as páginas + cor da onda corrigida

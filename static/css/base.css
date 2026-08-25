@@ -236,7 +236,7 @@ body.rb-body {
     padding: 24px;
     background: var(--color-bg-page);
     border-radius: 16px;
-    min-height: 70vh;
+    min-height: 0;
     flex-grow: 1;
 }
 
