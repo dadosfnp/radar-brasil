@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-25 — `main` (23ª entrada)
+
+### Fix — Painel Multinível: esconde pm-chart-wrapper no estado de erro
+
+- `painel-multinivel.js`: `_mostrarErroGrafico()` agora esconde `#pm-chart-wrapper` (`display: none`); `_ocultarErroGrafico()` restaura o wrapper ao voltar ao estado normal
+- `painel-multinivel.html`: cache-buster `painel-multinivel.js?v=2` para forçar fetch do JS atualizado
+- Causa-raiz: no estado de erro, `pm-chart-error` (200px) e `pm-chart-wrapper` (380px) ficavam visíveis ao mesmo tempo, somando 580px só na área do gráfico. A página ficava com ~1400px de altura e o rodapé ficava ~800px abaixo do fold, mesmo após o botão scroll-to-top aparecer (scrollY ≥ 400px). Com o wrapper oculto no erro, a página reduz para ~1030px e o rodapé fica visível ao rolar.
+
+**Arquivos modificados:** `static/js/painel-multinivel.js`, `templates/municipios/painel-multinivel.html`
+
+---
+
 ## 2026-08-25 — `main` (22ª entrada)
 
 ### Style — Footer wave menor: dark navy visível ao rolar

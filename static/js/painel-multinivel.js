@@ -144,11 +144,15 @@ function _mostrarErroGrafico(msg) {
   }
   err.textContent = msg;
   err.style.display = "flex";
+  const wrapper = document.getElementById("pm-chart-wrapper");
+  if (wrapper) wrapper.style.display = "none";
 }
 
 function _ocultarErroGrafico() {
   const err = document.querySelector(".pm-chart-area .pm-chart-error");
   if (err) err.style.display = "none";
+  const wrapper = document.getElementById("pm-chart-wrapper");
+  if (wrapper) wrapper.style.display = "";
 }
 
 // Mostra spinner enquanto carrega
