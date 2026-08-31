@@ -30,7 +30,7 @@ body.lp-body .rb-main {
 
 .lp-hero {
     position: relative;
-    background: #daedf8;
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
 }
 
 
