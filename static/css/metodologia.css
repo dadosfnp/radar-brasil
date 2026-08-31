@@ -70,6 +70,7 @@ body.metodologia-page .rb-main {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    width: fit-content;
     background: rgba(16,29,79,.13);
     border: 1px solid rgba(16,29,79,.24);
     border-radius: 20px;
