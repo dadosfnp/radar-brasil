@@ -4,7 +4,8 @@
 
 /* ---- BODY / CONTAINER ---- */
 body.inicio-page {
-    background: #daedf8;
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -19,7 +20,7 @@ body.inicio-page .rb-main {
 
 /* ── HERO ────────────────────────────────────────── */
 .ini-hero {
-    background: #daedf8;
+    background: transparent;
     width: 100%;
     padding: 52px 0 0;
     overflow: hidden;
@@ -171,7 +172,7 @@ body.inicio-page .rb-main {
 /* ── CONTEÚDO — GRID DE EIXOS ─────────────────────── */
 .ini-content {
     width: 100%;
-    background: url('../img/fundo-bg.png') center top / cover no-repeat;
+    background: transparent;
     padding: 56px 0 72px;
 }
 
@@ -303,26 +304,6 @@ body.inicio-page .rb-main {
     background: #264584;
     color: #ffffff;
     transform: translateX(2px);
-}
-
-/* ── BANNER INFERIOR ──────────────────────────────── */
-.ini-bottom-banner {
-    background: #264584;
-    width: 100%;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.ini-bottom-banner span {
-    font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: .10em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.80);
 }
 
 /* ── RESPONSIVO ───────────────────────────────────── */
