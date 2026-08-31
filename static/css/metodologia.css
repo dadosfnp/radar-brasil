@@ -3,11 +3,16 @@
    ============================== */
 
 body.metodologia-page {
-    background: var(--color-bg-page);
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
     position: relative;
     min-height: 100vh;
+}
+
+body.metodologia-page .rb-footer-wave {
+    display: none;
 }
 
 
