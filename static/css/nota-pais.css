@@ -2,10 +2,6 @@
    PÁGINA NOTA PAÍS
    ============================== */
 
-body.np-body {
-    background: url('../img/fundo-bg.png') center top / cover no-repeat fixed;
-}
-
 body.np-body .rb-main {
     background: transparent;
     max-width: 100%;

@@ -2,10 +2,6 @@
    PÁGINA FINANCIAMENTO CLIMÁTICO
    ============================== */
 
-body.fin-cli-page {
-    background: url('../img/fundo-bg.png') center top / cover no-repeat fixed;
-}
-
 body.fin-cli-page .rb-main {
     background: transparent;
     max-width: 100%;
