@@ -217,33 +217,70 @@ Adicionado no commit `d82d7b6`:
 
 ### 5.1 Landing Page (`/`)
 
-**Arquivo CSS:** `landing.css`
+**Arquivo CSS:** `landing.css` — versão atual: v6 (2026-08-27)
 
-**Layout:** 2 colunas — sidebar (240px) + coluna de cards
+#### v6 — Redesign completo com hero animado (2026-08-27)
 
-**Sidebar:**
-- Card hero: gradiente `--gradient-landing`, borda glass, hover com translateY(-2px)
-- Cards laterais (Notícias, Agenda): glassmorphism leve `rgba(255,255,255,.72)`, blur 18px
+**Hero (full-width, fora do container .rb-main):**
+- Fundo: `#cde3f4` (azul claro)
+- `::before` / `::after` com fade-out para `#d9e8f5` (cor da página) — z-index 0, atrás do conteúdo
+- Grid 44% / 56%: coluna esquerda (texto + CTAs + métricas) / coluna direita (mapa HUD)
+- Coluna esquerda: eyebrow DM Mono uppercase → heading Sora 68px 800 `#101d4f` → subtítulo com span `.lp-hero-accent` azul `#2563eb` → desc `opacity:.72` → CTAs (navy pill sólido + outline pill) → métricas (+5 / +1.000 / 100%)
+- Coluna direita: `<iframe src="mapa-brasil-hud.html" allowtransparency="true">` com `mask-image` suavizando bordas (transparent→black 7%→black 78%→transparent)
+- Info card glassmorphism (`rgba(255,255,255,.86)`, blur 16px): `position:absolute; top:20px; right:20px` dentro de `.lp-hero-right`
+- `mapa-brasil-hud.html`: `html,body { background: transparent }` para iframe transparente
 
-**Cards de conteúdo:**
-- Glassmorphism: `rgba(255,255,255,.72)`, blur 22px, saturate 1.3
-- Grid interno: imagem thumbnail 120px + texto
-- Thumbnail com `background: #fff` e `object-fit: contain`
-- Numeração: `DM Mono`, 10px, `rgba(53,96,115,.5)`
-- Título: `Sora 700`, 15.5px, `#1a2e3a` com `em` em `#356073`
+**Seção de conteúdo (`.lp-content`, max-width 1140px):**
+- Grid 2 colunas: sidebar 252px + painéis flex-1
+- Sidebar: card "Sobre o Radar Brasil" + card "Navegue Rápido" + card feature com `radar_brasil_brasilia_alta_qualidade.png` e overlay "Dados abertos, sociedades mais resilientes."
+- Cabeçalho da seção de painéis: eyebrow "Nossos Painéis" + heading "Explore conhecimento que gera soluções" + link "Ver todos os painéis →"
 
-**Botão "Saiba mais":**
-- Ativo: gradiente `--gradient-landing`
-- Card 4 (Ecossistema, em breve): `<span aria-disabled="true">` com classe `.lp-btn-card--soon` — fundo muted + badge "Em breve"
+**Cards de painéis (vertical):**
+- Labels: 01 Panorama, 02 Análises, 03 Território, 04 Colaboração
+- Topo: ícone Lucide (TrendingUp / BarChart2 / MapPin / Users) em quadrado 40×40 `rgba(37,99,235,.10)`, stroke `#2563eb` + número DM Mono + título Sora 700
+- Corpo: descrição 12px
+- Footer: botão navy pill sólido `#264584` + seta circular navy 34px
 
-**Imagens:** `loading="lazy"` em todos os thumbnails e imagens de agenda
+**Botões:**
+- CTAs hero: pill `border-radius:50px` (primário navy sólido; secundário outline navy)
+- Cards: botão navy pill + seta circular navy — sem variações de cor por card
+
+**Responsivo:**
+- `≤1100px`: hero colapsa para 1 coluna, coluna direita e info card ocultos
+- `≤860px`: sidebar sobre painéis (1 coluna)
+- `≤580px`: painéis em coluna única
+
+#### v5 — Layout anterior (até 2026-08-26)
+
+**Layout:** hero 2 colunas (texto + mapa card) + main 2 colunas (sidebar 268px + grid 2×2)
+**Hero right:** card glassmorphism `rgba(255,255,255,.75)` com `card_mapa_interfederativo.png`
+**Cards:** layout horizontal (ícone 72px esq + texto dir), botões outline coloridos por card, seta circular com `--gradient-landing`
 
 ### 5.2 Início (`/inicio/`)
 
-**Arquivo CSS:** `inicio.css`
+**Arquivo CSS:** `inicio.css` — versão atual: v3 (2026-08-31)
 
-Cards de acesso rápido redirecionam para aba correta do Painel Multinível via `?aba=N`.
-Badge pulsante verde nas seções Início e Metodologia (`6f1eb79`).
+**Redesign v3 (2026-08-31):**
+
+Layout geral:
+- `body.inicio-page .rb-main` com `max-width: none; padding: 0; margin: 0` para hero full-width
+- Três seções: hero (`.ini-hero`) + grid de eixos (`.ini-content`) + banner inferior (`.ini-bottom-banner`)
+
+Hero:
+- Fundo `#daedf8`, altura mínima 480px, grid 46%/54%
+- Coluna esquerda: badge pulsante verde "Federalismo Climático" + heading Sora 1.875rem + descrição DM Sans
+- Coluna direita: iframe `mapa-brasil-hud.html` com `mask-image` suavizando bordas + info card glassmorphism posicionado no canto inferior direito
+- Info card: `rgba(255,255,255,0.82)` + `backdrop-filter: blur(14px)` + chips "Painéis / Mapas / Dados"
+
+Cards (grid 2×2, `max-width: 1080px`):
+- Layout horizontal: ícone 72×72px (fundo `rgba(38,69,132,.08)`) + corpo (eyebrow caps + título bold + desc + "Saiba mais →") + seta circular
+- Fundo da seção: `fundo-bg.png` (cover) — imagem de ondas
+- Hover: `translateY(-4px)`, seta circular muda para fundo navy sólido `#264584`
+
+Banner inferior:
+- Faixa navy `#264584`, padding 16px 40px, dois textos uppercase em `rgba(255,255,255,0.80)`
+
+Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone centralizado acima, layout vertical. Sem hero.
 
 ### 5.3 Metodologia (`/metodologia/`)
 
@@ -486,6 +523,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-05-12 | `d4dd9bd` | Página Nota País com mapa mundi                                 |
 | 2026-05-14 | `b55d2a2` | Redesign visual global — glassmorphism                          |
 | 2026-05-14 | `e0565ff` | Header/rodapé verde-escuro, menu branco, fundo `#bdd6e0`        |
+| 2026-08-27 | —         | Landing Page v6: hero HUD animado, ícones Lucide, cards verticais |
 | 2026-05-19 | `ab11c10` | Landing page vira página inicial (`/`)                          |
 | 2026-05-20 | `33ae061` | Responsividade mobile completa + hamburger menu                 |
 | 2026-05-20 | `0cf9be1` | Abas mobile: ícone + label abreviado (padrão iOS/Android)       |

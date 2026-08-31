@@ -272,19 +272,28 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-25)
+## Estado Atual do Projeto (2026-08-27)
 
 ### Branch atual: `main` — `0289e69` — droplet pendente de rebuild
 
-**Commits da sessão (2026-08-25):**
+### Landing Page v6 — trabalho local em progresso (NÃO commitado)
 
-```
-0289e69 fix: remove JS que ocultava rodape no painel multinivel
-f6c172f style: restaura logo-c40.png para versao anterior
-03bb903 style: altura do grafico Painel Multinivel responsiva ao viewport  ← revertido em 0289e69
-d85deff fix: esconde pm-chart-wrapper no estado de erro do Painel Multinivel
-f666e1a style: reduz wave do footer — dark navy visivel ao rolar
-```
+Redesign completo da landing page desenvolvido nas sessões 2026-08-27/28. **Apenas local, não subir até autorização.**
+
+**Arquivos modificados (não commitados):**
+- `templates/municipios/landing.html` — v6: hero full-width com iframe HUD animado, grid 44/56%, cards verticais com ícones Lucide, sidebar com Sobre/Mídia/Agenda
+- `static/css/landing.css` — v6: hero `#daedf8`, body branco, sem nav, sem métricas
+- `static/img/mapa-brasil-hud.html` — background `#daedf8` (unificado com hero)
+
+**Estado atual do design:**
+- Hero: fundo `#daedf8` (azul suave), sem degradê nas bordas, nav oculto
+- Seção de cards: fundo branco `#ffffff`
+- Sidebar: "Sobre o Radar Brasil" + "O Radar Brasil na Mídia" + "Agenda Radar Brasil"
+- Cards: 01 Panorama / 02 Análises / 03 Território / 04 Colaboração — botões navy pill + seta circular
+- Métricas (+5/+1.000/100%) removidas do hero
+- Cards "Navegue Rápido" e foto da cidade removidos da sidebar
+
+**Antes de commitar:** atualizar `docs/CHANGELOG.md` e `docs/design.md` (já atualizados para v6 na sessão anterior).
 
 ### Remotos
 

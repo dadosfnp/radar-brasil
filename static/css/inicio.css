@@ -1,65 +1,75 @@
-﻿/* ==============================
-   PÁGINA INÍCIO – redesign
+/* ==============================
+   PÁGINA INÍCIO v3
    ============================== */
 
+/* ---- BODY / CONTAINER ---- */
 body.inicio-page {
-    background: var(--color-bg-page);
+    background: #daedf8;
     margin: 0;
     padding: 0;
     min-height: 100vh;
 }
 
-
 body.inicio-page .rb-main {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
     background: transparent;
-    max-width: 4000px;
-    margin: 0 auto;
-    padding: 0 24px;
-    flex-grow: 1;
-    margin-top: 0;
 }
 
-/* ---- PAGE WRAPPER ---- */
-.ini-page {
-    max-width: 860px;
+/* ── HERO ────────────────────────────────────────── */
+.ini-hero {
+    background: #daedf8;
+    width: 100%;
+    padding: 52px 0 0;
+    overflow: hidden;
+}
+
+.ini-hero-inner {
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 36px 0 60px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 46% 54%;
+    gap: 0;
+    align-items: center;
+    min-height: 480px;
+}
+
+/* ---- Coluna esquerda ---- */
+.ini-hero-left {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 22px;
+    padding-right: 32px;
+    padding-bottom: 52px;
 }
 
-/* ---- INTRO ---- */
-.ini-intro {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+/* Badge "Federalismo Climático" */
+@keyframes ini-dot-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34,197,94,.65); }
+    70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
 }
 
-.intro-label {
+.ini-eyebrow-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(16,29,79, .12);
-    border: 1px solid rgba(16,29,79, .22);
+    gap: 8px;
+    background: rgba(38,69,132,.10);
+    border: 1.5px solid rgba(38,69,132,.20);
     border-radius: 999px;
-    padding: 5px 14px;
+    padding: 6px 16px;
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.625rem;
     font-weight: 700;
-    color: #101d4f;
     letter-spacing: .14em;
     text-transform: uppercase;
+    color: #264584;
     width: fit-content;
 }
 
-@keyframes ini-dot-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(34,197,94, 0.65); }
-    70%  { box-shadow: 0 0 0 6px rgba(34,197,94, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(34,197,94, 0); }
-}
-
-.intro-label-dot {
+.ini-eyebrow-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -68,158 +78,329 @@ body.inicio-page .rb-main {
     animation: ini-dot-pulse 2s ease-out infinite;
 }
 
-.ini-intro h2 {
+.ini-hero-heading {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 1.625rem;
+    font-size: 1.875rem;
     font-weight: 800;
     color: #101d4f;
-    line-height: 1.3;
-    text-shadow: none;
+    line-height: 1.28;
+    text-wrap: balance;
+    margin: 0;
 }
 
-.ini-intro h2 strong {
-    color: #101d4f;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.ini-intro p {
+.ini-hero-desc {
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 0.84375rem;
+    font-size: 0.9375rem;
     color: #334488;
     line-height: 1.75;
-    max-width: 640px;
+    margin: 0;
+    max-width: 480px;
 }
 
-/* ---- GRID 2×2 ---- */
+/* ---- Coluna direita — mapa + info card ---- */
+.ini-hero-right {
+    position: relative;
+    height: 480px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.ini-hud-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: transparent;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 80%, transparent 100%);
+    pointer-events: none;
+}
+
+.ini-info-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.70);
+    border-radius: 18px;
+    padding: 20px 24px;
+    margin: 0 28px 36px auto;
+    max-width: 270px;
+    box-shadow: 0 8px 32px rgba(16,29,79,.14), 0 2px 6px rgba(16,29,79,.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ini-info-eyebrow {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #264584;
+}
+
+.ini-info-text {
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.8125rem;
+    color: #334488;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.ini-info-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.ini-info-chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #264584;
+    background: rgba(38,69,132,.10);
+    border: 1px solid rgba(38,69,132,.18);
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+
+/* ── CONTEÚDO — GRID DE EIXOS ─────────────────────── */
+.ini-content {
+    width: 100%;
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
+    padding: 56px 0 72px;
+}
+
 .ini-grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
 }
 
-/* ---- CARD ---- */
+/* ── CARD HORIZONTAL ──────────────────────────────── */
 .ini-card {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.72);
     border-radius: 20px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-        0 4px 24px rgba(16,29,79, 0.14),
-        0 1px 4px rgba(16,29,79, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.60);
+    padding: 24px 20px 24px 24px;
     text-decoration: none;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    box-shadow: 0 4px 20px rgba(16,29,79,.10), 0 1px 4px rgba(16,29,79,.07);
+    transition: transform .2s ease, box-shadow .2s ease;
     cursor: pointer;
 }
 
 .ini-card:hover {
-    transform: translateY(-6px) scale(1.015);
-    box-shadow:
-        0 14px 40px rgba(16,29,79, 0.20),
-        0 2px 8px rgba(16,29,79, 0.10);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(16,29,79,.16), 0 2px 8px rgba(16,29,79,.08);
 }
 
-/* Card header gradient */
-.ini-card-head {
+/* Ícone */
+.ini-card-icon {
+    flex-shrink: 0;
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: rgba(38,69,132,.08);
+    border: 1.5px solid rgba(38,69,132,.14);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: #264584;
-    padding: 14px 24px 13px;
+    justify-content: center;
+}
+
+.ini-card-icon img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+/* Corpo do card */
+.ini-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.ini-card-eyebrow {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: #264584;
+    opacity: 0.75;
 }
 
 .ini-card-title {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.9375rem;
     font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
+    color: #101d4f;
+    line-height: 1.35;
+    display: block;
+    margin-top: 2px;
 }
 
+.ini-card-desc {
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.78125rem;
+    color: #334488;
+    line-height: 1.6;
+    opacity: 0.85;
+    margin-top: 6px;
+}
+
+.ini-card-link {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #264584;
+    margin-top: 10px;
+    display: inline-block;
+    transition: opacity .18s;
+}
+
+.ini-card:hover .ini-card-link {
+    opacity: 0.7;
+}
+
+/* Seta circular */
 .ini-card-arrow {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(38,69,132,.08);
+    border: 1.5px solid rgba(38,69,132,.16);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
-    color: rgba(255, 255, 255, 0.90);
-    flex-shrink: 0;
-    transition: transform 0.2s ease, background 0.2s ease;
+    color: #264584;
+    transition: background .2s, transform .2s;
+}
+
+.ini-card-arrow svg {
+    width: 16px;
+    height: 16px;
 }
 
 .ini-card:hover .ini-card-arrow {
-    transform: translateX(3px);
-    background: rgba(255, 255, 255, 0.28);
+    background: #264584;
+    color: #ffffff;
+    transform: translateX(2px);
 }
 
-/* Card body */
-.ini-card-body {
-    padding: 32px 28px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    flex: 1;
-}
-
-/* Icon wrapper */
-.ini-icon-wrap {
-    width: 88px;
-    height: 88px;
-    border-radius: 20px;
-    background: rgba(38, 69, 132, 0.08);
-    border: 1.5px solid rgba(38, 69, 132, 0.14);
+/* ── BANNER INFERIOR ──────────────────────────────── */
+.ini-bottom-banner {
+    background: #264584;
+    width: 100%;
+    padding: 16px 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    justify-content: space-between;
+    gap: 16px;
 }
 
-.ini-icon-img {
-    width: 54px;
-    height: 54px;
-    object-fit: contain;
-}
-
-/* Card description */
-.ini-card-desc {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-}
-
-.ini-card-desc strong {
+.ini-bottom-banner span {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.9375rem;
+    font-size: 0.6875rem;
     font-weight: 600;
-    color: var(--hdr-800);
-    line-height: 1.3;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.80);
 }
 
-.ini-card-desc p {
-    font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 0.8125rem;
-    color: var(--hdr-700);
-    line-height: 1.65;
-    opacity: 0.85;
+/* ── RESPONSIVO ───────────────────────────────────── */
+@media (max-width: 900px) {
+    .ini-hero-inner {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 0 28px;
+    }
+
+    .ini-hero-left {
+        padding-right: 0;
+        padding-bottom: 24px;
+    }
+
+    .ini-hero-right {
+        height: 360px;
+    }
+
+    .ini-info-card {
+        margin: 0 0 24px auto;
+    }
+
+    .ini-grid {
+        grid-template-columns: 1fr;
+        padding: 0 28px;
+    }
+
+    .ini-bottom-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 20px 28px;
+    }
 }
 
-/* ---- RESPONSIVO ---- */
-@media (max-width: 680px) {
-    .ini-grid { grid-template-columns: 1fr; gap: 12px; }
-    .ini-page { padding: 16px 0 32px; }
-}
+@media (max-width: 600px) {
+    .ini-hero {
+        padding: 36px 0 0;
+    }
 
-@media (max-width: 480px) {
-    .ini-card { padding: 18px 16px; }
-    .ini-page { padding: 12px 0 24px; }
+    .ini-hero-inner {
+        padding: 0 20px;
+    }
+
+    .ini-hero-heading {
+        font-size: 1.5rem;
+    }
+
+    .ini-hero-right {
+        height: 300px;
+    }
+
+    .ini-content {
+        padding: 40px 0 56px;
+    }
+
+    .ini-grid {
+        padding: 0 20px;
+        gap: 16px;
+    }
+
+    .ini-card {
+        padding: 18px 16px 18px 18px;
+        gap: 14px;
+    }
+
+    .ini-card-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .ini-card-icon img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .ini-bottom-banner {
+        padding: 16px 20px;
+    }
 }

@@ -4,6 +4,56 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-08-31 — `next` (27ª entrada)
+
+### Feat — Página Início v3: hero full-width com HUD, cards horizontais e banner inferior
+
+**Hero:**
+- Seção full-width com fundo `#daedf8` (mesma cor do `mapa-brasil-hud.html`)
+- Grid 46% / 54%: coluna esquerda com badge piscante "Federalismo Climático" + heading + descrição
+- Coluna direita: iframe `mapa-brasil-hud.html` com `mask-image` suavizando bordas + info card glassmorphism "Dados que geram impacto" posicionado no canto inferior direito
+- `body.inicio-page .rb-main { max-width: none; padding: 0; margin: 0 }` — hero sai do container global
+
+**Cards horizontais:**
+- Layout flex-row: ícone (72×72px, fundo `rgba(38,69,132,.08)`) + corpo (eyebrow + título + desc + "Saiba mais →") + seta circular navy
+- Fundo da seção: `fundo-bg.png` (cover) — imagem com ondas
+- Grid 2×2 com `max-width: 1080px`
+- Hover: `translateY(-4px)` + seta vira navy sólida
+
+**Banner inferior:**
+- Faixa navy `#264584` com dois textos em uppercase: "Informação que transforma territórios" (esq) e "Radar Brasil • Mais dados, maiores possibilidades" (dir)
+
+**Arquivos modificados:** `templates/municipios/inicio.html`, `static/css/inicio.css` (v3)
+
+---
+
+## 2026-08-27 — `next` (26ª entrada)
+
+### Feat — Landing Page v6: novo hero com HUD animado, ícones Lucide e layout vertical de cards
+
+**Hero:**
+- Fundo full-width `#cde3f4` com fade-out suavizado no topo e na base (`::before` / `::after`)
+- Grid 44% / 56%: coluna esquerda com eyebrow + heading Sora 68px + subtítulo com destaque azul + descrição + dois CTAs (navy sólido e outline) + linha de métricas (+5 / +1.000 / 100%)
+- Coluna direita: iframe `mapa-brasil-hud.html` com `allowtransparency="true"` e `mask-image` suavizando bordas do mapa
+- Info card glassmorphism posicionado `absolute` dentro de `.lp-hero-right` (top 20px, right 20px)
+
+**Cards de painéis:**
+- Layout vertical: ícone Lucide (40×40 px, fundo azul `rgba(37,99,235,.10)`) + número/título no topo → descrição → footer com botão navy sólido pill + seta circular navy
+- Labels atualizados: 01 Panorama, 02 Análises, 03 Território, 04 Colaboração
+- Seção panels com cabeçalho próprio: eyebrow "Nossos Painéis" + heading + "Ver todos os painéis →"
+
+**Sidebar:**
+- Card "Sobre o Radar Brasil" + card "Navegue Rápido" + card feature (imagem `radar_brasil_brasilia_alta_qualidade.png` + overlay "Dados abertos, sociedades mais resilientes.")
+
+**Infraestrutura:**
+- `mapa-brasil-hud.html`: background de `html,body` alterado de gradient cinza para `transparent`
+- `.rb-main` na landing: `max-width: none; padding: 0; margin: 0` — hero sai do container; seção de conteúdo usa `.lp-content` próprio com `max-width: 1140px`
+- CSS versão `?v=6`, template reescrito de v5 para v6
+
+**Arquivos modificados:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/img/mapa-brasil-hud.html`
+
+---
+
 ## 2026-08-25 — `main` (25ª entrada)
 
 ### Fix — Painel Multinível: remove JS que ocultava o rodapé e restaura gráfico para 380px

@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static i18n %}
 
 {% block title %}Radar Brasil - {% trans "Início" %}{% endblock %}
@@ -6,113 +6,134 @@
 {% block body_class %}rb-body inicio-page{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/inicio.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}?v=3">
 {% endblock %}
 
 {% block content %}
-<div class="ini-page">
 
-  <div class="ini-intro">
-    <div class="intro-label">
-      <span class="intro-label-dot"></span>
-      {% trans "Federalismo Climático" %}
+{# ── HERO ── #}
+<section class="ini-hero">
+    <div class="ini-hero-inner">
+
+        {# Coluna esquerda #}
+        <div class="ini-hero-left">
+            <div class="ini-eyebrow-badge">
+                <span class="ini-eyebrow-dot"></span>
+                {% trans "Federalismo Climático" %}
+            </div>
+            <h1 class="ini-hero-heading">
+                {% trans "Explore os eixos do Radar Brasil —" %}<br>
+                {% trans "Governança, Políticas e Planos, Programas e Financiamento" %}
+            </h1>
+            <p class="ini-hero-desc">{% trans "Clique em um dos eixos abaixo para acessar os dados, painéis interativos e avaliações de cada eixo do federalismo climático brasileiro." %}</p>
+        </div>
+
+        {# Coluna direita — mapa HUD + info card #}
+        <div class="ini-hero-right">
+            <iframe
+                src="{% static 'img/mapa-brasil-hud.html' %}"
+                allowtransparency="true"
+                scrolling="no"
+                class="ini-hud-frame"
+                title="Mapa Brasil">
+            </iframe>
+            <div class="ini-info-card">
+                <span class="ini-info-eyebrow">{% trans "Dados que geram impacto" %}</span>
+                <p class="ini-info-text">{% trans "Informação, análise e transparência para um Brasil mais resiliente e sustentável." %}</p>
+                <div class="ini-info-chips">
+                    <span class="ini-info-chip">{% trans "Painéis" %}</span>
+                    <span class="ini-info-chip">{% trans "Mapas" %}</span>
+                    <span class="ini-info-chip">{% trans "Dados" %}</span>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <h2>
-      {% trans "Explore os eixos do Radar Brasil —" %}<br>
-      {% trans "Governança, Políticas e Planos, Programas e Financiamento" %}
-    </h2>
-    <p>
-      {% trans "Clique em um dos eixos abaixo para acessar os dados, painéis interativos e avaliações de cada eixo do federalismo climático brasileiro." %}
-    </p>
-  </div>
+</section>
 
-  <div class="ini-grid">
+{# ── GRID DE EIXOS ── #}
+<div class="ini-content">
+    <div class="ini-grid">
 
-    {# Card 1 – Governança #}
-    <a href="{% url 'indicadores:painel_multinivel' %}?aba=0" class="ini-card">
-      <div class="ini-card-head">
-        <span class="ini-card-title">{% trans "Governança" %}</span>
-        <span class="ini-card-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </span>
-      </div>
-      <div class="ini-card-body">
-        <div class="ini-icon-wrap">
-          <img src="{% static 'img/governanca.svg' %}" alt="{% trans 'Governança' %}" class="ini-icon-img">
-        </div>
-        <div class="ini-card-desc">
-          <strong>{% trans "Estruturas de Governança" %}</strong>
-          <p>{% trans "Acompanhe os arranjos institucionais e mecanismos de participação federativa que estruturam a ação climática multinível." %}</p>
-        </div>
-      </div>
-    </a>
+        {# Card 1 – Governança #}
+        <a href="{% url 'indicadores:painel_multinivel' %}?aba=0" class="ini-card">
+            <div class="ini-card-icon">
+                <img src="{% static 'img/governanca.svg' %}" alt="{% trans 'Governança' %}">
+            </div>
+            <div class="ini-card-body">
+                <span class="ini-card-eyebrow">{% trans "Governança" %}</span>
+                <strong class="ini-card-title">{% trans "Estruturas de Governança" %}</strong>
+                <p class="ini-card-desc">{% trans "Acompanhe os arranjos institucionais e mecanismos de participação federativa que estruturam a ação climática multinível." %}</p>
+                <span class="ini-card-link">{% trans "Saiba mais" %} →</span>
+            </div>
+            <div class="ini-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+        </a>
 
-    {# Card 2 – Políticas e Planos #}
-    <a href="{% url 'indicadores:painel_multinivel' %}?aba=1" class="ini-card">
-      <div class="ini-card-head">
-        <span class="ini-card-title">{% trans "Políticas e Planos" %}</span>
-        <span class="ini-card-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </span>
-      </div>
-      <div class="ini-card-body">
-        <div class="ini-icon-wrap">
-          <img src="{% static 'img/politicas_planos.svg' %}" alt="{% trans 'Políticas e Planos' %}" class="ini-icon-img">
-        </div>
-        <div class="ini-card-desc">
-          <strong>{% trans "Políticas e Planos" %}</strong>
-          <p>{% trans "Identifique os instrumentos de orientação estratégica existente no enfrentamento das mudanças climáticas." %}</p>
-        </div>
-      </div>
-    </a>
+        {# Card 2 – Políticas e Planos #}
+        <a href="{% url 'indicadores:painel_multinivel' %}?aba=1" class="ini-card">
+            <div class="ini-card-icon">
+                <img src="{% static 'img/politicas_planos.svg' %}" alt="{% trans 'Políticas e Planos' %}">
+            </div>
+            <div class="ini-card-body">
+                <span class="ini-card-eyebrow">{% trans "Políticas e Planos" %}</span>
+                <strong class="ini-card-title">{% trans "Políticas e Planos" %}</strong>
+                <p class="ini-card-desc">{% trans "Identifique os instrumentos de orientação estratégica existente no enfrentamento das mudanças climáticas." %}</p>
+                <span class="ini-card-link">{% trans "Saiba mais" %} →</span>
+            </div>
+            <div class="ini-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+        </a>
 
-    {# Card 3 – Programas #}
-    <a href="{% url 'indicadores:painel_multinivel' %}?aba=2" class="ini-card">
-      <div class="ini-card-head">
-        <span class="ini-card-title">{% trans "Programas" %}</span>
-        <span class="ini-card-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </span>
-      </div>
-      <div class="ini-card-body">
-        <div class="ini-icon-wrap">
-          <img src="{% static 'img/programas.svg' %}" alt="{% trans 'Programas' %}" class="ini-icon-img">
-        </div>
-        <div class="ini-card-desc">
-          <strong>{% trans "Programas" %}</strong>
-          <p>{% trans "Identifique as ações e iniciativas planejadas para reduzir impactos das mudanças climáticas." %}</p>
-        </div>
-      </div>
-    </a>
+        {# Card 3 – Programas #}
+        <a href="{% url 'indicadores:painel_multinivel' %}?aba=2" class="ini-card">
+            <div class="ini-card-icon">
+                <img src="{% static 'img/programas.svg' %}" alt="{% trans 'Programas' %}">
+            </div>
+            <div class="ini-card-body">
+                <span class="ini-card-eyebrow">{% trans "Programas" %}</span>
+                <strong class="ini-card-title">{% trans "Programas" %}</strong>
+                <p class="ini-card-desc">{% trans "Identifique as ações e iniciativas planejadas para reduzir impactos das mudanças climáticas." %}</p>
+                <span class="ini-card-link">{% trans "Saiba mais" %} →</span>
+            </div>
+            <div class="ini-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+        </a>
 
-    {# Card 4 – Linhas de Financiamento #}
-    <a href="{% url 'indicadores:painel_multinivel' %}?aba=3" class="ini-card">
-      <div class="ini-card-head">
-        <span class="ini-card-title">{% trans "Linhas de Financiamento" %}</span>
-        <span class="ini-card-arrow">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </span>
-      </div>
-      <div class="ini-card-body">
-        <div class="ini-icon-wrap">
-          <img src="{% static 'img/financiamento.svg' %}" alt="{% trans 'Linhas de Financiamento' %}" class="ini-icon-img">
-        </div>
-        <div class="ini-card-desc">
-          <strong>{% trans "Linhas de Financiamento" %}</strong>
-          <p>{% trans "Analise os investimentos e transferências interfederativas em apoio ao enfrentamento das mudanças climáticas." %}</p>
-        </div>
-      </div>
-    </a>
+        {# Card 4 – Linhas de Financiamento #}
+        <a href="{% url 'indicadores:painel_multinivel' %}?aba=3" class="ini-card">
+            <div class="ini-card-icon">
+                <img src="{% static 'img/financiamento.svg' %}" alt="{% trans 'Linhas de Financiamento' %}">
+            </div>
+            <div class="ini-card-body">
+                <span class="ini-card-eyebrow">{% trans "Linhas de Financiamento" %}</span>
+                <strong class="ini-card-title">{% trans "Linhas de Financiamento" %}</strong>
+                <p class="ini-card-desc">{% trans "Analise os investimentos e transferências interfederativas em apoio ao enfrentamento das mudanças climáticas." %}</p>
+                <span class="ini-card-link">{% trans "Saiba mais" %} →</span>
+            </div>
+            <div class="ini-card-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+        </a>
 
-  </div>{# /ini-grid #}
+    </div>
+</div>
 
-</div>{# /ini-page #}
+{# ── BANNER INFERIOR ── #}
+<div class="ini-bottom-banner">
+    <span>{% trans "Informação que transforma territórios" %}</span>
+    <span>{% trans "Radar Brasil • Mais dados, maiores possibilidades" %}</span>
+</div>
+
 {% endblock %}
