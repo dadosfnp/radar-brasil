@@ -8,6 +8,10 @@ body.mg-sidebar-open .mg-filter-fab {
     opacity: 0 !important;
     pointer-events: none !important;
 }
+body.mapa-page {
+    background: url('../img/fundo-bg.png') center top / cover no-repeat fixed;
+}
+
 body.mapa-page .rb-main {
     background: transparent;
     max-width: 100%;

@@ -11,6 +11,10 @@ body.metodologia-page {
 }
 
 
+body.metodologia-page .rb-footer-wave svg path {
+    fill: #ffffff;
+}
+
 body.metodologia-page .rb-main {
     background: transparent;
     max-width: 100%;

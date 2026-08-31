@@ -285,12 +285,12 @@ body.inicio-page .rb-main {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(38,69,132,.08);
-    border: 1.5px solid rgba(38,69,132,.16);
+    background: #264584;
+    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #264584;
+    color: #ffffff;
     transition: background .2s, transform .2s;
 }
 
@@ -300,9 +300,13 @@ body.inicio-page .rb-main {
 }
 
 .ini-card:hover .ini-card-arrow {
-    background: #264584;
-    color: #ffffff;
+    background: #1a3468;
     transform: translateX(2px);
+}
+
+/* Wave do rodapé combina com fundo branco do corpo */
+body.inicio-page .rb-footer-wave svg path {
+    fill: #ffffff;
 }
 
 /* ── RESPONSIVO ───────────────────────────────────── */
