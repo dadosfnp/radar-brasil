@@ -3,16 +3,11 @@
    ============================== */
 
 body.metodologia-page {
-    background: url('../img/fundo-bg.png') center top / cover no-repeat;
-    background-attachment: fixed;
+    background: #ffffff;
     margin: 0;
     padding: 0;
     position: relative;
     min-height: 100vh;
-}
-
-body.metodologia-page .rb-footer-wave {
-    display: none;
 }
 
 
@@ -30,6 +25,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-hero-zone {
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
     padding: 52px 0 56px;
 }
 
