@@ -4,8 +4,7 @@
 
 /* ---- BODY / CONTAINER ---- */
 body.inicio-page {
-    background: url('../img/fundo-bg.png') center top / cover no-repeat;
-    background-attachment: fixed;
+    background: var(--color-bg-page);
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -20,7 +19,7 @@ body.inicio-page .rb-main {
 
 /* ── HERO ────────────────────────────────────────── */
 .ini-hero {
-    background: transparent;
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
     width: 100%;
     padding: 52px 0 0;
     overflow: hidden;
@@ -304,11 +303,6 @@ body.inicio-page .rb-main {
     background: #264584;
     color: #ffffff;
     transform: translateX(2px);
-}
-
-/* Oculta a onda de transição do rodapé para o fundo cobrir até o footer */
-body.inicio-page .rb-footer-wave {
-    display: none;
 }
 
 /* ── RESPONSIVO ───────────────────────────────────── */
