@@ -7,23 +7,35 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=4">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=5">
 {% endblock %}
 
 {% block content %}
 
 <!-- HERO -->
 <div class="meto-hero-zone">
-    <div class="meto-hero">
+    <div class="meto-hero-inner">
 
-        <div class="meto-hero-badge">
-            <span class="meto-hero-badge-dot"></span>
-            <span class="meto-hero-badge-text">{% trans "Metodologia" %}</span>
+        <div class="meto-hero-left">
+            <div class="meto-hero-badge">
+                <span class="meto-hero-badge-dot"></span>
+                <span class="meto-hero-badge-text">{% trans "Metodologia" %}</span>
+            </div>
+            <h1>{% trans "Impulsionando a Ação Climática Federativa" %}</h1>
+            <p class="meto-hero-desc">
+                {% trans "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, políticas e planos, programas e linhas de financiamento relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias." %}
+            </p>
         </div>
-        <h1>{% trans "Impulsionando a Ação Climática Federativa" %}</h1>
-        <p class="meto-hero-desc">
-            {% trans "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, políticas e planos, programas e linhas de financiamento relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias." %}
-        </p>
+
+        <div class="meto-hero-right">
+            <iframe
+                src="{% static 'img/mapa-brasil-hud.html' %}"
+                allowtransparency="true"
+                scrolling="no"
+                class="meto-hud-frame"
+                title="Mapa Brasil">
+            </iframe>
+        </div>
 
     </div>
 </div>
