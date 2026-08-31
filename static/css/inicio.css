@@ -305,6 +305,10 @@ body.inicio-page .rb-main {
 }
 
 /* Wave do rodapé combina com fundo branco do corpo */
+body.inicio-page .rb-footer-wave {
+    display: block;
+}
+
 body.inicio-page .rb-footer-wave svg path {
     fill: #ffffff;
 }

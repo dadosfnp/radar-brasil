@@ -255,7 +255,7 @@ body.rb-body {
 
 .rb-footer-wave {
     line-height: 0;
-    display: block;
+    display: none;
 }
 
 .rb-footer-wave svg {

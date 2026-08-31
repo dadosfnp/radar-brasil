@@ -11,6 +11,10 @@ body.metodologia-page {
 }
 
 
+body.metodologia-page .rb-footer-wave {
+    display: block;
+}
+
 body.metodologia-page .rb-footer-wave svg path {
     fill: #ffffff;
 }
