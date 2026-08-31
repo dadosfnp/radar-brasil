@@ -265,7 +265,7 @@ body.rb-body {
 }
 
 .rb-footer-wave svg path {
-    fill: var(--color-bg-page);
+    fill: transparent;
 }
 
 /* Links dentro do footer */
