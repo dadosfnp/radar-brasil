@@ -22,7 +22,8 @@ body { margin: 0; padding: 0; }
 
 body.rb-body {
     font-family: 'Roboto', system-ui, sans-serif;
-    background: var(--color-bg-page);
+    background: url('../img/fundo-bg.png') center top / cover no-repeat;
+    background-attachment: fixed;
     color: #123;
     min-height: 100vh;
     display: flex;
