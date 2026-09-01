@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-08-25
+> Última atualização: 2026-09-01
 
 ---
 
@@ -272,41 +272,33 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-08-27)
+## Estado Atual do Projeto (2026-09-01)
 
-### Branch atual: `main` — `0289e69` — droplet pendente de rebuild
+### Branch atual: `main` — `c982675` — droplet pendente de rebuild
 
-### Landing Page v6 — trabalho local em progresso (NÃO commitado)
+### Sessao 2026-09-01 — commits publicados em origin, prod e next
 
-Redesign completo da landing page desenvolvido nas sessões 2026-08-27/28. **Apenas local, não subir até autorização.**
+Trabalho realizado nesta sessao (todos commitados e publicados):
 
-**Arquivos modificados (não commitados):**
-- `templates/municipios/landing.html` — v6: hero full-width com iframe HUD animado, grid 44/56%, cards verticais com ícones Lucide, sidebar com Sobre/Mídia/Agenda
-- `static/css/landing.css` — v6: hero `#daedf8`, body branco, sem nav, sem métricas
-- `static/img/mapa-brasil-hud.html` — background `#daedf8` (unificado com hero)
-
-**Estado atual do design:**
-- Hero: fundo `#daedf8` (azul suave), sem degradê nas bordas, nav oculto
-- Seção de cards: fundo branco `#ffffff`
-- Sidebar: "Sobre o Radar Brasil" + "O Radar Brasil na Mídia" + "Agenda Radar Brasil"
-- Cards: 01 Panorama / 02 Análises / 03 Território / 04 Colaboração — botões navy pill + seta circular
-- Métricas (+5/+1.000/100%) removidas do hero
-- Cards "Navegue Rápido" e foto da cidade removidos da sidebar
-
-**Antes de commitar:** atualizar `docs/CHANGELOG.md` e `docs/design.md` (já atualizados para v6 na sessão anterior).
+- **Mapa HUD hero**: `transform: scale(0.70)` no `.scene` de `mapa-brasil-hud.html` para reduzir tamanho do mapa nas paginas Inicio, Landing e Metodologia (commit `bbd3414`)
+- **Altura da faixa hero Metodologia**: `padding-bottom` removido de `.meto-hero-zone` para igualar ao Inicio (commit `e5a742b`)
+- **Badge "Metodologia"**: padronizado com badge "Federalismo Climatico" do Inicio — border-radius 999px, cores, padding, font-size (commit `067e5e7`)
+- **Tipografia hero Metodologia**: titulo `2.5rem`, `line-height 1.18`, `font-family Sora/Roboto`; descricao `DM Sans`, `0.9375rem` — iguais ao Inicio; seletor `.meto-hero h1` corrigido para `.meto-hero-left h1` (commit `de8fd8f`)
+- **Traducao EN titulo Inicio**: strings `"Explore os eixos"` e `"do Radar Brasil"` adicionadas ao `django.po` e `.mo` recompilado (commit `c982675`)
+- **Git autenticacao**: remotos `origin` e `prod` configurados com PAT do brunofnp para push automatico no Claude Code
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | ✅ `0289e69` | ✅ `0289e69` |
-| `prod` (dadosfnp) | — | ✅ `0289e69` |
+| `origin` (brunofnp) | ✅ `c982675` | ✅ `c982675` |
+| `prod` (dadosfnp) | - | ✅ `c982675` |
 
-> `next` e `main` idênticos. Criar feature branches a partir de `next`.
+> `next` e `main` identicos. Criar feature branches a partir de `next`.
 
 ### Droplet — pendente de rebuild
 
-Commits `0289e69` e anteriores estão publicados nos remotos mas **o droplet ainda não fez build**. Para aplicar:
+Commits publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
 
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
