@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (30ª entrada)
+
+### Style — Padroniza altura da faixa hero entre Inicio e Metodologia
+
+- `.meto-hero-zone`: remove `padding-bottom: 36px` (agora `padding: 32px 0 0`), igualando ao `.ini-hero` da pagina Inicio
+- `metodologia.css` atualizado para `?v=10`
+
+---
+
 ## 2026-09-01 — `main` (29ª entrada)
 
 ### Style — Reduz escala do hero com mapa HUD nas paginas Inicio, Landing e Metodologia
