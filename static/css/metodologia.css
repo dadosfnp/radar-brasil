@@ -103,26 +103,27 @@ body.metodologia-page .rb-main {
     color: #264584;
 }
 
-.meto-hero h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: 2.125rem;
+.meto-hero-left h1 {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 2.5rem;
     font-weight: 800;
     color: #101d4f;
-    line-height: 1.22;
-    margin-bottom: 18px;
+    line-height: 1.18;
+    margin: 0;
 }
 
-.meto-hero h1 em {
+.meto-hero-left h1 em {
     color: #101d4f;
     font-style: normal;
 }
 
 .meto-hero-desc {
-    font-size: 0.875rem;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.9375rem;
     color: #334488;
-    line-height: 1.78;
+    line-height: 1.75;
     font-weight: 400;
-    max-width: 520px;
+    max-width: 480px;
 }
 
 /* ══════════════════════════════
@@ -460,9 +461,9 @@ body.metodologia-page .rb-main {
         gap: 24px;
     }
     .meto-hero-zone {
-        padding: 32px 0 36px;
+        padding: 32px 0 0;
     }
-    .meto-hero h1 { font-size: 1.625rem; }
+    .meto-hero-left h1 { font-size: 1.5rem; }
     .meto-content {
         grid-template-columns: 1fr;
         gap: 32px;

@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (32ª entrada)
+
+### Style — Tipografia do hero Metodologia padronizada com Inicio
+
+- Seletor do titulo corrigido: `.meto-hero h1` -> `.meto-hero-left h1` (classe inexistente no template)
+- Titulo: `font-size 2.125rem->2.5rem`, `line-height 1.22->1.18`, `margin-bottom->0`, `font-family` com fallback Roboto
+- Descricao: adiciona `font-family: 'DM Sans', 'Roboto'`, `font-size 0.875rem->0.9375rem`, `line-height 1.78->1.75`, `max-width 520->480px`
+- Media query mobile: seletor e padding-bottom corrigidos
+
+---
+
 ## 2026-09-01 — `main` (31ª entrada)
 
 ### Style — Badge "Metodologia" padronizado com "Federalismo Climatico"
