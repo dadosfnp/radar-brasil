@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (33ª entrada)
+
+### Fix — Traducao EN do titulo da pagina Inicio
+
+- Adicionadas strings ausentes no `django.po`: `"Explore os eixos"` -> `"Explore the axes"` e `"do Radar Brasil"` -> `"of Radar Brasil"`
+- `django.mo` recompilado
+
+---
+
 ## 2026-09-01 — `main` (32ª entrada)
 
 ### Style — Tipografia do hero Metodologia padronizada com Inicio

@@ -406,6 +406,12 @@ msgstr "Climate Federalism"
 msgid "Explore os eixos do Radar Brasil —"
 msgstr "Explore the Radar Brasil axes —"
 
+msgid "Explore os eixos"
+msgstr "Explore the axes"
+
+msgid "do Radar Brasil"
+msgstr "of Radar Brasil"
+
 msgid "Governança, Políticas e Planos, Programas e Financiamento"
 msgstr "Governance, Policies and Plans, Programs and Finance"
 
