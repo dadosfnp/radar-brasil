@@ -197,11 +197,22 @@ Criado no commit `9ac604a`. Usa **multi-seletores** para eliminar CSS duplicado 
 
 **Arquivo:** `base.css` — `.rb-footer-landing`
 
-- Onda SVG decorativa no topo (fill `var(--color-bg-page)`)
 - 3 colunas: Contato | Copyright | Siga-nos + logos parceiros
 - Logos parceiros (C40, GCOM, FNP): `height: 44px`, `filter: brightness(0) invert(1)`, `opacity: 0.75`
-  - *Revisão `5380679`:* reduzido de 72px → 44px para melhor harmonia
-- Ícones de redes sociais: Instagram, LinkedIn, X, YouTube
+- Icones de redes sociais: Instagram, LinkedIn, X, YouTube
+
+**Onda de transicao (`.rb-footer-wave`) — atualizado 2026-09-01:**
+- Posicionada FORA do `<footer>`, como elemento irmaoo antes dele no DOM
+- SVG invertido: `fill="#101d4f"` (navy, mesma cor do footer) preenche a area inferior com borda curva; area superior e transparente, mostrando o background da pagina naturalmente
+- Path: `M0,60 C360,100 1080,100 1440,60 L1440,100 L0,100 Z`
+- Funciona para todas as paginas sem override por pagina: em paginas com `fundo-bg.png` a curva revela o fundo-bg; em paginas brancas revela o `#ffffff` do body
+- Elimina a faixa colorida (strip) que aparecia entre o conteudo e o rodape
+
+**Background global (html) — atualizado 2026-09-01:**
+- `html { background: url('../img/fundo-bg.png') center top / cover no-repeat fixed }` — cobre 100% do viewport com a imagem de ondas
+- `body.rb-body { background: transparent }` — body transparente herda o fundo do html em paginas internas
+- Paginas brancas (Landing, Inicio, Metodologia): `body { background: #ffffff }` cobre o html; `fundo-bg.png` aparece apenas no hero
+- Paginas internas: fundo-bg.png visiivel em toda a pagina (substitui o antigo azul solido)
 
 ### Favicon
 
@@ -217,7 +228,17 @@ Adicionado no commit `d82d7b6`:
 
 ### 5.1 Landing Page (`/`)
 
-**Arquivo CSS:** `landing.css` — versão atual: v6 (2026-08-27)
+**Arquivo CSS:** `landing.css` — versao atual: v8 (2026-09-01)
+
+#### v8 — Ajustes de conteudo e background (2026-09-01)
+
+- Hero com `fundo-bg.png` (substituindo cor solida `#cde3f4`)
+- Subtitulo simplificado: "Impulsionando Acao Climatica e Federativa" (removido "com Dados Abertos")
+- `body.lp-body { background: #ffffff }` — secao de conteudo branca
+
+#### v6/v7 — Redesign completo com hero animado (2026-08-27)
+
+**Arquivo CSS:** `landing.css` — versao historica: v6 (2026-08-27)
 
 #### v6 — Redesign completo com hero animado (2026-08-27)
 
@@ -258,7 +279,15 @@ Adicionado no commit `d82d7b6`:
 
 ### 5.2 Início (`/inicio/`)
 
-**Arquivo CSS:** `inicio.css` — versão atual: v3 (2026-08-31)
+**Arquivo CSS:** `inicio.css` — versao atual: v10 (2026-09-01)
+
+#### v10 — Titulo reestruturado, info card removido (2026-09-01)
+
+- Titulo do hero: 2 linhas ("Explore os eixos / do Radar Brasil") com `font-size: 2.5rem`, `line-height: 1.18`
+- Nova classe `.ini-hero-cats`: linha de categorias abaixo do titulo ("Governanca · Politicas e Planos · Programas · Financiamento"), `font-size: 0.8125rem`, cor `#264584 opacity 0.75`
+- Info card "Dados que Geram Impacto" removido do hero
+
+#### v3/v9 — Hero full-width com HUD (2026-08-31)
 
 **Redesign v3 (2026-08-31):**
 

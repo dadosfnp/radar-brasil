@@ -6,7 +6,7 @@
 {% block body_class %}rb-body inicio-page{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/inicio.css' %}?v=9">
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}?v=10">
 {% endblock %}
 
 {% block content %}
@@ -22,9 +22,10 @@
                 {% trans "Federalismo Climático" %}
             </div>
             <h1 class="ini-hero-heading">
-                {% trans "Explore os eixos do Radar Brasil —" %}<br>
-                {% trans "Governança, Políticas e Planos, Programas e Financiamento" %}
+                {% trans "Explore os eixos" %}<br>
+                {% trans "do Radar Brasil" %}
             </h1>
+            <p class="ini-hero-cats">{% trans "Governança" %} · {% trans "Políticas e Planos" %} · {% trans "Programas" %} · {% trans "Financiamento" %}</p>
             <p class="ini-hero-desc">{% trans "Clique em um dos eixos abaixo para acessar os dados, painéis interativos e avaliações de cada eixo do federalismo climático brasileiro." %}</p>
         </div>
 
@@ -37,15 +38,6 @@
                 class="ini-hud-frame"
                 title="Mapa Brasil">
             </iframe>
-            <div class="ini-info-card">
-                <span class="ini-info-eyebrow">{% trans "Dados que geram impacto" %}</span>
-                <p class="ini-info-text">{% trans "Informação, análise e transparência para um Brasil mais resiliente e sustentável." %}</p>
-                <div class="ini-info-chips">
-                    <span class="ini-info-chip">{% trans "Painéis" %}</span>
-                    <span class="ini-info-chip">{% trans "Mapas" %}</span>
-                    <span class="ini-info-chip">{% trans "Dados" %}</span>
-                </div>
-            </div>
         </div>
 
     </div>

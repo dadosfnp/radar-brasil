@@ -9,13 +9,6 @@ body.lp-body {
 
 body.lp-body .rb-main-nav { display: none !important; }
 
-body.lp-body .rb-footer-wave {
-    display: block;
-}
-
-body.lp-body .rb-footer-wave svg path {
-    fill: #ffffff;
-}
 
 /* rb-main: full-width na landing (hero precisa sair do container) */
 body.lp-body .rb-main {

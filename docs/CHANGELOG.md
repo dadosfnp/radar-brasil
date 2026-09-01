@@ -4,6 +4,41 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (28ª entrada)
+
+### Style — Redesign global de background, rodape e paginas principais (sessoes 2026-08-31 e 2026-09-01)
+
+**Background universal (fundo-bg.png):**
+- `html { background: url('../img/fundo-bg.png') center top / cover no-repeat fixed }` — background aplicado no elemento `html`, cobre 100% do viewport independente da altura do conteudo
+- `body.rb-body { background: transparent }` — body transparente herda o fundo do html
+- Paginas brancas (Landing, Inicio, Metodologia): `body { background: #ffffff }` cobre o html nas secoes de conteudo; `fundo-bg.png` aparece apenas no hero de cada uma
+- Paginas internas (Painel Multinivel, Avaliacao Painel, Nota Pais, Financiamento, Mapa): fundo `fundo-bg.png` ao longo de toda a pagina, substituindo o antigo azul solido `var(--color-bg-page)`
+- CSS com cache-buster incrementado em todas as paginas afetadas
+
+**Rodape: wave reestruturado:**
+- `.rb-footer-wave` movido para FORA do `<footer>`, posicionado antes dele no DOM
+- SVG invertido: preenchimento `#101d4f` (navy) na area inferior com borda curva superior; area superior transparente mostra o fundo da pagina naturalmente
+- Elimina a faixa colorida entre conteudo e rodape em todas as paginas
+- Sem necessidade de overrides por pagina: comportamento universal correto para fundo-bg e fundo branco
+
+**Pagina Inicio v3 (CSS v10):**
+- Titulo do hero reestruturado: 2 linhas limpas ("Explore os eixos / do Radar Brasil") + paragrafo de categorias abaixo ("Governanca · Politicas e Planos · Programas · Financiamento")
+- Font-size do heading aumentado para 2.5rem, line-height 1.18
+- Classe `.ini-hero-cats` adicionada para estilizar a linha de categorias
+- Info card "Dados que Geram Impacto" removido do hero
+
+**Pagina Landing v8:**
+- Subtitulo simplificado: "Impulsionando Acao Climatica e Federativa" (removido "com Dados Abertos")
+
+**Pagina Metodologia v8:**
+- Hero reestruturado para grid 2 colunas (46% / 54%): coluna esquerda com badge + heading + descricao; coluna direita com iframe HUD animado
+- Badge com `width: fit-content` para nao esticar a largura total
+- `body.metodologia-page { background: #ffffff }` com hero usando `fundo-bg.png`
+
+**Arquivos modificados:** `base_templates/base.html`, `static/css/base.css`, `static/css/inicio.css`, `static/css/landing.css`, `static/css/metodologia.css`, `static/css/painel-multinivel.css`, `static/css/avaliacao-painel.css`, `static/css/nota-pais.css`, `static/css/financiamento-climatico.css`, `static/css/mapa-georreferenciado.css`, `templates/municipios/inicio.html`, `templates/municipios/landing.html`, `templates/municipios/metodologia.html`, `static/img/fundo-bg.png` (novo), `static/img/mapa-brasil-hud.html` (novo)
+
+---
+
 ## 2026-08-31 — `next` (27ª entrada)
 
 ### Feat — Página Início v3: hero full-width com HUD, cards horizontais e banner inferior

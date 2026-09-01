@@ -255,7 +255,7 @@ body.rb-body {
 
 .rb-footer-wave {
     line-height: 0;
-    display: none;
+    display: block;
 }
 
 .rb-footer-wave svg {
@@ -265,7 +265,7 @@ body.rb-body {
 }
 
 .rb-footer-wave svg path {
-    fill: #daedf8;
+    fill: #101d4f;
 }
 
 /* Links dentro do footer */
