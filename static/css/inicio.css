@@ -21,7 +21,7 @@ body.inicio-page .rb-main {
 .ini-hero {
     background: url('../img/fundo-bg.png') center top / cover no-repeat;
     width: 100%;
-    padding: 52px 0 0;
+    padding: 32px 0 0;
     overflow: hidden;
 }
 
@@ -33,16 +33,16 @@ body.inicio-page .rb-main {
     grid-template-columns: 46% 54%;
     gap: 0;
     align-items: center;
-    min-height: 480px;
+    min-height: 320px;
 }
 
 /* ---- Coluna esquerda ---- */
 .ini-hero-left {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 18px;
     padding-right: 32px;
-    padding-bottom: 52px;
+    padding-bottom: 32px;
 }
 
 /* Badge "Federalismo Climático" */
@@ -109,7 +109,7 @@ body.inicio-page .rb-main {
 /* ---- Coluna direita — mapa + info card ---- */
 .ini-hero-right {
     position: relative;
-    height: 480px;
+    height: 320px;
     display: flex;
     align-items: flex-end;
 }
@@ -181,7 +181,7 @@ body.inicio-page .rb-main {
 .ini-content {
     width: 100%;
     background: transparent;
-    padding: 56px 0 72px;
+    padding: 40px 0 56px;
 }
 
 .ini-grid {

@@ -34,10 +34,10 @@ body.lp-body .rb-main {
 .lp-hero-inner {
     position: relative; z-index: 1;
     max-width: 1260px; margin: 0 auto;
-    padding: 64px 48px 0;
+    padding: 40px 48px 0;
     display: grid;
     grid-template-columns: 44% 56%;
-    min-height: 520px;
+    min-height: 360px;
 }
 
 /* ── Hero left ── */

@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (29ª entrada)
+
+### Style — Reduz escala do hero com mapa HUD nas paginas Inicio, Landing e Metodologia
+
+- Inicio v11: hero `min-height` 480px → 320px, padding 52px → 32px; coluna direita 480px → 320px; `.ini-content` padding reduzido
+- Metodologia v9: hero `min-height` 420px → 320px, padding 52px/56px → 32px/36px; coluna direita 420px → 320px
+- Landing v9: hero `min-height` 520px → 360px, padding-top 64px → 40px
+
+**Arquivos modificados:** `static/css/inicio.css`, `static/css/metodologia.css`, `static/css/landing.css`, `templates/municipios/inicio.html`, `templates/municipios/metodologia.html`, `templates/municipios/landing.html`
+
+---
+
 ## 2026-09-01 — `main` (28ª entrada)
 
 ### Style — Redesign global de background, rodape e paginas principais (sessoes 2026-08-31 e 2026-09-01)
