@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-01 — `main` (31ª entrada)
+
+### Style — Badge "Metodologia" padronizado com "Federalismo Climatico"
+
+- `.meto-hero-badge`: `gap 6->8px`, `background rgba(16,29,79,.13)->rgba(38,69,132,.10)`, `border 1px->1.5px rgba(38,69,132,.20)`, `border-radius 20px->999px`, `padding 5px 14px->6px 16px`
+- `.meto-hero-badge-text`: `font-size 0.59375rem->0.625rem`, `letter-spacing .16em->.14em`, `color #101d4f->#264584`
+
+---
+
 ## 2026-09-01 — `main` (30ª entrada)
 
 ### Style — Padroniza altura da faixa hero entre Inicio e Metodologia
