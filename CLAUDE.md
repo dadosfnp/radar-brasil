@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-01
+> Última atualização: 2026-09-02
 
 ---
 
@@ -143,8 +143,13 @@ O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no ban
 - Seletor PT|EN no header (via `set_language` em `/i18n/setlang/`)
 - Templates usam `{% load i18n %}` + `{% trans "..." %}`
 - `request.LANGUAGE_CODE` renderizado como `lang="{{ request.LANGUAGE_CODE }}"` no `<html>`
-- Arquivo PO: `locale/en/LC_MESSAGES/django.po` (243 strings)
-- Compilar: `python manage.py compilemessages` ou script `compile_po.py`
+- Arquivo PO: `locale/en/LC_MESSAGES/django.po` (245+ strings)
+- Compilar no droplet: `python manage.py compilemessages`
+- Compilar localmente (sem msgfmt): `pip install polib` e depois:
+  ```python
+  import polib; po = polib.pofile("locale/en/LC_MESSAGES/django.po"); po.save_as_mofile("locale/en/LC_MESSAGES/django.mo")
+  ```
+  O script `compile_po.py` referenciado anteriormente **não existe** no repositório.
 
 ### JavaScript (strings dinâmicas)
 
@@ -272,29 +277,22 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-01)
+## Estado Atual do Projeto (2026-09-02)
 
-### Branch atual: `main` — `c982675` — droplet pendente de rebuild
-
-### Sessao 2026-09-01 — commits publicados em origin, prod e next
-
-Trabalho realizado nesta sessao (todos commitados e publicados):
-
-- **Mapa HUD hero**: `transform: scale(0.70)` no `.scene` de `mapa-brasil-hud.html` para reduzir tamanho do mapa nas paginas Inicio, Landing e Metodologia (commit `bbd3414`)
-- **Altura da faixa hero Metodologia**: `padding-bottom` removido de `.meto-hero-zone` para igualar ao Inicio (commit `e5a742b`)
-- **Badge "Metodologia"**: padronizado com badge "Federalismo Climatico" do Inicio — border-radius 999px, cores, padding, font-size (commit `067e5e7`)
-- **Tipografia hero Metodologia**: titulo `2.5rem`, `line-height 1.18`, `font-family Sora/Roboto`; descricao `DM Sans`, `0.9375rem` — iguais ao Inicio; seletor `.meto-hero h1` corrigido para `.meto-hero-left h1` (commit `de8fd8f`)
-- **Traducao EN titulo Inicio**: strings `"Explore os eixos"` e `"do Radar Brasil"` adicionadas ao `django.po` e `.mo` recompilado (commit `c982675`)
-- **Git autenticacao**: remotos `origin` e `prod` configurados com PAT do brunofnp para push automatico no Claude Code
+### Branch atual: `main` — `eb5c489` — droplet pendente de rebuild
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | ✅ `c982675` | ✅ `c982675` |
-| `prod` (dadosfnp) | - | ✅ `c982675` |
+| `origin` (brunofnp) | ✅ `eb5c489` | ✅ `eb5c489` |
+| `prod` (dadosfnp) | - | ✅ `eb5c489` |
 
 > `next` e `main` identicos. Criar feature branches a partir de `next`.
+
+### Git — autenticacao configurada
+
+Remotos `origin` e `prod` configurados com PAT do brunofnp no `.git/config` para push automatico sem prompt interativo. Config apenas local, nao versionada.
 
 ### Droplet — pendente de rebuild
 
@@ -304,16 +302,16 @@ Commits publicados nos remotos mas **o droplet ainda nao fez build**. Para aplic
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
 
-**CRÍTICO:** `docker compose up -d` sem `build` não atualiza arquivos estáticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` após mudanças em CSS/JS/templates.
+**CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
 
-### Infraestrutura de produção
+### Infraestrutura de producao
 
 | Item | Valor |
 |---|---|
 | Droplet | `fnp-web` — Ubuntu 24.04 — `root@142.93.205.222` |
 | App dir | `/opt/radar-brasil/` |
 | Porta interna | `127.0.0.1:8005` |
-| Domínio | `https://radarbrasil.fnp.org.br` |
+| Dominio | `https://radarbrasil.fnp.org.br` |
 | SSL | Let's Encrypt via certbot (expira 2026-11-15) |
 | Banco | `fnp-database` (DigitalOcean Managed PostgreSQL 18) — database `radar_brasil`, user `radarbrasil` |
 | Container | `radarbrasil` — Python 3.12-slim, Gunicorn 3 workers |
@@ -336,35 +334,84 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Página Início — estado (2026-08-24)
+### Pagina Inicio — estado (2026-09-01)
 
-Layout 2×2 glassmorphism. Ícone SVG com fundo flat — **sem radial-gradient**:
+CSS: `static/css/inicio.css` v=11 | Template: `templates/municipios/inicio.html`
 
+Hero layout 46%/54%, `min-height: 320px`, `padding: 32px 0 0`:
+- Badge "Federalismo Climatico" — pill com bolinha verde `#22c55e`, `border-radius: 999px`, `padding: 6px 16px`, `background: rgba(38,69,132,.10)`, `border: 1.5px solid rgba(38,69,132,.20)`
+- Titulo: `font-size: 2.5rem`, `font-weight: 800`, `color: #101d4f`, `line-height: 1.18`, `font-family: Sora` — dois `{% trans %}` separados: `"Explore os eixos"` + `<br>` + `"do Radar Brasil"`
+- Mapa HUD: iframe com `.ini-hud-frame`, `mask-image` degrade; src `mapa-brasil-hud.html?v=3`
+- Cards: grid 2x2 glassmorphism. Icone SVG flat sem `radial-gradient`:
+  ```css
+  .ini-icon-wrap { width: 88px; height: 88px; border-radius: 22px;
+      background: rgba(38,69,132,.08); border: 1.5px solid rgba(38,69,132,.14); }
+  ```
+- Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
+
+### Mapa Brasil HUD — estado (2026-09-01)
+
+Arquivo: `static/img/mapa-brasil-hud.html` (commitado, nao e um arquivo de imagem estatico)
+
+Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para escalar o mapa interno:
 ```css
-.ini-icon-wrap {
-    width: 88px; height: 88px; border-radius: 22px;
-    background: rgba(38,69,132,.08);
-    border: 1.5px solid rgba(38,69,132,.14);
+.scene {
+    position: relative;
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    perspective: 1400px;
+    perspective-origin: 50% 30%;
+    transform: scale(0.70);
+    transform-origin: 50% 50%;
 }
-/* SEM ::before, SEM inset box-shadow */
 ```
 
-Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
+Escalar o elemento `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
+Iframes nas paginas usam `mask-image` para dissolver bordas.
+
+### Landing Page — estado (2026-09-01)
+
+CSS: `static/css/landing.css` v=9 | Template: `templates/municipios/landing.html`
+
+Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon`:
+- CSS: fundo cinza, cursor default, badge "Em breve"
+- Mesmo padrao do botao Ecossistema (`.lp-btn-card--soon`)
+
+### Metodologia — estado (2026-09-01)
+
+CSS: `static/css/metodologia.css` v=10 | Template: `templates/municipios/metodologia.html`
+
+Hero padronizado com Inicio (mesma altura, badge, tipografia):
+- `.meto-hero-zone { padding: 32px 0 0; }` — sem padding-bottom (igualado ao Inicio)
+- `.meto-hero-inner { min-height: 320px; grid-template-columns: 46% 54%; }`
+- `.meto-hero-right { height: 320px; }`
+- Badge: `border-radius: 999px; padding: 6px 16px` — mesmo estilo do Inicio
+- Titulo: seletor `.meto-hero-left h1` (NAO `.meto-hero h1` — classe inexistente), `font-size: 2.5rem`, `font-weight: 800`, `color: #101d4f`, `line-height: 1.18`
+- Descricao: `font-family: DM Sans`, `font-size: 0.9375rem`, `color: #334488`, `line-height: 1.75`
+- Mobile: `@media (max-width: 900px)` com `font-size: 1.5rem` e `padding: 32px 0 0`
+
+### Painel Multinivel — estado (2026-08-25)
+
+Rodape corrigido: script que escondia `.rb-footer-landing` foi removido. Grafico fixo em 380px.
+
+Arquivos relevantes:
+- `templates/municipios/painel-multinivel.html` — cache-buster CSS `?v=4`, JS `?v=3`
+- `static/css/painel-multinivel.css` — `pm-chart-wrapper: height: 380px`
+- `static/js/painel-multinivel.js` — `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro
 
 ### Landing Page — estado (2026-08-24)
 
-Botão "VER AGENDA" desabilitado com classe `.lp-btn-side--soon`:
+Botao "VER AGENDA" desabilitado com classe `.lp-btn-side--soon`:
 - Template: `templates/municipios/landing.html` linha ~51
-- CSS: `.lp-btn-side--soon` em `static/css/landing.css` — fundo cinza, cursor default, badge "Em breve"
-- Mesmo padrão visual do botão Ecossistema (`.lp-btn-card--soon`)
+- CSS: `.lp-btn-side--soon` — fundo cinza, cursor default, badge "Em breve"
 
-### Financiamento Climático — Componente MultiSelect
+### Financiamento Climatico — Componente MultiSelect
 
 Arquivo: `static/js/financiamento-climatico.js`
 
-**Semântica do Set `selected`:**
+**Semantica do Set `selected`:**
 - `selected.size === 0` → todos ativos (sem filtro) — exibe placeholder "Todos os X"
-- `selected.size > 0` → apenas os itens no Set são filtrados
+- `selected.size > 0` → apenas os itens no Set sao filtrados
 
 **Estado atual:** todos os filtros iniciam com `selected = new Set()` (nenhum `defaultCount`).
 **Tabela:** `carregarTabela()` chama `/indicadores/api/financiamento/tabela/` sem query string — sempre mostra todos os dados.
@@ -372,11 +419,11 @@ Arquivo: `static/js/financiamento-climatico.js`
 **Fix iOS mobile (resolvido):**
 - Backdrop removido (interceptava toques no iOS)
 - Fechamento ao clicar fora: `document.click` + guard 350ms
-- Seleção: `ontouchend` no container (scroll >8px cancela toggle)
-- Scroll da página fecha o dropdown via `window.scroll` (`_optionsScrolling` flag 200ms)
+- Selecao: `ontouchend` no container (scroll >8px cancela toggle)
+- Scroll da pagina fecha o dropdown via `window.scroll` (`_optionsScrolling` flag 200ms)
 
 **Tabela mobile:**
-- `td:first-child` → cabeçalho navy, texto branco
+- `td:first-child` → cabecalho navy, texto branco
 - Demais `td` → label (`::before`) acima + valor abaixo (empilhado)
 - `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc`, `border-top`
 
@@ -384,14 +431,17 @@ Arquivo: `static/js/financiamento-climatico.js`
 
 - `--color-primary`: `#264584` (navy FNP)
 - `--color-bg-page`: `#d9e8f5` (azul claro, fundo global)
-- Sem degradês, sem teal/verde (exceto bolinha piscante `#22c55e`)
+- Background global: `fundo-bg.png` no elemento `html` (via `base.css`)
+- Body das paginas internas: `background: transparent`; body de paginas com hero branco: `background: #ffffff`
+- Sem degrades, sem teal/verde (exceto bolinha piscante `#22c55e`)
 
 ### i18n EN — completo
 
 - `LocaleMiddleware`, seletor PT|EN no header, `LANGUAGES = [("pt-br",...), ("en",...)]`
-- `locale/en/LC_MESSAGES/django.po` — 243 strings + `django.mo` compilado
+- `locale/en/LC_MESSAGES/django.po` — 245+ strings + `django.mo` compilado
+- Strings adicionadas na sessao 2026-09-01: `"Explore os eixos"` → `"Explore the axes"` e `"do Radar Brasil"` → `"of Radar Brasil"`
 - `static/js/i18n.js` — `RBi18n.t()` / `RBi18n.getLang()` — cobre 9 templates + 5 JS
-- Banco EN populado (98 fichas, 412 parâmetros, 46 financiamentos, 2322 mapas)
+- Banco EN populado (98 fichas, 412 parametros, 46 financiamentos, 2322 mapas)
 
 ### Arquitetura de dados
 
@@ -399,23 +449,24 @@ Arquivo: `static/js/financiamento-climatico.js`
 Google Sheets → sync_sheets_db → PostgreSQL → Django ORM (runtime)
 ```
 
-Runtime **nunca** acessa Google Sheets. Para atualizar banco após editar planilhas:
+Runtime **nunca** acessa Google Sheets. Para atualizar banco apos editar planilhas:
 ```bash
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Painel Multinível — estado (2026-08-25)
+### Arquivos locais nao commitados
 
-Rodapé corrigido: o template tinha um `<script>` que fazia `querySelector(".rb-footer-landing").style.display = "none"`, ocultando o `<footer>` global. Removido. Gráfico mantido em `380px` fixo.
+| Arquivo | Situacao |
+|---|---|
+| `static/img/lading-background.jpg` | Untracked (typo no nome: "lading" em vez de "landing") |
+| `static/img/radar_brasil_brasilia_alta_qualidade.png` | Untracked |
+| `static/img/radar_brasil_mapa_azul_alta_qualidade.png` | Untracked |
 
-Arquivos relevantes:
-- `templates/municipios/painel-multinivel.html` — cache-buster CSS `?v=4`, JS `?v=3`
-- `static/css/painel-multinivel.css` — `pm-chart-wrapper: height: 380px`
-- `static/js/painel-multinivel.js` — `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro
+Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados ou renomeados conforme necessidade.
 
-### Pendências
+### Pendencias
 
-- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits da sessão (rodapé, logo, wave)
+- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits da sessao
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---

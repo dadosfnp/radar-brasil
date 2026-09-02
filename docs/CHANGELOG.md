@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-02 — `main` (34ª entrada)
+
+### Docs — Atualiza CLAUDE.md com estado atual completo
+
+- Secao "Estado Atual" reescrita com versoes de CSS (inicio v11, landing v9, metodologia v10), estado do mapa HUD (scale 0.70), i18n completo, arquivos locais nao commitados
+- Nota de compilacao do `.mo` corrigida: `compile_po.py` nao existe; instrucao correta usa `polib`
+- Data de atualizacao: 2026-09-02
+
+---
+
 ## 2026-09-01 — `main` (33ª entrada)
 
 ### Fix — Traducao EN do titulo da pagina Inicio
