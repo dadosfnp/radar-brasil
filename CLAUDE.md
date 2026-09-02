@@ -279,16 +279,17 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-02)
 
-### Branch atual: `main` — `eb5c489` — droplet pendente de rebuild
+### Branch atual: `main` — `6aa1ae0` — droplet pendente de rebuild
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | ✅ `eb5c489` | ✅ `eb5c489` |
-| `prod` (dadosfnp) | - | ✅ `eb5c489` |
+| `origin` (brunofnp) | ✅ `6aa1ae0` | ✅ `6aa1ae0` |
+| `prod` (dadosfnp) | - | ✅ `e9943be` |
 
-> `next` e `main` identicos. Criar feature branches a partir de `next`.
+> `next` e `main` identicos em origin. Prod ainda nao recebeu o commit `6aa1ae0`.
+> Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -334,6 +335,20 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
+### Header Global — estado (2026-09-02)
+
+CSS: `static/css/base.css` v=4 | Template: `base_templates/base.html`
+
+Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
+- Coluna esquerda: logo Radar Brasil SVG, `height: 124px` desktop / `68px` mobile, `filter: brightness(0) invert(1)`
+- Coluna central: `<nav class="rb-main-nav">` — links brancos `rgba(255,255,255,0.78)`, fonte `1.051rem`, active com `border-bottom: 2px solid #fff`
+- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN abaixo (position absolute)
+- Pill PT|EN: `background: rgba(255,255,255,0.10)`, `border: 1px solid rgba(255,255,255,0.20)`, `border-radius: 20px`; botao ativo com `background: rgba(255,255,255,0.22)`
+- Separador `rb-lang-sep` removido (display: none); `rb-header-wrapper` tem `position: sticky; top: 0; z-index: 200`
+- Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido
+
+Nav visivel em TODAS as paginas inclusive landing (removido `display: none !important` do `landing.css`).
+
 ### Pagina Inicio — estado (2026-09-01)
 
 CSS: `static/css/inicio.css` v=11 | Template: `templates/municipios/inicio.html`
@@ -342,7 +357,7 @@ Hero layout 46%/54%, `min-height: 320px`, `padding: 32px 0 0`:
 - Badge "Federalismo Climatico" — pill com bolinha verde `#22c55e`, `border-radius: 999px`, `padding: 6px 16px`, `background: rgba(38,69,132,.10)`, `border: 1.5px solid rgba(38,69,132,.20)`
 - Titulo: `font-size: 2.5rem`, `font-weight: 800`, `color: #101d4f`, `line-height: 1.18`, `font-family: Sora` — dois `{% trans %}` separados: `"Explore os eixos"` + `<br>` + `"do Radar Brasil"`
 - Mapa HUD: iframe com `.ini-hud-frame`, `mask-image` degrade; src `mapa-brasil-hud.html?v=3`
-- Cards: grid 2x2 glassmorphism. Icone SVG flat sem `radial-gradient`:
+- Cards: grid 2x2 glassmorphism. Cards PNG removidos; icone SVG flat sem `radial-gradient`:
   ```css
   .ini-icon-wrap { width: 88px; height: 88px; border-radius: 22px;
       background: rgba(38,69,132,.08); border: 1.5px solid rgba(38,69,132,.14); }
@@ -466,7 +481,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits da sessao
+- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits (origin/main `6aa1ae0`)
+- Push para `prod` (dadosfnp) ainda pendente do commit `6aa1ae0`
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
