@@ -591,6 +591,11 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-08-25 | (pendente)| Financiamento: label filtro "Ente Federado" → "Nível de Governo" |
 | 2026-08-25 | (pendente)| Layout global: `min-height: 70vh` → `0` em `.rb-main` (base.css, metodologia.css, mapa-georreferenciado.css) — footer visível sem scroll |
 | 2026-08-25 | (pendente)| Footer wave: `height: 90px` → `50px` (desktop) e `50px` → `35px` (mobile) — reduz zona invisível da onda (mesma cor do fundo), tornando o dark navy visível quando scroll-to-top aparece |
+| 2026-09-02 | pendente  | Header: nav integrada na barra azul (mesma linha dos logos); layout grid 3 colunas `auto 1fr auto`; header sticky; nav visível na landing |
+| 2026-09-02 | pendente  | Header: logo Radar Brasil 124px, logo FNP 62px, alinhados pelo eixo central; pill PT/EN flutuante abaixo do logo FNP |
+| 2026-09-02 | pendente  | Nav: links brancos `rgba(255,255,255,0.78)` no fundo navy; active com `border-bottom: 2px solid #fff`; fonte `1.051rem` |
+| 2026-09-02 | pendente  | Logos SVG do Radar Brasil atualizados (nova identidade visual); cards PNG do Inicio removidos; HUD atualizado |
+| 2026-09-02 | pendente  | Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header |
 
 ---
 

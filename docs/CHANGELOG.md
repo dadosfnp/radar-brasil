@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-02 — `next` (35ª entrada)
+
+### Style — Redesign do header global
+
+- Nav integrada na barra azul sticky na mesma linha dos logos (grid 3 colunas)
+- Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header
+- Logo Radar Brasil: 124px desktop / 68px mobile; logo FNP: 62px / 34px, eixos alinhados
+- Pill PT|EN redesenhado com borda e fundo translucido, flutuante abaixo do logo FNP
+- Nav links: fonte 1.051rem, cor branca no fundo navy, active com sublinhado branco
+- Landing page: nav agora visivel (removido `display: none !important`)
+- Logos SVG do Radar Brasil atualizados (nova identidade visual)
+- Cards PNG do Inicio removidos (`card_ecossistema_colaboracao.png`, `card_mapa_interfederativo.png`, `card_metodologia.png`, `card_paineis_avaliacao.png`)
+- `base.html` cache-buster `base.css?v=4`; `landing.html` `landing.css?v=10`
+
+---
+
 ## 2026-09-02 — `main` (34ª entrada)
 
 ### Docs — Atualiza CLAUDE.md com estado atual completo
