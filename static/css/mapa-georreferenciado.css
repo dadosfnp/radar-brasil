@@ -709,10 +709,14 @@ body.mapa-page .rb-main {
 /* ================== RESPONSIVO ================== */
 
 @media (max-width: 900px) {
-    .mg-page { padding: 8px 8px 0; gap: 8px; }
-    .mg-intro h2 { font-size: 1.0625rem; }
-    .mg-intro p { font-size: 0.78125rem; }
-    .mg-layout { flex-direction: column; min-height: 0; gap: 0; margin-bottom: 0; }
+    /* Intro some: mapa ocupa a tela inteira (Google Maps / IFEM pattern) */
+    .mg-intro { display: none; }
+    .mg-page { padding: 0; gap: 0; }
+    .mg-layout { flex-direction: column; min-height: 0; gap: 0; margin-bottom: 0; border-radius: 0; box-shadow: none;
+        height: calc(100vh - 88px);
+        height: calc(100svh - 88px);
+        flex-shrink: 0;
+    }
 
     /* Sidebar → bottom sheet fixo fora do fluxo */
     .mg-sidebar {
@@ -759,11 +763,10 @@ body.mapa-page .rb-main {
     }
     .mg-sidebar-header h3 { display: flex; align-items: center; gap: 7px; }
 
-    /* Map area: altura full-screen (Google Maps pattern) — header ~88px */
+    /* Map area preenche o mg-layout que já tem height calculado */
     .mg-map-area {
-        border-radius: 12px;
-        height: calc(100vh - 88px);
-        height: calc(100svh - 88px);
+        border-radius: 0;
+        height: 100%;
         flex-shrink: 0;
     }
     /* Leaflet preenche o container com position:absolute */

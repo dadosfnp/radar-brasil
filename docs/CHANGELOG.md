@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (55ª entrada)
+
+### Fix — Mapas mobile verdadeiramente full-screen (nota-pais.css v9, mapa-georreferenciado.css v7)
+
+Problema: mesmo com `height: calc(100svh - 88px)` no map-container, np-intro + padding + gap do np-page consumiam espaco acima do mapa impedindo visao full-screen.
+
+Solucao: mover o `height` para o container pai (np-card / mg-layout) e aplicar no 900px breakpoint:
+- `np-intro { display: none }` e `np-page { padding: 0; gap: 0 }` em 900px (antes so em 480px)
+- `np-card { height: calc(100svh - 88px); flex-shrink: 0; border-radius: 0 }` — card ocupa exatamente o viewport menos o header
+- `np-map-container { height: 100% }` — preenche o card
+- Identico para mg-layout e mg-map-area no Mapa Georreferenciado
+- KPI strip fica abaixo, acessivel via scroll vertical
+
+---
+
 ## 2026-09-03 — `next` (54ª entrada)
 
 ### Style — Mobile UX: pill PT/EN, timeline vertical, mapas full-screen
