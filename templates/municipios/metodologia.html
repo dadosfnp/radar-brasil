@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=14">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=15">
 {% endblock %}
 
 {% block content %}
@@ -218,9 +218,11 @@
         <div class="meto-defs-grid">
 
             <div class="meto-def-card">
-                <div class="meto-def-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                <div class="meto-def-icon meto-def-icon--eixo" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2" fill="currentColor" opacity=".15"/>
+                        <polyline points="2 12 12 17 22 12"/>
+                        <polyline points="2 17 12 22 22 17"/>
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Eixo" %}</div>
@@ -228,9 +230,17 @@
             </div>
 
             <div class="meto-def-card">
-                <div class="meto-def-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <div class="meto-def-icon meto-def-icon--criterio" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="6" x2="10" y2="6"/>
+                        <line x1="16" y1="6" x2="21" y2="6"/>
+                        <circle cx="13" cy="6" r="3"/>
+                        <line x1="4" y1="12" x2="8" y2="12"/>
+                        <line x1="14" y1="12" x2="21" y2="12"/>
+                        <circle cx="11" cy="12" r="3"/>
+                        <line x1="4" y1="18" x2="16" y2="18"/>
+                        <line x1="22" y1="18" x2="21" y2="18"/>
+                        <circle cx="19" cy="18" r="3"/>
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Critério" %}</div>
@@ -238,9 +248,14 @@
             </div>
 
             <div class="meto-def-card">
-                <div class="meto-def-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                <div class="meto-def-icon meto-def-icon--parametro" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 20h4v-4h4v-4h4v-4h4v-4h4" fill="none"/>
+                        <rect x="2" y="16" width="4" height="4" rx="1" fill="currentColor" opacity=".18"/>
+                        <rect x="6" y="12" width="4" height="8" rx="1" fill="currentColor" opacity=".28"/>
+                        <rect x="10" y="8" width="4" height="12" rx="1" fill="currentColor" opacity=".18"/>
+                        <rect x="14" y="4" width="4" height="16" rx="1" fill="currentColor" opacity=".28"/>
+                        <rect x="18" y="2" width="4" height="18" rx="1" fill="currentColor" opacity=".18"/>
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Parâmetro" %}</div>
@@ -248,9 +263,12 @@
             </div>
 
             <div class="meto-def-card">
-                <div class="meto-def-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                <div class="meto-def-icon meto-def-icon--componente" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="2.5" width="8" height="8" rx="2" fill="currentColor" opacity=".18"/>
+                        <rect x="13.5" y="2.5" width="8" height="8" rx="2" fill="currentColor" opacity=".28"/>
+                        <rect x="2.5" y="13.5" width="8" height="8" rx="2" fill="currentColor" opacity=".28"/>
+                        <rect x="13.5" y="13.5" width="8" height="8" rx="2" fill="currentColor" opacity=".18"/>
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Componente" %}</div>

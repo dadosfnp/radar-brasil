@@ -606,6 +606,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-02 | pendente  | Logos SVG do Radar Brasil atualizados (nova identidade visual); cards PNG do Inicio removidos; HUD atualizado |
 | 2026-09-02 | pendente  | Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header |
 | 2026-09-03 | pendente  | Refinamento visual senior: Escala de Avaliacao com barra gradiente; pips 40px uppercase; separador waffle label/celulas; acento lateral modal "Ver Niveis" |
+| 2026-09-03 | pendente  | Metodologia cards definicao: icones redesenhados (layers/sliders/barras/grade), container 52px, SVG 26px, variante de cor sutil por card |
 
 ---
 

@@ -551,19 +551,30 @@ body.metodologia-page .rb-main {
 }
 
 .meto-def-icon {
-    width: 44px;
-    height: 44px;
+    width: 52px;
+    height: 52px;
     background: rgba(38,69,132,.10);
-    border: 1px solid rgba(38,69,132,.16);
-    border-radius: 12px;
+    border: 1.5px solid rgba(38,69,132,.18);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #264584;
     flex-shrink: 0;
+    transition: background .2s, border-color .2s;
 }
 
-.meto-def-icon svg { width: 22px; height: 22px; }
+.meto-def-card:hover .meto-def-icon {
+    background: rgba(38,69,132,.16);
+    border-color: rgba(38,69,132,.28);
+}
+
+.meto-def-icon svg { width: 26px; height: 26px; }
+
+.meto-def-icon--eixo     { background: rgba(38,69,132,.09);  color: #1a3468; }
+.meto-def-icon--criterio { background: rgba(55,50,140,.09);  color: #2e2a8a; border-color: rgba(55,50,140,.18); }
+.meto-def-icon--parametro{ background: rgba(16,60,110,.09);  color: #103c6e; border-color: rgba(16,60,110,.18); }
+.meto-def-icon--componente{ background: rgba(38,80,160,.09); color: #264584; border-color: rgba(38,80,160,.18); }
 
 .meto-def-label {
     font-family: 'Sora', sans-serif;

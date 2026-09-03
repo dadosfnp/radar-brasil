@@ -4,6 +4,23 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (44ª entrada)
+
+### Style — Icones dos cards de definicao na Metodologia
+
+**Metodologia (CSS v15):**
+- Container dos icones ampliado de 44px para 52px; SVG de 22px para 26px
+- Cada icone recebe variante de cor sutil: `--eixo` (navy), `--criterio` (navy-roxo), `--parametro` (navy-profundo), `--componente` (navy-azul)
+- Hover anima background e border do icone junto com o card
+- Icones redesenhados com SVGs semanticos:
+  - Eixo: camadas sobrepostas (layers) — 4 eixos tematicos empilhados
+  - Criterio: sliders horizontais com handles — dimensoes ajustaveis de analise
+  - Parametro: barras ascendentes de 5 colunas — os 5 niveis de maturidade
+  - Componente: grade 2x2 de blocos — unidades individuais avaliadas
+- SVGs usam fill + opacity para profundidade duotone sem sair da paleta navy
+
+---
+
 ## 2026-09-03 — `next` (43ª entrada)
 
 ### Style — Refinamento visual como webdesigner senior (3 paginas)
