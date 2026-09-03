@@ -128,7 +128,7 @@ body.np-body .rb-main {
 
 .np-select-wrap select {
     width: 100%;
-    height: 32px;
+    height: 44px;
     padding: 0 24px 0 9px;
     background: #f5f8fa;
     border: 1px solid #ccdde5;
@@ -149,8 +149,8 @@ body.np-body .rb-main {
 }
 
 .np-search-btn {
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     background: var(--color-primary-dark);
     border: none;
@@ -180,7 +180,7 @@ body.np-body .rb-main {
     align-items: center;
     justify-content: center;
     gap: 7px;
-    height: 36px;
+    height: 44px;
     padding: 0 14px;
     border-radius: 6px;
     font-size: 0.75rem;
@@ -310,7 +310,9 @@ body.np-body .rb-main {
     border: none;
     color: #334488;
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 5px;
     align-items: center;
     justify-content: center;
@@ -536,7 +538,7 @@ body.np-body .rb-main {
     }
     .np-kpi-icon svg { width: 17px; height: 17px; }
     .np-kpi-value { font-size: 1.375rem; }
-    .np-kpi-label { white-space: normal; font-size: 0.5625rem; line-height: 1.3; }
+    .np-kpi-label { white-space: normal; font-size: 0.6875rem; line-height: 1.3; }
     .np-kpi-sep { display: none; }
 }
 
@@ -555,5 +557,5 @@ body.np-body .rb-main {
     .np-kpi-icon { width: 32px; height: 32px; }
     .np-kpi-icon svg { width: 15px; height: 15px; }
     .np-kpi-value { font-size: 1.25rem; }
-    .np-kpi-label { font-size: 0.53125rem; }
+    .np-kpi-label { font-size: 0.625rem; }
 }

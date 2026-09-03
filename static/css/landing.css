@@ -677,4 +677,22 @@ body.lp-body .rb-main {
     .lp-content { padding: 28px 16px 48px; }
     .lp-panels { grid-template-columns: 1fr; }
     .lp-panels-header { flex-direction: column; align-items: flex-start; }
+
+    /* Textos legíveis: mínimo 12px em mobile */
+    .lp-hero-eyebrow    { font-size: 11px; }
+    .lp-metric-label    { font-size: 11px; }
+    .lp-info-eyebrow    { font-size: 11px; }
+    .lp-panel-num       { font-size: 10px; }
+    .lp-panel-btn       { font-size: 11px; }
+    .lp-side-card-title { font-size: 11px; }
+    .lp-news-tag        { font-size: 10px; }
+    .lp-side-soon-badge { font-size: 9px; }
+    .lp-soon-badge      { font-size: 9px; }
+
+    /* Touch targets mínimos 44px */
+    .lp-cta-primary  { padding: 14px 26px; min-height: 44px; box-sizing: border-box; }
+    .lp-cta-secondary{ padding: 13px 22px; min-height: 44px; box-sizing: border-box; }
+    .lp-panel-btn    { padding: 11px 16px; min-height: 44px; box-sizing: border-box; }
+    .lp-panel-arrow  { width: 44px; height: 44px; }
+    .lp-quick-item   { padding: 11px 8px; min-height: 44px; }
 }

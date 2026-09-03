@@ -460,6 +460,32 @@ Redesenhado no commit `181ea3a`: 3 colunas → coluna única com logos alinhados
 
 Commit `42e60f9`: layout de card (cada linha vira card com `data-label`).
 
+### Auditoria Mobile Completa (2026-09-03)
+
+Correcoes aplicadas em 9 arquivos CSS (base.css v5, inicio.css v12, landing.css v11, avaliacao-painel.css v9, painel-multinivel.css v12, mapa-georreferenciado.css v5, financiamento-climatico.css v5, nota-pais.css v7):
+
+**Bug critico — menu hamburger invisivel:**
+- `.rb-nav-hamburger span`: `background: var(--hdr-700)` (#101d4f = mesmo tom do header) trocado por `rgba(255,255,255,0.85)`
+
+**Touch targets (WCAG 2.1 AA — minimo 44px):**
+- Todos os selects, inputs, botoes de acao, sidebar-close e FABs elevados para `min-height: 44px` ou `height: 44px`
+- `.lp-panel-arrow`: 34px elevado para 44px
+- `.fc-page-btn`: 28px elevado para 40px
+- `.np-search-btn`: 32px elevado para 44px
+
+**Textos legiveis (minimo ~11px em mobile):**
+- `ini-card-eyebrow` (9px) e `ini-card-link` (11px) elevados para 12px
+- 9 textos da landing abaixo de 11px corrigidos no breakpoint 580px
+- `ap-niveis-atual-tag`: 8px elevado para 11px
+- `fc-table tbody td::before`: 9.6px elevado para 11px
+- `np-kpi-label`: 9px (900px) e 8.5px (480px) elevados para 11px e 10px
+
+**Layout mobile:**
+- `.pm-grid-row-label` em coluna: border-right / margin-right / text-align resetados
+- `.pm-grid-cells`: `overflow: hidden` trocado por `overflow-x: auto` (scroll horizontal visivel)
+- `.fc-table-wrap`: `overflow: hidden` trocado por `overflow-x: auto` (habilitado entre 769-1100px)
+- `.mg-popup` em 320px: `min-width: 0; max-width: calc(100vw - 32px)`
+
 ---
 
 ## 7. Acessibilidade

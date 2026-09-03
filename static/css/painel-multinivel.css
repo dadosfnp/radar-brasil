@@ -368,11 +368,20 @@ body.painel-multinivel-page .rb-main {
     .pm-panel-label { display: none; }
     .pm-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
     .pm-tabs ul { flex-wrap: nowrap; gap: 2px; }
-    .pm-tabs button { padding: 10px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; }
+    .pm-tabs button { padding: 12px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; min-height: 44px; }
 
     .pm-chart-area { padding: 16px 12px 14px; }
     .pm-grid-row { flex-direction: column; gap: 6px; }
-    .pm-grid-row-label { min-width: auto; max-width: 100%; font-size: 0.6875rem; }
+    .pm-grid-row-label {
+        min-width: auto; max-width: 100%; font-size: 0.6875rem;
+        /* reset separador vertical — não faz sentido em layout de coluna */
+        border-right: none;
+        margin-right: 0;
+        padding-right: 0;
+        text-align: left;
+    }
+    /* Células do waffle: scroll horizontal em vez de overflow hidden */
+    .pm-grid-cells { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .pm-chart-footer { margin-top: 12px; justify-content: center; }
     .pm-criteria-badge { width: 100%; text-align: center; }
 }

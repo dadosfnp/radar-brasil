@@ -4,6 +4,66 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (51ª entrada)
+
+### Fix — Menu hamburger invisivel no mobile (base.css v5)
+
+**Bug critico:** `.rb-nav-hamburger span` usava `background: var(--hdr-700)` que e `#101d4f` — mesmo tom do fundo escuro do header. Barras eram invisiveis no mobile.
+
+- Corrigido para `background: rgba(255,255,255,0.85)` (branco sobre fundo navy)
+- Usuarios mobile agora conseguem ver e acionar o menu de navegacao
+
+---
+
+## 2026-09-03 — `next` (50ª entrada)
+
+### Style — Auditoria mobile completa: todas as paginas (9 arquivos CSS)
+
+**Problemas corrigidos em todas as paginas para usuarios mobile:**
+
+**base.css v5:**
+- Touch targets: `.rb-social-icon` 44px, hamburger `padding: 13px 10px`, lang btn `padding: 8px 14px`
+
+**inicio.css v12:**
+- `.ini-card-eyebrow` 9px e `.ini-card-link` 11px elevados para `0.75rem` em `@media (max-width: 600px)`
+
+**landing.css v11:**
+- 9 textos abaixo de 12px corrigidos em `@media (max-width: 580px)` (eyebrow, metric-label, info-eyebrow, panel-num, etc.)
+- CTAs primario e secundario: `min-height: 44px`, padding aumentado
+- `.lp-panel-arrow` 34px elevado para 44px
+- `.lp-quick-item` padding elevado para `11px 8px`
+
+**avaliacao-painel.css v9:**
+- `.ap-ver-niveis-btn` padding `2px 6px` elevado para `10px 8px; min-height: 40px`
+- `.ap-niveis-atual-tag` `0.5rem (8px)` elevado para `0.6875rem (11px)`
+- `.ap-tabs button` em 900px: `padding: 12px; min-height: 44px`
+
+**painel-multinivel.css v12:**
+- `.pm-grid-row-label` em mobile: reset de `border-right`, `margin-right`, `text-align` (sem sentido em layout de coluna)
+- `.pm-grid-cells` em mobile: `overflow-x: auto` para scroll horizontal em vez de clipe silencioso
+- `.pm-tabs button` em 900px: `padding: 12px; min-height: 44px`
+
+**mapa-georreferenciado.css v5:**
+- `.mg-select-wrap select` e `.mg-mun-input`: padding 7px elevado para 11px, `min-height: 44px`
+- `.mg-toggle-row`: padding `6px 2px 2px` elevado para `10px 2px`, `min-height: 44px`
+- `.mg-btn`: padding `8px 12px` elevado para `12px 14px`, `min-height: 44px`
+- `.mg-sidebar-close`: padding 4px elevado para 10px, `min-width/min-height: 44px`
+- `.mg-popup` em 480px: `min-width: 0; max-width: calc(100vw - 32px)` para evitar overflow em telas 320px
+
+**financiamento-climatico.css v5:**
+- `.fc-table-wrap`: `overflow: hidden` trocado por `overflow-x: auto` para habilitar scroll na faixa 769-1100px
+- `.fc-page-btn` mobile: `28px` elevado para `40px`
+- `.fc-table tbody td::before`: `0.6rem (9.6px)` elevado para `0.6875rem (11px)`
+
+**nota-pais.css v7:**
+- `.np-select-wrap select`: `height: 32px` elevado para `44px`
+- `.np-search-btn`: `32x32px` elevado para `44x44px`
+- `.np-btn`: `height: 36px` elevado para `44px`
+- `.np-sidebar-close`: padding 4px elevado para 10px, `min-width/min-height: 44px`
+- `.np-kpi-label` em 900px: `0.5625rem` elevado para `0.6875rem`; em 480px: `0.53125rem` elevado para `0.625rem`
+
+---
+
 ## 2026-09-03 — `next` (49ª entrada)
 
 ### Style — Redesenho do diagrama de federalismo (CSS v19)

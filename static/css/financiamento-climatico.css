@@ -348,7 +348,9 @@ body.fin-cli-page .rb-main {
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 16px rgba(16,29,79,.10);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
     position: relative;
 }
 
@@ -633,7 +635,7 @@ body.fin-cli-page .rb-main {
     .fc-table tbody td::before {
         display: block;
         content: attr(data-label);
-        font-size: 0.6rem;
+        font-size: 0.6875rem;
         font-weight: 700;
         color: var(--color-primary);
         text-transform: uppercase;
@@ -670,8 +672,8 @@ body.fin-cli-page .rb-main {
         gap: 4px;
     }
     .fc-page-btn {
-        min-width: 28px;
-        height: 28px;
+        min-width: 40px;
+        height: 40px;
         font-size: 0.6875rem;
     }
 }

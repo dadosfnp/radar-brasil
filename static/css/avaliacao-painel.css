@@ -560,7 +560,8 @@ body.avaliacao-painel-page .rb-main {
     text-transform: uppercase;
     color: var(--color-primary);
     cursor: pointer;
-    padding: 2px 6px;
+    padding: 10px 8px;
+    min-height: 40px;
     border-radius: 5px;
     transition: background .15s, color .15s;
     white-space: nowrap;
@@ -762,7 +763,7 @@ body.avaliacao-painel-page .rb-main {
     .ap-panel-label { display: none; }
     .ap-card-header { padding: 0 6px; overflow-x: auto; overflow-y: visible; }
     .ap-tabs ul { flex-wrap: nowrap; gap: 2px; }
-    .ap-tabs button { padding: 10px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; }
+    .ap-tabs button { padding: 12px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; min-height: 44px; }
 
     /* Corpo */
     .ap-main { padding: 18px 14px 16px; }
@@ -857,7 +858,7 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-niveis-atual-tag {
-    font-size: 0.5rem;
+    font-size: 0.6875rem;
     font-weight: 800;
     letter-spacing: .12em;
     text-transform: uppercase;

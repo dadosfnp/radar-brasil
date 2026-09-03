@@ -468,7 +468,7 @@ body.rb-body {
     display: block;
     width: 22px;
     height: 2px;
-    background: var(--hdr-700);
+    background: rgba(255,255,255,0.85);
     border-radius: 2px;
     transition: transform 0.25s, opacity 0.25s;
     transform-origin: center;
@@ -645,11 +645,19 @@ body.rb-body {
         width: 100%;
     }
     .rb-social-icon {
-        width: 38px;
-        height: 38px;
+        width: 44px;
+        height: 44px;
         border-radius: 9px;
         flex: 1;
         max-width: 54px;
+    }
+
+    /* Touch targets mínimos de 44px */
+    .rb-nav-hamburger {
+        padding: 13px 10px;
+    }
+    .rb-lang-btn {
+        padding: 8px 14px;
     }
 
     /* Logos parceiros */

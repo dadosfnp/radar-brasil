@@ -111,7 +111,8 @@ body.mapa-page .rb-main {
 
 .mg-select-wrap select {
     width: 100%;
-    padding: 7px 28px 7px 10px;
+    padding: 11px 28px 11px 10px;
+    min-height: 44px;
     font-size: 0.75rem;
     color: #e0ecef;
     background: rgba(255,255,255,0.08);
@@ -152,7 +153,8 @@ body.mapa-page .rb-main {
 
 .mg-mun-input {
     width: 100%;
-    padding: 7px 28px 7px 10px;
+    padding: 11px 28px 11px 10px;
+    min-height: 44px;
     font-size: 0.75rem;
     color: #e0ecef;
     background: rgba(255,255,255,0.08);
@@ -196,7 +198,8 @@ body.mapa-page .rb-main {
     align-items: center;
     gap: 9px;
     cursor: pointer;
-    padding: 6px 2px 2px;
+    padding: 10px 2px;
+    min-height: 44px;
 }
 
 .mg-toggle-switch {
@@ -264,7 +267,8 @@ body.mapa-page .rb-main {
     align-items: center;
     justify-content: center;
     gap: 7px;
-    padding: 8px 12px;
+    padding: 12px 14px;
+    min-height: 44px;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 600;
@@ -675,7 +679,9 @@ body.mapa-page .rb-main {
     border: none;
     color: rgba(255,255,255,.65);
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
     border-radius: 5px;
     align-items: center;
     justify-content: center;
@@ -777,6 +783,8 @@ body.mapa-page .rb-main {
 @media (max-width: 480px) {
     .mg-intro { display: none; }
     .mg-page  { padding: 0; gap: 0; }
+    /* Popup não pode ser mais largo que a tela em 320px */
+    .mg-popup { min-width: 0; max-width: calc(100vw - 32px); }
     /* Mapa ocupa a tela inteira menos header (~46px) + nav (~44px) + buffer (6px) = 96px */
     .mg-map-area {
         height: calc(100vh - 96px);
