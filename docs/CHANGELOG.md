@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (39ª entrada)
+
+### i18n — Traducoes EN da Metodologia reestruturada + modal Niveis
+
+- Adicionadas 63 entradas ausentes ao `locale/en/LC_MESSAGES/django.po` (total: 308 strings)
+- Cobertura completa das secoes novas da Metodologia: "Por que avaliar", piramide federativa, carrossel, timeline, definicoes (Eixo/Criterio/Parametro/Componente), criterios por eixo, "O que avaliamos?"
+- Criterios de avaliacao traduzidos: Operacionalidade, Espaco de Dialogo Federativo, Diversidade e Representatividade, Comunicacao e Transparencia, Sustentabilidade Financeira, Cooperacao Federativa, Capilaridade e Alcance Territorial, Fortalecimento da Capacidade Local, Monitoramento e Avaliacao, Desenho Participativo, Capacidade de Execucao Descentralizada, Monitoramento e Prestacao de Contas
+- String "Niveis de Avaliacao" (modal Avaliacao Painel) adicionada
+- `.mo` compilado com polib (308 entradas traduzidas)
+
+---
+
 ## 2026-09-03 — `next` (38ª entrada)
 
 ### Feat/Style — Melhorias na Metodologia + Avaliação Painel

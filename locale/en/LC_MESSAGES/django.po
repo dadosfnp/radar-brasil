@@ -762,3 +762,197 @@ msgstr "Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8th floor, room 827
 
 msgid "Frente Nacional de Prefeitas e Prefeitos"
 msgstr "National Front of Mayors"
+
+# ── Metodologia – nova versão ─────────────────────────────────
+msgid "Por que avaliar o Federalismo Climático?"
+msgstr "Why assess Climate Federalism?"
+
+msgid "O Radar Brasil: Federalismo Climático tem o objetivo de monitorar e avaliar a governança multinível das políticas climáticas no Brasil, tendo como premissa o federalismo climático, incentivando o cumprimento dos compromissos climáticos do Brasil e promovendo um futuro mais sustentável."
+msgstr "Radar Brasil: Climate Federalism aims to monitor and assess multilevel governance of climate policies in Brazil, based on the premise of climate federalism, encouraging compliance with Brazil's climate commitments and promoting a more sustainable future."
+
+msgid "É o modelo de governança pelo qual a competência comum sobre a agenda climática é exercida de forma coordenada, transversal e cientificamente informada entre União, Estados, Distrito Federal e Municípios."
+msgstr "It is the governance model through which the shared competence over the climate agenda is exercised in a coordinated, cross-cutting and scientifically informed manner among the Federal Government, States, Federal District and Municipalities."
+
+msgid "União"
+msgstr "Federal Government"
+
+msgid "Estados"
+msgstr "States"
+
+msgid "Municípios"
+msgstr "Municipalities"
+
+msgid "Esse exercício respeita as competências, capacidades, responsabilidades e especificidades de cada ente, e atravessa os diferentes setores e instrumentos de planejamento governamental de cada nível federativo."
+msgstr "This exercise respects the competencies, capacities, responsibilities and specificities of each entity, and cuts across the different sectors and governmental planning instruments of each federative level."
+
+msgid "Natureza"
+msgstr "Nature"
+
+msgid "Sociedade"
+msgstr "Society"
+
+msgid "Clima"
+msgstr "Climate"
+
+msgid "Seu propósito é uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática."
+msgstr "Its purpose is a just climate transition that reduces social, racial and gender inequalities and expands equity, inclusion and climate citizenship."
+
+msgid "Histórico do Federalismo Climático no Brasil"
+msgstr "History of Climate Federalism in Brazil"
+
+msgid "Conselho da Federação"
+msgstr "Council of the Federation"
+
+msgid "O Brasil estabelece o Conselho da Federação, sob a Presidência da República."
+msgstr "Brazil establishes the Council of the Federation, under the Presidency of the Republic."
+
+msgid "Câmara Técnica I: Fortalecimento da Gestão e Cooperação Federativa"
+msgstr "Technical Chamber I: Strengthening Federal Management and Cooperation"
+
+msgid "Presidência: CNM"
+msgstr "Presidency: CNM"
+
+msgid "Câmara Técnica II: Desenvolvimento Econômico Sustentável e Mudança Climática"
+msgstr "Technical Chamber II: Sustainable Economic Development and Climate Change"
+
+msgid "Presidência: FNP"
+msgstr "Presidency: FNP"
+
+msgid "Câmara Técnica III: Políticas Sociais e Combate às Desigualdades"
+msgstr "Technical Chamber III: Social Policies and Combating Inequalities"
+
+msgid "Presidência: ABM"
+msgstr "Presidency: ABM"
+
+msgid "78 países comprometeram-se com a Coalizão CHAMP (Coalition for High Ambition Multilevel Partnerships) para Ação Climática, incluindo o Brasil."
+msgstr "78 countries committed to the CHAMP Coalition (Coalition for High Ambition Multilevel Partnerships) for Climate Action, including Brazil."
+
+msgid "Resolução nº 3/2024"
+msgstr "Resolution No. 3/2024"
+
+msgid "A Resolução nº 3/2024 do Conselho da Federação reforça o compromisso do Brasil com a iniciativa CHAMP e define a agenda climática como prioridade para os entes federativos."
+msgstr "Resolution No. 3/2024 of the Council of the Federation reinforces Brazil's commitment to the CHAMP initiative and defines the climate agenda as a priority for federative entities."
+
+msgid "O Brasil apresenta sua nova NDC, na qual afirma: &ldquo;os entes federativos farão esforços coordenados para enfrentar a emergência climática, incluindo ações para prevenir e preparar-se para eventos extremos, e buscarão integrar a política climática em seus instrumentos de planejamento de curto, médio e longo prazo&rdquo;."
+msgstr "Brazil presents its new NDC, in which it states: &ldquo;federative entities will make coordinated efforts to address the climate emergency, including actions to prevent and prepare for extreme events, and will seek to integrate climate policy into their short-, medium- and long-term planning instruments&rdquo;."
+
+msgid "Como avaliamos o Federalismo Climático?"
+msgstr "How do we assess Climate Federalism?"
+
+msgid "O Radar Brasil: Federalismo Climático sintetiza o desempenho dos entes federativos em uma única Nota País. Essa nota é resultado de uma avaliação em funil: partimos da análise de cada componente para, depois, chegar à síntese do todo."
+msgstr "Radar Brasil: Climate Federalism synthesizes the performance of federative entities into a single Country Score. This score is the result of a funnel assessment: we start from the analysis of each component and then arrive at the synthesis of the whole."
+
+msgid "Cada instância e componente do federalismo climático é avaliado individualmente, a partir de critérios e parâmetros de nível. Os resultados dessas avaliações são agregados nos eixos analíticos e, por fim, consolidados na Nota País."
+msgstr "Each instance and component of climate federalism is assessed individually, based on level criteria and parameters. The results of these assessments are aggregated into the analytical axes and, finally, consolidated into the Country Score."
+
+msgid "Eixo"
+msgstr "Axis"
+
+msgid "O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Esta separação permite qualificar a análise de instâncias e componentes que possuem lógica institucional distinta e confrontar os eixos entre si para extrair novas camadas de análise."
+msgstr "Radar Brasil assesses 4 thematic axes: Governance, Policies and Plans, Programs and Financing Lines. This separation enables a more qualified analysis of instances and components with distinct institutional logic and allows cross-axis comparisons to extract new layers of analysis."
+
+msgid "Um critério corresponde a uma dimensão específica de análise dentro de cada eixo. A definição de múltiplos critérios por eixo responde à necessidade de decompor a instância/componente em partes menores, mensuráveis e analiticamente distintas entre si, de três a cinco critérios."
+msgstr "A criterion corresponds to a specific dimension of analysis within each axis. The definition of multiple criteria per axis responds to the need to break down the instance/component into smaller, measurable and analytically distinct parts, from three to five criteria."
+
+msgid "O parâmetro define como diferenciar os graus de maturidade de cada critério. É uma determinante objetiva associada a cada um dos cinco níveis da escala. Diante de um determinado dado, o parâmetro indica em qual nível aquele caso deve ser classificado."
+msgstr "The parameter defines how to differentiate the maturity levels of each criterion. It is an objective determinant associated with each of the five levels of the scale. Given a particular piece of data, the parameter indicates which level that case should be classified in."
+
+msgid "Componente"
+msgstr "Component"
+
+msgid "Um componente representa um espaço de governança, política, plano, programa ou linha de financiamento avaliado. Cada componente recebe uma avaliação individual por critério, que é depois agregada ao eixo correspondente."
+msgstr "A component represents a governance space, policy, plan, program or financing line being assessed. Each component receives an individual assessment per criterion, which is then aggregated into the corresponding axis."
+
+msgid "Conheça os critérios de análise para cada eixo"
+msgstr "Explore the analysis criteria for each axis"
+
+msgid "Eixo Governança"
+msgstr "Governance Axis"
+
+msgid "Compreende os arranjos institucionais, instâncias de coordenação e mecanismos de articulação e participação federativa que estruturam a governança climática multinível, tais como conselhos, comitês, fóruns, câmaras e comissões."
+msgstr "Comprises the institutional arrangements, coordination instances and mechanisms of federative articulation and participation that structure multilevel climate governance, such as councils, committees, forums, chambers and commissions."
+
+msgid "Operacionalidade"
+msgstr "Operationality"
+
+msgid "Espaço de Diálogo Federativo"
+msgstr "Federative Dialogue Space"
+
+msgid "Diversidade e Representatividade"
+msgstr "Diversity and Representativeness"
+
+msgid "Comunicação e Transparência"
+msgstr "Communication and Transparency"
+
+msgid "Sustentabilidade Financeira"
+msgstr "Financial Sustainability"
+
+msgid "Eixo Políticas e Planos"
+msgstr "Policies and Plans Axis"
+
+msgid "Compreende os instrumentos normativos e de planejamento estratégico que orientam a formulação, a implementação e o monitoramento das ações governamentais relacionadas ao clima."
+msgstr "Comprises the normative and strategic planning instruments that guide the formulation, implementation and monitoring of government actions related to climate."
+
+msgid "Eixo Programas"
+msgstr "Programs Axis"
+
+msgid "Conjunto de ações, iniciativas e estratégias implementadas pelos entes federativos para mitigação, adaptação e fortalecimento da resiliência climática em diferentes níveis de governo."
+msgstr "Set of actions, initiatives and strategies implemented by federative entities for climate mitigation, adaptation and resilience building at different levels of government."
+
+msgid "Cooperação Federativa"
+msgstr "Federative Cooperation"
+
+msgid "Capilaridade e Alcance Territorial"
+msgstr "Capillarity and Territorial Reach"
+
+msgid "Fortalecimento da Capacidade Local"
+msgstr "Strengthening Local Capacity"
+
+msgid "Monitoramento e Avaliação"
+msgstr "Monitoring and Assessment"
+
+msgid "Eixo Linhas de Financiamento"
+msgstr "Financing Lines Axis"
+
+msgid "Mecanismos orçamentários, de investimentos, transferências interfederativas e instrumentos de apoio financeiro que viabilizam a execução descentralizada de ações climáticas."
+msgstr "Budgetary mechanisms, investments, interfederative transfers and financial support instruments that enable the decentralized execution of climate actions."
+
+msgid "Desenho Participativo"
+msgstr "Participatory Design"
+
+msgid "Capacidade de Execução Descentralizada"
+msgstr "Decentralized Execution Capacity"
+
+msgid "Monitoramento e Prestação de Contas"
+msgstr "Monitoring and Accountability"
+
+msgid "O que avaliamos?"
+msgstr "What do we assess?"
+
+msgid "Nesta primeira etapa do Radar, o escopo concentrou-se nas iniciativas e instrumentos da esfera federal que promovem ou induzem a cooperação interfederativa no enfrentamento das mudanças climáticas. Ou seja, esta primeira fase avalia o federalismo climático a partir da oferta federal de canais de cooperação multinível, não da capacidade institucional dos entes subnacionais em si."
+msgstr "In this first stage of Radar, the scope focused on federal-level initiatives and instruments that promote or induce interfederative cooperation in addressing climate change. That is, this first phase assesses climate federalism from the perspective of the federal supply of multilevel cooperation channels, not the institutional capacity of subnational entities themselves."
+
+msgid "Desta forma, foram analisadas nesta etapa 31 instâncias de governança, 17 políticas e planos, 18 programas e 17 linhas de financiamento."
+msgstr "In this way, this stage analyzed 31 governance instances, 17 policies and plans, 18 programs and 17 financing lines."
+
+msgid "Edições do Radar Brasil"
+msgstr "Radar Brasil Editions"
+
+msgid "Esta é a versão referente ao ano de 2025"
+msgstr "This is the version for the year 2025"
+
+msgid "em desenvolvimento"
+msgstr "in development"
+
+msgid "Para saber mais, acesse a nota metodológica."
+msgstr "To learn more, access the methodological note."
+
+msgid "políticas e planos"
+msgstr "policies and plans"
+
+msgid "linhas de financiamento"
+msgstr "financing lines"
+
+# ── Avaliação Painel – modal de níveis ────────────────────────
+msgid "Níveis de Avaliação"
+msgstr "Assessment Levels"
