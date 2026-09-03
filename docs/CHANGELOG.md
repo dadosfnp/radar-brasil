@@ -4,6 +4,26 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (42ª entrada)
+
+### Fix/Style — Alinhamento waffle, verde Nivel 5, Escala de Avaliacao
+
+**Painel Multinivel (CSS v10, JS v5):**
+- `.pm-grid-row-label` fixado em `width: 200px` (era min/max variavel) — celulas do waffle agora comecam na mesma posicao horizontal em todas as linhas
+- Nivel 5: `#7aaed4` substituido por `#27ae60` (verde escuro); borda `#5a8eb4` → `#1e8449`
+
+**Avaliacao Painel (JS v4, CSS v6):**
+- NIVEL_COLORS_MODAL: `#7aaed4` → `#27ae60` para Nivel 5
+- `.ap-nivel-badge--max` glow: `rgba(122,174,212,...)` → `rgba(39,174,96,...)`
+- `avaliacao_painel.py` CORES_NIVEL: `#A5C8ED` → `#27ae60`
+
+**Metodologia (CSS v13):**
+- `.meto-pip.pip-5`: `#7aaed4` → `#27ae60`
+- Adicionadas regras `.meto-scale-pip.pip-1` a `.pip-5` (eram invisíveis — CSS só definia `.meto-pip.pip-N`)
+- Inline badge Escala de Avaliacao: `#7aaed4` → `#27ae60`
+
+---
+
 ## 2026-09-03 — `next` (41ª entrada)
 
 ### Fix — Quadradinhos waffle na segunda linha (nowrap correto)

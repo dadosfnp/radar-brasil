@@ -595,6 +595,9 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-02 | pendente  | Header: logo Radar Brasil 124px, logo FNP 62px, alinhados pelo eixo central; pill PT/EN flutuante abaixo do logo FNP |
 | 2026-09-02 | pendente  | Nav: links brancos `rgba(255,255,255,0.78)` no fundo navy; active com `border-bottom: 2px solid #fff`; fonte `1.051rem` |
 | 2026-09-03 | pendente  | Nav: aba "Inicio" ocultada (`display:none`); "Painel Multinivel" → "Paineis"; "Avaliacao Painel Multinivel" → "Componentes" |
+| 2026-09-03 | pendente  | Nivel 5 cor: azul #7aaed4/#A5C8ED substituido por verde escuro #27ae60 em todos os componentes (waffle, modal, badge, pip, escala) |
+| 2026-09-03 | pendente  | Painel Multinivel waffle: largura do label fixada em 200px para alinhar celulas horizontalmente; flex-wrap nowrap + overflow hidden |
+| 2026-09-03 | pendente  | Metodologia Escala de Avaliacao: adicionadas regras .meto-scale-pip.pip-N para exibir pips coloridos 1-5 |
 | 2026-09-03 | pendente  | Metodologia v11: 6 secoes novas — piramide federalismo, carrossel 3 fotos, timeline horizontal, 4 cards definicao, 4 cards eixo/criterios, escopo + stats |
 | 2026-09-03 | pendente  | Painel Multinivel: card "Explorar eixos" removido; KPI "Niveis de Maturidade" → "Niveis de Avaliacao"; KPI instancias dinamico por eixo |
 | 2026-09-03 | pendente  | Metodologia: "Federalismo Climatico" corrigido para maiusculas em titulos e conceito box; "Como avaliamos" e "O que avaliamos" com bg branco |

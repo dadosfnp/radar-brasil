@@ -280,8 +280,7 @@ body.painel-multinivel-page .rb-main {
     font-size: 0.71875rem;
     font-weight: 600;
     color: #264584;
-    min-width: 160px;
-    max-width: 200px;
+    width: 200px;
     flex-shrink: 0;
     padding-top: 2px;
     line-height: 1.35;

@@ -18,12 +18,12 @@ const NIVEL_COLORS = {
   "Nível 2":  "#f09a50",
   "Nível 3":  "#e8c53a",
   "Nível 4":  "#72be79",
-  "Nível 5":  "#7aaed4",
+  "Nível 5":  "#27ae60",
   "Level 1":  "#e06b6b",
   "Level 2":  "#f09a50",
   "Level 3":  "#e8c53a",
   "Level 4":  "#72be79",
-  "Level 5":  "#7aaed4",
+  "Level 5":  "#27ae60",
 };
 
 const NIVEL_BORDER = {
@@ -31,12 +31,12 @@ const NIVEL_BORDER = {
   "Nível 2":  "#d87a30",
   "Nível 3":  "#c8a520",
   "Nível 4":  "#52a059",
-  "Nível 5":  "#5a8eb4",
+  "Nível 5":  "#1e8449",
   "Level 1":  "#c85050",
   "Level 2":  "#d87a30",
   "Level 3":  "#c8a520",
   "Level 4":  "#52a059",
-  "Level 5":  "#5a8eb4",
+  "Level 5":  "#1e8449",
 };
 
 function renderizarGrid(dados) {

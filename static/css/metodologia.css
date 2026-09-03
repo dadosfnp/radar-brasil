@@ -687,7 +687,12 @@ body.metodologia-page .rb-main {
 .meto-pip.pip-2 { background: #f09a50; }
 .meto-pip.pip-3 { background: #e8c53a; color: #554400; }
 .meto-pip.pip-4 { background: #72be79; }
-.meto-pip.pip-5 { background: #7aaed4; }
+.meto-pip.pip-5 { background: #27ae60; }
+.meto-scale-pip.pip-1 { background: #e06b6b; }
+.meto-scale-pip.pip-2 { background: #f09a50; }
+.meto-scale-pip.pip-3 { background: #e8c53a; color: #554400; }
+.meto-scale-pip.pip-4 { background: #72be79; }
+.meto-scale-pip.pip-5 { background: #27ae60; }
 
 /* ══════════════════════════════
    6. O QUE AVALIAMOS

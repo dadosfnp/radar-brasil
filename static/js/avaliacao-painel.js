@@ -588,7 +588,7 @@ modalClose.addEventListener("click", fecharModal);
 modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); });
 
 // ── Modal Níveis do Parâmetro ─────────────────────────────────
-const NIVEL_COLORS_MODAL = ["#e06b6b","#f09a50","#e8c53a","#72be79","#7aaed4"];
+const NIVEL_COLORS_MODAL = ["#e06b6b","#f09a50","#e8c53a","#72be79","#27ae60"];
 const NIVEL_LABELS_PT    = ["Nível 1","Nível 2","Nível 3","Nível 4","Nível 5"];
 const NIVEL_LABELS_EN    = ["Level 1","Level 2","Level 3","Level 4","Level 5"];
 
