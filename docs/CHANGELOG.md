@@ -4,6 +4,34 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (53ª entrada)
+
+### Fix — Nav mobile redesenhado: dropdown full-width + z-index correto (base.css v6)
+
+**Problemas corrigidos:**
+- Menu hamburger abria dentro da coluna 1fr (estreita), sobrepoendo logos laterais
+- Nav dropdown nao cobria sidebars de filtros (z-index header 200 < sidebar 2100)
+- Timeline da Metodologia cortava lado esquerdo em mobile (bug `justify-content: center` + `overflow-x: auto`)
+
+**Solucoes:**
+- `.rb-nav-links` em mobile: `position: absolute; top: 100%; left: 0; right: 0` relativo ao `.rb-header-wrapper` — dropdown full-width imediatamente abaixo do header
+- JS (`base.html`): ao abrir o nav, `hdr.style.zIndex = '2300'` (acima dos sidebars em z-index 2100); reset ao fechar
+- JS: fecha ao clicar fora do header (`document.click` com guard `!hdr.contains(e.target)`)
+- `metodologia.css v20`: `justify-content: flex-start` na timeline em mobile — remove corte do lado esquerdo
+
+---
+
+## 2026-09-03 — `next` (52ª entrada)
+
+### Fix — Menu hamburger invisivel no mobile (base.css v5)
+
+**Bug critico:** `.rb-nav-hamburger span` usava `background: var(--hdr-700)` que e `#101d4f` — mesmo tom do fundo escuro do header. Barras eram invisiveis no mobile.
+
+- Corrigido para `background: rgba(255,255,255,0.85)` (branco sobre fundo navy)
+- Usuarios mobile agora conseguem ver e acionar o menu de navegacao
+
+---
+
 ## 2026-09-03 — `next` (51ª entrada)
 
 ### Fix — Menu hamburger invisivel no mobile (base.css v5)

@@ -1024,7 +1024,11 @@ body.metodologia-page .rb-main {
     .meto-scope-grid { grid-template-columns: 1fr; }
     .meto-scope-stats-col { position: static; }
 
-    .meto-timeline-scroll-outer { padding: 0 16px 16px; }
+    /* Timeline: flex-start evita o bug de corte no lado esquerdo em overflow-x: auto + justify: center */
+    .meto-timeline-scroll-outer {
+        padding: 0 16px 16px;
+        justify-content: flex-start;
+    }
 
     .meto-defs-grid { grid-template-columns: 1fr; }
     .meto-section-block { padding: 40px 0; }

@@ -439,6 +439,12 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 
 Ativo em `≤768px`. Botão `≡`/`×`, aria-expanded, fecha ao clicar em link.
 
+**Redesenho (2026-09-03, base.css v6):**
+- `.rb-nav-links` em mobile: `position: absolute; top: 100%; left: 0; right: 0` relativo ao `.rb-header-wrapper`
+- Dropdown full-width imediatamente abaixo do header, background `#0d1640`, shadow profunda
+- JS eleva `.rb-header-wrapper` para `z-index: 2300` ao abrir (acima dos sidebars de filtro z-index: 2100)
+- Fecha ao clicar fora do header (`document.click` guard)
+
 ### Abas Mobile
 
 Commit `f13438a` + `0cf9be1`:
