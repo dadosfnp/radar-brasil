@@ -488,6 +488,9 @@ body.rb-body {
 
 /* ---- RESPONSIVO ---- */
 @media (max-width: 768px) {
+    /* Rodapé oculto no mobile — mapas e conteúdo ocupam a viewport inteira */
+    .rb-footer-landing { display: none; }
+
     /* Header compacto */
     .rb-header-wrapper {
         padding: 6px 0;

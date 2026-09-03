@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (56ª entrada)
+
+### Style — Rodape oculto no mobile (base.css v8)
+
+`.rb-footer-landing { display: none }` adicionado ao breakpoint `<=768px`.
+Remove o rodape de todas as paginas no mobile, liberando espaco para que os mapas (Nota Pais, Mapa Georreferenciado) e demais paginas ocupem a viewport inteira sem scroll indesejado.
+
+---
+
 ## 2026-09-03 — `next` (55ª entrada)
 
 ### Fix — Mapas mobile verdadeiramente full-screen (nota-pais.css v9, mapa-georreferenciado.css v7)
