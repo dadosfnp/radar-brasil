@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (41ª entrada)
+
+### Fix — Quadradinhos waffle na segunda linha (nowrap correto)
+
+- `.pm-grid-cells` alterado de `flex-wrap: wrap` para `flex-wrap: nowrap`
+- `overflow: hidden` ja presente — agora corta celulas que nao cabem horizontalmente
+- Versao CSS: v9
+
+---
+
 ## 2026-09-03 — `next` (40ª entrada)
 
 ### Fix — Modal "Ver niveis" sem dados + quadradinhos pulando de linha
