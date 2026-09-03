@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=19">
 {% endblock %}
 
 {% block content %}
@@ -64,30 +64,104 @@
 
             <!-- Pirâmide animada -->
             <div class="meto-pyramid-wrap" aria-hidden="true">
-                <svg class="meto-pyramid-svg" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Linhas conectoras animadas -->
-                    <line class="meto-py-line" x1="170" y1="52" x2="70"  y2="208" stroke-dasharray="6 4"/>
-                    <line class="meto-py-line" x1="170" y1="52" x2="270" y2="208" stroke-dasharray="6 4"/>
-                    <line class="meto-py-line" x1="80"  y1="208" x2="260" y2="208" stroke-dasharray="6 4"/>
-                    <!-- Setas bidirecionais -->
-                    <polygon class="meto-py-arrow" points="66,200 74,200 70,212"/>
-                    <polygon class="meto-py-arrow" points="174,44  166,44  170,32"/>
-                    <polygon class="meto-py-arrow" points="266,200 274,200 270,212"/>
-                    <polygon class="meto-py-arrow" points="84,208  76,204  76,212"/>
-                    <polygon class="meto-py-arrow" points="256,208 264,204 264,212"/>
+                <svg class="meto-pyramid-svg" viewBox="0 0 400 310" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!-- Glow suave nos pontos animados -->
+                        <filter id="py-glow" x="-80%" y="-80%" width="260%" height="260%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
+                            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                        <!-- Seta final -->
+                        <marker id="py-arr-e" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+                            <path d="M0,1 L7,4 L0,7 L1.5,4 Z" fill="#264584" opacity="0.6"/>
+                        </marker>
+                        <!-- Seta inicial (invertida) -->
+                        <marker id="py-arr-s" viewBox="0 0 8 8" refX="1" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                            <path d="M0,1 L7,4 L0,7 L1.5,4 Z" fill="#264584" opacity="0.6"/>
+                        </marker>
+                        <!-- Paths para animateMotion -->
+                        <path id="py-p1" d="M167,75 L98,226"/>
+                        <path id="py-p2" d="M233,75 L302,226"/>
+                        <path id="py-p3" d="M128,248 L272,248"/>
+                    </defs>
+
+                    <!-- Halos suaves nos vértices -->
+                    <ellipse cx="200" cy="52" rx="55" ry="30" fill="rgba(38,69,132,0.07)"/>
+                    <ellipse cx="68"  cy="248" rx="58" ry="28" fill="rgba(38,69,132,0.07)"/>
+                    <ellipse cx="332" cy="248" rx="58" ry="28" fill="rgba(38,69,132,0.07)"/>
+
+                    <!-- Linhas conectoras com setas bidirecionais -->
+                    <line class="meto-py-line" x1="167" y1="75" x2="98"  y2="226"
+                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
+                    <line class="meto-py-line" x1="233" y1="75" x2="302" y2="226"
+                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
+                    <line class="meto-py-line" x1="128" y1="248" x2="272" y2="248"
+                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
+
+                    <!-- Pontos animados fluindo pelas linhas -->
+                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#py-p1"/></animateMotion>
+                    </circle>
+                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" begin="0.87s" repeatCount="indefinite"><mpath href="#py-p2"/></animateMotion>
+                    </circle>
+                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite"><mpath href="#py-p3"/></animateMotion>
+                    </circle>
                 </svg>
 
                 <!-- Nó topo: União -->
                 <div class="meto-py-node meto-py-top">
-                    <div class="meto-py-node-inner">{% trans "União" %}</div>
+                    <div class="meto-py-node-inner">
+                        <div class="meto-py-node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="3" y1="22" x2="21" y2="22"/>
+                                <line x1="6" y1="18" x2="6" y2="11"/>
+                                <line x1="10" y1="18" x2="10" y2="11"/>
+                                <line x1="14" y1="18" x2="14" y2="11"/>
+                                <line x1="18" y1="18" x2="18" y2="11"/>
+                                <polygon points="12 2 20 7 4 7" fill="currentColor" opacity=".18"/>
+                                <polygon points="12 2 20 7 4 7"/>
+                            </svg>
+                        </div>
+                        <span class="meto-py-node-label">{% trans "União" %}</span>
+                        <span class="meto-py-node-count">1</span>
+                    </div>
                 </div>
+
                 <!-- Nó esq: Estados -->
                 <div class="meto-py-node meto-py-left">
-                    <div class="meto-py-node-inner">{% trans "Estados" %}</div>
+                    <div class="meto-py-node-inner">
+                        <div class="meto-py-node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="3 6 9 3 15 6 21 3 21 21 15 18 9 21 3 18" fill="currentColor" opacity=".12"/>
+                                <polygon points="3 6 9 3 15 6 21 3 21 21 15 18 9 21 3 18"/>
+                                <line x1="9" y1="3" x2="9" y2="21"/>
+                                <line x1="15" y1="6" x2="15" y2="18"/>
+                            </svg>
+                        </div>
+                        <span class="meto-py-node-label">{% trans "Estados" %}</span>
+                        <span class="meto-py-node-count">26 + DF</span>
+                    </div>
                 </div>
+
                 <!-- Nó dir: Municípios -->
                 <div class="meto-py-node meto-py-right">
-                    <div class="meto-py-node-inner">{% trans "Municípios" %}</div>
+                    <div class="meto-py-node-inner">
+                        <div class="meto-py-node-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" fill="currentColor" opacity=".12"/>
+                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+                                <line x1="10" y1="6" x2="14" y2="6"/>
+                                <line x1="10" y1="10" x2="14" y2="10"/>
+                                <line x1="10" y1="14" x2="14" y2="14"/>
+                            </svg>
+                        </div>
+                        <span class="meto-py-node-label">{% trans "Municípios" %}</span>
+                        <span class="meto-py-node-count">5.570+</span>
+                    </div>
                 </div>
             </div>
 

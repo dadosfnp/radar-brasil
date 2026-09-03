@@ -199,11 +199,11 @@ body.metodologia-page .rb-main {
 /* Pirâmide */
 .meto-pyramid-wrap {
     position: relative;
-    width: 340px;
-    height: 260px;
+    width: 400px;
+    height: 310px;
     margin: 0 auto;
     opacity: 0;
-    transition: opacity 0.8s ease;
+    transition: opacity 0.9s ease;
 }
 
 .meto-pyramid-wrap.meto-py-animate {
@@ -220,44 +220,89 @@ body.metodologia-page .rb-main {
 
 .meto-py-line {
     stroke: #264584;
-    stroke-width: 1.8;
-    stroke-opacity: 0.5;
+    stroke-width: 2;
+    stroke-opacity: 0.42;
     fill: none;
-    stroke-dashoffset: 0;
-    animation: meto-dash-flow 3s linear infinite;
+    animation: meto-dash-flow 2.4s linear infinite;
 }
 
 @keyframes meto-dash-flow {
     to { stroke-dashoffset: -20; }
 }
 
-.meto-py-arrow {
-    fill: #264584;
-    opacity: 0.55;
-}
-
-/* Nós da pirâmide — posicionados em absolute sobre o SVG */
+/* Nós da pirâmide — glassmorphism */
 .meto-py-node {
     position: absolute;
     transform: translate(-50%, -50%);
 }
 
-.meto-py-top   { left: 50%;   top: 20%; }
-.meto-py-left  { left: 21%;   top: 80%; }
-.meto-py-right { left: 79%;   top: 80%; }
+.meto-py-top   { left: 50%;    top: 17%; }
+.meto-py-left  { left: 17%;    top: 80%; }
+.meto-py-right { left: 83%;    top: 80%; }
 
 .meto-py-node-inner {
-    background: #264584;
-    color: #fff;
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(38,69,132,.22);
+    border-radius: 14px;
+    padding: 10px 16px 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 22px rgba(38,69,132,.14), 0 1px 4px rgba(38,69,132,.08);
+    min-width: 106px;
+    transition: transform .2s, box-shadow .2s;
+    cursor: default;
+}
+
+.meto-py-node-inner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(38,69,132,.22);
+}
+
+.meto-py-node-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(38,69,132,.10);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #264584;
+    flex-shrink: 0;
+}
+
+.meto-py-node-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.meto-py-node-label {
     font-family: 'Sora', sans-serif;
     font-size: 0.8125rem;
     font-weight: 700;
-    padding: 8px 18px;
-    border-radius: 8px;
+    color: #101d4f;
+    letter-spacing: .01em;
+    line-height: 1;
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(38,69,132,.35);
-    letter-spacing: .02em;
 }
+
+.meto-py-node-count {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: #264584;
+    background: rgba(38,69,132,.10);
+    border: 1px solid rgba(38,69,132,.14);
+    border-radius: 20px;
+    padding: 2px 8px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.meto-py-arrow { display: none; }
 
 .meto-federalism-footer-text {
     margin-top: 32px;

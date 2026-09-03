@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (49ª entrada)
+
+### Style — Redesenho do diagrama de federalismo (CSS v19)
+
+**Diagrama União/Estados/Municipios completamente redesenhado:**
+- Nodes substituidos por cards glassmorphism (`rgba(255,255,255,.96)` + `backdrop-filter: blur`)
+- Cada node tem icone SVG semantico (landmark / mapa / building2), label e pill de contagem (1 / 26+DF / 5.570+)
+- SVG expandido de 340x260 para 400x310; halos suaves via `<ellipse>` nos vertices
+- Linhas: `stroke-opacity: 0.42`, `stroke-width: 2`, bidirecionais com marcadores de seta via `<marker>`
+- Pontos animados fluindo ao longo de cada aresta com `<animateMotion>` + `<mpath>` e filtro de glow
+- Hover nos nodes: `translateY(-3px)` + box-shadow mais profundo
+- Container aumentado de 340x260 para 400x310
+
+---
+
 ## 2026-09-03 — `next` (48ª entrada)
 
 ### Style — Linha da timeline vai de ponta a ponta (CSS v18)
