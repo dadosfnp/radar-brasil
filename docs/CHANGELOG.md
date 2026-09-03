@@ -4,6 +4,27 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (54ª entrada)
+
+### Style — Mobile UX: pill PT/EN, timeline vertical, mapas full-screen
+
+**base.css v7:**
+- PT/EN pill nao mais `position: absolute` sobreposto ao logo FNP no mobile
+- `.rb-header-logo` passa a `flex-direction: column; align-items: flex-end; gap: 4px` em 768px
+- `.rb-lang-form { position: static }` — pill empilha abaixo do logo FNP no fluxo normal
+
+**metodologia.css v21:**
+- Timeline em 600px convertida de scroll horizontal para layout vertical empilhado
+- Cada evento: bolha do ano (60px) + card em linha horizontal `flex-direction: row`
+- Linha horizontal (`::before`) ocultada; connector oculto; `overflow-x: visible`
+
+**nota-pais.css v8 + mapa-georreferenciado.css v6:**
+- Mapas passam de `65vh` para `calc(100svh - 88px)` em 900px (Google Maps pattern)
+- Header mobile tem ~88px; mapa ocupa o restante da viewport
+- KPI strip fica abaixo, acessivel via scroll vertical
+
+---
+
 ## 2026-09-03 — `next` (53ª entrada)
 
 ### Fix — Nav mobile redesenhado: dropdown full-width + z-index correto (base.css v6)

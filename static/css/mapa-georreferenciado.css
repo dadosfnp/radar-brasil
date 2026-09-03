@@ -759,10 +759,11 @@ body.mapa-page .rb-main {
     }
     .mg-sidebar-header h3 { display: flex; align-items: center; gap: 7px; }
 
-    /* Map area: altura explícita para que position:absolute dos filhos ancora corretamente */
+    /* Map area: altura full-screen (Google Maps pattern) — header ~88px */
     .mg-map-area {
         border-radius: 12px;
-        height: 65vh;
+        height: calc(100vh - 88px);
+        height: calc(100svh - 88px);
         flex-shrink: 0;
     }
     /* Leaflet preenche o container com position:absolute */

@@ -1038,5 +1038,41 @@ body.metodologia-page .rb-main {
 @media (max-width: 600px) {
     .meto-criterion-row { flex-direction: column; align-items: flex-start; gap: 6px; }
     .meto-nivel-pills .meto-pip { width: 20px; height: 20px; font-size: 0.625rem; }
+
+    /* Timeline: layout vertical empilhado (ano + card lado a lado) */
+    .meto-timeline-scroll-outer {
+        overflow-x: visible;
+        overflow-y: visible;
+        padding: 16px;
+    }
+    .meto-timeline-scroll-outer::before {
+        display: none; /* esconde a linha horizontal */
+    }
+    .meto-timeline-track {
+        flex-direction: column;
+        min-width: 0;
+        padding-top: 0;
+        gap: 16px;
+    }
+    .meto-tl-event {
+        width: 100%;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .meto-tl-year-bubble {
+        position: static;
+        min-width: 60px;
+        width: 60px;
+        flex-shrink: 0;
+        align-self: flex-start;
+        margin-top: 0;
+    }
+    .meto-tl-connector { display: none; }
+    .meto-tl-card {
+        flex: 1;
+        margin: 0;
+        width: auto;
+    }
 }
 

@@ -511,15 +511,24 @@ body.rb-body {
         height: 68px;
     }
 
-    /* FNP logo + lang */
+    /* FNP logo + lang — empilhados verticalmente no mobile */
     .rb-header-logo {
         grid-column: 3 / 4;
         justify-self: end;
         padding-right: 8px;
-        gap: 5px;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
     }
     .rb-header-logo-img {
         height: 34px;
+    }
+    /* Pill PT|EN sai do absolute e fica no fluxo flex normal */
+    .rb-lang-form {
+        position: static;
+    }
+    .rb-lang-btn {
+        padding: 5px 10px;
     }
 
     /* Navbar mobile: hamburger no centro, dropdown abaixo do header */

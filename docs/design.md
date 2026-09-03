@@ -466,6 +466,24 @@ Redesenhado no commit `181ea3a`: 3 colunas → coluna única com logos alinhados
 
 Commit `42e60f9`: layout de card (cada linha vira card com `data-label`).
 
+### Melhorias Mobile UX/UI (2026-09-03 — base.css v7, metodologia.css v21, nota-pais.css v8, mapa-georreferenciado.css v6)
+
+**PT/EN pill empilhado verticalmente no mobile (base.css v7):**
+- Problema: `.rb-lang-form { position: absolute; bottom: -26px }` sobrepunha logo FNP no mobile
+- Solucao: na media query 768px, `.rb-header-logo { flex-direction: column; align-items: flex-end; gap: 4px }` + `.rb-lang-form { position: static }`
+- Pill passa a empilhar abaixo do logo FNP dentro do flex container; altura total ~60px (menor que o logo Radar 68px)
+
+**Timeline Metodologia — layout vertical em mobile (metodologia.css v21):**
+- Problema: timeline horizontal com scroll-x dificil de usar em telas pequenas
+- Solucao em `≤600px`: scroll-x desativado, `.meto-timeline-track { flex-direction: column; gap: 16px }`, `.meto-tl-event { flex-direction: row; align-items: flex-start }`, `.meto-tl-year-bubble { position: static; min-width: 60px }`, `.meto-tl-connector { display: none }`, linha horizontal (`::before`) ocultada
+- Resultado: cada evento como linha horizontal (bolha do ano | card)
+
+**Mapas full-screen (Google Maps pattern) em mobile — (nota-pais.css v8, mapa-georreferenciado.css v6):**
+- Problema: mapas a `65vh` em 900px eram pequenos demais; KPI strip empurrava mapa para cima
+- Solucao: a partir de 900px, mapas passam a `height: calc(100svh - 88px)` (88px = header mobile)
+- KPI strip fica abaixo do mapa, acessivel via scroll — mesmo padrao do Google Maps
+- Tanto `.np-map-container` quanto `.mg-map-area` recebem a nova altura no breakpoint 900px
+
 ### Auditoria Mobile Completa (2026-09-03)
 
 Correcoes aplicadas em 9 arquivos CSS (base.css v5, inicio.css v12, landing.css v11, avaliacao-painel.css v9, painel-multinivel.css v12, mapa-georreferenciado.css v5, financiamento-climatico.css v5, nota-pais.css v7):
