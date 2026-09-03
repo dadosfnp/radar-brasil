@@ -398,6 +398,20 @@ body.metodologia-page .rb-main {
     scrollbar-color: rgba(38,69,132,.25) transparent;
     display: flex;
     justify-content: center;
+    position: relative;
+}
+
+/* Linha de ponta a ponta — desenha no scroll-outer, nao no track */
+.meto-timeline-scroll-outer::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(38,69,132,.18);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .meto-timeline-scroll-outer::-webkit-scrollbar { height: 4px; }
@@ -413,16 +427,8 @@ body.metodologia-page .rb-main {
     min-width: max-content;
 }
 
-/* Linha horizontal de fundo */
-.meto-timeline-line {
-    position: absolute;
-    top: 22px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(38,69,132,.18);
-    pointer-events: none;
-}
+/* Linha horizontal de fundo — substituida pelo ::before do scroll-outer */
+.meto-timeline-line { display: none; }
 
 .meto-tl-event {
     display: flex;

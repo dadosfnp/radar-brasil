@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (48ª entrada)
+
+### Style — Linha da timeline vai de ponta a ponta (CSS v18)
+
+- `.meto-timeline-line` ocultado (era absoluto dentro do track, limitado a largura dos 4 eventos)
+- `.meto-timeline-scroll-outer::before` desenha a linha com `left:0; right:0` no container de largura total
+- Linha agora cobre de ponta a ponta da secao independente do numero de eventos
+
+---
+
 ## 2026-09-03 — `next` (47ª entrada)
 
 ### Style — Timeline da Metodologia centralizada na pagina (CSS v17)
