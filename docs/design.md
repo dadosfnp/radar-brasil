@@ -594,6 +594,10 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-02 | pendente  | Header: nav integrada na barra azul (mesma linha dos logos); layout grid 3 colunas `auto 1fr auto`; header sticky; nav visível na landing |
 | 2026-09-02 | pendente  | Header: logo Radar Brasil 124px, logo FNP 62px, alinhados pelo eixo central; pill PT/EN flutuante abaixo do logo FNP |
 | 2026-09-02 | pendente  | Nav: links brancos `rgba(255,255,255,0.78)` no fundo navy; active com `border-bottom: 2px solid #fff`; fonte `1.051rem` |
+| 2026-09-03 | pendente  | Nav: aba "Inicio" ocultada (`display:none`); "Painel Multinivel" → "Paineis"; "Avaliacao Painel Multinivel" → "Componentes" |
+| 2026-09-03 | pendente  | Metodologia v11: 6 secoes novas — piramide federalismo, carrossel 3 fotos, timeline horizontal, 4 cards definicao, 4 cards eixo/criterios, escopo + stats |
+| 2026-09-03 | pendente  | Painel Multinivel: card "Explorar eixos" removido; KPI "Niveis de Maturidade" → "Niveis de Avaliacao"; KPI instancias dinamico por eixo |
+| 2026-09-03 | pendente  | Grafico Painel Multinivel: Chart.js bar substituido por grid heatmap — celulas coloridas por nivel, 1 linha por criterio, legenda compacta |
 | 2026-09-02 | pendente  | Logos SVG do Radar Brasil atualizados (nova identidade visual); cards PNG do Inicio removidos; HUD atualizado |
 | 2026-09-02 | pendente  | Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header |
 

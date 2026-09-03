@@ -51,14 +51,15 @@
                         <span></span><span></span><span></span>
                     </button>
                     <div class="rb-nav-links" id="rb-nav-links">
+                        {# Início: inativo temporariamente — manter no HTML #}
                         <a href="{% url 'municipios:inicio' %}"
-                           class="rb-nav-link {% block menu_inicio_active %}{% endblock %}">{% trans "Início" %}</a>
+                           class="rb-nav-link {% block menu_inicio_active %}{% endblock %}" style="display:none" aria-hidden="true" tabindex="-1">{% trans "Início" %}</a>
                         <a href="{% url 'municipios:metodologia' %}"
                            class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
                         <a href="{% url 'indicadores:painel_multinivel' %}"
-                           class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painel Multinível" %}</a>
+                           class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painéis" %}</a>
                         <a href="{% url 'indicadores:avaliacao_painel' %}"
-                           class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Avaliação Painel Multinível" %}</a>
+                           class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Componentes" %}</a>
                         <a href="{% url 'indicadores:nota_pais' %}"
                            class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nota País" %}</a>
                         <a href="{% url 'indicadores:financiamento_climatico' %}"

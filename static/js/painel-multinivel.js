@@ -5,135 +5,127 @@ const EIXOS = [
   "Linhas de Financiamento",
 ];
 
-let chartInstance = null;
+// Contagens de instâncias por eixo (para KPI dinâmico)
+const EIXO_COUNTS = {
+  "Governanca":              { count: 31, label_pt: "instâncias de governança", label_en: "governance instances" },
+  "Politicas e Planos":     { count: 17, label_pt: "políticas e planos", label_en: "policies and plans" },
+  "Programas":               { count: 18, label_pt: "programas", label_en: "programs" },
+  "Linhas de Financiamento": { count: 17, label_pt: "linhas de financiamento", label_en: "financing lines" },
+};
 
-function renderizarGrafico(dados) {
-  const canvas = document.getElementById("pm-chart-governanca");
-  if (!canvas) return;
+const NIVEL_COLORS = {
+  "Nível 1":  "#e06b6b",
+  "Nível 2":  "#f09a50",
+  "Nível 3":  "#e8c53a",
+  "Nível 4":  "#72be79",
+  "Nível 5":  "#7aaed4",
+  "Level 1":  "#e06b6b",
+  "Level 2":  "#f09a50",
+  "Level 3":  "#e8c53a",
+  "Level 4":  "#72be79",
+  "Level 5":  "#7aaed4",
+};
 
-  if (chartInstance) {
-    chartInstance.destroy();
-    chartInstance = null;
-  }
+const NIVEL_BORDER = {
+  "Nível 1":  "#c85050",
+  "Nível 2":  "#d87a30",
+  "Nível 3":  "#c8a520",
+  "Nível 4":  "#52a059",
+  "Nível 5":  "#5a8eb4",
+  "Level 1":  "#c85050",
+  "Level 2":  "#d87a30",
+  "Level 3":  "#c8a520",
+  "Level 4":  "#52a059",
+  "Level 5":  "#5a8eb4",
+};
 
-  if (!dados.labels || dados.labels.length === 0) {
-    console.warn("Sem dados para renderizar.");
-    return;
-  }
+function renderizarGrid(dados) {
+  const wrapper = document.getElementById("pm-chart-wrapper");
+  if (!wrapper) return;
 
-  const ctx = canvas.getContext("2d");
+  wrapper.innerHTML = "";
 
-  const barLabelsPlugin = {
-    id: "barLabels",
-    afterDatasetsDraw(chart) {
-      const c = chart.ctx;
-      chart.data.datasets.forEach((dataset, di) => {
-        const meta = chart.getDatasetMeta(di);
-        if (meta.hidden) return;
-        meta.data.forEach((bar, i) => {
-          const value = dataset.data[i];
-          if (!value || value <= 0) return;
-          const text    = dataset.label;
-          const centerX = (bar.base + bar.x) / 2;
-          const centerY = bar.y;
-          c.save();
-          c.font         = "600 10px Roboto, sans-serif";
-          const bg = (dataset.backgroundColor || "").toLowerCase();
-          c.fillStyle = bg === "#e8c53a" ? "rgba(55,35,0,.75)" : "rgba(255,255,255,.95)";
-          c.textAlign    = "center";
-          c.textBaseline = "middle";
-          const segW = Math.abs(bar.x - bar.base);
-          if (segW >= c.measureText(text).width + 6) {
-            c.fillText(text, centerX, centerY);
-          }
-          c.restore();
-        });
-      });
-    },
-  };
+  if (!dados.labels || dados.labels.length === 0) return;
 
-  const isMobile = window.innerWidth < 600;
-  const maxLen   = isMobile ? 15 : 24;
-  const tickSize = isMobile ? 10 : 11;
-  const yWidth   = isMobile ? 115 : 160;
+  const isEn = (document.documentElement.lang || "").startsWith("en");
+  const lang = isEn ? "en" : "pt";
 
-  function wrapLabel(label) {
-    if (label.length <= maxLen) return label;
-    const words = label.split(" ");
-    const lines = [];
-    let line = "";
-    words.forEach((w) => {
-      if ((line + w).length > maxLen) {
-        if (line) lines.push(line.trim());
-        line = "";
-      }
-      line += w + " ";
+  const criterios = dados.labels;
+  const totalCriterios = criterios.length;
+
+  // Monta mapa: criterio → { nivel: count }
+  const matrix = {};
+  criterios.forEach(c => { matrix[c] = {}; });
+  dados.datasets.forEach(ds => {
+    ds.data.forEach((val, i) => {
+      if (val > 0) matrix[criterios[i]][ds.label] = val;
     });
-    if (line.trim()) lines.push(line.trim());
-    return lines;
-  }
-
-  chartInstance = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels:   dados.labels,
-      datasets: dados.datasets,
-    },
-    plugins: [barLabelsPlugin],
-    options: {
-      indexAxis: "y",
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 300 },
-      layout: {
-        padding: { left: isMobile ? 0 : 8, right: isMobile ? 4 : 8 },
-      },
-      plugins: {
-        legend: {
-          position: "bottom",
-          labels: {
-            usePointStyle: true,
-            pointStyle: "rect",
-            font: { size: isMobile ? 10 : 12 },
-            padding: isMobile ? 10 : 16,
-            boxWidth: isMobile ? 10 : 14,
-          },
-        },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const v = ctx.parsed.x;
-              const label = v !== 1 ? RBi18n.t("estruturas") : RBi18n.t("estrutura");
-              return ` ${ctx.dataset.label}: ${v} ${label}`;
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          stacked: true,
-          beginAtZero: true,
-          ticks: { stepSize: 1, precision: 0, font: { size: tickSize } },
-          grid: { color: "rgba(0,0,0,0.06)" },
-        },
-        y: {
-          stacked: true,
-          afterFit(scale) {
-            scale.width = Math.max(scale.width, yWidth);
-          },
-          ticks: {
-            font: { size: tickSize },
-            callback: function (value) {
-              return wrapLabel(this.getLabelForValue(value));
-            },
-          },
-        },
-      },
-    },
   });
+
+  // Calcula total de instâncias (soma de counts do primeiro critério)
+  const firstCrit = criterios[0];
+  const totalInstancias = Object.values(matrix[firstCrit] || {}).reduce((a, b) => a + b, 0);
+
+  // Container principal
+  const container = document.createElement("div");
+  container.className = "pm-grid-container";
+
+  // Para cada critério, renderiza uma linha de células
+  criterios.forEach(criterio => {
+    const row = document.createElement("div");
+    row.className = "pm-grid-row";
+
+    const rowLabel = document.createElement("div");
+    rowLabel.className = "pm-grid-row-label";
+    rowLabel.textContent = criterio;
+    row.appendChild(rowLabel);
+
+    const cells = document.createElement("div");
+    cells.className = "pm-grid-cells";
+
+    const niveisOrdem = isEn
+      ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
+      : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
+
+    niveisOrdem.forEach(nivel => {
+      const count = matrix[criterio][nivel] || 0;
+      for (let i = 0; i < count; i++) {
+        const cell = document.createElement("span");
+        cell.className = "pm-grid-cell";
+        cell.style.background = NIVEL_COLORS[nivel] || "#ccc";
+        cell.style.borderColor = NIVEL_BORDER[nivel] || "#aaa";
+        cell.title = `${criterio}: ${nivel}`;
+        cells.appendChild(cell);
+      }
+    });
+
+    row.appendChild(cells);
+    container.appendChild(row);
+  });
+
+  // Legenda
+  const legend = document.createElement("div");
+  legend.className = "pm-grid-legend";
+  const niveisLegenda = isEn
+    ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
+    : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
+
+  niveisLegenda.forEach(nivel => {
+    const item = document.createElement("span");
+    item.className = "pm-grid-legend-item";
+    const dot = document.createElement("span");
+    dot.className = "pm-grid-legend-dot";
+    dot.style.background = NIVEL_COLORS[nivel] || "#ccc";
+    item.appendChild(dot);
+    item.appendChild(document.createTextNode(nivel));
+    legend.appendChild(item);
+  });
+
+  wrapper.appendChild(container);
+  wrapper.appendChild(legend);
 }
 
-// Overlay de erro no gráfico (não destrói o canvas)
+// Overlay de erro no gráfico
 function _mostrarErroGrafico(msg) {
   const area = document.querySelector(".pm-chart-area");
   let err = area && area.querySelector(".pm-chart-error");
@@ -155,7 +147,6 @@ function _ocultarErroGrafico() {
   if (wrapper) wrapper.style.display = "";
 }
 
-// Mostra spinner enquanto carrega
 function mostrarLoader(visivel) {
   const loader = document.getElementById("pm-loader");
   if (loader) loader.style.display = visivel ? "flex" : "none";
@@ -163,23 +154,29 @@ function mostrarLoader(visivel) {
   if (wrapper) wrapper.style.opacity = visivel ? "0.3" : "1";
 }
 
+function atualizarKPI(eixo) {
+  const info = EIXO_COUNTS[eixo];
+  if (!info) return;
+  const isEn = (document.documentElement.lang || "").startsWith("en");
+  const valEl  = document.getElementById("pm-kpi-inst-value");
+  const subEl  = document.getElementById("pm-kpi-inst-sub");
+  if (valEl) valEl.textContent = info.count;
+  if (subEl) subEl.textContent = isEn ? info.label_en : info.label_pt;
+}
+
 async function carregarDados(eixo) {
   const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
-
   _ocultarErroGrafico();
   mostrarLoader(true);
-
   try {
     const resp  = await fetch(url);
     const dados = await resp.json();
-
     if (dados.erro) {
-      console.error("Erro API:", dados.erro);
       _mostrarErroGrafico("⚠ " + dados.erro);
       return;
     }
     _ocultarErroGrafico();
-    renderizarGrafico(dados);
+    renderizarGrid(dados);
   } catch (e) {
     console.error("Erro fetch:", e);
     _mostrarErroGrafico("⚠ " + RBi18n.t("Não foi possível carregar os dados. Verifique sua conexão e recarregue a página."));
@@ -205,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
       activeBtn.setAttribute("aria-selected", "true");
       if (tabpanel) tabpanel.setAttribute("aria-labelledby", activeBtn.id);
     }
+    atualizarKPI(EIXOS[idx]);
   }
 
   tabs.forEach((tab, idx) => {
@@ -231,15 +229,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Ativa aba via query param ?aba=0..3 (vindo da página inicial)
   const abaParam = new URLSearchParams(window.location.search).get("aba");
   abaIdxAtual    = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
 
   ativarAba(abaIdxAtual);
-
   carregarDados(EIXOS[abaIdxAtual]);
 
-  // Botão "Critérios e Parâmetros de Avaliação" → redireciona para a aba certa
   const critBtn = document.querySelector(".pm-criteria-badge");
   if (critBtn) {
     critBtn.addEventListener("click", () => {

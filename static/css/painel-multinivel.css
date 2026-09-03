@@ -258,13 +258,84 @@ body.painel-multinivel-page .rb-main {
 
 .pm-chart-wrapper {
     position: relative;
-    height: 380px;
+    min-height: 200px;
     width: 100%;
 }
 
-.pm-chart-wrapper canvas {
-    width: 100% !important;
-    height: 380px !important;
+/* ── Grid heatmap ── */
+.pm-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.pm-grid-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.pm-grid-row-label {
+    font-size: 0.71875rem;
+    font-weight: 600;
+    color: #264584;
+    min-width: 160px;
+    max-width: 200px;
+    flex-shrink: 0;
+    padding-top: 2px;
+    line-height: 1.35;
+}
+
+.pm-grid-cells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    flex: 1;
+}
+
+.pm-grid-cell {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1.5px solid transparent;
+    flex-shrink: 0;
+    transition: transform 0.12s, box-shadow 0.12s;
+    cursor: default;
+}
+
+.pm-grid-cell:hover {
+    transform: scale(1.18);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.20);
+    z-index: 2;
+    position: relative;
+}
+
+.pm-grid-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(16,29,79,0.10);
+}
+
+.pm-grid-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #334488;
+    letter-spacing: 0.02em;
+}
+
+.pm-grid-legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
 }
 
 /* footer com botão à direita */
@@ -297,7 +368,8 @@ body.painel-multinivel-page .rb-main {
     .pm-tabs button { padding: 10px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; }
 
     .pm-chart-area { padding: 16px 12px 14px; }
-    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 300px !important; }
+    .pm-grid-row { flex-direction: column; gap: 6px; }
+    .pm-grid-row-label { min-width: auto; max-width: 100%; font-size: 0.6875rem; }
     .pm-chart-footer { margin-top: 12px; justify-content: center; }
     .pm-criteria-badge { width: 100%; text-align: center; }
 }
@@ -348,6 +420,6 @@ body.painel-multinivel-page .rb-main {
         white-space: nowrap;
     }
 
-    .pm-chart-wrapper, .pm-chart-wrapper canvas { height: 260px !important; }
+    .pm-grid-cell { width: 18px; height: 18px; }
     .pm-chart-area { padding: 12px 8px 10px; }
 }

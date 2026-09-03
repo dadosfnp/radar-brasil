@@ -6,42 +6,22 @@
 {% block menu_painel_active %}active{% endblock %}
 
 {% block extra_head %}
-  <link rel="stylesheet" href="{% static 'css/painel-multinivel.css' %}?v=6">
+  <link rel="stylesheet" href="{% static 'css/painel-multinivel.css' %}?v=7">
 {% endblock %}
 
 {% block extra_js %}
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="{% static 'js/painel-multinivel.js' %}?v=3"></script>
+  <script src="{% static 'js/painel-multinivel.js' %}?v=4"></script>
 {% endblock %}
 
 {% block content %}
 <div class="pm-wrapper">
 
-  {# BACK TO INÍCIO #}
-  <a href="{% url 'municipios:inicio' %}" class="pm-back-card" aria-label="{% trans 'Voltar para a página Início e ver todos os eixos' %}">
-    <span class="pm-back-icon">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
-    </span>
-    <span class="pm-back-content">
-      <span class="pm-back-title">{% trans "Explorar todos os eixos" %}</span>
-      <span class="pm-back-sub">{% trans "Governança · Políticas e Planos · Programas · Linhas de Financiamento" %}</span>
-    </span>
-    <span class="pm-back-chips" aria-hidden="true">
-      <span class="pm-back-chip">{% trans "Governança" %}</span>
-      <span class="pm-back-chip">{% trans "Políticas e Planos" %}</span>
-      <span class="pm-back-chip">{% trans "Programas" %}</span>
-      <span class="pm-back-chip">{% trans "Linhas de Financiamento" %}</span>
-    </span>
-  </a>
-
   {# KPI STRIP #}
   <div class="pm-kpi-strip">
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">{% trans "Instâncias Avaliadas" %}</div>
-      <div class="pm-kpi-value" title="{% trans 'Total de instâncias com avaliação registrada na edição 2024' %}">{{ total_municipios }}</div>
-      <div class="pm-kpi-sub">{% trans "Edição 2024" %}</div>
+      <div class="pm-kpi-label" id="pm-kpi-inst-label">{% trans "Instâncias Avaliadas" %}</div>
+      <div class="pm-kpi-value" id="pm-kpi-inst-value" title="{% trans 'Total de instâncias com avaliação registrada na edição 2024' %}">{{ total_municipios }}</div>
+      <div class="pm-kpi-sub" id="pm-kpi-inst-sub">{% trans "Edição 2024" %}</div>
     </div>
     <div class="pm-kpi-card">
       <div class="pm-kpi-label">{% trans "Eixos Analisados" %}</div>
@@ -49,7 +29,7 @@
       <div class="pm-kpi-sub">{% trans "Governança" %} &middot; {% trans "Políticas e Planos" %} &middot; {% trans "Programas" %} &middot; {% trans "Linhas de Financiamento" %}</div>
     </div>
     <div class="pm-kpi-card">
-      <div class="pm-kpi-label">{% trans "Níveis de Maturidade" %}</div>
+      <div class="pm-kpi-label">{% trans "Níveis de Avaliação" %}</div>
       <div class="pm-kpi-value" title="{% trans 'Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de institucionalização climática' %}">5</div>
       <div class="pm-kpi-sub">{% trans "Nível 1" %} &rarr; {% trans "Nível 5" %}</div>
     </div>
@@ -117,9 +97,7 @@
         {% trans "Carregando dados..." %}
       </div>
 
-      <div id="pm-chart-wrapper" class="pm-chart-wrapper" role="tabpanel" aria-labelledby="pm-tab-governanca">
-        <canvas id="pm-chart-governanca" role="img" aria-label="{% trans 'Gráfico de distribuição por nível de maturidade' %}"></canvas>
-      </div>
+      <div id="pm-chart-wrapper" class="pm-chart-wrapper" role="tabpanel" aria-labelledby="pm-tab-governanca" aria-label="{% trans 'Distribuição por nível de avaliação' %}"></div>
 
       <div class="pm-chart-footer">
         <button type="button" class="pm-criteria-badge">

@@ -1,5 +1,5 @@
-﻿/* ==============================
-   PÁGINA METODOLOGIA — v3
+/* ==============================
+   PÁGINA METODOLOGIA — v11
    ============================== */
 
 body.metodologia-page {
@@ -10,8 +10,6 @@ body.metodologia-page {
     min-height: 100vh;
 }
 
-
-
 body.metodologia-page .rb-main {
     background: transparent;
     max-width: 100%;
@@ -19,6 +17,13 @@ body.metodologia-page .rb-main {
     padding: 0;
     flex-grow: 1;
     min-height: 0;
+}
+
+/* ── Layout util ── */
+.meto-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 /* ══════════════════════════════
@@ -66,7 +71,6 @@ body.metodologia-page .rb-main {
     pointer-events: none;
 }
 
-/* Badge pill */
 .meto-hero-badge {
     display: inline-flex;
     align-items: center;
@@ -86,8 +90,7 @@ body.metodologia-page .rb-main {
 }
 
 .meto-hero-badge-dot {
-    width: 7px;
-    height: 7px;
+    width: 7px; height: 7px;
     border-radius: 50%;
     background: #22c55e;
     flex-shrink: 0;
@@ -112,11 +115,6 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
-.meto-hero-left h1 em {
-    color: #101d4f;
-    font-style: normal;
-}
-
 .meto-hero-desc {
     font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.9375rem;
@@ -127,195 +125,659 @@ body.metodologia-page .rb-main {
 }
 
 /* ══════════════════════════════
-   MAPPED CARD
+   TÍTULOS COMPARTILHADOS
    ══════════════════════════════ */
 
-.meto-step-card {
-    background: rgba(255,255,255,.72);
-    backdrop-filter: blur(24px) saturate(1.3);
-    -webkit-backdrop-filter: blur(24px) saturate(1.3);
-    border: 1.5px solid rgba(255,255,255,.88);
-    border-radius: 18px;
-    box-shadow: 0 6px 32px rgba(10,20,60,.11), 0 1px 4px rgba(10,20,60,.06);
-    overflow: hidden;
+.meto-section-block {
+    padding: 64px 0;
 }
 
-.meto-step-card-header {
-    background: var(--gradient-landing);
-    padding: 14px 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-.meto-step-card-header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,.1) 0%, transparent 60%);
-    pointer-events: none;
-}
-
-.meto-step-card-header-text {
-    font-family: 'Sora', sans-serif;
-    font-size: 0.625rem;
-    font-weight: 800;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.88);
-    position: relative;
-    z-index: 1;
-}
-
-.meto-step-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 14px 20px;
-    border-bottom: 1px solid rgba(16,29,79,.08);
-    transition: background var(--transition-fast);
-}
-
-.meto-step-item:last-child { border-bottom: none; }
-.meto-step-item:hover { background: rgba(16,29,79,.04); }
-
-.meto-step-num-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-}
-
-.meto-step-num {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(16,29,79,.12);
-    border: 1px solid rgba(16,29,79,.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.59375rem;
-    font-weight: 500;
-    color: #101d4f;
-    flex-shrink: 0;
-}
-
-.meto-step-big {
+.meto-section-heading {
     font-family: 'Sora', sans-serif;
     font-size: 1.75rem;
     font-weight: 800;
     color: #101d4f;
-    line-height: 1;
+    line-height: 1.2;
+    margin: 0 0 20px;
 }
 
-.meto-step-text {
-    font-size: 0.75rem;
+.meto-section-lead {
+    font-size: 0.9375rem;
     color: #334488;
-    line-height: 1.5;
-    font-weight: 400;
+    line-height: 1.75;
+    margin: 0 0 16px;
+    max-width: 760px;
 }
 
 /* ══════════════════════════════
-   CONTENT SECTION
+   1. POR QUE AVALIAR — PIRÂMIDE
    ══════════════════════════════ */
 
-.meto-content-wrap {
-    background: transparent;
-    border-top: 1px solid rgba(200,220,230,.5);
-    padding: 52px 0 60px;
+.meto-federalism-section {
+    background: #f5f8ff;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
 
-.meto-content {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 24px;
+.meto-federalism-intro {
+    margin-bottom: 40px;
+}
+
+.meto-federalism-body {
     display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 52px;
-    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
 }
 
-/* ══════════════════════════════
-   TEXT SECTIONS (col esquerda)
-   ══════════════════════════════ */
-
-.meto-text-col {
-    display: flex;
-    flex-direction: column;
-    gap: 38px;
+/* Conceito box */
+.meto-concept-box {
+    background: #fff;
+    border: 1.5px solid rgba(38,69,132,.18);
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0 6px 28px rgba(16,29,79,.07);
 }
 
-.meto-section {
-    padding-left: 18px;
-    border-left: 3px solid #101d4f;
-}
-
-.meto-section-title {
+.meto-concept-term {
     font-family: 'Sora', sans-serif;
     font-size: 1.125rem;
     font-weight: 700;
-    color: #101d4f;
+    color: #264584;
+    letter-spacing: -.01em;
+    border-bottom: 2px solid rgba(38,69,132,.15);
+    padding-bottom: 10px;
     margin-bottom: 14px;
 }
 
-.meto-section-body {
+.meto-concept-def {
+    font-size: 0.875rem;
+    color: #334488;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Pirâmide */
+.meto-pyramid-wrap {
+    position: relative;
+    width: 340px;
+    height: 260px;
+    margin: 0 auto;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.meto-pyramid-wrap.meto-py-animate {
+    opacity: 1;
+}
+
+.meto-pyramid-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.meto-py-line {
+    stroke: #264584;
+    stroke-width: 1.8;
+    stroke-opacity: 0.5;
+    fill: none;
+    stroke-dashoffset: 0;
+    animation: meto-dash-flow 3s linear infinite;
+}
+
+@keyframes meto-dash-flow {
+    to { stroke-dashoffset: -20; }
+}
+
+.meto-py-arrow {
+    fill: #264584;
+    opacity: 0.55;
+}
+
+/* Nós da pirâmide — posicionados em absolute sobre o SVG */
+.meto-py-node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.meto-py-top   { left: 50%;   top: 20%; }
+.meto-py-left  { left: 21%;   top: 80%; }
+.meto-py-right { left: 79%;   top: 80%; }
+
+.meto-py-node-inner {
+    background: #264584;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(38,69,132,.35);
+    letter-spacing: .02em;
+}
+
+.meto-federalism-footer-text {
+    margin-top: 32px;
+    font-size: 0.875rem;
+    color: #4a5a7a;
+    line-height: 1.75;
+    max-width: 820px;
+}
+
+/* ══════════════════════════════
+   2. CARROSSEL DE FOTOS
+   ══════════════════════════════ */
+
+.meto-carousel-section {
+    background: #101d4f;
+    overflow: hidden;
+}
+
+.meto-carousel-inner {
+    display: grid;
+    grid-template-columns: 56% 44%;
+    align-items: stretch;
+    min-height: 400px;
+    padding: 0;
+}
+
+.meto-carousel-media-wrap {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.meto-carousel-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+}
+
+.meto-carousel-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.meto-carousel-img.active   { opacity: 1; }
+
+.meto-carousel-img.slide-in-right  { opacity: 0; transform: translateX(40px);  transition: none; }
+.meto-carousel-img.slide-in-left   { opacity: 0; transform: translateX(-40px); transition: none; }
+.meto-carousel-img.slide-out-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.5s, transform 0.5s; }
+.meto-carousel-img.slide-out-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.5s, transform 0.5s; }
+
+/* Overlay degrade esq→dir para suavizar transição para texto */
+.meto-carousel-media-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 80%, #101d4f 100%);
+    pointer-events: none;
+}
+
+.meto-carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+}
+
+.meto-c-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.38);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+}
+
+.meto-c-dot.active {
+    background: #fff;
+    transform: scale(1.2);
+}
+
+.meto-carousel-text-wrap {
+    display: flex;
+    align-items: center;
+    padding: 48px 48px 48px 40px;
+}
+
+.meto-carousel-quote {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.92);
+    line-height: 1.65;
+    margin: 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+.meto-carousel-quote::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background: #22c55e;
+    border-radius: 2px;
+}
+
+/* ══════════════════════════════
+   3. HISTÓRICO — TIMELINE
+   ══════════════════════════════ */
+
+.meto-timeline-section {
+    background: #fff;
+    padding: 64px 0;
+}
+
+.meto-timeline-section .meto-inner {
+    margin-bottom: 40px;
+}
+
+.meto-timeline-scroll-outer {
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 0 40px 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(38,69,132,.25) transparent;
+}
+
+.meto-timeline-scroll-outer::-webkit-scrollbar { height: 4px; }
+.meto-timeline-scroll-outer::-webkit-scrollbar-track { background: transparent; }
+.meto-timeline-scroll-outer::-webkit-scrollbar-thumb { background: rgba(38,69,132,.25); border-radius: 2px; }
+
+.meto-timeline-track {
+    display: flex;
+    gap: 0;
+    position: relative;
+    align-items: flex-start;
+    padding-top: 48px;
+    min-width: max-content;
+}
+
+/* Linha horizontal de fundo */
+.meto-timeline-line {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(38,69,132,.18);
+    pointer-events: none;
+}
+
+.meto-tl-event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.meto-tl-year-bubble {
+    position: absolute;
+    top: -48px;
+    width: 56px;
+    height: 44px;
+    background: #264584;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 800;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 4px 16px rgba(38,69,132,.30);
+}
+
+.meto-tl-connector {
+    width: 2px;
+    height: 20px;
+    background: rgba(38,69,132,.30);
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.meto-tl-card {
+    background: #f5f8ff;
+    border: 1px solid rgba(38,69,132,.12);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 0 12px;
+    width: calc(100% - 24px);
+    box-shadow: 0 2px 12px rgba(16,29,79,.06);
+    transition: box-shadow .2s, transform .2s;
+}
+
+.meto-tl-card:hover {
+    box-shadow: 0 6px 24px rgba(16,29,79,.12);
+    transform: translateY(-2px);
+}
+
+.meto-tl-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #101d4f;
+    margin-bottom: 8px;
+}
+
+.meto-tl-text {
+    font-size: 0.78125rem;
+    color: #334488;
+    line-height: 1.7;
+    margin: 0 0 10px;
+}
+
+.meto-tl-subitems {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(38,69,132,.20);
+}
+
+.meto-tl-subitem {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.71875rem;
+    color: #4a5a7a;
+    line-height: 1.5;
+}
+
+.meto-tl-sub-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #264584;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+/* ══════════════════════════════
+   4. COMO AVALIAMOS — BALÕES
+   ══════════════════════════════ */
+
+.meto-howwe-section {
+    background: url('../img/fundo-bg.png') center / cover no-repeat;
+    border-top: 1px solid rgba(38,69,132,.10);
+}
+
+.meto-defs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 36px;
+}
+
+.meto-def-card {
+    background: rgba(255,255,255,.82);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    border: 1.5px solid rgba(255,255,255,.90);
+    border-radius: 20px;
+    padding: 28px 24px;
+    box-shadow: 0 6px 32px rgba(10,20,60,.10);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: box-shadow .2s, transform .2s;
+}
+
+.meto-def-card:hover {
+    box-shadow: 0 10px 36px rgba(10,20,60,.15);
+    transform: translateY(-3px);
+}
+
+.meto-def-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(38,69,132,.10);
+    border: 1px solid rgba(38,69,132,.16);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #264584;
+    flex-shrink: 0;
+}
+
+.meto-def-icon svg { width: 22px; height: 22px; }
+
+.meto-def-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #101d4f;
+    letter-spacing: -.01em;
+}
+
+.meto-def-text {
     font-size: 0.8125rem;
     color: #334488;
-    line-height: 1.78;
-    margin-bottom: 14px;
+    line-height: 1.75;
+    margin: 0;
 }
 
-.meto-section-body:last-child { margin-bottom: 0; }
-.meto-section-body strong { font-weight: 600; color: #101d4f; }
+/* ══════════════════════════════
+   5. CRITÉRIOS POR EIXO
+   ══════════════════════════════ */
 
-.meto-bullet-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.meto-criteria-section {
+    background: #fff;
+    border-top: 1px solid rgba(38,69,132,.08);
+}
+
+.meto-eixos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.meto-eixo-card {
+    background: #f5f8ff;
+    border: 1.5px solid rgba(38,69,132,.12);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(16,29,79,.05);
+    transition: box-shadow .2s;
+}
+
+.meto-eixo-card:hover {
+    box-shadow: 0 6px 24px rgba(16,29,79,.10);
+}
+
+.meto-eixo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 800;
+    color: #101d4f;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(38,69,132,.12);
+}
+
+.meto-eixo-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.meto-eixo-desc {
+    font-size: 0.8125rem;
+    color: #4a5a7a;
+    line-height: 1.7;
+    margin: 0 0 16px;
+}
+
+.meto-criteria-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.meto-bullet-list li {
-    font-size: 0.8125rem;
-    color: #1a3070;
-    line-height: 1.6;
+.meto-criterion-row {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: space-between;
     gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,.70);
+    border-radius: 8px;
+    border: 1px solid rgba(38,69,132,.08);
 }
 
-.meto-bullet-list li::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #101d4f;
+.meto-criterion-name {
+    font-size: 0.78125rem;
+    font-weight: 600;
+    color: #264584;
+    flex: 1;
+    line-height: 1.35;
+}
+
+.meto-nivel-pills {
+    display: flex;
+    gap: 3px;
     flex-shrink: 0;
-    margin-top: 1px;
 }
 
-.meto-bullet-list li strong {
+.meto-pip {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6875rem;
     font-weight: 700;
-    color: #101d4f;
+    color: #fff;
+    flex-shrink: 0;
 }
+
+.meto-pip.pip-1 { background: #e06b6b; }
+.meto-pip.pip-2 { background: #f09a50; }
+.meto-pip.pip-3 { background: #e8c53a; color: #554400; }
+.meto-pip.pip-4 { background: #72be79; }
+.meto-pip.pip-5 { background: #7aaed4; }
 
 /* ══════════════════════════════
-   SIDEBAR
+   6. O QUE AVALIAMOS
    ══════════════════════════════ */
 
-.meto-sidebar {
-    position: sticky;
-    top: 80px;
+.meto-scope-section {
+    background: url('../img/fundo-bg.png') center / cover no-repeat;
+    border-top: 1px solid rgba(38,69,132,.10);
+}
+
+.meto-scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 52px;
+    align-items: start;
+}
+
+.meto-scope-text-col {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Scale card */
+.meto-scope-body {
+    font-size: 0.9375rem;
+    color: #334488;
+    line-height: 1.78;
+    margin: 0;
+}
+
+/* Timeline mini */
+.meto-scope-timeline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,.60);
+    border-radius: 12px;
+    border: 1px solid rgba(38,69,132,.12);
+}
+
+.meto-scope-tl-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.meto-scope-tl-year {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 800;
+    color: #101d4f;
+    line-height: 1;
+}
+
+.meto-scope-tl-year.meto-scope-tl-future {
+    color: #7a8a9a;
+}
+
+.meto-scope-tl-desc {
+    font-size: 0.71875rem;
+    color: #4a5a7a;
+    line-height: 1.4;
+}
+
+.meto-scope-tl-arrow {
+    font-size: 1.25rem;
+    color: #264584;
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+.meto-scope-note {
+    font-size: 0.75rem;
+    color: #7a8a9a;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Stats sidebar */
+.meto-scope-stats-col {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Scale card (reutilizados do legacy) */
 .meto-scale-card {
     background: rgba(255,255,255,.72);
     backdrop-filter: blur(20px);
@@ -354,12 +816,6 @@ body.metodologia-page .rb-main {
     font-weight: 700;
     color: #fff;
 }
-
-.pip-1 { background: #e06b6b; }
-.pip-2 { background: #f09a50; }
-.pip-3 { background: #e8c53a; color: #555; }
-.pip-4 { background: #72be79; color: #fff; }
-.pip-5 { background: #7aaed4; }
 
 .meto-scale-legend {
     display: flex;
@@ -402,7 +858,7 @@ body.metodologia-page .rb-main {
     flex-shrink: 0;
 }
 
-/* Stat cards */
+/* Stat pills */
 .meto-stat-pill {
     background: rgba(255,255,255,.72);
     backdrop-filter: blur(20px);
@@ -414,7 +870,7 @@ body.metodologia-page .rb-main {
     display: flex;
     align-items: center;
     gap: 14px;
-    transition: all var(--transition-base);
+    transition: transform .18s, box-shadow .18s;
 }
 
 .meto-stat-pill:hover {
@@ -426,7 +882,7 @@ body.metodologia-page .rb-main {
     width: 42px;
     height: 42px;
     border-radius: 10px;
-    background: rgba(16,29,79,.1);
+    background: rgba(16,29,79,.10);
     border: 1px solid rgba(16,29,79,.16);
     display: flex;
     align-items: center;
@@ -455,18 +911,37 @@ body.metodologia-page .rb-main {
    RESPONSIVO
    ══════════════════════════════ */
 
+@media (max-width: 1080px) {
+    .meto-defs-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 900px) {
-    .meto-hero {
-        grid-template-columns: 1fr;
-        gap: 24px;
-    }
-    .meto-hero-zone {
-        padding: 32px 0 0;
-    }
+    .meto-inner { padding: 0 20px; }
+
+    .meto-hero-inner { grid-template-columns: 1fr; padding: 0 20px; }
+    .meto-hero-right { display: none; }
     .meto-hero-left h1 { font-size: 1.5rem; }
-    .meto-content {
-        grid-template-columns: 1fr;
-        gap: 32px;
-    }
-    .meto-sidebar { position: static; }
+
+    .meto-federalism-body { grid-template-columns: 1fr; }
+    .meto-pyramid-wrap { display: none; }
+
+    .meto-carousel-inner { grid-template-columns: 1fr; }
+    .meto-carousel-text-wrap { padding: 32px 24px; }
+    .meto-carousel-quote { font-size: 1rem; }
+
+    .meto-eixos-grid { grid-template-columns: 1fr; }
+
+    .meto-scope-grid { grid-template-columns: 1fr; }
+    .meto-scope-stats-col { position: static; }
+
+    .meto-timeline-scroll-outer { padding: 0 16px 16px; }
+
+    .meto-defs-grid { grid-template-columns: 1fr; }
+    .meto-section-block { padding: 40px 0; }
+    .meto-section-heading { font-size: 1.375rem; }
+}
+
+@media (max-width: 600px) {
+    .meto-criterion-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .meto-nivel-pills .meto-pip { width: 20px; height: 20px; font-size: 0.625rem; }
 }

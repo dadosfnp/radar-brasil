@@ -4,6 +4,33 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (36ª entrada)
+
+### Feat/Style — Grande reestruturacao da Metodologia + Paineis
+
+**Navegacao:**
+- Aba "Inicio" ocultada temporariamente (mantida no HTML, `display:none`)
+- "Painel Multinivel" renomeado para "Paineis" na nav
+- "Avaliacao Painel Multinivel" renomeado para "Componentes" na nav
+
+**Metodologia — reestruturacao completa (`metodologia.html` + `metodologia.css v11`):**
+- Secao 1: "Por que avaliar o federalismo climatico?" com piramide SVG animada (Uniao/Estados/Municipios) e conceito de federalismo climatico
+- Secao 2: Carrossel de 3 fotos (natureza/sociedade/clima) com efeito slide ao rolar + texto lateral em fundo navy
+- Secao 3: Timeline horizontal scrollavel com 4 eventos historicos (2023-2024) e sub-itens das Camaras Tecnicas
+- Secao 4: "Como avaliamos?" com 4 cards de definicao (Eixo, Criterio, Parametro, Componente)
+- Secao 5: "Conheca os criterios" com 4 cards por eixo (Governanca, Politicas, Programas, Financiamento) e pills de nivel 1-5
+- Secao 6: "O que avaliamos?" com texto de escopo + stats animados + mini-timeline 2025/2026
+- Imagens do carrossel commitadas: `natureza-metodologia.jpg`, `sociedade-metodologia.jpg`, `clima-metodologia.jpg`
+
+**Painel Multinivel (`painel-multinivel.html` + `.js v4` + `.css v7`):**
+- Card "Explorar todos os eixos" removido
+- "Niveis de Maturidade" renomeado para "Niveis de Avaliacao"
+- KPI "Instancias Avaliadas" atualiza dinamicamente ao trocar eixo (31/17/18/17)
+- Grafico substituido: Chart.js horizontal bar substituido por grid heatmap customizado (celulas coloridas por nivel, uma linha por criterio)
+- Dependencia do Chart.js removida do template
+
+---
+
 ## 2026-09-02 — `next` (35ª entrada)
 
 ### Style — Redesign do header global
