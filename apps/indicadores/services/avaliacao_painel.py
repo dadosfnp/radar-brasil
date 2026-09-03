@@ -9,7 +9,7 @@ CORES_NIVEL = {
     "Nível 2": "#F9C89B",
     "Nível 3": "#FFEB99",
     "Nível 4": "#BCD6A2",
-    "Nível 5": "#27ae60",
+    "Nível 5": "#1a4a35",
 }
 
 # eixo_front → eixo normalizado (forma armazenada no banco)

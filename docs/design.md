@@ -607,6 +607,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-02 | pendente  | Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header |
 | 2026-09-03 | pendente  | Refinamento visual senior: Escala de Avaliacao com barra gradiente; pips 40px uppercase; separador waffle label/celulas; acento lateral modal "Ver Niveis" |
 | 2026-09-03 | pendente  | Metodologia cards definicao: icones redesenhados (layers/sliders/barras/grade), container 52px, SVG 26px, variante de cor sutil por card |
+| 2026-09-03 | pendente  | Nivel 5: cor aprofundada para `#1a4a35` (verde floresta escuro) em todos os componentes — waffle, modal, badge, pip, escala, API |
 
 ---
 

@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (45ª entrada)
+
+### Style — Nivel 5 verde mais escuro (#1a4a35)
+
+Cor do Nivel 5 aprofundada de `#27ae60` para `#1a4a35` (verde floresta escuro) em todos os componentes:
+- `painel-multinivel.js` v6: NIVEL_COLORS fill `#27ae60` → `#1a4a35`; borda `#1e8449` → `#0f2d20`
+- `avaliacao-painel.js` v5: NIVEL_COLORS_MODAL ultimo item `#27ae60` → `#1a4a35`
+- `avaliacao-painel.css` v8: glow do badge max `rgba(39,174,96,...)` → `rgba(26,74,53,...)`
+- `metodologia.css` v16: pip-5 e scale-pip-5 `#27ae60` → `#1a4a35`; gradiente da Escala atualizado
+- `metodologia.html`: badge inline da nota `#27ae60` → `#1a4a35`
+- `avaliacao_painel.py`: CORES_NIVEL Nivel 5 `#27ae60` → `#1a4a35`
+
+---
+
 ## 2026-09-03 — `next` (44ª entrada)
 
 ### Style — Icones dos cards de definicao na Metodologia
