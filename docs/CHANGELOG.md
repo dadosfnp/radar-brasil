@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (40ª entrada)
+
+### Fix — Modal "Ver niveis" sem dados + quadradinhos pulando de linha
+
+**Avaliacao Painel (`avaliacao-painel.js v3`):**
+- Corrigido lookup case-insensitive no NIVEIS_CRITERIOS: banco armazena criterios em minusculas (ex: "Espaco de dialogo federativo") mas as chaves do objeto usam title case. Agora compara tudo em lowercase via `find()`.
+
+**Painel Multinivel (`painel-multinivel.css v8`):**
+- `.pm-grid-cells` recebeu `overflow: hidden` para cortar celulas que ultrapassam a largura do container, eliminando o "quadradinho" que pulava para a segunda linha.
+
+---
+
 ## 2026-09-03 — `next` (39ª entrada)
 
 ### i18n — Traducoes EN da Metodologia reestruturada + modal Niveis

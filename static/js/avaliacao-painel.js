@@ -595,7 +595,10 @@ const NIVEL_LABELS_EN    = ["Level 1","Level 2","Level 3","Level 4","Level 5"];
 function abrirModalNiveis(eixo, criterio, nivelAtual) {
     const lang   = RBi18n.getLang();
     const labels = lang === "en" ? NIVEL_LABELS_EN : NIVEL_LABELS_PT;
-    const niveis = (NIVEIS_CRITERIOS[eixo] || {})[criterio];
+    const eixoData    = NIVEIS_CRITERIOS[eixo] || {};
+    const criterioLow = criterio.toLowerCase();
+    const criterioKey = Object.keys(eixoData).find(k => k.toLowerCase() === criterioLow);
+    const niveis      = criterioKey ? eixoData[criterioKey] : undefined;
 
     let html = `<div class="ap-niveis-criterio-label">${escHtml(criterio)}</div>`;
 

@@ -292,6 +292,7 @@ body.painel-multinivel-page .rb-main {
     flex-wrap: wrap;
     gap: 4px;
     flex: 1;
+    overflow: hidden;
 }
 
 .pm-grid-cell {
