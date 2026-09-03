@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (37ª entrada)
+
+### Fix — TemplateSyntaxError na Metodologia (COP29 timeline)
+
+- Corrigidas aspas duplas internas na string `{% trans %}` da linha 196 do template `metodologia.html`
+- Substituidas por entidades HTML `&ldquo;` e `&rdquo;` para evitar quebra do parser de templates Django
+
+---
+
 ## 2026-09-03 — `next` (36ª entrada)
 
 ### Feat/Style — Grande reestruturacao da Metodologia + Paineis
