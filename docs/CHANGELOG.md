@@ -4,6 +4,31 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (43ª entrada)
+
+### Style — Refinamento visual como webdesigner senior (3 paginas)
+
+**Metodologia (CSS v14):**
+- Escala de Avaliacao: barra de gradiente via `::after` em `.meto-scale-row` com degrade vermelho→laranja→amarelo→verde
+- Pips ampliados para `height: 40px`, `border-radius: 10px`, `font-size: 0.875rem`
+- Legenda da Escala: `font-size: 0.5625rem`, uppercase, `letter-spacing: .06em`
+- Itens de nota (`meto-scale-note-item`): `align-items: flex-start`, `font-size: 0.6875rem`, separador dashed entre itens
+- Badge da nota: `20px x 20px`, `margin-top: 1px`
+- Stat val: `1.625rem` (era menor); stat desc: `0.6875rem`, `color: #4a5a7a`, `font-weight: 500`
+
+**Painel Multinivel (CSS v11):**
+- `.pm-grid-row`: `align-items: center; gap: 0` — label e celulas verticalmente centrados
+- `.pm-grid-row-label`: `text-align: right; padding-right: 14px; border-right: 2px solid rgba(38,69,132,.10); margin-right: 14px` — separador visual entre rotulo e waffle
+
+**Avaliacao Painel (CSS v7):**
+- Modal "Ver Niveis": espacamento reduzido (`gap: 8px`), linha "atual" com acento lateral esquerdo (`inset 3px 0 0 rgba(38,69,132,.40)`)
+- `.ap-niveis-criterio-label`: `font-size: 1rem; margin-bottom: 16px`
+- `.ap-niveis-desc`: `color: #4a5a7a`; linha atual em `font-weight: 600`
+- `.ap-niveis-atual-tag`: `font-size: 0.5rem; font-weight: 800`
+- Badge max corrigido para glow verde (`rgba(39,174,96,...)`)
+
+---
+
 ## 2026-09-03 — `next` (42ª entrada)
 
 ### Fix/Style — Alinhamento waffle, verde Nivel 5, Escala de Avaliacao

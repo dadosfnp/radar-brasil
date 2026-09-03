@@ -272,8 +272,8 @@ body.painel-multinivel-page .rb-main {
 
 .pm-grid-row {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 0;
 }
 
 .pm-grid-row-label {
@@ -282,8 +282,11 @@ body.painel-multinivel-page .rb-main {
     color: #264584;
     width: 200px;
     flex-shrink: 0;
-    padding-top: 2px;
     line-height: 1.35;
+    padding-right: 14px;
+    border-right: 2px solid rgba(38,69,132,.10);
+    margin-right: 14px;
+    text-align: right;
 }
 
 .pm-grid-cells {

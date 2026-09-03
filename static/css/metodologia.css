@@ -805,19 +805,32 @@ body.metodologia-page .rb-main {
 
 .meto-scale-row {
     display: flex;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 4px;
+    margin-bottom: 6px;
+    position: relative;
+    padding-bottom: 14px;
+}
+
+.meto-scale-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #e06b6b, #f09a50, #e8c53a, #72be79, #27ae60);
 }
 
 .meto-scale-pip {
     flex: 1;
-    height: 34px;
-    border-radius: 7px;
+    height: 40px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'DM Mono', monospace;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     font-weight: 700;
     color: #fff;
 }
@@ -825,42 +838,50 @@ body.metodologia-page .rb-main {
 .meto-scale-legend {
     display: flex;
     justify-content: space-between;
-    font-size: 0.625rem;
-    color: #7a8a9a;
-    font-weight: 500;
-    margin-bottom: 12px;
+    font-size: 0.5625rem;
+    color: #8a9ab0;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
 }
 
 .meto-scale-note {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin-top: 12px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(16,29,79,.1);
+    gap: 0;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(16,29,79,.07);
 }
 
 .meto-scale-note-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    font-size: 0.71875rem;
+    font-size: 0.6875rem;
     color: #334488;
-    line-height: 1.5;
+    line-height: 1.55;
+    padding: 6px 0;
+}
+
+.meto-scale-note-item + .meto-scale-note-item {
+    border-top: 1px dashed rgba(16,29,79,.06);
 }
 
 .meto-scale-note-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 5px;
     font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 700;
     color: #fff;
     flex-shrink: 0;
+    margin-top: 1px;
 }
 
 /* Stat pills */
@@ -898,18 +919,18 @@ body.metodologia-page .rb-main {
 
 .meto-stat-val {
     font-family: 'Sora', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.625rem;
     font-weight: 800;
     color: #101d4f;
     line-height: 1;
 }
 
 .meto-stat-desc {
-    font-size: 0.71875rem;
-    color: #334488;
-    margin-top: 3px;
-    font-weight: 400;
-    line-height: 1.4;
+    font-size: 0.6875rem;
+    color: #4a5a7a;
+    margin-top: 4px;
+    font-weight: 500;
+    line-height: 1.45;
 }
 
 /* ══════════════════════════════

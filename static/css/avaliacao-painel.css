@@ -802,44 +802,45 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-niveis-criterio-label {
     font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #101d4f;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1.5px solid rgba(16,29,79,.12);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid rgba(16,29,79,.10);
+    letter-spacing: -.01em;
 }
 
 .ap-niveis-table {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .ap-niveis-row {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    padding: 12px 14px;
+    gap: 16px;
+    padding: 10px 14px;
     border-radius: 10px;
-    background: rgba(240,248,252,.50);
-    border: 1.5px solid rgba(16,29,79,.07);
+    background: rgba(248,251,254,.70);
+    border: 1.5px solid rgba(16,29,79,.06);
     transition: background .15s;
 }
 
 .ap-niveis-row--atual {
-    background: rgba(38,69,132,.07);
-    border-color: rgba(38,69,132,.22);
-    box-shadow: 0 0 0 2px rgba(38,69,132,.12);
+    background: rgba(38,69,132,.08);
+    border-color: rgba(38,69,132,.28);
+    box-shadow: inset 3px 0 0 rgba(38,69,132,.40), 0 2px 8px rgba(38,69,132,.08);
 }
 
 .ap-niveis-badge-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     flex-shrink: 0;
-    min-width: 72px;
+    min-width: 64px;
 }
 
 .ap-niveis-badge {
@@ -847,8 +848,8 @@ body.avaliacao-painel-page .rb-main {
     font-family: 'Sora', 'Roboto', sans-serif;
     font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: .03em;
-    padding: 5px 10px;
+    letter-spacing: .02em;
+    padding: 4px 10px;
     border-radius: 20px;
     white-space: nowrap;
     color: #fff;
@@ -856,28 +857,28 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-niveis-atual-tag {
-    font-size: 0.5625rem;
-    font-weight: 700;
-    letter-spacing: .10em;
+    font-size: 0.5rem;
+    font-weight: 800;
+    letter-spacing: .12em;
     text-transform: uppercase;
     color: #264584;
-    background: rgba(38,69,132,.12);
+    background: rgba(38,69,132,.14);
     border-radius: 4px;
-    padding: 1px 6px;
+    padding: 2px 6px;
 }
 
 .ap-niveis-desc {
     font-size: 0.8125rem;
-    color: #334488;
-    line-height: 1.65;
+    color: #4a5a7a;
+    line-height: 1.6;
     margin: 0;
     flex: 1;
-    padding-top: 2px;
+    padding-top: 3px;
 }
 
 .ap-niveis-row--atual .ap-niveis-desc {
     color: #101d4f;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .ap-niveis-sem-dados {
