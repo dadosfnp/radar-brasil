@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (46ª entrada)
+
+### Feat — Drag com mouse no carrossel da Metodologia
+
+- Adicionados eventos `mousedown`/`mousemove`/`mouseup` no `meto-carousel-wrap`
+- Arrasto horizontal com mouse de mais de 50px avanca ou retrocede o slide
+- `cursor: grabbing` durante o arrasto (restaura `grab` ao soltar)
+- `mouseleave` cancela o arrasto se o cursor sair da area
+- `dragstart` bloqueado nas imagens para evitar arrasto nativo do browser
+- Comportamento consistente com touch swipe (threshold 40px) e scroll de roda ja existentes
+
+---
+
 ## 2026-09-03 — `next` (45ª entrada)
 
 ### Style — Nivel 5 verde mais escuro (#1a4a35)
