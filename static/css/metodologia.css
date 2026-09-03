@@ -520,7 +520,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-howwe-section {
-    background: url('../img/fundo-bg.png') center / cover no-repeat;
+    background: #ffffff;
     border-top: 1px solid rgba(38,69,132,.10);
 }
 
@@ -694,7 +694,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-scope-section {
-    background: url('../img/fundo-bg.png') center / cover no-repeat;
+    background: #ffffff;
     border-top: 1px solid rgba(38,69,132,.10);
 }
 
@@ -945,3 +945,4 @@ body.metodologia-page .rb-main {
     .meto-criterion-row { flex-direction: column; align-items: flex-start; gap: 6px; }
     .meto-nivel-pills .meto-pip { width: 20px; height: 20px; font-size: 0.625rem; }
 }
+

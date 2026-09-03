@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (38ª entrada)
+
+### Feat/Style — Melhorias na Metodologia + Avaliação Painel
+
+**Metodologia (`metodologia.html` + `metodologia.css v12`):**
+- "Federalismo Climático" corrigido para maiúsculas em todos os títulos e no conceito box
+- Seção "Por que avaliar" volta para background `#f5f8ff`; "Como avaliamos" e "O que avaliamos" agora brancos (`#ffffff`)
+- Somente o carrossel de fotos mantém background navy `#101d4f`
+
+**Avaliação Painel Multinível (`avaliacao-painel.html` + `.js v2` + `.css v5`):**
+- Coluna Parâmetro exibe agora o descritivo completo abaixo do label curto
+- Nível 5 com badge aprimorado: estrela ★, tamanho maior e borda de destaque (máximo da escala)
+- Botão "Ver níveis" em cada linha abre modal com todos os 5 níveis do critério, indicando o nível atual da instância
+- Modal de níveis com dados completos de todos os eixos embutidos no JS (fonte: Anexo metodológico)
+- Strings EN adicionadas ao i18n.js: "Ver níveis", "Nível máximo de avaliação", "atual", "Dados não disponíveis..."
+
+---
+
 ## 2026-09-03 — `next` (37ª entrada)
 
 ### Fix — TemplateSyntaxError na Metodologia (COP29 timeline)

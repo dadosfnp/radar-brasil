@@ -513,6 +513,64 @@ body.avaliacao-painel-page .rb-main {
     border: 1px solid rgba(189,197,208,.45);
 }
 
+/* ── Parâmetro: label + descritivo ── */
+.ap-param-label {
+    display: block;
+    font-size: 0.78125rem;
+    color: #334488;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.ap-param-desc {
+    display: block;
+    font-size: 0.6875rem;
+    color: #6a7fa0;
+    line-height: 1.5;
+    margin-top: 3px;
+    font-style: italic;
+}
+
+/* ── Célula de nível: badge + botão ── */
+.ap-nivel-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Nível 5 — destaque máximo */
+.ap-nivel-badge--max {
+    font-size: 0.75rem !important;
+    padding: 6px 14px !important;
+    font-weight: 800 !important;
+    box-shadow: 0 0 0 2px rgba(122,174,212,.50), 0 2px 10px rgba(122,174,212,.30) !important;
+    border-width: 1.5px !important;
+    letter-spacing: .03em;
+}
+
+/* Botão Ver níveis */
+.ap-ver-niveis-btn {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 5px;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+}
+
+.ap-ver-niveis-btn:hover {
+    background: rgba(38,69,132,.09);
+    color: #101d4f;
+}
+
 /* ── Rodapé com botão ── */
 .ap-footer-actions {
     display: flex;
@@ -728,6 +786,106 @@ body.avaliacao-painel-page .rb-main {
     .ap-modal-box { max-height: 92vh; border-radius: 12px; }
     .ap-modal-body { padding: 16px 14px; }
     .ap-modal-footer { padding: 10px 14px; }
+}
+
+/* ══════════════════════════════
+   MODAL NÍVEIS DO PARÂMETRO
+   ══════════════════════════════ */
+
+.ap-modal-niveis-box {
+    max-width: 620px;
+}
+
+.ap-modal-niveis-title-text {
+    flex: 1;
+}
+
+.ap-niveis-criterio-label {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #101d4f;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid rgba(16,29,79,.12);
+}
+
+.ap-niveis-table {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ap-niveis-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(240,248,252,.50);
+    border: 1.5px solid rgba(16,29,79,.07);
+    transition: background .15s;
+}
+
+.ap-niveis-row--atual {
+    background: rgba(38,69,132,.07);
+    border-color: rgba(38,69,132,.22);
+    box-shadow: 0 0 0 2px rgba(38,69,132,.12);
+}
+
+.ap-niveis-badge-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    min-width: 72px;
+}
+
+.ap-niveis-badge {
+    display: inline-block;
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    padding: 5px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    color: #fff;
+    text-align: center;
+}
+
+.ap-niveis-atual-tag {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    color: #264584;
+    background: rgba(38,69,132,.12);
+    border-radius: 4px;
+    padding: 1px 6px;
+}
+
+.ap-niveis-desc {
+    font-size: 0.8125rem;
+    color: #334488;
+    line-height: 1.65;
+    margin: 0;
+    flex: 1;
+    padding-top: 2px;
+}
+
+.ap-niveis-row--atual .ap-niveis-desc {
+    color: #101d4f;
+    font-weight: 500;
+}
+
+.ap-niveis-sem-dados {
+    font-size: 0.875rem;
+    color: #5577aa;
+    font-style: italic;
+    padding: 20px 0;
+    text-align: center;
 }
 
 @media (max-width: 480px) {

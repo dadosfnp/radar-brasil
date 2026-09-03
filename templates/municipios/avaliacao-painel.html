@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/avaliacao-painel.css' %}?v=4">
+    <link rel="stylesheet" href="{% static 'css/avaliacao-painel.css' %}?v=5">
 {% endblock %}
 
 {% block content %}
@@ -178,6 +178,17 @@
 </div>{# /ap-card #}
 </div>{# /ap-wrapper #}
 
+{# MODAL NÍVEIS DO PARÂMETRO #}
+<div class="ap-modal-overlay" id="ap-modal-niveis" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="ap-modal-niveis-title">
+  <div class="ap-modal-box ap-modal-niveis-box">
+    <div class="ap-modal-header">
+      <h3 id="ap-modal-niveis-title" class="ap-modal-niveis-title-text">{% trans "Níveis de Avaliação" %}</h3>
+      <button class="ap-modal-close" id="ap-modal-niveis-close" aria-label="{% trans 'Fechar' %}">&times;</button>
+    </div>
+    <div class="ap-modal-body" id="ap-modal-niveis-body"></div>
+  </div>
+</div>
+
 {# MODAL FICHA TÉCNICA #}
 <div class="ap-modal-overlay" id="ap-modal" style="display:none;" role="dialog" aria-modal="true">
   <div class="ap-modal-box">
@@ -219,5 +230,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/avaliacao-painel.js' %}"></script>
+<script src="{% static 'js/avaliacao-painel.js' %}?v=2"></script>
 {% endblock %}

@@ -597,6 +597,8 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-03 | pendente  | Nav: aba "Inicio" ocultada (`display:none`); "Painel Multinivel" → "Paineis"; "Avaliacao Painel Multinivel" → "Componentes" |
 | 2026-09-03 | pendente  | Metodologia v11: 6 secoes novas — piramide federalismo, carrossel 3 fotos, timeline horizontal, 4 cards definicao, 4 cards eixo/criterios, escopo + stats |
 | 2026-09-03 | pendente  | Painel Multinivel: card "Explorar eixos" removido; KPI "Niveis de Maturidade" → "Niveis de Avaliacao"; KPI instancias dinamico por eixo |
+| 2026-09-03 | pendente  | Metodologia: "Federalismo Climatico" corrigido para maiusculas em titulos e conceito box; "Como avaliamos" e "O que avaliamos" com bg branco |
+| 2026-09-03 | pendente  | Avaliacao Painel: Nivel 5 com badge aprimorado (estrela, borda glow); descritivo completo no parametro; modal "Ver niveis" com escala 1-5 |
 | 2026-09-03 | pendente  | Grafico Painel Multinivel: Chart.js bar substituido por grid heatmap — celulas coloridas por nivel, 1 linha por criterio, legenda compacta |
 | 2026-09-02 | pendente  | Logos SVG do Radar Brasil atualizados (nova identidade visual); cards PNG do Inicio removidos; HUD atualizado |
 | 2026-09-02 | pendente  | Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido do header |

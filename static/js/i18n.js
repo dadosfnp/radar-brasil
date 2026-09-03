@@ -94,6 +94,10 @@
             "Nenhum resultado":                     "No results",
             "Nenhuma informação disponível.":       "No information available.",
             "Erro ao carregar ficha técnica.":      "Error loading technical sheet.",
+            "Ver níveis":                           "View levels",
+            "Nível máximo de avaliação":            "Maximum evaluation level",
+            "atual":                                "current",
+            "Dados não disponíveis para este critério.": "Data not available for this criterion.",
             "Falha ao conectar com o servidor. Verifique sua conexão e recarregue a página.":
                 "Failed to connect to the server. Check your connection and reload the page.",
             "Nenhum dado encontrado para esta estrutura.": "No data found for this structure.",
