@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-03 — `next` (47ª entrada)
+
+### Style — Timeline da Metodologia centralizada na pagina (CSS v17)
+
+- `.meto-timeline-scroll-outer`: adicionado `display: flex; justify-content: center`
+- Quando os eventos cabem na largura da tela, a timeline fica centralizada horizontalmente
+- Quando ultrapassa a largura, o scroll horizontal continua funcionando normalmente
+
+---
+
 ## 2026-09-03 — `next` (46ª entrada)
 
 ### Feat — Drag com mouse no carrossel da Metodologia

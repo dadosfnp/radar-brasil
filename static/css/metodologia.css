@@ -396,6 +396,8 @@ body.metodologia-page .rb-main {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: rgba(38,69,132,.25) transparent;
+    display: flex;
+    justify-content: center;
 }
 
 .meto-timeline-scroll-outer::-webkit-scrollbar { height: 4px; }
