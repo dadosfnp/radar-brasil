@@ -279,16 +279,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-04)
 
-### Branch atual: `main` — `c1a179e` — droplet pendente de rebuild
+### Branch atual: `main` — `983067b` — droplet pendente de rebuild
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | - | `c1a179e` |
-| `prod` (dadosfnp) | - | `c1a179e` |
+| `origin` (brunofnp) | `983067b` | `983067b` |
+| `prod` (dadosfnp) | - | `983067b` |
 
-> `origin` e `prod` estao identicos em `main`. Branch `next` nao foi atualizado ainda.
+> `origin` e `prod` identicos em `main`. Branch `next` sincronizado em `origin`.
 > Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
@@ -389,18 +389,32 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 
 ### Metodologia — estado (2026-09-04)
 
-CSS: `static/css/metodologia.css` **v=21** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=22** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
-**Timeline mobile (v21):**
+**Carousel (v22):**
+- Label "Federalismo Climático" acima do quote (verde `#22c55e`, uppercase 0.6875rem)
+- Quote agora em itálico com aspas HTML ao redor do texto
+- Texto-wrap: `flex-direction: column; gap: 14px`
+
+**Timeline redesenhada (v22):**
+- Cards alinhados pelo TOPO; linha horizontal movida para a BASE da timeline
+- Bolha do ano: pill oval amarela (`#f5c400`), texto navy, substituindo retângulo navy
+- Conectores verticais flexíveis entre card e dot; `align-items: stretch` no track
+- CSS `order` posiciona card(1) → conector(2) → dot(3) sem alterar HTML
+
+**Seção de Cálculo (v22, nova):**
+- Três cards ao final da página: Nível Parcial, Nível Eixo, Nível País
+- Fórmulas matemáticas em fração CSS + tabelas de referência
+- Nível País: fundo gradient navy; grid 3col desktop / 1col mobile
+
+**Timeline mobile (v22):**
 - Em `<=600px`: scroll-x desativado, layout vertical empilhado
-- `.meto-timeline-track { flex-direction: column; gap: 16px; padding-top: 0 }` 
-- `.meto-tl-event { flex-direction: row; align-items: flex-start; gap: 12px }` — bolha do ano | card lado a lado
-- `.meto-tl-year-bubble { position: static; min-width: 60px; width: 60px; align-self: flex-start }` — sem absolute
-- `.meto-tl-connector { display: none }` — linha vertical oculta
-- `::before` (linha horizontal) oculto em mobile
-- Em `<=900px` (breakpoint anterior): `justify-content: flex-start` para evitar corte do lado esquerdo em scroll-x
+- `.meto-tl-year-bubble { order: 1 }` — bolha à esquerda no layout horizontal
+- `.meto-tl-connector { display: none }` — conector oculto em mobile
+- `.meto-tl-card { order: 3 }` — card à direita da bolha
+- Em `<=900px`: `justify-content: flex-start` para evitar corte no scroll-x
 
 ### Nota Pais — estado (2026-09-04)
 
@@ -492,23 +506,23 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo CSS | Versao no template |
 |---|---|
-| `base.css` | v=8 |
+| `base.css` | v=11 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=11 |
-| `metodologia.css` | v=21 |
-| `avaliacao-painel.css` | v=9 |
-| `painel-multinivel.css` | v=12 |
+| `metodologia.css` | v=22 |
+| `avaliacao-painel.css` | v=11 |
+| `painel-multinivel.css` | v=13 |
 | `mapa-georreferenciado.css` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `nota-pais.css` | v=9 |
 
 ### Pendencias
 
-- **CRITICO:** Droplet ainda nao fez build dos commits `66ef1fc`, `ff45519`, `c1a179e`. Rodar:
+- **CRITICO:** Droplet nao fez build do commit `983067b` (11 correcoes). Rodar:
   ```bash
   cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
   ```
-- Branch `next` desatualizado em relacao ao `main` — sincronizar apos validar no droplet
+- Branch `next` sincronizado em `origin` com `983067b`
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
