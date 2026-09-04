@@ -45,15 +45,6 @@ body.rb-body {
     z-index: 1001; /* acima do Leaflet (max 1000) e outros overlays */
 }
 
-.rb-header-wrapper::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 0;
-    right: 0;
-    height: 10px;
-    background-color: var(--color-header-bg);
-}
 
 .rb-header {
     max-width: 1900px;

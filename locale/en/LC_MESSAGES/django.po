@@ -1035,3 +1035,61 @@ msgstr "Collaboration"
 
 msgid "Ver Iniciativas"
 msgstr "View Initiatives"
+
+# ── Metodologia de Cálculo ─────────────────────────────────────
+msgid "Metodologia de Cálculo"
+msgstr "Calculation Methodology"
+
+msgid "A Nota País é construída de forma progressiva: partimos da avaliação individual de cada instância (Nível Parcial) para, em seguida, consolidar por eixo (Nível Eixo) e, por fim, chegar à nota geral do país."
+msgstr "The Country Score is built progressively: we start from the individual assessment of each instance (Partial Level), then consolidate by axis (Axis Level), and finally arrive at the country's overall score."
+
+msgid "Nível Parcial"
+msgstr "Partial Level"
+
+msgid "Score de cada instância"
+msgstr "Score for each instance"
+
+msgid "Média aritmética dos valores atribuídos a cada critério de avaliação da instância, na escala de 1 a 5."
+msgstr "Arithmetic mean of the values assigned to each assessment criterion of the instance, on a scale of 1 to 5."
+
+msgid "Peso"
+msgstr "Weight"
+
+msgid "Escala"
+msgstr "Scale"
+
+msgid "Espaço de Diálogo"
+msgstr "Dialogue Space"
+
+msgid "Outros critérios do eixo"
+msgstr "Other axis criteria"
+
+msgid "Média"
+msgstr "Average"
+
+msgid "Nível Eixo"
+msgstr "Axis Level"
+
+msgid "Score do eixo temático"
+msgstr "Score for the thematic axis"
+
+msgid "Média aritmética dos Níveis Parciais de todas as instâncias avaliadas dentro de cada eixo temático."
+msgstr "Arithmetic mean of the Partial Levels of all instances assessed within each thematic axis."
+
+msgid "Instâncias"
+msgstr "Instances"
+
+msgid "Média NP"
+msgstr "PL Average"
+
+msgid "Nível País"
+msgstr "Country Level"
+
+msgid "Nota geral do Brasil"
+msgstr "Brazil's overall score"
+
+msgid "Média aritmética dos quatro Níveis Eixo, sintetizando em uma única nota o desempenho geral do federalismo climático brasileiro."
+msgstr "Arithmetic mean of the four Axis Levels, synthesizing the overall performance of Brazilian climate federalism into a single score."
+
+msgid "eixos"
+msgstr "axes"

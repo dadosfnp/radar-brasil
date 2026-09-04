@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (62ª entrada)
+
+### Fix — 3 correções: espaço acima do header, fundo timeline, traduções EN seção de cálculo (base.css v12, metodologia.css v24)
+
+1. **Espaço branco acima do header:** Removido bloco `.rb-header-wrapper::before { top: -10px; height: 10px }` de `base.css` — pseudo-elemento estendia 10px acima do header sticky causando faixa visível.
+2. **Timeline Metodologia — fundo branco:** Revertido background da `.meto-timeline-section` de `linear-gradient(navy)` para `#fff`, removido override de `color` do heading, revertidos conector/scrollbar para azul navy translúcido. Bolha circular navy (56×56px) mantida conforme solicitado.
+3. **Metodologia EN — seção de cálculo:** Adicionadas 18 strings EN em `django.po` para toda a seção "Metodologia de Cálculo" (Nível Parcial, Nível Eixo, Nível País, fórmulas, tabelas). `.mo` recompilado (353 traduções).
+- CSS: `base.css` v11->v12 | `metodologia.css` v23->v24
+- i18n: 18 novas strings EN + `.mo` recompilado
+
+---
+
 ## 2026-09-04 — `main` (61ª entrada)
 
 ### Fix/Style — 6 correções: encoding KPI, bolinha SVG perdida, Level 5 EN badge, waffle células cortadas, carousel texto, timeline navy (metodologia.css v23, avaliacao-painel.css v12, painel-multinivel.css v14)

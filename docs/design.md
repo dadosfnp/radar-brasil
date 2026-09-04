@@ -324,6 +324,18 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 - Adicionada linha de atribuição abaixo do quote: `.meto-carousel-source` — `0.71875rem`, `rgba(255,255,255,.52)`, `letter-spacing: .03em`
 - Quote usa aspas tipográficas HTML (`&#8220;` / `&#8221;`) em vez de aspas simples
 
+**Timeline (v24 — 2026-09-04, revert fundo + EN i18n):**
+- Fundo da seção revertido para `#fff` (gradient navy havia sido adicionado sem solicitação)
+- Override `color: #ffffff` do heading removido
+- Linha horizontal (`::before`): `rgba(38,69,132,.20)`, 2px espessura
+- Conector vertical: `rgba(38,69,132,.25)` (navy translúcido)
+- Scrollbar thumb: `rgba(38,69,132,.25)` (navy translúcido)
+- Bolha circular 56×56px navy `#264584` mantida (substituiu pill amarela `#f5c400`)
+- i18n: 18 strings da seção de cálculo traduzidas para EN
+
+**Header Global — remoção de ::before (base.css v12):**
+- Removido bloco `.rb-header-wrapper::before { top: -10px; height: 10px }` que causava faixa branca acima do header sticky
+
 **Timeline (v23 — 2026-09-04, redesign navy):**
 - Seção: fundo gradient navy `linear-gradient(160deg, #101d4f 0%, #264584 100%)` substituindo branco
 - Heading da seção: `color: #ffffff`
