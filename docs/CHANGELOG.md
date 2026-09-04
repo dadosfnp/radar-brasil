@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (61ª entrada)
+
+### Fix/Style — 6 correções: encoding KPI, bolinha SVG perdida, Level 5 EN badge, waffle células cortadas, carousel texto, timeline navy (metodologia.css v23, avaliacao-painel.css v12, painel-multinivel.css v14)
+
+1. **Nota País — encoding KPI labels:** Corrigido mojibake (C1 control chars) em "PAÍSES SIGNATÁRIOS" e "COMPROMISSOS CLIMÁTICOS" via substituição Python byte-level.
+2. **Federalismo — bolinha perdida (SVG):** Removido `begin="1.3s"/"2.17s"/"0.43s"` dos círculos reversos — trocado por `begin="0s"` para evitar que ficassem em (0,0) SVG durante o delay.
+3. **Nível 5 badge EN invisível:** Adicionado seletor `[data-nivel="Level 5"]` em `avaliacao-painel.css`; removido tamanho/padding/font-weight de `.ap-nivel-badge--max` (mantém apenas box-shadow glow).
+4. **Waffle células cortadas:** Célula reduzida de 22px → 20px e gap de 4px → 3px; 31 células cabem em 752px disponíveis sem scroll.
+5. **Carousel Metodologia — novo texto:** Quote atualizado para versão oficial com atribuição "Resolução N°3, de Julho de 2024 do Conselho da Federação"; nova classe `.meto-carousel-source` em subtom branco/translúcido.
+6. **Timeline Metodologia — navy:** Bolha do ano: amarela → círculo navy `#264584` com borda branca e glow (border-radius: 50%, 56×56px); seção com background gradient navy `#101d4f → #264584`; linha horizontal, conector e scrollbar atualizados para branco/translúcido; heading branco.
+- CSS: `metodologia.css` v22->v23 | `avaliacao-painel.css` v11->v12 | `painel-multinivel.css` v13->v14
+- i18n: 3 novas strings EN no `django.po` + `.mo` recompilado (334 traduções)
+
+---
+
 ## 2026-09-04 — `main` (60ª entrada)
 
 ### Fix/Style — 11 correções: z-index, encoding, badges, waffle, animação, carousel, timeline, cálculo (base.css v11, metodologia.css v22, painel-multinivel.css v13, avaliacao-painel.css v11)

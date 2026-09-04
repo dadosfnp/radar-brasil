@@ -482,9 +482,10 @@ body.avaliacao-painel-page .rb-main {
     white-space: nowrap;
 }
 
-.ap-nivel-badge[data-nivel="Nível 5"] {
+.ap-nivel-badge[data-nivel="Nível 5"],
+.ap-nivel-badge[data-nivel="Level 5"] {
     background: rgba(26,74,53,.14);
-    color: #ffffff; /* branco: legível sobre o background sólido injetado via inline style pelo JS */
+    color: #ffffff;
     border: 1px solid rgba(26,74,53,.38);
 }
 .ap-nivel-badge[data-nivel="Nível 4"] {
@@ -539,14 +540,9 @@ body.avaliacao-painel-page .rb-main {
     gap: 6px;
 }
 
-/* Nível 5 — destaque máximo */
+/* Nível 5 — destaque via glow (sem alterar tamanho) */
 .ap-nivel-badge--max {
-    font-size: 0.75rem !important;
-    padding: 6px 14px !important;
-    font-weight: 800 !important;
     box-shadow: 0 0 0 2px rgba(26,74,53,.55), 0 2px 10px rgba(26,74,53,.30) !important;
-    border-width: 1.5px !important;
-    letter-spacing: .03em;
 }
 
 /* Botão Ver níveis */

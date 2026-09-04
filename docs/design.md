@@ -313,23 +313,30 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 
 ### 5.3 Metodologia (`/metodologia/`)
 
-**Arquivo CSS:** `metodologia.css` — v22 (2026-09-04)
+**Arquivo CSS:** `metodologia.css` — v23 (2026-09-04)
 
 - Hero zone com imagem de fundo (`bg-body.png`)
 - Cards de seção com glassmorphism
 - Redesenhada no commit `091f596` com glassmorphism e hero zone
 
-**Carousel (v22 — 2026-09-04):**
-- Adicionado label "Federalismo Climático" acima do quote (`.meto-carousel-tag`, verde `#22c55e`, uppercase 0.6875rem, letter-spacing .14em)
-- Quote agora em itálico (`font-style: italic`) com aspas HTML ao redor do texto
-- Texto-wrap mudado para `flex-direction: column` com `gap: 14px`
+**Carousel (v23 — 2026-09-04):**
+- Texto atualizado para versão oficial da Resolução N°3: "O propósito do Federalismo Climático é de buscar..."
+- Adicionada linha de atribuição abaixo do quote: `.meto-carousel-source` — `0.71875rem`, `rgba(255,255,255,.52)`, `letter-spacing: .03em`
+- Quote usa aspas tipográficas HTML (`&#8220;` / `&#8221;`) em vez de aspas simples
 
-**Timeline (v22 — 2026-09-04, redesign):**
+**Timeline (v23 — 2026-09-04, redesign navy):**
+- Seção: fundo gradient navy `linear-gradient(160deg, #101d4f 0%, #264584 100%)` substituindo branco
+- Heading da seção: `color: #ffffff`
+- Bolha do ano: círculo 56×56px (`border-radius: 50%`), background `#264584`, texto `#ffffff`, borda branca translúcida, glow `rgba(255,255,255,.18)` — elimina a pill amarela `#f5c400` fora da paleta
+- Linha horizontal (`::before`): `rgba(255,255,255,.20)`, 3px espessura, `bottom: 46px`
+- Conector vertical: `rgba(255,255,255,.25)` (era navy translúcido)
+- Scrollbar thumb: `rgba(255,255,255,.25)` (era navy translúcido)
+- Cards: mantidos com fundo `#f5f8ff` (leitura clara sobre fundo navy)
+
+**Timeline (v22 — 2026-09-04):**
 - Layout invertido: cards agora alinhados pelo TOPO, linha horizontal movida para a BASE
 - Conectores verticais flexíveis (`flex: 1`) preenchem o espaço entre o card e o dot
-- Bolha do ano redesenhada: pill oval (`border-radius: 22px`) amarela (`#f5c400`), texto navy `#101d4f`, sombra amarela — substitui retângulo navy anterior
 - `align-items: stretch` no track garante todos os eventos com mesma altura
-- Linha horizontal (`::before`): `top: auto; bottom: 40px` posicionada no centro dos dots
 - CSS `order` posiciona card(1) → conector(2) → dot(3) no DOM sem alterar HTML
 - Mobile: bolhas com `order: 1` voltam para esquerda do layout horizontal
 
@@ -344,6 +351,10 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 ### 5.4 Painel Multinível (`/indicadores/painel-multinivel/`)
 
 **Arquivo CSS:** `painel-multinivel.css` — v13 (2026-09-04)
+
+**Waffle chart (v14 — 2026-09-04):**
+- Célula: 22px → 20px; gap: 4px → 3px — 31 células (Governança) cabem nos 752px disponíveis sem scroll
+- Total 31 células: `31×20 + 30×3 = 710px` < 752px disponíveis
 
 **Waffle chart (v13 — 2026-09-04):**
 - `.pm-grid-cells`: `overflow: hidden` -> `overflow-x: auto` com scrollbar 2px (thin)

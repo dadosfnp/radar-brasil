@@ -797,6 +797,15 @@ msgstr "Climate"
 msgid "Seu propósito é uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática."
 msgstr "Its purpose is a just climate transition that reduces social, racial and gender inequalities and expands equity, inclusion and climate citizenship."
 
+msgid "O propósito do Federalismo Climático é de buscar"
+msgstr "The purpose of Climate Federalism is to seek"
+
+msgid "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática"
+msgstr "a just climate transition that reduces social, racial and gender inequalities and expands equity, inclusion and climate citizenship"
+
+msgid "Resolução N°3, de Julho de 2024 do Conselho da Federação"
+msgstr "Resolution No. 3, July 2024 of the Federation Council"
+
 msgid "Histórico do Federalismo Climático no Brasil"
 msgstr "History of Climate Federalism in Brazil"
 

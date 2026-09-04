@@ -292,9 +292,9 @@ body.painel-multinivel-page .rb-main {
 .pm-grid-cells {
     display: flex;
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: 3px;
     flex: 1;
-    overflow-x: auto; /* mostra todas as células sem cortar */
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
 /* Remove scrollbar visual no desktop — conteúdo visível mas sem barra intrusiva */
@@ -303,8 +303,8 @@ body.painel-multinivel-page .rb-main {
 
 .pm-grid-cell {
     display: inline-block;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 5px;
     border: 1.5px solid transparent;
     flex-shrink: 0;

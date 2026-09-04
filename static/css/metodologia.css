@@ -432,17 +432,30 @@ body.metodologia-page .rb-main {
     border-radius: 2px;
 }
 
+.meto-carousel-source {
+    font-size: 0.71875rem;
+    font-weight: 600;
+    color: rgba(255,255,255,.52);
+    letter-spacing: .03em;
+    margin: 0;
+    padding-left: 20px;
+}
+
 /* ══════════════════════════════
    3. HISTÓRICO — TIMELINE
    ══════════════════════════════ */
 
 .meto-timeline-section {
-    background: #fff;
+    background: linear-gradient(160deg, #101d4f 0%, #264584 100%);
     padding: 64px 0;
 }
 
 .meto-timeline-section .meto-inner {
     margin-bottom: 40px;
+}
+
+.meto-timeline-section .meto-section-heading {
+    color: #ffffff;
 }
 
 .meto-timeline-scroll-outer {
@@ -463,26 +476,26 @@ body.metodologia-page .rb-main {
     content: '';
     position: absolute;
     top: auto;
-    bottom: 40px; /* centro do dot de 44px: 44/2 + 18px padding */
+    bottom: 46px;
     left: 0;
     right: 0;
-    height: 2px;
-    background: rgba(38,69,132,.20);
+    height: 3px;
+    background: rgba(255,255,255,.20);
     pointer-events: none;
     z-index: 0;
 }
 
 .meto-timeline-scroll-outer::-webkit-scrollbar { height: 4px; }
 .meto-timeline-scroll-outer::-webkit-scrollbar-track { background: transparent; }
-.meto-timeline-scroll-outer::-webkit-scrollbar-thumb { background: rgba(38,69,132,.25); border-radius: 2px; }
+.meto-timeline-scroll-outer::-webkit-scrollbar-thumb { background: rgba(255,255,255,.25); border-radius: 2px; }
 
 .meto-timeline-track {
     display: flex;
     gap: 0;
     position: relative;
-    align-items: stretch; /* todos os eventos mesma altura */
+    align-items: stretch;
     padding-top: 0;
-    padding-bottom: 62px; /* espaço para dot + margem */
+    padding-bottom: 70px;
     min-width: max-content;
 }
 
@@ -522,28 +535,28 @@ body.metodologia-page .rb-main {
     flex: 1;
     width: 2px;
     min-height: 18px;
-    background: rgba(38,69,132,.25);
+    background: rgba(255,255,255,.25);
     flex-shrink: 0;
 }
 
-/* Dot amarelo na linha horizontal */
+/* Dot navy circular na linha horizontal */
 .meto-tl-year-bubble {
     order: 3;
     position: static;
-    width: 52px;
-    height: 44px;
-    background: #f5c400;
-    color: #101d4f;
+    width: 56px;
+    height: 56px;
+    background: #264584;
+    color: #ffffff;
     font-family: 'Sora', sans-serif;
     font-size: 0.8125rem;
     font-weight: 800;
-    border-radius: 22px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
-    box-shadow: 0 3px 10px rgba(245,196,0,.40);
-    border: 2px solid rgba(38,69,132,.15);
+    box-shadow: 0 0 0 4px rgba(255,255,255,.18), 0 4px 16px rgba(16,29,79,.40);
+    border: 2px solid rgba(255,255,255,.30);
     flex-shrink: 0;
 }
 
@@ -1087,8 +1100,9 @@ body.metodologia-page .rb-main {
     .meto-tl-year-bubble {
         order: 1;
         position: static;
-        min-width: 60px;
-        width: 60px;
+        min-width: 56px;
+        width: 56px;
+        height: 56px;
         flex-shrink: 0;
         align-self: flex-start;
         margin-top: 0;

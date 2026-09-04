@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=22">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=23">
 {% endblock %}
 
 {% block content %}
@@ -110,13 +110,13 @@
                     </circle>
                     <!-- Pontos animados em sentido reverso (volta: nós→União) -->
                     <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p1"/></animateMotion>
+                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p1"/></animateMotion>
                     </circle>
                     <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="2.17s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p2"/></animateMotion>
+                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p2"/></animateMotion>
                     </circle>
                     <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="0.43s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p3"/></animateMotion>
+                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p3"/></animateMotion>
                     </circle>
                 </svg>
 
@@ -206,8 +206,9 @@
         <div class="meto-carousel-text-wrap">
             <div class="meto-carousel-tag">{% trans "Federalismo Climático" %}</div>
             <p class="meto-carousel-quote">
-                "{% trans "Seu propósito é uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática." %}"
+                {% trans "O propósito do Federalismo Climático é de buscar" %} &#8220;{% trans "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática" %}&#8221;.
             </p>
+            <p class="meto-carousel-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
         </div>
 
     </div>
