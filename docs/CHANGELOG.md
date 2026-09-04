@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (63ª entrada)
+
+### Fix — espaço branco acima do header: background-color navy no html (base.css v13)
+
+- Adicionado `var(--color-header-bg)` como background-color fallback no elemento `html`:
+  `background: var(--color-header-bg) url('fundo-bg.png') center top / cover no-repeat fixed`
+- Causa: Chrome promove sticky+z-index:1001 para compositing layer e pode exibir a superfície branca do browser em lacunas de 1-10px acima do header
+- Fix: com background-color navy no html, qualquer lacuna exibe navy (invisível contra o header) em vez de branco
+
+---
+
 ## 2026-09-04 — `main` (62ª entrada)
 
 ### Fix — 3 correções: espaço acima do header, fundo timeline, traduções EN seção de cálculo (base.css v12, metodologia.css v24)

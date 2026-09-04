@@ -2,7 +2,7 @@
 
 html {
     margin: 0; padding: 0; font-size: 100%; scroll-behavior: smooth;
-    background: url('../img/fundo-bg.png') center top / cover no-repeat fixed;
+    background: var(--color-header-bg) url('../img/fundo-bg.png') center top / cover no-repeat fixed;
     min-height: 100%;
 }
 body { margin: 0; padding: 0; }
