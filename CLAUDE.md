@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-02
+> Última atualização: 2026-09-04
 
 ---
 
@@ -277,18 +277,18 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-02)
+## Estado Atual do Projeto (2026-09-04)
 
-### Branch atual: `main` — `6aa1ae0` — droplet pendente de rebuild
+### Branch atual: `main` — `c1a179e` — droplet pendente de rebuild
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | ✅ `6aa1ae0` | ✅ `6aa1ae0` |
-| `prod` (dadosfnp) | - | ✅ `e9943be` |
+| `origin` (brunofnp) | - | `c1a179e` |
+| `prod` (dadosfnp) | - | `c1a179e` |
 
-> `next` e `main` identicos em origin. Prod ainda nao recebeu o commit `6aa1ae0`.
+> `origin` e `prod` estao identicos em `main`. Branch `next` nao foi atualizado ainda.
 > Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
@@ -297,7 +297,7 @@ Remotos `origin` e `prod` configurados com PAT do brunofnp no `.git/config` para
 
 ### Droplet — pendente de rebuild
 
-Commits publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
+Commits `66ef1fc`, `ff45519`, `c1a179e` publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
 
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
@@ -335,112 +335,122 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-02)
+### Header Global — estado (2026-09-04)
 
-CSS: `static/css/base.css` v=4 | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=8** | Template: `base_templates/base.html`
 
 Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
 - Coluna esquerda: logo Radar Brasil SVG, `height: 124px` desktop / `68px` mobile, `filter: brightness(0) invert(1)`
 - Coluna central: `<nav class="rb-main-nav">` — links brancos `rgba(255,255,255,0.78)`, fonte `1.051rem`, active com `border-bottom: 2px solid #fff`
-- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN abaixo (position absolute)
-- Pill PT|EN: `background: rgba(255,255,255,0.10)`, `border: 1px solid rgba(255,255,255,0.20)`, `border-radius: 20px`; botao ativo com `background: rgba(255,255,255,0.22)`
-- Separador `rb-lang-sep` removido (display: none); `rb-header-wrapper` tem `position: sticky; top: 0; z-index: 200`
-- Texto "RADAR BRASIL / Impulsionando a Acao Climatica Federativa" removido
+- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN
 
-Nav visivel em TODAS as paginas inclusive landing (removido `display: none !important` do `landing.css`).
+**Pill PT|EN no mobile (v7/v8):**
+- Desktop: `position: absolute; bottom: -26px; right: 16px` (abaixo do logo FNP)
+- Mobile (<=768px): `flex-direction: column; align-items: flex-end; gap: 4px` no `.rb-header-logo` + `.rb-lang-form { position: static }` — pill empilha abaixo do logo FNP sem sobreposicao
+- Altura total coluna direita no mobile: ~60px (logo 34px + gap 4px + pill ~22px), menor que logo Radar (68px)
+
+**Nav mobile (hamburger):**
+- `.rb-nav-links` em mobile: `position: absolute; top: 100%; left: 0; right: 0` — dropdown full-width abaixo do header
+- JS (`base.html`): `setNavOpen(open)` — eleva `.rb-header-wrapper` para `z-index: 2300` ao abrir (acima de sidebars z-index: 2100); reseta ao fechar
+- Fecha ao clicar fora: `document.addEventListener('click', function(e) { if (!hdr.contains(e.target)) setNavOpen(false); })`
+- Barras do hamburger: `background: rgba(255,255,255,0.85)` (era `var(--hdr-700)` = `#101d4f` = invisivel)
+
+**Rodape mobile:**
+- `.rb-footer-landing { display: none }` em `<=768px` — removido de todas as paginas no mobile
+
+**Altura do header mobile:** ~88px (wrapper 6+6px + header-top 4+4px + logo 68px)
+
+Nav visivel em TODAS as paginas inclusive landing.
 
 ### Pagina Inicio — estado (2026-09-01)
 
-CSS: `static/css/inicio.css` v=11 | Template: `templates/municipios/inicio.html`
+CSS: `static/css/inicio.css` v=12 | Template: `templates/municipios/inicio.html`
 
 Hero layout 46%/54%, `min-height: 320px`, `padding: 32px 0 0`:
 - Badge "Federalismo Climatico" — pill com bolinha verde `#22c55e`, `border-radius: 999px`, `padding: 6px 16px`, `background: rgba(38,69,132,.10)`, `border: 1.5px solid rgba(38,69,132,.20)`
 - Titulo: `font-size: 2.5rem`, `font-weight: 800`, `color: #101d4f`, `line-height: 1.18`, `font-family: Sora` — dois `{% trans %}` separados: `"Explore os eixos"` + `<br>` + `"do Radar Brasil"`
 - Mapa HUD: iframe com `.ini-hud-frame`, `mask-image` degrade; src `mapa-brasil-hud.html?v=3`
-- Cards: grid 2x2 glassmorphism. Cards PNG removidos; icone SVG flat sem `radial-gradient`:
-  ```css
-  .ini-icon-wrap { width: 88px; height: 88px; border-radius: 22px;
-      background: rgba(38,69,132,.08); border: 1.5px solid rgba(38,69,132,.14); }
-  ```
+- Cards: grid 2x2 glassmorphism. Cards PNG removidos; icone SVG flat sem `radial-gradient`
 - Card 4 "Linhas de Financiamento" → `{% url 'indicadores:painel_multinivel' %}?aba=3`
 
 ### Mapa Brasil HUD — estado (2026-09-01)
 
 Arquivo: `static/img/mapa-brasil-hud.html` (commitado, nao e um arquivo de imagem estatico)
 
-Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para escalar o mapa interno:
-```css
-.scene {
-    position: relative;
-    width: 100vw; height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    perspective: 1400px;
-    perspective-origin: 50% 30%;
-    transform: scale(0.70);
-    transform-origin: 50% 50%;
-}
-```
-
-Escalar o elemento `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
+Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para escalar o mapa interno.
+Escalar o `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
 Iframes nas paginas usam `mask-image` para dissolver bordas.
 
 ### Landing Page — estado (2026-09-01)
 
-CSS: `static/css/landing.css` v=9 | Template: `templates/municipios/landing.html`
+CSS: `static/css/landing.css` v=11 | Template: `templates/municipios/landing.html`
 
-Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon`:
-- CSS: fundo cinza, cursor default, badge "Em breve"
-- Mesmo padrao do botao Ecossistema (`.lp-btn-card--soon`)
+Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon` (fundo cinza, cursor default, badge "Em breve").
 
-### Metodologia — estado (2026-09-01)
+### Metodologia — estado (2026-09-04)
 
-CSS: `static/css/metodologia.css` v=10 | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=21** | Template: `templates/municipios/metodologia.html`
 
-Hero padronizado com Inicio (mesma altura, badge, tipografia):
-- `.meto-hero-zone { padding: 32px 0 0; }` — sem padding-bottom (igualado ao Inicio)
-- `.meto-hero-inner { min-height: 320px; grid-template-columns: 46% 54%; }`
-- `.meto-hero-right { height: 320px; }`
-- Badge: `border-radius: 999px; padding: 6px 16px` — mesmo estilo do Inicio
-- Titulo: seletor `.meto-hero-left h1` (NAO `.meto-hero h1` — classe inexistente), `font-size: 2.5rem`, `font-weight: 800`, `color: #101d4f`, `line-height: 1.18`
-- Descricao: `font-family: DM Sans`, `font-size: 0.9375rem`, `color: #334488`, `line-height: 1.75`
-- Mobile: `@media (max-width: 900px)` com `font-size: 1.5rem` e `padding: 32px 0 0`
+Hero padronizado com Inicio (mesma altura, badge, tipografia).
+
+**Timeline mobile (v21):**
+- Em `<=600px`: scroll-x desativado, layout vertical empilhado
+- `.meto-timeline-track { flex-direction: column; gap: 16px; padding-top: 0 }` 
+- `.meto-tl-event { flex-direction: row; align-items: flex-start; gap: 12px }` — bolha do ano | card lado a lado
+- `.meto-tl-year-bubble { position: static; min-width: 60px; width: 60px; align-self: flex-start }` — sem absolute
+- `.meto-tl-connector { display: none }` — linha vertical oculta
+- `::before` (linha horizontal) oculto em mobile
+- Em `<=900px` (breakpoint anterior): `justify-content: flex-start` para evitar corte do lado esquerdo em scroll-x
+
+### Nota Pais — estado (2026-09-04)
+
+CSS: `static/css/nota-pais.css` **v=9** | Template: `templates/municipios/nota-pais.html`
+
+**Mapa mobile full-screen (Google Maps / IFEM pattern):**
+- Em `<=900px`:
+  - `.np-intro { display: none }` — removida em mobile (antes so em 480px)
+  - `.np-page { padding: 0; gap: 0 }` — sem espaco consumindo viewport
+  - `.np-card { height: calc(100svh - 88px); flex-shrink: 0; border-radius: 0; box-shadow: none }` — card define o tamanho
+  - `.np-map-container { height: 100% }` — preenche o card pai
+- KPI strip scrollavel abaixo do mapa
+- Sidebar como bottom sheet (FAB no canto inferior esquerdo do mapa)
+- Em `<=480px`: `height: calc(100svh - 96px)` (mantido do breakpoint anterior)
+
+Estrutura HTML:
+```
+np-page > np-intro + np-card (np-sidebar + np-map-container + np-filter-fab) + np-sidebar-backdrop + np-kpi-strip
+```
+
+### Mapa Georreferenciado — estado (2026-09-04)
+
+CSS: `static/css/mapa-georreferenciado.css` **v=7** | Template: `templates/municipios/mapa-georreferenciado.html`
+
+**Mapa mobile full-screen (mesmo padrao que Nota Pais):**
+- Em `<=900px`:
+  - `.mg-intro { display: none }` — removida em mobile
+  - `.mg-page { padding: 0; gap: 0 }`
+  - `.mg-layout { height: calc(100svh - 88px); min-height: 0; margin-bottom: 0; border-radius: 0; box-shadow: none }` — layout define o tamanho
+  - `.mg-map-area { height: 100%; border-radius: 0 }` — preenche o layout pai
+- Em `<=480px`: `height: calc(100svh - 96px)` com `border-radius: 0`
 
 ### Painel Multinivel — estado (2026-08-25)
 
-Rodape corrigido: script que escondia `.rb-footer-landing` foi removido. Grafico fixo em 380px.
+CSS: `static/css/painel-multinivel.css` v=12 | Template: `templates/municipios/painel-multinivel.html`
 
-Arquivos relevantes:
-- `templates/municipios/painel-multinivel.html` — cache-buster CSS `?v=4`, JS `?v=3`
-- `static/css/painel-multinivel.css` — `pm-chart-wrapper: height: 380px`
-- `static/js/painel-multinivel.js` — `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro
+Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro.
 
-### Landing Page — estado (2026-08-24)
+### Avaliacao Painel — estado (2026-09-03)
 
-Botao "VER AGENDA" desabilitado com classe `.lp-btn-side--soon`:
-- Template: `templates/municipios/landing.html` linha ~51
-- CSS: `.lp-btn-side--soon` — fundo cinza, cursor default, badge "Em breve"
+CSS: `static/css/avaliacao-painel.css` v=9 | Template: `templates/municipios/avaliacao-painel.html`
 
-### Financiamento Climatico — Componente MultiSelect
+Todos os touch targets elevados para min-height: 44px em mobile.
 
-Arquivo: `static/js/financiamento-climatico.js`
+### Financiamento Climatico — estado (2026-09-03)
 
-**Semantica do Set `selected`:**
-- `selected.size === 0` → todos ativos (sem filtro) — exibe placeholder "Todos os X"
-- `selected.size > 0` → apenas os itens no Set sao filtrados
+CSS: `static/css/financiamento-climatico.css` v=5 | Template: `templates/municipios/financiamento-climatico.html`
 
-**Estado atual:** todos os filtros iniciam com `selected = new Set()` (nenhum `defaultCount`).
-**Tabela:** `carregarTabela()` chama `/indicadores/api/financiamento/tabela/` sem query string — sempre mostra todos os dados.
-
-**Fix iOS mobile (resolvido):**
-- Backdrop removido (interceptava toques no iOS)
-- Fechamento ao clicar fora: `document.click` + guard 350ms
-- Selecao: `ontouchend` no container (scroll >8px cancela toggle)
-- Scroll da pagina fecha o dropdown via `window.scroll` (`_optionsScrolling` flag 200ms)
-
-**Tabela mobile:**
-- `td:first-child` → cabecalho navy, texto branco
-- Demais `td` → label (`::before`) acima + valor abaixo (empilhado)
-- `td:nth-child(7,8,9)` (Federal/Estadual/Municipal) → fundo `#f4f9fc`, `border-top`
+Componente MultiSelect com semantica `selected = new Set()` (vazio = todos ativos). Fix iOS mobile aplicado.
+Tabela mobile: card layout com `td:first-child` como cabecalho navy.
 
 ### Identidade Visual
 
@@ -454,7 +464,6 @@ Arquivo: `static/js/financiamento-climatico.js`
 
 - `LocaleMiddleware`, seletor PT|EN no header, `LANGUAGES = [("pt-br",...), ("en",...)]`
 - `locale/en/LC_MESSAGES/django.po` — 245+ strings + `django.mo` compilado
-- Strings adicionadas na sessao 2026-09-01: `"Explore os eixos"` → `"Explore the axes"` e `"do Radar Brasil"` → `"of Radar Brasil"`
 - `static/js/i18n.js` — `RBi18n.t()` / `RBi18n.getLang()` — cobre 9 templates + 5 JS
 - Banco EN populado (98 fichas, 412 parametros, 46 financiamentos, 2322 mapas)
 
@@ -477,12 +486,29 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 | `static/img/radar_brasil_brasilia_alta_qualidade.png` | Untracked |
 | `static/img/radar_brasil_mapa_azul_alta_qualidade.png` | Untracked |
 
-Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados ou renomeados conforme necessidade.
+Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados ou renomeados.
+
+### Versoes atuais dos CSS (cache-busters nos templates)
+
+| Arquivo CSS | Versao no template |
+|---|---|
+| `base.css` | v=8 |
+| `inicio.css` | v=12 |
+| `landing.css` | v=11 |
+| `metodologia.css` | v=21 |
+| `avaliacao-painel.css` | v=9 |
+| `painel-multinivel.css` | v=12 |
+| `mapa-georreferenciado.css` | v=7 |
+| `financiamento-climatico.css` | v=5 |
+| `nota-pais.css` | v=9 |
 
 ### Pendencias
 
-- Droplet: rodar `git pull && docker compose build && docker compose up -d` para aplicar commits (origin/main `6aa1ae0`)
-- Push para `prod` (dadosfnp) ainda pendente do commit `6aa1ae0`
+- **CRITICO:** Droplet ainda nao fez build dos commits `66ef1fc`, `ff45519`, `c1a179e`. Rodar:
+  ```bash
+  cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
+  ```
+- Branch `next` desatualizado em relacao ao `main` — sincronizar apos validar no droplet
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
