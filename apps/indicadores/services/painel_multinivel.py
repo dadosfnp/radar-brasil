@@ -10,7 +10,7 @@ CORES_NIVEL = {
     "Nível 2": "#f09a50",
     "Nível 3": "#e8c53a",
     "Nível 4": "#72be79",
-    "Nível 5": "#7aaed4",
+    "Nível 5": "#1a4a35",
 }
 
 # eixo_front → eixo normalizado (forma armazenada no banco)
@@ -24,11 +24,11 @@ EIXO_MAP = {
 # Nomes usados para ORDENAÇÃO (devem bater com os valores no banco)
 ORDEM_CRITERIOS = {
     "Governanca": [
+        "Operacionalidade",
         "Espaço de diálogo federativo",
         "Financiamento",
         "Representação de Gênero, Raça e Etnia",
         "Comunicação e Transparência",
-        # Operacionalidade não listado → posição 5 (fim)
     ],
     "Politicas e Planos": [
         "Operacionalidade",

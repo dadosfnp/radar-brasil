@@ -313,15 +313,44 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 
 ### 5.3 Metodologia (`/metodologia/`)
 
-**Arquivo CSS:** `metodologia.css`
+**Arquivo CSS:** `metodologia.css` — v22 (2026-09-04)
 
 - Hero zone com imagem de fundo (`bg-body.png`)
 - Cards de seção com glassmorphism
 - Redesenhada no commit `091f596` com glassmorphism e hero zone
 
+**Carousel (v22 — 2026-09-04):**
+- Adicionado label "Federalismo Climático" acima do quote (`.meto-carousel-tag`, verde `#22c55e`, uppercase 0.6875rem, letter-spacing .14em)
+- Quote agora em itálico (`font-style: italic`) com aspas HTML ao redor do texto
+- Texto-wrap mudado para `flex-direction: column` com `gap: 14px`
+
+**Timeline (v22 — 2026-09-04, redesign):**
+- Layout invertido: cards agora alinhados pelo TOPO, linha horizontal movida para a BASE
+- Conectores verticais flexíveis (`flex: 1`) preenchem o espaço entre o card e o dot
+- Bolha do ano redesenhada: pill oval (`border-radius: 22px`) amarela (`#f5c400`), texto navy `#101d4f`, sombra amarela — substitui retângulo navy anterior
+- `align-items: stretch` no track garante todos os eventos com mesma altura
+- Linha horizontal (`::before`): `top: auto; bottom: 40px` posicionada no centro dos dots
+- CSS `order` posiciona card(1) → conector(2) → dot(3) no DOM sem alterar HTML
+- Mobile: bolhas com `order: 1` voltam para esquerda do layout horizontal
+
+**Seção Metodologia de Cálculo (v22 — 2026-09-04, nova seção):**
+- Nova seção final com 3 cards: Nível Parcial, Nível Eixo, Nível País
+- Cada card: número de etapa circular + título/subtítulo + fórmula matemática em fração + texto descritivo + tabela de referência
+- Nível País: fundo gradient navy `#101d4f → #264584`, step amarelo, texto e tabela em branco translúcido
+- Fórmulas em fonte monospace (DM Mono), fração CSS (flex column)
+- Grid 3 colunas desktop, 1 coluna mobile (`<=900px`)
+- Fundo da seção: `#f0f4fb` (azul muito claro, contraste sutil com branco das cards)
+
 ### 5.4 Painel Multinível (`/indicadores/painel-multinivel/`)
 
-**Arquivo CSS:** `painel-multinivel.css`
+**Arquivo CSS:** `painel-multinivel.css` — v13 (2026-09-04)
+
+**Waffle chart (v13 — 2026-09-04):**
+- `.pm-grid-cells`: `overflow: hidden` -> `overflow-x: auto` com scrollbar 2px (thin)
+- Sincronização de scroll: `scroll` event listener em todas as `.pm-grid-cells` propaga `scrollLeft`
+- Régua de tick marks: linha extra `.pm-grid-ruler-row` abaixo do waffle, com spans `.pm-grid-tick` a cada posição e `.pm-grid-tick--label` a cada múltiplo de 5
+- Ticks: altura 10px, borda-left azul translúcida; labels: negrito, borda mais opaca, numeral tabular
+- CSS: ticks sem hover (override `transform: none; box-shadow: none`)
 
 **KPI Strip:** 3 cards glassmorphism em grid 3 colunas
 - Valor: `Sora 700`, 1.75rem, `--color-primary-dark`

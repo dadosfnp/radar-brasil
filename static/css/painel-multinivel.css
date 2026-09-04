@@ -294,8 +294,12 @@ body.painel-multinivel-page .rb-main {
     flex-wrap: nowrap;
     gap: 4px;
     flex: 1;
-    overflow: hidden;
+    overflow-x: auto; /* mostra todas as células sem cortar */
+    -webkit-overflow-scrolling: touch;
 }
+/* Remove scrollbar visual no desktop — conteúdo visível mas sem barra intrusiva */
+.pm-grid-cells::-webkit-scrollbar { height: 2px; }
+.pm-grid-cells::-webkit-scrollbar-thumb { background: rgba(38,69,132,.25); border-radius: 2px; }
 
 .pm-grid-cell {
     display: inline-block;
@@ -313,6 +317,37 @@ body.painel-multinivel-page .rb-main {
     box-shadow: 0 2px 8px rgba(0,0,0,0.20);
     z-index: 2;
     position: relative;
+}
+
+/* Régua de posições abaixo do waffle */
+.pm-grid-ruler-row { margin-top: 0; }
+
+.pm-grid-ruler-cells { overflow-x: auto; }
+
+.pm-grid-tick {
+    background: transparent !important;
+    border-color: transparent !important;
+    border-radius: 0 !important;
+    border-left: 1px solid rgba(38,69,132,.15) !important;
+    height: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    color: rgba(38,69,132,.35);
+    line-height: 1;
+    padding-top: 2px;
+    cursor: default;
+}
+
+.pm-grid-tick:hover { transform: none !important; box-shadow: none !important; }
+
+.pm-grid-tick--label {
+    border-left-color: rgba(38,69,132,.45) !important;
+    color: rgba(38,69,132,.65);
+    font-weight: 700;
+    font-size: 0.5625rem;
 }
 
 .pm-grid-legend {

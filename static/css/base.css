@@ -42,7 +42,7 @@ body.rb-body {
     margin-top: 0;
     position: sticky;
     top: 0;
-    z-index: 200;
+    z-index: 1001; /* acima do Leaflet (max 1000) e outros overlays */
 }
 
 .rb-header-wrapper::before {
@@ -488,6 +488,37 @@ body.rb-body {
 
 /* Seção idioma no dropdown mobile — oculta no desktop */
 .rb-nav-lang-section { display: none; }
+
+/* ---- BREAKPOINT INTERMEDIÁRIO — notebooks / telas 769–1280px ---- */
+@media (max-width: 1280px) and (min-width: 769px) {
+    /* Nav links: fonte e padding menores para caber em uma linha */
+    .rb-nav-link {
+        font-size: 0.875rem;
+        padding: 8px 10px;
+    }
+    /* Logo Radar Brasil um pouco menor */
+    .rb-header-radar-img {
+        height: 96px;
+    }
+    /* Logo FNP um pouco menor */
+    .rb-header-logo-img {
+        height: 50px;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    /* Telas ainda menores (tablets landscape, notebooks compactos) */
+    .rb-nav-link {
+        font-size: 0.8125rem;
+        padding: 8px 8px;
+    }
+    .rb-header-radar-img {
+        height: 80px;
+    }
+    .rb-header-logo-img {
+        height: 44px;
+    }
+}
 
 /* ---- RESPONSIVO ---- */
 @media (max-width: 768px) {

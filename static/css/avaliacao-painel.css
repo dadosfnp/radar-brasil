@@ -484,7 +484,7 @@ body.avaliacao-painel-page .rb-main {
 
 .ap-nivel-badge[data-nivel="Nível 5"] {
     background: rgba(26,74,53,.14);
-    color: #1a4a35;
+    color: #ffffff; /* branco: legível sobre o background sólido injetado via inline style pelo JS */
     border: 1px solid rgba(26,74,53,.38);
 }
 .ap-nivel-badge[data-nivel="Nível 4"] {

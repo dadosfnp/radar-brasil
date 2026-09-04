@@ -103,6 +103,29 @@ function renderizarGrid(dados) {
     container.appendChild(row);
   });
 
+  // Régua de posições: marcações a cada 5 instâncias
+  if (totalInstancias > 0) {
+    const rulerRow = document.createElement("div");
+    rulerRow.className = "pm-grid-row pm-grid-ruler-row";
+    const rulerLabel = document.createElement("div");
+    rulerLabel.className = "pm-grid-row-label";
+    rulerRow.appendChild(rulerLabel);
+    const rulerCells = document.createElement("div");
+    rulerCells.className = "pm-grid-cells pm-grid-ruler-cells";
+    for (let i = 1; i <= totalInstancias; i++) {
+      const tick = document.createElement("span");
+      if (i % 5 === 0) {
+        tick.className = "pm-grid-cell pm-grid-tick pm-grid-tick--label";
+        tick.textContent = String(i);
+      } else {
+        tick.className = "pm-grid-cell pm-grid-tick";
+      }
+      rulerCells.appendChild(tick);
+    }
+    rulerRow.appendChild(rulerCells);
+    container.appendChild(rulerRow);
+  }
+
   // Legenda
   const legend = document.createElement("div");
   legend.className = "pm-grid-legend";
@@ -123,6 +146,15 @@ function renderizarGrid(dados) {
 
   wrapper.appendChild(container);
   wrapper.appendChild(legend);
+
+  // Sincroniza scroll horizontal: arrastar qualquer linha rola todas juntas
+  const allCells = wrapper.querySelectorAll(".pm-grid-cells");
+  allCells.forEach(el => {
+    el.addEventListener("scroll", function () {
+      const left = this.scrollLeft;
+      allCells.forEach(other => { if (other !== this) other.scrollLeft = left; });
+    }, { passive: true });
+  });
 }
 
 // Overlay de erro no gráfico

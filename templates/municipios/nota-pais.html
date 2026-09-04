@@ -1,7 +1,7 @@
 ﻿{% extends "base.html" %}
 {% load static i18n %}
 
-{% block title %}Radar Brasil - {% trans "Nota PaÃ­s" %}{% endblock %}
+{% block title %}Radar Brasil - {% trans "Nota País" %}{% endblock %}
 {% block body_class %}rb-body np-body{% endblock %}
 {% block menu_nota_pais_active %}active{% endblock %}
 
@@ -17,9 +17,9 @@
 
   {# INTRO #}
   <div class="np-intro">
-    <h2>{% trans "Nota-PaÃ­s - Radar Brasil" %}</h2>
+    <h2>{% trans "Nota-País - Radar Brasil" %}</h2>
     <p>
-      {% trans "No Mapa Mundi abaixo, podemos identificar os paÃ­ses signatÃ¡rios da CoalizÃ£o CHAMP e suas respectivas Nota-PaÃ­s, termÃ´metro da capacidade de cada paÃ­s de execuÃ§Ã£o e de cumprimento dos compromissos climÃ¡ticos." %}
+      {% trans "No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão CHAMP e suas respectivas Nota-País, termômetro da capacidade de cada país de execução e de cumprimento dos compromissos climáticos." %}
     </p>
   </div>
 
@@ -46,7 +46,7 @@
       <div class="np-filters">
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-pais">{% trans "PaÃ­ses SignatÃ¡rios" %}</label>
+          <label class="np-filter-label" for="np-f-pais">{% trans "Países Signatários" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-pais">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-compromisso">{% trans "Compromissos ClimÃ¡ticos" %}</label>
+          <label class="np-filter-label" for="np-f-compromisso">{% trans "Compromissos Climáticos" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-compromisso">
@@ -97,12 +97,12 @@
         </div>
 
         <div class="np-filter-group">
-          <label class="np-filter-label" for="np-f-regiao">{% trans "RegiÃµes Monitoradas" %}</label>
+          <label class="np-filter-label" for="np-f-regiao">{% trans "Regiões Monitoradas" %}</label>
           <div class="np-filter-row">
             <div class="np-select-wrap">
               <select id="np-f-regiao">
                 <option value="">{% trans "Todos" %}</option>
-                <option value="americas">{% trans "AmÃ©ricas" %}</option>
+                <option value="americas">{% trans "Américas" %}</option>
                 <option value="europe">{% trans "Europa" %}</option>
                 <option value="africa">{% trans "Ãfrica" %}</option>
                 <option value="asia">{% trans "Ãsia" %}</option>
@@ -217,7 +217,7 @@
       </div>
       <div class="np-kpi-body">
         <span class="np-kpi-value">5</span>
-        <span class="np-kpi-label">{% trans "REGIÃ•ES MONITORADAS" %}</span>
+        <span class="np-kpi-label">{% trans "REGIÕES MONITORADAS" %}</span>
       </div>
     </div>
 
@@ -251,7 +251,7 @@
           if (isMobile()) setTimeout(close, 350);
         });
       });
-      /* Fecha ao clicar nos botÃµes de aÃ§Ã£o */
+      /* Fecha ao clicar nos botões de ação */
       ['np-btn-limpar', 'np-btn-baixar', 'np-btn-print'].forEach(function (id) {
         var btn = document.getElementById(id);
         if (btn) btn.addEventListener('click', function () { if (isMobile()) close(); });

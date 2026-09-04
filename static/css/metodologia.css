@@ -395,14 +395,25 @@ body.metodologia-page .rb-main {
 
 .meto-carousel-text-wrap {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
     padding: 48px 48px 48px 40px;
+}
+
+.meto-carousel-tag {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #22c55e;
 }
 
 .meto-carousel-quote {
     font-family: 'Sora', sans-serif;
     font-size: 1.25rem;
     font-weight: 600;
+    font-style: italic;
     color: rgba(255,255,255,.92);
     line-height: 1.65;
     margin: 0;
@@ -447,14 +458,16 @@ body.metodologia-page .rb-main {
 }
 
 /* Linha de ponta a ponta — desenha no scroll-outer, nao no track */
+/* Linha horizontal na BASE da timeline */
 .meto-timeline-scroll-outer::before {
     content: '';
     position: absolute;
-    top: 22px;
+    top: auto;
+    bottom: 40px; /* centro do dot de 44px: 44/2 + 18px padding */
     left: 0;
     right: 0;
     height: 2px;
-    background: rgba(38,69,132,.18);
+    background: rgba(38,69,132,.20);
     pointer-events: none;
     z-index: 0;
 }
@@ -467,12 +480,12 @@ body.metodologia-page .rb-main {
     display: flex;
     gap: 0;
     position: relative;
-    align-items: flex-start;
-    padding-top: 48px;
+    align-items: stretch; /* todos os eventos mesma altura */
+    padding-top: 0;
+    padding-bottom: 62px; /* espaço para dot + margem */
     min-width: max-content;
 }
 
-/* Linha horizontal de fundo — substituida pelo ::before do scroll-outer */
 .meto-timeline-line { display: none; }
 
 .meto-tl-event {
@@ -484,33 +497,9 @@ body.metodologia-page .rb-main {
     position: relative;
 }
 
-.meto-tl-year-bubble {
-    position: absolute;
-    top: -48px;
-    width: 56px;
-    height: 44px;
-    background: #264584;
-    color: #fff;
-    font-family: 'Sora', sans-serif;
-    font-size: 0.875rem;
-    font-weight: 800;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    box-shadow: 0 4px 16px rgba(38,69,132,.30);
-}
-
-.meto-tl-connector {
-    width: 2px;
-    height: 20px;
-    background: rgba(38,69,132,.30);
-    margin-bottom: 0;
-    flex-shrink: 0;
-}
-
+/* Card: topo — alinhado pelo topo em todos os eventos */
 .meto-tl-card {
+    order: 1;
     background: #f5f8ff;
     border: 1px solid rgba(38,69,132,.12);
     border-radius: 14px;
@@ -519,11 +508,43 @@ body.metodologia-page .rb-main {
     width: calc(100% - 24px);
     box-shadow: 0 2px 12px rgba(16,29,79,.06);
     transition: box-shadow .2s, transform .2s;
+    flex-shrink: 0;
 }
 
 .meto-tl-card:hover {
     box-shadow: 0 6px 24px rgba(16,29,79,.12);
     transform: translateY(-2px);
+}
+
+/* Conector: espaço flexível entre card e dot */
+.meto-tl-connector {
+    order: 2;
+    flex: 1;
+    width: 2px;
+    min-height: 18px;
+    background: rgba(38,69,132,.25);
+    flex-shrink: 0;
+}
+
+/* Dot amarelo na linha horizontal */
+.meto-tl-year-bubble {
+    order: 3;
+    position: static;
+    width: 52px;
+    height: 44px;
+    background: #f5c400;
+    color: #101d4f;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 3px 10px rgba(245,196,0,.40);
+    border: 2px solid rgba(38,69,132,.15);
+    flex-shrink: 0;
 }
 
 .meto-tl-title {
@@ -1046,12 +1067,14 @@ body.metodologia-page .rb-main {
         padding: 16px;
     }
     .meto-timeline-scroll-outer::before {
-        display: none; /* esconde a linha horizontal */
+        display: none;
     }
     .meto-timeline-track {
         flex-direction: column;
+        align-items: flex-start;
         min-width: 0;
         padding-top: 0;
+        padding-bottom: 0;
         gap: 16px;
     }
     .meto-tl-event {
@@ -1060,7 +1083,9 @@ body.metodologia-page .rb-main {
         align-items: flex-start;
         gap: 12px;
     }
+    /* Reordenação mobile: bolha primeiro, conector hidden, card segundo */
     .meto-tl-year-bubble {
+        order: 1;
         position: static;
         min-width: 60px;
         width: 60px;
@@ -1068,11 +1093,209 @@ body.metodologia-page .rb-main {
         align-self: flex-start;
         margin-top: 0;
     }
-    .meto-tl-connector { display: none; }
+    .meto-tl-connector { display: none; order: 2; }
     .meto-tl-card {
+        order: 3;
         flex: 1;
         margin: 0;
         width: auto;
     }
+}
+
+/* ══════════════════════════════
+   7. METODOLOGIA DE CÁLCULO
+   ══════════════════════════════ */
+
+.meto-calc-section {
+    background: #f0f4fb;
+    border-top: 1px solid rgba(38,69,132,.10);
+}
+
+.meto-calc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 36px;
+}
+
+.meto-calc-card {
+    background: #fff;
+    border: 1.5px solid rgba(38,69,132,.12);
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow: 0 3px 16px rgba(16,29,79,.07);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.meto-calc-card--country {
+    background: linear-gradient(145deg, #101d4f 0%, #264584 100%);
+    border-color: transparent;
+}
+
+.meto-calc-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.meto-calc-step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #264584;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.meto-calc-step--country {
+    background: #f5c400;
+    color: #101d4f;
+}
+
+.meto-calc-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #101d4f;
+}
+
+.meto-calc-card--country .meto-calc-title { color: #fff; }
+
+.meto-calc-subtitle {
+    font-size: 0.71875rem;
+    color: #7a8a9a;
+    margin-top: 2px;
+}
+
+.meto-calc-card--country .meto-calc-subtitle { color: rgba(255,255,255,.60); }
+
+.meto-calc-formula {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(38,69,132,.06);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    flex-wrap: wrap;
+}
+
+.meto-calc-card--country .meto-calc-formula { background: rgba(255,255,255,.10); }
+
+.meto-calc-lhs {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #264584;
+    white-space: nowrap;
+}
+
+.meto-calc-card--country .meto-calc-lhs { color: #f5c400; }
+
+.meto-calc-eq {
+    font-size: 1.125rem;
+    color: #7a8a9a;
+}
+
+.meto-calc-card--country .meto-calc-eq { color: rgba(255,255,255,.55); }
+
+.meto-calc-frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.meto-calc-num {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #264584;
+    border-bottom: 1.5px solid rgba(38,69,132,.35);
+    padding-bottom: 3px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.meto-calc-den {
+    font-size: 0.6875rem;
+    color: #264584;
+    padding-top: 3px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.meto-calc-card--country .meto-calc-num,
+.meto-calc-card--country .meto-calc-den {
+    color: rgba(255,255,255,.80);
+    border-bottom-color: rgba(255,255,255,.25);
+}
+
+.meto-calc-desc {
+    font-size: 0.78125rem;
+    color: #334488;
+    line-height: 1.75;
+    margin: 0;
+}
+
+.meto-calc-card--country .meto-calc-desc { color: rgba(255,255,255,.78); }
+
+.meto-calc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.6875rem;
+}
+
+.meto-calc-table th {
+    background: rgba(38,69,132,.07);
+    color: #264584;
+    font-weight: 700;
+    padding: 7px 10px;
+    text-align: left;
+    font-size: 0.59375rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.meto-calc-card--country .meto-calc-table th {
+    background: rgba(255,255,255,.10);
+    color: rgba(255,255,255,.65);
+}
+
+.meto-calc-table td {
+    padding: 7px 10px;
+    color: #334488;
+    border-bottom: 1px solid rgba(38,69,132,.07);
+    vertical-align: middle;
+}
+
+.meto-calc-card--country .meto-calc-table td {
+    color: rgba(255,255,255,.80);
+    border-bottom-color: rgba(255,255,255,.08);
+}
+
+.meto-calc-table tr.meto-calc-total td {
+    background: rgba(38,69,132,.06);
+    color: #101d4f;
+    font-weight: 700;
+    border-bottom: none;
+    border-top: 1.5px solid rgba(38,69,132,.15);
+}
+
+.meto-calc-card--country .meto-calc-table tr.meto-calc-total td {
+    background: rgba(245,196,0,.15);
+    color: #f5c400;
+    border-top-color: rgba(245,196,0,.25);
+}
+
+@media (max-width: 900px) {
+    .meto-calc-grid { grid-template-columns: 1fr; }
+    .meto-calc-card { padding: 22px 18px; }
 }
 

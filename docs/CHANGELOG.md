@@ -4,6 +4,27 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (60ª entrada)
+
+### Fix/Style — 11 correções: z-index, encoding, badges, waffle, animação, carousel, timeline, cálculo (base.css v11, metodologia.css v22, painel-multinivel.css v13, avaliacao-painel.css v11)
+
+1. **Nota País — mapa sobre header (z-index):** `.rb-header-wrapper` z-index 200 -> 1001, acima do Leaflet (topo 400-1000).
+2. **Nota País — encoding mojibake:** Corrigidos todos os textos com acentuação quebrada (dupla codificação UTF-8/Latin-1): "Países", "terminômetro", "compromissos climáticos", "Américas", "África", "Ásia", "PAÍSES SIGNATÁRIOS", "COMPROMISSOS CLIMÁTICOS".
+3. **Nível 5 badge invisível (Componentes):** cor do texto corrigida de `#1a4a35` para `#ffffff` — JS injeta background sólido via inline style, mas não sobrescreve color CSS.
+4. **Nível 5 cor errada (waffle chart):** cor corrigida de azul `#7aaed4` para verde escuro `#1a4a35` no `painel_multinivel.py`.
+5. **Waffle chart células cortadas:** `overflow: hidden` -> `overflow-x: auto` com scrollbar 2px; sincronização de scroll entre todas as linhas via JS.
+6. **Waffle chart marcações a cada 5:** Régua de tick marks adicionada via JS abaixo do grid — números 5, 10, 15... alinhados com cada 5ª célula; scroll sincronizado com as linhas de dados.
+7. **Ordem dos critérios (Componentes + Painéis):** Operacionalidade movida para primeira posição em Governança no `ORDEM_CRITERIOS` do backend.
+8. **Federalismo — animação bidirecional:** Adicionados 3 círculos SVG com `keyPoints="1;0"` para percorrer os paths no sentido inverso (Estados→União, Municípios→União, Municípios→Estados).
+9. **Nav notebooks — quebra de linha:** Adicionados breakpoints intermediários 769-1280px e 769-1024px com fontes e logos reduzidos proporcionalmente.
+10. **Carousel Metodologia — texto:** Adicionado título "Federalismo Climático" acima do quote; texto do quote agora em itálico entre aspas.
+11. **Timeline Metodologia — redesign:** Cards alinhados pelo topo; conectores flexíveis entre card e dot; bolha do ano redesenhada como pill amarela (`#f5c400`) na linha horizontal que agora fica na BASE da timeline.
+12. **Metodologia — seção de cálculo:** Nova seção "Metodologia de Cálculo" ao final da página com 3 cards: Nível Parcial (fórmula + tabela critérios), Nível Eixo (fórmula + tabela eixos), Nível País (fórmula + tabela eixos), design em Navy+amarelo seguindo identidade Radar Brasil.
+- CSS: `base.css` v10->v11 | `avaliacao-painel.css` v10->v11 | `painel-multinivel.css` v12->v13 | `metodologia.css` v21->v22
+- JS: `painel-multinivel.js` v6->v7
+
+---
+
 ## 2026-09-04 — `main` (59ª entrada)
 
 ### Style — Seletor de idioma mobile: globo no dropdown (base.css v10)

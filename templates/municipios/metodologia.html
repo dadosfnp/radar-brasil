@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 {% load static i18n %}
 
 {% block title %}Radar Brasil - {% trans "Metodologia" %}{% endblock %}
@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=21">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=22">
 {% endblock %}
 
 {% block content %}
@@ -98,7 +98,7 @@
                     <line class="meto-py-line" x1="128" y1="248" x2="272" y2="248"
                           stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
 
-                    <!-- Pontos animados fluindo pelas linhas -->
+                    <!-- Pontos animados fluindo pelas linhas (ida: União→nós) -->
                     <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
                         <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#py-p1"/></animateMotion>
                     </circle>
@@ -107,6 +107,16 @@
                     </circle>
                     <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
                         <animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite"><mpath href="#py-p3"/></animateMotion>
+                    </circle>
+                    <!-- Pontos animados em sentido reverso (volta: nós→União) -->
+                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" begin="1.3s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p1"/></animateMotion>
+                    </circle>
+                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" begin="2.17s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p2"/></animateMotion>
+                    </circle>
+                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
+                        <animateMotion dur="2.6s" begin="0.43s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p3"/></animateMotion>
                     </circle>
                 </svg>
 
@@ -194,8 +204,9 @@
         </div>
 
         <div class="meto-carousel-text-wrap">
+            <div class="meto-carousel-tag">{% trans "Federalismo Climático" %}</div>
             <p class="meto-carousel-quote">
-                {% trans "Seu propósito é uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática." %}
+                "{% trans "Seu propósito é uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática." %}"
             </p>
         </div>
 
@@ -528,6 +539,122 @@
                     </div>
                 </div>
 
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     7. METODOLOGIA DE CÁLCULO
+     ═══════════════════════════════════════════ -->
+<section class="meto-section-block meto-calc-section">
+    <div class="meto-inner">
+        <h2 class="meto-section-heading">{% trans "Metodologia de Cálculo" %}</h2>
+        <p class="meto-section-lead">
+            {% trans "A Nota País é construída de forma progressiva: partimos da avaliação individual de cada instância (Nível Parcial) para, em seguida, consolidar por eixo (Nível Eixo) e, por fim, chegar à nota geral do país." %}
+        </p>
+
+        <div class="meto-calc-grid">
+
+            <!-- Nível Parcial -->
+            <div class="meto-calc-card">
+                <div class="meto-calc-header">
+                    <span class="meto-calc-step">1</span>
+                    <div>
+                        <div class="meto-calc-title">{% trans "Nível Parcial" %}</div>
+                        <div class="meto-calc-subtitle">{% trans "Score de cada instância" %}</div>
+                    </div>
+                </div>
+                <div class="meto-calc-formula">
+                    <span class="meto-calc-lhs">NP<sub>i</sub></span>
+                    <span class="meto-calc-eq">=</span>
+                    <span class="meto-calc-frac">
+                        <span class="meto-calc-num">&#8721; Critério<sub>j</sub></span>
+                        <span class="meto-calc-den">N<sub>critérios</sub></span>
+                    </span>
+                </div>
+                <p class="meto-calc-desc">
+                    {% trans "Média aritmética dos valores atribuídos a cada critério de avaliação da instância, na escala de 1 a 5." %}
+                </p>
+                <table class="meto-calc-table">
+                    <thead>
+                        <tr><th>{% trans "Critério" %}</th><th>{% trans "Peso" %}</th><th>{% trans "Escala" %}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>{% trans "Operacionalidade" %}</td><td>1</td><td>1 — 5</td></tr>
+                        <tr><td>{% trans "Espaço de Diálogo" %}</td><td>1</td><td>1 — 5</td></tr>
+                        <tr><td>{% trans "Outros critérios do eixo" %}</td><td>1</td><td>1 — 5</td></tr>
+                        <tr class="meto-calc-total"><td colspan="2">{% trans "Nível Parcial" %}</td><td>{% trans "Média" %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Nível Eixo -->
+            <div class="meto-calc-card">
+                <div class="meto-calc-header">
+                    <span class="meto-calc-step">2</span>
+                    <div>
+                        <div class="meto-calc-title">{% trans "Nível Eixo" %}</div>
+                        <div class="meto-calc-subtitle">{% trans "Score do eixo temático" %}</div>
+                    </div>
+                </div>
+                <div class="meto-calc-formula">
+                    <span class="meto-calc-lhs">NE<sub>k</sub></span>
+                    <span class="meto-calc-eq">=</span>
+                    <span class="meto-calc-frac">
+                        <span class="meto-calc-num">&#8721; NP<sub>i</sub></span>
+                        <span class="meto-calc-den">N<sub>instâncias</sub></span>
+                    </span>
+                </div>
+                <p class="meto-calc-desc">
+                    {% trans "Média aritmética dos Níveis Parciais de todas as instâncias avaliadas dentro de cada eixo temático." %}
+                </p>
+                <table class="meto-calc-table">
+                    <thead>
+                        <tr><th>{% trans "Eixo" %}</th><th>{% trans "Instâncias" %}</th><th>{% trans "Nível Eixo" %}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>{% trans "Governança" %}</td><td>31</td><td>{% trans "Média NP" %}</td></tr>
+                        <tr><td>{% trans "Políticas e Planos" %}</td><td>17</td><td>{% trans "Média NP" %}</td></tr>
+                        <tr><td>{% trans "Programas" %}</td><td>18</td><td>{% trans "Média NP" %}</td></tr>
+                        <tr><td>{% trans "Linhas de Financiamento" %}</td><td>17</td><td>{% trans "Média NP" %}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Nível País -->
+            <div class="meto-calc-card meto-calc-card--country">
+                <div class="meto-calc-header">
+                    <span class="meto-calc-step meto-calc-step--country">3</span>
+                    <div>
+                        <div class="meto-calc-title">{% trans "Nível País" %}</div>
+                        <div class="meto-calc-subtitle">{% trans "Nota geral do Brasil" %}</div>
+                    </div>
+                </div>
+                <div class="meto-calc-formula">
+                    <span class="meto-calc-lhs">NP<sub>BR</sub></span>
+                    <span class="meto-calc-eq">=</span>
+                    <span class="meto-calc-frac">
+                        <span class="meto-calc-num">&#8721; NE<sub>k</sub></span>
+                        <span class="meto-calc-den">4 {% trans "eixos" %}</span>
+                    </span>
+                </div>
+                <p class="meto-calc-desc">
+                    {% trans "Média aritmética dos quatro Níveis Eixo, sintetizando em uma única nota o desempenho geral do federalismo climático brasileiro." %}
+                </p>
+                <table class="meto-calc-table">
+                    <thead>
+                        <tr><th>{% trans "Eixo" %}</th><th>{% trans "Nível Eixo" %}</th><th>{% trans "Peso" %}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>{% trans "Governança" %}</td><td>NE<sub>gov</sub></td><td>1</td></tr>
+                        <tr><td>{% trans "Políticas e Planos" %}</td><td>NE<sub>pol</sub></td><td>1</td></tr>
+                        <tr><td>{% trans "Programas" %}</td><td>NE<sub>prog</sub></td><td>1</td></tr>
+                        <tr><td>{% trans "Linhas de Financiamento" %}</td><td>NE<sub>fin</sub></td><td>1</td></tr>
+                        <tr class="meto-calc-total"><td colspan="2">{% trans "Nota País" %}</td><td>NP / 4</td></tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
