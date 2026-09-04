@@ -483,9 +483,9 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-nivel-badge[data-nivel="Nível 5"] {
-    background: rgba(122,174,212,.22);
-    color: #1a4a6e;
-    border: 1px solid rgba(122,174,212,.45);
+    background: rgba(26,74,53,.14);
+    color: #1a4a35;
+    border: 1px solid rgba(26,74,53,.38);
 }
 .ap-nivel-badge[data-nivel="Nível 4"] {
     background: rgba(38,69,132,.22);
@@ -937,7 +937,10 @@ body.avaliacao-painel-page .rb-main {
     .ap-th-nivel { width: 76px; }
     .ap-nivel-badge { padding: 4px 6px; font-size: 0.625rem; white-space: nowrap; }
 
-    /* Modal full screen */
-    .ap-modal-overlay { padding: 0; align-items: flex-end; }
-    .ap-modal-box { border-radius: 16px 16px 0 0; max-height: 96vh; }
+    /* Modal centralizado (não bottom-sheet — não cobre linhas da tabela) */
+    .ap-modal-overlay { padding: 12px; align-items: center; }
+    .ap-modal-box { border-radius: 12px; max-height: 85vh; }
+    /* Badge nível 5: evita overflow da célula no mobile */
+    .ap-nivel-cell { overflow: hidden; }
+    .ap-nivel-badge--max { box-shadow: 0 0 0 1.5px rgba(26,74,53,.45) !important; }
 }

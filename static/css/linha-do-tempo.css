@@ -216,3 +216,24 @@ body.linha-do-tempo-page .rb-main {
         font-size: 1.125rem;
     }
 }
+
+@media (max-width: 480px) {
+    .lt-wrapper {
+        margin: 8px;
+        border-radius: 10px;
+    }
+    .lt-main {
+        padding: 14px 14px 24px; /* extra padding inferior evita clip pelo border-radius */
+    }
+    .lt-construction-zone {
+        min-height: 0;
+        padding: 28px 16px 24px;
+    }
+    .lt-footer-actions {
+        justify-content: center;
+    }
+    .lt-voltar-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

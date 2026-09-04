@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (58ª entrada)
+
+### Fix — 5 bugs mobile (avaliacao-painel v10, linha-do-tempo v1, base.css v9)
+
+1. **Modal "Ver Niveis" cortando tabela (avaliacao-painel):** modal alterado de bottom-sheet para centralizado em mobile (align-items: center + padding: 12px), evitando cobrir as linhas da tabela.
+2. **Nivel 5 badge saindo da celula e cor incorreta:** cor do badge corrigida de azul (rgba 122,174,212) para verde escuro (rgba 26,74,53, cor #1a4a35); box-shadow reduzido a 1.5px; ap-nivel-cell com overflow:hidden para conter o badge.
+3. **Linha do Tempo — barra de progresso cortando quadro:** adicionado @media <=480px com min-height:0, padding reduzido na construction-zone e padding-bottom:24px no lt-main para evitar clip pelo border-radius do wrapper.
+4. **Pill PT|EN muito grande no mobile:** mudado de coluna empilhada para linha horizontal (flex-direction:row) ao lado do logo FNP; logo FNP reduzido de 34px para 30px; padding do botao reduzido a 3px 7px / font-size 0.625rem; removida sobreposicao do touch-target que reescrevia padding para 8px 14px.
+5. **Menu sanduiche muito gordo:** padding dos links reduzido de 16px 24px para 11px 18px; font-size de 1rem para 0.9375rem — menu mais esbelto seguindo referencia IFEM.
+
+---
+
 ## 2026-09-04 — `main` (57ª entrada)
 
 ### i18n — Auditoria completa EN: 86 novas traducoes na landing page (django.po 245→331 entradas)

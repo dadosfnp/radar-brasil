@@ -514,24 +514,26 @@ body.rb-body {
         height: 68px;
     }
 
-    /* FNP logo + lang — empilhados verticalmente no mobile */
+    /* FNP logo + lang — lado a lado no mobile (pill não empilha, não aumenta altura) */
     .rb-header-logo {
         grid-column: 3 / 4;
         justify-self: end;
         padding-right: 8px;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
     }
     .rb-header-logo-img {
-        height: 34px;
+        height: 30px;
     }
-    /* Pill PT|EN sai do absolute e fica no fluxo flex normal */
+    /* Pill PT|EN compacta ao lado do logo FNP */
     .rb-lang-form {
         position: static;
     }
     .rb-lang-btn {
-        padding: 5px 10px;
+        padding: 3px 7px;
+        font-size: 0.625rem;
+        letter-spacing: .05em;
     }
 
     /* Navbar mobile: hamburger no centro, dropdown abaixo do header */
@@ -569,19 +571,19 @@ body.rb-body {
     }
 
     .rb-nav-link {
-        padding: 16px 24px;
+        padding: 11px 18px;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         border-left: 3px solid transparent;
         border-bottom-right-radius: 0;
         white-space: normal;
         text-align: left;
-        font-size: 1rem;
+        font-size: 0.9375rem;
         font-weight: 500;
     }
     .rb-nav-link.active {
         border-bottom-color: rgba(255,255,255,0.08);
         border-left-color: #ffffff;
-        padding-left: 21px;
+        padding-left: 15px;
         color: #ffffff;
     }
 
@@ -681,9 +683,7 @@ body.rb-body {
     .rb-nav-hamburger {
         padding: 13px 10px;
     }
-    .rb-lang-btn {
-        padding: 8px 14px;
-    }
+    /* Pill: não sobrescreve — mantém compacta (definida acima) */
 
     /* Logos parceiros */
     .rb-footer-logos {
