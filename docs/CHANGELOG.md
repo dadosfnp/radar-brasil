@@ -4,6 +4,26 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (57ª entrada)
+
+### i18n — Auditoria completa EN: 86 novas traducoes na landing page (django.po 245→331 entradas)
+
+Auditoria identificou que a landing page foi redesenhada sem adicionar as novas strings ao `locale/en/LC_MESSAGES/django.po`. Afetava desktop e mobile igualmente.
+
+Strings adicionadas (todas ausentes ou com msgid diferente do template):
+- Hero: "Informacao que transforma territorios", "Impulsionando Acao Climatica e Federativa", descricao da plataforma
+- CTAs: "Explorar Paineis", "Conhecer o Projeto"
+- Info card: "Conhecimento em Acao", "Explore nossos paineis e ferramentas...", chips "Mapas" e "Dados"
+- Sidebar: "Sobre o Radar Brasil", "Conheca nossa missao..."
+- Cabecalho dos paineis: "Nossos Paineis", "Explore conhecimento que gera solucoes", "Paineis tematicos para entender desafios..."
+- Link "Ver todos os paineis"
+- Labels dos 4 cards: "Panorama", "Analises", "Territorio", "Colaboracao"
+- Botoes: "Acessar Painel", "Acessar painel Metodologia", "Explorar Mapa", "Ver Iniciativas"
+
+Compilado com polib: 331 entradas no django.mo.
+
+---
+
 ## 2026-09-03 — `next` (56ª entrada)
 
 ### Style — Rodape oculto no mobile (base.css v8)

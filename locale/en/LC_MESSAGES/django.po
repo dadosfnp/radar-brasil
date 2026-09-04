@@ -956,3 +956,73 @@ msgstr "financing lines"
 # ── Avaliação Painel – modal de níveis ────────────────────────
 msgid "Níveis de Avaliação"
 msgstr "Assessment Levels"
+
+# ── Landing page – nova versão (hero e painéis) ───────────────
+msgid "Informação que transforma territórios"
+msgstr "Information that transforms territories"
+
+msgid "Impulsionando Ação Climática e Federativa"
+msgstr "Advancing Climate and Federative Action"
+
+msgid "Uma plataforma integrada de informação, análise e colaboração para fortalecer a ação climática e o desenvolvimento sustentável nos territórios."
+msgstr "An integrated platform for information, analysis and collaboration to strengthen climate action and sustainable development across territories."
+
+msgid "Explorar Painéis"
+msgstr "Explore Dashboards"
+
+msgid "Conhecer o Projeto"
+msgstr "About the Project"
+
+msgid "Conhecimento em Ação"
+msgstr "Knowledge in Action"
+
+msgid "Explore nossos painéis e ferramentas para decisões mais informadas e colaborativas."
+msgstr "Explore our dashboards and tools for more informed and collaborative decisions."
+
+msgid "Mapas"
+msgstr "Maps"
+
+msgid "Dados"
+msgstr "Data"
+
+msgid "Sobre o Radar Brasil"
+msgstr "About Radar Brasil"
+
+msgid "Conheça nossa missão, metodologia e os parceiros que tornam essa iniciativa possível."
+msgstr "Learn about our mission, methodology and the partners that make this initiative possible."
+
+msgid "Nossos Painéis"
+msgstr "Our Dashboards"
+
+msgid "Explore conhecimento que gera soluções"
+msgstr "Explore knowledge that generates solutions"
+
+msgid "Painéis temáticos para entender desafios, identificar oportunidades e impulsionar ações concretas."
+msgstr "Thematic dashboards to understand challenges, identify opportunities and drive concrete actions."
+
+msgid "Ver todos os painéis"
+msgstr "View all dashboards"
+
+msgid "Panorama"
+msgstr "Overview"
+
+msgid "Acessar painel Metodologia"
+msgstr "Access Methodology Dashboard"
+
+msgid "Acessar Painel"
+msgstr "Access Dashboard"
+
+msgid "Análises"
+msgstr "Analysis"
+
+msgid "Território"
+msgstr "Territory"
+
+msgid "Explorar Mapa"
+msgstr "Explore Map"
+
+msgid "Colaboração"
+msgstr "Collaboration"
+
+msgid "Ver Iniciativas"
+msgstr "View Initiatives"
