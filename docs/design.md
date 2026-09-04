@@ -660,6 +660,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-03 | pendente  | Nivel 5: cor aprofundada para `#1a4a35` (verde floresta escuro) em todos os componentes — waffle, modal, badge, pip, escala, API |
 | 2026-09-04 | (HEAD)    | i18n: auditoria EN completa — 86 strings novas em django.po (245→331); landing page totalmente traduzida em desktop e mobile |
 | 2026-09-04 | (HEAD)    | fix mobile: modal Ver Niveis centralizado; badge Nivel 5 verde; Linha do Tempo sem clip; pill PT/EN lado a lado logo FNP; nav slimmer |
+| 2026-09-04 | (HEAD)    | Header mobile: pill PT/EN removida do header; globo + PT/EN no fundo do dropdown hamburger (padrao C40 Cities); FNP logo 36px |
 
 ---
 

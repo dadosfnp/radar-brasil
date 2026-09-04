@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-04 — `main` (59ª entrada)
+
+### Style — Seletor de idioma mobile: globo no dropdown (base.css v10)
+
+Seguindo o padrao do site C40 Cities: a pill PT/EN foi removida do header mobile e substituida por uma secao com icone de globo no fundo do menu hamburger.
+
+- **Header mobile:** pill PT|EN oculta (`display: none`) — FNP logo sem concorrencia, altura voltou a 36px
+- **Dropdown hamburger (mobile only):** nova secao `.rb-nav-lang-section` com icone SVG de globo + botoes PT e EN separados por borda translucida; secao oculta no desktop com `.rb-nav-lang-section { display: none }`
+- **Desktop:** sem alteracao — pill no header continua funcionando normalmente
+- CSS `base.css` v9 -> v10 | template `base.html` atualizado
+
+---
+
 ## 2026-09-04 — `main` (58ª entrada)
 
 ### Fix — 5 bugs mobile (avaliacao-painel v10, linha-do-tempo v1, base.css v9)

@@ -486,6 +486,9 @@ body.rb-body {
     flex: 1;
 }
 
+/* Seção idioma no dropdown mobile — oculta no desktop */
+.rb-nav-lang-section { display: none; }
+
 /* ---- RESPONSIVO ---- */
 @media (max-width: 768px) {
     /* Rodapé oculto no mobile — mapas e conteúdo ocupam a viewport inteira */
@@ -514,26 +517,19 @@ body.rb-body {
         height: 68px;
     }
 
-    /* FNP logo + lang — lado a lado no mobile (pill não empilha, não aumenta altura) */
+    /* FNP logo — pill oculta no mobile (idioma vai no dropdown do hamburger) */
     .rb-header-logo {
         grid-column: 3 / 4;
         justify-self: end;
         padding-right: 8px;
-        flex-direction: row;
         align-items: center;
-        gap: 6px;
     }
     .rb-header-logo-img {
-        height: 30px;
+        height: 36px;
     }
-    /* Pill PT|EN compacta ao lado do logo FNP */
+    /* Pill PT|EN oculta no header mobile — substituída pelo globo no dropdown */
     .rb-lang-form {
-        position: static;
-    }
-    .rb-lang-btn {
-        padding: 3px 7px;
-        font-size: 0.625rem;
-        letter-spacing: .05em;
+        display: none;
     }
 
     /* Navbar mobile: hamburger no centro, dropdown abaixo do header */
@@ -683,7 +679,48 @@ body.rb-body {
     .rb-nav-hamburger {
         padding: 13px 10px;
     }
-    /* Pill: não sobrescreve — mantém compacta (definida acima) */
+
+    /* Seção idioma no fundo do dropdown — globo + PT | EN */
+    .rb-nav-lang-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px 10px;
+        margin-top: 6px;
+        border-top: 1px solid rgba(255,255,255,0.12);
+        color: rgba(255,255,255,0.6);
+    }
+    .rb-nav-lang-form-mobile {
+        display: flex;
+        gap: 6px;
+    }
+    .rb-nav-lang-btn {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.28);
+        color: rgba(255,255,255,0.65);
+        padding: 5px 14px;
+        border-radius: 4px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: .08em;
+        cursor: pointer;
+        min-height: 36px;
+        transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .rb-nav-lang-btn.active {
+        background: rgba(255,255,255,0.14);
+        border-color: rgba(255,255,255,0.55);
+        color: #ffffff;
+    }
+    .rb-nav-lang-btn:hover {
+        background: rgba(255,255,255,0.10);
+        border-color: rgba(255,255,255,0.45);
+        color: rgba(255,255,255,0.9);
+    }
+    .rb-nav-globe-icon {
+        flex-shrink: 0;
+        opacity: 0.7;
+    }
 
     /* Logos parceiros */
     .rb-footer-logos {
