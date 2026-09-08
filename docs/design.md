@@ -716,6 +716,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-08 | (HEAD)    | Header global: substituido body::before por box-shadow no .rb-header-wrapper para cobrir gap de renderizacao sem adicionar altura visual (base.css v15) |
 | 2026-09-08 | pendente  | Metodologia: fix bolinha SVG flutuando (opacity="0" + animate snap) |
 | 2026-09-08 | pendente  | Metodologia: carrossel lateral substituido por scroll-stack — fotos sobem com scroll, bordas visiveis em empilhamento, texto fixo no sticky panel (metodologia.css v25) |
+| 2026-09-08 | pendente  | Metodologia scroll-stack v32: layout estilo Medellin — sem fundo navy, foto como card flutuante (6vh/14vw margins, radius 20px, shadow), texto navy, animacao via wheel-only sobre photos container |
 | 2026-09-08 | pendente  | Metodologia mobile: timeline redesenhada (foto 3) — ano grande left-aligned, linha vertical tracejada, conector dot + dash horizontal (metodologia.css v25) |
 
 ---

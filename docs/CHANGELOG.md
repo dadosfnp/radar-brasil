@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (70ª entrada)
+
+### Style — Metodologia: layout scroll-stack redesenhado (Medellin ref) + wheel-only animation (v32)
+
+- Secao scroll-stack sem faixa navy: background transparente, secao sem altura fixa
+- `.meto-scroll-sticky` convertido de `position: sticky` para `position: relative` com padding
+- Cores do texto alteradas de branco para navy (#264584 e rgba(38,69,132,...))
+- Fotos como card flutuante sobre fundo da pagina: `top: 6vh; bottom: 6vh; left: 14vw; right: 14vw; border-radius: 20px; box-shadow`
+- `.meto-scroll-photos` com `height: 56vh` e `cursor: ns-resize`
+- JS: animacao agora acionada somente via wheel sobre o container de fotos (e.preventDefault)
+  - Substituido `window.addEventListener('scroll', ...)` por `scrollPhotosEl.addEventListener('wheel', ..., { passive: false })`
+  - `photoProgress` (0 a 1) acumulado por `e.deltaY / 800`; sem rAF tick externo necessario
+- CSS v32 / metodologia.css
+
+---
+
 ## 2026-09-08 — pendente commit (69ª entrada)
 
 ### Style — Metodologia: fotos fullbleed no container, fundo navy restaurado (v28)
