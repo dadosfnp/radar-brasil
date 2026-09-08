@@ -279,7 +279,7 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-08)
 
-### Branch atual: `main` — `6bfed31` — droplet pendente de rebuild
+### Branch atual: `main` — `941b41a` — droplet pendente de rebuild
 
 ### Remotos
 
@@ -337,9 +337,9 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Header Global — estado (2026-09-08)
 
-CSS: `static/css/base.css` **v=14** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=15** | Template: `base_templates/base.html`
 
-**Gap acima do header (v14):**
+**Gap acima do header (v15):**
 - `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }` — cobre gap de renderizacao acima do sticky header com navy; nao afeta landing (usa `.lp-body`).
 - `html { background: var(--color-header-bg) url(fundo-bg.png) ... }` — navy como cor fallback do html.
 
@@ -393,31 +393,30 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 
 ### Metodologia — estado (2026-09-08)
 
-CSS: `static/css/metodologia.css` **v=24** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=25** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
-**Carousel (v23):**
-- Quote: "O propósito do Federalismo Climático é de buscar..." com atribuição "Resolução N°3, de Julho de 2024 do Conselho da Federação"
-- Nova classe `.meto-carousel-source` — `0.71875rem`, `rgba(255,255,255,.52)`, abaixo do quote
+**Scroll-stack de fotos (v25 — estado atual):**
+- Carrossel lateral removido. Secao `height: 300vh` + inner `position: sticky; height: 100vh`.
+- Grid: texto esquerda (42%) + fotos direita (58%). Fotos empilham com borda visivel (PEEK 26px) ao rolar.
+- Fotos iniciam em `translateY(110%)` e sobem progressivamente via JS (rAF-throttled scroll handler).
+- Mobile `<=900px`: collapsa para layout estatico (1 coluna, primeira foto visivel, secao `height: auto`).
 
-**Timeline (v24 — estado atual):**
-- Fundo: `#fff` (revertido de gradient navy não solicitado)
-- Bolha do ano: círculo navy 56×56px (`border-radius: 50%`, `background: #264584`, glow)
-- Linha horizontal (`::before`): `rgba(38,69,132,.20)`, 2px
-- Conector e scrollbar: `rgba(38,69,132,.25)` (navy translúcido)
+**Timeline (v25 — estado atual):**
+- Desktop: fundo `#fff`, bolha do ano circulo navy 56x56px, linha horizontal `rgba(38,69,132,.20)`.
+- Mobile `<=600px` (foto 3): ano como texto grande Sora 1.25rem bold em coluna de 66px; linha vertical
+  tracejada via `timeline-track::after` a `left: 65px`; conector dot navy (10px) + linha tracejada horizontal.
+  Ano com `background: #fff; z-index: 1` para cobrir a linha tracejada atras do texto.
 
 **Seção de Cálculo (v24):**
-- Três cards: Nível Parcial, Nível Eixo, Nível País
-- Fórmulas em fração CSS + tabelas de referência
-- Nível País: fundo gradient navy; grid 3col desktop / 1col mobile
-- i18n EN: 18 strings adicionadas em `django.po` (353 traduções total)
+- Tres cards: Nivel Parcial, Nivel Eixo, Nivel Pais
+- Formulas em fracao CSS + tabelas de referencia
+- Nivel Pais: fundo gradient navy; grid 3col desktop / 1col mobile
 
-**SVG bolinha perdida (v23):**
-- Círculos reversos com `begin="0s"` (era 1.3s/2.17s/0.43s — ficavam em origem 0,0)
-
-**Timeline mobile:**
-- Em `<=600px`: scroll-x desativado, layout vertical empilhado
+**SVG piramide — bolinha flutuando (v25 fix):**
+- Circulos com `begin="0.87s"` e `begin="1.73s"` iniciavam em (0,0) antes da animacao.
+- Fix: `opacity="0"` inicial + `<animate attributeName="opacity" fill="freeze" to="0.80"/>` no begin.
 
 ### Nota Pais — estado (2026-09-04)
 
@@ -509,10 +508,10 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo CSS | Versao no template |
 |---|---|
-| `base.css` | v=14 |
+| `base.css` | v=15 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=11 |
-| `metodologia.css` | v=24 |
+| `metodologia.css` | v=25 |
 | `avaliacao-painel.css` | v=12 |
 | `painel-multinivel.css` | v=14 |
 | `mapa-georreferenciado.css` | v=7 |
