@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (71ª entrada)
+
+### Fix — Metodologia: overflow das fotos corrigido + ordem e 4ª foto (v33)
+
+- `.meto-scroll-photos` alterado de `overflow: visible` para `overflow: hidden` — impedia fotos em translateY(110%) de vazar sobre secoes abaixo
+- Fotos reordenadas: 1-clima, 2-sociedade, 3-natureza, 4-cidade
+- Adicionada `cidade-metodologia.jpg` como 4ª foto (data-photo="3", z-index: 4)
+- CSS v33
+
+---
+
 ## 2026-09-08 — pendente commit (70ª entrada)
 
 ### Style — Metodologia: layout scroll-stack redesenhado (Medellin ref) + wheel-only animation (v32)

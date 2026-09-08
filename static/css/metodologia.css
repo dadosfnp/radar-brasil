@@ -381,8 +381,8 @@ body.metodologia-page .rb-main {
 .meto-scroll-photos {
     position: relative;
     height: 56vh;
-    overflow: visible;
-    cursor: ns-resize; /* indica que o scroll sobre a foto controla a animacao */
+    overflow: hidden; /* impede que fotos em translateY(110%) vazem sobre o conteudo abaixo */
+    cursor: ns-resize;
 }
 
 .meto-scroll-photo {
@@ -401,6 +401,7 @@ body.metodologia-page .rb-main {
 .meto-scroll-photo[data-photo="0"] { z-index: 1; }
 .meto-scroll-photo[data-photo="1"] { z-index: 2; }
 .meto-scroll-photo[data-photo="2"] { z-index: 3; }
+.meto-scroll-photo[data-photo="3"] { z-index: 4; }
 
 .meto-scroll-photo img {
     width: 100%;
