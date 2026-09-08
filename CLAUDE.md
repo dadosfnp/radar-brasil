@@ -306,13 +306,9 @@ Host fnp-web
 ```
 Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os comandos de deploy no proprio terminal.
 
-### Droplet — pendente de rebuild
+### Droplet — em dia
 
-Commits publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
-
-```bash
-cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
-```
+Ultimo rebuild: `15a0e10` (2026-09-09). Producao em `https://radarbrasil.fnp.org.br` sincronizada.
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
 
@@ -554,10 +550,6 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-- **CRITICO:** Droplet nao fez build dos commits recentes (dc7048f). Para aplicar:
-  ```bash
-  cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
-  ```
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
