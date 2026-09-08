@@ -319,25 +319,26 @@ body.metodologia-page .rb-main {
 .meto-scroll-section {
     position: relative;
     height: 300vh;
-    background: #101d4f;
+    background: transparent; /* fundo da pagina visivel acima/abaixo da faixa */
 }
 
 .meto-scroll-sticky {
     position: sticky;
-    top: 0;
-    height: 100vh;
+    top: 15vh; /* centraliza a faixa no viewport com 15vh acima e abaixo */
+    height: 70vh;
     display: grid;
     grid-template-columns: 58% 42%;
     overflow: hidden;
     align-items: center;
+    background: #101d4f;
 }
 
 .meto-scroll-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    padding: 48px 60px 48px 32px;
+    gap: 14px;
+    padding: 32px 48px 32px 24px;
 }
 
 .meto-scroll-tag {
@@ -350,7 +351,7 @@ body.metodologia-page .rb-main {
 
 .meto-scroll-quote {
     font-family: 'Sora', sans-serif;
-    font-size: 1.375rem;
+    font-size: 1.05rem;
     font-weight: 600;
     font-style: italic;
     color: rgba(255,255,255,.92);
@@ -387,11 +388,11 @@ body.metodologia-page .rb-main {
 
 .meto-scroll-photo {
     position: absolute;
-    top: 25vh;
-    left: 14vw;
-    right: 14vw;
-    bottom: 25vh;
-    border-radius: 16px;
+    top: 10vh;
+    left: 32px;
+    right: 16px;
+    bottom: 10vh;
+    border-radius: 12px;
     overflow: hidden;
     transform: translateY(110%);
     will-change: transform;
