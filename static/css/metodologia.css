@@ -1,5 +1,5 @@
 /* ==============================
-   PÁGINA METODOLOGIA — v11
+   PÁGINA METODOLOGIA — v12
    ============================== */
 
 body.metodologia-page {
@@ -313,95 +313,33 @@ body.metodologia-page .rb-main {
 }
 
 /* ══════════════════════════════
-   2. CARROSSEL DE FOTOS
+   2. FOTOS — SCROLL STACK
    ══════════════════════════════ */
 
-.meto-carousel-section {
+.meto-scroll-section {
+    position: relative;
+    height: 300vh;
     background: #101d4f;
-    overflow: hidden;
 }
 
-.meto-carousel-inner {
+.meto-scroll-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
     display: grid;
-    grid-template-columns: 56% 44%;
-    align-items: stretch;
-    min-height: 400px;
-    padding: 0;
-}
-
-.meto-carousel-media-wrap {
-    position: relative;
+    grid-template-columns: 42% 58%;
     overflow: hidden;
-    cursor: grab;
 }
 
-.meto-carousel-media {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 400px;
-}
-
-.meto-carousel-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-}
-
-.meto-carousel-img.active   { opacity: 1; }
-
-.meto-carousel-img.slide-in-right  { opacity: 0; transform: translateX(40px);  transition: none; }
-.meto-carousel-img.slide-in-left   { opacity: 0; transform: translateX(-40px); transition: none; }
-.meto-carousel-img.slide-out-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.5s, transform 0.5s; }
-.meto-carousel-img.slide-out-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.5s, transform 0.5s; }
-
-/* Overlay degrade esq→dir para suavizar transição para texto */
-.meto-carousel-media-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, transparent 80%, #101d4f 100%);
-    pointer-events: none;
-}
-
-.meto-carousel-dots {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 2;
-}
-
-.meto-c-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.38);
-    cursor: pointer;
-    transition: background .2s, transform .2s;
-}
-
-.meto-c-dot.active {
-    background: #fff;
-    transform: scale(1.2);
-}
-
-.meto-carousel-text-wrap {
+.meto-scroll-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 14px;
-    padding: 48px 48px 48px 40px;
+    gap: 24px;
+    padding: 60px 36px 60px 60px;
 }
 
-.meto-carousel-tag {
+.meto-scroll-tag {
     font-size: 0.6875rem;
     font-weight: 700;
     letter-spacing: .14em;
@@ -409,9 +347,9 @@ body.metodologia-page .rb-main {
     color: #22c55e;
 }
 
-.meto-carousel-quote {
+.meto-scroll-quote {
     font-family: 'Sora', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-weight: 600;
     font-style: italic;
     color: rgba(255,255,255,.92);
@@ -421,7 +359,7 @@ body.metodologia-page .rb-main {
     padding-left: 20px;
 }
 
-.meto-carousel-quote::before {
+.meto-scroll-quote::before {
     content: '';
     position: absolute;
     left: 0;
@@ -432,13 +370,40 @@ body.metodologia-page .rb-main {
     border-radius: 2px;
 }
 
-.meto-carousel-source {
+.meto-scroll-source {
     font-size: 0.71875rem;
     font-weight: 600;
-    color: rgba(255,255,255,.52);
-    letter-spacing: .03em;
+    color: rgba(255,255,255,.50);
     margin: 0;
     padding-left: 20px;
+}
+
+.meto-scroll-photos {
+    position: relative;
+    overflow: visible; /* deixa bordinha das fotos de baixo aparecer */
+}
+
+.meto-scroll-photo {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    right: 48px;
+    bottom: 48px;
+    border-radius: 24px;
+    overflow: hidden;
+    transform: translateY(110%);
+    will-change: transform;
+}
+
+.meto-scroll-photo[data-photo="0"] { z-index: 1; }
+.meto-scroll-photo[data-photo="1"] { z-index: 2; }
+.meto-scroll-photo[data-photo="2"] { z-index: 3; }
+
+.meto-scroll-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /* ══════════════════════════════
@@ -1045,9 +1010,15 @@ body.metodologia-page .rb-main {
     .meto-federalism-body { grid-template-columns: 1fr; }
     .meto-pyramid-wrap { display: none; }
 
-    .meto-carousel-inner { grid-template-columns: 1fr; }
-    .meto-carousel-text-wrap { padding: 32px 24px; }
-    .meto-carousel-quote { font-size: 1rem; }
+    /* Scroll stack: layout estático em <=900px (JS não anima) */
+    .meto-scroll-section { height: auto; }
+    .meto-scroll-sticky { position: static; height: auto; grid-template-columns: 1fr; }
+    .meto-scroll-text { padding: 40px 24px 20px; }
+    .meto-scroll-photos { height: 280px; }
+    .meto-scroll-photo { top: 0; bottom: 0; left: 16px; right: 16px; border-radius: 16px; }
+    .meto-scroll-photo[data-photo="0"] { transform: none; }
+    .meto-scroll-photo[data-photo="1"],
+    .meto-scroll-photo[data-photo="2"] { display: none; }
 
     .meto-eixos-grid { grid-template-columns: 1fr; }
 
@@ -1069,41 +1040,109 @@ body.metodologia-page .rb-main {
     .meto-criterion-row { flex-direction: column; align-items: flex-start; gap: 6px; }
     .meto-nivel-pills .meto-pip { width: 20px; height: 20px; font-size: 0.625rem; }
 
-    /* Timeline: layout vertical empilhado (ano + card lado a lado) */
+    /* Timeline: foto 3 — ano grande à esquerda, conector tracejado, linha vertical */
     .meto-timeline-scroll-outer {
         overflow-x: visible;
         overflow-y: visible;
-        padding: 16px;
+        padding: 8px 16px 24px;
     }
-    .meto-timeline-scroll-outer::before {
-        display: none;
-    }
+    .meto-timeline-scroll-outer::before { display: none; }
+
     .meto-timeline-track {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         min-width: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-        gap: 16px;
+        padding: 0;
+        gap: 0;
+        position: relative;
     }
+
+    /* Linha vertical tracejada — conecta os eventos pela esquerda */
+    .meto-timeline-track::after {
+        content: '';
+        position: absolute;
+        left: 65px; /* borda direita da coluna do ano */
+        top: 20px;
+        bottom: 20px;
+        width: 1.5px;
+        background: repeating-linear-gradient(
+            to bottom,
+            rgba(38,69,132,.30) 0px,
+            rgba(38,69,132,.30) 5px,
+            transparent 5px,
+            transparent 10px
+        );
+        pointer-events: none;
+    }
+
     .meto-tl-event {
         width: 100%;
         flex-direction: row;
         align-items: flex-start;
-        gap: 12px;
+        gap: 0;
+        padding: 12px 0;
+        position: relative;
     }
-    /* Reordenação mobile: bolha primeiro, conector hidden, card segundo */
+
+    /* Ano: texto grande proeminente à esquerda */
     .meto-tl-year-bubble {
         order: 1;
-        position: static;
-        min-width: 56px;
-        width: 56px;
-        height: 56px;
+        width: 66px;
+        min-width: 66px;
+        height: auto;
+        border-radius: 4px;
+        background: #fff; /* cobre a linha tracejada atrás do texto */
+        box-shadow: none;
+        color: #264584;
+        font-size: 1.25rem;
+        font-weight: 800;
+        font-family: 'Sora', sans-serif;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
         flex-shrink: 0;
         align-self: flex-start;
-        margin-top: 0;
+        padding: 2px 0;
+        position: relative;
+        z-index: 1;
+        line-height: 1.3;
     }
-    .meto-tl-connector { display: none; order: 2; }
+
+    /* Conector: dot + linha tracejada horizontal */
+    .meto-tl-connector {
+        display: flex;
+        order: 2;
+        width: 28px;
+        min-width: 28px;
+        flex-shrink: 0;
+        align-self: flex-start;
+        margin-top: 9px;
+        background: transparent;
+        position: relative;
+        height: 2px;
+    }
+
+    .meto-tl-connector::before {
+        content: '';
+        position: absolute;
+        left: -5px;
+        top: -4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #264584;
+        z-index: 2;
+    }
+
+    .meto-tl-connector::after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        right: -2px;
+        top: 0;
+        border-top: 2px dashed rgba(38,69,132,.45);
+    }
+
     .meto-tl-card {
         order: 3;
         flex: 1;

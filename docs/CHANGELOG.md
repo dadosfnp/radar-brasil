@@ -4,6 +4,29 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (66ª entrada)
+
+### Style — Metodologia: 3 melhorias visuais (metodologia.css v25)
+
+**1. Bolinha SVG flutuando no diagrama de pirâmide (fix)**
+- Causa: `<circle>` com `begin="0.87s"` e `begin="1.73s"` sem `cx`/`cy` renderizavam em (0,0) antes da animação começar.
+- Fix: adicionado `opacity="0"` inicial + `<animate attributeName="opacity" dur="0.01s" begin="Xs" fill="freeze" to="0.80"/>` para tornar os círculos invisíveis até o `begin` de cada animação.
+
+**2. Seção de fotos: substituída por scroll-stack (nova interação)**
+- Carrossel de navegação lateral removido.
+- Novo layout: `height: 300vh` com `position: sticky; height: 100vh`. Fotos começam em `translateY(110%)` e sobem progressivamente ao rolar. Cada foto descansada mostra `PEEK=26px` da borda das fotos atrás.
+- Grid: texto à esquerda (42%) + fotos à direita (58%). Texto: tag verde, quote com barra lateral verde, fonte Sora itálico 1.375rem.
+- Mobile (<=900px): collapsa para layout estático, apenas a primeira foto visível.
+- JS: rAF-throttled scroll handler, `section.getBoundingClientRect().top` como referência.
+
+**3. Timeline mobile: redesenho estilo foto 3**
+- Breakpoint `<=600px`: ano como texto grande (Sora 1.25rem bold) em coluna de 66px à esquerda, sem borda/círculo.
+- Linha vertical tracejada via `meto-timeline-track::after` a `left: 65px`.
+- Conector horizontal: dot navy (10px) + linha tracejada via `meto-tl-connector::before/::after`.
+- Ano com `background: #fff; z-index: 1` para cobrir a linha tracejada atrás do texto.
+
+---
+
 ## 2026-09-08 — `main` (65ª entrada)
 
 ### Fix — remove faixa extra acima do header; usa box-shadow (base.css v15)

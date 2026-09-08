@@ -714,6 +714,9 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-04 | (HEAD)    | fix mobile: modal Ver Niveis centralizado; badge Nivel 5 verde; Linha do Tempo sem clip; pill PT/EN lado a lado logo FNP; nav slimmer |
 | 2026-09-04 | (HEAD)    | Header mobile: pill PT/EN removida do header; globo + PT/EN no fundo do dropdown hamburger (padrao C40 Cities); FNP logo 36px |
 | 2026-09-08 | (HEAD)    | Header global: substituido body::before por box-shadow no .rb-header-wrapper para cobrir gap de renderizacao sem adicionar altura visual (base.css v15) |
+| 2026-09-08 | pendente  | Metodologia: fix bolinha SVG flutuando (opacity="0" + animate snap) |
+| 2026-09-08 | pendente  | Metodologia: carrossel lateral substituido por scroll-stack — fotos sobem com scroll, bordas visiveis em empilhamento, texto fixo no sticky panel (metodologia.css v25) |
+| 2026-09-08 | pendente  | Metodologia mobile: timeline redesenhada (foto 3) — ano grande left-aligned, linha vertical tracejada, conector dot + dash horizontal (metodologia.css v25) |
 
 ---
 

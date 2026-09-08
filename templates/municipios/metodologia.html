@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=24">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=25">
 {% endblock %}
 
 {% block content %}
@@ -102,10 +102,12 @@
                     <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
                         <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#py-p1"/></animateMotion>
                     </circle>
-                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
+                    <circle r="3.5" fill="#264584" opacity="0" filter="url(#py-glow)">
+                        <animate attributeName="opacity" dur="0.01s" begin="0.87s" fill="freeze" to="0.80"/>
                         <animateMotion dur="2.6s" begin="0.87s" repeatCount="indefinite"><mpath href="#py-p2"/></animateMotion>
                     </circle>
-                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
+                    <circle r="3.5" fill="#264584" opacity="0" filter="url(#py-glow)">
+                        <animate attributeName="opacity" dur="0.01s" begin="1.73s" fill="freeze" to="0.80"/>
                         <animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite"><mpath href="#py-p3"/></animateMotion>
                     </circle>
                     <!-- Pontos animados em sentido reverso (volta: nós→União) -->
@@ -185,34 +187,33 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     2. CARROSSEL DE FOTOS (estilo Medellín)
+     2. FOTOS — SCROLL STACK (estilo Medellín)
      ═══════════════════════════════════════════ -->
-<section class="meto-carousel-section">
-    <div class="meto-inner meto-carousel-inner">
+<div class="meto-scroll-section" id="meto-scroll-section">
+    <div class="meto-scroll-sticky">
 
-        <div class="meto-carousel-media-wrap" id="meto-carousel-wrap">
-            <div class="meto-carousel-media" id="meto-carousel">
-                <img src="{% static 'img/natureza-metodologia.jpg' %}"  alt="{% trans 'Natureza' %}"   class="meto-carousel-img active" data-idx="0">
-                <img src="{% static 'img/sociedade-metodologia.jpg' %}" alt="{% trans 'Sociedade' %}" class="meto-carousel-img"        data-idx="1">
-                <img src="{% static 'img/clima-metodologia.jpg' %}"     alt="{% trans 'Clima' %}"     class="meto-carousel-img"        data-idx="2">
-            </div>
-            <div class="meto-carousel-dots" aria-hidden="true">
-                <span class="meto-c-dot active"></span>
-                <span class="meto-c-dot"></span>
-                <span class="meto-c-dot"></span>
-            </div>
-        </div>
-
-        <div class="meto-carousel-text-wrap">
-            <div class="meto-carousel-tag">{% trans "Federalismo Climático" %}</div>
-            <p class="meto-carousel-quote">
+        <div class="meto-scroll-text">
+            <div class="meto-scroll-tag">{% trans "Federalismo Climático" %}</div>
+            <p class="meto-scroll-quote">
                 {% trans "O propósito do Federalismo Climático é de buscar" %} &#8220;{% trans "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática" %}&#8221;.
             </p>
-            <p class="meto-carousel-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
+            <p class="meto-scroll-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
+        </div>
+
+        <div class="meto-scroll-photos" id="meto-scroll-photos">
+            <div class="meto-scroll-photo" data-photo="0">
+                <img src="{% static 'img/natureza-metodologia.jpg' %}" alt="{% trans 'Natureza' %}">
+            </div>
+            <div class="meto-scroll-photo" data-photo="1">
+                <img src="{% static 'img/sociedade-metodologia.jpg' %}" alt="{% trans 'Sociedade' %}">
+            </div>
+            <div class="meto-scroll-photo" data-photo="2">
+                <img src="{% static 'img/clima-metodologia.jpg' %}" alt="{% trans 'Clima' %}">
+            </div>
         </div>
 
     </div>
-</section>
+</div>
 
 <!-- ═══════════════════════════════════════════
      3. HISTÓRICO — Linha do tempo horizontal
@@ -696,103 +697,51 @@
     var sidebar = document.getElementById('meto-sidebar');
     if (sidebar) io.observe(sidebar);
 
-    /* Carrossel de fotos — scroll/wheel sobre a área */
-    var carousel   = document.getElementById('meto-carousel');
-    var carouselWrap = document.getElementById('meto-carousel-wrap');
-    if (carousel && !reducedMotion) {
-        var imgs = carousel.querySelectorAll('.meto-carousel-img');
-        var dots = document.querySelectorAll('.meto-c-dot');
-        var currentIdx = 0;
-        var scrollAccum = 0;
-        var THRESHOLD = 80;
-        var transitioning = false;
+    /* Scroll-stack de fotos */
+    var scrollSect  = document.getElementById('meto-scroll-section');
+    var scrollPhotos = scrollSect ? Array.prototype.slice.call(scrollSect.querySelectorAll('.meto-scroll-photo')) : [];
+    var PEEK = 26; /* px que a foto de baixo fica visível atrás da foto de cima */
+    var _rafTick = false;
 
-        function goTo(idx) {
-            if (transitioning) return;
-            idx = (idx + imgs.length) % imgs.length;
-            if (idx === currentIdx) return;
-            transitioning = true;
-            var prev = currentIdx;
-            var next = idx;
-            var dir  = next > prev ? 1 : -1;
+    function updateScrollPhotos() {
+        if (!scrollSect || !scrollPhotos.length) return;
+        if (window.innerWidth <= 900) return; /* no mobile mostra só última foto, sem scroll-stack */
 
-            imgs[next].classList.add(dir > 0 ? 'slide-in-right' : 'slide-in-left');
-            imgs[next].classList.remove('active');
+        var rect = scrollSect.getBoundingClientRect();
+        var scrolled = -rect.top;
+        var totalRange = scrollSect.offsetHeight - window.innerHeight;
+        if (totalRange <= 0) return;
+        var segment = totalRange / scrollPhotos.length;
 
-            setTimeout(function() {
-                imgs[prev].classList.remove('active');
-                imgs[prev].classList.add(dir > 0 ? 'slide-out-left' : 'slide-out-right');
-                imgs[next].classList.add('active');
-                imgs[next].classList.remove('slide-in-right', 'slide-in-left');
-                setTimeout(function() {
-                    imgs[prev].classList.remove('slide-out-left', 'slide-out-right');
-                    transitioning = false;
-                }, 500);
-            }, 20);
+        scrollPhotos.forEach(function(photo, i) {
+            var p = Math.max(0, Math.min(1, (scrolled - i * segment) / segment));
 
-            currentIdx = next;
-            dots.forEach(function(d, i) { d.classList.toggle('active', i === currentIdx); });
-        }
-
-        carouselWrap.addEventListener('wheel', function(e) {
-            e.preventDefault();
-            scrollAccum += e.deltaY;
-            if (scrollAccum >  THRESHOLD) { scrollAccum = 0; goTo(currentIdx + 1); }
-            if (scrollAccum < -THRESHOLD) { scrollAccum = 0; goTo(currentIdx - 1); }
-        }, { passive: false });
-
-        /* Dots click */
-        dots.forEach(function(d, i) {
-            d.addEventListener('click', function() { goTo(i); });
-        });
-
-        /* Touch swipe */
-        var touchStartX = 0;
-        carouselWrap.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-        carouselWrap.addEventListener('touchend', function(e) {
-            var dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 40) goTo(currentIdx + (dx < 0 ? 1 : -1));
-        }, { passive: true });
-
-        /* Mouse drag */
-        var dragStartX = 0;
-        var isDragging = false;
-        var DRAG_THRESHOLD = 50;
-
-        carouselWrap.addEventListener('mousedown', function(e) {
-            dragStartX = e.clientX;
-            isDragging = true;
-            carouselWrap.style.cursor = 'grabbing';
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-        });
-
-        document.addEventListener('mouseup', function(e) {
-            if (!isDragging) return;
-            isDragging = false;
-            carouselWrap.style.cursor = 'grab';
-            var dx = e.clientX - dragStartX;
-            if (Math.abs(dx) > DRAG_THRESHOLD) goTo(currentIdx + (dx < 0 ? 1 : -1));
-        });
-
-        carouselWrap.addEventListener('mouseleave', function() {
-            if (isDragging) {
-                isDragging = false;
-                carouselWrap.style.cursor = 'grab';
+            if (p <= 0) {
+                /* ainda não entrou */
+                photo.style.transform = 'translateY(110%)';
+            } else if (p < 1) {
+                /* entrando — sobe de 110% → 0% */
+                photo.style.transform = 'translateY(' + ((1 - p) * 110) + '%)';
+            } else {
+                /* assentada — calcula quanto abaixa conforme fotos seguintes entram */
+                var peekPx = 0;
+                for (var j = i + 1; j < scrollPhotos.length; j++) {
+                    var jp = Math.max(0, Math.min(1, (scrolled - j * segment) / segment));
+                    peekPx += jp * PEEK;
+                }
+                photo.style.transform = 'translateY(' + peekPx + 'px)';
             }
         });
+    }
 
-        /* Evita arrastar imagem nativa do browser */
-        carousel.querySelectorAll('img').forEach(function(img) {
-            img.addEventListener('dragstart', function(e) { e.preventDefault(); });
-        });
-
-        /* Auto-advance */
-        setInterval(function() { if (!document.hidden) goTo(currentIdx + 1); }, 5000);
+    if (scrollSect && scrollPhotos.length) {
+        window.addEventListener('scroll', function() {
+            if (!_rafTick) {
+                requestAnimationFrame(function() { updateScrollPhotos(); _rafTick = false; });
+                _rafTick = true;
+            }
+        }, { passive: true });
+        updateScrollPhotos();
     }
 
     /* Pirâmide: anima entrada */
