@@ -713,6 +713,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-04 | (HEAD)    | i18n: auditoria EN completa — 86 strings novas em django.po (245→331); landing page totalmente traduzida em desktop e mobile |
 | 2026-09-04 | (HEAD)    | fix mobile: modal Ver Niveis centralizado; badge Nivel 5 verde; Linha do Tempo sem clip; pill PT/EN lado a lado logo FNP; nav slimmer |
 | 2026-09-04 | (HEAD)    | Header mobile: pill PT/EN removida do header; globo + PT/EN no fundo do dropdown hamburger (padrao C40 Cities); FNP logo 36px |
+| 2026-09-08 | (HEAD)    | Header global: substituido body::before por box-shadow no .rb-header-wrapper para cobrir gap de renderizacao sem adicionar altura visual (base.css v15) |
 
 ---
 

@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — `main` (65ª entrada)
+
+### Fix — remove faixa extra acima do header; usa box-shadow (base.css v15)
+
+- Problema: `body.rb-body::before { position: fixed; height: 20px }` cobria o gap mas tornava o header visualmente maior (a faixa de 20px aparecia acima do conteúdo do header).
+- Fix: removido o `::before` e substituído por `box-shadow: 0 -20px 0 20px var(--color-header-bg)` no `.rb-header-wrapper`. Box-shadow é parte da camada de composição do próprio elemento (z-index: 1001) — cobre o gap de renderização acima do sticky sem adicionar altura ao layout.
+
+---
+
 ## 2026-09-08 — `main` (64ª entrada)
 
 ### Fix — faixa branca acima do header em todas as páginas exceto landing (base.css v14)
