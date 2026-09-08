@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-04
+> Última atualização: 2026-09-08
 
 ---
 
@@ -277,16 +277,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-04)
+## Estado Atual do Projeto (2026-09-08)
 
-### Branch atual: `main` — `983067b` — droplet pendente de rebuild
+### Branch atual: `main` — `6bfed31` — droplet pendente de rebuild
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `983067b` | `983067b` |
-| `prod` (dadosfnp) | - | `983067b` |
+| `origin` (brunofnp) | `6bfed31` | `6bfed31` |
+| `prod` (dadosfnp) | - | `6bfed31` |
 
 > `origin` e `prod` identicos em `main`. Branch `next` sincronizado em `origin`.
 > Criar feature branches a partir de `next`.
@@ -297,7 +297,7 @@ Remotos `origin` e `prod` configurados com PAT do brunofnp no `.git/config` para
 
 ### Droplet — pendente de rebuild
 
-Commits `66ef1fc`, `ff45519`, `c1a179e` publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
+Commits publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
 
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
@@ -335,9 +335,13 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-04)
+### Header Global — estado (2026-09-08)
 
-CSS: `static/css/base.css` **v=8** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=14** | Template: `base_templates/base.html`
+
+**Gap acima do header (v14):**
+- `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }` — cobre gap de renderizacao acima do sticky header com navy; nao afeta landing (usa `.lp-body`).
+- `html { background: var(--color-header-bg) url(fundo-bg.png) ... }` — navy como cor fallback do html.
 
 Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
 - Coluna esquerda: logo Radar Brasil SVG, `height: 124px` desktop / `68px` mobile, `filter: brightness(0) invert(1)`
@@ -387,34 +391,33 @@ CSS: `static/css/landing.css` v=11 | Template: `templates/municipios/landing.htm
 
 Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon` (fundo cinza, cursor default, badge "Em breve").
 
-### Metodologia — estado (2026-09-04)
+### Metodologia — estado (2026-09-08)
 
-CSS: `static/css/metodologia.css` **v=22** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=24** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
-**Carousel (v22):**
-- Label "Federalismo Climático" acima do quote (verde `#22c55e`, uppercase 0.6875rem)
-- Quote agora em itálico com aspas HTML ao redor do texto
-- Texto-wrap: `flex-direction: column; gap: 14px`
+**Carousel (v23):**
+- Quote: "O propósito do Federalismo Climático é de buscar..." com atribuição "Resolução N°3, de Julho de 2024 do Conselho da Federação"
+- Nova classe `.meto-carousel-source` — `0.71875rem`, `rgba(255,255,255,.52)`, abaixo do quote
 
-**Timeline redesenhada (v22):**
-- Cards alinhados pelo TOPO; linha horizontal movida para a BASE da timeline
-- Bolha do ano: pill oval amarela (`#f5c400`), texto navy, substituindo retângulo navy
-- Conectores verticais flexíveis entre card e dot; `align-items: stretch` no track
-- CSS `order` posiciona card(1) → conector(2) → dot(3) sem alterar HTML
+**Timeline (v24 — estado atual):**
+- Fundo: `#fff` (revertido de gradient navy não solicitado)
+- Bolha do ano: círculo navy 56×56px (`border-radius: 50%`, `background: #264584`, glow)
+- Linha horizontal (`::before`): `rgba(38,69,132,.20)`, 2px
+- Conector e scrollbar: `rgba(38,69,132,.25)` (navy translúcido)
 
-**Seção de Cálculo (v22, nova):**
-- Três cards ao final da página: Nível Parcial, Nível Eixo, Nível País
-- Fórmulas matemáticas em fração CSS + tabelas de referência
+**Seção de Cálculo (v24):**
+- Três cards: Nível Parcial, Nível Eixo, Nível País
+- Fórmulas em fração CSS + tabelas de referência
 - Nível País: fundo gradient navy; grid 3col desktop / 1col mobile
+- i18n EN: 18 strings adicionadas em `django.po` (353 traduções total)
 
-**Timeline mobile (v22):**
+**SVG bolinha perdida (v23):**
+- Círculos reversos com `begin="0s"` (era 1.3s/2.17s/0.43s — ficavam em origem 0,0)
+
+**Timeline mobile:**
 - Em `<=600px`: scroll-x desativado, layout vertical empilhado
-- `.meto-tl-year-bubble { order: 1 }` — bolha à esquerda no layout horizontal
-- `.meto-tl-connector { display: none }` — conector oculto em mobile
-- `.meto-tl-card { order: 3 }` — card à direita da bolha
-- Em `<=900px`: `justify-content: flex-start` para evitar corte no scroll-x
 
 ### Nota Pais — estado (2026-09-04)
 
@@ -506,23 +509,23 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo CSS | Versao no template |
 |---|---|
-| `base.css` | v=11 |
+| `base.css` | v=14 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=11 |
-| `metodologia.css` | v=22 |
-| `avaliacao-painel.css` | v=11 |
-| `painel-multinivel.css` | v=13 |
+| `metodologia.css` | v=24 |
+| `avaliacao-painel.css` | v=12 |
+| `painel-multinivel.css` | v=14 |
 | `mapa-georreferenciado.css` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `nota-pais.css` | v=9 |
 
 ### Pendencias
 
-- **CRITICO:** Droplet nao fez build do commit `983067b` (11 correcoes). Rodar:
+- **CRITICO:** Droplet nao fez build dos commits recentes. Para aplicar:
   ```bash
   cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
   ```
-- Branch `next` sincronizado em `origin` com `983067b`
+- Branch `next` sincronizado em `origin` com `6bfed31`
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
