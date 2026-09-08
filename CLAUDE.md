@@ -279,14 +279,14 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-09)
 
-### Branch atual: `main` — `dc7048f`
+### Branch atual: `main` — `e12cb6d`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `dc7048f` | `dc7048f` |
-| `prod` (dadosfnp) | - | `dc7048f` |
+| `origin` (brunofnp) | `e12cb6d` | `e12cb6d` |
+| `prod` (dadosfnp) | - | `e12cb6d` |
 
 > `origin` e `prod` identicos em `main`. Branch `next` sincronizado em `origin`.
 > Criar feature branches a partir de `next`.
@@ -306,9 +306,13 @@ Host fnp-web
 ```
 Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os comandos de deploy no proprio terminal.
 
-### Droplet — em dia
+### Droplet — pendente de rebuild
 
-Ultimo rebuild: `15a0e10` (2026-09-09). Producao em `https://radarbrasil.fnp.org.br` sincronizada.
+Commits `33762fd` e `e12cb6d` publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
+
+```bash
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
+```
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
 
@@ -476,20 +480,25 @@ CSS: `static/css/mapa-georreferenciado.css` **v=7** | Template: `templates/munic
 
 ### Painel Multinivel — estado (2026-09-09)
 
-CSS: `static/css/painel-multinivel.css` v=15 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=17 | Template: `templates/municipios/painel-multinivel.html`
 
 Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro.
 
-**Fix numeros cortados (v15):**
-- `.pm-grid-tick { height: 24px; padding-top: 8px }` — era `height: 10px`
-- Causa raiz: `overflow-x: auto` no pai forcava `overflow-y: hidden` implicitamente, cortando texto acima de 10px
-- `.pm-grid-tick--label { font-size: 0.625rem }` — era `0.5625rem`
+**Fix overflow waffle no mobile (v17):**
+- `min-width: 0` em `.pm-grid-container`, `.pm-grid-row`, `.pm-grid-cells`, `.pm-grid-ruler-cells`
+- Sem isso, `min-width: auto` (default flex) forcava expansao para ~700px quebrando o layout
+- `overflow: hidden` adicionado ao `.pm-chart-area` no mobile como barreira adicional
 
-### Avaliacao Painel — estado (2026-09-03)
+### Avaliacao Painel — estado (2026-09-09)
 
-CSS: `static/css/avaliacao-painel.css` v=9 | Template: `templates/municipios/avaliacao-painel.html`
+CSS: `static/css/avaliacao-painel.css` v=14 | Template: `templates/municipios/avaliacao-painel.html`
 
 Todos os touch targets elevados para min-height: 44px em mobile.
+
+**Fix modal ficha tecnica mobile (v14):**
+- `inset: 88px 0 0` no `.ap-modal-overlay` em `<=900px` — overlay inicia abaixo do header
+- Substituiu abordagem anterior de `padding-top: calc(88px + 8px)` que nao funcionava
+- `.ap-modal-box { max-height: calc(100svh - 88px - 20px) }` — altura limitada ao espaco disponivel
 
 ### Financiamento Climatico — estado (2026-09-03)
 
@@ -541,9 +550,9 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=15 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
-| `metodologia.css` | v=36 |
-| `avaliacao-painel.css` | v=9 |
-| `painel-multinivel.css` | v=15 |
+| `metodologia.css` | v=37 |
+| `avaliacao-painel.css` | v=14 |
+| `painel-multinivel.css` | v=17 |
 | `mapa-georreferenciado.css` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `nota-pais.css` | v=9 |
