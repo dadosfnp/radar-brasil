@@ -33,6 +33,19 @@ body.rb-body {
     flex-direction: column;
 }
 
+/* Cobre qualquer lacuna acima do sticky header (gap de renderizacao em browsers) */
+body.rb-body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: var(--color-header-bg);
+    z-index: 1000;
+    pointer-events: none;
+}
+
 /* HEADER */
 .rb-header-wrapper {
     background-color: var(--color-header-bg);

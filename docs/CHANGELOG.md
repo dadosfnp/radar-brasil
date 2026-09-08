@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — `main` (64ª entrada)
+
+### Fix — faixa branca acima do header em todas as páginas exceto landing (base.css v14)
+
+- Causa raiz: commit `937a219` removeu `.rb-header-wrapper::before` que cobria o gap de ~10px
+  acima do sticky header. Gap expõe o fundo-bg.png (azul claro) que parece branco contra o header navy.
+  Landing não é afetada porque `body.lp-body { background: #ffffff }` cobre o gap com branco invisível.
+- Fix: `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }`.
+  Elemento fixed cobre o gap com navy, independente de compositing do sticky header. Não afeta landing.
+
+---
+
 ## 2026-09-04 — `main` (63ª entrada)
 
 ### Fix — espaço branco acima do header: background-color navy no html (base.css v13)
