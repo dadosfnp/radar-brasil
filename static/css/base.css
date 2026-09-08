@@ -83,6 +83,7 @@ body.rb-body {
 .rb-header-logo-radar {
     grid-column: 1 / 2;
     justify-self: start;
+    align-self: flex-start; /* topo a topo com logo FNP */
 }
 
 .rb-header-logo-radar a {
@@ -105,6 +106,7 @@ body.rb-body {
 .rb-header-logo {
     grid-column: 3 / 4;
     justify-self: end;
+    align-self: flex-start; /* topo a topo com logo Radar; pill fica abaixo dentro do header */
 }
 
 .rb-header-logo a {
@@ -134,9 +136,10 @@ body.rb-body {
 
 .rb-lang-form {
     position: absolute;
-    bottom: -8px;
+    top: 100%;
+    margin-top: 4px;
     right: 16px;
-    margin: 0;
+    margin-right: 0;
 }
 
 .rb-lang-toggle {
@@ -509,10 +512,6 @@ body.rb-body {
     }
     .rb-header-logo-img {
         height: 44px;
-    }
-    /* Pill ainda mais próximo — header compacto */
-    .rb-lang-form {
-        bottom: -2px;
     }
 }
 
