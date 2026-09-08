@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=26">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=27">
 {% endblock %}
 
 {% block content %}
@@ -192,14 +192,6 @@
 <div class="meto-scroll-section" id="meto-scroll-section">
     <div class="meto-scroll-sticky">
 
-        <div class="meto-scroll-text">
-            <div class="meto-scroll-tag">{% trans "Federalismo Climático" %}</div>
-            <p class="meto-scroll-quote">
-                {% trans "O propósito do Federalismo Climático é de buscar" %} &#8220;{% trans "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática" %}&#8221;.
-            </p>
-            <p class="meto-scroll-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
-        </div>
-
         <div class="meto-scroll-photos" id="meto-scroll-photos">
             <div class="meto-scroll-photo" data-photo="0">
                 <img src="{% static 'img/natureza-metodologia.jpg' %}" alt="{% trans 'Natureza' %}">
@@ -210,6 +202,14 @@
             <div class="meto-scroll-photo" data-photo="2">
                 <img src="{% static 'img/clima-metodologia.jpg' %}" alt="{% trans 'Clima' %}">
             </div>
+        </div>
+
+        <div class="meto-scroll-text">
+            <div class="meto-scroll-tag">{% trans "Federalismo Climático" %}</div>
+            <p class="meto-scroll-quote">
+                {% trans "O propósito do Federalismo Climático é de buscar" %} &#8220;{% trans "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática" %}&#8221;.
+            </p>
+            <p class="meto-scroll-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
         </div>
 
     </div>

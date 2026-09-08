@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (68ª entrada)
+
+### Style — Metodologia: fotos à esquerda, texto à direita, tamanho original (v27)
+
+- Ordem invertida: fotos na coluna esquerda (58%), texto na direita (42%)
+- Tamanho das fotos revertido: top/bottom/left 48px (era 80px)
+- Padding do texto ajustado para lado direito: 48px 60px 48px 32px
+
+---
+
 ## 2026-09-08 — pendente commit (67ª entrada)
 
 ### Style — Metodologia: numeros do escopo atualizados + scroll-stack ajustes (v26)

@@ -327,7 +327,7 @@ body.metodologia-page .rb-main {
     top: 0;
     height: 100vh;
     display: grid;
-    grid-template-columns: 46% 54%;
+    grid-template-columns: 58% 42%;
     overflow: hidden;
     align-items: center;
 }
@@ -337,7 +337,7 @@ body.metodologia-page .rb-main {
     flex-direction: column;
     justify-content: center;
     gap: 20px;
-    padding: 48px 32px 48px 60px;
+    padding: 48px 60px 48px 32px;
 }
 
 .meto-scroll-tag {
@@ -387,10 +387,10 @@ body.metodologia-page .rb-main {
 
 .meto-scroll-photo {
     position: absolute;
-    top: 80px;
-    left: 16px;
-    right: 64px;
-    bottom: 80px;
+    top: 48px;
+    left: 48px;
+    right: 16px;
+    bottom: 48px;
     border-radius: 20px;
     overflow: hidden;
     transform: translateY(110%);
