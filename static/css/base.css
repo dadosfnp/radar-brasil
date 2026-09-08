@@ -90,7 +90,7 @@ body.rb-body {
 }
 
 .rb-header-radar-img {
-    height: 124px;
+    height: 87px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
@@ -134,7 +134,7 @@ body.rb-body {
 
 .rb-lang-form {
     position: absolute;
-    bottom: -26px;
+    bottom: -8px;
     right: 16px;
     margin: 0;
 }
@@ -490,7 +490,7 @@ body.rb-body {
     }
     /* Logo Radar Brasil um pouco menor */
     .rb-header-radar-img {
-        height: 96px;
+        height: 67px;
     }
     /* Logo FNP um pouco menor */
     .rb-header-logo-img {
@@ -505,10 +505,14 @@ body.rb-body {
         padding: 8px 8px;
     }
     .rb-header-radar-img {
-        height: 80px;
+        height: 56px;
     }
     .rb-header-logo-img {
         height: 44px;
+    }
+    /* Pill ainda mais próximo — header compacto */
+    .rb-lang-form {
+        bottom: -2px;
     }
 }
 
@@ -537,7 +541,7 @@ body.rb-body {
         justify-self: start;
     }
     .rb-header-radar-img {
-        height: 68px;
+        height: 48px;
     }
 
     /* FNP logo — pill oculta no mobile (idioma vai no dropdown do hamburger) */
@@ -582,7 +586,7 @@ body.rb-body {
         box-shadow: 0 16px 48px rgba(0,0,0,0.5);
         border-top: 2px solid rgba(255,255,255,0.12);
         padding: 4px 0 16px;
-        max-height: calc(100vh - 96px);
+        max-height: calc(100vh - 68px);
         overflow-y: auto;
     }
     .rb-main-nav.nav-open .rb-nav-links {

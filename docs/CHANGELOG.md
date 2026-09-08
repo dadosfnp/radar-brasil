@@ -6,6 +6,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Logo header -30% e correcoes de altura do header (base v16, avaliacao-painel v15, nota-pais v10, mapa-georreferenciado v8)
+
+- Radar Brasil logo: 124px → 87px (desktop), 96px → 67px (≤1280px), 80px → 56px (≤1024px), 68px → 48px (mobile ≤768px)
+- Pill PT|EN: `bottom: -26px` → `-8px` para manter dentro do header menor; `-2px` em ≤1024px
+- Header mobile agora ~68px — atualizado em todos os `calc(100svh - Npx)`:
+  - `avaliacao-painel.css`: `inset: 88px` → `68px`; `max-height: calc(100svh - 88px - 20px)` → `68px`
+  - `nota-pais.css`: `88px` → `68px`, `96px` → `76px`
+  - `mapa-georreferenciado.css`: `88px` → `68px`, `96px` → `76px`
+  - `base.css` (nav dropdown): `max-height: calc(100vh - 96px)` → `68px`
+
+---
+
 ### chore — Atualiza logo-radar-positivo-monocromatico.svg
 
 - Nova versao do logo positivo monocromatico substitui o arquivo anterior

@@ -452,8 +452,8 @@ body.np-body .rb-main {
     .np-intro { display: none; }
     .np-page { padding: 0; gap: 0; }
     .np-card { flex-direction: column; min-height: unset; overflow: visible; border-radius: 0; box-shadow: none;
-        height: calc(100vh - 88px);
-        height: calc(100svh - 88px);
+        height: calc(100vh - 68px);
+        height: calc(100svh - 68px);
         flex-shrink: 0;
     }
 
@@ -550,8 +550,8 @@ body.np-body .rb-main {
     .np-intro { display: none; }
     .np-page  { padding: 0; gap: 8px; }
     .np-map-container {
-        height: calc(100vh - 96px);
-        height: calc(100svh - 96px); /* svh: viewport height com chrome do browser visível */
+        height: calc(100vh - 76px);
+        height: calc(100svh - 76px); /* svh: viewport height com chrome do browser visível */
         border-radius: 0;
     }
     /* FAB com margem extra do fundo para não ser cortado */
