@@ -319,7 +319,7 @@ body.metodologia-page .rb-main {
 .meto-scroll-section {
     position: relative;
     height: 300vh;
-    background: #101d4f;
+    background: transparent; /* usa a cor de fundo da pagina */
 }
 
 .meto-scroll-sticky {
@@ -327,16 +327,17 @@ body.metodologia-page .rb-main {
     top: 0;
     height: 100vh;
     display: grid;
-    grid-template-columns: 42% 58%;
+    grid-template-columns: 46% 54%;
     overflow: hidden;
+    align-items: center;
 }
 
 .meto-scroll-text {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 24px;
-    padding: 60px 36px 60px 60px;
+    gap: 20px;
+    padding: 48px 32px 48px 60px;
 }
 
 .meto-scroll-tag {
@@ -344,15 +345,15 @@ body.metodologia-page .rb-main {
     font-weight: 700;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: #22c55e;
+    color: #264584;
 }
 
 .meto-scroll-quote {
     font-family: 'Sora', sans-serif;
-    font-size: 1.375rem;
+    font-size: 1.2rem;
     font-weight: 600;
     font-style: italic;
-    color: rgba(255,255,255,.92);
+    color: rgba(38,69,132,.88);
     line-height: 1.65;
     margin: 0;
     position: relative;
@@ -366,33 +367,35 @@ body.metodologia-page .rb-main {
     top: 4px;
     bottom: 4px;
     width: 3px;
-    background: #22c55e;
+    background: #264584;
     border-radius: 2px;
 }
 
 .meto-scroll-source {
     font-size: 0.71875rem;
     font-weight: 600;
-    color: rgba(255,255,255,.50);
+    color: rgba(38,69,132,.50);
     margin: 0;
     padding-left: 20px;
 }
 
 .meto-scroll-photos {
     position: relative;
-    overflow: visible; /* deixa bordinha das fotos de baixo aparecer */
+    height: 100%;
+    overflow: visible;
 }
 
 .meto-scroll-photo {
     position: absolute;
-    top: 48px;
-    left: 0;
-    right: 48px;
-    bottom: 48px;
-    border-radius: 24px;
+    top: 80px;
+    left: 16px;
+    right: 64px;
+    bottom: 80px;
+    border-radius: 20px;
     overflow: hidden;
     transform: translateY(110%);
     will-change: transform;
+    box-shadow: 0 8px 40px rgba(16,29,79,.18);
 }
 
 .meto-scroll-photo[data-photo="0"] { z-index: 1; }
@@ -1013,9 +1016,9 @@ body.metodologia-page .rb-main {
     /* Scroll stack: layout estático em <=900px (JS não anima) */
     .meto-scroll-section { height: auto; }
     .meto-scroll-sticky { position: static; height: auto; grid-template-columns: 1fr; }
-    .meto-scroll-text { padding: 40px 24px 20px; }
-    .meto-scroll-photos { height: 280px; }
-    .meto-scroll-photo { top: 0; bottom: 0; left: 16px; right: 16px; border-radius: 16px; }
+    .meto-scroll-text { padding: 32px 24px 16px; }
+    .meto-scroll-photos { height: 260px; }
+    .meto-scroll-photo { top: 0; bottom: 0; left: 16px; right: 16px; border-radius: 16px; box-shadow: 0 6px 24px rgba(16,29,79,.14); }
     .meto-scroll-photo[data-photo="0"] { transform: none; }
     .meto-scroll-photo[data-photo="1"],
     .meto-scroll-photo[data-photo="2"] { display: none; }

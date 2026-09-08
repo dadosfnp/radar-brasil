@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (67ª entrada)
+
+### Style — Metodologia: numeros do escopo atualizados + scroll-stack ajustes (v26)
+
+- Stats: 31→32 instancias de governanca; 17→18 politicas (label: "ou planos"); 17→30 linhas de financiamento
+- Paragrafo descritivo atualizado com os novos numeros
+- Scroll-stack: background `#101d4f` substituido por `transparent` (usa cor da pagina)
+- Texto da secao: cores ajustadas de branco para navy (`rgba(38,69,132,...)`)
+- Fotos menores: `top: 80px; bottom: 80px` (era 48px) + `box-shadow` adicionado
+- Grid: 46/54 (era 42/58)
+
+---
+
 ## 2026-09-08 — pendente commit (66ª entrada)
 
 ### Style — Metodologia: 3 melhorias visuais (metodologia.css v25)
