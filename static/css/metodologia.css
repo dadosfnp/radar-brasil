@@ -387,11 +387,11 @@ body.metodologia-page .rb-main {
 
 .meto-scroll-photo {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 0;
+    top: 48px;
+    left: 48px;
+    right: 16px;
+    bottom: 48px;
+    border-radius: 20px;
     overflow: hidden;
     transform: translateY(110%);
     will-change: transform;
