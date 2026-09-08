@@ -6,6 +6,12 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### chore — Atualiza logo-radar-positivo-monocromatico.svg
+
+- Nova versao do logo positivo monocromatico substitui o arquivo anterior
+
+---
+
 ### fix — Mobile: 3 correções adicionais (metodologia touch, painel-multinivel overflow, ficha tecnica inset)
 
 **1. Metodologia — navegacao por toque nas fotos mobile**
