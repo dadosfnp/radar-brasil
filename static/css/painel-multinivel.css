@@ -405,19 +405,24 @@ body.painel-multinivel-page .rb-main {
     .pm-tabs ul { flex-wrap: nowrap; gap: 2px; }
     .pm-tabs button { padding: 12px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; min-height: 44px; }
 
-    .pm-chart-area { padding: 16px 12px 14px; }
-    .pm-grid-row { flex-direction: column; gap: 6px; }
+    .pm-chart-area { padding: 12px 10px 14px; }
+    .pm-grid-row { flex-direction: column; gap: 4px; }
+    .pm-grid-row:not(.pm-grid-ruler-row) {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(38,69,132,.08);
+    }
     .pm-grid-row-label {
-        min-width: auto; max-width: 100%; font-size: 0.6875rem;
-        /* reset separador vertical — não faz sentido em layout de coluna */
+        min-width: auto; max-width: 100%;
+        font-size: 0.75rem; font-weight: 700; color: #1a2f5a;
         border-right: none;
         margin-right: 0;
         padding-right: 0;
         text-align: left;
     }
-    /* Células do waffle: scroll horizontal em vez de overflow hidden */
-    .pm-grid-cells { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .pm-chart-footer { margin-top: 12px; justify-content: center; }
+    /* Células do waffle: scroll horizontal */
+    .pm-grid-cells { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .pm-grid-cell { width: 20px; height: 20px; }
+    .pm-chart-footer { margin-top: 14px; justify-content: center; flex-wrap: wrap; gap: 8px 14px; }
     .pm-criteria-badge { width: 100%; text-align: center; }
 }
 

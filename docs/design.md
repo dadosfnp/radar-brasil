@@ -321,6 +321,15 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 
 ### 5.3 Metodologia (`/metodologia/`)
 
+**Arquivo CSS:** `metodologia.css` — v37 (2026-09-09)
+
+#### v37 — Correcoes mobile: fotos e quadrinhos dos eixos (2026-09-09)
+
+- Mobile `<=900px`: `.meto-scroll-sticky { overflow: visible; padding: 0 }` — remove overflow:hidden que deixava foto[3] visivel sobre o texto
+- Todas as fotos com `display: none` por padrao no mobile; `[data-photo="0"]` com `display: block; transform: none`
+- `.meto-scroll-text { margin-left: 0 }` — base CSS tem -10vw que causava overflow horizontal
+- Mobile `<=600px` — quadrinhos dos eixos (meto-nivel-pills): `width: 100%` para ocupar linha inteira, cada pip com `flex: 1; height: 32px` — preenchem todo o espaco disponivel
+
 **Arquivo CSS:** `metodologia.css` — v23 (2026-09-04)
 
 - Hero zone com imagem de fundo (`bg-body.png`)

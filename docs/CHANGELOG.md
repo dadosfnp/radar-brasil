@@ -4,6 +4,33 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-09
+
+### fix — Mobile: 4 correções de layout (metodologia v37, avaliacao-painel v13, painel-multinivel v16)
+
+**1. Metodologia — fotos scroll-stack no mobile corrigidas**
+- `overflow: visible` no `.meto-scroll-sticky` em mobile (removia overflow: hidden que deixava foto[3] visivel sobre o texto)
+- Todas as fotos com `display: none` por padrão no mobile; apenas `[data-photo="0"]` com `display: block`
+- `margin-left: 0` no `.meto-scroll-text` mobile (base CSS tem `-10vw` que causava overflow)
+- `padding: 0` no `.meto-scroll-sticky` mobile
+
+**2. Metodologia — quadrinhos dos eixos (critérios) no mobile**
+- `<=600px`: `.meto-nivel-pills { width: 100%; gap: 5px }` — pills ocupam largura total da linha
+- Cada pip: `flex: 1; height: 32px; border-radius: 8px` — quadrinhos se esticam para preencher espaço
+- Font-size 0.75rem (era 0.625rem)
+
+**3. Avaliação Painel — ficha técnica (modal) não coberta pelo header**
+- `<=900px`: `.ap-modal-overlay { padding-top: calc(88px + 8px); align-items: flex-start }` — modal inicia abaixo do header
+- `.ap-modal-box { max-height: calc(100svh - 88px - 20px) }` — limita altura ao espaço disponível
+
+**4. Painel Multinível — critérios melhor formatados no mobile**
+- Linha separadora entre critérios: `border-bottom: 1px solid rgba(38,69,132,.08)`
+- Label do critério: `font-size: 0.75rem; font-weight: 700; color: #1a2f5a`
+- Células com `padding-bottom: 4px` para espaçamento visual
+- Legenda: `flex-wrap: wrap; gap: 8px 14px`
+
+---
+
 ## 2026-09-08
 
 ### feat — Landing: chips "Painéis", "Mapas" e "Dados" tornados clicáveis

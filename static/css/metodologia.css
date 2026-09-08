@@ -1023,13 +1023,12 @@ body.metodologia-page .rb-main {
 
     /* Scroll stack: layout estático em <=900px (JS não anima) */
     .meto-scroll-section { height: auto; }
-    .meto-scroll-sticky { position: static; height: auto; grid-template-columns: 1fr; }
-    .meto-scroll-text { padding: 32px 24px 16px; }
-    .meto-scroll-photos { height: 260px; }
-    .meto-scroll-photo { top: 0; bottom: 0; left: 16px; right: 16px; border-radius: 16px; box-shadow: 0 6px 24px rgba(16,29,79,.14); }
-    .meto-scroll-photo[data-photo="0"] { transform: none; }
-    .meto-scroll-photo[data-photo="1"],
-    .meto-scroll-photo[data-photo="2"] { display: none; }
+    .meto-scroll-sticky { position: static; height: auto; grid-template-columns: 1fr; overflow: visible; padding: 0; }
+    .meto-scroll-text { padding: 20px 24px 28px; margin-left: 0; }
+    .meto-scroll-photos { height: 240px; }
+    /* oculta todas as fotos; mostra apenas a primeira */
+    .meto-scroll-photo { top: 0; bottom: 0; left: 16px; right: 16px; border-radius: 16px; box-shadow: 0 6px 24px rgba(16,29,79,.14); display: none; }
+    .meto-scroll-photo[data-photo="0"] { display: block; transform: none; }
 
     .meto-eixos-grid { grid-template-columns: 1fr; }
 
@@ -1049,7 +1048,8 @@ body.metodologia-page .rb-main {
 
 @media (max-width: 600px) {
     .meto-criterion-row { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .meto-nivel-pills .meto-pip { width: 20px; height: 20px; font-size: 0.625rem; }
+    .meto-nivel-pills { width: 100%; gap: 5px; }
+    .meto-nivel-pills .meto-pip { flex: 1; width: auto; min-width: 0; height: 32px; font-size: 0.75rem; border-radius: 8px; }
 
     /* Timeline: foto 3 — ano grande à esquerda, conector tracejado, linha vertical */
     .meto-timeline-scroll-outer {
