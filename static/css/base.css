@@ -59,7 +59,7 @@ body.rb-body {
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 0;
-    padding: 6px 0 36px; /* 36px = gap(4) + pill(26) + espaço(6) = mesmo 6px do topo */
+    padding: 6px 0 30px; /* 30px = gap(4) + pill(26) — FNP centrado na linha de 74px, pill alinhado */
 }
 
 .rb-header-title {
@@ -90,7 +90,7 @@ body.rb-body {
 }
 
 .rb-header-radar-img {
-    height: 62px;
+    height: 74px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
@@ -486,7 +486,7 @@ body.rb-body {
         padding: 8px 10px;
     }
     .rb-header-radar-img {
-        height: 50px;
+        height: 60px;
     }
     .rb-header-logo-img {
         height: 50px;
@@ -500,7 +500,7 @@ body.rb-body {
         padding: 8px 8px;
     }
     .rb-header-radar-img {
-        height: 44px;
+        height: 53px;
     }
     .rb-header-logo-img {
         height: 44px;
@@ -532,7 +532,7 @@ body.rb-body {
         justify-self: start;
     }
     .rb-header-radar-img {
-        height: 36px;
+        height: 43px;
     }
 
     /* FNP logo — pill oculta no mobile (idioma vai no dropdown do hamburger) */

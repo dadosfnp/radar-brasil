@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Logo Radar Brasil +20%: 62px → 74px desktop, FNP mantido em 62px (base v18)
+
+- Radar Brasil: 62px → 74px desktop, 50px → 60px (<=1280px), 44px → 53px (<=1024px), 36px → 43px mobile
+- Logo FNP: sem alteracao (62/50/44/36px por breakpoint)
+- Grid `align-items: center` centraliza ambos os logos no mesmo eixo visual mesmo com alturas diferentes
+- Pill: padding-bottom ajustado para 30px — espaco simetrico (6px acima do Radar = 6px abaixo do pill)
+- base.html v=18
+
+---
+
 ### style — Alinha logos do header: Radar Brasil = FNP, espacamento simetrico (base v17)
 
 - Logo Radar Brasil igualado ao FNP em todos os breakpoints: desktop 62px, <=1280px 50px, <=1024px 44px, mobile 36px
