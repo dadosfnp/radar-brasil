@@ -778,8 +778,9 @@ body.avaliacao-painel-page .rb-main {
     .ap-footer-actions { padding: 12px 14px; justify-content: center; }
     .ap-ficha-btn { width: 100%; text-align: center; }
 
-    /* Modal começa abaixo do header sticky (~88px) para não ser coberto */
-    .ap-modal-overlay { padding: 12px; padding-top: calc(88px + 8px); align-items: flex-start; }
+    /* Overlay inicia logo abaixo do header sticky — inset afasta de top:88px
+       em vez de padding-top, evitando conflito de z-index e alinhamento */
+    .ap-modal-overlay { inset: 88px 0 0; padding: 8px 12px 12px; align-items: flex-start; }
     .ap-modal-box { max-height: calc(100svh - 88px - 20px); border-radius: 12px; }
     .ap-modal-body { padding: 16px 14px; }
     .ap-modal-footer { padding: 10px 14px; }

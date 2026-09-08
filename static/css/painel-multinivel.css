@@ -405,22 +405,27 @@ body.painel-multinivel-page .rb-main {
     .pm-tabs ul { flex-wrap: nowrap; gap: 2px; }
     .pm-tabs button { padding: 12px 12px; font-size: 0.71875rem; gap: 5px; white-space: nowrap; min-height: 44px; }
 
-    .pm-chart-area { padding: 12px 10px 14px; }
-    .pm-grid-row { flex-direction: column; gap: 4px; }
+    .pm-chart-area { padding: 12px 10px 14px; overflow: hidden; }
+
+    /* Contém a expansão dos flex items — sem min-width:0 o container expande para
+       o conteúdo (~700px) e quebra o layout horizontal inteiro */
+    .pm-grid-container { min-width: 0; width: 100%; }
+    .pm-grid-row { flex-direction: column; gap: 4px; min-width: 0; width: 100%; }
     .pm-grid-row:not(.pm-grid-ruler-row) {
         padding: 8px 0;
         border-bottom: 1px solid rgba(38,69,132,.08);
     }
     .pm-grid-row-label {
-        min-width: auto; max-width: 100%;
+        min-width: 0; max-width: 100%;
         font-size: 0.75rem; font-weight: 700; color: #1a2f5a;
         border-right: none;
         margin-right: 0;
         padding-right: 0;
         text-align: left;
     }
-    /* Células do waffle: scroll horizontal */
-    .pm-grid-cells { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    /* Células: min-width:0 evita que o flex item force a expansão do pai */
+    .pm-grid-cells { min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .pm-grid-ruler-cells { min-width: 0; overflow-x: auto; }
     .pm-grid-cell { width: 20px; height: 20px; }
     .pm-chart-footer { margin-top: 14px; justify-content: center; flex-wrap: wrap; gap: 8px 14px; }
     .pm-criteria-badge { width: 100%; text-align: center; }

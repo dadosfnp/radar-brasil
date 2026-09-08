@@ -6,6 +6,26 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Mobile: 3 correções adicionais (metodologia touch, painel-multinivel overflow, ficha tecnica inset)
+
+**1. Metodologia — navegacao por toque nas fotos mobile**
+- Adicionado handler `touchstart`/`touchend` no JS do scroll-stack
+- Tap ou swipe esquerda avanca para a proxima foto (ciclo entre 4 fotos)
+- Swipe direita volta para a foto anterior
+- Fotos mostradas com `display: block/none` + `transform: none` sem animacao de desktop
+
+**2. Painel Multinivel — overflow das celulas waffle corrigido (painel-multinivel v17)**
+- Causa raiz: `min-width: auto` (default flex) nos containers forcava expansao para ~700px
+- Fix: `min-width: 0` em `.pm-grid-container`, `.pm-grid-row`, `.pm-grid-cells`, `.pm-grid-ruler-cells`
+- `overflow: hidden` adicionado ao `.pm-chart-area` no mobile para conter overflow residual
+
+**3. Avaliacao Painel — modal ficha tecnica corrigida no mobile (avaliacao-painel v14)**
+- Fix mais robusto: `inset: 88px 0 0` no overlay em vez de `padding-top: calc(88px + 8px)`
+- Overlay inicia geometricamente abaixo do header (nao apenas empurra conteudo via padding)
+- Elimina ambiguidade de z-index e alinhamento flex
+
+---
+
 ### fix — Mobile: 4 correções de layout (metodologia v37, avaliacao-painel v13, painel-multinivel v16)
 
 **1. Metodologia — fotos scroll-stack no mobile corrigidas**
