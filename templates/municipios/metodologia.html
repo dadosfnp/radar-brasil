@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=35">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=36">
 {% endblock %}
 
 {% block content %}
@@ -704,7 +704,7 @@
     var scrollPhotosEl = document.getElementById('meto-scroll-photos');
     var scrollPhotos = scrollPhotosEl ? Array.prototype.slice.call(scrollPhotosEl.querySelectorAll('.meto-scroll-photo')) : [];
     var PEEK = 26;
-    var photoProgress = 0; /* 0 a 1 — progresso da animacao */
+    var photoProgress = 0;
 
     function updateScrollPhotos(prog) {
         if (!scrollPhotosEl || !scrollPhotos.length) return;
@@ -712,10 +712,15 @@
         scrollPhotos.forEach(function(photo, i) {
             var p = Math.max(0, Math.min(1, (prog - i * segment) / segment));
             if (p <= 0) {
-                photo.style.transform = 'translateY(110%)';
+                /* oculta abaixo — translateY alto garante que nao vaze pelo sticky */
+                photo.style.transform = 'translateY(160%)';
             } else if (p < 1) {
-                photo.style.transform = 'translateY(' + ((1 - p) * 110) + '%)';
+                /* subindo: inclina levemente para a esquerda e endireita ao encaixar */
+                var tY = (1 - p) * 160;
+                var rot = (1 - p) * -6;
+                photo.style.transform = 'translateY(' + tY + '%) rotate(' + rot + 'deg)';
             } else {
+                /* assentada: desloca para baixo conforme fotos seguintes sobem (peek) */
                 var peekPx = 0;
                 for (var j = i + 1; j < scrollPhotos.length; j++) {
                     var jp = Math.max(0, Math.min(1, (prog - j * segment) / segment));
@@ -727,18 +732,21 @@
     }
 
     if (scrollPhotosEl && scrollPhotos.length) {
-        /* primeira foto ja aparece completa ao entrar na secao */
-        photoProgress = 1 / scrollPhotos.length;
+        var initProg = 1 / scrollPhotos.length; /* primeira foto ja assentada na entrada */
+        photoProgress = initProg;
+
         scrollPhotosEl.addEventListener('wheel', function(e) {
             if (window.innerWidth <= 900) return;
             e.preventDefault();
             e.stopPropagation();
             photoProgress += e.deltaY / 800;
-            /* loop bidirecional: modulo mantém em [0,1) com wrap suave */
-            var displayProg = ((photoProgress % 1) + 1) % 1;
+            /* loop sem frame em branco: modulo relativo ao initProg
+               wrap de volta para initProg (foto 0 assentada) em vez de prog=0 (tudo oculto) */
+            var displayProg = ((photoProgress - initProg) % 1 + 1) % 1 + initProg;
             updateScrollPhotos(displayProg);
         }, { passive: false });
-        updateScrollPhotos(photoProgress);
+
+        updateScrollPhotos(initProg);
     }
 
     /* Pirâmide: anima entrada */

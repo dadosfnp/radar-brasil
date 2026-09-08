@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (74ª entrada)
+
+### Fix — Metodologia v36: sem peek inicial, inclinacao ao subir, loop sem frame branco
+
+- translateY aumentado de 110% para 160% na CSS e JS — garante fotos ocultas abaixo do sticky boundary
+- Animacao de entrada: rotate(-6deg) quando p=0 ate rotate(0deg) quando p=1 (leve inclinacao esquerda ao subir)
+- Loop bidirecional sem frame branco: displayProg = ((prog - initProg) % 1 + 1) % 1 + initProg
+  wraps de volta para initProg (foto 0 assentada) ao inves de prog=0 (todas ocultas)
+- sticky padding reduzido: 80px -> 32px para reduzir espaco vazio acima/abaixo da foto
+- metodologia.css v36
+
+---
+
 ## 2026-09-08 — pendente commit (73ª entrada)
 
 ### Fix — Metodologia v35 + Painel v15: floating photo, loop scroll, numeros de escala
