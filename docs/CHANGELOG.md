@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (69ª entrada)
+
+### Style — Metodologia: fotos fullbleed no container, fundo navy restaurado (v28)
+
+- Fundo navy #101d4f restaurado na secao scroll-stack
+- Cores do texto revertidas para branco (tag verde #22c55e, quote rgba(255,255,255,.92))
+- Fotos: top/left/right/bottom: 0 — preenche o container sem margens, border-radius: 0
+
+---
+
 ## 2026-09-08 — pendente commit (68ª entrada)
 
 ### Style — Metodologia: fotos à esquerda, texto à direita, tamanho original (v27)
