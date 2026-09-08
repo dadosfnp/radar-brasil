@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (72ª entrada)
+
+### Style — Metodologia: primeira foto visivel na entrada + tag destacado + texto proximo (v34)
+
+- JS: photoProgress inicializa em 1/n (primeira foto ja aparece sem precisar rolar)
+- .meto-scroll-tag redesenhado como pill escuro (background:#101d4f, cor branca, border-radius:999px)
+- .meto-scroll-text: padding-left removido, margin-left:-10vw aproxima texto da foto sem alterar dimensoes da imagem
+- gap entre elementos do texto aumentado para 18px
+- CSS v34
+
+---
+
 ## 2026-09-08 — pendente commit (71ª entrada)
 
 ### Fix — Metodologia: overflow das fotos corrigido + ordem e 4ª foto (v33)

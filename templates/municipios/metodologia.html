@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=33">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=34">
 {% endblock %}
 
 {% block content %}
@@ -727,6 +727,8 @@
     }
 
     if (scrollPhotosEl && scrollPhotos.length) {
+        /* primeira foto ja aparece completa ao entrar na secao */
+        photoProgress = 1 / scrollPhotos.length;
         scrollPhotosEl.addEventListener('wheel', function(e) {
             if (window.innerWidth <= 900) return;
             e.preventDefault();
