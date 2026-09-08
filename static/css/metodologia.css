@@ -322,13 +322,13 @@ body.metodologia-page .rb-main {
 }
 
 .meto-scroll-sticky {
-    position: relative; /* nao precisa de sticky — animacao via wheel */
+    position: relative;
     display: grid;
     grid-template-columns: 58% 42%;
     align-items: center;
     background: transparent;
-    overflow: visible;
-    padding: 48px 0;
+    overflow: hidden; /* clipa fotos fora de tela sem cortar a sombra da foto visivel */
+    padding: 80px 0;
 }
 
 .meto-scroll-text {
@@ -388,7 +388,7 @@ body.metodologia-page .rb-main {
 .meto-scroll-photos {
     position: relative;
     height: 56vh;
-    overflow: hidden; /* impede que fotos em translateY(110%) vazem sobre o conteudo abaixo */
+    overflow: visible; /* sombra e cantos arredondados livres — clip feito pelo sticky pai */
     cursor: ns-resize;
 }
 

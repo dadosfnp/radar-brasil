@@ -329,7 +329,7 @@ body.painel-multinivel-page .rb-main {
     border-color: transparent !important;
     border-radius: 0 !important;
     border-left: 1px solid rgba(38,69,132,.15) !important;
-    height: 10px;
+    height: 24px; /* era 10px — aumentado para evitar corte dos números pelo overflow-x:auto */
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -337,7 +337,7 @@ body.painel-multinivel-page .rb-main {
     font-variant-numeric: tabular-nums;
     color: rgba(38,69,132,.35);
     line-height: 1;
-    padding-top: 2px;
+    padding-top: 8px; /* era 2px — afasta o número da marca de divisão */
     cursor: default;
 }
 
@@ -347,7 +347,7 @@ body.painel-multinivel-page .rb-main {
     border-left-color: rgba(38,69,132,.45) !important;
     color: rgba(38,69,132,.65);
     font-weight: 700;
-    font-size: 0.5625rem;
+    font-size: 0.625rem; /* era 0.5625rem — ligeiramente maior para leitura */
 }
 
 .pm-grid-legend {

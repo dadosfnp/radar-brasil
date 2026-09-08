@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08 — pendente commit (73ª entrada)
+
+### Fix — Metodologia v35 + Painel v15: floating photo, loop scroll, numeros de escala
+
+- Metodologia: overflow:hidden movido de .meto-scroll-photos para .meto-scroll-sticky — libera box-shadow e bordas arredondadas da foto visivel; fotos fora de tela ainda sao clipadas pelo pai
+- Metodologia: scroll loop bidirecional — photoProgress nao tem clamp; displayProg = ((prog%1)+1)%1 faz wrap em qualquer direcao
+- Painel: .pm-grid-tick height 10px→24px, padding-top 2px→8px — overflow-x:auto no container clipava implicitamente os numeros no eixo Y; fix garante visibilidade total
+- Painel: .pm-grid-tick--label font-size 0.5625rem→0.625rem para melhor leitura
+- metodologia.css v35 / painel-multinivel.css v15
+
+---
+
 ## 2026-09-08 — pendente commit (72ª entrada)
 
 ### Style — Metodologia: primeira foto visivel na entrada + tag destacado + texto proximo (v34)

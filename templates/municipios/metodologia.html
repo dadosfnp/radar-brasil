@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=34">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=35">
 {% endblock %}
 
 {% block content %}
@@ -734,8 +734,9 @@
             e.preventDefault();
             e.stopPropagation();
             photoProgress += e.deltaY / 800;
-            photoProgress = Math.max(0, Math.min(1, photoProgress));
-            updateScrollPhotos(photoProgress);
+            /* loop bidirecional: modulo mantém em [0,1) com wrap suave */
+            var displayProg = ((photoProgress % 1) + 1) % 1;
+            updateScrollPhotos(displayProg);
         }, { passive: false });
         updateScrollPhotos(photoProgress);
     }
