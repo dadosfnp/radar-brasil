@@ -229,6 +229,13 @@ body.lp-body .rb-main {
     background: rgba(38,69,132,.09);
     border-radius: 20px;
     padding: 3px 10px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+}
+a.lp-info-chip:hover {
+    background: rgba(38,69,132,.22);
+    color: #101d4f;
 }
 
 /* ══════════════════════════════

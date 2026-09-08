@@ -4,6 +4,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-08
+
+### feat — Landing: chips "Painéis", "Mapas" e "Dados" tornados clicáveis
+
+- `templates/municipios/landing.html`: `<span class="lp-info-chip">` substituídos por `<a>` com links para Painéis (`municipios:inicio`), Mapa Georreferenciado (`indicadores:mapa_georreferenciado`) e Financiamento Climático (`indicadores:financiamento_climatico`)
+- `static/css/landing.css` v12: adicionados `text-decoration: none`, `cursor: pointer`, `transition` e `a.lp-info-chip:hover` com fundo mais escuro
+
+---
+
 ## 2026-09-08 — pendente commit (74ª entrada)
 
 ### Fix — Metodologia v36: sem peek inicial, inclinacao ao subir, loop sem frame branco

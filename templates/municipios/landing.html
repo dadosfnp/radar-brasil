@@ -3,7 +3,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=11">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=12">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
@@ -41,9 +41,9 @@
                 <span class="lp-info-eyebrow">{% trans "Conhecimento em Ação" %}</span>
                 <p class="lp-info-text">{% trans "Explore nossos painéis e ferramentas para decisões mais informadas e colaborativas." %}</p>
                 <div class="lp-info-chips">
-                    <span class="lp-info-chip">{% trans "Painéis" %}</span>
-                    <span class="lp-info-chip">{% trans "Mapas" %}</span>
-                    <span class="lp-info-chip">{% trans "Dados" %}</span>
+                    <a href="{% url 'municipios:inicio' %}" class="lp-info-chip">{% trans "Painéis" %}</a>
+                    <a href="{% url 'indicadores:mapa_georreferenciado' %}" class="lp-info-chip">{% trans "Mapas" %}</a>
+                    <a href="{% url 'indicadores:financiamento_climatico' %}" class="lp-info-chip">{% trans "Dados" %}</a>
                 </div>
             </div>
         </div>

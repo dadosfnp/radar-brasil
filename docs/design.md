@@ -228,7 +228,15 @@ Adicionado no commit `d82d7b6`:
 
 ### 5.1 Landing Page (`/`)
 
-**Arquivo CSS:** `landing.css` — versao atual: v8 (2026-09-01)
+**Arquivo CSS:** `landing.css` — versao atual: v12 (2026-09-08)
+
+#### v12 — Chips do card "Conhecimento em Acao" tornados clicaveis (2026-09-08)
+
+- `<span class="lp-info-chip">` substituidos por `<a>` com href para as respectivas paginas
+- "Paineis" -> `municipios:inicio`, "Mapas" -> `indicadores:mapa_georreferenciado`, "Dados" -> `indicadores:financiamento_climatico`
+- CSS: adicionados `text-decoration: none`, `cursor: pointer`, `transition` e `a.lp-info-chip:hover` (fundo mais escuro ao passar o mouse)
+
+#### v8 — Ajustes de conteudo e background (2026-09-01)
 
 #### v8 — Ajustes de conteudo e background (2026-09-01)
 
