@@ -59,7 +59,7 @@ body.rb-body {
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 0;
-    padding: 6px 0;
+    padding: 6px 0 36px; /* 36px = gap(4) + pill(26) + espaço(6) = mesmo 6px do topo */
 }
 
 .rb-header-title {
@@ -83,7 +83,6 @@ body.rb-body {
 .rb-header-logo-radar {
     grid-column: 1 / 2;
     justify-self: start;
-    align-self: flex-start; /* topo a topo com logo FNP */
 }
 
 .rb-header-logo-radar a {
@@ -91,7 +90,7 @@ body.rb-body {
 }
 
 .rb-header-radar-img {
-    height: 87px;
+    height: 62px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
@@ -106,7 +105,10 @@ body.rb-body {
 .rb-header-logo {
     grid-column: 3 / 4;
     justify-self: end;
-    align-self: flex-start; /* topo a topo com logo Radar; pill fica abaixo dentro do header */
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-right: 16px;
 }
 
 .rb-header-logo a {
@@ -124,14 +126,6 @@ body.rb-body {
 
 .rb-header-logo a:hover .rb-header-logo-img {
     opacity: 1;
-}
-
-/* ── Logo FNP + seletor de idioma ──────────────────────── */
-.rb-header-logo {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-right: 16px;
 }
 
 .rb-lang-form {
@@ -491,11 +485,9 @@ body.rb-body {
         font-size: 0.875rem;
         padding: 8px 10px;
     }
-    /* Logo Radar Brasil um pouco menor */
     .rb-header-radar-img {
-        height: 67px;
+        height: 50px;
     }
-    /* Logo FNP um pouco menor */
     .rb-header-logo-img {
         height: 50px;
     }
@@ -508,7 +500,7 @@ body.rb-body {
         padding: 8px 8px;
     }
     .rb-header-radar-img {
-        height: 56px;
+        height: 44px;
     }
     .rb-header-logo-img {
         height: 44px;
@@ -540,7 +532,7 @@ body.rb-body {
         justify-self: start;
     }
     .rb-header-radar-img {
-        height: 48px;
+        height: 36px;
     }
 
     /* FNP logo — pill oculta no mobile (idioma vai no dropdown do hamburger) */

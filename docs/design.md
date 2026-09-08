@@ -738,6 +738,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | pendente  | Metodologia mobile: toque/swipe nas fotos — tap/swipe-left avanca foto; swipe-right volta; ciclo entre 4 fotos via display:block/none |
 | 2026-09-09 | pendente  | Painel Multinivel mobile v17: min-width:0 corrige overflow das celulas waffle — containers flex nao mais se expandem alem do card |
 | 2026-09-09 | pendente  | Avaliacao Painel modal mobile v14: inset:88px_0_0 no overlay inicia modal geometricamente abaixo do header (substituindo padding-top) |
+| 2026-09-09 | (HEAD)    | Header logos alinhados: Radar Brasil igualado ao FNP em todos os breakpoints (desktop 62px, 1280 50px, 1024 44px, mobile 36px); pill position:absolute top:100% margin-top:4px; padding header-top 6px/36px simetrico (base.css v17) |
 
 ---
 

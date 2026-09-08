@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Alinha logos do header: Radar Brasil = FNP, espacamento simetrico (base v17)
+
+- Logo Radar Brasil igualado ao FNP em todos os breakpoints: desktop 62px, <=1280px 50px, <=1024px 44px, mobile 36px
+- Pill PT|EN: `position: absolute; top: 100%; margin-top: 4px` relativo ao container FNP logo
+- Espacamento header-top: `padding: 6px 0 36px` — 6px acima dos logos = 6px abaixo do pill (simetria)
+- CSS duplicado do `.rb-header-logo` mesclado em um unico bloco limpo
+- `align-self: flex-start` removido de ambos os logos (desnecessario com alturas identicas)
+- `base.html` v=17
+
+---
+
 ### style — Logo header -30% e correcoes de altura do header (base v16, avaliacao-painel v15, nota-pais v10, mapa-georreferenciado v8)
 
 - Radar Brasil logo: 124px → 87px (desktop), 96px → 67px (≤1280px), 80px → 56px (≤1024px), 68px → 48px (mobile ≤768px)
