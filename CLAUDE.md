@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-08
+> Última atualização: 2026-09-09
 
 ---
 
@@ -277,16 +277,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-08)
+## Estado Atual do Projeto (2026-09-09)
 
-### Branch atual: `main` — `941b41a` — droplet pendente de rebuild
+### Branch atual: `main` — `dc7048f`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `6bfed31` | `6bfed31` |
-| `prod` (dadosfnp) | - | `6bfed31` |
+| `origin` (brunofnp) | `dc7048f` | `dc7048f` |
+| `prod` (dadosfnp) | - | `dc7048f` |
 
 > `origin` e `prod` identicos em `main`. Branch `next` sincronizado em `origin`.
 > Criar feature branches a partir de `next`.
@@ -294,6 +294,17 @@ Padrão: **Conventional Commits**, descrições em **português**
 ### Git — autenticacao configurada
 
 Remotos `origin` e `prod` configurados com PAT do brunofnp no `.git/config` para push automatico sem prompt interativo. Config apenas local, nao versionada.
+
+### SSH — alias configurado
+
+`~/.ssh/config` com alias `fnp-web`:
+```
+Host fnp-web
+    HostName 142.93.205.222
+    User root
+    IdentityFile ~/.ssh/id_ed25519_fnp_web
+```
+Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os comandos de deploy no proprio terminal.
 
 ### Droplet — pendente de rebuild
 
@@ -335,7 +346,7 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-08)
+### Header Global — estado (2026-09-09)
 
 CSS: `static/css/base.css` **v=15** | Template: `base_templates/base.html`
 
@@ -347,6 +358,10 @@ Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
 - Coluna esquerda: logo Radar Brasil SVG, `height: 124px` desktop / `68px` mobile, `filter: brightness(0) invert(1)`
 - Coluna central: `<nav class="rb-main-nav">` — links brancos `rgba(255,255,255,0.78)`, fonte `1.051rem`, active com `border-bottom: 2px solid #fff`
 - Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN
+
+**Menu — item renomeado (2026-09-09):**
+- "Nota Pais" renomeado para "Nivel Pais" em PT (`{% trans "Nível País" %}`)
+- EN: "Country Level" (ja existia no django.po)
 
 **Pill PT|EN no mobile (v7/v8):**
 - Desktop: `position: absolute; bottom: -26px; right: 16px` (abaixo do logo FNP)
@@ -385,37 +400,51 @@ Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para e
 Escalar o `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
 Iframes nas paginas usam `mask-image` para dissolver bordas.
 
-### Landing Page — estado (2026-09-01)
+### Landing Page — estado (2026-09-09)
 
-CSS: `static/css/landing.css` v=11 | Template: `templates/municipios/landing.html`
+CSS: `static/css/landing.css` v=12 | Template: `templates/municipios/landing.html`
 
 Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon` (fundo cinza, cursor default, badge "Em breve").
 
-### Metodologia — estado (2026-09-08)
+**Card "Conhecimento em Acao" — chips clicaveis (v12):**
+- "Paineis" → `{% url 'municipios:inicio' %}`
+- "Mapas" → `{% url 'indicadores:mapa_georreferenciado' %}`
+- "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
+- CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
 
-CSS: `static/css/metodologia.css` **v=25** | Template: `templates/municipios/metodologia.html`
+### Metodologia — estado (2026-09-09)
+
+CSS: `static/css/metodologia.css` **v=36** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
-**Scroll-stack de fotos (v25 — estado atual):**
-- Carrossel lateral removido. Secao `height: 300vh` + inner `position: sticky; height: 100vh`.
-- Grid: texto esquerda (42%) + fotos direita (58%). Fotos empilham com borda visivel (PEEK 26px) ao rolar.
-- Fotos iniciam em `translateY(110%)` e sobem progressivamente via JS (rAF-throttled scroll handler).
-- Mobile `<=900px`: collapsa para layout estatico (1 coluna, primeira foto visivel, secao `height: auto`).
+**Scroll-stack de fotos (v36 — estado atual — estilo Medellin):**
 
-**Timeline (v25 — estado atual):**
+Layout: fundo transparente, sem faixa navy, foto como card flutuante com sombra.
+Grid `.meto-scroll-sticky`: 58% fotos / 42% texto. `overflow: hidden` no sticky (clippa fotos ocultas mantendo sombra da foto visivel). `.meto-scroll-photos`: `overflow: visible`.
+
+Ordem das fotos: clima(0) → sociedade(1) → natureza(2) → cidade(3)
+
+Tag da foto: dark pill navy (`#101d4f`, branco, `border-radius: 999px`) — classe `.meto-scroll-tag`
+
+JS — wheel handler ativo apenas sobre `.meto-scroll-photos` (nao a secao inteira):
+- `photoProgress` (float irrestrito) — `initProg = 1/N` (primeira foto ja assentada ao entrar)
+- `translateY(160%)` para fotos ocultas — necessario para ficarem abaixo do boundary do sticky (6vh top inset + 44vh altura + padding)
+- Animacao de entrada: `rotate((1-p)*-6deg)` ao subir, straightens em `p=1`
+- Loop bidirecional infinito sem frame branco: `displayProg = ((photoProgress - initProg) % 1 + 1) % 1 + initProg`
+- PEEK = 26px — borda das fotos abaixo aparece apenas apos comecar a rolar (nao no estado inicial)
+- Mobile `<=900px`: layout estatico (1 coluna, primeira foto visivel, secao `height: auto`)
+
+**Timeline (v25 — sem alteracoes recentes):**
 - Desktop: fundo `#fff`, bolha do ano circulo navy 56x56px, linha horizontal `rgba(38,69,132,.20)`.
-- Mobile `<=600px` (foto 3): ano como texto grande Sora 1.25rem bold em coluna de 66px; linha vertical
-  tracejada via `timeline-track::after` a `left: 65px`; conector dot navy (10px) + linha tracejada horizontal.
-  Ano com `background: #fff; z-index: 1` para cobrir a linha tracejada atras do texto.
+- Mobile `<=600px`: ano como texto grande Sora 1.25rem bold em coluna de 66px; linha vertical tracejada.
 
-**Seção de Cálculo (v24):**
+**Secao de Calculo (v24):**
 - Tres cards: Nivel Parcial, Nivel Eixo, Nivel Pais
 - Formulas em fracao CSS + tabelas de referencia
 - Nivel Pais: fundo gradient navy; grid 3col desktop / 1col mobile
 
 **SVG piramide — bolinha flutuando (v25 fix):**
-- Circulos com `begin="0.87s"` e `begin="1.73s"` iniciavam em (0,0) antes da animacao.
 - Fix: `opacity="0"` inicial + `<animate attributeName="opacity" fill="freeze" to="0.80"/>` no begin.
 
 ### Nota Pais — estado (2026-09-04)
@@ -449,11 +478,16 @@ CSS: `static/css/mapa-georreferenciado.css` **v=7** | Template: `templates/munic
   - `.mg-map-area { height: 100%; border-radius: 0 }` — preenche o layout pai
 - Em `<=480px`: `height: calc(100svh - 96px)` com `border-radius: 0`
 
-### Painel Multinivel — estado (2026-08-25)
+### Painel Multinivel — estado (2026-09-09)
 
-CSS: `static/css/painel-multinivel.css` v=12 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=15 | Template: `templates/municipios/painel-multinivel.html`
 
 Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro.
+
+**Fix numeros cortados (v15):**
+- `.pm-grid-tick { height: 24px; padding-top: 8px }` — era `height: 10px`
+- Causa raiz: `overflow-x: auto` no pai forcava `overflow-y: hidden` implicitamente, cortando texto acima de 10px
+- `.pm-grid-tick--label { font-size: 0.625rem }` — era `0.5625rem`
 
 ### Avaliacao Painel — estado (2026-09-03)
 
@@ -510,21 +544,20 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 |---|---|
 | `base.css` | v=15 |
 | `inicio.css` | v=12 |
-| `landing.css` | v=11 |
-| `metodologia.css` | v=25 |
-| `avaliacao-painel.css` | v=12 |
-| `painel-multinivel.css` | v=14 |
+| `landing.css` | v=12 |
+| `metodologia.css` | v=36 |
+| `avaliacao-painel.css` | v=9 |
+| `painel-multinivel.css` | v=15 |
 | `mapa-georreferenciado.css` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `nota-pais.css` | v=9 |
 
 ### Pendencias
 
-- **CRITICO:** Droplet nao fez build dos commits recentes. Para aplicar:
+- **CRITICO:** Droplet nao fez build dos commits recentes (dc7048f). Para aplicar:
   ```bash
   cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
   ```
-- Branch `next` sincronizado em `origin` com `6bfed31`
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 
 ---
