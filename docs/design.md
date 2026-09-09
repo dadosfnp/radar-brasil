@@ -749,6 +749,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado v9/js v2: bottom sheet mobile definitivo -- visual identico ao popup desktop (cabecalho navy, rows, programas), sem reestilizacao; popup Leaflet desabilitado em mobile |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v10: fix flex-wrap -- .mg-sheet-body .mg-popup-prog-meta flex-wrap:nowrap garante que status badge e valor aparecem na mesma linha no sheet full-width (idêntico ao popup desktop) |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v11: card overlay centralizado mobile -- position fixed top 50% left 50%, animacao scale+fade, spring cubic-bezier; substitui bottom sheet; conteudo identico ao popup desktop |
+| 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v12/js v3: autocomplete de municipio -- dropdown com ate 8 sugestoes normalizadas (nome+UF), navegacao por teclado, fechamento automatico do painel de filtros ao selecionar |
 
 ---
 

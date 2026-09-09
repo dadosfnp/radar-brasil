@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### feat — Mapa Georreferenciado: autocomplete de municipio e fechamento automatico do filtro (css v12, js v3)
+
+- Autocomplete em tempo real: a partir de 2 caracteres aparece dropdown com ate 8 sugestoes (nome + UF)
+- Correspondencia com normalizacao de acentos (sao → São Paulo) e prioridade por "começa com" antes de "contém"
+- Navegacao por teclado: setas cima/baixo selecionam item, Enter confirma, Escape fecha
+- Selecionar sugestao preenche o campo, filtra os marcadores e fecha o painel de filtros no mobile automaticamente
+- Pressionar Enter sem sugestao selecionada tambem fecha o painel no mobile
+- Evento customizado mg:filter-selected desacopla JS do mapa do IIFE do template
+
+---
+
 ### style — Mapa Georreferenciado: card overlay centralizado substitui bottom sheet no mobile (css v11)
 
 - Em <=900px: clique no municipio abre card centralizado na tela (position fixed top 50% left 50%)

@@ -23,8 +23,88 @@ let map, allFeatures = [], markerLayer, canvasRenderer;
 let activeFilters = {};
 let allUfOptions = [];
 
-// ── Bottom sheet (mobile <=900px) ──────────────────────────────
+// ── Card overlay (mobile <=900px) ──────────────────────────────
 function _isMobile() { return window.innerWidth <= 900; }
+
+// Dispara evento que fecha a sidebar no mobile (handler no template)
+function _closeSidebarMobile() {
+    if (_isMobile()) document.dispatchEvent(new CustomEvent('mg:filter-selected'));
+}
+
+// ── Autocomplete de município ───────────────────────────────────
+let _munSugEl = null;
+let _munSugActive = -1;
+
+function _normStr(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+function _getSuggestions(query) {
+    if (!query || query.length < 2 || !allFeatures.length) return [];
+    const q = _normStr(query);
+    const seen = new Set();
+    const starts = [], contains = [];
+    for (const feat of allFeatures) {
+        const p = feat.properties;
+        const name = p.municipio || '';
+        if (!name || seen.has(name)) continue;
+        const n = _normStr(name);
+        if (n.startsWith(q))     { seen.add(name); starts.push({ municipio: name, uf: p.uf || '' }); }
+        else if (n.includes(q))  { seen.add(name); contains.push({ municipio: name, uf: p.uf || '' }); }
+        if (starts.length + contains.length >= 12) break;
+    }
+    return [...starts, ...contains].slice(0, 8);
+}
+
+function _renderSuggestions(query) {
+    const input = document.getElementById('mg-f-municipio');
+    if (!input) return;
+    if (!_munSugEl) {
+        _munSugEl = document.createElement('div');
+        _munSugEl.className = 'mg-mun-suggestions';
+        input.parentNode.appendChild(_munSugEl);
+    }
+    const items = _getSuggestions(query);
+    if (!items.length || !query) { _hideSuggestions(); return; }
+    _munSugActive = -1;
+    _munSugEl.innerHTML = items.map(s =>
+        `<div class="mg-mun-suggestion-item" data-mun="${s.municipio}">
+            ${s.municipio}<span class="mg-mun-suggestion-uf">— ${s.uf}</span>
+        </div>`
+    ).join('');
+    _munSugEl.style.display = 'block';
+    _munSugEl.querySelectorAll('.mg-mun-suggestion-item').forEach(el => {
+        el.addEventListener('mousedown', function (e) {
+            e.preventDefault();
+            _selectSuggestion(this.dataset.mun);
+        });
+    });
+}
+
+function _hideSuggestions() {
+    if (_munSugEl) _munSugEl.style.display = 'none';
+    _munSugActive = -1;
+}
+
+function _selectSuggestion(municipio) {
+    const input = document.getElementById('mg-f-municipio');
+    const clear = document.getElementById('mg-f-municipio-clear');
+    if (!input) return;
+    input.value = municipio;
+    if (clear) clear.hidden = false;
+    _hideSuggestions();
+    filtrar();
+    _closeSidebarMobile();
+}
+
+function _moveSugActive(dir) {
+    if (!_munSugEl || _munSugEl.style.display === 'none') return;
+    const items = _munSugEl.querySelectorAll('.mg-mun-suggestion-item');
+    if (!items.length) return;
+    items[_munSugActive]?.classList.remove('mg-sug-active');
+    _munSugActive = Math.max(-1, Math.min(items.length - 1, _munSugActive + dir));
+    if (_munSugActive >= 0) items[_munSugActive]?.classList.add('mg-sug-active');
+}
 
 function _openSheet(html) {
     const sheet    = document.getElementById('mg-sheet');
@@ -632,11 +712,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     munInput?.addEventListener("input", () => {
         if (munClear) munClear.hidden = !munInput.value;
         filtrar();
+        _renderSuggestions(munInput.value.trim());
+    });
+    munInput?.addEventListener("focus", () => {
+        if (munInput.value.trim().length >= 2) _renderSuggestions(munInput.value.trim());
+    });
+    munInput?.addEventListener("blur", () => {
+        // Delay para permitir que o mousedown da sugestão dispare primeiro
+        setTimeout(_hideSuggestions, 150);
+    });
+    munInput?.addEventListener("keydown", (e) => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); _moveSugActive(1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); _moveSugActive(-1); }
+        else if (e.key === 'Enter') {
+            const active = _munSugEl?.querySelector('.mg-sug-active');
+            if (active) { _selectSuggestion(active.dataset.mun); }
+            else { _hideSuggestions(); _closeSidebarMobile(); }
+        }
+        else if (e.key === 'Escape') { _hideSuggestions(); }
     });
     munClear?.addEventListener("click", () => {
         if (munInput) munInput.value = "";
         munClear.hidden = true;
         munInput?.focus();
+        _hideSuggestions();
         filtrar();
     });
     document.getElementById("mg-f-sem-financiamento")?.addEventListener("change", filtrar);
