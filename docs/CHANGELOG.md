@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Mapa Georreferenciado: redesign visual do bottom sheet mobile (css v11, js v4)
+
+- Cabecalho branco: nome do municipio em Sora 1.125rem bold navy; badge pill para contagem de programas
+- Linhas de dados: icone + rotulo cinza + valor right-aligned bold navy (padrao IFEM)
+- Programas: fundo cinza claro, nome bold, barra de progresso e percentual
+- Botao CTA navy full-width na base: links para Financiamento Climatico ou Painel Multinivel
+- Bordas sutis rgba entre secoes, sem fundo navy no header
+
+---
+
 ### feat — Mapa Georreferenciado: bottom sheet mobile substitui popup Leaflet (css v10, js v3)
 
 - Em <=900px: clique no marker abre bottom sheet deslizante na parte inferior da tela (pattern Google Maps)

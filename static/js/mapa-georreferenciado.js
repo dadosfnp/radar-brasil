@@ -26,12 +26,21 @@ let allUfOptions = [];
 // ── Bottom sheet mobile ────────────────────────────────────────
 function _isMobileSheet() { return window.innerWidth <= 900; }
 
-function _openSheet(html) {
+function _openSheet(html, props) {
     const sheet    = document.getElementById('mg-sheet');
     const body     = document.getElementById('mg-sheet-body');
     const backdrop = document.getElementById('mg-sheet-backdrop');
     if (!sheet) return;
-    body.innerHTML = html;
+    const ctaUrl = props && props.tem_financiamento
+        ? `/indicadores/financiamento-climatico/`
+        : `/indicadores/painel-multinivel/`;
+    const ctaLabel = props && props.tem_financiamento
+        ? (RBi18n.t ? RBi18n.t("Ver Financiamento Climático") : "Ver Financiamento Climático")
+        : (RBi18n.t ? RBi18n.t("Ver Painel Multinível") : "Ver Painel Multinível");
+    body.innerHTML = html + `
+        <div class="mg-popup-sheet-cta">
+            <a href="${ctaUrl}">${ctaLabel} ›</a>
+        </div>`;
     sheet.classList.add('is-open');
     sheet.setAttribute('aria-hidden', 'false');
     backdrop.classList.add('is-open');
@@ -221,7 +230,7 @@ function renderMarkers(features, fitBounds) {
         if (_isMobileSheet()) {
             marker.on('click', function (e) {
                 L.DomEvent.stopPropagation(e);
-                _openSheet(buildPopup(p));
+                _openSheet(buildPopup(p), p);
             });
         } else {
             marker.bindPopup(buildPopup(p), {
