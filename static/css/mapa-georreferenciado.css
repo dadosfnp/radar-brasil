@@ -712,6 +712,12 @@ body.mapa-page .rb-main {
     /* Intro some: mapa ocupa a tela inteira (Google Maps / IFEM pattern) */
     .mg-intro { display: none; }
     .mg-page { padding: 0; gap: 0; }
+
+    /* Popup: nunca ultrapassar a largura do viewport em mobile */
+    #mg-map .leaflet-popup-content-wrapper { max-width: calc(100vw - 24px) !important; }
+    .mg-popup { min-width: 0; max-width: 100%; }
+    .mg-popup-lbl { white-space: normal; }
+    .mg-popup-val { word-break: break-word; }
     .mg-layout { flex-direction: column; min-height: 0; gap: 0; margin-bottom: 0; border-radius: 0; box-shadow: none;
         height: calc(100vh - 68px);
         height: calc(100svh - 68px);

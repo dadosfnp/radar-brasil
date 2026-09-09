@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Mapa Georreferenciado: popup nao cortado em mobile (mapa-georreferenciado.css v9, js v2)
+
+- CSS: `max-width: calc(100vw - 24px) !important` no `.leaflet-popup-content-wrapper` em <=900px
+- CSS: `.mg-popup { min-width: 0; max-width: 100% }` e `word-break: break-word` nos valores
+- JS: `minWidth` e `maxWidth` do `bindPopup` calculados com `Math.min(..., window.innerWidth - 24)` para nunca exceder o viewport
+
+---
+
 ### style — Metodologia: linha divisoria entre secao de fotos e Historico (metodologia.css v42)
 
 - `border-top: 1.5px solid rgba(38,69,132,.12)` adicionado ao `.meto-timeline-section`
