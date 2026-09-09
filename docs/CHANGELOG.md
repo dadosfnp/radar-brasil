@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Metodologia de Calculo: formulas renderizadas com KaTeX (metodologia.css v39)
+
+- Carrega KaTeX 0.16.9 (cdnjs) para tipografia matematica profissional (sigma escalado, fracoes proporcionais, espacamento TeX)
+- Formulas substituidas por `<span class="meto-katex" data-formula="...">` com LaTeX correto
+- CSS: `justify-content: center` corrige centralizacao das formulas nos cards
+- CSS: `.meto-calc-formula .katex` define cores por tema (navy claro / branco no card navy)
+
+---
+
 ### style — Metodologia de Calculo: formulas corretas e legendas de variaveis (metodologia.css v38)
 
 - Card Nivel Parcial: formula corrigida para [Σ(C-1)+(Cx·2)]/(ΣC+1); tabela mostra Cx com peso 2
