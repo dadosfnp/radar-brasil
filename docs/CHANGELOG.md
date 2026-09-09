@@ -35,6 +35,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+### revert — Mapa Georreferenciado: reverte alteracoes de popup mobile (volta ao estado anterior)
+
+- Reverte css v9/v10/v11 e js v2/v3/v4 -- bottom sheet e tentativas anteriores removidos
+- Popup Leaflet original restaurado (minWidth 320, maxWidth 400, autoPan)
+- CSS e HTML do mapa voltam ao estado do commit f0af82c
+
+---
+
 ### style — Metodologia: linha divisoria entre secao de fotos e Historico (metodologia.css v42)
 
 - `border-top: 1.5px solid rgba(38,69,132,.12)` adicionado ao `.meto-timeline-section`

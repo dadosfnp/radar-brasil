@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="{% static 'css/mapa-georreferenciado.css' %}?v=11">
+    <link rel="stylesheet" href="{% static 'css/mapa-georreferenciado.css' %}?v=8">
 {% endblock %}
 
 {% block content %}
@@ -205,21 +205,13 @@
   {# Backdrop do filtro mobile #}
   <div class="mg-sidebar-backdrop" id="mg-sidebar-backdrop"></div>
 
-  {# Bottom sheet mobile — substitui popup Leaflet em telas <=900px #}
-  <div class="mg-sheet" id="mg-sheet" aria-hidden="true">
-    <div class="mg-sheet-handle"></div>
-    <button class="mg-sheet-close" id="mg-sheet-close" aria-label="{% trans 'Fechar' %}">&#x2715;</button>
-    <div class="mg-sheet-body" id="mg-sheet-body"></div>
-  </div>
-  <div class="mg-sheet-backdrop" id="mg-sheet-backdrop"></div>
-
 </div>{# /mg-page #}
 {% endblock %}
 
 {% block extra_js %}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="{% static 'js/mapa-georreferenciado.js' %}?v=4"></script>
+    <script src="{% static 'js/mapa-georreferenciado.js' %}"></script>
     <script>
     (function () {
       var sidebar  = document.getElementById('mg-sidebar');

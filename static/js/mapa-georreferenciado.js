@@ -23,45 +23,6 @@ let map, allFeatures = [], markerLayer, canvasRenderer;
 let activeFilters = {};
 let allUfOptions = [];
 
-// ── Bottom sheet mobile ────────────────────────────────────────
-function _isMobileSheet() { return window.innerWidth <= 900; }
-
-function _openSheet(html, props) {
-    const sheet    = document.getElementById('mg-sheet');
-    const body     = document.getElementById('mg-sheet-body');
-    const backdrop = document.getElementById('mg-sheet-backdrop');
-    if (!sheet) return;
-    const ctaUrl = props && props.tem_financiamento
-        ? `/indicadores/financiamento-climatico/`
-        : `/indicadores/painel-multinivel/`;
-    const ctaLabel = props && props.tem_financiamento
-        ? (RBi18n.t ? RBi18n.t("Ver Financiamento Climático") : "Ver Financiamento Climático")
-        : (RBi18n.t ? RBi18n.t("Ver Painel Multinível") : "Ver Painel Multinível");
-    body.innerHTML = html + `
-        <div class="mg-popup-sheet-cta">
-            <a href="${ctaUrl}">${ctaLabel} ›</a>
-        </div>`;
-    sheet.classList.add('is-open');
-    sheet.setAttribute('aria-hidden', 'false');
-    backdrop.classList.add('is-open');
-}
-
-function _closeSheet() {
-    const sheet    = document.getElementById('mg-sheet');
-    const backdrop = document.getElementById('mg-sheet-backdrop');
-    if (!sheet) return;
-    sheet.classList.remove('is-open');
-    sheet.setAttribute('aria-hidden', 'true');
-    backdrop.classList.remove('is-open');
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const closeBtn = document.getElementById('mg-sheet-close');
-    const backdrop = document.getElementById('mg-sheet-backdrop');
-    if (closeBtn) closeBtn.addEventListener('click', _closeSheet);
-    if (backdrop) backdrop.addEventListener('click', _closeSheet);
-});
-
 // ── Polígono simplificado do Brasil (Natural Earth) ────────────
 const BRAZIL_POLY = { type: "Feature", geometry: { type: "Polygon", coordinates: [[
     [-60.19, 5.27],  [-60.70, 4.20],  [-60.66, 1.32],  [-59.84, 1.38],
@@ -117,9 +78,6 @@ function initMap() {
 
     canvasRenderer = L.canvas({ padding: 0.5 });
     markerLayer = L.featureGroup().addTo(map);
-
-    // Clique no mapa fora de marker fecha o bottom sheet mobile
-    map.on('click', _closeSheet);
 
     // ── Centraliza o popup ao clicar num município ────────────────
     map.on('popupopen', function (e) {
@@ -227,19 +185,12 @@ function renderMarkers(features, fitBounds) {
             opacity:     1,
         });
 
-        if (_isMobileSheet()) {
-            marker.on('click', function (e) {
-                L.DomEvent.stopPropagation(e);
-                _openSheet(buildPopup(p), p);
-            });
-        } else {
-            marker.bindPopup(buildPopup(p), {
-                maxWidth: 400,
-                minWidth: 320,
-                autoPanPaddingTopLeft:     L.point(20, 80),
-                autoPanPaddingBottomRight: L.point(20, 20),
-            });
-        }
+        marker.bindPopup(buildPopup(p), {
+            maxWidth: 400,
+            minWidth: 320,
+            autoPanPaddingTopLeft:     L.point(20, 80),
+            autoPanPaddingBottomRight: L.point(20, 20),
+        });
         markerLayer.addLayer(marker);
     });
 
