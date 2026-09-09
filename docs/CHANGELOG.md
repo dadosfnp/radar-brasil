@@ -6,6 +6,13 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Metodologia: linha divisoria entre secao de fotos e Historico (metodologia.css v42)
+
+- `border-top: 1.5px solid rgba(38,69,132,.12)` adicionado ao `.meto-timeline-section`
+- Cria separacao visual sutil entre o scroll-stack de fotos e o titulo "Historico do Federalismo Climatico"
+
+---
+
 ### fix — Metodologia de Calculo: layout horizontal das formulas MathML corrigido (metodologia.css v41)
 
 - `display="block"` substituido por `displaystyle="true"` nos tres elementos `<math>` -- mantem fracoes em tamanho display sem forcar quebra de linha

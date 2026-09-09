@@ -742,6 +742,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | (HEAD)    | Logo Radar Brasil +20%: 74px desktop (era 62px), FNP mantido 62px; grid align-items:center centraliza ambos no mesmo eixo; padding-bottom 30px para espaco simetrico 6px/6px (base.css v18) |
 | 2026-09-09 | (HEAD)    | Metodologia Calculo v38: formulas corrigidas (NP=[Σ(C-1)+(Cx·2)]/(ΣC+1); NE=[Σ(NPa·Fr)]/ΣFr); legenda de variaveis adicionada abaixo de cada card; contagem Governanca 31->32 |
 | 2026-09-09 | (HEAD)    | Metodologia Calculo v41: MathML displaystyle="true" + mrow raiz corrige layout das formulas -- tudo na mesma linha horizontal em vez de empilhado; remove display:block do CSS que conflitava com flex container |
+| 2026-09-09 | (HEAD)    | Metodologia v42: border-top 1.5px rgba(38,69,132,.12) em meto-timeline-section -- linha divisoria sutil entre scroll-stack de fotos e secao Historico |
 
 ---
 

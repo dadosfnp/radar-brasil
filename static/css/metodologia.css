@@ -424,6 +424,7 @@ body.metodologia-page .rb-main {
 .meto-timeline-section {
     background: #fff;
     padding: 64px 0;
+    border-top: 1.5px solid rgba(38,69,132,.12);
 }
 
 .meto-timeline-section .meto-inner {
