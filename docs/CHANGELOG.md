@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### feat — Mapa Georreferenciado: bottom sheet mobile substitui popup Leaflet (css v10, js v3)
+
+- Em <=900px: clique no marker abre bottom sheet deslizante na parte inferior da tela (pattern Google Maps)
+- Popup Leaflet desabilitado em mobile via display:none e sem bindPopup nos markers mobile
+- Bottom sheet com backdrop semitransparente, handle de arrasto e botao fechar (x)
+- Fechar via botao, backdrop ou clique no mapa
+- max-height 62vh: mapa permanece visivel no topo; conteudo scrollavel se longo
+- Desktop: comportamento original (popup Leaflet) preservado sem alteracoes
+
+---
+
 ### fix — Mapa Georreferenciado: popup nao cortado em mobile (mapa-georreferenciado.css v9, js v2)
 
 - CSS: `max-width: calc(100vw - 24px) !important` no `.leaflet-popup-content-wrapper` em <=900px

@@ -713,11 +713,8 @@ body.mapa-page .rb-main {
     .mg-intro { display: none; }
     .mg-page { padding: 0; gap: 0; }
 
-    /* Popup: nunca ultrapassar a largura do viewport em mobile */
-    #mg-map .leaflet-popup-content-wrapper { max-width: calc(100vw - 24px) !important; }
-    .mg-popup { min-width: 0; max-width: 100%; }
-    .mg-popup-lbl { white-space: normal; }
-    .mg-popup-val { word-break: break-word; }
+    /* Popup Leaflet desabilitado em mobile — usa bottom sheet */
+    #mg-map .leaflet-popup { display: none !important; }
     .mg-layout { flex-direction: column; min-height: 0; gap: 0; margin-bottom: 0; border-radius: 0; box-shadow: none;
         height: calc(100vh - 68px);
         height: calc(100svh - 68px);
@@ -793,8 +790,7 @@ body.mapa-page .rb-main {
 @media (max-width: 480px) {
     .mg-intro { display: none; }
     .mg-page  { padding: 0; gap: 0; }
-    /* Popup não pode ser mais largo que a tela em 320px */
-    .mg-popup { min-width: 0; max-width: calc(100vw - 32px); }
+    /* popup Leaflet já desabilitado via display:none no breakpoint 900px */
     /* Mapa ocupa a tela inteira menos header (~46px) + nav (~44px) + buffer (6px) = 96px */
     .mg-map-area {
         height: calc(100vh - 76px);
@@ -811,4 +807,107 @@ body.mapa-page .rb-main {
     .mg-filter-fab { bottom: 24px; }
     .mg-legend-title { font-size: 0.5625rem; }
     .mg-legend-item { font-size: 0.625rem; }
+}
+
+/* ================== BOTTOM SHEET MOBILE ================== */
+
+/* Oculto por padrão — só aparece em mobile via media query */
+.mg-sheet,
+.mg-sheet-backdrop { display: none; }
+
+@media (max-width: 900px) {
+    /* Backdrop semitransparente atrás do sheet */
+    .mg-sheet-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(10,20,60,.35);
+        z-index: 1799;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .28s ease;
+    }
+    .mg-sheet-backdrop.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Sheet principal */
+    .mg-sheet {
+        display: block;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        background: #fff;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -6px 32px rgba(16,29,79,.22);
+        z-index: 1800;
+        max-height: 62vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transform: translateY(110%);
+        transition: transform .30s cubic-bezier(.32,0,.68,0);
+    }
+    .mg-sheet.is-open { transform: translateY(0); }
+
+    /* Alça de arrasto */
+    .mg-sheet-handle {
+        width: 40px; height: 4px;
+        background: rgba(0,0,0,.13);
+        border-radius: 2px;
+        margin: 12px auto 0;
+        flex-shrink: 0;
+    }
+
+    /* Botão fechar */
+    .mg-sheet-close {
+        position: absolute;
+        top: 8px; right: 14px;
+        background: rgba(0,0,0,.07);
+        border: none;
+        border-radius: 50%;
+        width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.8125rem;
+        color: #444;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .mg-sheet-close:active { background: rgba(0,0,0,.14); }
+
+    /* Conteúdo do sheet — reaproveitando as classes mg-popup */
+    .mg-sheet-body .mg-popup {
+        min-width: 0;
+        max-width: 100%;
+        border-radius: 0;
+    }
+    .mg-sheet-body .mg-popup-header {
+        border-radius: 0;
+        padding: 14px 44px 12px 16px;
+    }
+    .mg-sheet-body .mg-popup-body {
+        padding-top: 4px;
+    }
+    .mg-sheet-body .mg-popup-row {
+        padding: 0 16px 10px;
+    }
+    .mg-sheet-body .mg-popup-lbl {
+        min-width: 60px;
+    }
+    .mg-sheet-body .mg-popup-val {
+        text-align: right;
+        font-weight: 600;
+    }
+    .mg-sheet-body .mg-popup-progs {
+        padding: 0 0 8px;
+    }
+    .mg-sheet-body .mg-popup-prog-item {
+        padding: 10px 16px;
+    }
+    .mg-sheet-body .mg-popup-prog-item--sep {
+        border-top: 1px solid rgba(38,69,132,.08);
+    }
+
+    /* FAB e legenda sobem para não serem cobertos pelo sheet */
+    .mg-filter-fab { bottom: 16px; }
+    .mg-legend { bottom: 16px; }
 }

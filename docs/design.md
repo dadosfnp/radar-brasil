@@ -744,6 +744,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | (HEAD)    | Metodologia Calculo v41: MathML displaystyle="true" + mrow raiz corrige layout das formulas -- tudo na mesma linha horizontal em vez de empilhado; remove display:block do CSS que conflitava com flex container |
 | 2026-09-09 | (HEAD)    | Metodologia v42: border-top 1.5px rgba(38,69,132,.12) em meto-timeline-section -- linha divisoria sutil entre scroll-stack de fotos e secao Historico |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado v9/js v2: popup Leaflet limitado a 100vw-24px em mobile (<=900px); minWidth/maxWidth no bindPopup calculados com Math.min para nao exceder viewport |
+| 2026-09-09 | (HEAD)    | Mapa Georreferenciado v10/js v3: bottom sheet mobile (pattern Google Maps) -- clique no marker desliza card de baixo para cima; mapa permanece visivel; popup Leaflet desabilitado em <=900px |
 
 ---
 
