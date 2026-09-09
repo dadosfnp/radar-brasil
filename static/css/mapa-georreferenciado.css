@@ -883,4 +883,7 @@ body.mapa-page .rb-main {
     }
     .mg-sheet-body .mg-popup-body { padding-top: 6px; }
     .mg-sheet-body .mg-popup-row  { padding: 6px 16px 8px; }
+
+    /* Impede que status badge + valor quebrem linha no sheet full-width */
+    .mg-sheet-body .mg-popup-prog-meta { flex-wrap: nowrap; }
 }

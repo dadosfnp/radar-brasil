@@ -747,6 +747,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado v10/js v3: bottom sheet mobile (pattern Google Maps) -- clique no marker desliza card de baixo para cima; mapa permanece visivel; popup Leaflet desabilitado em <=900px |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado v11/js v4: redesign visual do bottom sheet -- cabecalho branco Sora bold, badge pill, valores right-aligned bold, secao programas fundo cinza, CTA navy full-width (pattern IFEM) |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado v9/js v2: bottom sheet mobile definitivo -- visual identico ao popup desktop (cabecalho navy, rows, programas), sem reestilizacao; popup Leaflet desabilitado em mobile |
+| 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v10: fix flex-wrap -- .mg-sheet-body .mg-popup-prog-meta flex-wrap:nowrap garante que status badge e valor aparecem na mesma linha no sheet full-width (idêntico ao popup desktop) |
 
 ---
 

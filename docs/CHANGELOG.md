@@ -6,6 +6,13 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Mapa Georreferenciado: badge de estagio e valor na mesma linha no bottom sheet mobile (css v10)
+
+- `.mg-sheet-body .mg-popup-prog-meta { flex-wrap: nowrap }` evita que o status badge e o valor quebrem linha no sheet full-width
+- Popup mobile agora identico ao popup desktop: badge + valor alinhados horizontalmente em uma unica linha
+
+---
+
 ### style — Mapa Georreferenciado: redesign visual do bottom sheet mobile (css v11, js v4)
 
 - Cabecalho branco: nome do municipio em Sora 1.125rem bold navy; badge pill para contagem de programas
