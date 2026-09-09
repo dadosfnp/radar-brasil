@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Mapa Georreferenciado: card overlay centralizado substitui bottom sheet no mobile (css v11)
+
+- Em <=900px: clique no municipio abre card centralizado na tela (position fixed top 50% left 50%)
+- Card com animacao de escala (0.90 → 1.0) e fade-in; spring effect via cubic-bezier(.34,1.30,.64,1)
+- Largura: calc(100vw - 32px), max-width 380px, max-height 78vh com scroll interno
+- Backdrop semitransparente rgba(10,20,60,.40) fecha ao clicar fora
+- Conteudo: mesmo buildPopup() do desktop (header navy, rows, programas)
+- flex-wrap: nowrap em mg-popup-prog-meta: badge de estagio e valor na mesma linha
+
+---
+
 ### fix — Mapa Georreferenciado: badge de estagio e valor na mesma linha no bottom sheet mobile (css v10)
 
 - `.mg-sheet-body .mg-popup-prog-meta { flex-wrap: nowrap }` evita que o status badge e o valor quebrem linha no sheet full-width
