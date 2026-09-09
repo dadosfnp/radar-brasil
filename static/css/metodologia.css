@@ -1249,16 +1249,14 @@ body.metodologia-page .rb-main {
     flex-wrap: wrap;
 }
 
-.meto-calc-formula .katex-display {
-    margin: 0;
-}
-
-.meto-calc-formula .katex {
-    font-size: 0.92rem;
+.meto-calc-formula math {
+    font-size: 1.05rem;
     color: #264584;
+    display: block;
+    text-align: center;
 }
 
-.meto-calc-card--country .meto-calc-formula .katex {
+.meto-calc-card--country .meto-calc-formula math {
     color: rgba(255,255,255,0.92);
 }
 

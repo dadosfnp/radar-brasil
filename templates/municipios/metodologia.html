@@ -7,8 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=39">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=40">
 {% endblock %}
 
 {% block content %}
@@ -573,7 +572,36 @@
                     </div>
                 </div>
                 <div class="meto-calc-formula">
-                    <span class="meto-katex" data-formula="\mathrm{NP} = \dfrac{\left[\,\Sigma(C-1)+(C_x \cdot 2)\,\right]}{\Sigma C+1}"></span>
+                    <math display="block">
+                        <mi mathvariant="normal">NP</mi>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mrow>
+                                <mo>[</mo>
+                                <mo>&#x2211;</mo>
+                                <mo stretchy="false">(</mo>
+                                <mi>C</mi>
+                                <mo>&#x2212;</mo>
+                                <mn>1</mn>
+                                <mo stretchy="false">)</mo>
+                                <mo>+</mo>
+                                <mo stretchy="false">(</mo>
+                                <msub><mi>C</mi><mi>x</mi></msub>
+                                <mo>&#x22C5;</mo>
+                                <mn>2</mn>
+                                <mo stretchy="false">)</mo>
+                                <mo>]</mo>
+                            </mrow>
+                            <mrow>
+                                <mo stretchy="false">(</mo>
+                                <mo>&#x2211;</mo>
+                                <mi>C</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                                <mo stretchy="false">)</mo>
+                            </mrow>
+                        </mfrac>
+                    </math>
                 </div>
                 <p class="meto-calc-desc">
                     {% trans "Média ponderada dos critérios avaliados, atribuindo peso duplo ao critério de maior relevância para o eixo." %}
@@ -606,7 +634,29 @@
                     </div>
                 </div>
                 <div class="meto-calc-formula">
-                    <span class="meto-katex" data-formula="\mathrm{NE}_k = \dfrac{\left[\,\Sigma(\mathrm{NP}_a \cdot F_r)\,\right]}{\Sigma F_r}"></span>
+                    <math display="block">
+                        <msub>
+                            <mi mathvariant="normal">NE</mi>
+                            <mi>k</mi>
+                        </msub>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mrow>
+                                <mo>[</mo>
+                                <mo>&#x2211;</mo>
+                                <mo stretchy="false">(</mo>
+                                <msub><mi mathvariant="normal">NP</mi><mi>a</mi></msub>
+                                <mo>&#x22C5;</mo>
+                                <msub><mi>F</mi><mi>r</mi></msub>
+                                <mo stretchy="false">)</mo>
+                                <mo>]</mo>
+                            </mrow>
+                            <mrow>
+                                <mo>&#x2211;</mo>
+                                <msub><mi>F</mi><mi>r</mi></msub>
+                            </mrow>
+                        </mfrac>
+                    </math>
                 </div>
                 <p class="meto-calc-desc">
                     {% trans "Média ponderada dos Níveis Parciais de cada instância, usando o fator de relevância como multiplicador de peso." %}
@@ -639,7 +689,27 @@
                     </div>
                 </div>
                 <div class="meto-calc-formula">
-                    <span class="meto-katex" data-formula="\mathrm{NP}_{\mathrm{BR}} = \dfrac{\Sigma\,\mathrm{NE}_k}{4\text{ eixos}}"></span>
+                    <math display="block">
+                        <msub>
+                            <mi mathvariant="normal">NP</mi>
+                            <mi mathvariant="normal">BR</mi>
+                        </msub>
+                        <mo>=</mo>
+                        <mfrac>
+                            <mrow>
+                                <mo>&#x2211;</mo>
+                                <msub>
+                                    <mi mathvariant="normal">NE</mi>
+                                    <mi>k</mi>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <mn>4</mn>
+                                <mspace width="0.25em"/>
+                                <mtext>eixos</mtext>
+                            </mrow>
+                        </mfrac>
+                    </math>
                 </div>
                 <p class="meto-calc-desc">
                     {% trans "Média aritmética dos quatro Níveis Eixo, sintetizando em uma única nota o desempenho geral do federalismo climático brasileiro." %}
@@ -809,11 +879,5 @@
         obs.observe(el);
     });
 }());
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script>
-document.querySelectorAll('.meto-katex[data-formula]').forEach(function(el) {
-    katex.render(el.dataset.formula, el, { throwOnError: false, displayMode: true });
-});
 </script>
 {% endblock %}
