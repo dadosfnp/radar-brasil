@@ -35,6 +35,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+### feat — Mapa Georreferenciado: bottom sheet mobile com visual identico ao popup desktop (css v9, js v2)
+
+- Em <=900px: clique no marker abre bottom sheet na base da tela -- mesmo HTML do popup desktop
+- Sem reestilizacao do mg-popup: cabecalho navy, rows com icone/label/valor, programas com barra de progresso
+- Popup Leaflet desabilitado em mobile via display:none + sem bindPopup nos markers mobile
+- Backdrop semitransparente, handle, botao fechar, fecha ao clicar no mapa ou backdrop
+
+---
+
 ### revert — Mapa Georreferenciado: reverte alteracoes de popup mobile (volta ao estado anterior)
 
 - Reverte css v9/v10/v11 e js v2/v3/v4 -- bottom sheet e tentativas anteriores removidos
