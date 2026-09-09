@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Criterio "Sustentabilidade Financeira" restrito ao eixo Governanca (painel_multinivel.py, avaliacao_painel.py)
+
+- "Financiamento" → "Sustentabilidade Financeira" agora ocorre SOMENTE quando eixo_front == "Governanca"
+- Eixos Politicas e Planos e Programas exibem "Financiamento" (PT) / "Financing" (EN) sem renomear
+- Correcao aplicada em dados_para_grafico (painel_multinivel.py) e get_tabela (avaliacao_painel.py)
+- EN verificado: "Financing" mantido nos eixos Politicas/Planos e Programas; "Financial Sustainability" somente em Governance
+
+---
+
 ### fix — Mapa Georreferenciado: sugestoes de municipio respeitam filtros ativos (js v4)
 
 - _getSuggestions le UF, Regiao, Porte, Eixo, Modalidade, Estagio, Executor ativos no DOM

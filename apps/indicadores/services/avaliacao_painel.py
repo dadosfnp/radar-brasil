@@ -165,6 +165,10 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
         registros = sorted(registros, key=lambda r: nivel_ordem.get(r.nivel, 99))
 
     display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
+    # "Financiamento" → "Sustentabilidade Financeira" apenas no eixo Governança
+    fin_key = "Financing" if lang == "en" else "Financiamento"
+    if eixo_front != "Governanca":
+        display_map = {k: v for k, v in display_map.items() if k != fin_key}
     result = []
     for reg in registros:
         nivel = reg.nivel

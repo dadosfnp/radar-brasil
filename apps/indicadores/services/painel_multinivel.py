@@ -153,6 +153,10 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
 
     # Aplica nomes de exibição (renomeia labels do banco antes de retornar)
     display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
+    # "Financiamento" → "Sustentabilidade Financeira" apenas no eixo Governança
+    fin_key = "Financing" if lang == "en" else "Financiamento"
+    if eixo_front != "Governanca":
+        display_map = {k: v for k, v in display_map.items() if k != fin_key}
     labels = [display_map.get(lb, lb) for lb in labels]
 
     return {"labels": labels, "datasets": datasets}
