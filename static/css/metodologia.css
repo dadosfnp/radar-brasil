@@ -1252,8 +1252,6 @@ body.metodologia-page .rb-main {
 .meto-calc-formula math {
     font-size: 1.05rem;
     color: #264584;
-    display: block;
-    text-align: center;
 }
 
 .meto-calc-card--country .meto-calc-formula math {

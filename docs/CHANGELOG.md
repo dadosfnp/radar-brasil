@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Metodologia de Calculo: layout horizontal das formulas MathML corrigido (metodologia.css v41)
+
+- `display="block"` substituido por `displaystyle="true"` nos tres elementos `<math>` -- mantem fracoes em tamanho display sem forcar quebra de linha
+- Toda a formula encapsulada em `<mrow>` raiz para o browser tratar como expressao unica em linha
+- CSS: removido `display: block` de `.meto-calc-formula math` que conflitava com o flex container
+- Resultado: NP=..., NE_k=..., NP_BR=... renderizam como expressao horizontal com fracao vertical centrada
+
+---
+
 ### style — Metodologia de Calculo: formulas renderizadas com KaTeX (metodologia.css v39)
 
 - Carrega KaTeX 0.16.9 (cdnjs) para tipografia matematica profissional (sigma escalado, fracoes proporcionais, espacamento TeX)
