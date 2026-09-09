@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Atualiza contagem Governanca para 32 instancias e ordena criterios por ORDEM_CRITERIOS
+
+- `painel-multinivel.js`: `EIXO_COUNTS.Governanca.count` 31 → 32
+- Template `painel-multinivel.html`: cache-buster JS v=7 → v=8
+- `avaliacao_painel.py` `get_tabela`: ordena criterios por `ORDEM_CRITERIOS` predefinido em vez de por valor do nivel
+  - Importa `ORDEM_CRITERIOS` e `_EN_CRITERIO` de `painel_multinivel`
+  - Fallback para ordenacao por nivel quando eixo nao tem ordem predefinida
+
+---
+
 ### style — Logo Radar Brasil +20%: 62px → 74px desktop, FNP mantido em 62px (base v18)
 
 - Radar Brasil: 62px → 74px desktop, 50px → 60px (<=1280px), 44px → 53px (<=1024px), 36px → 43px mobile

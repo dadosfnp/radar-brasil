@@ -1,6 +1,7 @@
 import unicodedata
 
 from apps.indicadores.models import RegistroFicha, RegistroParametro
+from apps.indicadores.services.painel_multinivel import ORDEM_CRITERIOS, _EN_CRITERIO
 
 # ── Constantes ────────────────────────────────────────────────────
 CORES_NIVEL = {
@@ -140,8 +141,28 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
     if not qs.exists():
         return []
 
-    nivel_ordem = {n: i for i, n in enumerate(reversed(list(CORES_NIVEL.keys())))}
-    registros = sorted(list(qs), key=lambda r: nivel_ordem.get(r.nivel, 99))
+    registros = list(qs)
+
+    # Ordena por ORDEM_CRITERIOS (predefinida), nao por valor do nivel
+    _EIXO_NORM_TO_FRONT = {v: k for k, v in EIXO_MAP.items()}
+    eixo_front = _EIXO_NORM_TO_FRONT.get(registros[0].eixo, "") if registros else ""
+    ordem = ORDEM_CRITERIOS.get(eixo_front, [])
+
+    if ordem:
+        ordem_norm = [_normalizar(o) for o in ordem]
+
+        def _sort_key(reg):
+            av = _EN_CRITERIO.get(reg.avaliacao, reg.avaliacao) if lang == "en" else reg.avaliacao
+            av_norm = _normalizar(av)
+            try:
+                return ordem_norm.index(av_norm)
+            except ValueError:
+                return len(ordem_norm)
+
+        registros = sorted(registros, key=_sort_key)
+    else:
+        nivel_ordem = {n: i for i, n in enumerate(reversed(list(CORES_NIVEL.keys())))}
+        registros = sorted(registros, key=lambda r: nivel_ordem.get(r.nivel, 99))
 
     display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
     result = []

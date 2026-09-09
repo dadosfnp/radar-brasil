@@ -7,7 +7,7 @@ const EIXOS = [
 
 // Contagens de instâncias por eixo (para KPI dinâmico)
 const EIXO_COUNTS = {
-  "Governanca":              { count: 31, label_pt: "instâncias de governança", label_en: "governance instances" },
+  "Governanca":              { count: 32, label_pt: "instâncias de governança", label_en: "governance instances" },
   "Politicas e Planos":     { count: 17, label_pt: "políticas e planos", label_en: "policies and plans" },
   "Programas":               { count: 18, label_pt: "programas", label_en: "programs" },
   "Linhas de Financiamento": { count: 17, label_pt: "linhas de financiamento", label_en: "financing lines" },
