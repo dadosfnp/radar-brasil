@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### fix — Mapa Georreferenciado: sugestoes de municipio respeitam filtros ativos (js v4)
+
+- _getSuggestions le UF, Regiao, Porte, Eixo, Modalidade, Estagio, Executor ativos no DOM
+- Replica exatamente o criterio de filtrar(): selecionar AM→ so aparece municipios do AM
+- Sem financiamento oculto nas sugestoes quando toggle "Exibir sem financiamento" esta desligado
+- Evita conflito entre sugestao de municipio e filtros de estado/regiao ativos
+
+---
+
 ### feat — Mapa Georreferenciado: autocomplete de municipio e fechamento automatico do filtro (css v12, js v3)
 
 - Autocomplete em tempo real: a partir de 2 caracteres aparece dropdown com ate 8 sugestoes (nome + UF)

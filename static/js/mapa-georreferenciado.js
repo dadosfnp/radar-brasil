@@ -42,15 +42,42 @@ function _normStr(s) {
 function _getSuggestions(query) {
     if (!query || query.length < 2 || !allFeatures.length) return [];
     const q = _normStr(query);
+
+    // Lê filtros ativos — replica o critério de filtrar() para que as sugestões
+    // sejam consistentes com o que aparece no mapa (ex: UF=AM → só cidades do AM)
+    const uf         = document.getElementById("mg-f-uf")?.value         || "";
+    const regiao     = document.getElementById("mg-f-regiao")?.value     || "";
+    const porte      = document.getElementById("mg-f-porte")?.value      || "";
+    const eixo       = document.getElementById("mg-f-eixo")?.value       || "";
+    const modalidade = document.getElementById("mg-f-modalidade")?.value || "";
+    const estagio    = document.getElementById("mg-f-estagio")?.value    || "";
+    const executor   = document.getElementById("mg-f-executor")?.value   || "";
+    const exibirSemFin = document.getElementById("mg-f-sem-financiamento")?.checked || false;
+    const filtroFin  = eixo || modalidade || estagio || executor;
+
     const seen = new Set();
     const starts = [], contains = [];
+
     for (const feat of allFeatures) {
         const p = feat.properties;
         const name = p.municipio || '';
         if (!name || seen.has(name)) continue;
+
+        // Mesma lógica de filtrar(): sem financiamento → oculto por padrão
+        if (!p.tem_financiamento) {
+            if (!exibirSemFin || filtroFin) continue;
+        }
+        if (uf         && p.uf     !== uf)     continue;
+        if (regiao     && p.regiao !== regiao) continue;
+        if (porte      && p.porte  !== porte)  continue;
+        if (eixo       && !(p.eixos       || []).includes(eixo))       continue;
+        if (modalidade && !(p.modalidades || []).includes(modalidade)) continue;
+        if (estagio    && !(p.estagios    || []).includes(estagio))    continue;
+        if (executor   && !(p.executores  || []).includes(executor))   continue;
+
         const n = _normStr(name);
-        if (n.startsWith(q))     { seen.add(name); starts.push({ municipio: name, uf: p.uf || '' }); }
-        else if (n.includes(q))  { seen.add(name); contains.push({ municipio: name, uf: p.uf || '' }); }
+        if (n.startsWith(q))    { seen.add(name); starts.push({ municipio: name, uf: p.uf || '' }); }
+        else if (n.includes(q)) { seen.add(name); contains.push({ municipio: name, uf: p.uf || '' }); }
         if (starts.length + contains.length >= 12) break;
     }
     return [...starts, ...contains].slice(0, 8);
