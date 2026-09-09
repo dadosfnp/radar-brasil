@@ -1354,6 +1354,42 @@ body.metodologia-page .rb-main {
     border-top-color: rgba(245,196,0,.25);
 }
 
+.meto-calc-legend {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-top: 1px solid rgba(38,69,132,.10);
+    padding-top: 12px;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+}
+
+.meto-calc-legend li {
+    color: #5a6a8a;
+}
+
+.meto-calc-legend li strong {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-weight: 600;
+    color: #264584;
+    margin-right: 3px;
+}
+
+.meto-calc-card--country .meto-calc-legend {
+    border-top-color: rgba(255,255,255,.15);
+}
+
+.meto-calc-card--country .meto-calc-legend li {
+    color: rgba(255,255,255,.60);
+}
+
+.meto-calc-card--country .meto-calc-legend li strong {
+    color: rgba(255,255,255,.85);
+}
+
 @media (max-width: 900px) {
     .meto-calc-grid { grid-template-columns: 1fr; }
     .meto-calc-card { padding: 22px 18px; }

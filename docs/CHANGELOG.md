@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-09
 
+### style — Metodologia de Calculo: formulas corretas e legendas de variaveis (metodologia.css v38)
+
+- Card Nivel Parcial: formula corrigida para [Σ(C-1)+(Cx·2)]/(ΣC+1); tabela mostra Cx com peso 2
+- Card Nivel Eixo: formula corrigida para [Σ(NPa·Fr)]/ΣFr; contagem Governanca 31→32
+- Card Nivel Pais: legenda adicionada (NE_k, NP_BR)
+- CSS `.meto-calc-legend`: lista de definicao de variaveis no rodape de cada card
+- metodologia.css v=37→v=38
+
+---
+
 ### fix — Atualiza contagem Governanca para 32 instancias e ordena criterios por ORDEM_CRITERIOS
 
 - `painel-multinivel.js`: `EIXO_COUNTS.Governanca.count` 31 → 32

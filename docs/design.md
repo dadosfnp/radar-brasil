@@ -740,6 +740,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | pendente  | Avaliacao Painel modal mobile v14: inset:88px_0_0 no overlay inicia modal geometricamente abaixo do header (substituindo padding-top) |
 | 2026-09-09 | (HEAD)    | Header logos alinhados: Radar Brasil igualado ao FNP em todos os breakpoints (desktop 62px, 1280 50px, 1024 44px, mobile 36px); pill position:absolute top:100% margin-top:4px; padding header-top 6px/36px simetrico (base.css v17) |
 | 2026-09-09 | (HEAD)    | Logo Radar Brasil +20%: 74px desktop (era 62px), FNP mantido 62px; grid align-items:center centraliza ambos no mesmo eixo; padding-bottom 30px para espaco simetrico 6px/6px (base.css v18) |
+| 2026-09-09 | (HEAD)    | Metodologia Calculo v38: formulas corrigidas (NP=[Σ(C-1)+(Cx·2)]/(ΣC+1); NE=[Σ(NPa·Fr)]/ΣFr); legenda de variaveis adicionada abaixo de cada card; contagem Governanca 31→32 |
 
 ---
 

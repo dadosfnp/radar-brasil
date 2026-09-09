@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=37">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=38">
 {% endblock %}
 
 {% block content %}
@@ -572,27 +572,31 @@
                     </div>
                 </div>
                 <div class="meto-calc-formula">
-                    <span class="meto-calc-lhs">NP<sub>i</sub></span>
+                    <span class="meto-calc-lhs">NP</span>
                     <span class="meto-calc-eq">=</span>
                     <span class="meto-calc-frac">
-                        <span class="meto-calc-num">&#8721; Critério<sub>j</sub></span>
-                        <span class="meto-calc-den">N<sub>critérios</sub></span>
+                        <span class="meto-calc-num">[&#8721;(C&#8722;1) + (Cx&#183;2)]</span>
+                        <span class="meto-calc-den">(&#8721;C + 1)</span>
                     </span>
                 </div>
                 <p class="meto-calc-desc">
-                    {% trans "Média aritmética dos valores atribuídos a cada critério de avaliação da instância, na escala de 1 a 5." %}
+                    {% trans "Média ponderada dos critérios avaliados, atribuindo peso duplo ao critério de maior relevância para o eixo." %}
                 </p>
                 <table class="meto-calc-table">
                     <thead>
                         <tr><th>{% trans "Critério" %}</th><th>{% trans "Peso" %}</th><th>{% trans "Escala" %}</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>{% trans "Operacionalidade" %}</td><td>1</td><td>1 — 5</td></tr>
-                        <tr><td>{% trans "Espaço de Diálogo" %}</td><td>1</td><td>1 — 5</td></tr>
-                        <tr><td>{% trans "Outros critérios do eixo" %}</td><td>1</td><td>1 — 5</td></tr>
-                        <tr class="meto-calc-total"><td colspan="2">{% trans "Nível Parcial" %}</td><td>{% trans "Média" %}</td></tr>
+                        <tr><td>{% trans "Demais critérios do eixo" %}</td><td>1</td><td>1 — 5</td></tr>
+                        <tr><td>{% trans "Critério prioritário" %} (Cx)</td><td>2</td><td>1 — 5</td></tr>
+                        <tr class="meto-calc-total"><td colspan="2">{% trans "Nível Parcial" %}</td><td>{% trans "Méd. pond." %}</td></tr>
                     </tbody>
                 </table>
+                <ul class="meto-calc-legend">
+                    <li><strong>C</strong> — {% trans "valor de cada critério avaliado (escala 1 a 5)" %}</li>
+                    <li><strong>Cx</strong> — {% trans "critério de maior relevância para o eixo (peso duplo)" %}</li>
+                    <li><strong>&#8721;C</strong> — {% trans "número total de critérios do componente" %}</li>
+                </ul>
             </div>
 
             <!-- Nível Eixo -->
@@ -608,24 +612,28 @@
                     <span class="meto-calc-lhs">NE<sub>k</sub></span>
                     <span class="meto-calc-eq">=</span>
                     <span class="meto-calc-frac">
-                        <span class="meto-calc-num">&#8721; NP<sub>i</sub></span>
-                        <span class="meto-calc-den">N<sub>instâncias</sub></span>
+                        <span class="meto-calc-num">[&#8721;(NPa &#183; Fr)]</span>
+                        <span class="meto-calc-den">&#8721; Fr</span>
                     </span>
                 </div>
                 <p class="meto-calc-desc">
-                    {% trans "Média aritmética dos Níveis Parciais de todas as instâncias avaliadas dentro de cada eixo temático." %}
+                    {% trans "Média ponderada dos Níveis Parciais de cada instância, usando o fator de relevância como multiplicador de peso." %}
                 </p>
                 <table class="meto-calc-table">
                     <thead>
                         <tr><th>{% trans "Eixo" %}</th><th>{% trans "Instâncias" %}</th><th>{% trans "Nível Eixo" %}</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>{% trans "Governança" %}</td><td>31</td><td>{% trans "Média NP" %}</td></tr>
-                        <tr><td>{% trans "Políticas e Planos" %}</td><td>17</td><td>{% trans "Média NP" %}</td></tr>
-                        <tr><td>{% trans "Programas" %}</td><td>18</td><td>{% trans "Média NP" %}</td></tr>
-                        <tr><td>{% trans "Linhas de Financiamento" %}</td><td>17</td><td>{% trans "Média NP" %}</td></tr>
+                        <tr><td>{% trans "Governança" %}</td><td>32</td><td>{% trans "Méd. pond. NP" %}</td></tr>
+                        <tr><td>{% trans "Políticas e Planos" %}</td><td>17</td><td>{% trans "Méd. pond. NP" %}</td></tr>
+                        <tr><td>{% trans "Programas" %}</td><td>18</td><td>{% trans "Méd. pond. NP" %}</td></tr>
+                        <tr><td>{% trans "Linhas de Financiamento" %}</td><td>17</td><td>{% trans "Méd. pond. NP" %}</td></tr>
                     </tbody>
                 </table>
+                <ul class="meto-calc-legend">
+                    <li><strong>NPa</strong> — {% trans "Nível Parcial de cada instância avaliada" %}</li>
+                    <li><strong>Fr</strong> — {% trans "fator de relevância da instância (peso 1, 2 ou 3)" %}</li>
+                </ul>
             </div>
 
             <!-- Nível País -->
@@ -660,6 +668,10 @@
                         <tr class="meto-calc-total"><td colspan="2">{% trans "Nota País" %}</td><td>NP / 4</td></tr>
                     </tbody>
                 </table>
+                <ul class="meto-calc-legend">
+                    <li><strong>NE<sub>k</sub></strong> — {% trans "Nível Eixo de cada eixo temático (k = 1 a 4)" %}</li>
+                    <li><strong>NP<sub>BR</sub></strong> — {% trans "nota síntese da capacidade do país em implementar o federalismo climático" %}</li>
+                </ul>
             </div>
 
         </div>
