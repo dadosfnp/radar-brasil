@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-09
+> Última atualização: 2026-09-10
 
 ---
 
@@ -128,9 +128,12 @@ O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no ban
 - `Link_orgao` — URL do órgão responsável
 - `Link_arcabouco` — URL do arcabouço normativo
 
-**Critérios renomeados (`painel_multinivel.py`):**
-- `Sustentabilidade Financeira` (era "Financiamento")
-- `Diversidade e Representatividade` (era "Representação de Gênero, Raça e Etnia")
+**Critérios renomeados (`painel_multinivel.py` + `avaliacao_painel.py` — `_CRITERIO_DISPLAY_PT`):**
+- `Sustentabilidade Financeira` (era "Financiamento") — **somente no eixo Governança**; Políticas e Planos e Programas exibem "Financiamento"
+- `Diversidade e Representatividade` (era "Representação de Gênero, Raça e Etnia") — todos os eixos
+- `Monitoramento e Avaliação` (era "Monitoramento e Participação Local") — todos os eixos
+
+**Regra do rename condicional:** `fin_key = "Financing" if lang == "en" else "Financiamento"` removido do `display_map` quando `eixo_front != "Governanca"`. Aplicado em `dados_para_grafico` e `get_tabela`.
 
 ---
 
@@ -277,19 +280,18 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-09)
+## Estado Atual do Projeto (2026-09-10)
 
-### Branch atual: `main` — `e12cb6d`
+### Branch atual: `main` — `c1ff7f2`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `e12cb6d` | `e12cb6d` |
-| `prod` (dadosfnp) | - | `e12cb6d` |
+| `origin` (brunofnp) | `c1ff7f2` | `c1ff7f2` |
+| `prod` (dadosfnp) | - | `c1ff7f2` |
 
-> `origin` e `prod` identicos em `main`. Branch `next` sincronizado em `origin`.
-> Criar feature branches a partir de `next`.
+> `origin` e `prod` identicos em `main`. Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -308,7 +310,7 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — pendente de rebuild
 
-Commits `33762fd` e `e12cb6d` publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
+Commits desta sessao publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
 
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
@@ -346,18 +348,18 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-09)
+### Header Global — estado (2026-09-10)
 
-CSS: `static/css/base.css` **v=15** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=18** | Template: `base_templates/base.html`
 
 **Gap acima do header (v15):**
 - `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }` — cobre gap de renderizacao acima do sticky header com navy; nao afeta landing (usa `.lp-body`).
 - `html { background: var(--color-header-bg) url(fundo-bg.png) ... }` — navy como cor fallback do html.
 
 Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
-- Coluna esquerda: logo Radar Brasil SVG, `height: 124px` desktop / `68px` mobile, `filter: brightness(0) invert(1)`
+- Coluna esquerda: logo Radar Brasil SVG `logo-radar-fundo-escuro.svg`, `height: 74px` desktop / `68px` mobile (v18 — era 62px; +20% de aumento), `?v=2` cache-buster no src do SVG
 - Coluna central: `<nav class="rb-main-nav">` — links brancos `rgba(255,255,255,0.78)`, fonte `1.051rem`, active com `border-bottom: 2px solid #fff`
-- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN
+- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN; logos alinhados pelo topo (axis to axis, v17)
 
 **Menu — item renomeado (2026-09-09):**
 - "Nota Pais" renomeado para "Nivel Pais" em PT (`{% trans "Nível País" %}`)
@@ -412,11 +414,16 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 - "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
 - CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
 
-### Metodologia — estado (2026-09-09)
+### Metodologia — estado (2026-09-10)
 
-CSS: `static/css/metodologia.css` **v=36** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=42** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
+
+**Formulas MathML (v41/v42):**
+- Formulas renderizadas com `<math displaystyle="true"><mrow>...</mrow></math>` (horizontal, fracao em tamanho grande)
+- Removido `display: block` do CSS (conflitava com flex container)
+- Divisor sutil `border-top: 1.5px solid rgba(38,69,132,.12)` em `.meto-timeline-section` — separa scroll-stack de fotos da secao Historico do Federalismo
 
 **Scroll-stack de fotos (v36 — estado atual — estilo Medellin):**
 
@@ -466,17 +473,41 @@ Estrutura HTML:
 np-page > np-intro + np-card (np-sidebar + np-map-container + np-filter-fab) + np-sidebar-backdrop + np-kpi-strip
 ```
 
-### Mapa Georreferenciado — estado (2026-09-04)
+### Mapa Georreferenciado — estado (2026-09-10)
 
-CSS: `static/css/mapa-georreferenciado.css` **v=7** | Template: `templates/municipios/mapa-georreferenciado.html`
+CSS: `static/css/mapa-georreferenciado.css` **v=12** | JS: `static/js/mapa-georreferenciado.js` **v=4** | Template: `templates/municipios/mapa-georreferenciado.html`
 
 **Mapa mobile full-screen (mesmo padrao que Nota Pais):**
 - Em `<=900px`:
   - `.mg-intro { display: none }` — removida em mobile
   - `.mg-page { padding: 0; gap: 0 }`
-  - `.mg-layout { height: calc(100svh - 88px); min-height: 0; margin-bottom: 0; border-radius: 0; box-shadow: none }` — layout define o tamanho
+  - `.mg-layout { height: calc(100svh - 88px) }` — layout define o tamanho
   - `.mg-map-area { height: 100%; border-radius: 0 }` — preenche o layout pai
-- Em `<=480px`: `height: calc(100svh - 96px)` com `border-radius: 0`
+- Em `<=480px`: `height: calc(100svh - 76px)` com `border-radius: 0`
+
+**Popup mobile — card overlay centralizado (v11/v12):**
+- Em `<=900px`: popup Leaflet desabilitado (`display: none !important`); clique no marker abre `.mg-sheet` centralizado na tela
+- `.mg-sheet`: `position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.90)` → escala para `scale(1)` ao abrir
+- Animacao: `opacity + scale` com spring `cubic-bezier(.34,1.30,.64,1)` — sensacao de popup nativo
+- Backdrop `rgba(10,20,60,.40)` fecha ao clicar; botao X fecha; clique no mapa fecha
+- `max-height: 78vh` com scroll interno; `width: calc(100vw - 32px); max-width: 380px`
+- Conteudo: mesmo `buildPopup()` do desktop (header navy, rows com icone/label/valor, lista de programas)
+- `flex-wrap: nowrap` em `.mg-sheet-body .mg-popup-prog-meta` — badge de estagio e valor sempre na mesma linha
+- Desktop: popup Leaflet nativo inalterado
+
+**Autocomplete de municipio (v12/js v3-v4):**
+- Dropdown `.mg-mun-suggestions` aparece a partir de 2 caracteres no campo Municipio
+- Ate 8 sugestoes (nome + UF), priorizando "comeca com" antes de "contem"
+- Normalizacao de acentos: `_normStr()` via `normalize('NFD')` — "sao" encontra "Sao Paulo"
+- Sugestoes **contextuais**: `_getSuggestions()` le todos os filtros ativos (UF, Regiao, Porte, Eixo, Modalidade, Estagio, Executor) e aplica o mesmo criterio de `filtrar()` — selecionar AM mostra so municipios do AM
+- Navegacao por teclado: seta cima/baixo, Enter confirma, Escape fecha
+- Selecionar sugestao fecha o painel de filtros no mobile via evento `mg:filter-selected` (desacoplado do IIFE do template)
+- Pressionar Enter sem sugestao selecionada tambem fecha o painel no mobile
+
+**Sidebar/filtros mobile:**
+- FAB `.mg-filter-fab` (bottom-left) abre sidebar como bottom sheet navy
+- Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
+- Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
 ### Painel Multinivel — estado (2026-09-09)
 
@@ -543,19 +574,23 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados ou renomeados.
 
-### Versoes atuais dos CSS (cache-busters nos templates)
+### Versoes atuais dos CSS/JS (cache-busters nos templates)
 
-| Arquivo CSS | Versao no template |
+| Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=15 |
+| `base.css` | v=18 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
-| `metodologia.css` | v=37 |
+| `metodologia.css` | v=42 |
 | `avaliacao-painel.css` | v=14 |
+| `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
-| `mapa-georreferenciado.css` | v=7 |
+| `painel-multinivel.js` | v=8 |
+| `mapa-georreferenciado.css` | v=12 |
+| `mapa-georreferenciado.js` | v=4 |
 | `financiamento-climatico.css` | v=5 |
-| `nota-pais.css` | v=9 |
+| `nota-pais.css` | v=10 |
+| `linha-do-tempo.css` | v=1 |
 
 ### Pendencias
 
