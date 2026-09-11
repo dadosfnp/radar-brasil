@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-10
+> Última atualização: 2026-09-11
 
 ---
 
@@ -282,16 +282,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-10)
 
-### Branch atual: `main` — `6db3a37`
+### Branch atual: `main` — `198b3bd`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `c1ff7f2` | `c1ff7f2` |
-| `prod` (dadosfnp) | - | `c1ff7f2` |
+| `origin` (brunofnp) | `198b3bd` | `198b3bd` |
+| `prod` (dadosfnp) | - | `198b3bd` |
 
-> `origin` e `prod` identicos em `main`. Criar feature branches a partir de `next`.
+> `origin` e `prod` identicos em `main`. `next` sincronizado com `main`. Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -310,7 +310,7 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — pendente de rebuild
 
-Commits desta sessao publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
+Commits de 2026-09-11 publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
 
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
@@ -538,12 +538,24 @@ Todos os touch targets elevados para min-height: 44px em mobile.
 - Substituiu abordagem anterior de `padding-top: calc(88px + 8px)` que nao funcionava
 - `.ap-modal-box { max-height: calc(100svh - 88px - 20px) }` — altura limitada ao espaco disponivel
 
-### Financiamento Climatico — estado (2026-09-03)
+### Financiamento Climatico — estado (2026-09-11)
 
-CSS: `static/css/financiamento-climatico.css` v=5 | Template: `templates/municipios/financiamento-climatico.html`
+CSS: `static/css/financiamento-climatico.css` v=5 | JS: `static/js/financiamento-climatico.js` v=5 | Template: `templates/municipios/financiamento-climatico.html`
 
 Componente MultiSelect com semantica `selected = new Set()` (vazio = todos ativos). Fix iOS mobile aplicado.
 Tabela mobile: card layout com `td:first-child` como cabecalho navy.
+
+**Filtros em cascata (v5 — 2026-09-11):**
+- Endpoint GET `/indicadores/api/financiamento/filtros-disponiveis/` retorna opcoes validas para cada dimensao dado os outros filtros ativos
+- `get_filtros_disponiveis()` no service: para cada dimensao, aplica os outros filtros e retorna valores distintos existentes
+- `_has_ente_value()` extraida como funcao de modulo (usada em `_filtrar_ente` e `get_filtros_disponiveis`)
+- `MultiSelect.updateAvailableOptions(newOpts)`: atualiza opcoes preservando selecoes validas; retorna true se removeu alguma
+- `atualizarOpcoesDisponiveis()`: chama a API com debounce 150ms, atualiza dropdowns, re-aplica filtros se necessario
+- Ao selecionar um programa, os demais filtros mostram apenas opcoes compativeis
+
+**Filtro Nivel de Governo (2026-09-11):**
+- `_filtrar_ente()` usa `_has_ente_value()` que detecta "R$ 0,00" como sem repasse
+- Aplicado em `get_tabela()` e `get_graficos()` (afeta graficos e tabela)
 
 ### Identidade Visual
 
@@ -596,6 +608,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `mapa-georreferenciado.css` | v=12 |
 | `mapa-georreferenciado.js` | v=4 |
 | `financiamento-climatico.css` | v=5 |
+| `financiamento-climatico.js` | v=5 |
 | `nota-pais.css` | v=10 |
 | `linha-do-tempo.css` | v=1 |
 
