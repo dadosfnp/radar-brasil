@@ -111,7 +111,10 @@ def get_filtros_disponiveis(filtros: dict, lang: str = "pt") -> dict:
     base_qs = RegistroFinanciamento.objects.filter(lang=lang)
     result = {}
 
-    _key = {"programa": "programas", "setor": "setores", "modalidade": "modalidades", "origem": "origens"}
+    _key = {
+        "programa": "programas", "setor": "setores",
+        "modalidade": "modalidades", "origem": "origens",
+    }
 
     for dim in ("programa", "setor", "modalidade", "origem"):
         other = {k: v for k, v in filtros.items() if k != dim}
