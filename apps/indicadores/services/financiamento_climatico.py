@@ -112,19 +112,23 @@ def get_filtros_disponiveis(filtros: dict, lang: str = "pt") -> dict:
     result = {}
 
     _key = {
-        "programa": "programas", "setor": "setores",
-        "modalidade": "modalidades", "origem": "origens",
+        "programa": "programas",
+        "setor": "setores",
+        "modalidade": "modalidades",
+        "origem": "origens",
     }
 
     for dim in ("programa", "setor", "modalidade", "origem"):
         other = {k: v for k, v in filtros.items() if k != dim}
         qs = _aplicar_filtros(base_qs, other)
         regs = _filtrar_ente(list(qs), other)
-        vals = sorted({
-            str(getattr(r, dim)).strip()
-            for r in regs
-            if getattr(r, dim) and str(getattr(r, dim)).strip()
-        })
+        vals = sorted(
+            {
+                str(getattr(r, dim)).strip()
+                for r in regs
+                if getattr(r, dim) and str(getattr(r, dim)).strip()
+            }
+        )
         result[_key[dim]] = vals
 
     other = {k: v for k, v in filtros.items() if k != "ente"}
