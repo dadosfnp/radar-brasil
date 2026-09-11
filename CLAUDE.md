@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-11
+> Última atualização: 2026-09-11 (tarde)
 
 ---
 
@@ -282,14 +282,14 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-10)
 
-### Branch atual: `main` — `198b3bd`
+### Branch atual: `main` — `3c4559b`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `198b3bd` | `198b3bd` |
-| `prod` (dadosfnp) | - | `198b3bd` |
+| `origin` (brunofnp) | `3c4559b` | `3c4559b` |
+| `prod` (dadosfnp) | - | `3c4559b` |
 
 > `origin` e `prod` identicos em `main`. `next` sincronizado com `main`. Criar feature branches a partir de `next`.
 
