@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-11
 
+### fix — Financiamento Climatico: filtro Nivel de Governo corrigido com _parse_num (financiamento_climatico.py)
+
+- Substituida abordagem ~Q(federal="") que retornava todos os 46 registros (todos tem campo nao-vazio)
+- Nova funcao _filtrar_ente() aplica filtro em Python pos-queryset usando _parse_num() > 0 como criterio de valor real
+- "R$ 0,00" corretamente identificado como sem repasse; "1", textos descritivos e valores monetarios como com repasse
+- Filtro aplicado tanto em get_tabela() quanto em get_graficos() (grafico Repasses por Nivel de Governo)
+- Removido import de Q (nao mais utilizado)
+- Resultado: ente=Federal retorna 38 registros em vez de 46 incorretos
+
 ### fix — Financiamento Climatico: query string calculada uma vez e passada explicitamente para graficos e tabela (financiamento-climatico.js v4)
 
 - aplicarFiltros() calcula _buildQS(_getFilters()) uma unica vez e passa como argumento para carregarGraficos(qs) e carregarTabela(qs)

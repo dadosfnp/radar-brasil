@@ -1,8 +1,6 @@
 import re
 from collections import defaultdict
 
-from django.db.models import Q
-
 from apps.indicadores.models import RegistroFinanciamento
 
 CHART_COLORS = [
@@ -61,7 +59,6 @@ def _aplicar_filtros(qs, filtros: dict):
     setor_vals = _split_multi(filtros.get("setor", ""))
     modalidade_vals = _split_multi(filtros.get("modalidade", ""))
     origem_vals = _split_multi(filtros.get("origem", ""))
-    ente_vals = _split_multi(filtros.get("ente", ""))
 
     if programa_vals:
         qs = qs.filter(programa__in=programa_vals)
@@ -71,21 +68,45 @@ def _aplicar_filtros(qs, filtros: dict):
         qs = qs.filter(modalidade__in=modalidade_vals)
     if origem_vals:
         qs = qs.filter(origem__in=origem_vals)
-    if ente_vals:
-        # O campo "ente" está vazio no banco; filtrar pelos campos federal/estadual/municipal
-        ente_q = Q()
-        for ente in ente_vals:
-            ente_lower = ente.lower()
-            if ente_lower == "federal":
-                ente_q |= ~Q(federal="")
-            elif ente_lower in ("estadual", "state"):
-                ente_q |= ~Q(estadual="")
-            elif ente_lower == "municipal":
-                ente_q |= ~Q(municipal="")
-        if ente_q:
-            qs = qs.filter(ente_q)
 
     return qs
+
+
+def _filtrar_ente(registros: list, filtros: dict) -> list:
+    """Filtra lista de registros por esfera governamental usando _parse_num.
+
+    O campo 'ente' do banco está vazio; os campos federal/estadual/municipal
+    contêm textos e valores (ex: 'R$ 0,00', '1', 'Repasses conforme...').
+    Registros sem valor numérico real (parse_num == 0) são excluídos do filtro.
+    Textos descritivos não-numéricos (ex: 'Repasses conforme...') contam como
+    presença do ente.
+    """
+    ente_vals = _split_multi(filtros.get("ente", ""))
+    if not ente_vals:
+        return registros
+
+    def _has_value(field_val: str) -> bool:
+        s = str(field_val).strip()
+        if not s:
+            return False
+        num = _parse_num(s)
+        if num > 0:
+            return True
+        # Texto descritivo sem número também indica presença do ente
+        return bool(s) and s.lower() not in {"r$ 0,00", "r$0,00", "0", "0,00", "0.00"}
+
+    def _matches(reg) -> bool:
+        for ente in ente_vals:
+            el = ente.lower()
+            if el == "federal" and _has_value(reg.federal):
+                return True
+            if el in ("estadual", "state") and _has_value(reg.estadual):
+                return True
+            if el == "municipal" and _has_value(reg.municipal):
+                return True
+        return False
+
+    return [r for r in registros if _matches(r)]
 
 
 # ── API pública ───────────────────────────────────────────────────
@@ -110,6 +131,7 @@ def get_filtros(lang: str = "pt") -> dict:
 def get_tabela(filtros: dict, lang: str = "pt") -> list:
     qs = RegistroFinanciamento.objects.filter(lang=lang)
     qs = _aplicar_filtros(qs, filtros)
+    registros = _filtrar_ente(list(qs), filtros)
 
     return [
         {
@@ -123,14 +145,14 @@ def get_tabela(filtros: dict, lang: str = "pt") -> list:
             "estadual": reg.estadual,
             "municipal": reg.municipal,
         }
-        for reg in qs
+        for reg in registros
     ]
 
 
 def get_graficos(filtros: dict, lang: str = "pt") -> dict:
     qs = RegistroFinanciamento.objects.filter(lang=lang)
     qs = _aplicar_filtros(qs, filtros)
-    registros = list(qs)
+    registros = _filtrar_ente(list(qs), filtros)
 
     # ── Gráfico 1: Valor por Setor ─────────────────────────────
     setor_totals: dict[str, float] = defaultdict(float)
