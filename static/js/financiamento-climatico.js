@@ -416,8 +416,8 @@ async function carregarFiltros() {
 // ══════════════════════════════════════════════════════════════
 let _origemData = null;
 
-async function carregarGraficos() {
-    const qs = _buildQS(_getFilters());
+async function carregarGraficos(qs) {
+    if (qs === undefined) qs = _buildQS(_getFilters());
     const _chartIds = ["fc-chart-setor", "fc-chart-origem", "fc-chart-ente"];
 
     _chartIds.forEach(id => {
@@ -574,10 +574,10 @@ function _plotConfig() { return { displayModeBar: false, responsive: true, scrol
 // ══════════════════════════════════════════════════════════════
 // Tabela
 // ══════════════════════════════════════════════════════════════
-async function carregarTabela() {
+async function carregarTabela(qs) {
+    if (qs === undefined) qs = _buildQS(_getFilters());
     _showLoader(true);
     try {
-        const qs = _buildQS(_getFilters());
         const resp = await fetch(`/indicadores/api/financiamento/tabela/${qs ? "?" + qs : ""}`);
         const data = await resp.json();
         allRows = data.rows || [];
@@ -664,8 +664,9 @@ function _esc(s) {
 // Filtrar / Limpar
 // ══════════════════════════════════════════════════════════════
 function aplicarFiltros() {
-    carregarGraficos();
-    carregarTabela();
+    const qs = _buildQS(_getFilters());
+    carregarGraficos(qs);
+    carregarTabela(qs);
 }
 
 function limparFiltros() {

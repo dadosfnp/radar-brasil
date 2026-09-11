@@ -6,6 +6,12 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-11
 
+### fix — Financiamento Climatico: query string calculada uma vez e passada explicitamente para graficos e tabela (financiamento-climatico.js v4)
+
+- aplicarFiltros() calcula _buildQS(_getFilters()) uma unica vez e passa como argumento para carregarGraficos(qs) e carregarTabela(qs)
+- Elimina qualquer possibilidade de divergencia no estado dos filtros entre os dois fetch simultaneos
+- Cache-buster atualizado para v4
+
 ### fix — Financiamento Climatico: checkboxes desmarcados no estado inicial; filtrar ao selecionar (financiamento-climatico.js v3)
 
 - MultiSelect redesenhado: estado inicial com Set vazio = caixas desmarcadas + todos os dados exibidos
