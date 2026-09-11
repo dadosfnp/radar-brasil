@@ -282,7 +282,7 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-10)
 
-### Branch atual: `main` — `c1ff7f2`
+### Branch atual: `main` — `6db3a37`
 
 ### Remotos
 
@@ -414,11 +414,18 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 - "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
 - CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
 
-### Metodologia — estado (2026-09-10)
+### Metodologia — estado (2026-09-11)
 
-CSS: `static/css/metodologia.css` **v=42** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=43** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
+
+**Card Nota Metodologica (v43):**
+- Card-link abaixo de "Para saber mais, acesse a nota metodologica."
+- iframe com capa real do PDF `static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf` escalado `scale(0.1344)` em container `80x113px` (proporcao A4)
+- iframe carregado via JS (`data-pdf`) para evitar problemas de encoding com o nome do arquivo
+- Clique em qualquer ponto do card abre o PDF em nova aba (`target="_blank"`)
+- Hover: `translateY(-2px)` + `box-shadow` + borda mais escura
 
 **Formulas MathML (v41/v42):**
 - Formulas renderizadas com `<math displaystyle="true"><mrow>...</mrow></math>` (horizontal, fracao em tamanho grande)
@@ -581,7 +588,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=18 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
-| `metodologia.css` | v=42 |
+| `metodologia.css` | v=43 |
 | `avaliacao-painel.css` | v=14 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
