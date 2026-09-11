@@ -400,13 +400,15 @@ async function carregarFiltros() {
     try {
         const resp = await fetch("/indicadores/api/financiamento/filtros/");
         const data = await resp.json();
-        msInstances.programa?.setOptions(data.programas   || []);
-        msInstances.setor?.setOptions(data.setores         || []);
+        msInstances.programa?.setOptions(data.programas    || []);
+        msInstances.setor?.setOptions(data.setores          || []);
         msInstances.modalidade?.setOptions(data.modalidades || []);
-        msInstances.origem?.setOptions(data.origens        || []);
-        msInstances.ente?.setOptions(data.entes            || []);
+        msInstances.origem?.setOptions(data.origens         || []);
+        // Entes: campo "ente" do banco não é populado; opções são sempre as 3 esferas
+        msInstances.ente?.setOptions(["Federal", "Estadual", "Municipal"]);
     } catch (e) {
         console.error("Erro filtros:", e);
+        msInstances.ente?.setOptions(["Federal", "Estadual", "Municipal"]);
     }
 }
 
@@ -576,8 +578,8 @@ function _plotConfig() { return { displayModeBar: false, responsive: true, scrol
 async function carregarTabela() {
     _showLoader(true);
     try {
-        // Tabela exibe sempre todos os dados — não é filtrada pelo multiselect.
-        const resp = await fetch("/indicadores/api/financiamento/tabela/");
+        const qs = _buildQS(_getFilters());
+        const resp = await fetch(`/indicadores/api/financiamento/tabela/${qs ? "?" + qs : ""}`);
         const data = await resp.json();
         allRows = data.rows || [];
         currentPage = 1;

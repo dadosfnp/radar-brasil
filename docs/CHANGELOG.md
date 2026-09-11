@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-11
 
+### fix — Financiamento Climatico: filtros aplicados na tabela e ente hardcoded (financiamento-climatico.js v2, financiamento_climatico.py)
+
+- carregarTabela() agora envia _getFilters() para a API via query string, igual a carregarGraficos()
+- Ao selecionar qualquer filtro, tabela e graficos filtram juntos
+- Filtro "Nivel de Governo" (ms-ente) hardcoded com ["Federal", "Estadual", "Municipal"] independente do banco
+- _aplicar_filtros() no backend corrigido: filtro de ente usa campos federal/estadual/municipal (nao o campo ente, que esta vazio no banco)
+- Selecionar "Federal" filtra registros onde federal != ''; "Estadual" onde estadual != ''; "Municipal" onde municipal != ''
+- Selecionar multiplos entes: OR logico (registro aparece se tiver qualquer dos entes selecionados)
+- Cache-buster adicionado ao JS (?v=2) no template
+
 ### feat — Metodologia: card de miniatura da Nota Metodologica (metodologia.css v43)
 
 - Adicionado card-link abaixo de "Para saber mais, acesse a nota metodologica."

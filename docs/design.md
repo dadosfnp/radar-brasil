@@ -455,7 +455,12 @@ Versão anterior (v2): 2×2 grid de cards com cabeçalho navy horizontal, ícone
 - Ente Federativo: donut chart (hole 0.44)
 - Fade suave (opacity 0.25 → 1) ao trocar filtros (adicionado em `f4682bb`)
 
-**Tabela:** paginada (10 registros), exportação CSV
+**Tabela:** paginada (10 registros), exportacao CSV
+
+**Comportamento dos filtros (2026-09-11):**
+- Estado inicial: nenhum filtro marcado nos dropdowns (Set vazio = todos ativos); graficos e tabela exibem todos os dados
+- Ao selecionar filtros: graficos E tabela filtram simultaneamente (carregarTabela agora envia _getFilters() igual a carregarGraficos)
+- Filtro "Nivel de Governo": opcoes hardcoded ["Federal", "Estadual", "Municipal"] (campo ente do banco sempre vazio); filtragem no backend usa colunas federal/estadual/municipal
 
 ### 5.8 Mapa Georreferenciado (`/indicadores/mapa-georreferenciado/`)
 

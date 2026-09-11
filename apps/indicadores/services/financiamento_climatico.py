@@ -1,6 +1,8 @@
 import re
 from collections import defaultdict
 
+from django.db.models import Q
+
 from apps.indicadores.models import RegistroFinanciamento
 
 CHART_COLORS = [
@@ -70,7 +72,18 @@ def _aplicar_filtros(qs, filtros: dict):
     if origem_vals:
         qs = qs.filter(origem__in=origem_vals)
     if ente_vals:
-        qs = qs.filter(ente__in=ente_vals)
+        # O campo "ente" está vazio no banco; filtrar pelos campos federal/estadual/municipal
+        ente_q = Q()
+        for ente in ente_vals:
+            ente_lower = ente.lower()
+            if ente_lower == "federal":
+                ente_q |= ~Q(federal="")
+            elif ente_lower in ("estadual", "state"):
+                ente_q |= ~Q(estadual="")
+            elif ente_lower == "municipal":
+                ente_q |= ~Q(municipal="")
+        if ente_q:
+            qs = qs.filter(ente_q)
 
     return qs
 
