@@ -109,6 +109,21 @@ class MultiSelect {
 
     getSelected() { return [...this.selected]; }
 
+    // Atualiza opções disponíveis preservando seleções ainda válidas.
+    // Retorna true se alguma seleção foi removida por não estar mais disponível.
+    updateAvailableOptions(newOpts) {
+        if (!newOpts) return false;
+        const removed = [...this.selected].filter(s => !newOpts.includes(s));
+        removed.forEach(s => this.selected.delete(s));
+        this.options = newOpts;
+        if (this.isOpen) {
+            this._renderOptions(this._searchEl.value.toLowerCase());
+        }
+        this._updateCount();
+        this._updateLabel();
+        return removed.length > 0;
+    }
+
     reset() {
         this.selected.clear();
         this._renderOptions();
@@ -661,12 +676,41 @@ function _esc(s) {
 }
 
 // ══════════════════════════════════════════════════════════════
+// Filtros em cascata — atualiza opções disponíveis nos demais filtros
+// ══════════════════════════════════════════════════════════════
+let _optionsUpdateTimer = null;
+
+function atualizarOpcoesDisponiveis() {
+    clearTimeout(_optionsUpdateTimer);
+    _optionsUpdateTimer = setTimeout(async () => {
+        const qs = _buildQS(_getFilters());
+        try {
+            const resp = await fetch(`/indicadores/api/financiamento/filtros-disponiveis/${qs ? "?" + qs : ""}`);
+            const data = await resp.json();
+
+            const entes = data.entes?.length ? data.entes : ["Federal", "Estadual", "Municipal"];
+            let changed = false;
+            changed |= msInstances.programa?.updateAvailableOptions(data.programas || []) || false;
+            changed |= msInstances.setor?.updateAvailableOptions(data.setores || []) || false;
+            changed |= msInstances.modalidade?.updateAvailableOptions(data.modalidades || []) || false;
+            changed |= msInstances.origem?.updateAvailableOptions(data.origens || []) || false;
+            changed |= msInstances.ente?.updateAvailableOptions(entes) || false;
+
+            if (changed) aplicarFiltros();
+        } catch (e) {
+            console.error("Erro opções disponíveis:", e);
+        }
+    }, 150);
+}
+
+// ══════════════════════════════════════════════════════════════
 // Filtrar / Limpar
 // ══════════════════════════════════════════════════════════════
 function aplicarFiltros() {
     const qs = _buildQS(_getFilters());
     carregarGraficos(qs);
     carregarTabela(qs);
+    atualizarOpcoesDisponiveis();
 }
 
 function limparFiltros() {

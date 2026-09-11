@@ -72,41 +72,72 @@ def _aplicar_filtros(qs, filtros: dict):
     return qs
 
 
-def _filtrar_ente(registros: list, filtros: dict) -> list:
-    """Filtra lista de registros por esfera governamental usando _parse_num.
+def _has_ente_value(field_val: str) -> bool:
+    """Retorna True se o campo indica repasse real (valor > 0 ou texto descritivo)."""
+    s = str(field_val).strip()
+    if not s:
+        return False
+    if _parse_num(s) > 0:
+        return True
+    return s.lower() not in {"r$ 0,00", "r$0,00", "0", "0,00", "0.00"}
 
-    O campo 'ente' do banco está vazio; os campos federal/estadual/municipal
-    contêm textos e valores (ex: 'R$ 0,00', '1', 'Repasses conforme...').
-    Registros sem valor numérico real (parse_num == 0) são excluídos do filtro.
-    Textos descritivos não-numéricos (ex: 'Repasses conforme...') contam como
-    presença do ente.
-    """
+
+def _filtrar_ente(registros: list, filtros: dict) -> list:
+    """Filtra lista de registros por esfera governamental usando _has_ente_value."""
     ente_vals = _split_multi(filtros.get("ente", ""))
     if not ente_vals:
         return registros
 
-    def _has_value(field_val: str) -> bool:
-        s = str(field_val).strip()
-        if not s:
-            return False
-        num = _parse_num(s)
-        if num > 0:
-            return True
-        # Texto descritivo sem número também indica presença do ente
-        return bool(s) and s.lower() not in {"r$ 0,00", "r$0,00", "0", "0,00", "0.00"}
-
     def _matches(reg) -> bool:
         for ente in ente_vals:
             el = ente.lower()
-            if el == "federal" and _has_value(reg.federal):
+            if el == "federal" and _has_ente_value(reg.federal):
                 return True
-            if el in ("estadual", "state") and _has_value(reg.estadual):
+            if el in ("estadual", "state") and _has_ente_value(reg.estadual):
                 return True
-            if el == "municipal" and _has_value(reg.municipal):
+            if el == "municipal" and _has_ente_value(reg.municipal):
                 return True
         return False
 
     return [r for r in registros if _matches(r)]
+
+
+def get_filtros_disponiveis(filtros: dict, lang: str = "pt") -> dict:
+    """Para cada filtro, retorna as opções válidas dado os outros filtros ativos.
+
+    Evita combinações impossíveis: ao selecionar Programa X, Setor mostra apenas
+    os setores que existem nos registros de X.
+    """
+    base_qs = RegistroFinanciamento.objects.filter(lang=lang)
+    result = {}
+
+    _key = {"programa": "programas", "setor": "setores", "modalidade": "modalidades", "origem": "origens"}
+
+    for dim in ("programa", "setor", "modalidade", "origem"):
+        other = {k: v for k, v in filtros.items() if k != dim}
+        qs = _aplicar_filtros(base_qs, other)
+        regs = _filtrar_ente(list(qs), other)
+        vals = sorted({
+            str(getattr(r, dim)).strip()
+            for r in regs
+            if getattr(r, dim) and str(getattr(r, dim)).strip()
+        })
+        result[_key[dim]] = vals
+
+    other = {k: v for k, v in filtros.items() if k != "ente"}
+    qs = _aplicar_filtros(base_qs, other)
+    regs = list(qs)
+    result["entes"] = [
+        name
+        for name, field in (
+            ("Federal", "federal"),
+            ("Estadual", "estadual"),
+            ("Municipal", "municipal"),
+        )
+        if any(_has_ente_value(getattr(r, field)) for r in regs)
+    ]
+
+    return result
 
 
 # ── API pública ───────────────────────────────────────────────────

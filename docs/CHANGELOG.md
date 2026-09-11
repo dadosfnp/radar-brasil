@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-11
 
+### feat — Financiamento Climatico: filtros em cascata (financiamento-climatico.js v5, financiamento_climatico.py, views.py, urls.py)
+
+- Novo endpoint GET /indicadores/api/financiamento/filtros-disponiveis/ retorna opcoes validas para cada filtro dado os demais filtros ativos
+- Nova funcao get_filtros_disponiveis() no service: para cada dimensao, aplica todos os outros filtros e retorna os valores distintos existentes
+- MultiSelect ganha metodo updateAvailableOptions(newOpts): atualiza opcoes preservando selecoes ainda validas; retorna true se alguma selecao foi removida
+- aplicarFiltros() agora chama atualizarOpcoesDisponiveis() (debounce 150ms) apos carregar graficos e tabela
+- Se uma selecao for removida automaticamente por tornar-se incompativel, aplicarFiltros() e chamado novamente
+- Exemplo: selecionar "BNDES - Framework..." restringe Setor a "Energia", Modalidade a "Nao reembolsavel" e Ente a "Estadual/Municipal" (sem Federal)
+
 ### fix — Financiamento Climatico: filtro Nivel de Governo corrigido com _parse_num (financiamento_climatico.py)
 
 - Substituida abordagem ~Q(federal="") que retornava todos os 46 registros (todos tem campo nao-vazio)

@@ -23,4 +23,9 @@ urlpatterns = [
     path("api/financiamento/filtros/", views.api_fin_cli_filtros, name="api_fin_cli_filtros"),
     path("api/financiamento/tabela/", views.api_fin_cli_tabela, name="api_fin_cli_tabela"),
     path("api/financiamento/graficos/", views.api_fin_cli_graficos, name="api_fin_cli_graficos"),
+    path(
+        "api/financiamento/filtros-disponiveis/",
+        views.api_fin_cli_filtros_disponiveis,
+        name="api_fin_cli_filtros_disponiveis",
+    ),
 ]

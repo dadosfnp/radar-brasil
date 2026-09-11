@@ -166,3 +166,20 @@ def api_fin_cli_graficos(request):
     except Exception:
         logger.exception("Erro em api_fin_cli_graficos")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
+
+
+def api_fin_cli_filtros_disponiveis(request):
+    filtros = {
+        "programa": request.GET.get("programa", "").strip(),
+        "setor": request.GET.get("setor", "").strip(),
+        "modalidade": request.GET.get("modalidade", "").strip(),
+        "origem": request.GET.get("origem", "").strip(),
+        "ente": request.GET.get("ente", "").strip(),
+    }
+    try:
+        from apps.indicadores.services.financiamento_climatico import get_filtros_disponiveis
+
+        return JsonResponse(get_filtros_disponiveis(filtros, lang=_lang(request)))
+    except Exception:
+        logger.exception("Erro em api_fin_cli_filtros_disponiveis")
+        return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
