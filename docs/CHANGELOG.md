@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-11
 
+### fix — Financiamento Climatico: checkboxes desmarcados no estado inicial; filtrar ao selecionar (financiamento-climatico.js v3)
+
+- MultiSelect redesenhado: estado inicial com Set vazio = caixas desmarcadas + todos os dados exibidos
+- Clicar em uma opcao marca apenas aquela caixa e filtra os dados por ela
+- Selecionar todas as opcoes explicitamente volta ao estado sem filtro (Set limpo)
+- Botao "Todos": marca todos explicitamente (todos os dados exibidos, caixas marcadas)
+- Botao "Nenhum": desmarca tudo (todos os dados exibidos, caixas desmarcadas) = estado inicial
+
 ### fix — Financiamento Climatico: filtros aplicados na tabela e ente hardcoded (financiamento-climatico.js v2, financiamento_climatico.py)
 
 - carregarTabela() agora envia _getFilters() para a API via query string, igual a carregarGraficos()

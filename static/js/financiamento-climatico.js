@@ -207,31 +207,30 @@ class MultiSelect {
     }
 
     _selectAll() {
-        this.selected.clear();
-        this._renderOptions(this._searchEl.value.toLowerCase());
-        this._updateLabel();
-        this.onChange([]);
-    }
-
-    _clearAll() {
+        // "Todos" = marca todos explicitamente → todos os dados aparecem
         this.options.forEach(o => this.selected.add(o));
         this._renderOptions(this._searchEl.value.toLowerCase());
         this._updateLabel();
         this.onChange(this.getSelected());
     }
 
-    _toggle_option(val) {
-        const allCount = this.options.length;
+    _clearAll() {
+        // "Nenhum" = desmarca tudo → volta ao estado inicial (sem filtro, todos os dados)
+        this.selected.clear();
+        this._renderOptions(this._searchEl.value.toLowerCase());
+        this._updateLabel();
+        this.onChange([]);
+    }
 
-        if (this.selected.size === 0) {
-            // Todos visíveis → clique = desmarca este (adiciona todos os outros)
-            this.options.forEach(o => { if (o !== val) this.selected.add(o); });
-        } else if (this.selected.has(val)) {
+    _toggle_option(val) {
+        // Clique simples: marca/desmarca. Set vazio = sem filtro = todos os dados.
+        if (this.selected.has(val)) {
             this.selected.delete(val);
         } else {
             this.selected.add(val);
-            if (this.selected.size === allCount) {
-                this.selected.clear(); // selecionou todos = volta ao estado "todos"
+            // Se selecionou todos explicitamente, volta ao estado "sem filtro"
+            if (this.selected.size === this.options.length) {
+                this.selected.clear();
             }
         }
 
@@ -239,7 +238,7 @@ class MultiSelect {
         // Este é o ponto crítico: _renderOptions() destruía os elementos e o event bubbling
         // chegava ao document com e.target desconectado, fazendo _close() ser chamado.
         this._optionsEl.querySelectorAll(".fc-ms-option").forEach(lbl => {
-            const checked = this.selected.size === 0 || this.selected.has(lbl.dataset.val);
+            const checked = this.selected.has(lbl.dataset.val);
             lbl.classList.toggle("is-checked", checked);
             const cb = lbl.querySelector("input[type='checkbox']");
             if (cb) cb.checked = checked;
@@ -263,7 +262,7 @@ class MultiSelect {
         }
 
         this._optionsEl.innerHTML = visible.map(opt => {
-            const checked = this.selected.size === 0 || this.selected.has(opt);
+            const checked = this.selected.has(opt);
             const safeval = opt.replace(/"/g, "&quot;");
             return `
               <label class="fc-ms-option ${checked ? "is-checked" : ""}" data-val="${safeval}">
