@@ -956,6 +956,12 @@ msgstr "in development"
 msgid "Para saber mais, acesse a nota metodológica."
 msgstr "To learn more, access the methodological note."
 
+msgid "Nota Metodológica"
+msgstr "Methodological Note"
+
+msgid "Abrir documento"
+msgstr "Open document"
+
 msgid "políticas e planos"
 msgstr "policies and plans"
 

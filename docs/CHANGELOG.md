@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-11
+
+### feat — Metodologia: card de miniatura da Nota Metodologica (metodologia.css v43)
+
+- Adicionado card-link abaixo de "Para saber mais, acesse a nota metodologica."
+- Card exibe iframe com a capa real do PDF (escalonado 13.4% via transform: scale)
+- Chip "Nota Metodologica" / "Methodological Note", titulo "Mutirao Brasil", subtitulo "Radar Brasil 2025"
+- CTA "Abrir documento" / "Open document" com icone de link externo
+- Clique em qualquer ponto do card abre o PDF em nova aba
+- PDF salvo em static/doc/ e comitado no repositorio
+- iframe carregado via JS (data-pdf) para evitar problemas de encoding com o nome do arquivo
+- Hover: translateY(-2px) + box-shadow + border mais escura
+- EN: "Nota Metodologica" -> "Methodological Note", "Abrir documento" -> "Open document"
+
+---
+
 ## 2026-09-09
 
 ### fix — Criterio "Sustentabilidade Financeira" restrito ao eixo Governanca (painel_multinivel.py, avaliacao_painel.py)

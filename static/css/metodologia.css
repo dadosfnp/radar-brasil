@@ -844,6 +844,91 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
+/* ── Nota Metodológica — card de abertura do PDF ── */
+.meto-nota-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1.5px solid rgba(38,69,132,.14);
+    border-radius: 12px;
+    text-decoration: none;
+    max-width: 320px;
+    transition: box-shadow .18s, transform .18s, border-color .18s;
+    cursor: pointer;
+}
+.meto-nota-card:hover {
+    box-shadow: 0 8px 28px rgba(38,69,132,.13);
+    border-color: rgba(38,69,132,.30);
+    transform: translateY(-2px);
+}
+.meto-nota-thumb {
+    flex-shrink: 0;
+    width: 80px;
+    height: 113px;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.10);
+    background: #e8eff8;
+    position: relative;
+}
+.meto-nota-iframe-clip {
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px;
+    height: 113px;
+    overflow: hidden;
+    pointer-events: none;
+}
+.meto-nota-iframe {
+    width: 595px;
+    height: 842px;
+    transform: scale(0.1344);
+    transform-origin: top left;
+    border: none;
+    pointer-events: none;
+}
+.meto-nota-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    min-height: 113px;
+}
+.meto-nota-chip {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: #264584;
+    background: rgba(38,69,132,.08);
+    border-radius: 4px;
+    padding: 2px 6px;
+    align-self: flex-start;
+}
+.meto-nota-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #101d4f;
+    line-height: 1.25;
+    font-family: 'Sora', sans-serif;
+}
+.meto-nota-sub {
+    font-size: 0.68rem;
+    color: #7a8a9a;
+}
+.meto-nota-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #264584;
+    margin-top: 2px;
+}
+
 /* Stats sidebar */
 .meto-scope-stats-col {
     position: sticky;
