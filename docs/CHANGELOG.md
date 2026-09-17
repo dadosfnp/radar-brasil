@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (12a rodada)
+
+### style — Redesign Fact Sheet em Sobre para fidelidade ao design de referencia (sobre.css v10)
+
+- Zona escura (sb-info-dark-zone): header + 3 colunas agora compartilham fundo navy #101d4f
+- Orbs circulares (sb-info-orb): circulo 58px border-radius:50%, fundo rgba(255,255,255,.12), icone SVG branco 26px
+- Texto das colunas: cor branca/rgba nos paragrafos e strong (no dark-zone)
+- Grafico horseshoe: 270 graus com rotate(135), viewBox ajustado, max-width 240px
+- Painel direito: fundo #c8d8ea; bolhas navy escuro #172c62 com texto branco
+- Fatores: fundo #101d4f; sb-info-factors-pill em #1e3575 arredondado; sb-info-factors-chevrons com dois chevrons CSS diagonais; lista com texto branco e marcadores quadrados
+- Responsivo: breakpoint 920px (era 860px)
+
+**Arquivos:** `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-17 (11a rodada)
 
 ### feat — Fact Sheet nativo em Sobre + correcao nav EN "Sobre" -> "About"

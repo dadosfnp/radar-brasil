@@ -50,69 +50,84 @@
             <!-- ──────────── PAINEL ESQUERDO ──────────── -->
             <div class="sb-info-left">
 
-                <!-- Header escuro -->
-                <div class="sb-info-header">
-                    <div class="sb-info-header-text">
-                        <span class="sb-info-brand">Radar Brasil</span>
-                        <span class="sb-info-tagline">Federalismo climático</span>
-                    </div>
-                    <div class="sb-info-badge">{% trans "Sobre o Radar Brasil" %}</div>
-                </div>
+                <!-- Zona escura: header + 3 colunas -->
+                <div class="sb-info-dark-zone">
 
-                <!-- 3 colunas descritivas -->
-                <div class="sb-info-cols">
-                    <div class="sb-info-col">
-                        <div class="sb-info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                            </svg>
+                    <!-- Header -->
+                    <div class="sb-info-header">
+                        <div class="sb-info-brand-block">
+                            <span class="sb-info-brand">Radar Brasil</span>
+                            <span class="sb-info-tagline">Federalismo climático</span>
                         </div>
-                        <p><strong>{% trans "O que é o Radar Brasil:" %}</strong> {% trans "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal." %}</p>
+                        <div class="sb-info-badge">{% trans "Sobre o Radar Brasil" %}</div>
                     </div>
-                    <div class="sb-info-col-sep"></div>
-                    <div class="sb-info-col">
-                        <div class="sb-info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
-                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
-                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                            </svg>
-                        </div>
-                        <p><strong>{% trans "Fontes dos dados do Radar Brasil:" %}</strong> {% trans "Os dados foram levantados exclusivamente em fontes oficiais do Governo Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano Plurianual (PPA) vigente." %}</p>
-                    </div>
-                    <div class="sb-info-col-sep"></div>
-                    <div class="sb-info-col">
-                        <div class="sb-info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                <circle cx="12" cy="12" r="10"/>
-                                <polyline points="12 6 12 12 16 14"/>
-                            </svg>
-                        </div>
-                        <p><strong>{% trans "Recorte temporal:" %}</strong> {% trans "Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o primeiro semestre de 2025, estabelecendo uma linha de base para o diagnóstico inicial do federalismo climático." %}</p>
-                    </div>
-                </div>
 
-                <!-- O que avalia + gráfico donut -->
+                    <!-- 3 colunas com orbs -->
+                    <div class="sb-info-cols">
+                        <div class="sb-info-col">
+                            <div class="sb-info-orb">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.4" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                    <path d="M12 2v20" stroke-opacity="0.5"/>
+                                </svg>
+                            </div>
+                            <p><strong>{% trans "O que é o Radar Brasil:" %}</strong> {% trans "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal." %}</p>
+                        </div>
+                        <div class="sb-info-col">
+                            <div class="sb-info-orb">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.4" aria-hidden="true">
+                                    <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                    <path d="M8 21h8M12 17v4"/>
+                                    <path d="M7 8h10M7 11h7" stroke-opacity="0.7"/>
+                                </svg>
+                            </div>
+                            <p><strong>{% trans "Fontes dos dados do Radar Brasil:" %}</strong> {% trans "Os dados foram levantados exclusivamente em fontes oficiais do Governo Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano Plurianual (PPA) vigente." %}</p>
+                        </div>
+                        <div class="sb-info-col">
+                            <div class="sb-info-orb">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.4" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                    <line x1="12" y1="2" x2="12" y2="4" stroke-opacity="0.5"/>
+                                </svg>
+                            </div>
+                            <p><strong>{% trans "Recorte temporal:" %}</strong> {% trans "Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o primeiro semestre de 2025, estabelecendo uma linha de base para o diagnóstico inicial do federalismo climático." %}</p>
+                        </div>
+                    </div>
+
+                </div><!-- /sb-info-dark-zone -->
+
+                <!-- Zona clara: O que avalia + gráfico horseshoe -->
                 <div class="sb-info-eval">
                     <h3>{% trans "O que o Radar Brasil avalia?" %}</h3>
                     <p>{% trans "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais." %}</p>
 
                     <div class="sb-info-chart-area">
-                        <svg class="sb-info-donut" viewBox="0 0 220 120" aria-hidden="true">
+                        <!-- Horseshoe donut: 270° arc, gap at bottom -->
+                        <!-- C = 2π×60 = 376.99 | arc = 282.74 | gap = 94.25 -->
+                        <!-- rotate(135 115 115) posiciona gap no centro inferior -->
+                        <svg class="sb-info-donut" viewBox="30 38 170 138" aria-hidden="true">
+                            <!-- Track -->
+                            <circle cx="115" cy="115" r="60" fill="none" stroke="#d8e3ec" stroke-width="28"
+                                stroke-dasharray="282.74 94.25" transform="rotate(135 115 115)"/>
                             <!-- Governança 32 — cinza claro -->
-                            <path d="M 25 115 A 85 85 0 0 1 65.8 42.4 L 79.8 65.5 A 58 58 0 0 0 52 115 Z" fill="#bfc9d6" stroke="white" stroke-width="2"/>
+                            <circle cx="115" cy="115" r="60" fill="none" stroke="#bfc9d6" stroke-width="28"
+                                stroke-dasharray="92.41 284.58" stroke-dashoffset="0" transform="rotate(135 115 115)"/>
                             <!-- Políticas e Planos 18 — navy médio -->
-                            <path d="M 65.8 42.4 A 85 85 0 0 1 112.7 30 L 111.9 57 A 58 58 0 0 0 79.8 65.5 Z" fill="#344b82" stroke="white" stroke-width="2"/>
+                            <circle cx="115" cy="115" r="60" fill="none" stroke="#344b82" stroke-width="28"
+                                stroke-dasharray="51.99 324.99" stroke-dashoffset="284.58" transform="rotate(135 115 115)"/>
                             <!-- Programas 18 — azul médio -->
-                            <path d="M 112.7 30 A 85 85 0 0 1 158.6 45.3 L 143.2 67.4 A 58 58 0 0 0 111.9 57 Z" fill="#8baabe" stroke="white" stroke-width="2"/>
+                            <circle cx="115" cy="115" r="60" fill="none" stroke="#8baabe" stroke-width="28"
+                                stroke-dasharray="51.99 324.99" stroke-dashoffset="232.59" transform="rotate(135 115 115)"/>
                             <!-- Linhas de Financiamento 30 — navy escuro -->
-                            <path d="M 158.6 45.3 A 85 85 0 0 1 195 115 L 168 115 A 58 58 0 0 0 143.2 67.4 Z" fill="#101d4f" stroke="white" stroke-width="2"/>
-                            <!-- Valores em cada segmento -->
-                            <text x="48" y="83" text-anchor="middle" font-size="12" font-weight="700" fill="#344b82">32</text>
-                            <text x="92" y="49" text-anchor="middle" font-size="12" font-weight="700" fill="white">18</text>
-                            <text x="133" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="white">18</text>
-                            <text x="174" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="white">30</text>
+                            <circle cx="115" cy="115" r="60" fill="none" stroke="#101d4f" stroke-width="28"
+                                stroke-dasharray="86.51 290.48" stroke-dashoffset="180.60" transform="rotate(135 115 115)"/>
+                            <!-- Valores -->
+                            <text x="55" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#344b82">32</text>
+                            <text x="93" y="63" text-anchor="middle" font-size="13" font-weight="700" fill="white">18</text>
+                            <text x="143" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="white">18</text>
+                            <text x="175" y="122" text-anchor="middle" font-size="13" font-weight="700" fill="white">30</text>
                         </svg>
                     </div>
 
@@ -129,20 +144,27 @@
             <!-- ──────────── PAINEL DIREITO ──────────── -->
             <div class="sb-info-right">
 
+                <!-- Zona "Como avaliamos" + bolhas escalonadas -->
                 <div class="sb-info-how">
                     <h3>{% trans "Como avaliamos o federalismo climático?" %}</h3>
 
                     <div class="sb-info-bubbles">
+                        <!-- EIXOS -->
                         <div class="sb-info-bubble-row">
                             <span class="sb-info-chip">{% trans "Eixos" %}</span>
-                            <div class="sb-info-bubble">{% trans "Governança" %}&nbsp;/&nbsp;{% trans "Políticas e Planos" %}&nbsp;/&nbsp;{% trans "Programas" %}&nbsp;/&nbsp;{% trans "Linhas de Financiamento" %}</div>
+                            <div class="sb-info-bubble">
+                                {% trans "Governança" %}<br>
+                                {% trans "Políticas e Planos" %}<br>
+                                {% trans "Programas" %}<br>
+                                {% trans "Linhas de Financiamento" %}
+                            </div>
                         </div>
-                        <div class="sb-info-arrow">&#8595;</div>
+                        <!-- CRITÉRIOS -->
                         <div class="sb-info-bubble-row sb-info-bubble-row--2">
                             <span class="sb-info-chip">{% trans "Critérios" %}</span>
                             <div class="sb-info-bubble">{% trans "Dimensão específica de análise que detalha cada eixo em aspectos mensuráveis e distintos (de 3 a 5 por eixo)." %}</div>
                         </div>
-                        <div class="sb-info-arrow sb-info-arrow--2">&#8595;</div>
+                        <!-- PARÂMETROS -->
                         <div class="sb-info-bubble-row sb-info-bubble-row--3">
                             <span class="sb-info-chip">{% trans "Parâmetros" %}</span>
                             <div class="sb-info-bubble">{% trans "Foram definidos 5 níveis de maturidade para cada critério na escala de avaliação." %}</div>
@@ -150,22 +172,21 @@
                     </div>
                 </div>
 
+                <!-- Zona Fatores — fundo navy escuro -->
                 <div class="sb-info-factors">
-                    <h4>{% trans "Quais os fatores predominantes para a avaliação da governança multinível?" %}</h4>
-                    <p class="sb-info-factors-lead">{% trans "Aderência à agenda climática, interface com estados e municípios, relevância para a coordenação federativa e disponibilidade de informações públicas." %}</p>
-                    <p class="sb-info-factors-sublabel">{% trans "Fator de relevância:" %}</p>
-                    <ul class="sb-info-weights">
-                        <li>
-                            <span class="sb-info-weight-chip sb-info-weight-chip--3">{% trans "Peso 3" %}</span>
-                            {% trans "para os componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo." %}
-                        </li>
-                        <li>
-                            <span class="sb-info-weight-chip sb-info-weight-chip--2">{% trans "Peso 2" %}</span>
-                            {% trans "aos componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas." %}
-                        </li>
-                        <li>
-                            <span class="sb-info-weight-chip sb-info-weight-chip--1">{% trans "Peso 1" %}</span>
-                            {% trans "aos componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas." %}
+                    <div class="sb-info-factors-pill">{% trans "Fatores predominantes para a avaliação da governança multinível?" %}</div>
+                    <div class="sb-info-factors-chevrons">
+                        <span class="sb-info-chevron"></span>
+                        <span class="sb-info-chevron"></span>
+                    </div>
+                    <ul class="sb-info-factors-list">
+                        <li>{% trans "Aderência à agenda climática, interface com estados e municípios, relevância para a coordenação federativa e disponibilidade de informações públicas." %}</li>
+                        <li>{% trans "Fator de relevância:" %}
+                            <ul class="sb-info-weights">
+                                <li><strong>{% trans "Peso 3" %}</strong> {% trans "para os componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo." %}</li>
+                                <li><strong>{% trans "Peso 2" %}</strong> {% trans "aos componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas." %}</li>
+                                <li><strong>{% trans "Peso 1" %}</strong> {% trans "aos componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas." %}</li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
