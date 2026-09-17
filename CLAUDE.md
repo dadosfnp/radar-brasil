@@ -280,16 +280,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-15)
+## Estado Atual do Projeto (2026-09-17)
 
-### Branch atual: `main` — `32a62a7`
+### Branch atual: `main` — `93de986`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `3c4559b` | `3c4559b` |
-| `prod` (dadosfnp) | - | `3c4559b` |
+| `origin` (brunofnp) | `93de986` | `93de986` |
+| `prod` (dadosfnp) | - | `93de986` |
 
 > `origin` e `prod` identicos em `main`. `next` sincronizado com `main`. Criar feature branches a partir de `next`.
 
@@ -310,7 +310,10 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Deploy realizado em 2026-09-15. Droplet atualizado com todos os commits de 2026-09-11 (filtros em cascata, fix ente filter, favicon).
+Push realizado em 2026-09-17 (commit 93de986). Usuario precisa rodar o deploy no droplet:
+```bash
+ssh fnp-web "cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d"
+```
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
 
@@ -410,9 +413,9 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 - "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
 - CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
 
-### Metodologia — estado (2026-09-11)
+### Metodologia — estado (2026-09-17)
 
-CSS: `static/css/metodologia.css` **v=43** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=52** | Template: `templates/municipios/metodologia.html`
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
@@ -596,7 +599,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=18 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
-| `metodologia.css` | v=43 |
+| `metodologia.css` | v=52 |
+| `sobre.css` | v=8 |
 | `avaliacao-painel.css` | v=14 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
@@ -611,6 +615,24 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 ### Pendencias
 
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
+- Fact Sheet do Radar Brasil removido de sobre.html temporariamente (HTML salvo em memoria: `factsheet-placeholder-html.md`)
+- Strings novas no hero de Sobre e Metodologia ainda nao estao em `locale/en/LC_MESSAGES/django.po` — ao retomar i18n, traduzir: "Como avaliamos o Radar Brasil?" e "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro." para Sobre; e "Impulsionando a Ação Climática Federativa" + descricao completa para Metodologia
+- Deploy no droplet pendente (usuario precisa rodar): `ssh fnp-web "cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d"`
+
+### Pagina Sobre — estado (2026-09-17)
+
+CSS: `static/css/sobre.css` **v=8** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
+
+Secoes em ordem:
+1. Hero: badge "Sobre o Radar Brasil", titulo "Como avaliamos o Radar Brasil?", descricao de criterios/formula
+2. "Por que avaliar o Federalismo Climatico?" (meto-federalism-section) — conceito box + diagrama uniao/estados/municipios
+3. Scroll-stack de 4 fotos (meto-scroll-section) — mesma logica do scroll interativo da Metodologia
+4. Historico do Federalismo Climatico (meto-timeline-section) — linha do tempo horizontal
+5. FAQ com 10 perguntas accordion (sb-faq-section)
+
+Removido: bloco Fact Sheet placeholder (sb-factsheet-placeholder) — salvo na memoria para restaurar depois.
+
+Linha de divisao: border-top 1px solid rgba(38,69,132,.10) no meto-scroll-section (entre "Por que avaliar" e fotos).
 
 ---
 
