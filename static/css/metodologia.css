@@ -1054,14 +1054,12 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
-/* ── Nota Metodológica — bloco full-width ── */
+/* ── Nota Metodológica — dentro da coluna de texto ── */
 .meto-nota-block {
     display: flex;
-    gap: 48px;
+    gap: 28px;
     align-items: flex-start;
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(38,69,132,.10);
+    margin-top: 24px;
 }
 .meto-nota-cover-link {
     flex-shrink: 0;
@@ -1077,8 +1075,8 @@ body.metodologia-page .rb-main {
     transform: translateY(-3px);
 }
 .meto-nota-thumb {
-    width: 260px;
-    height: 368px;
+    width: 200px;
+    height: 283px;
     background: #e8eff8;
     position: relative;
     overflow: hidden;
@@ -1087,15 +1085,15 @@ body.metodologia-page .rb-main {
 .meto-nota-iframe-clip {
     position: absolute;
     top: 0; left: 0;
-    width: 260px;
-    height: 368px;
+    width: 200px;
+    height: 283px;
     overflow: hidden;
     pointer-events: none;
 }
 .meto-nota-iframe {
     width: 595px;
     height: 842px;
-    transform: scale(0.4370);
+    transform: scale(0.3361);
     transform-origin: top left;
     border: none;
     pointer-events: none;
@@ -1332,10 +1330,10 @@ body.metodologia-page .rb-main {
     .meto-scope-grid { grid-template-columns: 1fr; }
     .meto-scope-stats-col { position: static; }
 
-    .meto-nota-block { flex-direction: column; align-items: center; gap: 28px; }
-    .meto-nota-thumb { width: 220px; height: 311px; }
-    .meto-nota-iframe-clip { width: 220px; height: 311px; }
-    .meto-nota-iframe { transform: scale(0.3697); }
+    .meto-nota-block { flex-direction: column; align-items: center; gap: 20px; }
+    .meto-nota-thumb { width: 180px; height: 255px; }
+    .meto-nota-iframe-clip { width: 180px; height: 255px; }
+    .meto-nota-iframe { transform: scale(0.3025); }
 
     /* Timeline: flex-start evita o bug de corte no lado esquerdo em overflow-x: auto + justify: center */
     .meto-timeline-scroll-outer {

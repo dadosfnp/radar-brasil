@@ -4,6 +4,32 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (8a rodada)
+
+### fix — Russia cinza no mapa Nota Pais; nota metodologica dentro da coluna; linha fantasma em Sobre removida (metodologia.css v52, sobre.css v7)
+
+**fix: Russia cinza no mapa Nota Pais (nota-pais.js)**
+- mouseout handler restaurava fillColor para CONTINENT_COLORS["Europe"] = "#4E80C5" (azul)
+- Corrigido: mouseout agora usa fillColor gray identico ao estado inicial e ao applyFilter
+  - iso === "BRA" → "#264584" (Brasil continua azul)
+  - match → "#B0BCC8" (cinza medio para paises filtragem ativa)
+  - !match → "#D0D8DF" (cinza mais claro para paises fora do filtro)
+
+**fix: bloco Nota Metodologica dentro da coluna de texto (metodologia.html + metodologia.css v52)**
+- Bloco meto-nota-block movido de volta para dentro de meto-scope-text-col
+  (estava fora do meto-scope-grid, ocupando largura total)
+- Colocado apos o meto-scope-timeline (linha do tempo de abrangencia)
+- Stats sidebar continua visivel ao lado, como desejado
+- CSS: removidos border-top e padding-top do bloco; gap 48px → 28px; margin-top 40px → 24px
+- Dimensoes da capa: 260x368px → 200x283px (scale 0.4370 → 0.3361) para caber na coluna
+- Mobile (<=900px): 220x311px → 180x255px (scale 0.3697 → 0.3025)
+
+**fix: linha de separacao fantasma em Sobre (sobre.css v7)**
+- Linha visual entre "Por que avaliar o Federalismo Climatico?" e secao de fotos
+- Causa: border-top herdado do meto-scroll-section ou artefato do overflow
+- Corrigido com: body.sobre-page .meto-scroll-section { border-top: none }
+  e body.sobre-page .meto-federalism-section { border-bottom: none }
+
 ## 2026-09-17 (7a rodada)
 
 ### style — Nota Metodologica: layout cover esquerda + texto direita (metodologia.css v51)

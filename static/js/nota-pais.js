@@ -560,8 +560,8 @@ function buildMap(data) {
           const allowed = currentRegion ? REGION_MAP[currentRegion] : null;
           const match = !allowed || allowed.includes(continent);
           this.setStyle({
-            fillColor:   match ? (CONTINENT_COLORS[continent] || "#C0C8CC") : "#C0C8C8",
-            fillOpacity: match ? 0.84 : 0.38,
+            fillColor:   iso === "BRA" ? "#264584" : (match ? "#B0BCC8" : "#D0D8DF"),
+            fillOpacity: iso === "BRA" ? 0.92 : (match ? 0.60 : 0.38),
             color: "#fff",
             weight: 0.7,
           });

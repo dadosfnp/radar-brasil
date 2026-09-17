@@ -57,6 +57,10 @@ body.sobre-page .rb-main {
     margin: 0;
 }
 
+/* Sem borda entre "Por que avaliar" e a secao de fotos */
+body.sobre-page .meto-scroll-section { border-top: none; }
+body.sobre-page .meto-federalism-section { border-bottom: none; }
+
 /* ── FAQ ──────────────────────────────────────────────────────────── */
 .sb-faq-section {
     border-top: 1.5px solid rgba(38,69,132,.12);
