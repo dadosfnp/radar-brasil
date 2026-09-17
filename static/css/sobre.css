@@ -22,6 +22,7 @@ body.sobre-page .rb-main {
 .sb-factsheet-placeholder {
     background: transparent;
     padding: 40px 0 36px;
+    border-bottom: 1.5px solid rgba(38,69,132,.12);
 }
 
 .sb-factsheet-badge {

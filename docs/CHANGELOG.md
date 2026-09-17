@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (6a rodada)
+
+### style — Cards com fundo #f6f8ff e linhas de divisao entre secoes restauradas (metodologia.css v50, sobre.css v6)
+
+- Cards e caixas de texto: background alterado para #f6f8ff (RGB 246 248 255)
+  - meto-concept-box, meto-tl-card, meto-def-card, meto-eixo-card: #fff/#f5f8ff → #f6f8ff
+  - meto-scope-timeline, meto-nota-card, meto-calc-card: #fff/rgba → #f6f8ff
+  - meto-stat-pill: rgba(255,255,255,.72) → #f6f8ff
+- Linhas de divisao entre secoes restauradas (border-top):
+  - meto-federalism-section: border-top 1px solid rgba(38,69,132,.10)
+  - meto-timeline-section: border-top 1.5px solid rgba(38,69,132,.12)
+  - meto-howwe-section: border-top 1px solid rgba(38,69,132,.10)
+  - meto-criteria-section: border-top 1px solid rgba(38,69,132,.08)
+  - meto-scope-section: border-top 1px solid rgba(38,69,132,.10)
+  - meto-calc-section: border-top 1px solid rgba(38,69,132,.10)
+- Linha de divisao do factsheet restaurada (sobre.css):
+  - sb-factsheet-placeholder: border-bottom 1.5px solid rgba(38,69,132,.12)
+
 ## 2026-09-17 (5a rodada)
 
 ### fix — Fundo das paginas Sobre e Metodologia: var(--color-bg-page) em vez de transparent (metodologia.css v48, sobre.css v4)

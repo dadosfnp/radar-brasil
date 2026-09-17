@@ -155,6 +155,7 @@ body.metodologia-page .rb-main {
 
 .meto-federalism-section {
     background: transparent;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
 
 .meto-federalism-intro {
@@ -170,7 +171,7 @@ body.metodologia-page .rb-main {
 
 /* Conceito box */
 .meto-concept-box {
-    background: #fff;
+    background: #f6f8ff;
     border: 1.5px solid rgba(38,69,132,.18);
     border-radius: 20px;
     padding: 28px 32px;
@@ -422,6 +423,7 @@ body.metodologia-page .rb-main {
 
 .meto-timeline-section {
     background: transparent;
+    border-top: 1.5px solid rgba(38,69,132,.12);
     padding: 64px 0;
 }
 
@@ -484,7 +486,7 @@ body.metodologia-page .rb-main {
 /* Card: topo — alinhado pelo topo em todos os eventos */
 .meto-tl-card {
     order: 1;
-    background: #f5f8ff;
+    background: #f6f8ff;
     border: 1px solid rgba(38,69,132,.12);
     border-radius: 14px;
     padding: 18px 20px;
@@ -579,6 +581,7 @@ body.metodologia-page .rb-main {
 
 .meto-howwe-section {
     background: transparent;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
 
 .meto-defs-grid {
@@ -589,7 +592,7 @@ body.metodologia-page .rb-main {
 }
 
 .meto-def-card {
-    background: rgba(255,255,255,.82);
+    background: #f6f8ff;
     backdrop-filter: blur(24px) saturate(1.4);
     -webkit-backdrop-filter: blur(24px) saturate(1.4);
     border: 1.5px solid rgba(255,255,255,.90);
@@ -654,6 +657,7 @@ body.metodologia-page .rb-main {
 
 .meto-criteria-section {
     background: transparent;
+    border-top: 1px solid rgba(38,69,132,.08);
 }
 
 .meto-eixos-grid {
@@ -664,7 +668,7 @@ body.metodologia-page .rb-main {
 }
 
 .meto-eixo-card {
-    background: #f5f8ff;
+    background: #f6f8ff;
     border: 1.5px solid rgba(38,69,132,.12);
     border-radius: 20px;
     padding: 24px;
@@ -976,6 +980,7 @@ body.metodologia-page .rb-main {
 
 .meto-scope-section {
     background: transparent;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
 
 .meto-scope-grid {
@@ -1016,7 +1021,7 @@ body.metodologia-page .rb-main {
     gap: 12px;
     margin-top: 8px;
     padding: 16px 20px;
-    background: rgba(255,255,255,.60);
+    background: #f6f8ff;
     border-radius: 12px;
     border: 1px solid rgba(38,69,132,.12);
 }
@@ -1081,7 +1086,7 @@ body.metodologia-page .rb-main {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
-    background: #fff;
+    background: #f6f8ff;
     border-radius: 12px;
     box-shadow: 0 4px 18px rgba(38,69,132,.10);
     text-decoration: none;
@@ -1269,7 +1274,7 @@ body.metodologia-page .rb-main {
 
 /* Stat pills */
 .meto-stat-pill {
-    background: rgba(255,255,255,.72);
+    background: #f6f8ff;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1.5px solid rgba(255,255,255,.88);
@@ -1481,6 +1486,7 @@ body.metodologia-page .rb-main {
 
 .meto-calc-section {
     background: transparent;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
 
 .meto-calc-grid {
@@ -1491,7 +1497,7 @@ body.metodologia-page .rb-main {
 }
 
 .meto-calc-card {
-    background: #fff;
+    background: #f6f8ff;
     border: 1.5px solid rgba(38,69,132,.12);
     border-radius: 18px;
     padding: 28px 24px;
