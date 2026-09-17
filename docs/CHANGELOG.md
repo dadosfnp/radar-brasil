@@ -4,6 +4,31 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (10a rodada)
+
+### feat — Traducoes EN completas para Sobre e Metodologia (django.po + django.mo)
+
+- Adicionadas ~170 novas entradas em locale/en/LC_MESSAGES/django.po
+- Total: 524 strings compiladas no django.mo (era 349)
+- Sobre: hero "Como avaliamos o Radar Brasil?" + descricao; FAQ completo (10 pares Q&A)
+- Metodologia: hero desc atualizada (componentes); secao 1 atualizada (componentes)
+- Criterios — definicoes e parametros de todos os eixos:
+  - Governanca: Operacionalidade, Espaco de Dialogo Federativo, Diversidade e
+    Representatividade, Comunicacao e Transparencia, Sustentabilidade Financeira
+  - Politicas e Planos: Operacionalidade, Espaco de Dialogo Federativo,
+    Sustentabilidade Financeira, Comunicacao e Transparencia
+  - Programas: Cooperacao Federativa, Capilaridade e Alcance Territorial,
+    Sustentabilidade Financeira, Fortalecimento da Capacidade Local,
+    Monitoramento e Avaliacao
+  - Linhas de Financiamento: Desenho Participativo, Capacidade de Execucao
+    Descentralizada, Monitoramento e Prestacao de Contas
+- Escopo: contagens atualizadas (32/18/18/30); novos labels "componentes de
+  governanca" e "politicas ou planos"
+- Nota Metodologica: aria-label e body text do bloco
+- Calculo: todos os textos novos (Fator de Relevancia, cards Parcial/Eixo/Pais,
+  tabelas, legendas); Peso 1/2/3 com descricoes e exemplos
+- UI: "Informacao" e "Clique em um criterio para ver sua definicao..."
+
 ## 2026-09-17 (9a rodada)
 
 ### fix — Linha de divisao entre "Por que avaliar" e fotos restaurada em Sobre (sobre.css v8)

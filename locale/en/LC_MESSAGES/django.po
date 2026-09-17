@@ -1099,3 +1099,536 @@ msgstr "Arithmetic mean of the four Axis Levels, synthesizing the overall perfor
 
 msgid "eixos"
 msgstr "axes"
+
+# ── Sobre — hero ──────────────────────────────────────────────
+msgid "Como avaliamos o Radar Brasil?"
+msgstr "How do we assess Radar Brasil?"
+
+msgid "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro."
+msgstr "Criteria, parameters and the calculation formula that transform data into Country Level, the synthetic score of Brazilian climate federalism."
+
+# ── Metodologia — hero desc (versão com componentes) ──────────
+msgid "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando componentes de governança, políticas e planos, programas e linhas de financiamento relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e componentes."
+msgstr "Radar Brasil assesses the level of implementation of Climate Federalism in Brazil, mapping governance components, policies and plans, programs and financing lines related to climate action, and measuring results through standardized criteria across axes and components."
+
+# ── Metodologia — seção 1 (Como avaliamos) ───────────────────
+msgid "Cada componente do federalismo climático é avaliado individualmente, a partir de critérios e parâmetros de nível. Os resultados dessas avaliações são agregados nos eixos analíticos e, por fim, consolidados na Nota País."
+msgstr "Each climate federalism component is assessed individually, based on level criteria and parameters. The results of these assessments are aggregated into the analytical axes and finally consolidated into the Country Level."
+
+msgid "O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Esta separação permite qualificar a análise de componentes que possuem lógica institucional distinta e confrontar os eixos entre si para extrair novas camadas de análise."
+msgstr "Radar Brasil assesses 4 thematic axes: Governance, Policies and Plans, Programs and Financing Lines. This separation enables a more qualified analysis of components with distinct institutional logic and allows cross-axis comparisons to extract new layers of analysis."
+
+msgid "Um critério corresponde a uma dimensão específica de análise dentro de cada eixo. A definição de múltiplos critérios por eixo responde à necessidade de decompor o componente em partes menores, mensuráveis e analiticamente distintas entre si, de três a cinco critérios."
+msgstr "A criterion corresponds to a specific dimension of analysis within each axis. The definition of multiple criteria per axis responds to the need to break down the component into smaller, measurable and analytically distinct parts, from three to five criteria."
+
+# ── UI — tooltip critérios ────────────────────────────────────
+msgid "Informação"
+msgstr "Information"
+
+msgid "Clique em um critério para ver sua definição e os parâmetros de avaliação"
+msgstr "Click on a criterion to see its definition and assessment parameters"
+
+# ── Governança — eixo desc (atualizado: componentes) ─────────
+msgid "Compreende os arranjos institucionais, componentes de coordenação e mecanismos de articulação e participação federativa que estruturam a governança climática multinível, tais como conselhos, comitês, fóruns, câmaras e comissões."
+msgstr "Comprises the institutional arrangements, coordination components and mechanisms of federative articulation and participation that structure multilevel climate governance, such as councils, committees, forums, chambers and commissions."
+
+# ── Governança — Operacionalidade ────────────────────────────
+msgid "Este critério avalia o nível de influência e a regularidade de funcionamento dos espaços de governança."
+msgstr "This criterion assesses the level of influence and regularity of operation of governance spaces."
+
+msgid "Inativo (sem funcionamento ou em recomposição)"
+msgstr "Inactive (not functioning or under reorganization)"
+
+msgid "Baixa operacionalidade (consultivo e funcionamento irregular)"
+msgstr "Low operationality (advisory and irregular functioning)"
+
+msgid "Média operacionalidade (consultivo e funcionamento regular)"
+msgstr "Medium operationality (advisory and regular functioning)"
+
+msgid "Alta operacionalidade (deliberativo e funcionamento irregular)"
+msgstr "High operationality (deliberative and irregular functioning)"
+
+msgid "Plena operacionalidade (deliberativo e funcionamento regular)"
+msgstr "Full operationality (deliberative and regular functioning)"
+
+# ── Governança — Espaço de Diálogo Federativo ─────────────────
+msgid "Avalia a existência e qualidade de mecanismos formais de diálogo e participação dos entes federativos na formulação e acompanhamento da política climática."
+msgstr "Assesses the existence and quality of formal dialogue and participation mechanisms for federative entities in the formulation and monitoring of climate policy."
+
+msgid "Sem mecanismo de participação federativa previsto"
+msgstr "No federative participation mechanism foreseen"
+
+msgid "Mecanismo previsto, mas sem representação dos entes subnacionais"
+msgstr "Mechanism foreseen, but without representation of subnational entities"
+
+msgid "Representação dos entes subnacionais com caráter consultivo"
+msgstr "Representation of subnational entities with advisory character"
+
+msgid "Representação deliberativa dos entes subnacionais sem funcionamento regular"
+msgstr "Deliberative representation of subnational entities without regular functioning"
+
+msgid "Representação deliberativa dos entes subnacionais com funcionamento regular"
+msgstr "Deliberative representation of subnational entities with regular functioning"
+
+# ── Governança — Diversidade e Representatividade ─────────────
+msgid "Avalia a presença de critérios ou garantias formais de diversidade de gênero, raça e etnia na composição e funcionamento do espaço de governança."
+msgstr "Assesses the presence of formal criteria or guarantees of gender, race and ethnic diversity in the composition and functioning of the governance space."
+
+msgid "Sem critério ou garantia de diversidade prevista"
+msgstr "No diversity criterion or guarantee foreseen"
+
+msgid "Recomendação não vinculante de diversidade"
+msgstr "Non-binding diversity recommendation"
+
+msgid "Critério formal de diversidade previsto sem monitoramento"
+msgstr "Formal diversity criterion foreseen without monitoring"
+
+msgid "Critério formal de diversidade com monitoramento, mas sem paridade"
+msgstr "Formal diversity criterion with monitoring, but without parity"
+
+msgid "Critério formal com paridade e monitoramento sistemático"
+msgstr "Formal criterion with parity and systematic monitoring"
+
+# ── Governança — Comunicação e Transparência ─────────────────
+msgid "Avalia a publicização e acessibilidade das informações sobre o funcionamento, decisões e resultados do espaço de governança."
+msgstr "Assesses the publicization and accessibility of information on the functioning, decisions and results of the governance space."
+
+msgid "Sem publicização das informações"
+msgstr "No publicization of information"
+
+msgid "Publicação esporádica e não padronizada"
+msgstr "Sporadic and non-standardized publication"
+
+msgid "Publicação regular de atas e decisões em canais institucionais"
+msgstr "Regular publication of minutes and decisions on institutional channels"
+
+msgid "Publicação regular com acesso facilitado e linguagem acessível"
+msgstr "Regular publication with easy access and accessible language"
+
+msgid "Portal dedicado com dados abertos, atualização sistemática e histórico completo"
+msgstr "Dedicated portal with open data, systematic updates and complete history"
+
+# ── Governança — Sustentabilidade Financeira ─────────────────
+msgid "Avalia a previsão e regularidade de fontes de financiamento para o funcionamento do espaço de governança."
+msgstr "Assesses the provision and regularity of funding sources for the functioning of the governance space."
+
+msgid "Sem previsão de financiamento dedicado"
+msgstr "No dedicated funding foreseen"
+
+msgid "Financiamento eventual sem garantia de continuidade"
+msgstr "Occasional funding without continuity guarantee"
+
+msgid "Financiamento previsto em norma sem dotação específica garantida"
+msgstr "Funding foreseen in regulation without specific allocation guaranteed"
+
+msgid "Dotação orçamentária específica prevista com regularidade parcial"
+msgstr "Specific budget allocation foreseen with partial regularity"
+
+msgid "Dotação orçamentária consolidada e executada regularmente"
+msgstr "Consolidated budget allocation executed regularly"
+
+# ── Políticas e Planos — Operacionalidade ────────────────────
+msgid "Avalia o estágio de formulação, vigência e implementação das políticas e planos climáticos."
+msgstr "Assesses the stage of formulation, validity and implementation of climate policies and plans."
+
+msgid "Inexistente (sem política ou plano formulado)"
+msgstr "Non-existent (no policy or plan formulated)"
+
+msgid "Em elaboração ou consulta pública (sem vigência)"
+msgstr "Under development or public consultation (not yet in force)"
+
+msgid "Aprovado e em vigor, sem estrutura de implementação definida"
+msgstr "Approved and in force, without a defined implementation structure"
+
+msgid "Em implementação com estrutura definida e metas parcialmente estabelecidas"
+msgstr "Under implementation with defined structure and partially established targets"
+
+msgid "Em implementação plena com metas, prazos e responsáveis definidos e monitoramento ativo"
+msgstr "Under full implementation with defined targets, deadlines and responsible parties and active monitoring"
+
+# ── Políticas e Planos — Espaço de Diálogo Federativo ─────────
+msgid "Avalia a previsão e qualidade de mecanismos de participação dos entes federativos na formulação e revisão das políticas e planos."
+msgstr "Assesses the provision and quality of mechanisms for federative entities to participate in the formulation and revision of policies and plans."
+
+msgid "Consulta pública genérica sem mecanismo específico para entes federativos"
+msgstr "Generic public consultation without specific mechanism for federative entities"
+
+msgid "Consulta específica a estados e municípios com caráter informativo"
+msgstr "Specific consultation with states and municipalities with informational character"
+
+msgid "Participação dos entes subnacionais em etapas de formulação ou revisão"
+msgstr "Participation of subnational entities in formulation or revision stages"
+
+msgid "Participação ativa e sistemática dos entes subnacionais em todas as etapas do ciclo da política"
+msgstr "Active and systematic participation of subnational entities in all stages of the policy cycle"
+
+# ── Políticas e Planos — Sustentabilidade Financeira ──────────
+msgid "Avalia a existência de fontes de financiamento previstas para a implementação das políticas e planos."
+msgstr "Assesses the existence of funding sources foreseen for the implementation of policies and plans."
+
+msgid "Sem previsão de financiamento para implementação"
+msgstr "No funding foreseen for implementation"
+
+msgid "Financiamento genérico sem vinculação específica à política climática"
+msgstr "Generic funding without specific link to climate policy"
+
+msgid "Financiamento previsto em documento normativo sem dotação específica garantida"
+msgstr "Funding foreseen in normative document without specific allocation guaranteed"
+
+msgid "Financiamento consolidado com dotação específica, executada regularmente e com previsão plurianual"
+msgstr "Consolidated funding with specific allocation, executed regularly and with multi-year planning"
+
+# ── Políticas e Planos — Comunicação e Transparência ──────────
+msgid "Avalia a publicização e acessibilidade das informações sobre objetivos, metas, resultados e revisões das políticas e planos."
+msgstr "Assesses the publicization and accessibility of information on objectives, targets, results and revisions of policies and plans."
+
+msgid "Publicação regular das políticas e resultados em canais institucionais"
+msgstr "Regular publication of policies and results on institutional channels"
+
+msgid "Publicação sistemática com linguagem acessível e dados abertos"
+msgstr "Systematic publication with accessible language and open data"
+
+msgid "Portal dedicado com dados abertos, histórico completo e mecanismo de feedback ativo"
+msgstr "Dedicated portal with open data, complete history and active feedback mechanism"
+
+# ── Programas — Cooperação Federativa ────────────────────────
+msgid "Avalia o nível de articulação formal entre União, estados e municípios no desenho e implementação dos programas."
+msgstr "Assesses the level of formal articulation between the Federal Government, states and municipalities in the design and implementation of programs."
+
+msgid "Sem previsão de cooperação federativa"
+msgstr "No federative cooperation foreseen"
+
+msgid "Cooperação prevista sem mecanismo formal (acordos esporádicos)"
+msgstr "Cooperation foreseen without formal mechanism (sporadic agreements)"
+
+msgid "Cooperação com convênios ou instrumentos formais, mas de forma não sistemática"
+msgstr "Cooperation with formal agreements or instruments, but not systematically"
+
+msgid "Cooperação sistemática com instrumentos formalizados e instância de coordenação"
+msgstr "Systematic cooperation with formalized instruments and coordination body"
+
+msgid "Cooperação plena com instância de coordenação ativa, metas conjuntas e prestação de contas compartilhada"
+msgstr "Full cooperation with active coordination body, joint targets and shared accountability"
+
+# ── Programas — Capilaridade e Alcance Territorial ────────────
+msgid "Avalia o grau de cobertura territorial dos programas, considerando o alcance a municípios e regiões de diferentes perfis socioeconômicos e geográficos."
+msgstr "Assesses the degree of territorial coverage of programs, considering reach to municipalities and regions with different socioeconomic and geographic profiles."
+
+msgid "Alcance restrito a capitais ou municípios de grande porte"
+msgstr "Reach restricted to state capitals or large municipalities"
+
+msgid "Alcance a municípios de médio e grande porte, sem critério de equidade"
+msgstr "Reach to medium and large municipalities, without equity criteria"
+
+msgid "Critério formal de equidade territorial previsto, com alcance parcial"
+msgstr "Formal territorial equity criterion foreseen, with partial reach"
+
+msgid "Cobertura abrangente com critérios de priorização de municípios vulneráveis"
+msgstr "Broad coverage with criteria for prioritizing vulnerable municipalities"
+
+msgid "Cobertura universal ou estratégica com mecanismo de acompanhamento do alcance territorial"
+msgstr "Universal or strategic coverage with a mechanism for monitoring territorial reach"
+
+# ── Programas — Sustentabilidade Financeira ──────────────────
+msgid "Avalia a previsão e regularidade das fontes de financiamento dos programas, considerando continuidade e capacidade de expansão."
+msgstr "Assesses the provision and regularity of funding sources for programs, considering continuity and expansion capacity."
+
+msgid "Sem previsão de financiamento regular"
+msgstr "No regular funding foreseen"
+
+msgid "Dotação orçamentária específica com regularidade parcial"
+msgstr "Specific budget allocation with partial regularity"
+
+msgid "Financiamento consolidado e executado regularmente, com previsão plurianual e capacidade de expansão"
+msgstr "Consolidated funding executed regularly, with multi-year planning and expansion capacity"
+
+# ── Programas — Fortalecimento da Capacidade Local ───────────
+msgid "Avalia se os programas incluem componentes de capacitação técnica, assistência e fortalecimento institucional dos entes subnacionais para gestão climática."
+msgstr "Assesses whether programs include technical training, assistance and institutional strengthening components for subnational entities in climate management."
+
+msgid "Sem componente de capacitação ou assistência técnica"
+msgstr "No training or technical assistance component"
+
+msgid "Componente de capacitação previsto sem estrutura regular"
+msgstr "Training component foreseen without regular structure"
+
+msgid "Capacitação ofertada de forma regular, sem vinculação ao fortalecimento institucional"
+msgstr "Training offered regularly, without linkage to institutional strengthening"
+
+msgid "Capacitação técnica regular com assistência para implementação e gestão"
+msgstr "Regular technical training with assistance for implementation and management"
+
+msgid "Programa integrado de fortalecimento com assistência técnica, capacitação e acompanhamento sistemático"
+msgstr "Integrated strengthening program with technical assistance, training and systematic monitoring"
+
+# ── Programas — Monitoramento e Avaliação ────────────────────
+msgid "Avalia a existência e qualidade dos mecanismos de acompanhamento dos resultados dos programas, incluindo a participação dos beneficiários locais."
+msgstr "Assesses the existence and quality of mechanisms for monitoring program results, including the participation of local beneficiaries."
+
+msgid "Sem mecanismo de monitoramento ou avaliação"
+msgstr "No monitoring or evaluation mechanism"
+
+msgid "Relatórios eventuais sem padronização ou publicização"
+msgstr "Occasional reports without standardization or publicization"
+
+msgid "Monitoramento periódico com indicadores definidos, sem avaliação sistemática"
+msgstr "Periodic monitoring with defined indicators, without systematic evaluation"
+
+msgid "Monitoramento regular com indicadores e avaliação periódica com participação parcial dos beneficiários"
+msgstr "Regular monitoring with indicators and periodic evaluation with partial beneficiary participation"
+
+msgid "Sistema de monitoramento e avaliação consolidado, com participação ativa dos beneficiários e publicização de resultados"
+msgstr "Consolidated monitoring and evaluation system, with active beneficiary participation and publicization of results"
+
+# ── Linhas de Financiamento — Desenho Participativo ──────────
+msgid "Desenho Participativo da Linha de Financiamento"
+msgstr "Participatory Design of the Financing Line"
+
+msgid "Avalia o grau de participação dos entes subnacionais e da sociedade civil na formulação e revisão das linhas de financiamento climático."
+msgstr "Assesses the degree of participation of subnational entities and civil society in the formulation and revision of climate financing lines."
+
+msgid "Sem participação dos entes subnacionais ou da sociedade civil no desenho"
+msgstr "No participation of subnational entities or civil society in the design"
+
+msgid "Consulta esporádica sem caráter formal ou vinculativo"
+msgstr "Sporadic consultation without formal or binding character"
+
+msgid "Consulta formal com representação dos entes subnacionais, sem poder de influência"
+msgstr "Formal consultation with representation of subnational entities, without influence power"
+
+msgid "Participação dos entes subnacionais com capacidade de propor alterações nas condições da linha"
+msgstr "Participation of subnational entities with capacity to propose changes to the financing line conditions"
+
+msgid "Processo participativo formalizado com revisão periódica, co-gestão e transparência nos critérios"
+msgstr "Formalized participatory process with periodic revision, co-management and transparency in criteria"
+
+# ── Linhas de Financiamento — Capacidade de Execução ─────────
+msgid "Avalia em que medida as linhas de financiamento permitem e facilitam o acesso direto por estados e municípios, sem intermediação obrigatória da União."
+msgstr "Assesses the extent to which financing lines allow and facilitate direct access by states and municipalities, without mandatory federal intermediation."
+
+msgid "Acesso exclusivamente pela União (sem repasse ou acesso direto)"
+msgstr "Access exclusively through the Federal Government (no transfer or direct access)"
+
+msgid "Acesso mediado pela União, sem simplificação para entes subnacionais"
+msgstr "Access mediated by the Federal Government, without simplification for subnational entities"
+
+msgid "Repasse previsto com critérios formais, mas com barreiras burocráticas elevadas"
+msgstr "Transfer foreseen with formal criteria, but with high bureaucratic barriers"
+
+msgid "Acesso direto facilitado com simplificação parcial das exigências para entes subnacionais"
+msgstr "Direct access facilitated with partial simplification of requirements for subnational entities"
+
+msgid "Acesso direto pleno com simplificação das exigências, apoio técnico para habilitação e descentralização efetiva"
+msgstr "Full direct access with simplification of requirements, technical support for qualification and effective decentralization"
+
+# ── Linhas de Financiamento — Monitoramento e Prestação ───────
+msgid "Avalia a existência e qualidade dos mecanismos de acompanhamento da execução e dos resultados das linhas de financiamento, incluindo a transparência na prestação de contas."
+msgstr "Assesses the existence and quality of mechanisms for monitoring the execution and results of financing lines, including transparency in accountability."
+
+msgid "Sem mecanismo de monitoramento ou prestação de contas definido"
+msgstr "No monitoring or accountability mechanism defined"
+
+msgid "Prestação de contas básica prevista sem publicização ou padronização"
+msgstr "Basic accountability foreseen without publicization or standardization"
+
+msgid "Prestação de contas formal com relatórios periódicos sem dados abertos"
+msgstr "Formal accountability with periodic reports without open data"
+
+msgid "Monitoramento regular com indicadores definidos e publicização dos resultados"
+msgstr "Regular monitoring with defined indicators and publicization of results"
+
+msgid "Sistema de monitoramento integrado com dados abertos, auditoria independente e publicização dos resultados"
+msgstr "Integrated monitoring system with open data, independent audit and publicization of results"
+
+# ── Escopo — números atualizados ─────────────────────────────
+msgid "Desta forma, foram analisados nesta etapa 32 componentes de governança, 18 políticas ou planos, 18 programas e 30 linhas de financiamento."
+msgstr "In this way, this stage analyzed 32 governance components, 18 policies or plans, 18 programs and 30 financing lines."
+
+msgid "componentes de governança"
+msgstr "governance components"
+
+msgid "políticas ou planos"
+msgstr "policies or plans"
+
+# ── Nota Metodológica — bloco ─────────────────────────────────
+msgid "Abrir Nota Metodológica"
+msgstr "Open Methodological Note"
+
+msgid "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos."
+msgstr "The Methodological Note of Radar Brasil: Climate Federalism documents the methodology used in the pilot phase of Radar Brasil, delimiting the concepts employed, study scope, criteria and parameters for data treatment, among other factors necessary for understanding the results obtained."
+
+# ── Metodologia de Cálculo — versão atualizada ────────────────
+msgid "Os níveis obtidos em cada parâmetro por componente servem de base para o cálculo do nível país e estão divididos em 3 etapas de cálculo: Nível Parcial, Nível Eixo e Nível País."
+msgstr "The levels obtained for each parameter per component form the basis for calculating the country level and are divided into 3 calculation stages: Partial Level, Axis Level and Country Level."
+
+msgid "Para o cálculo do Nível País, inicialmente é calculado o Nível Parcial que compreende a média dos níveis obtidos em cada critério do componente avaliado. Para esta média, é acrescido peso 2 a um dos critérios de cada eixo, em virtude da sua importância ao federalismo climático. O cálculo pode ser expresso pela seguinte fórmula."
+msgstr "To calculate the Country Level, the Partial Level is first calculated, which comprises the average of the levels obtained for each criterion of the assessed component. For this average, a weight of 2 is added to one criterion per axis due to its importance to climate federalism. The calculation can be expressed by the following formula."
+
+msgid "Fator de Relevância dos Componentes"
+msgstr "Relevance Factor of Components"
+
+msgid "No cálculo, foram estabelecidos pesos de 1 a 3 para cada componente analisado, considerando seu fator de relevância."
+msgstr "In the calculation, weights from 1 to 3 were established for each analyzed component, considering its relevance factor."
+
+msgid "Peso 3"
+msgstr "Weight 3"
+
+msgid "Componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo."
+msgstr "Components that declare, in their text or formal instrument, climate change mitigation or adaptation as an objective."
+
+msgid "Ex.: Comitê Gestor do Fundo Nacional sobre Mudança do Clima, Plano Nacional de Proteção e Defesa Civil, Programa Gestão de Riscos e de Desastres, PAC Seleções - Desenvolvimento Urbano Resiliente e Sustentável"
+msgstr "E.g.: Managing Committee of the National Climate Change Fund, National Civil Protection and Defense Plan, Disaster Risk Management Program, PAC Selections - Resilient and Sustainable Urban Development"
+
+msgid "Peso 2"
+msgstr "Weight 2"
+
+msgid "Componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas."
+msgstr "Components whose objectives are directly related to climate change mitigation or adaptation."
+
+msgid "Ex.: Conselho Nacional de Desenvolvimento Rural Sustentável (CONDRAF), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Programa Saneamento Básico, Novo PAC Transição e Segurança Energética - Subeixo Eficiência Energética"
+msgstr "E.g.: National Council for Sustainable Rural Development (CONDRAF), National Plan for Sustainable and Solidarity Rural Development (PNDRSS), Basic Sanitation Program, New PAC Energy Transition and Security - Energy Efficiency Sub-axis"
+
+msgid "Peso 1"
+msgstr "Weight 1"
+
+msgid "Componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas."
+msgstr "Components whose objectives are only indirectly related to climate change mitigation or adaptation."
+
+msgid "Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Programa Políticas para Quilombolas, Pró-Transporte (CEF)"
+msgstr "E.g.: National Council for Food and Nutritional Security (CONSEA), National Plan for Sustainable and Solidarity Rural Development (PNDRSS), Quilombola Policies Program, Pró-Transporte (CEF)"
+
+msgid "Score de cada componente"
+msgstr "Score for each component"
+
+msgid "Média ponderada dos critérios avaliados, atribuindo peso duplo ao critério de maior relevância para o eixo."
+msgstr "Weighted average of assessed criteria, assigning double weight to the most relevant criterion for the axis."
+
+msgid "Demais critérios do eixo"
+msgstr "Other criteria for the axis"
+
+msgid "Critério prioritário"
+msgstr "Priority criterion"
+
+msgid "Méd. pond."
+msgstr "W. avg."
+
+msgid "Nível Parcial do componente avaliado (resultado na escala 1 a 5)"
+msgstr "Partial Level of the assessed component (result on the 1 to 5 scale)"
+
+msgid "valor de cada critério avaliado (escala 1 a 5)"
+msgstr "value of each assessed criterion (scale 1 to 5)"
+
+msgid "critério de maior relevância para o eixo (peso duplo)"
+msgstr "most relevant criterion for the axis (double weight)"
+
+msgid "número total de critérios do componente"
+msgstr "total number of criteria for the component"
+
+msgid "Média ponderada dos Níveis Parciais de cada componente, usando o fator de relevância como multiplicador de peso."
+msgstr "Weighted average of the Partial Levels of each component, using the relevance factor as a weight multiplier."
+
+msgid "Componentes"
+msgstr "Components"
+
+msgid "Méd. pond. NP"
+msgstr "W. avg. PL"
+
+msgid "Nível Eixo do eixo temático k (resultado ponderado na escala 1 a 5)"
+msgstr "Axis Level of thematic axis k (weighted result on the 1 to 5 scale)"
+
+msgid "Nível Parcial de cada componente avaliado"
+msgstr "Partial Level of each assessed component"
+
+msgid "fator de relevância do componente (peso 1, 2 ou 3)"
+msgstr "relevance factor of the component (weight 1, 2 or 3)"
+
+msgid "Nível Eixo de cada eixo temático (k = 1 a 4)"
+msgstr "Axis Level of each thematic axis (k = 1 to 4)"
+
+msgid "nota síntese da capacidade do país em implementar o federalismo climático"
+msgstr "synthetic score of the country's capacity to implement climate federalism"
+
+# ── Sobre — FAQ ───────────────────────────────────────────────
+msgid "Perguntas frequentes sobre o projeto, sua metodologia e escopo."
+msgstr "Frequently asked questions about the project, its methodology and scope."
+
+msgid "No que consiste o Radar Brasil: Federalismo Climático?"
+msgstr "What does Radar Brasil: Climate Federalism consist of?"
+
+msgid "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal."
+msgstr "A systematic instrument for diagnosing the implementation of climate federalism in Brazil, identifying advances, gaps and asymmetries in the initiatives, policies, programs, plans and financing lines of the Federal Government."
+
+msgid "Qual a origem do Radar Brasil?"
+msgstr "What is the origin of Radar Brasil?"
+
+msgid "O Radar Brasil é uma iniciativa da Frente Nacional de Prefeitas e Prefeitos (FNP) e integra o projeto Mutirão Brasil, iniciativa da C40 Cities e do Pacto Global de Prefeitas e Prefeitos pelo Clima e Energia (GCoM), com apoio da Bloomberg Philanthropies, voltada a apoiar cidades brasileiras na estruturação de projetos climáticos para implementação."
+msgstr "Radar Brasil is an initiative of the National Front of Mayors (FNP) and is part of the Mutirão Brasil project, an initiative of C40 Cities and the Global Covenant of Mayors for Climate and Energy (GCoM), supported by Bloomberg Philanthropies, aimed at supporting Brazilian cities in structuring climate projects for implementation."
+
+msgid "Qual o escopo do Radar Brasil?"
+msgstr "What is the scope of Radar Brasil?"
+
+msgid "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais."
+msgstr "Focused on federal initiatives and instruments that promote interfederative cooperation in addressing climate change, assessing the supply of multilevel coordination mechanisms, and not the institutional capacity of subnational entities."
+
+msgid "Qual o recorte adotado pelo Radar Brasil?"
+msgstr "What is the scope adopted by Radar Brasil?"
+
+msgid "O Radar Brasil considera três fatores principais: a maior acessibilidade às ações federais; o compromisso do Brasil com a agenda CHAMP; e o papel central da União na coordenação e implementação de políticas nacionais."
+msgstr "Radar Brasil considers three main factors: greater accessibility to federal actions; Brazil's commitment to the CHAMP agenda; and the central role of the Federal Government in coordinating and implementing national policies."
+
+msgid "Qual é o princípio ou fundamento que orienta o Radar Brasil?"
+msgstr "What is the principle or foundation that guides Radar Brasil?"
+
+msgid "O federalismo climático, baseado na articulação e cooperação entre os diferentes níveis de governo para contribuir para o cumprimento dos compromissos climáticos do Brasil e promover um futuro mais sustentável."
+msgstr "Climate federalism, based on coordination and cooperation between different levels of government to contribute to fulfilling Brazil's climate commitments and promoting a more sustainable future."
+
+msgid "Qual o objetivo do Radar Brasil?"
+msgstr "What is the objective of Radar Brasil?"
+
+msgid "Monitorar e avaliar a governança multinível das políticas climáticas no Brasil."
+msgstr "To monitor and assess the multilevel governance of climate policies in Brazil."
+
+msgid "Quais as fontes pesquisadas no levantamento de dados do Radar Brasil?"
+msgstr "What sources were consulted in the Radar Brasil data survey?"
+
+msgid "Os dados foram levantados exclusivamente em fontes oficiais do Governo Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano Plurianual (PPA) vigente."
+msgstr "Data was collected exclusively from official Federal Government sources, including websites, normative documents, legislation and the current Multi-Year Plan (PPA)."
+
+msgid "Qual o recorte temporal e a periodicidade dos dados pesquisados pelo Radar Brasil?"
+msgstr "What is the time frame and periodicity of data surveyed by Radar Brasil?"
+
+msgid "Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o primeiro semestre de 2025, estabelecendo uma linha de base para o diagnóstico inicial do federalismo climático."
+msgstr "Started in 2025, the analysis adopted as its time frame the end of 2024 and the first half of 2025, establishing a baseline for the initial diagnosis of climate federalism."
+
+msgid "De que forma o Radar irá monitorar e avaliar a governança multinível?"
+msgstr "How will Radar Brasil monitor and assess multilevel governance?"
+
+msgid "A avaliação adota metodologia baseada em critérios e parâmetros de níveis, aplicada de forma independente aos quatro eixos: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Os critérios definem as dimensões analisadas e os parâmetros estabelecem os diferentes níveis de maturidade."
+msgstr "The assessment adopts a methodology based on level criteria and parameters, applied independently to the four axes: Governance, Policies and Plans, Programs and Financing Lines. The criteria define the dimensions analyzed and the parameters establish the different maturity levels."
+
+msgid "As informações são sistematizadas em base de dados e classificadas pela equipe técnica da FNP."
+msgstr "Information is systematized in a database and classified by the FNP technical team."
+
+msgid "Quais os fatores predominantes para a avaliação da governança multinível?"
+msgstr "What are the predominant factors for assessing multilevel governance?"
+
+msgid "Aderência à agenda climática, interface com estados e municípios, relevância para a coordenação federativa e disponibilidade de informações públicas."
+msgstr "Adherence to the climate agenda, interface with states and municipalities, relevance to federative coordination and availability of public information."
+
+msgid "Fator de relevância:"
+msgstr "Relevance factor:"
+
+msgid "para os componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo."
+msgstr "for components that declare, in their text or formal instrument, climate change mitigation or adaptation as an objective."
+
+msgid "aos componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas."
+msgstr "to components whose objectives are directly related to climate change mitigation or adaptation."
+
+msgid "Ex.: Conselho Nacional de Desenvolvimento Rural Sustentável (CONDRAF), Programa Saneamento Básico, Novo PAC Transição e Segurança Energética - Subeixo Eficiência Energética"
+msgstr "E.g.: National Council for Sustainable Rural Development (CONDRAF), Basic Sanitation Program, New PAC Energy Transition and Security - Energy Efficiency Sub-axis"
+
+msgid "aos componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas."
+msgstr "to components whose objectives are only indirectly related to climate change mitigation or adaptation."
+
+msgid "Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Pró-Transporte (CEF)"
+msgstr "E.g.: National Council for Food and Nutritional Security (CONSEA), National Plan for Sustainable and Solidarity Rural Development (PNDRSS), Pró-Transporte (CEF)"
