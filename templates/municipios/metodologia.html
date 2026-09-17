@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=50">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=51">
 {% endblock %}
 
 {% block content %}
@@ -463,33 +463,6 @@
                     </div>
                 </div>
 
-                <div class="meto-nota-row">
-                    <p class="meto-scope-body meto-nota-desc">
-                        {% trans "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos." %}
-                    </p>
-
-                <a class="meto-nota-card"
-                   href="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
-                   target="_blank" rel="noopener noreferrer">
-                    <div class="meto-nota-thumb" aria-hidden="true">
-                        <div class="meto-nota-iframe-clip">
-                            <iframe class="meto-nota-iframe"
-                                data-pdf="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
-                                tabindex="-1" title="{% trans 'Nota Metodológica' %}">
-                            </iframe>
-                        </div>
-                    </div>
-                    <div class="meto-nota-info">
-                        <span class="meto-nota-chip">{% trans "Nota Metodológica" %}</span>
-                        <span class="meto-nota-name">Mutirão Brasil</span>
-                        <span class="meto-nota-sub">Radar Brasil · 2025</span>
-                        <span class="meto-nota-cta">
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                            {% trans "Abrir documento" %}
-                        </span>
-                    </div>
-                </a>
-                </div><!-- /meto-nota-row -->
             </div>
 
             <div class="meto-scope-stats-col" id="meto-sidebar">
@@ -566,6 +539,35 @@
             </div>
 
         </div>
+
+        <div class="meto-nota-block">
+            <a class="meto-nota-cover-link"
+               href="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="{% trans 'Abrir Nota Metodológica' %}">
+                <div class="meto-nota-thumb">
+                    <div class="meto-nota-iframe-clip">
+                        <iframe class="meto-nota-iframe"
+                            data-pdf="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
+                            tabindex="-1" title="{% trans 'Nota Metodológica' %}">
+                        </iframe>
+                    </div>
+                </div>
+            </a>
+            <div class="meto-nota-text-side">
+                <span class="meto-nota-chip">{% trans "Nota Metodológica" %}</span>
+                <p class="meto-nota-body-text">
+                    {% trans "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos." %}
+                </p>
+                <a class="meto-nota-cta-btn"
+                   href="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
+                   target="_blank" rel="noopener noreferrer">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    {% trans "Abrir documento" %}
+                </a>
+            </div>
+        </div>
+
     </div>
 </section>
 

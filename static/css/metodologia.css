@@ -1003,16 +1003,6 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
-.meto-nota-desc {
-    margin-top: 24px !important;
-    font-size: 0.875rem !important;
-    color: #2a3a6a !important;
-    line-height: 1.72 !important;
-    padding: 14px 18px;
-    background: rgba(38,69,132,.04);
-    border-left: 3px solid rgba(38,69,132,.25);
-    border-radius: 0 8px 8px 0;
-}
 
 /* Timeline mini */
 .meto-scope-timeline {
@@ -1064,43 +1054,30 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
-/* ── Nota Metodológica — layout lado-a-lado ── */
-.meto-nota-row {
+/* ── Nota Metodológica — bloco full-width ── */
+.meto-nota-block {
     display: flex;
-    gap: 28px;
+    gap: 48px;
     align-items: flex-start;
-    margin-top: 8px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(38,69,132,.10);
 }
-.meto-nota-row .meto-nota-desc {
-    flex: 1;
-    min-width: 0;
-    margin-top: 0 !important;
-}
-.meto-nota-row .meto-nota-card {
+.meto-nota-cover-link {
     flex-shrink: 0;
-    margin-top: 0;
-}
-
-/* ── Nota Metodológica — card de abertura do PDF ── */
-.meto-nota-card {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-    background: #f6f8ff;
-    border-radius: 12px;
-    box-shadow: 0 4px 18px rgba(38,69,132,.10);
     text-decoration: none;
-    max-width: 260px;
+    border-radius: 12px;
     overflow: hidden;
+    display: block;
+    box-shadow: 0 4px 20px rgba(38,69,132,.12);
     transition: box-shadow .18s, transform .18s;
-    cursor: pointer;
 }
-.meto-nota-card:hover {
-    box-shadow: 0 10px 32px rgba(38,69,132,.18);
+.meto-nota-cover-link:hover {
+    box-shadow: 0 10px 32px rgba(38,69,132,.22);
     transform: translateY(-3px);
 }
 .meto-nota-thumb {
-    width: 100%;
+    width: 260px;
     height: 368px;
     background: #e8eff8;
     position: relative;
@@ -1123,11 +1100,13 @@ body.metodologia-page .rb-main {
     border: none;
     pointer-events: none;
 }
-.meto-nota-info {
+.meto-nota-text-side {
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 7px;
-    padding: 14px 16px;
+    gap: 20px;
+    padding-top: 8px;
 }
 .meto-nota-chip {
     font-size: 0.58rem;
@@ -1140,25 +1119,25 @@ body.metodologia-page .rb-main {
     padding: 2px 6px;
     align-self: flex-start;
 }
-.meto-nota-name {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: #101d4f;
-    line-height: 1.25;
-    font-family: 'Sora', sans-serif;
+.meto-nota-body-text {
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: #2a3a6a;
+    margin: 0;
 }
-.meto-nota-sub {
-    font-size: 0.68rem;
-    color: #7a8a9a;
-}
-.meto-nota-cta {
+.meto-nota-cta-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 0.7rem;
-    font-weight: 600;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
     color: #264584;
-    margin-top: 2px;
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: color .15s;
+}
+.meto-nota-cta-btn:hover {
+    color: #101d4f;
 }
 
 /* Stats sidebar */
@@ -1352,6 +1331,11 @@ body.metodologia-page .rb-main {
 
     .meto-scope-grid { grid-template-columns: 1fr; }
     .meto-scope-stats-col { position: static; }
+
+    .meto-nota-block { flex-direction: column; align-items: center; gap: 28px; }
+    .meto-nota-thumb { width: 220px; height: 311px; }
+    .meto-nota-iframe-clip { width: 220px; height: 311px; }
+    .meto-nota-iframe { transform: scale(0.3697); }
 
     /* Timeline: flex-start evita o bug de corte no lado esquerdo em overflow-x: auto + justify: center */
     .meto-timeline-scroll-outer {

@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (7a rodada)
+
+### style — Nota Metodologica: layout cover esquerda + texto direita (metodologia.css v51)
+
+- Nota Metodologica movida para bloco full-width abaixo do grid "O que avaliamos?"
+- Capa do PDF (iframe) como elemento principal no lado esquerdo, clicavel (link para PDF)
+- Texto descritivo + CTA "Abrir documento" no lado direito
+- Removidos: meto-nota-row, meto-nota-card, meto-nota-info, meto-nota-desc
+- Adicionados: meto-nota-block, meto-nota-cover-link, meto-nota-text-side, meto-nota-body-text, meto-nota-cta-btn
+- Responsive mobile (<=900px): coluna unica, cover centralizada
+
 ## 2026-09-17 (6a rodada)
 
 ### style — Cards com fundo #f6f8ff e linhas de divisao entre secoes restauradas (metodologia.css v50, sobre.css v6)
