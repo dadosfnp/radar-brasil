@@ -1632,3 +1632,36 @@ msgstr "to components whose objectives are only indirectly related to climate ch
 
 msgid "Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Pró-Transporte (CEF)"
 msgstr "E.g.: National Council for Food and Nutritional Security (CONSEA), National Plan for Sustainable and Solidarity Rural Development (PNDRSS), Pró-Transporte (CEF)"
+
+msgid "Sobre"
+msgstr "About"
+
+msgid "O que é o Radar Brasil:"
+msgstr "What is Radar Brasil:"
+
+msgid "Fontes dos dados do Radar Brasil:"
+msgstr "Data sources of Radar Brasil:"
+
+msgid "Recorte temporal:"
+msgstr "Time frame:"
+
+msgid "O que o Radar Brasil avalia?"
+msgstr "What does Radar Brasil assess?"
+
+msgid "Como avaliamos o federalismo climático?"
+msgstr "How do we assess climate federalism?"
+
+msgid "Eixos"
+msgstr "Axes"
+
+msgid "Critérios"
+msgstr "Criteria"
+
+msgid "Parâmetros"
+msgstr "Parameters"
+
+msgid "Dimensão específica de análise que detalha cada eixo em aspectos mensuráveis e distintos (de 3 a 5 por eixo)."
+msgstr "A specific dimension of analysis that details each axis into measurable and distinct aspects (from 3 to 5 per axis)."
+
+msgid "Foram definidos 5 níveis de maturidade para cada critério na escala de avaliação."
+msgstr "5 maturity levels were defined for each criterion on the assessment scale."

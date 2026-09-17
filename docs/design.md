@@ -763,6 +763,7 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-17 | (HEAD)    | Fix Russia cinza no mapa Nota Pais: mouseout handler corrigido para restaurar cinza (#B0BCC8) em vez de CONTINENT_COLORS["Europe"] azul (#4E80C5) |
 | 2026-09-17 | (HEAD)    | Nota Metodologica (metodologia.css v52): bloco meto-nota-block movido de volta para dentro de meto-scope-text-col (apos timeline de abrangencia); capa reduzida 260x368px → 200x283px; gap 48 → 28px; border-top e padding-top removidos; stats sidebar continua visivel ao lado |
 | 2026-09-17 | (HEAD)    | Sobre (sobre.css v7): linha fantasma entre "Por que avaliar..." e secao de fotos removida com border-top: none no meto-scroll-section e border-bottom: none no meto-federalism-section no contexto da pagina Sobre |
+| 2026-09-17 | (HEAD)    | Sobre (sobre.css v9): Fact Sheet restaurado como infografico nativo HTML/CSS -- grid 2 colunas (1fr 1fr), painel esquerdo com header navy escuro + 3 colunas icones + grafico donut semicirculo SVG (32/18/18/30) + legenda 2x2; painel direito fundo cinza-azul + bolhas escalonadas EIXOS/CRITERIOS/PARAMETROS + secao Fatores Predominantes com chips Peso 3/2/1; responsivo mobile (1 coluna) |
 
 ---
 

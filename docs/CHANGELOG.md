@@ -4,6 +4,34 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (11a rodada)
+
+### feat — Fact Sheet nativo em Sobre + correcao nav EN "Sobre" -> "About"
+
+**fix: nav EN "Sobre" (locale/en/LC_MESSAGES/django.po + django.mo)**
+- Adicionada entrada `msgid "Sobre" msgstr "About"` ao arquivo de traducoes EN
+- Corrige item do menu que aparecia em portugues na versao EN
+
+**feat: infografico Fact Sheet restaurado em sobre.html (sobre.css v9)**
+- Substituido o placeholder removido por infografico nativo HTML/CSS fiel ao design Visme
+- Dois paineis em grid 1fr/1fr (responsivo: 1 coluna em mobile <=860px)
+- Painel esquerdo:
+  - Header navy escuro com marca "Radar Brasil / Federalismo climatico" e badge "Sobre o Radar Brasil"
+  - 3 colunas com icones SVG: O que e / Fontes dos dados / Recorte temporal
+  - Secao "O que o Radar Brasil avalia?" com grafico donut semicirculo SVG (4 segmentos: 32/18/18/30)
+  - Legenda 2x2 com cores por eixo
+- Painel direito:
+  - Titulo "Como avaliamos o federalismo climatico?"
+  - 3 bolhas escalonadas (staircase): EIXOS / CRITERIOS / PARAMETROS com setas de fluxo
+  - Secao "Fatores predominantes" com chips Peso 3/2/1 + descricoes
+- Todos os textos com suporte i18n ({% trans %})
+- 11 novas entradas EN no django.po (535 total): "Sobre", "O que e o Radar Brasil:", "Fontes dos dados...", "Recorte temporal:", "O que o Radar Brasil avalia?", "Como avaliamos o federalismo climatico?", "Eixos", "Criterios", "Parametros", "Dimensao especifica...", "Foram definidos 5 niveis..."
+- django.mo recompilado (535 entradas)
+
+**Arquivos:** `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `templates/municipios/sobre.html`, `static/css/sobre.css`
+
+---
+
 ## 2026-09-17 (10a rodada)
 
 ### feat — Traducoes EN completas para Sobre e Metodologia (django.po + django.mo)
