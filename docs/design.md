@@ -756,6 +756,10 @@ Implementadas no commit `f4682bb` (sessão de auditoria completa, 23 itens):
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v11: card overlay centralizado mobile -- position fixed top 50% left 50%, animacao scale+fade, spring cubic-bezier; substitui bottom sheet; conteudo identico ao popup desktop |
 | 2026-09-09 | (HEAD)    | Mapa Georreferenciado css v12/js v3: autocomplete de municipio -- dropdown com ate 8 sugestoes normalizadas (nome+UF), navegacao por teclado, fechamento automatico do painel de filtros ao selecionar |
 | 2026-09-11 | (HEAD)    | Metodologia css v43: card-link de Nota Metodologica -- iframe da capa do PDF escalado 13.44% (80x113px), chip chip + titulo + CTA "Abrir documento", hover spring; PDF comitado em static/doc/ |
+| 2026-09-17 | (HEAD)    | Nova pagina Sobre: hero compacto badge "Sobre o Radar Brasil", placeholder Fact Sheet, secoes de federalismo + scroll-stack de 4 fotos + linha do tempo movidas de metodologia.html; FAQ 10 perguntas com accordion aria-expanded; sobre.css v1 |
+| 2026-09-17 | (HEAD)    | Menu global reordenado: "Sobre" como primeiro item (novo), "Nivel Pais" mantido ultimo (apos Mapa Georreferenciado) |
+| 2026-09-17 | (HEAD)    | Metodologia v45: hero compacto substituindo hero completo; criterios de cada eixo viram botoes expansiveis com chevron rotativo, painel de definicao + parametros de nivel; caixa de Fator de Relevancia com Peso 1/2/3 e exemplos; texto "instancia" trocado por "componente"; texto introdutorio do Calculo atualizado; "Para saber mais..." removido; `.meto-nota-desc` adicionada com borda lateral navy |
+| 2026-09-17 | (HEAD)    | Nivel Pais mapa: todos os paises cinza (`#B0BCC8`), Brasil azul navy (`#264584`) -- visualmente destaca o Brasil no contexto CHAMP; filtro regional mantém Brasil azul em qualquer selecao |
 
 ---
 

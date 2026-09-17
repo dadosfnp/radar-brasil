@@ -4,6 +4,52 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17
+
+### feat — Nova pagina Sobre (sobre.html, sobre.css, views.py, urls.py, base.html)
+
+- Nova pagina `/sobre/` criada com view Django e URL propria
+- Conteudo: placeholder Fact Sheet ("em breve"), hero compacto, secao federalismo com piramide SVG, scroll stack de 4 fotos, linha do tempo com 4 eventos (2023-2024), FAQ com 10 perguntas (accordion)
+- Hero e secoes de contexto historico movidos de metodologia.html para sobre.html
+- FAQ usa padrao accordion `aria-expanded` + `hidden`: somente uma pergunta aberta por vez
+- CSS proprio `static/css/sobre.css` com estilos de placeholder, FAQ e componentes especificos
+- Navegacao: aba "Sobre" inserida como primeiro item do menu em `base_templates/base.html`
+
+### style — Metodologia: hero compacto, criterios expansiveis, pesos e textos atualizados (metodologia.html, metodologia.css v45)
+
+- Hero substituido por versao compacta com badge "Metodologia" e titulo "Como avaliamos o Radar Brasil?"
+- Secoes 1-3 (federalismo, scroll-stack, linha do tempo) removidas (movidas para Sobre)
+- "instancia" substituido por "componente" em todos os textos da pagina
+- Criterios de cada eixo agora sao botoes expansiveis (`aria-expanded`): clique abre definicao e parametros de nivel; somente um aberto por vez dentro de cada lista
+- Criterio "Operacionalidade" do eixo Governanca: 5 parametros de nivel completos (fonte: Nota Metodologica)
+- Demais criterios: indicador de parametros com link para a Nota Metodologica
+- Texto introdutorio da secao Metodologia de Calculo atualizado
+- Secao "Fator de Relevancia dos Componentes" adicionada (Peso 1, 2 e 3 com exemplos)
+- Nota Metodologica: texto descritivo adicionado antes do card; texto "Para saber mais..." removido
+- metodologia.css v45: estilos para criterio expansivel (chevron rotativo, painel detail), dica de interacao, caixa de pesos e `.meto-nota-desc`
+
+### style — Navegacao: reordenacao das abas do menu global (base.html)
+
+- Ordem anterior: Metodologia, Paineis, Componentes, Financiamento, Mapa, Nivel Pais
+- Nova ordem: Sobre (novo), Metodologia, Paineis, Componentes, Financiamento, Mapa, Nivel Pais
+
+### style — Nivel Pais: todos os paises cinza, Brasil azul (nota-pais.js, nota-pais.css v10)
+
+- Mapa inicial: todos os paises recebem `fillColor: "#B0BCC8"` exceto Brasil (`#264584`, `fillOpacity: 0.92`)
+- Filtro regional: paises fora do continente selecionado recebem tom mais claro; Brasil sempre azul independente do filtro
+
+### style — Nivel Pais: novo texto introdutorio completo (nota-pais.html)
+
+- Titulo alterado para "Nivel Pais - Radar Brasil"
+- 2 paragrafos sobre a proposta CHAMP
+- Subsecao "Brasil - linha de base 2025" com lista de tres niveis (Parcial, Eixo, Pais)
+- Destaque (`.np-intro-destaque`) informando Nivel Pais 3 em 2025
+- Paragrafo final sobre incorporacao progressiva de paises CHAMP
+
+### style — Landing page: link "Sobre o Radar Brasil" atualizado (landing.html)
+
+- Card "Sobre o Radar Brasil" agora aponta para `/sobre/` em vez de `/metodologia/`
+
 ## 2026-09-11
 
 ### feat — Financiamento Climatico: filtros em cascata (financiamento-climatico.js v5, financiamento_climatico.py, views.py, urls.py)

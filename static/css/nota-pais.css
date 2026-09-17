@@ -30,11 +30,44 @@ body.np-body .rb-main {
     margin: 0 0 8px;
 }
 
+.np-intro h3 {
+    font-family: 'Sora', 'Roboto', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #264584;
+    margin: 14px 0 6px;
+    padding-top: 10px;
+    border-top: 1.5px solid rgba(38,69,132,.15);
+}
+
 .np-intro p {
     font-size: 0.875rem;
     color: #1a3070;
     line-height: 1.65;
-    margin: 0;
+    margin: 0 0 8px;
+}
+
+.np-intro-list {
+    margin: 4px 0 10px 16px;
+    padding: 0;
+    list-style: disc;
+}
+
+.np-intro-list li {
+    font-size: 0.85rem;
+    color: #1a3070;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+.np-intro-destaque {
+    background: rgba(38,69,132,.08);
+    border-left: 3px solid #264584;
+    border-radius: 0 6px 6px 0;
+    padding: 8px 12px;
+    font-size: 0.85rem !important;
+    font-weight: 500;
+    color: #101d4f !important;
 }
 
 /* ── MAIN CARD (sidebar + map) ── */

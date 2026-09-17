@@ -335,11 +335,13 @@ function applyRegionFilter(region) {
 
   if (geoLayer) {
     geoLayer.eachLayer(layer => {
+      const iso = getIso(layer.feature.properties);
+      const isBrazil = iso === "BRA";
       const continent = getContinent(layer.feature.properties);
       const match = !allowed || allowed.includes(continent);
       layer.setStyle({
-        fillColor:   match ? (CONTINENT_COLORS[continent] || "#C0C8CC") : "#C0C8C8",
-        fillOpacity: match ? 0.84 : 0.38,
+        fillColor:   isBrazil ? "#264584" : (match ? "#B0BCC8" : "#D0D8DF"),
+        fillOpacity: isBrazil ? 0.92 : (match ? 0.60 : 0.38),
         color: "#fff",
         weight: 0.7,
       });
@@ -520,10 +522,11 @@ function buildMap(data) {
   geoLayer = L.geoJSON(data, {
     renderer: countriesRenderer,
     style: feature => {
-      const continent = getContinent(feature.properties);
+      const iso = getIso(feature.properties);
+      const isBrazil = iso === "BRA";
       return {
-        fillColor:   CONTINENT_COLORS[continent] || "#C0C8CC",
-        fillOpacity: 0.84,
+        fillColor:   isBrazil ? "#264584" : "#B0BCC8",
+        fillOpacity: isBrazil ? 0.92 : 0.60,
         color:       "#fff",
         weight:      0.7,
       };

@@ -280,9 +280,9 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-10)
+## Estado Atual do Projeto (2026-09-15)
 
-### Branch atual: `main` — `3c4559b`
+### Branch atual: `main` — `32a62a7`
 
 ### Remotos
 
@@ -308,13 +308,9 @@ Host fnp-web
 ```
 Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os comandos de deploy no proprio terminal.
 
-### Droplet — pendente de rebuild
+### Droplet — estado atual
 
-Commits de 2026-09-11 publicados nos remotos mas **o droplet ainda nao fez build**. Para aplicar:
-
-```bash
-cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
-```
+Deploy realizado em 2026-09-15. Droplet atualizado com todos os commits de 2026-09-11 (filtros em cascata, fix ente filter, favicon).
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
 

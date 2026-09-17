@@ -1,4 +1,4 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load static i18n %}
 
 {% block title %}Radar Brasil - {% trans "Metodologia" %}{% endblock %}
@@ -7,292 +7,31 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=44">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=45">
 {% endblock %}
 
 {% block content %}
 
 <!-- ═══════════════════════════════════════════
-     HERO
+     HERO COMPACTO
      ═══════════════════════════════════════════ -->
-<div class="meto-hero-zone">
-    <div class="meto-hero-inner">
+<div class="meto-hero-zone meto-hero-zone--compact">
+    <div class="meto-hero-inner meto-hero-inner--compact">
         <div class="meto-hero-left">
             <div class="meto-hero-badge">
                 <span class="meto-hero-badge-dot"></span>
                 <span class="meto-hero-badge-text">{% trans "Metodologia" %}</span>
             </div>
-            <h1>{% trans "Impulsionando a Ação Climática Federativa" %}</h1>
+            <h1>{% trans "Como avaliamos o Radar Brasil?" %}</h1>
             <p class="meto-hero-desc">
-                {% trans "O Radar Brasil avalia o nível de implementação do Federalismo Climático no País, mapeando instâncias de governança, políticas e planos, programas e linhas de financiamento relacionados à ação climática, e mensurando os resultados por meio de critérios padronizados entre eixos e instâncias." %}
+                {% trans "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro." %}
             </p>
-        </div>
-        <div class="meto-hero-right">
-            <iframe
-                src="{% static 'img/mapa-brasil-hud.html' %}"
-                allowtransparency="true"
-                scrolling="no"
-                class="meto-hud-frame"
-                title="Mapa Brasil">
-            </iframe>
         </div>
     </div>
 </div>
 
 <!-- ═══════════════════════════════════════════
-     1. POR QUE AVALIAR O FEDERALISMO CLIMÁTICO?
-     ═══════════════════════════════════════════ -->
-<section class="meto-section-block meto-federalism-section">
-    <div class="meto-inner">
-
-        <div class="meto-federalism-intro">
-            <h2 class="meto-section-heading">{% trans "Por que avaliar o Federalismo Climático?" %}</h2>
-            <p class="meto-section-lead">
-                {% trans "O Radar Brasil: Federalismo Climático tem o objetivo de monitorar e avaliar a governança multinível das políticas climáticas no Brasil, tendo como premissa o federalismo climático, incentivando o cumprimento dos compromissos climáticos do Brasil e promovendo um futuro mais sustentável." %}
-            </p>
-        </div>
-
-        <div class="meto-federalism-body">
-
-            <!-- Conceito box -->
-            <div class="meto-concept-box">
-                <div class="meto-concept-term">{% trans "Federalismo Climático" %}</div>
-                <p class="meto-concept-def">
-                    {% trans "É o modelo de governança pelo qual a competência comum sobre a agenda climática é exercida de forma coordenada, transversal e cientificamente informada entre União, Estados, Distrito Federal e Municípios." %}
-                </p>
-            </div>
-
-            <!-- Pirâmide animada -->
-            <div class="meto-pyramid-wrap" aria-hidden="true">
-                <svg class="meto-pyramid-svg" viewBox="0 0 400 310" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <!-- Glow suave nos pontos animados -->
-                        <filter id="py-glow" x="-80%" y="-80%" width="260%" height="260%">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
-                            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                        </filter>
-                        <!-- Seta final -->
-                        <marker id="py-arr-e" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-                            <path d="M0,1 L7,4 L0,7 L1.5,4 Z" fill="#264584" opacity="0.6"/>
-                        </marker>
-                        <!-- Seta inicial (invertida) -->
-                        <marker id="py-arr-s" viewBox="0 0 8 8" refX="1" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                            <path d="M0,1 L7,4 L0,7 L1.5,4 Z" fill="#264584" opacity="0.6"/>
-                        </marker>
-                        <!-- Paths para animateMotion -->
-                        <path id="py-p1" d="M167,75 L98,226"/>
-                        <path id="py-p2" d="M233,75 L302,226"/>
-                        <path id="py-p3" d="M128,248 L272,248"/>
-                    </defs>
-
-                    <!-- Halos suaves nos vértices -->
-                    <ellipse cx="200" cy="52" rx="55" ry="30" fill="rgba(38,69,132,0.07)"/>
-                    <ellipse cx="68"  cy="248" rx="58" ry="28" fill="rgba(38,69,132,0.07)"/>
-                    <ellipse cx="332" cy="248" rx="58" ry="28" fill="rgba(38,69,132,0.07)"/>
-
-                    <!-- Linhas conectoras com setas bidirecionais -->
-                    <line class="meto-py-line" x1="167" y1="75" x2="98"  y2="226"
-                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
-                    <line class="meto-py-line" x1="233" y1="75" x2="302" y2="226"
-                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
-                    <line class="meto-py-line" x1="128" y1="248" x2="272" y2="248"
-                          stroke-dasharray="5 5" marker-start="url(#py-arr-s)" marker-end="url(#py-arr-e)"/>
-
-                    <!-- Pontos animados fluindo pelas linhas (ida: União→nós) -->
-                    <circle r="3.5" fill="#264584" opacity="0.80" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#py-p1"/></animateMotion>
-                    </circle>
-                    <circle r="3.5" fill="#264584" opacity="0" filter="url(#py-glow)">
-                        <animate attributeName="opacity" dur="0.01s" begin="0.87s" fill="freeze" to="0.80"/>
-                        <animateMotion dur="2.6s" begin="0.87s" repeatCount="indefinite"><mpath href="#py-p2"/></animateMotion>
-                    </circle>
-                    <circle r="3.5" fill="#264584" opacity="0" filter="url(#py-glow)">
-                        <animate attributeName="opacity" dur="0.01s" begin="1.73s" fill="freeze" to="0.80"/>
-                        <animateMotion dur="2.6s" begin="1.73s" repeatCount="indefinite"><mpath href="#py-p3"/></animateMotion>
-                    </circle>
-                    <!-- Pontos animados em sentido reverso (volta: nós→União) -->
-                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p1"/></animateMotion>
-                    </circle>
-                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p2"/></animateMotion>
-                    </circle>
-                    <circle r="3.5" fill="#264584" opacity="0.55" filter="url(#py-glow)">
-                        <animateMotion dur="2.6s" begin="0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#py-p3"/></animateMotion>
-                    </circle>
-                </svg>
-
-                <!-- Nó topo: União -->
-                <div class="meto-py-node meto-py-top">
-                    <div class="meto-py-node-inner">
-                        <div class="meto-py-node-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="3" y1="22" x2="21" y2="22"/>
-                                <line x1="6" y1="18" x2="6" y2="11"/>
-                                <line x1="10" y1="18" x2="10" y2="11"/>
-                                <line x1="14" y1="18" x2="14" y2="11"/>
-                                <line x1="18" y1="18" x2="18" y2="11"/>
-                                <polygon points="12 2 20 7 4 7" fill="currentColor" opacity=".18"/>
-                                <polygon points="12 2 20 7 4 7"/>
-                            </svg>
-                        </div>
-                        <span class="meto-py-node-label">{% trans "União" %}</span>
-                        <span class="meto-py-node-count">1</span>
-                    </div>
-                </div>
-
-                <!-- Nó esq: Estados -->
-                <div class="meto-py-node meto-py-left">
-                    <div class="meto-py-node-inner">
-                        <div class="meto-py-node-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="3 6 9 3 15 6 21 3 21 21 15 18 9 21 3 18" fill="currentColor" opacity=".12"/>
-                                <polygon points="3 6 9 3 15 6 21 3 21 21 15 18 9 21 3 18"/>
-                                <line x1="9" y1="3" x2="9" y2="21"/>
-                                <line x1="15" y1="6" x2="15" y2="18"/>
-                            </svg>
-                        </div>
-                        <span class="meto-py-node-label">{% trans "Estados" %}</span>
-                        <span class="meto-py-node-count">26 + DF</span>
-                    </div>
-                </div>
-
-                <!-- Nó dir: Municípios -->
-                <div class="meto-py-node meto-py-right">
-                    <div class="meto-py-node-inner">
-                        <div class="meto-py-node-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" fill="currentColor" opacity=".12"/>
-                                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
-                                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
-                                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
-                                <line x1="10" y1="6" x2="14" y2="6"/>
-                                <line x1="10" y1="10" x2="14" y2="10"/>
-                                <line x1="10" y1="14" x2="14" y2="14"/>
-                            </svg>
-                        </div>
-                        <span class="meto-py-node-label">{% trans "Municípios" %}</span>
-                        <span class="meto-py-node-count">5.570+</span>
-                    </div>
-                </div>
-            </div>
-
-        </div><!-- /meto-federalism-body -->
-
-        <p class="meto-federalism-footer-text">
-            {% trans "Esse exercício respeita as competências, capacidades, responsabilidades e especificidades de cada ente, e atravessa os diferentes setores e instrumentos de planejamento governamental de cada nível federativo." %}
-        </p>
-
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     2. FOTOS — SCROLL STACK (estilo Medellín)
-     ═══════════════════════════════════════════ -->
-<div class="meto-scroll-section" id="meto-scroll-section">
-    <div class="meto-scroll-sticky">
-
-        <div class="meto-scroll-photos" id="meto-scroll-photos">
-            <div class="meto-scroll-photo" data-photo="0">
-                <img src="{% static 'img/clima-metodologia.jpg' %}" alt="{% trans 'Clima' %}">
-            </div>
-            <div class="meto-scroll-photo" data-photo="1">
-                <img src="{% static 'img/sociedade-metodologia.jpg' %}" alt="{% trans 'Sociedade' %}">
-            </div>
-            <div class="meto-scroll-photo" data-photo="2">
-                <img src="{% static 'img/natureza-metodologia.jpg' %}" alt="{% trans 'Natureza' %}">
-            </div>
-            <div class="meto-scroll-photo" data-photo="3">
-                <img src="{% static 'img/cidade-metodologia.jpg' %}" alt="{% trans 'Cidade' %}">
-            </div>
-        </div>
-
-        <div class="meto-scroll-text">
-            <div class="meto-scroll-tag">{% trans "Federalismo Climático" %}</div>
-            <p class="meto-scroll-quote">
-                {% trans "O propósito do Federalismo Climático é de buscar" %} &#8220;{% trans "uma transição climática justa, que reduza desigualdades sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania climática" %}&#8221;.
-            </p>
-            <p class="meto-scroll-source">{% trans "Resolução N°3, de Julho de 2024 do Conselho da Federação" %}</p>
-        </div>
-
-    </div>
-</div>
-
-<!-- ═══════════════════════════════════════════
-     3. HISTÓRICO — Linha do tempo horizontal
-     ═══════════════════════════════════════════ -->
-<section class="meto-section-block meto-timeline-section">
-    <div class="meto-inner">
-        <h2 class="meto-section-heading">{% trans "Histórico do Federalismo Climático no Brasil" %}</h2>
-    </div>
-
-    <div class="meto-timeline-scroll-outer">
-        <div class="meto-timeline-track">
-
-            <!-- Linha horizontal de fundo -->
-            <div class="meto-timeline-line" aria-hidden="true"></div>
-
-            <!-- Evento 1 -->
-            <div class="meto-tl-event">
-                <div class="meto-tl-year-bubble">2023</div>
-                <div class="meto-tl-connector" aria-hidden="true"></div>
-                <div class="meto-tl-card">
-                    <div class="meto-tl-title">{% trans "Conselho da Federação" %}</div>
-                    <p class="meto-tl-text">{% trans "O Brasil estabelece o Conselho da Federação, sob a Presidência da República." %}</p>
-                    <!-- Sub-itens -->
-                    <div class="meto-tl-subitems">
-                        <div class="meto-tl-subitem">
-                            <span class="meto-tl-sub-dot"></span>
-                            <span>{% trans "Câmara Técnica I: Fortalecimento da Gestão e Cooperação Federativa" %} — <em>{% trans "Presidência: CNM" %}</em></span>
-                        </div>
-                        <div class="meto-tl-subitem">
-                            <span class="meto-tl-sub-dot"></span>
-                            <span>{% trans "Câmara Técnica II: Desenvolvimento Econômico Sustentável e Mudança Climática" %} — <em>{% trans "Presidência: FNP" %}</em></span>
-                        </div>
-                        <div class="meto-tl-subitem">
-                            <span class="meto-tl-sub-dot"></span>
-                            <span>{% trans "Câmara Técnica III: Políticas Sociais e Combate às Desigualdades" %} — <em>{% trans "Presidência: ABM" %}</em></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Evento 2 -->
-            <div class="meto-tl-event">
-                <div class="meto-tl-year-bubble">2023</div>
-                <div class="meto-tl-connector" aria-hidden="true"></div>
-                <div class="meto-tl-card">
-                    <div class="meto-tl-title">COP28</div>
-                    <p class="meto-tl-text">{% trans "78 países comprometeram-se com a Coalizão CHAMP (Coalition for High Ambition Multilevel Partnerships) para Ação Climática, incluindo o Brasil." %}</p>
-                </div>
-            </div>
-
-            <!-- Evento 3 -->
-            <div class="meto-tl-event">
-                <div class="meto-tl-year-bubble">2024</div>
-                <div class="meto-tl-connector" aria-hidden="true"></div>
-                <div class="meto-tl-card">
-                    <div class="meto-tl-title">{% trans "Resolução nº 3/2024" %}</div>
-                    <p class="meto-tl-text">{% trans "A Resolução nº 3/2024 do Conselho da Federação reforça o compromisso do Brasil com a iniciativa CHAMP e define a agenda climática como prioridade para os entes federativos." %}</p>
-                </div>
-            </div>
-
-            <!-- Evento 4 -->
-            <div class="meto-tl-event">
-                <div class="meto-tl-year-bubble">2024</div>
-                <div class="meto-tl-connector" aria-hidden="true"></div>
-                <div class="meto-tl-card">
-                    <div class="meto-tl-title">COP29</div>
-                    <p class="meto-tl-text">{% trans "O Brasil apresenta sua nova NDC, na qual afirma: &ldquo;os entes federativos farão esforços coordenados para enfrentar a emergência climática, incluindo ações para prevenir e preparar-se para eventos extremos, e buscarão integrar a política climática em seus instrumentos de planejamento de curto, médio e longo prazo&rdquo;." %}</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════
-     4. COMO AVALIAMOS — 4 definições em balões
+     1. COMO AVALIAMOS — 4 definições
      ═══════════════════════════════════════════ -->
 <section class="meto-section-block meto-howwe-section">
     <div class="meto-inner">
@@ -302,7 +41,7 @@
             {% trans "O Radar Brasil: Federalismo Climático sintetiza o desempenho dos entes federativos em uma única Nota País. Essa nota é resultado de uma avaliação em funil: partimos da análise de cada componente para, depois, chegar à síntese do todo." %}
         </p>
         <p class="meto-section-lead">
-            {% trans "Cada instância e componente do federalismo climático é avaliado individualmente, a partir de critérios e parâmetros de nível. Os resultados dessas avaliações são agregados nos eixos analíticos e, por fim, consolidados na Nota País." %}
+            {% trans "Cada componente do federalismo climático é avaliado individualmente, a partir de critérios e parâmetros de nível. Os resultados dessas avaliações são agregados nos eixos analíticos e, por fim, consolidados na Nota País." %}
         </p>
 
         <div class="meto-defs-grid">
@@ -316,7 +55,7 @@
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Eixo" %}</div>
-                <p class="meto-def-text">{% trans "O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Esta separação permite qualificar a análise de instâncias e componentes que possuem lógica institucional distinta e confrontar os eixos entre si para extrair novas camadas de análise." %}</p>
+                <p class="meto-def-text">{% trans "O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Esta separação permite qualificar a análise de componentes que possuem lógica institucional distinta e confrontar os eixos entre si para extrair novas camadas de análise." %}</p>
             </div>
 
             <div class="meto-def-card">
@@ -334,7 +73,7 @@
                     </svg>
                 </div>
                 <div class="meto-def-label">{% trans "Critério" %}</div>
-                <p class="meto-def-text">{% trans "Um critério corresponde a uma dimensão específica de análise dentro de cada eixo. A definição de múltiplos critérios por eixo responde à necessidade de decompor a instância/componente em partes menores, mensuráveis e analiticamente distintas entre si, de três a cinco critérios." %}</p>
+                <p class="meto-def-text">{% trans "Um critério corresponde a uma dimensão específica de análise dentro de cada eixo. A definição de múltiplos critérios por eixo responde à necessidade de decompor o componente em partes menores, mensuráveis e analiticamente distintas entre si, de três a cinco critérios." %}</p>
             </div>
 
             <div class="meto-def-card">
@@ -370,11 +109,15 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     5. CONHEÇA OS CRITÉRIOS DE CADA EIXO
+     2. CONHEÇA OS CRITÉRIOS DE CADA EIXO
      ═══════════════════════════════════════════ -->
 <section class="meto-section-block meto-criteria-section">
     <div class="meto-inner">
         <h2 class="meto-section-heading">{% trans "Conheça os critérios de análise para cada eixo" %}</h2>
+        <p class="meto-section-lead meto-criteria-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {% trans "Clique em um critério para ver sua definição e os parâmetros de avaliação." %}
+        </p>
 
         <div class="meto-eixos-grid">
 
@@ -384,13 +127,55 @@
                     <img src="{% static 'img/governanca.svg' %}" alt="" class="meto-eixo-icon" aria-hidden="true">
                     <span>{% trans "Eixo Governança" %}</span>
                 </div>
-                <p class="meto-eixo-desc">{% trans "Compreende os arranjos institucionais, instâncias de coordenação e mecanismos de articulação e participação federativa que estruturam a governança climática multinível, tais como conselhos, comitês, fóruns, câmaras e comissões." %}</p>
+                <p class="meto-eixo-desc">{% trans "Compreende os arranjos institucionais, componentes de coordenação e mecanismos de articulação e participação federativa que estruturam a governança climática multinível, tais como conselhos, comitês, fóruns, câmaras e comissões." %}</p>
                 <div class="meto-criteria-list">
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Operacionalidade" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Espaço de Diálogo Federativo" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Diversidade e Representatividade" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-operacionalidade">
+                        <span class="meto-criterion-name">{% trans "Operacionalidade" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="gov-operacionalidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Este critério avalia o nível de influência e a regularidade de funcionamento dos espaços de governança." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Inativo (sem funcionamento ou em recomposição)" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Baixa operacionalidade (consultivo e funcionamento irregular)" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Média operacionalidade (consultivo e funcionamento regular)" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Alta operacionalidade (deliberativo e funcionamento irregular)" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Plena operacionalidade (deliberativo e funcionamento regular)" %}</li>
+                        </ul>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-dialogo">
+                        <span class="meto-criterion-name">{% trans "Espaço de Diálogo Federativo" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="gov-dialogo" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-diversidade">
+                        <span class="meto-criterion-name">{% trans "Diversidade e Representatividade" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="gov-diversidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-comunicacao">
+                        <span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="gov-comunicacao" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-sustentabilidade">
+                        <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="gov-sustentabilidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
                 </div>
             </div>
 
@@ -402,10 +187,38 @@
                 </div>
                 <p class="meto-eixo-desc">{% trans "Compreende os instrumentos normativos e de planejamento estratégico que orientam a formulação, a implementação e o monitoramento das ações governamentais relacionadas ao clima." %}</p>
                 <div class="meto-criteria-list">
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Operacionalidade" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Espaço de Diálogo Federativo" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-operacionalidade">
+                        <span class="meto-criterion-name">{% trans "Operacionalidade" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="pol-operacionalidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-dialogo">
+                        <span class="meto-criterion-name">{% trans "Espaço de Diálogo Federativo" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="pol-dialogo" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-sustentabilidade">
+                        <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="pol-sustentabilidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-comunicacao">
+                        <span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="pol-comunicacao" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
                 </div>
             </div>
 
@@ -417,11 +230,46 @@
                 </div>
                 <p class="meto-eixo-desc">{% trans "Conjunto de ações, iniciativas e estratégias implementadas pelos entes federativos para mitigação, adaptação e fortalecimento da resiliência climática em diferentes níveis de governo." %}</p>
                 <div class="meto-criteria-list">
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Cooperação Federativa" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Capilaridade e Alcance Territorial" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Fortalecimento da Capacidade Local" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Monitoramento e Avaliação" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-cooperacao">
+                        <span class="meto-criterion-name">{% trans "Cooperação Federativa" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="prog-cooperacao" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-capilaridade">
+                        <span class="meto-criterion-name">{% trans "Capilaridade e Alcance Territorial" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="prog-capilaridade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-sustentabilidade">
+                        <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="prog-sustentabilidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-capacidade">
+                        <span class="meto-criterion-name">{% trans "Fortalecimento da Capacidade Local" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="prog-capacidade" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-monitoramento">
+                        <span class="meto-criterion-name">{% trans "Monitoramento e Avaliação" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="prog-monitoramento" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
                 </div>
             </div>
 
@@ -433,9 +281,30 @@
                 </div>
                 <p class="meto-eixo-desc">{% trans "Mecanismos orçamentários, de investimentos, transferências interfederativas e instrumentos de apoio financeiro que viabilizam a execução descentralizada de ações climáticas." %}</p>
                 <div class="meto-criteria-list">
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Desenho Participativo" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Capacidade de Execução Descentralizada" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
-                    <div class="meto-criterion-row"><span class="meto-criterion-name">{% trans "Monitoramento e Prestação de Contas" %}</span><div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div></div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-desenho">
+                        <span class="meto-criterion-name">{% trans "Desenho Participativo" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="fin-desenho" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-execucao">
+                        <span class="meto-criterion-name">{% trans "Capacidade de Execução Descentralizada" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="fin-execucao" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
+                    <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-monitoramento">
+                        <span class="meto-criterion-name">{% trans "Monitoramento e Prestação de Contas" %}</span>
+                        <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
+                        <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="meto-criterion-detail" id="fin-monitoramento" hidden>
+                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                    </div>
                 </div>
             </div>
 
@@ -444,7 +313,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     6. O QUE AVALIAMOS — escopo + dados
+     3. O QUE AVALIAMOS — escopo + dados
      ═══════════════════════════════════════════ -->
 <section class="meto-section-block meto-scope-section">
     <div class="meto-inner">
@@ -457,7 +326,7 @@
                     {% trans "Nesta primeira etapa do Radar, o escopo concentrou-se nas iniciativas e instrumentos da esfera federal que promovem ou induzem a cooperação interfederativa no enfrentamento das mudanças climáticas. Ou seja, esta primeira fase avalia o federalismo climático a partir da oferta federal de canais de cooperação multinível, não da capacidade institucional dos entes subnacionais em si." %}
                 </p>
                 <p class="meto-scope-body">
-                    {% trans "Desta forma, foram analisadas nesta etapa 32 instâncias de governança, 18 políticas ou planos, 18 programas e 30 linhas de financiamento." %}
+                    {% trans "Desta forma, foram analisados nesta etapa 32 componentes de governança, 18 políticas ou planos, 18 programas e 30 linhas de financiamento." %}
                 </p>
                 <div class="meto-scope-timeline" aria-label="{% trans 'Edições do Radar Brasil' %}">
                     <div class="meto-scope-tl-item meto-scope-tl-active">
@@ -470,7 +339,10 @@
                         <span class="meto-scope-tl-desc">{% trans "em desenvolvimento" %}</span>
                     </div>
                 </div>
-                <p class="meto-scope-note">{% trans "Para saber mais, acesse a nota metodológica." %}</p>
+
+                <p class="meto-scope-body meto-nota-desc">
+                    {% trans "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos." %}
+                </p>
 
                 <a class="meto-nota-card"
                    href="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
@@ -504,7 +376,7 @@
                     </div>
                     <div>
                         <div class="meto-stat-val">32</div>
-                        <div class="meto-stat-desc">{% trans "instâncias de governança" %}</div>
+                        <div class="meto-stat-desc">{% trans "componentes de governança" %}</div>
                     </div>
                 </div>
                 <div class="meto-stat-pill">
@@ -573,14 +445,40 @@
 </section>
 
 <!-- ═══════════════════════════════════════════
-     7. METODOLOGIA DE CÁLCULO
+     4. METODOLOGIA DE CÁLCULO
      ═══════════════════════════════════════════ -->
 <section class="meto-section-block meto-calc-section">
     <div class="meto-inner">
         <h2 class="meto-section-heading">{% trans "Metodologia de Cálculo" %}</h2>
         <p class="meto-section-lead">
-            {% trans "A Nota País é construída de forma progressiva: partimos da avaliação individual de cada instância (Nível Parcial) para, em seguida, consolidar por eixo (Nível Eixo) e, por fim, chegar à nota geral do país." %}
+            {% trans "Os níveis obtidos em cada parâmetro por componente servem de base para o cálculo do nível país e estão divididos em 3 etapas de cálculo: Nível Parcial, Nível Eixo e Nível País." %}
         </p>
+        <p class="meto-section-lead">
+            {% trans "Para o cálculo do Nível País, inicialmente é calculado o Nível Parcial que compreende a média dos níveis obtidos em cada critério do componente avaliado. Para esta média, é acrescido peso 2 a um dos critérios de cada eixo, em virtude da sua importância ao federalismo climático. O cálculo pode ser expresso pela seguinte fórmula." %}
+        </p>
+
+        <!-- Fator de relevância -->
+        <div class="meto-weights-box">
+            <h3 class="meto-weights-title">{% trans "Fator de Relevância dos Componentes" %}</h3>
+            <p class="meto-weights-desc">{% trans "No cálculo, foram estabelecidos pesos de 1 a 3 para cada componente analisado, considerando seu fator de relevância." %}</p>
+            <div class="meto-weights-grid">
+                <div class="meto-weight-item meto-weight-item--3">
+                    <span class="meto-weight-badge">{% trans "Peso 3" %}</span>
+                    <p>{% trans "Componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo." %}</p>
+                    <p class="meto-weight-ex"><em>{% trans "Ex.: Comitê Gestor do Fundo Nacional sobre Mudança do Clima, Plano Nacional de Proteção e Defesa Civil, Programa Gestão de Riscos e de Desastres, PAC Seleções - Desenvolvimento Urbano Resiliente e Sustentável" %}</em></p>
+                </div>
+                <div class="meto-weight-item meto-weight-item--2">
+                    <span class="meto-weight-badge">{% trans "Peso 2" %}</span>
+                    <p>{% trans "Componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas." %}</p>
+                    <p class="meto-weight-ex"><em>{% trans "Ex.: Conselho Nacional de Desenvolvimento Rural Sustentável (CONDRAF), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Programa Saneamento Básico, Novo PAC Transição e Segurança Energética - Subeixo Eficiência Energética" %}</em></p>
+                </div>
+                <div class="meto-weight-item meto-weight-item--1">
+                    <span class="meto-weight-badge">{% trans "Peso 1" %}</span>
+                    <p>{% trans "Componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas." %}</p>
+                    <p class="meto-weight-ex"><em>{% trans "Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Programa Políticas para Quilombolas, Pró-Transporte (CEF)" %}</em></p>
+                </div>
+            </div>
+        </div>
 
         <div class="meto-calc-grid">
 
@@ -590,7 +488,7 @@
                     <span class="meto-calc-step">1</span>
                     <div>
                         <div class="meto-calc-title">{% trans "Nível Parcial" %}</div>
-                        <div class="meto-calc-subtitle">{% trans "Score de cada instância" %}</div>
+                        <div class="meto-calc-subtitle">{% trans "Score de cada componente" %}</div>
                     </div>
                 </div>
                 <div class="meto-calc-formula">
@@ -641,7 +539,7 @@
                     </tbody>
                 </table>
                 <ul class="meto-calc-legend">
-                    <li><strong>NP</strong> — {% trans "Nível Parcial da instância avaliada (resultado na escala 1 a 5)" %}</li>
+                    <li><strong>NP</strong> — {% trans "Nível Parcial do componente avaliado (resultado na escala 1 a 5)" %}</li>
                     <li><strong>C</strong> — {% trans "valor de cada critério avaliado (escala 1 a 5)" %}</li>
                     <li><strong>Cx</strong> — {% trans "critério de maior relevância para o eixo (peso duplo)" %}</li>
                     <li><strong>&#8721;C</strong> — {% trans "número total de critérios do componente" %}</li>
@@ -685,11 +583,11 @@
                     </math>
                 </div>
                 <p class="meto-calc-desc">
-                    {% trans "Média ponderada dos Níveis Parciais de cada instância, usando o fator de relevância como multiplicador de peso." %}
+                    {% trans "Média ponderada dos Níveis Parciais de cada componente, usando o fator de relevância como multiplicador de peso." %}
                 </p>
                 <table class="meto-calc-table">
                     <thead>
-                        <tr><th>{% trans "Eixo" %}</th><th>{% trans "Instâncias" %}</th><th>{% trans "Nível Eixo" %}</th></tr>
+                        <tr><th>{% trans "Eixo" %}</th><th>{% trans "Componentes" %}</th><th>{% trans "Nível Eixo" %}</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>{% trans "Governança" %}</td><td>32</td><td>{% trans "Méd. pond. NP" %}</td></tr>
@@ -700,8 +598,8 @@
                 </table>
                 <ul class="meto-calc-legend">
                     <li><strong>NE<sub>k</sub></strong> — {% trans "Nível Eixo do eixo temático k (resultado ponderado na escala 1 a 5)" %}</li>
-                    <li><strong>NPa</strong> — {% trans "Nível Parcial de cada instância avaliada" %}</li>
-                    <li><strong>Fr</strong> — {% trans "fator de relevância da instância (peso 1, 2 ou 3)" %}</li>
+                    <li><strong>NPa</strong> — {% trans "Nível Parcial de cada componente avaliado" %}</li>
+                    <li><strong>Fr</strong> — {% trans "fator de relevância do componente (peso 1, 2 ou 3)" %}</li>
                 </ul>
             </div>
 
@@ -793,7 +691,6 @@
         })(start);
     }
 
-    /* Intersection observer para animar quando entrar na viewport */
     var statsAnimated = false;
     var io = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
@@ -808,99 +705,8 @@
     var sidebar = document.getElementById('meto-sidebar');
     if (sidebar) io.observe(sidebar);
 
-    /* Scroll-stack de fotos — wheel somente sobre o container de imagens */
-    var scrollPhotosEl = document.getElementById('meto-scroll-photos');
-    var scrollPhotos = scrollPhotosEl ? Array.prototype.slice.call(scrollPhotosEl.querySelectorAll('.meto-scroll-photo')) : [];
-    var PEEK = 26;
-    var photoProgress = 0;
-
-    function updateScrollPhotos(prog) {
-        if (!scrollPhotosEl || !scrollPhotos.length) return;
-        var segment = 1 / scrollPhotos.length;
-        scrollPhotos.forEach(function(photo, i) {
-            var p = Math.max(0, Math.min(1, (prog - i * segment) / segment));
-            if (p <= 0) {
-                /* oculta abaixo — translateY alto garante que nao vaze pelo sticky */
-                photo.style.transform = 'translateY(160%)';
-            } else if (p < 1) {
-                /* subindo: inclina levemente para a esquerda e endireita ao encaixar */
-                var tY = (1 - p) * 160;
-                var rot = (1 - p) * -6;
-                photo.style.transform = 'translateY(' + tY + '%) rotate(' + rot + 'deg)';
-            } else {
-                /* assentada: desloca para baixo conforme fotos seguintes sobem (peek) */
-                var peekPx = 0;
-                for (var j = i + 1; j < scrollPhotos.length; j++) {
-                    var jp = Math.max(0, Math.min(1, (prog - j * segment) / segment));
-                    peekPx += jp * PEEK;
-                }
-                photo.style.transform = 'translateY(' + peekPx + 'px)';
-            }
-        });
-    }
-
-    if (scrollPhotosEl && scrollPhotos.length) {
-        var initProg = 1 / scrollPhotos.length; /* primeira foto ja assentada na entrada */
-        photoProgress = initProg;
-
-        scrollPhotosEl.addEventListener('wheel', function(e) {
-            if (window.innerWidth <= 900) return;
-            e.preventDefault();
-            e.stopPropagation();
-            photoProgress += e.deltaY / 800;
-            /* loop sem frame em branco: modulo relativo ao initProg
-               wrap de volta para initProg (foto 0 assentada) em vez de prog=0 (tudo oculto) */
-            var displayProg = ((photoProgress - initProg) % 1 + 1) % 1 + initProg;
-            updateScrollPhotos(displayProg);
-        }, { passive: false });
-
-        updateScrollPhotos(initProg);
-
-        /* Mobile: tap ou swipe esquerda avanca foto; swipe direita volta */
-        var mobileCurrent = 0;
-        var touchStartX = 0, touchStartY = 0;
-        scrollPhotosEl.addEventListener('touchstart', function(e) {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-        scrollPhotosEl.addEventListener('touchend', function(e) {
-            if (window.innerWidth > 900) return;
-            var dx = e.changedTouches[0].clientX - touchStartX;
-            var dy = e.changedTouches[0].clientY - touchStartY;
-            var isTap = Math.abs(dx) < 20 && Math.abs(dy) < 20;
-            var next = mobileCurrent;
-            if (isTap || dx < -30) {
-                next = (mobileCurrent + 1) % scrollPhotos.length;
-            } else if (dx > 30) {
-                next = (mobileCurrent - 1 + scrollPhotos.length) % scrollPhotos.length;
-            } else {
-                return;
-            }
-            scrollPhotos[mobileCurrent].style.display = 'none';
-            mobileCurrent = next;
-            scrollPhotos[mobileCurrent].style.display = 'block';
-            scrollPhotos[mobileCurrent].style.transform = 'none';
-        }, { passive: true });
-    }
-
-    /* Piramide: anima entrada */
-    var py = document.querySelector('.meto-pyramid-wrap');
-    if (py && !reducedMotion) {
-        var pyObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    py.classList.add('meto-py-animate');
-                    pyObserver.disconnect();
-                }
-            });
-        }, { threshold: 0.4 });
-        pyObserver.observe(py);
-    } else if (py) {
-        py.classList.add('meto-py-animate');
-    }
-
-    /* Scroll reveal para seções */
-    document.querySelectorAll('.meto-def-card, .meto-eixo-card, .meto-tl-event').forEach(function(el, i) {
+    /* Scroll reveal para cards */
+    document.querySelectorAll('.meto-def-card, .meto-eixo-card').forEach(function(el, i) {
         if (reducedMotion) { el.style.opacity = '1'; return; }
         el.style.cssText += 'opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease';
         var obs = new IntersectionObserver(function(entries) {
@@ -909,13 +715,38 @@
                     setTimeout(function() {
                         el.style.opacity = '1';
                         el.style.transform = 'translateY(0)';
-                    }, (i % 4) * 80);
+                    }, i * 60);
                     obs.disconnect();
                 }
             });
         }, { threshold: 0.15 });
         obs.observe(el);
     });
-}());
+
+    /* Critérios expansíveis */
+    document.querySelectorAll('.meto-criterion-row').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = btn.getAttribute('data-criterio');
+            var detail = document.getElementById(id);
+            if (!detail) return;
+            var isOpen = btn.getAttribute('aria-expanded') === 'true';
+            /* fecha todos do mesmo eixo */
+            var list = btn.closest('.meto-criteria-list');
+            if (list) {
+                list.querySelectorAll('.meto-criterion-row').forEach(function(b) {
+                    b.setAttribute('aria-expanded', 'false');
+                });
+                list.querySelectorAll('.meto-criterion-detail').forEach(function(d) {
+                    d.hidden = true;
+                });
+            }
+            if (!isOpen) {
+                btn.setAttribute('aria-expanded', 'true');
+                detail.hidden = false;
+            }
+        });
+    });
+
+})();
 </script>
 {% endblock %}

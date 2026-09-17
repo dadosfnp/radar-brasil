@@ -765,6 +765,161 @@ body.metodologia-page .rb-main {
 .meto-scale-pip.pip-4 { background: #72be79; }
 .meto-scale-pip.pip-5 { background: #1a4a35; }
 
+/* Critério expansível */
+.meto-criterion-row {
+    cursor: pointer;
+    transition: background .18s, border-color .18s;
+}
+
+.meto-criterion-row:hover {
+    background: rgba(38,69,132,.07);
+    border-color: rgba(38,69,132,.18);
+}
+
+.meto-criterion-row[aria-expanded="true"] {
+    background: rgba(38,69,132,.06);
+    border-color: rgba(38,69,132,.22);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.meto-cr-chevron {
+    flex-shrink: 0;
+    color: #264584;
+    opacity: .6;
+    transition: transform .22s ease;
+}
+
+.meto-criterion-row[aria-expanded="true"] .meto-cr-chevron {
+    transform: rotate(180deg);
+    opacity: 1;
+}
+
+.meto-criterion-detail {
+    background: rgba(38,69,132,.04);
+    border: 1px solid rgba(38,69,132,.14);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 12px 14px;
+    margin-bottom: 4px;
+}
+
+.meto-cr-def {
+    font-size: 0.8rem;
+    color: #2a3a6a;
+    line-height: 1.6;
+    margin: 0 0 10px;
+}
+
+.meto-cr-params {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.meto-cr-params li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #1a3070;
+    line-height: 1.5;
+}
+
+.meto-criteria-hint {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.82rem;
+    color: #4a5a80;
+    margin-top: -8px;
+}
+
+/* Fator de relevância / pesos */
+.meto-weights-box {
+    background: rgba(38,69,132,.04);
+    border: 1.5px solid rgba(38,69,132,.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+}
+
+.meto-weights-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #101d4f;
+    margin: 0 0 6px;
+}
+
+.meto-weights-desc {
+    font-size: 0.87rem;
+    color: #4a5a80;
+    margin: 0 0 18px;
+    line-height: 1.6;
+}
+
+.meto-weights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.meto-weight-item {
+    border-radius: 10px;
+    padding: 16px;
+    border: 1.5px solid transparent;
+}
+
+.meto-weight-item--3 {
+    background: rgba(38,69,132,.08);
+    border-color: rgba(38,69,132,.20);
+}
+
+.meto-weight-item--2 {
+    background: rgba(38,69,132,.05);
+    border-color: rgba(38,69,132,.13);
+}
+
+.meto-weight-item--1 {
+    background: rgba(38,69,132,.03);
+    border-color: rgba(38,69,132,.09);
+}
+
+.meto-weight-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #264584;
+    background: rgba(38,69,132,.12);
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-bottom: 10px;
+}
+
+.meto-weight-item p {
+    font-size: 0.82rem;
+    color: #1a3070;
+    line-height: 1.6;
+    margin: 0 0 6px;
+}
+
+.meto-weight-ex {
+    color: #4a5a80 !important;
+    font-size: 0.76rem !important;
+}
+
+@media (max-width: 768px) {
+    .meto-weights-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* ══════════════════════════════
    6. O QUE AVALIAMOS
    ══════════════════════════════ */
@@ -792,6 +947,17 @@ body.metodologia-page .rb-main {
     color: #334488;
     line-height: 1.78;
     margin: 0;
+}
+
+.meto-nota-desc {
+    margin-top: 24px !important;
+    font-size: 0.875rem !important;
+    color: #2a3a6a !important;
+    line-height: 1.72 !important;
+    padding: 14px 18px;
+    background: rgba(38,69,132,.04);
+    border-left: 3px solid rgba(38,69,132,.25);
+    border-radius: 0 8px 8px 0;
 }
 
 /* Timeline mini */

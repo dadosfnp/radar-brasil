@@ -54,18 +54,20 @@
                         {# Início: inativo temporariamente — manter no HTML #}
                         <a href="{% url 'municipios:inicio' %}"
                            class="rb-nav-link {% block menu_inicio_active %}{% endblock %}" style="display:none" aria-hidden="true" tabindex="-1">{% trans "Início" %}</a>
+                        <a href="{% url 'municipios:sobre' %}"
+                           class="rb-nav-link {% block menu_sobre_active %}{% endblock %}">{% trans "Sobre" %}</a>
                         <a href="{% url 'municipios:metodologia' %}"
                            class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
                         <a href="{% url 'indicadores:painel_multinivel' %}"
                            class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painéis" %}</a>
                         <a href="{% url 'indicadores:avaliacao_painel' %}"
                            class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Componentes" %}</a>
-                        <a href="{% url 'indicadores:nota_pais' %}"
-                           class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nível País" %}</a>
                         <a href="{% url 'indicadores:financiamento_climatico' %}"
                            class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">{% trans "Financiamento Climático" %}</a>
                         <a href="{% url 'indicadores:mapa_georreferenciado' %}"
                            class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa Georreferenciado" %}</a>
+                        <a href="{% url 'indicadores:nota_pais' %}"
+                           class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nível País" %}</a>
                         <div class="rb-nav-lang-section" role="group" aria-label="{% trans 'Selecionar idioma' %}">
                             <svg class="rb-nav-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <circle cx="12" cy="12" r="10"/>
