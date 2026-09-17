@@ -2,7 +2,7 @@
 
 /* Expandir .rb-main para full-width igual à página Metodologia */
 body.sobre-page {
-    background: transparent;
+    background: var(--color-bg-page);
     margin: 0;
     padding: 0;
     position: relative;

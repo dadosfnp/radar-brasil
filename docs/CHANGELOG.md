@@ -4,6 +4,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (5a rodada)
+
+### fix — Fundo das paginas Sobre e Metodologia: var(--color-bg-page) em vez de transparent (metodologia.css v48, sobre.css v4)
+
+- Corrige aparencia branca causada por transparent (fundo-bg.png muito claro)
+- body.metodologia-page e body.sobre-page: transparent → var(--color-bg-page) (#d9e8f5)
+- Resultado: azul claro consistente em toda a pagina, igual ao fundo global do site
+
 ## 2026-09-17 (4a rodada)
 
 ### style — Fundos das secoes transparentes para usar cor global do site (metodologia.css v47, sobre.css v3)

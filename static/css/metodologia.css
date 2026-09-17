@@ -3,7 +3,7 @@
    ============================== */
 
 body.metodologia-page {
-    background: transparent;
+    background: var(--color-bg-page);
     margin: 0;
     padding: 0;
     position: relative;
