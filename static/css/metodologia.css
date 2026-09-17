@@ -1064,6 +1064,23 @@ body.metodologia-page .rb-main {
     margin: 0;
 }
 
+/* ── Nota Metodológica — layout lado-a-lado ── */
+.meto-nota-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+.meto-nota-row .meto-nota-desc {
+    flex: 1;
+    min-width: 0;
+    margin-top: 0 !important;
+}
+.meto-nota-row .meto-nota-card {
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
 /* ── Nota Metodológica — card de abertura do PDF ── */
 .meto-nota-card {
     display: flex;

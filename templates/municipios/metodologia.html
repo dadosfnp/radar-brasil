@@ -7,7 +7,7 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=45">
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=46">
 {% endblock %}
 
 {% block content %}
@@ -15,8 +15,8 @@
 <!-- ═══════════════════════════════════════════
      HERO COMPACTO
      ═══════════════════════════════════════════ -->
-<div class="meto-hero-zone meto-hero-zone--compact">
-    <div class="meto-hero-inner meto-hero-inner--compact">
+<div class="meto-hero-zone">
+    <div class="meto-hero-inner">
         <div class="meto-hero-left">
             <div class="meto-hero-badge">
                 <span class="meto-hero-badge-dot"></span>
@@ -26,6 +26,15 @@
             <p class="meto-hero-desc">
                 {% trans "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro." %}
             </p>
+        </div>
+        <div class="meto-hero-right">
+            <iframe
+                src="{% static 'img/mapa-brasil-hud.html' %}"
+                allowtransparency="true"
+                scrolling="no"
+                class="meto-hud-frame"
+                title="Mapa Brasil">
+            </iframe>
         </div>
     </div>
 </div>
@@ -454,9 +463,10 @@
                     </div>
                 </div>
 
-                <p class="meto-scope-body meto-nota-desc">
-                    {% trans "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos." %}
-                </p>
+                <div class="meto-nota-row">
+                    <p class="meto-scope-body meto-nota-desc">
+                        {% trans "A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos empregados, abrangência do estudo, critérios e parâmetros para tratamento dos dados, entre outros fatores necessários à compreensão dos resultados obtidos." %}
+                    </p>
 
                 <a class="meto-nota-card"
                    href="{% static 'doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf' %}"
@@ -479,6 +489,7 @@
                         </span>
                     </div>
                 </a>
+                </div><!-- /meto-nota-row -->
             </div>
 
             <div class="meto-scope-stats-col" id="meto-sidebar">

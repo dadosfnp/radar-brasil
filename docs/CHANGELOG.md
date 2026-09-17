@@ -4,6 +4,30 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (3a rodada)
+
+### style — Sobre: fact sheet movido para apos o hero (sobre.html)
+
+- Secao `sb-factsheet-placeholder` deslocada de antes para depois do bloco `meto-hero-zone`
+- Ordem correta: hero com mapa animado aparece primeiro; fact sheet exibido logo abaixo
+
+### style — Metodologia: hero recebe mapa animado e layout 2 colunas (metodologia.html, metodologia.css v46)
+
+- Hero saiu do modo "compact" (sem coluna direita) e passou a ter `meto-hero-right` com iframe `mapa-brasil-hud.html`
+- Layout agora identico ao da pagina Sobre: titulo/badge/descricao a esquerda, mapa HUD a direita
+- Secao "O que avaliamos?": texto da Nota Metodologica e card PDF agora aparecem lado a lado
+- Adicionado `.meto-nota-row` (flex gap-28 align-start) para o par descricao + nota-card
+- CSS bump v45 → v46
+
+### style — Nivel Pais: titulo simplificado e intro redesenhada (nota-pais.html, nota-pais.css v11)
+
+- Titulo alterado de "Nivel Pais - Radar Brasil" para "Nivel Pais"
+- Redesign visual da secao intro: hierarquia tipografica clara, secao Brasil em card grid 2 colunas
+- Badge navy "3 / Nivel Pais / Brasil 2025" exibido ao lado do texto explicativo
+- Steps 1→2→3 (Nivel Parcial, Nivel Eixo, Nivel Pais) com numeros circulares navy
+- Paragrafo de destaque e paragrafo de fechamento com classes proprias
+- CSS bump v10 → v11
+
 ## 2026-09-17 (2a rodada)
 
 ### fix — Sobre: pagina full-width igual a Metodologia (sobre.css v2)
