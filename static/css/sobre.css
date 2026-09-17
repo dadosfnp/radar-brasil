@@ -1,5 +1,23 @@
 /* ── SOBRE — estilos específicos da página Sobre ──────────────────── */
 
+/* Expandir .rb-main para full-width igual à página Metodologia */
+body.sobre-page {
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+body.sobre-page .rb-main {
+    background: transparent;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+    min-height: 0;
+}
+
 /* Fact sheet placeholder */
 .sb-factsheet-placeholder {
     background: linear-gradient(135deg, rgba(38,69,132,.06) 0%, rgba(38,69,132,.02) 100%);

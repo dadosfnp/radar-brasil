@@ -765,6 +765,60 @@ body.metodologia-page .rb-main {
 .meto-scale-pip.pip-4 { background: #72be79; }
 .meto-scale-pip.pip-5 { background: #1a4a35; }
 
+/* Tooltip (i) no heading dos critérios */
+.meto-info-tip {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin-left: 8px;
+    vertical-align: middle;
+    cursor: default;
+    color: #264584;
+    opacity: .55;
+    transition: opacity .18s;
+}
+
+.meto-info-tip:hover,
+.meto-info-tip:focus {
+    opacity: 1;
+    outline: none;
+}
+
+.meto-tip-text {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 8px);
+    background: #101d4f;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 400;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.5;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 7px;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+}
+
+.meto-info-tip:hover .meto-tip-text,
+.meto-info-tip:focus .meto-tip-text {
+    display: block;
+}
+
+.meto-tip-text::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: #101d4f;
+}
+
 /* Critério expansível */
 .meto-criterion-row {
     cursor: pointer;

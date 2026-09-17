@@ -4,6 +4,23 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (2a rodada)
+
+### fix — Sobre: pagina full-width igual a Metodologia (sobre.css v2)
+
+- Adicionada regra `body.sobre-page .rb-main { max-width: 100%; margin: 0; padding: 0 }` em sobre.css
+- Sem essa regra, `.rb-main` do base.css limitava o conteudo a 1000px (aparencia "estreita")
+- Atualizada versao do CSS de ?v=1 para ?v=2 e metodologia.css de ?v=44 para ?v=45 no sobre.html
+
+### style — Metodologia: definicoes completas de todos os criterios (metodologia.html, metodologia.css v45)
+
+- Todos os 17 criterios nos 4 eixos agora possuem definicao e 5 parametros de nivel expandiveis
+- Eixo Governanca: Operacionalidade (ja tinha), Espaco de Dialogo Federativo, Diversidade e Representatividade, Comunicacao e Transparencia, Sustentabilidade Financeira
+- Eixo Politicas e Planos: Operacionalidade, Espaco de Dialogo Federativo, Sustentabilidade Financeira, Comunicacao e Transparencia
+- Eixo Programas: Cooperacao Federativa, Capilaridade e Alcance Territorial, Sustentabilidade Financeira, Fortalecimento da Capacidade Local, Monitoramento e Avaliacao
+- Eixo Linhas de Financiamento: Desenho Participativo da Linha de Financiamento (nome corrigido), Capacidade de Execucao Descentralizada, Monitoramento e Prestacao de Contas
+- Substituido paragrafo de hint (meto-criteria-hint) por icone (i) ao lado do titulo com tooltip flutuante navy
+
 ## 2026-09-17
 
 ### feat — Nova pagina Sobre (sobre.html, sobre.css, views.py, urls.py, base.html)

@@ -113,11 +113,13 @@
      ═══════════════════════════════════════════ -->
 <section class="meto-section-block meto-criteria-section">
     <div class="meto-inner">
-        <h2 class="meto-section-heading">{% trans "Conheça os critérios de análise para cada eixo" %}</h2>
-        <p class="meto-section-lead meto-criteria-hint">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            {% trans "Clique em um critério para ver sua definição e os parâmetros de avaliação." %}
-        </p>
+        <h2 class="meto-section-heading">
+            {% trans "Conheça os critérios de análise para cada eixo" %}
+            <span class="meto-info-tip" tabindex="0" role="tooltip" aria-label="{% trans 'Informação' %}">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span class="meto-tip-text">{% trans "Clique em um critério para ver sua definição e os parâmetros de avaliação" %}</span>
+            </span>
+        </h2>
 
         <div class="meto-eixos-grid">
 
@@ -150,7 +152,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="gov-dialogo" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a existência e qualidade de mecanismos formais de diálogo e participação dos entes federativos na formulação e acompanhamento da política climática." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem mecanismo de participação federativa previsto" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Mecanismo previsto, mas sem representação dos entes subnacionais" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Representação dos entes subnacionais com caráter consultivo" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Representação deliberativa dos entes subnacionais sem funcionamento regular" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Representação deliberativa dos entes subnacionais com funcionamento regular" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-diversidade">
                         <span class="meto-criterion-name">{% trans "Diversidade e Representatividade" %}</span>
@@ -158,7 +167,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="gov-diversidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a presença de critérios ou garantias formais de diversidade de gênero, raça e etnia na composição e funcionamento do espaço de governança." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem critério ou garantia de diversidade prevista" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Recomendação não vinculante de diversidade" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Critério formal de diversidade previsto sem monitoramento" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Critério formal de diversidade com monitoramento, mas sem paridade" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Critério formal com paridade e monitoramento sistemático" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-comunicacao">
                         <span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span>
@@ -166,7 +182,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="gov-comunicacao" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a publicização e acessibilidade das informações sobre o funcionamento, decisões e resultados do espaço de governança." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem publicização das informações" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Publicação esporádica e não padronizada" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Publicação regular de atas e decisões em canais institucionais" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Publicação regular com acesso facilitado e linguagem acessível" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Portal dedicado com dados abertos, atualização sistemática e histórico completo" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="gov-sustentabilidade">
                         <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
@@ -174,7 +197,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="gov-sustentabilidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a previsão e regularidade de fontes de financiamento para o funcionamento do espaço de governança." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem previsão de financiamento dedicado" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Financiamento eventual sem garantia de continuidade" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Financiamento previsto em norma sem dotação específica garantida" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Dotação orçamentária específica prevista com regularidade parcial" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Dotação orçamentária consolidada e executada regularmente" %}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -193,7 +223,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="pol-operacionalidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia o estágio de formulação, vigência e implementação das políticas e planos climáticos." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Inexistente (sem política ou plano formulado)" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Em elaboração ou consulta pública (sem vigência)" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Aprovado e em vigor, sem estrutura de implementação definida" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Em implementação com estrutura definida e metas parcialmente estabelecidas" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Em implementação plena com metas, prazos e responsáveis definidos e monitoramento ativo" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-dialogo">
                         <span class="meto-criterion-name">{% trans "Espaço de Diálogo Federativo" %}</span>
@@ -201,7 +238,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="pol-dialogo" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a previsão e qualidade de mecanismos de participação dos entes federativos na formulação e revisão das políticas e planos." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem mecanismo de participação federativa previsto" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Consulta pública genérica sem mecanismo específico para entes federativos" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Consulta específica a estados e municípios com caráter informativo" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Participação dos entes subnacionais em etapas de formulação ou revisão" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Participação ativa e sistemática dos entes subnacionais em todas as etapas do ciclo da política" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-sustentabilidade">
                         <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
@@ -209,7 +253,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="pol-sustentabilidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a existência de fontes de financiamento previstas para a implementação das políticas e planos." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem previsão de financiamento para implementação" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Financiamento genérico sem vinculação específica à política climática" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Financiamento previsto em documento normativo sem dotação específica garantida" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Dotação orçamentária específica prevista com regularidade parcial" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Financiamento consolidado com dotação específica, executada regularmente e com previsão plurianual" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="pol-comunicacao">
                         <span class="meto-criterion-name">{% trans "Comunicação e Transparência" %}</span>
@@ -217,7 +268,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="pol-comunicacao" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a publicização e acessibilidade das informações sobre objetivos, metas, resultados e revisões das políticas e planos." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem publicização das informações" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Publicação esporádica e não padronizada" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Publicação regular das políticas e resultados em canais institucionais" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Publicação sistemática com linguagem acessível e dados abertos" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Portal dedicado com dados abertos, histórico completo e mecanismo de feedback ativo" %}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -236,7 +294,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="prog-cooperacao" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia o nível de articulação formal entre União, estados e municípios no desenho e implementação dos programas." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem previsão de cooperação federativa" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Cooperação prevista sem mecanismo formal (acordos esporádicos)" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Cooperação com convênios ou instrumentos formais, mas de forma não sistemática" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Cooperação sistemática com instrumentos formalizados e instância de coordenação" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Cooperação plena com instância de coordenação ativa, metas conjuntas e prestação de contas compartilhada" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-capilaridade">
                         <span class="meto-criterion-name">{% trans "Capilaridade e Alcance Territorial" %}</span>
@@ -244,7 +309,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="prog-capilaridade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia o grau de cobertura territorial dos programas, considerando o alcance a municípios e regiões de diferentes perfis socioeconômicos e geográficos." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Alcance restrito a capitais ou municípios de grande porte" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Alcance a municípios de médio e grande porte, sem critério de equidade" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Critério formal de equidade territorial previsto, com alcance parcial" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Cobertura abrangente com critérios de priorização de municípios vulneráveis" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Cobertura universal ou estratégica com mecanismo de acompanhamento do alcance territorial" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-sustentabilidade">
                         <span class="meto-criterion-name">{% trans "Sustentabilidade Financeira" %}</span>
@@ -252,7 +324,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="prog-sustentabilidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a previsão e regularidade das fontes de financiamento dos programas, considerando continuidade e capacidade de expansão." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem previsão de financiamento regular" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Financiamento eventual sem garantia de continuidade" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Financiamento previsto em norma sem dotação específica garantida" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Dotação orçamentária específica com regularidade parcial" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Financiamento consolidado e executado regularmente, com previsão plurianual e capacidade de expansão" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-capacidade">
                         <span class="meto-criterion-name">{% trans "Fortalecimento da Capacidade Local" %}</span>
@@ -260,7 +339,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="prog-capacidade" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia se os programas incluem componentes de capacitação técnica, assistência e fortalecimento institucional dos entes subnacionais para gestão climática." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem componente de capacitação ou assistência técnica" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Componente de capacitação previsto sem estrutura regular" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Capacitação ofertada de forma regular, sem vinculação ao fortalecimento institucional" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Capacitação técnica regular com assistência para implementação e gestão" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Programa integrado de fortalecimento com assistência técnica, capacitação e acompanhamento sistemático" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="prog-monitoramento">
                         <span class="meto-criterion-name">{% trans "Monitoramento e Avaliação" %}</span>
@@ -268,7 +354,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="prog-monitoramento" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a existência e qualidade dos mecanismos de acompanhamento dos resultados dos programas, incluindo a participação dos beneficiários locais." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem mecanismo de monitoramento ou avaliação" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Relatórios eventuais sem padronização ou publicização" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Monitoramento periódico com indicadores definidos, sem avaliação sistemática" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Monitoramento regular com indicadores e avaliação periódica com participação parcial dos beneficiários" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Sistema de monitoramento e avaliação consolidado, com participação ativa dos beneficiários e publicização de resultados" %}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -282,12 +375,19 @@
                 <p class="meto-eixo-desc">{% trans "Mecanismos orçamentários, de investimentos, transferências interfederativas e instrumentos de apoio financeiro que viabilizam a execução descentralizada de ações climáticas." %}</p>
                 <div class="meto-criteria-list">
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-desenho">
-                        <span class="meto-criterion-name">{% trans "Desenho Participativo" %}</span>
+                        <span class="meto-criterion-name">{% trans "Desenho Participativo da Linha de Financiamento" %}</span>
                         <div class="meto-nivel-pills"><span class="meto-pip pip-1">1</span><span class="meto-pip pip-2">2</span><span class="meto-pip pip-3">3</span><span class="meto-pip pip-4">4</span><span class="meto-pip pip-5">5</span></div>
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="fin-desenho" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia o grau de participação dos entes subnacionais e da sociedade civil na formulação e revisão das linhas de financiamento climático." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem participação dos entes subnacionais ou da sociedade civil no desenho" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Consulta esporádica sem caráter formal ou vinculativo" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Consulta formal com representação dos entes subnacionais, sem poder de influência" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Participação dos entes subnacionais com capacidade de propor alterações nas condições da linha" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Processo participativo formalizado com revisão periódica, co-gestão e transparência nos critérios" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-execucao">
                         <span class="meto-criterion-name">{% trans "Capacidade de Execução Descentralizada" %}</span>
@@ -295,7 +395,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="fin-execucao" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia em que medida as linhas de financiamento permitem e facilitam o acesso direto por estados e municípios, sem intermediação obrigatória da União." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Acesso exclusivamente pela União (sem repasse ou acesso direto)" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Acesso mediado pela União, sem simplificação para entes subnacionais" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Repasse previsto com critérios formais, mas com barreiras burocráticas elevadas" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Acesso direto facilitado com simplificação parcial das exigências para entes subnacionais" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Acesso direto pleno com simplificação das exigências, apoio técnico para habilitação e descentralização efetiva" %}</li>
+                        </ul>
                     </div>
                     <button class="meto-criterion-row" aria-expanded="false" data-criterio="fin-monitoramento">
                         <span class="meto-criterion-name">{% trans "Monitoramento e Prestação de Contas" %}</span>
@@ -303,7 +410,14 @@
                         <svg class="meto-cr-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
                     </button>
                     <div class="meto-criterion-detail" id="fin-monitoramento" hidden>
-                        <p class="meto-cr-def"><em>{% trans "Definição disponível no Anexo II da Nota Metodológica." %}</em></p>
+                        <p class="meto-cr-def"><em>{% trans "Avalia a existência e qualidade dos mecanismos de acompanhamento da execução e dos resultados das linhas de financiamento, incluindo a transparência na prestação de contas." %}</em></p>
+                        <ul class="meto-cr-params">
+                            <li><span class="meto-pip pip-1">1</span> {% trans "Sem mecanismo de monitoramento ou prestação de contas definido" %}</li>
+                            <li><span class="meto-pip pip-2">2</span> {% trans "Prestação de contas básica prevista sem publicização ou padronização" %}</li>
+                            <li><span class="meto-pip pip-3">3</span> {% trans "Prestação de contas formal com relatórios periódicos sem dados abertos" %}</li>
+                            <li><span class="meto-pip pip-4">4</span> {% trans "Monitoramento regular com indicadores definidos e publicização dos resultados" %}</li>
+                            <li><span class="meto-pip pip-5">5</span> {% trans "Sistema de monitoramento integrado com dados abertos, auditoria independente e publicização dos resultados" %}</li>
+                        </ul>
                     </div>
                 </div>
             </div>
