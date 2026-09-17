@@ -2,7 +2,7 @@
 
 /* Expandir .rb-main para full-width igual à página Metodologia */
 body.sobre-page {
-    background: #ffffff;
+    background: transparent;
     margin: 0;
     padding: 0;
     position: relative;
@@ -20,8 +20,7 @@ body.sobre-page .rb-main {
 
 /* Fact sheet placeholder */
 .sb-factsheet-placeholder {
-    background: linear-gradient(135deg, rgba(38,69,132,.06) 0%, rgba(38,69,132,.02) 100%);
-    border-bottom: 1.5px solid rgba(38,69,132,.12);
+    background: transparent;
     padding: 40px 0 36px;
 }
 

@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (4a rodada)
+
+### style — Fundos das secoes transparentes para usar cor global do site (metodologia.css v47, sobre.css v3)
+
+- Removidos todos os backgrounds brancos e azulados das secoes de Sobre e Metodologia
+- Body de metodologia-page e sobre-page: #ffffff → transparent
+- Secoes alteradas para transparent: meto-federalism-section, meto-timeline-section,
+  meto-howwe-section, meto-criteria-section, meto-scope-section, meto-calc-section
+- Factsheet placeholder: gradient → transparent
+- Todas as secoes agora expoe o fundo global (fundo-bg.png, azul claro) uniformemente
+- Cards internos (meto-eixo-card, meto-def-card, meto-stat-pill, etc.) mantêm fundo branco
+
 ## 2026-09-17 (3a rodada)
 
 ### style — Sobre: fact sheet movido para apos o hero (sobre.html)

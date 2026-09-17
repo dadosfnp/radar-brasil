@@ -3,7 +3,7 @@
    ============================== */
 
 body.metodologia-page {
-    background: #ffffff;
+    background: transparent;
     margin: 0;
     padding: 0;
     position: relative;
@@ -154,8 +154,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-federalism-section {
-    background: #f5f8ff;
-    border-top: 1px solid rgba(38,69,132,.10);
+    background: transparent;
 }
 
 .meto-federalism-intro {
@@ -422,9 +421,8 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-timeline-section {
-    background: #fff;
+    background: transparent;
     padding: 64px 0;
-    border-top: 1.5px solid rgba(38,69,132,.12);
 }
 
 .meto-timeline-section .meto-inner {
@@ -580,8 +578,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-howwe-section {
-    background: #ffffff;
-    border-top: 1px solid rgba(38,69,132,.10);
+    background: transparent;
 }
 
 .meto-defs-grid {
@@ -656,8 +653,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-criteria-section {
-    background: #fff;
-    border-top: 1px solid rgba(38,69,132,.08);
+    background: transparent;
 }
 
 .meto-eixos-grid {
@@ -979,8 +975,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-scope-section {
-    background: #ffffff;
-    border-top: 1px solid rgba(38,69,132,.10);
+    background: transparent;
 }
 
 .meto-scope-grid {
@@ -1485,8 +1480,7 @@ body.metodologia-page .rb-main {
    ══════════════════════════════ */
 
 .meto-calc-section {
-    background: #f0f4fb;
-    border-top: 1px solid rgba(38,69,132,.10);
+    background: transparent;
 }
 
 .meto-calc-grid {
