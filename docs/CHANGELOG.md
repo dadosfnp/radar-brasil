@@ -4,6 +4,13 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-17 (9a rodada)
+
+### fix — Linha de divisao entre "Por que avaliar" e fotos restaurada em Sobre (sobre.css v8)
+
+- body.sobre-page .meto-scroll-section: border-top alterado de none para 1px solid rgba(38,69,132,.10)
+- Restaura a linha fina de divisao de secao padrao entre a secao de federalismo e a secao de fotos
+
 ## 2026-09-17 (8a rodada)
 
 ### fix — Russia cinza no mapa Nota Pais; nota metodologica dentro da coluna; linha fantasma em Sobre removida (metodologia.css v52, sobre.css v7)
