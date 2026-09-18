@@ -165,7 +165,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     }
 }
 
-/* ── FACT SHEET — infográfico nativo (v14) ──────────────────────── */
+/* ── FACT SHEET — infográfico nativo (v15) ──────────────────────── */
 /*    Paleta: --navy #161c4e / --slate #536084 / --blue #adc6e5     */
 
 .sb-infographic {
@@ -374,18 +374,19 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     margin: 0;
 }
 
-/* Rabinho do balão — triângulo apontando para baixo em direção ao gauge */
+/* Rabinho do balão — triângulo apontando para baixo-direita, como se o gauge falasse */
 .speech-tail {
     position: absolute;
-    left: calc(50% + 40px);
+    right: 24px;
     bottom: -26px;
     border: 26px solid transparent;
     border-top: 26px solid #adc6e5;
 }
 
 /* ── Gauge: semicírculo via conic-gradient ──
-   Os 4 segmentos cobrem apenas os 180° visíveis (from 270deg = começa à esquerda).
-   Proporções: 32/98 × 180 = 58.8 | 18/98 × 180 = 33.1 | total = 180 */
+   Centro em 50% 100% (borda inferior) = centro real do semicírculo.
+   Os 4 segmentos cobrem os 180° visíveis (esquerda→topo→direita).
+   Proporções: 32/98×180=58.8 | 18/98×180=33.1 | total=180° */
 .gauge {
     position: absolute;
     top: 148px;
@@ -395,7 +396,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     overflow: hidden;
     border-radius: 310px 310px 0 0;
     background: conic-gradient(
-        from 270deg,
+        from 270deg at 50% 100%,
         #efefef   0deg 58.8deg,
         #536084  58.8deg 91.9deg,
         #adc6e5  91.9deg 125deg,
@@ -431,11 +432,12 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     font-family: Sora, 'DM Sans', sans-serif;
 }
 
-/* n32 fica no segmento claro (#efefef) — usa cor escura para contraste */
-.n32  { left: 45px;  top: 62px; color: #161c4e; }
-.n18a { left: 118px; top: 12px; }
-.n18b { left: 190px; top: 12px; }
-.n30  { right: 43px; top: 62px; }
+/* Posições calculadas com centro em (155,155): midpoint r=116px por segmento.
+   n32 e n18b nos segmentos claros — usa navy para contraste */
+.n32  { left: 46px;  top: 93px; color: #161c4e; }
+.n18a { left: 118px; top: 37px; }
+.n18b { left: 184px; top: 38px; color: #161c4e; }
+.n30  { right: 38px; top: 96px; }
 
 /* ── Legenda ── */
 .legend {
@@ -604,6 +606,18 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     right: -1px;
     border-radius: 0 0 0 17px;
 }
+
+/* Abaulados inferiores: peças navy nos cantos de BAIXO via elementos HTML extras */
+.ft-corner {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background: #161c4e;
+    pointer-events: none;
+}
+
+.ft-bl { bottom: -1px; left: -1px; border-radius: 17px 0 0 0; }
+.ft-br { bottom: -1px; right: -1px; border-radius: 0 17px 0 0; }
 
 /* Chevrons duplos em V apontando para baixo */
 .chevrons {

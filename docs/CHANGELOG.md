@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (17a rodada)
+
+### style — Fact Sheet v15: gauge corrigido (at 50% 100%) + curvinhas em 4 cantos do factor-title
+
+1. gauge conic-gradient: adicionado `at 50% 100%` — centra o gradiente na borda inferior (centro real do semicirculo), exibindo corretamente as 4 cores nos 180° visiveis
+2. gauge numeros: reposicionados para o centro geometrico de cada segmento com centro em (155,155) — n32: left:46 top:93; n18a: left:118 top:37; n18b: left:184 top:38; n30: right:38 top:96
+3. n18b: cor alterada para navy (#161c4e) para contraste no segmento claro (#adc6e5)
+4. speech-tail: posicionado em `right: 24px` (era `left: calc(50%+40px)`) — aponta para a direita em direcao ao gauge, como se o grafico "falasse"
+5. factor-title cantos inferiores: adicionados `.ft-corner .ft-bl` e `.ft-corner .ft-br` via HTML `<span>` — cria as 4 curvinhas navy (topo + base) da caixa azul
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (16a rodada)
 
 ### style — Fact Sheet v14: 5 ajustes finos de fidelidade ao design de referencia

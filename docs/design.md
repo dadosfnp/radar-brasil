@@ -5,6 +5,18 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fact Sheet v15 — 2026-09-18
+
+**Gauge conic-gradient corrigido:** adicionado `at 50% 100%` ao conic-gradient para centrar o gradiente na borda inferior do elemento (x=155, y=155), que e o centro geometrico real do semicirculo criado pelo border-radius. Sem esse parametro o gradiente centrava em 50% 50% (centro do retangulo = y=77.5), fazendo com que apenas 2 dos 4 segmentos aparecessem nos 180° visiveis. Com `at 50% 100%` os 4 segmentos (Governanca/Politicas/Programas/Linhas) aparecem corretamente proporcionais.
+
+**Numeros do gauge:** reposicionados com calculo geometrico (centro 155,155; raio midpoint 116px) para o centro de cada segmento no arco colorido, fora do furo branco (::after r=77px).
+
+**Speech-tail:** movido para `right: 24px` para apontar para a direita em direcao ao gauge (borda direita da bolha alinha com o centro-x do gauge em ~297px da evaluation), criando o efeito "o gauge esta falando".
+
+**Factor-title 4 cantos:** como CSS permite apenas 2 pseudo-elementos por elemento, as curvinhas inferiores foram criadas via 2 `<span class="ft-corner ft-bl/ft-br">` dentro do `.factor-title`. Os pseudo-elementos existentes (::before, ::after) cobrem os cantos superiores; os spans cobrem os inferiores. Todos os 4 cantos agora tem as pecas navy concavas (border-radius oposto cria o efeito de "abaulado").
+
+---
+
 ## Sumário
 
 1. [Identidade Visual](#1-identidade-visual)
