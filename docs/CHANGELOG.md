@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (24a rodada)
+
+### style — Fact Sheet v22: h2 e botao subidos para nao sobrepor cards
+
+- h2 "Federalismo climatico": top:72px -> top:58px
+- outline-btn: top:98px -> top:76px
+- Botao bottom agora em ~100px vs cards em top:108px — 8px de folga sem sobreposicao
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (23a rodada)
 
 ### style — Fact Sheet v21: botao com fundo branco + curva 3x mais grossa

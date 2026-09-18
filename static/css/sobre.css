@@ -226,7 +226,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sheet01-hero h2 {
     position: absolute;
-    top: 72px;
+    top: 58px;
     left: 28px;
     font-size: 0.9rem;
     font-weight: 400;
@@ -237,7 +237,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .outline-btn {
     position: absolute;
-    top: 98px;
+    top: 76px;
     left: 28px;
     z-index: 10;
     display: inline-block;
