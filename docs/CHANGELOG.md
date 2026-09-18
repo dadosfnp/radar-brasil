@@ -4,6 +4,36 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (15a rodada)
+
+### style — Fact Sheet v13: reconstrucao com design system do usuario (sobre.css v13)
+
+Paleta correta: navy #161c4e / slate #536084 / blue #adc6e5 / light #efefef
+
+Redesign completo seguindo o CSS de design system fornecido:
+
+**Sheet 01 (594x820px):**
+- `.sheet01-hero` (440px): fundo slate #536084, h1/h2 absolutos, outline-btn pill, 3 arcos decorativos .network
+- `.info-card` × 3: posicao absoluta (left 42/229/416px), `.round-icon` circulo 90px (efefef/adc6e5/efefef), `.card-body` pill border-radius:62px min-height:300px
+- card-02: round-icon fundo adc6e5, card-body fundo navy #161c4e
+- `.sheet01-evaluation` (380px): fundo branco
+- `.speech` balao arredondado fundo #adc6e5 com `.speech-tail` triangulo para a direita
+- `.gauge` semicirculo 310x155px via `conic-gradient(from 270deg, ...)` + `::after` furo branco
+- `.gauge-number` × 4 (n32/n18a/n18b/n30): n32 em navy para contraste sobre segmento claro
+- `.legend` com `.dot` circulares coloridos por eixo
+
+**Sheet 02 (583x772px):**
+- `.methodology` (318px): h2 em #adc6e5, 3 `.method-pill` escalonados em staircase
+- `.pill-label` circulo 80px slate, `.pill-copy` texto branco
+- `.factors` (454px): fundo navy #161c4e
+- `.factor-title` box azul #adc6e5 com `::before`/`::after` cantos navy recortados
+- `.chevrons` dois `<span>` com `border-right + border-bottom + rotate(45deg)` formando V duplo
+- `.factor-copy` paragrafos brancos com `.lead`, `.relevance` e pesos
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (14a rodada)
 
 ### style — Reconstrucao completa do Fact Sheet seguindo design system fornecido (sobre.css v12)

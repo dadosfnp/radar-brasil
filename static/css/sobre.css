@@ -165,370 +165,508 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     }
 }
 
-/* ── FACT SHEET — infográfico nativo (v12) ──────────────────────── */
-/*    Paleta: #1f3350 / #3c4d6b / #4a5b78 / #a9c1e0 / #cfdcef     */
+/* ── FACT SHEET — infográfico nativo (v13) ──────────────────────── */
+/*    Paleta: --navy #161c4e / --slate #536084 / --blue #adc6e5     */
 
 .sb-infographic {
     margin: 0;
-    padding: 36px 0 48px;
-    background: #ffffff;
+    padding: 40px 16px 56px;
+    background: #f5f7fb;
 }
 
-.sb-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 6px 24px rgba(31,51,80,.18);
-}
-
-/* ── PAINEL ESQUERDO ── */
-.sb-info-left { display: flex; flex-direction: column; }
-
-/* Header: fundo navy-700, muito padding no rodapé para os ícones sobreporem */
-.sb-info-header {
-    background: #3c4d6b;
-    padding: 28px 22px 80px;
+/* Wrapper com duas sheets empilhadas, centradas */
+.fact-sheets {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 14px;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
 }
 
-.sb-info-brand-block { display: flex; flex-direction: column; }
+/* Cada sheet é um card fixo com box-shadow */
+.fact-sheet {
+    position: relative;
+    width: 594px;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(22,28,78,.18);
+}
 
-.sb-info-brand {
+/* Sheet 01 altura total: hero 440 + eval 380 = 820px */
+.sheet-01 { height: 820px; }
+/* Sheet 02 altura total: methodology 318 + factors 454 = 772px */
+.sheet-02 { width: 583px; height: 772px; }
+
+/* ══════════════ SHEET 01 — HERO (440px) ══════════════ */
+.sheet01-hero {
+    position: relative;
+    height: 440px;
+    background: #536084;
+    color: #ffffff;
+    overflow: visible;
+}
+
+.sheet01-hero h1 {
+    position: absolute;
+    top: 24px;
+    left: 28px;
     font-family: Sora, sans-serif;
-    font-size: 1.9rem;
+    font-size: 2.2rem;
     font-weight: 800;
     color: #ffffff;
+    margin: 0;
     line-height: 1;
     letter-spacing: -0.01em;
 }
 
-.sb-info-tagline {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: rgba(255,255,255,.75);
-    margin-top: 5px;
+.sheet01-hero h2 {
+    position: absolute;
+    top: 72px;
+    left: 28px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255,255,255,.72);
+    margin: 0;
+    letter-spacing: 0.01em;
 }
 
-.sb-info-badge {
-    display: inline-flex;
-    align-items: center;
-    background: #ffffff;
-    color: #3c4d6b;
-    font-size: 0.55rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 7px 14px;
+.outline-btn {
+    position: absolute;
+    top: 22px;
+    right: 18px;
+    display: inline-block;
+    border: 1.5px solid rgba(255,255,255,.60);
     border-radius: 999px;
+    color: #ffffff;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 6px 14px;
     white-space: nowrap;
-    flex-shrink: 0;
-    margin-top: 4px;
-    box-shadow: 0 4px 10px rgba(31,51,80,.18);
 }
 
-/* Ícones brancos: margin-top negativo sobrepõe o header */
-.sb-info-icon-row {
-    display: flex;
-    justify-content: space-around;
-    padding: 0 22px;
-    margin-top: -44px;
-    position: relative;
-    z-index: 2;
-    background: #3c4d6b;
-    padding-bottom: 16px;
-}
+/* Linhas decorativas de rede — arcos com borda */
+.network { position: absolute; inset: 0; pointer-events: none; }
 
-.sb-info-icon-circle {
-    width: 72px;
-    height: 72px;
+.network-line {
+    position: absolute;
     border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 6px 16px rgba(31,51,80,.20);
+    border: 1.5px solid rgba(255,255,255,.10);
+}
+
+.line-a { width: 180px; height: 180px; top: -60px; right: -40px; }
+.line-b { width: 110px; height: 110px; top: -20px; right: 0; }
+.line-c { width: 60px;  height: 60px;  top: 20px;  right: 30px; }
+
+/* ── Cards de informação (3 colunas em posição absoluta) ── */
+/* Cada .info-card tem .round-icon (círculo) e .card-body (pill oval) */
+.info-card {
+    position: absolute;
+    width: 124px;
+    top: 108px;
+}
+
+.card-01 { left: 42px; }
+.card-02 { left: 229px; }
+.card-03 { left: 416px; }
+
+/* Ícone circular — flutua acima do card-body */
+.round-icon {
+    position: absolute;
+    top: 0;
+    left: 17px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #efefef;
+    color: #536084;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #3c4d6b;
-    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(22,28,78,.20);
+    z-index: 2;
 }
 
-.sb-info-icon-circle--filled {
-    background: #1f3350;
-    color: #ffffff;
+.round-icon svg { width: 32px; height: 32px; }
+
+/* Card-02: ícone azul claro e body navy escuro */
+.card-02 .round-icon { background: #adc6e5; color: #161c4e; }
+
+/* Body do card — pill muito arredondada */
+.card-body {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    width: 124px;
+    min-height: 300px;
+    padding: 44px 10px 16px;
+    border-radius: 62px;
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(22,28,78,.14);
 }
 
-.sb-info-icon-circle svg { width: 30px; height: 30px; }
+.card-02 .card-body { background: #161c4e; color: #ffffff; }
 
-/* Callouts: cards navy-900 com rabinho apontando para cima (ícone) */
-.sb-info-callouts {
-    display: flex;
-    gap: 10px;
-    background: #3c4d6b;
-    padding: 0 12px 24px;
+.card-body p {
+    font-size: 0.6rem;
+    line-height: 1.6;
+    color: #536084;
+    margin: 0;
+    text-align: center;
 }
 
-.sb-info-card {
-    flex: 1;
-    background: #1f3350;
-    border-radius: 12px;
-    padding: 14px 12px 16px;
+.card-02 .card-body p { color: rgba(255,255,255,.80); }
+
+.card-body strong {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #161c4e;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.card-02 .card-body strong { color: #adc6e5; }
+
+/* ══════════════ SHEET 01 — EVALUATION (380px) ══════════════ */
+.sheet01-evaluation {
     position: relative;
-    min-width: 0;
+    height: 380px;
+    background: #ffffff;
+    overflow: hidden;
 }
 
-/* Rabinho aponta para o ícone acima */
-.sb-info-card::before {
+/* Speech bubble azul clara */
+.speech {
+    position: absolute;
+    left: 12px;
+    top: 18px;
+    width: 320px;
+    border-radius: 22px;
+    background: #adc6e5;
+    padding: 16px 18px 18px;
+    box-sizing: border-box;
+}
+
+.speech h3 {
+    font-family: Sora, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #161c4e;
+    margin: 0 0 6px;
+    line-height: 1.25;
+}
+
+.speech p {
+    font-size: 0.62rem;
+    line-height: 1.6;
+    color: #2e3d5c;
+    margin: 0;
+}
+
+/* Rabinho do balão — triângulo apontando para a direita */
+.speech-tail {
+    position: absolute;
+    right: -18px;
+    top: 22px;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 20px solid #adc6e5;
+}
+
+/* ── Gauge: semicírculo via conic-gradient ── */
+.gauge {
+    position: absolute;
+    top: 148px;
+    left: 162px;
+    width: 310px;
+    height: 155px;
+    overflow: hidden;
+    border-radius: 310px 310px 0 0;
+    background: conic-gradient(
+        from 270deg,
+        #efefef 0deg 115.2deg,
+        #536084 115.2deg 180deg,
+        #adc6e5 180deg 244.8deg,
+        #161c4e 244.8deg 360deg
+    );
+}
+
+/* Furo central branco — cria o efeito de donut */
+.gauge::after {
     content: '';
     position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 10px solid transparent;
-    border-bottom-color: #1f3350;
-    border-top: 0;
+    left: 78px;
+    top: 78px;
+    width: 154px;
+    height: 77px;
+    border-radius: 154px 154px 0 0;
+    background: #ffffff;
 }
 
-.sb-info-card--alt { background: #14233a; }
-.sb-info-card--alt::before { border-bottom-color: #14233a; }
-
-.sb-info-card p {
-    font-size: 0.66rem;
-    line-height: 1.65;
-    color: rgba(255,255,255,.82);
-    margin: 0;
-    text-align: justify;
+/* Container dos números — acima do ::after */
+.gauge-inner {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
 }
 
-.sb-info-card strong {
-    color: #ffffff;
-    font-weight: 700;
-    display: block;
-    margin-bottom: 3px;
-}
-
-/* Zona clara: O que avalia + gráfico */
-.sb-info-eval {
-    flex: 1;
-    padding: 20px 20px 16px;
-    background: #cfdcef;
-    display: flex;
-    flex-direction: column;
-}
-
-.sb-info-eval h3 {
-    font-family: Sora, sans-serif;
-    font-size: 1.1rem;
+.gauge-number {
+    position: absolute;
+    font-size: 13px;
     font-weight: 800;
-    color: #3c4d6b;
-    margin: 0 0 8px;
+    color: #ffffff;
+    font-family: Sora, 'DM Sans', sans-serif;
+}
+
+/* n32 fica no segmento claro (#efefef) — usa cor escura para contraste */
+.n32  { left: 22px;  top: 68px; color: #161c4e; }
+.n18a { left: 112px; top: 16px; }
+.n18b { left: 188px; top: 16px; }
+.n30  { right: 22px; top: 68px; }
+
+/* ── Legenda ── */
+.legend {
+    position: absolute;
+    left: 12px;
+    bottom: 22px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.58rem;
+    color: #536084;
     line-height: 1.2;
 }
 
-.sb-info-eval-text {
-    font-size: 0.7rem;
-    line-height: 1.65;
-    color: #5b6a85;
-    margin: 0 0 10px;
-}
-
-.sb-info-chart-area {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sb-info-donut { width: 100%; max-width: 220px; height: auto; display: block; }
-
-.sb-info-legend {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5px 10px;
-    margin-top: 10px;
-}
-
-.sb-info-legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.67rem;
-    color: #5b6a85;
-    line-height: 1.3;
-}
-
-.sb-info-legend-item span {
+.dot {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     flex-shrink: 0;
 }
 
-/* ── PAINEL DIREITO ── */
-.sb-info-right {
-    background: #cfdcef;
-    display: flex;
-    flex-direction: column;
+.dot-gov { background: #efefef; border: 1px solid #c0c4d0; }
+.dot-pol { background: #536084; }
+.dot-pro { background: #adc6e5; }
+.dot-fin { background: #161c4e; }
+
+/* Onda decorativa no rodapé do evaluation */
+.bottom-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: #536084;
+    border-radius: 16px 16px 0 0;
+    opacity: .18;
 }
 
-.sb-info-how { flex: 1; padding: 22px 18px 16px; }
+/* ══════════════ SHEET 02 — METHODOLOGY (318px) ══════════════ */
+.methodology {
+    position: relative;
+    height: 318px;
+    background: #ffffff;
+    padding: 24px 24px 0;
+    box-sizing: border-box;
+}
 
-.sb-info-how h3 {
+.methodology h2 {
     font-family: Sora, sans-serif;
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 800;
-    color: #3c4d6b;
-    margin: 0 0 18px;
+    color: #adc6e5;
+    margin: 0 0 20px;
     line-height: 1.3;
+    max-width: 320px;
 }
 
-/* Steps: badge navy sobrepõe pill azul-claro */
-.sb-info-steps { display: flex; flex-direction: column; gap: 14px; }
-
-.sb-info-step { display: flex; align-items: stretch; }
-.sb-info-step--2 { margin-left: 20px; }
-.sb-info-step--3 { margin-left: 40px; }
-
-.sb-info-step-badge {
-    flex: 0 0 auto;
-    min-width: 84px;
-    background: #3c4d6b;
+/* Pills escalonados em staircase */
+.method-pill {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    min-height: 80px;
+    border-radius: 50px;
+    background: #161c4e;
     color: #ffffff;
-    font-size: 0.56rem;
+    overflow: hidden;
+}
+
+/* Posições em staircase (cada um avança ~107px à direita) */
+.pill-axes      { left: 24px;  top: 86px;  width: 264px; }
+.pill-criteria  { left: 130px; top: 172px; width: 300px; }
+.pill-parameters{ left: 240px; top: 258px; width: 320px; }
+
+/* Círculo-badge à esquerda do pill */
+.pill-label {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #536084;
+    color: #ffffff;
+    font-size: 0.55rem;
     font-weight: 700;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 14px;
-    z-index: 2;
-    margin-right: -26px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.3;
+    padding: 0 6px;
 }
 
-.sb-info-step-content {
+/* Texto do pill */
+.pill-copy {
     flex: 1;
-    background: #1f3350;
-    border-radius: 999px;
-    padding: 12px 18px 12px 40px;
-    font-size: 0.68rem;
+    padding: 8px 16px 8px 6px;
+    font-size: 0.62rem;
+    line-height: 1.5;
     color: rgba(255,255,255,.88);
-    line-height: 1.65;
+}
+
+/* ══════════════ SHEET 02 — FACTORS (454px) ══════════════ */
+.factors {
+    position: relative;
+    height: 454px;
+    background: #161c4e;
+    overflow: hidden;
+}
+
+/* Título azul claro com cantos recortados por ::before/::after */
+.factor-title {
+    position: absolute;
+    top: 30px;
+    left: 110px;
+    width: 310px;
+    min-height: 82px;
+    background: #adc6e5;
+    color: #161c4e;
     display: flex;
     align-items: center;
+    padding: 14px 18px;
+    box-sizing: border-box;
 }
 
-/* ── HIGHLIGHT / FATORES — fundo navy-900 ── */
-.sb-info-highlight {
-    background: #1f3350;
-    padding: 20px 18px 22px;
-}
-
-.sb-info-highlight-pill {
-    display: block;
-    background: #cfdcef;
-    color: #22304a;
+.factor-title h3 {
     font-family: Sora, sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    text-align: center;
-    line-height: 1.4;
-    padding: 14px 20px;
-    border-radius: 999px;
-    margin-bottom: 14px;
-}
-
-/* Chevrons: dois ⌄ empilhados */
-.sb-info-chevrons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 14px;
-    color: #a9c1e0;
-    line-height: 0.55;
-}
-
-.sb-info-chevrons span {
-    font-size: 2rem;
-    display: block;
-}
-
-.sb-info-wlist {
-    list-style: none;
-    padding: 0;
+    color: #161c4e;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    line-height: 1.4;
+    text-align: center;
 }
 
-.sb-info-wlist > li {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,.82);
+/* Cantos decorativos (peças navy arredondadas que cobrem os cantos do box) */
+.factor-title::before,
+.factor-title::after {
+    content: '';
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    background: #161c4e;
+}
+
+.factor-title::before {
+    bottom: -1px;
+    left: -1px;
+    border-radius: 0 17px 0 0;
+}
+
+.factor-title::after {
+    bottom: -1px;
+    right: -1px;
+    border-radius: 17px 0 0 0;
+}
+
+/* Chevrons duplos em V apontando para baixo */
+.chevrons {
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+}
+
+.chevrons span {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-right: 3px solid #adc6e5;
+    border-bottom: 3px solid #adc6e5;
+    transform: rotate(45deg);
+    left: 12px;
+}
+
+.chevrons span:first-child { top: 0; }
+.chevrons span:last-child  { top: 16px; }
+
+/* Conteúdo de texto dos fatores */
+.factor-copy {
+    position: absolute;
+    top: 196px;
+    left: 24px;
+    right: 24px;
+}
+
+.factor-copy p {
+    font-size: 0.64rem;
+    color: rgba(255,255,255,.80);
     line-height: 1.65;
-    padding-left: 14px;
-    position: relative;
+    margin: 0 0 7px;
 }
 
-.sb-info-wlist > li::before {
-    content: "■";
-    position: absolute;
-    left: 0;
-    font-size: 0.4rem;
-    color: #a9c1e0;
-    top: 6px;
+.factor-copy p.lead {
+    color: rgba(255,255,255,.90);
+    margin-bottom: 12px;
 }
 
-.sb-info-sublist {
-    list-style: none;
-    padding: 0;
-    margin: 6px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.factor-copy p.relevance {
+    color: #adc6e5;
+    font-size: 0.65rem;
+    margin-bottom: 6px;
 }
 
-.sb-info-sublist > li {
-    font-size: 0.67rem;
-    color: rgba(255,255,255,.75);
-    line-height: 1.6;
-    padding-left: 10px;
-    position: relative;
+.factor-copy p strong {
+    color: #adc6e5;
+    font-weight: 700;
 }
 
-.sb-info-sublist > li::before {
-    content: "–";
-    position: absolute;
-    left: 0;
-    color: rgba(169,193,224,.55);
-}
+/* ── RESPONSIVO — scale proporcional em telas menores ── */
+@media (max-width: 640px) {
+    .sb-infographic { padding: 24px 0 40px; }
 
-.sb-info-wtag {
-    font-weight: 800;
-    color: #a9c1e0;
-}
+    .fact-sheet,
+    .sheet-02 {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        transform-origin: top center;
+    }
 
-/* ── RESPONSIVO ── */
-@media (max-width: 920px) {
-    .sb-info-grid { grid-template-columns: 1fr; }
-    .sb-info-step--2 { margin-left: 14px; }
-    .sb-info-step--3 { margin-left: 28px; }
-}
+    /* Sheet 01 */
+    .sheet-01 {
+        height: auto;
+        min-height: 820px;
+    }
 
-@media (max-width: 600px) {
-    .sb-info-callouts { flex-direction: column; }
-    .sb-info-brand { font-size: 1.5rem; }
-    .sb-info-header { padding-bottom: 68px; }
-    .sb-info-icon-circle { width: 58px; height: 58px; }
-    .sb-info-icon-circle svg { width: 24px; height: 24px; }
-    .sb-info-donut { max-width: 180px; }
-    .sb-info-header { flex-wrap: wrap; }
+    /* Sheet 02 */
+    .sheet-02 {
+        height: auto;
+        min-height: 772px;
+    }
 }
