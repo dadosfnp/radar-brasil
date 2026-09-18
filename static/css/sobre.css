@@ -174,12 +174,16 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     background: #f5f7fb;
 }
 
-/* Wrapper com duas sheets empilhadas, centradas */
+/* Wrapper com duas sheets empilhadas, centradas — escala 140% via transform.
+   margin-bottom compensa o overflow inferior: (820+28+772) × 0.4 = 648px */
 .fact-sheets {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 28px;
+    transform: scale(1.4);
+    transform-origin: top center;
+    margin-bottom: 648px;
 }
 
 /* Cada sheet é um card fixo com box-shadow */

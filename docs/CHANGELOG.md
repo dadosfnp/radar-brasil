@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (20a rodada)
+
+### style — Fact Sheet v18: escala 140% via CSS transform
+
+- `.fact-sheets`: `transform: scale(1.4); transform-origin: top center; margin-bottom: 648px`
+- margin-bottom compensa overflow inferior do scale: (820+28+772) × 0.4 = 648px
+- Abordagem via transform preserva todos os posicionamentos absolutos internos sem recalculo
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (19a rodada)
 
 ### style — Fact Sheet v17: legenda do gauge em linha unica
