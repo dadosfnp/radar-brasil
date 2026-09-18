@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (23a rodada)
+
+### style — Fact Sheet v21: botao com fundo branco + curva 3x mais grossa
+
+1. outline-btn: background rgba(255,255,255,0.92) + color:#161c4e + z-index:10 (aparece acima dos cards)
+2. hero-wave: stroke-width 2.5 -> 7.5 (3x mais grossa); top:55px -> top:120px (centraliza a curva no meio dos 440px do hero)
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (22a rodada)
 
 ### style — Fact Sheet v20: curva SVG S-curve + relogio card-03

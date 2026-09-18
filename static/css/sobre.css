@@ -239,11 +239,12 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     position: absolute;
     top: 98px;
     left: 28px;
+    z-index: 10;
     display: inline-block;
-    border: 1.5px solid rgba(255,255,255,.60);
+    border: 1.5px solid rgba(255,255,255,.55);
     border-radius: 999px;
-    background: transparent;
-    color: #ffffff;
+    background: rgba(255,255,255,0.92);
+    color: #161c4e;
     font-size: 0.5rem;
     font-weight: 700;
     letter-spacing: 0.09em;
@@ -252,12 +253,11 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     white-space: nowrap;
 }
 
-/* Curva S decorativa que passa pelo centro dos 3 ícones circulares.
-   SVG posicionado de modo que a curva (viewBox y=100) coincida com y≈155px do hero
-   (centro dos icons: top:108 + 45 = 153px). */
+/* Curva S decorativa — centralizada verticalmente no hero (440px → top:120 + metade 200px = 220px).
+   stroke-width:7.5 = 3× o valor original de 2.5 */
 .hero-wave {
     position: absolute;
-    top: 55px;
+    top: 120px;
     left: 0;
     width: 100%;
     height: 200px;
