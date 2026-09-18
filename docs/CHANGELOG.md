@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (25a rodada)
+
+### content — FAQ sobre.html: dois textos atualizados
+
+1. "Qual o escopo do Radar Brasil?" - resposta substituida: paragrafo unico -> dois paragrafos com o escopo federal e os tres fatores do recorte (acessibilidade, agenda CHAMP, papel da Uniao)
+2. "Quais os fatores predominantes para a avaliacao da governanca multinivel?" - novo paragrafo inserido sobre ponderacao por relevancia federativa (peso 2 no criterio principal, peso 1 nos demais)
+
+**Arquivos:** `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (24a rodada)
 
 ### style — Fact Sheet v22: h2 e botao subidos para nao sobrepor cards
