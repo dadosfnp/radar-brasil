@@ -442,12 +442,14 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 /* ── Legenda ── */
 .legend {
     position: absolute;
-    left: 12px;
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 22px;
     display: flex;
     gap: 10px;
     align-items: center;
     flex-wrap: wrap;
+    white-space: nowrap;
 }
 
 .legend span {
@@ -616,8 +618,8 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     pointer-events: none;
 }
 
-.ft-bl { bottom: -1px; left: -1px; border-radius: 17px 0 0 0; }
-.ft-br { bottom: -1px; right: -1px; border-radius: 0 17px 0 0; }
+.ft-bl { bottom: -1px; left: -1px; border-radius: 0 17px 0 0; }
+.ft-br { bottom: -1px; right: -1px; border-radius: 17px 0 0 0; }
 
 /* Chevrons duplos em V apontando para baixo */
 .chevrons {

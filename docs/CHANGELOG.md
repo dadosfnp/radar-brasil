@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (18a rodada)
+
+### style — Fact Sheet v16: legenda centralizada + curvinhas inferiores corrigidas
+
+1. legenda: centralizada em relacao a folha via `left: 50%; transform: translateX(-50%)` (era `left: 12px`)
+2. ft-bl / ft-br: border-radius corrigidos — a curva deve apontar para o INTERIOR da caixa: .ft-bl agora `0 17px 0 0` (canto superior-direito arredondado) e .ft-br agora `17px 0 0 0` (canto superior-esquerdo arredondado), espelhando o comportamento dos cantos superiores
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (17a rodada)
 
 ### style — Fact Sheet v15: gauge corrigido (at 50% 100%) + curvinhas em 4 cantos do factor-title
