@@ -4,6 +4,30 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (14a rodada)
+
+### style — Reconstrucao completa do Fact Sheet seguindo design system fornecido (sobre.css v12)
+
+Paleta correta: #1f3350 (navy-900) / #3c4d6b (navy-700) / #4a5b78 (navy-600) / #a9c1e0 (blue-300) / #cfdcef (blue-200)
+
+Estrutura completamente refeita:
+- Header: fundo #3c4d6b, padding-bottom 80px para ícones sobreporem
+- Icon row: 3 circulos brancos 72px com box-shadow, margin-top -44px sobrepostos ao header
+- sb-info-icon-circle--filled: variante navy-900 com icone branco (col do meio)
+- Cards de texto (sb-info-card): fundo #1f3350, rabinho ::before apontando para cima
+- sb-info-card--alt: variante #14233a para col do meio
+- strong nos cards: display:block para separar do texto
+- Eval section: fundo #cfdcef, h3 Sora 1.1rem #3c4d6b
+- Grafico horseshoe: cores atualizadas para paleta nova (gray-200/navy-600/blue-300/navy-900)
+- sb-info-step: badge navy-700 com margin-right -26px sobrepos pill navy-900
+- sb-info-highlight: fundo navy-900, pill #cfdcef com texto #22304a
+- Chevrons: dois span com caracter U+2304 (down-pointing curved angle) empilhados
+- sb-info-wtag: bold #a9c1e0
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (13a rodada)
 
 ### style — Segunda rodada de fidelidade do Fact Sheet ao design de referencia (sobre.css v11)
