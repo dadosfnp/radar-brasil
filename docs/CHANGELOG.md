@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (19a rodada)
+
+### style — Fact Sheet v17: legenda do gauge em linha unica
+
+- legend: `flex-wrap: nowrap` (era `wrap`) + `gap: 8px` (era 10px) — todos os 4 itens ficam na mesma linha centralizada
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (18a rodada)
 
 ### style — Fact Sheet v16: legenda centralizada + curvinhas inferiores corrigidas

@@ -446,9 +446,9 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     transform: translateX(-50%);
     bottom: 22px;
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     white-space: nowrap;
 }
 
