@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-11 (tarde)
+> Última atualização: 2026-09-18 (tarde)
 
 ---
 
@@ -280,18 +280,18 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-17)
+## Estado Atual do Projeto (2026-09-18)
 
-### Branch atual: `main` — `93de986`
+### Branch atual: `main` — `c0060a1`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `93de986` | `93de986` |
-| `prod` (dadosfnp) | - | `93de986` |
+| `origin` (brunofnp) | `93de986` | `c0060a1` |
+| `prod` (dadosfnp) | - | `c0060a1` |
 
-> `origin` e `prod` identicos em `main`. `next` sincronizado com `main`. Criar feature branches a partir de `next`.
+> `origin` e `prod` identicos em `main`. `next` ainda em `93de986` — sincronizar apos proximo deploy. Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -600,7 +600,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
 | `metodologia.css` | v=52 |
-| `sobre.css` | v=8 |
+| `sobre.css` | v=23 |
 | `avaliacao-painel.css` | v=14 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
@@ -617,22 +617,32 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 - DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
 - Fact Sheet do Radar Brasil removido de sobre.html temporariamente (HTML salvo em memoria: `factsheet-placeholder-html.md`)
 - Strings novas no hero de Sobre e Metodologia ainda nao estao em `locale/en/LC_MESSAGES/django.po` — ao retomar i18n, traduzir: "Como avaliamos o Radar Brasil?" e "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro." para Sobre; e "Impulsionando a Ação Climática Federativa" + descricao completa para Metodologia
-- Deploy no droplet pendente (usuario precisa rodar): `ssh fnp-web "cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d"`
+- Deploy no droplet pendente (usuario precisa rodar): `cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d`
+- `next` branch desatualizado em `93de986` — rodar `git branch -f next main && git push origin next --force-with-lease` apos deploy
+- Strings novas no hero de Sobre e Metodologia ainda nao estao em `locale/en/LC_MESSAGES/django.po`
 
-### Pagina Sobre — estado (2026-09-17)
+### Pagina Sobre — estado (2026-09-18)
 
-CSS: `static/css/sobre.css` **v=8** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
+CSS: `static/css/sobre.css` **v=23** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
 
 Secoes em ordem:
-1. Hero: badge "Sobre o Radar Brasil", titulo "Como avaliamos o Radar Brasil?", descricao de criterios/formula
-2. "Por que avaliar o Federalismo Climatico?" (meto-federalism-section) — conceito box + diagrama uniao/estados/municipios
-3. Scroll-stack de 4 fotos (meto-scroll-section) — mesma logica do scroll interativo da Metodologia
-4. Historico do Federalismo Climatico (meto-timeline-section) — linha do tempo horizontal
-5. FAQ com 10 perguntas accordion (sb-faq-section)
+1. Fact Sheet (sb-infographic) — 2 folhas A4 em escala 1.4x com transform:scale(1.4)
+2. "Por que avaliar o Federalismo Climatico?" (meto-federalism-section)
+3. Scroll-stack de 4 fotos (meto-scroll-section)
+4. Historico do Federalismo Climatico (meto-timeline-section)
+5. FAQ com accordion (sb-faq-section)
 
-Removido: bloco Fact Sheet placeholder (sb-factsheet-placeholder) — salvo na memoria para restaurar depois.
+**Fact Sheet v23 — estado atual:**
+- Sheet-01 (594x820px): hero navy com h1/h2/outline-btn, 3 info-cards, S-curve SVG de fundo, secao de avaliacao com speech-bubble + gauge semicircular (4 cores) + legenda
+- Sheet-02 (583x772px): metodologia com 3 method-pills, fatores predominantes com factor-title (4 cantos arredondados) + chevrons + 5 paragrafos no factor-copy
+- Gauge: conic-gradient `from 270deg at 50% 100%` — 4 segmentos (Governanca/Politicas/Programas/Linhas)
+- Animacoes v23: IntersectionObserver dispara `.fs-visible` em cada `.fact-sheet`; 4 keyframes (fs-up, fs-from-left, fs-pop, fs-fade); stagger entre elementos; prefers-reduced-motion compativel
 
-Linha de divisao: border-top 1px solid rgba(38,69,132,.10) no meto-scroll-section (entre "Por que avaliar" e fotos).
+**FAQ — textos atuais (v25):**
+- "Qual o escopo do Radar Brasil?": 2 paragrafos (escopo federal + 3 fatores do recorte)
+- "Quais os fatores predominantes?": 5 paragrafos incluindo Ponderacao por relevancia federativa
+
+Linha de divisao: border-top 1px solid rgba(38,69,132,.10) no meto-scroll-section.
 
 ---
 
