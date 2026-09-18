@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (26a rodada)
+
+### style — Fact Sheet v23: animacoes de entrada nos elementos
+
+- Keyframes: fs-up (fade+translateY), fs-from-left (fade+translateX), fs-pop (fade+scale), fs-fade
+- IntersectionObserver (threshold 0.08) adiciona .fs-animate + .fs-visible a cada .fact-sheet quando entra no viewport
+- Sheet-01 hero: h1, h2, outline-btn em cascata (delay 0.10s-0.28s); cards 01-03 deslizam da esquerda (delay 0.36s-0.64s); hero-wave e network em fade junto com h1
+- Sheet-01 evaluation: speech em pop (0.18s); gauge em pop (0.36s); numeros do gauge fade apos o gauge (0.82s); legenda up (0.74s)
+- Sheet-02: h2 + pills em cascata da esquerda; factor-title up; paragrafos do factor-copy em cascata (0.22s-0.70s)
+- Progressive enhancement: sem JS os elementos ficam visiveis; prefers-reduced-motion desativa tudo
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (25a rodada)
 
 ### content — FAQ sobre.html: dois textos atualizados

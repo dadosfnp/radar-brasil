@@ -716,3 +716,73 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
         min-height: 772px;
     }
 }
+
+/* ── FACT SHEET ANIMATIONS (v23) ─────────────────────────────────── */
+
+@keyframes fs-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fs-from-left {
+    from { opacity: 0; transform: translateX(-14px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fs-pop {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes fs-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Estado inicial — aplicado só via JS (.fs-animate) */
+.fs-animate .sheet01-hero h1,
+.fs-animate .sheet01-hero h2,
+.fs-animate .sheet01-hero .outline-btn,
+.fs-animate .hero-wave,
+.fs-animate .network,
+.fs-animate .info-card,
+.fs-animate .speech,
+.fs-animate .gauge,
+.fs-animate .gauge-number,
+.fs-animate .legend,
+.fs-animate .methodology h2,
+.fs-animate .method-pill,
+.fs-animate .factor-title,
+.fs-animate .factor-copy p,
+.fs-animate .chevrons { opacity: 0; }
+
+/* ── Sheet-01 hero ── */
+.fs-animate.fs-visible .hero-wave                 { animation: fs-fade      0.60s 0.05s ease-out both; }
+.fs-animate.fs-visible .network                   { animation: fs-fade      0.60s 0.05s ease-out both; }
+.fs-animate.fs-visible .sheet01-hero h1           { animation: fs-up        0.45s 0.10s ease-out both; }
+.fs-animate.fs-visible .sheet01-hero h2           { animation: fs-up        0.45s 0.20s ease-out both; }
+.fs-animate.fs-visible .sheet01-hero .outline-btn { animation: fs-up        0.40s 0.28s ease-out both; }
+.fs-animate.fs-visible .card-01                   { animation: fs-from-left 0.45s 0.36s ease-out both; }
+.fs-animate.fs-visible .card-02                   { animation: fs-from-left 0.45s 0.50s ease-out both; }
+.fs-animate.fs-visible .card-03                   { animation: fs-from-left 0.45s 0.64s ease-out both; }
+
+/* ── Sheet-01 evaluation ── */
+.fs-animate.fs-visible .speech                    { animation: fs-pop       0.45s 0.18s ease-out both; }
+.fs-animate.fs-visible .gauge                     { animation: fs-pop       0.55s 0.36s ease-out both; }
+.fs-animate.fs-visible .gauge-number              { animation: fs-fade      0.40s 0.82s ease-out both; }
+.fs-animate.fs-visible .legend                    { animation: fs-up        0.40s 0.74s ease-out both; }
+
+/* ── Sheet-02 ── */
+.fs-animate.fs-visible .methodology h2            { animation: fs-up        0.45s 0.08s ease-out both; }
+.fs-animate.fs-visible .pill-axes                 { animation: fs-from-left 0.42s 0.20s ease-out both; }
+.fs-animate.fs-visible .pill-criteria             { animation: fs-from-left 0.42s 0.33s ease-out both; }
+.fs-animate.fs-visible .pill-parameters           { animation: fs-from-left 0.42s 0.46s ease-out both; }
+.fs-animate.fs-visible .factor-title              { animation: fs-up        0.42s 0.10s ease-out both; }
+.fs-animate.fs-visible .chevrons                  { animation: fs-fade      0.40s 0.28s ease-out both; }
+.fs-animate.fs-visible .factor-copy p:nth-child(1){ animation: fs-up        0.40s 0.22s ease-out both; }
+.fs-animate.fs-visible .factor-copy p:nth-child(2){ animation: fs-up        0.40s 0.34s ease-out both; }
+.fs-animate.fs-visible .factor-copy p:nth-child(3){ animation: fs-up        0.40s 0.46s ease-out both; }
+.fs-animate.fs-visible .factor-copy p:nth-child(4){ animation: fs-up        0.40s 0.58s ease-out both; }
+.fs-animate.fs-visible .factor-copy p:nth-child(5){ animation: fs-up        0.40s 0.70s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+    .fs-animate *,
+    .fs-animate.fs-visible * { animation: none !important; opacity: 1 !important; }
+}

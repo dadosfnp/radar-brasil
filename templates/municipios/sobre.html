@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
-    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=22">
+    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=23">
 {% endblock %}
 
 {% block content %}
@@ -647,6 +647,22 @@
         }, { threshold: 0.15 });
         obs.observe(el);
     });
+
+    /* Fact-sheet entry animations */
+    if (!reducedMotion) {
+        document.querySelectorAll('.fact-sheet').forEach(function(el) {
+            el.classList.add('fs-animate');
+            var obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fs-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            obs.observe(el);
+        });
+    }
 
     /* FAQ accordion */
     document.querySelectorAll('.sb-faq-question').forEach(function(btn) {
