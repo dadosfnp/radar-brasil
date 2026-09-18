@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
-    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=19">
 {% endblock %}
 
 {% block content %}
@@ -61,6 +61,9 @@
                 <span class="network-line line-c"></span>
             </div>
 
+            <!-- Faixa horizontal atrás dos ícones (elemento decorativo de conexão) -->
+            <span class="hero-band" aria-hidden="true"></span>
+
             <!-- Card 01: O que é -->
             <div class="info-card card-01">
                 <div class="round-icon">
@@ -71,13 +74,13 @@
                 </div>
             </div>
 
-            <!-- Card 02: Fontes dos dados (navy escuro) -->
+            <!-- Card 02: Fontes dos dados (navy escuro) — monitor com gráfico de linha -->
             <div class="info-card card-02">
                 <div class="round-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <rect x="2" y="3" width="20" height="14" rx="2"/>
+                        <polyline points="6 13 9 9 12 11 16 7" stroke-width="1.4"/>
                         <path d="M8 21h8M12 17v4"/>
-                        <path d="M7 8h10M7 11h7" stroke-width="1.2"/>
                     </svg>
                 </div>
                 <div class="card-body">
@@ -85,12 +88,13 @@
                 </div>
             </div>
 
-            <!-- Card 03: Recorte temporal -->
+            <!-- Card 03: Recorte temporal — termômetro (clima + medição) -->
             <div class="info-card card-03">
                 <div class="round-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+                        <line x1="9" y1="9" x2="11" y2="9" stroke-width="1.2"/>
+                        <line x1="9" y1="6" x2="11" y2="6" stroke-width="1.2"/>
                     </svg>
                 </div>
                 <div class="card-body">

@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (21a rodada)
+
+### style — Fact Sheet v19: botao hero, hero-band e icones 02/03
+
+1. outline-btn: movido de top-right (top:22/right:18) para abaixo do h2 (top:98/left:28) + background:transparent explicito
+2. hero-band: faixa semi-transparente (rgba branco 9%) de 46px no nivel dos icones circulares (top:130), conectando visualmente os tres cards
+3. card-02 icon: monitor com polyline de linha de tendencia (era monitor com linhas horizontais)
+4. card-03 icon: termometro com marcacoes (era relogio), relacionando medicao climatica
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (20a rodada)
 
 ### style — Fact Sheet v18: escala 140% via CSS transform
