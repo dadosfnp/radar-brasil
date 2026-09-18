@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (22a rodada)
+
+### style — Fact Sheet v20: curva SVG S-curve + relogio card-03
+
+1. hero-band removido: substituido por SVG .hero-wave com path bezier S-curve (M0 100 C 100 20, 200 180, 297 100 S 494 20, 594 100) — curva passa pelo centro dos 3 icones (y≈155px do hero), stroke rgba(255,255,255,0.22)
+2. card-03 icon: revertido de termometro para relogio analogico (circle + polyline) conforme referencia
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (21a rodada)
 
 ### style — Fact Sheet v19: botao hero, hero-band e icones 02/03
