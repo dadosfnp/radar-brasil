@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (16a rodada)
+
+### style — Fact Sheet v14: 5 ajustes finos de fidelidade ao design de referencia
+
+1. card-01 icon: globo SVG substituido por avatar-principal.svg (img com card-avatar-icon 56px)
+2. card-body: top:64px + min-height:248px (era 58/300) — corrige corte na borda inferior do pill dentro do hero 440px
+3. conic-gradient do gauge: reescrito para cobrir apenas os 180° visiveis (from 270deg); segmentos agora em 58.8/33.1/33.1/55.1 graus — exibe 4 cores; gauge deslocado left:142px; numeros em posicoes originais (n32 left:45 top:62, n18a left:118 top:12, etc.)
+4. speech-tail: alterado de seta direita para triangulo apontando para baixo (border-top:26px solid #adc6e5)
+5. method-pills: reposicionados (top:64/150/236px, era 86/172/258) para que o ultimo pill caiba dentro dos 318px da secao; h2 methodology compactado (0.9rem, padding-top:14px)
+6. factor-title::before/::after: movidos do rodape (bottom) para o topo (top) — cria os "abaulados" (curvas concavas nas quinas superiores da caixa azul) conforme referencia
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-18 (15a rodada)
 
 ### style — Fact Sheet v13: reconstrucao com design system do usuario (sobre.css v13)

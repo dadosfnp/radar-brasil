@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
-    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=13">
+    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=14">
 {% endblock %}
 
 {% block content %}
@@ -64,10 +64,7 @@
             <!-- Card 01: O que é -->
             <div class="info-card card-01">
                 <div class="round-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
+                    <img src="{% static 'img/avatar-principal.svg' %}" alt="" aria-hidden="true" class="card-avatar-icon">
                 </div>
                 <div class="card-body">
                     <p><strong>{% trans "O que é o Radar Brasil:" %}</strong> {% trans "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal." %}</p>
