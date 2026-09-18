@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-18 (13a rodada)
+
+### style — Segunda rodada de fidelidade do Fact Sheet ao design de referencia (sobre.css v11)
+
+- sb-info-callout: speech bubble em #c0d8f0 com triangulo CSS ::after apontando para o grafico
+- sb-info-chevron: refeito com ::before/::after formando V real (barras anguladas 35deg)
+- sb-info-factors-pill: cor #3558a0 (azul medio, contraste claro contra fundo #0f1c47)
+- sb-info-right: fundo #d4e5f5 (azul mais saturado)
+- sb-info-orb: tamanho 64px
+- Texto das colunas: text-align justify
+- Versao CSS bump para v=10 no template
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-17 (12a rodada)
 
 ### style — Redesign Fact Sheet em Sobre para fidelidade ao design de referencia (sobre.css v10)

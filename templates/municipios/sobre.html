@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
-    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=9">
+    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=10">
 {% endblock %}
 
 {% block content %}
@@ -101,7 +101,7 @@
                 <!-- Zona clara: O que avalia + gráfico horseshoe -->
                 <div class="sb-info-eval">
                     <h3>{% trans "O que o Radar Brasil avalia?" %}</h3>
-                    <p>{% trans "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais." %}</p>
+                    <div class="sb-info-callout">{% trans "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais." %}</div>
 
                     <div class="sb-info-chart-area">
                         <!-- Horseshoe donut: 270° arc, gap at bottom -->
