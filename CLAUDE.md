@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-23
+> Última atualização: 2026-09-23 (fim do expediente)
 
 ---
 
@@ -284,16 +284,16 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ## Estado Atual do Projeto (2026-09-23)
 
-### Branch atual: `main` — `28d84fb`
+### Branch atual: `main` — `e3e4428`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `28d84fb` | `28d84fb` |
-| `prod` (dadosfnp) | `28d84fb` | `28d84fb` |
+| `origin` (brunofnp) | `e3e4428` | `e3e4428` |
+| `prod` (dadosfnp) | `e3e4428` | `e3e4428` |
 
-> `origin`, `prod`, `main` e `next` todos identicos e sincronizados em `28d84fb`. Criar feature branches a partir de `next`.
+> `origin`, `prod`, `main` e `next` todos identicos e sincronizados em `e3e4428`. Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -312,12 +312,14 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Deploy feito em 2026-09-23 (commit `28d84fb`) — usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
+Deploy feito em 2026-09-23 (commit `e3e4428`) — usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
+
+**Apos mudancas em `sheets_reader.py`/`sync_sheets_db.py` (ou qualquer fix que precise reprocessar dados ja importados):** o deploy sozinho so atualiza o codigo. Tambem rodar `docker compose exec radarbrasil python manage.py sync_sheets_db` para reimportar as planilhas e substituir os registros existentes no banco com a correcao aplicada — feito em 2026-09-23 para o fix de mojibake.
 
 ### Infraestrutura de producao
 
@@ -638,9 +640,17 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-Nenhuma pendencia conhecida em 2026-09-23 (sessao de manha) — `main`/`next` sincronizados nos dois remotos e no droplet, i18n do hero de Sobre/Metodologia ja traduzido, sem arquivos soltos nao commitados. Nota informativa (nao acionavel): DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados").
+Nenhuma pendencia conhecida ao fim do expediente de 2026-09-23 — `main`/`next` sincronizados nos dois remotos (`e3e4428`) e deployados no droplet, incluindo `sync_sheets_db` re-executado (fix de mojibake aplicado aos dados ja salvos). Sem arquivos soltos nao commitados.
 
-> Usuario tem reuniao as 11h do mesmo dia que deve trazer novas alteracoes — revisar esta secao na proxima sessao.
+**Resumo do dia (2026-09-23) — 6 fixes, todos deployados:**
+1. Modal ficha tecnica (Componentes): z-index atras do header ao rolar
+2. Fact Sheet (Sobre): legenda do gauge descentralizada por animation + overflow horizontal fantasma
+3. i18n EN: strings faltando no Fact Sheet e na intro do Nivel Pais
+4. Header: menu quebrando linha em notebooks — 2 tentativas (v19 hamburger em 1600px foi **rejeitado pelo usuario**, v20 nav fluido com 6 degraus foi a solucao final)
+5. Landing (EN): chips "Dashboards/Maps/Data" quebrando linha no card Knowledge in Action
+6. Mojibake: encoding corrompido em textos do Google Sheets (Fichas/Parametros/Mapa, PT+EN) — corrigido na leitura + resync rodado em producao
+
+Nota informativa (nao acionavel): DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados"). SSL expira 2026-11-15 (renovacao automatica via certbot).
 
 ### Pagina Sobre — estado (2026-09-23)
 
