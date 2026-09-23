@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-18 (tarde)
+> Última atualização: 2026-09-23
 
 ---
 
@@ -280,18 +280,18 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-18)
+## Estado Atual do Projeto (2026-09-23)
 
-### Branch atual: `main` — `c0060a1`
+### Branch atual: `main` — `28d84fb`
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `93de986` | `c0060a1` |
-| `prod` (dadosfnp) | - | `c0060a1` |
+| `origin` (brunofnp) | `28d84fb` | `28d84fb` |
+| `prod` (dadosfnp) | `28d84fb` | `28d84fb` |
 
-> `origin` e `prod` identicos em `main`. `next` ainda em `93de986` — sincronizar apos proximo deploy. Criar feature branches a partir de `next`.
+> `origin`, `prod`, `main` e `next` todos identicos e sincronizados em `28d84fb`. Criar feature branches a partir de `next`.
 
 ### Git — autenticacao configurada
 
@@ -310,9 +310,9 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Push realizado em 2026-09-17 (commit 93de986). Usuario precisa rodar o deploy no droplet:
+Deploy feito em 2026-09-23 (commit `28d84fb`) — usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
 ```bash
-ssh fnp-web "cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d"
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
 
 **CRITICO:** `docker compose up -d` sem `build` nao atualiza arquivos estaticos (WhiteNoise serve de dentro da imagem). Sempre rodar `build` apos mudancas em CSS/JS/templates.
@@ -526,9 +526,9 @@ Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no esta
 - Sem isso, `min-width: auto` (default flex) forcava expansao para ~700px quebrando o layout
 - `overflow: hidden` adicionado ao `.pm-chart-area` no mobile como barreira adicional
 
-### Avaliacao Painel — estado (2026-09-09)
+### Avaliacao Painel — estado (2026-09-23)
 
-CSS: `static/css/avaliacao-painel.css` v=14 | Template: `templates/municipios/avaliacao-painel.html`
+CSS: `static/css/avaliacao-painel.css` v=15 | Template: `templates/municipios/avaliacao-painel.html`
 
 Todos os touch targets elevados para min-height: 44px em mobile.
 
@@ -536,6 +536,8 @@ Todos os touch targets elevados para min-height: 44px em mobile.
 - `inset: 88px 0 0` no `.ap-modal-overlay` em `<=900px` — overlay inicia abaixo do header
 - Substituiu abordagem anterior de `padding-top: calc(88px + 8px)` que nao funcionava
 - `.ap-modal-box { max-height: calc(100svh - 88px - 20px) }` — altura limitada ao espaco disponivel
+
+**Fix z-index do modal desktop (v15):** `.ap-modal-overlay` tinha `z-index: 1000`, menor que `.rb-header-wrapper` (`z-index: 1001`) — o header sticky cobria o cabecalho colorido do modal (titulo, botao PDF, X) ao rolar a pagina em Componentes. Corrigido para `z-index: 1100`.
 
 ### Financiamento Climatico — estado (2026-09-11)
 
@@ -600,8 +602,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
 | `metodologia.css` | v=52 |
-| `sobre.css` | v=23 |
-| `avaliacao-painel.css` | v=14 |
+| `sobre.css` | v=25 |
+| `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
 | `painel-multinivel.js` | v=8 |
@@ -614,16 +616,13 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-- DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados")
-- Fact Sheet do Radar Brasil removido de sobre.html temporariamente (HTML salvo em memoria: `factsheet-placeholder-html.md`)
-- Strings novas no hero de Sobre e Metodologia ainda nao estao em `locale/en/LC_MESSAGES/django.po` — ao retomar i18n, traduzir: "Como avaliamos o Radar Brasil?" e "Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível País, a nota síntese do federalismo climático brasileiro." para Sobre; e "Impulsionando a Ação Climática Federativa" + descricao completa para Metodologia
-- Deploy no droplet pendente (usuario precisa rodar): `cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d`
-- `next` branch desatualizado em `93de986` — rodar `git branch -f next main && git push origin next --force-with-lease` apos deploy
-- Strings novas no hero de Sobre e Metodologia ainda nao estao em `locale/en/LC_MESSAGES/django.po`
+Nenhuma pendencia conhecida em 2026-09-23 (sessao de manha) — `main`/`next` sincronizados nos dois remotos e no droplet, i18n do hero de Sobre/Metodologia ja traduzido, sem arquivos soltos nao commitados. Nota informativa (nao acionavel): DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados").
 
-### Pagina Sobre — estado (2026-09-18)
+> Usuario tem reuniao as 11h do mesmo dia que deve trazer novas alteracoes — revisar esta secao na proxima sessao.
 
-CSS: `static/css/sobre.css` **v=23** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
+### Pagina Sobre — estado (2026-09-23)
+
+CSS: `static/css/sobre.css` **v=25** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
 
 Secoes em ordem:
 1. Fact Sheet (sb-infographic) — 2 folhas A4 em escala 1.4x com transform:scale(1.4)
@@ -637,6 +636,10 @@ Secoes em ordem:
 - Sheet-02 (583x772px): metodologia com 3 method-pills, fatores predominantes com factor-title (4 cantos arredondados) + chevrons + 5 paragrafos no factor-copy
 - Gauge: conic-gradient `from 270deg at 50% 100%` — 4 segmentos (Governanca/Politicas/Programas/Linhas)
 - Animacoes v23: IntersectionObserver dispara `.fs-visible` em cada `.fact-sheet`; 4 keyframes (fs-up, fs-from-left, fs-pop, fs-fade); stagger entre elementos; prefers-reduced-motion compativel
+
+**Fix v24 — overflow horizontal fantasma:** `.fact-sheets` ocupa 100% da largura de `.sb-infographic` (full-bleed) antes do `transform: scale(1.4)`; o scale amplia essa caixa larga inteira a partir do centro, criando area invisivel maior que a viewport e scrollbar horizontal na pagina. Corrigido com `overflow-x: hidden` em `.sb-infographic`.
+
+**Fix v25 — legenda do gauge perdia centralizacao:** `.legend` centraliza via `left:50% + transform:translateX(-50%)`; a animation `fs-up` (v23) define `transform:translateY(...)` na keyframe, e como CSS nao mescla transforms, a animation substitui o transform inteiro — com `fill-mode:both` o valor final ficava permanente, perdendo o `-50%` em X (legenda com borda esquerda no centro do sheet, cortada a direita). Corrigido com nova keyframe `fs-up-centered` que reafirma `translateX(-50%)` em todo frame. **Cuidado ao adicionar `animation` com `transform` em qualquer elemento que ja se posicione via `transform` estatico (ex.: `translateX(-50%)` para centralizar) — a keyframe precisa incluir esse transform em todos os frames, senao ele se perde.**
 
 **FAQ — textos atuais (v25):**
 - "Qual o escopo do Radar Brasil?": 2 paragrafos (escopo federal + 3 fatores do recorte)
