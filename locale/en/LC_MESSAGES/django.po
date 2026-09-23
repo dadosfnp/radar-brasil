@@ -722,6 +722,39 @@ msgstr "Country Score - Radar Brasil"
 msgid "No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão CHAMP e suas respectivas Nota-País, termômetro da capacidade de cada país de execução e de cumprimento dos compromissos climáticos."
 msgstr "On the World Map below, we can identify the signatory countries of the CHAMP Coalition and their respective Country Scores, a thermometer of each country's capacity to implement and fulfill climate commitments."
 
+msgid "O mapa apresenta uma proposta de visualização comparativa dos países signatários do CHAMP (Coalition for High Ambition Multilevel Partnerships), permitindo, futuramente, acompanhar como cada país está avançando no fortalecimento do federalismo climático e da cooperação multinível para o cumprimento de seus compromissos climáticos."
+msgstr "The map presents a proposed comparative visualization of CHAMP (Coalition for High Ambition Multilevel Partnerships) signatory countries, allowing, in the future, tracking of how each country is advancing the strengthening of climate federalism and multilevel cooperation to fulfill its climate commitments."
+
+msgid "A proposta é que, à medida que informações comparáveis estejam disponíveis, o mapa permita visualizar o posicionamento do Brasil no contexto dos países signatários do CHAMP, contribuindo para identificar diferentes níveis de desenvolvimento da governança climática multinível e acompanhar sua evolução ao longo do tempo."
+msgstr "The proposal is that, as comparable information becomes available, the map will allow visualizing Brazil's position within the context of CHAMP signatory countries, helping identify different levels of development in multilevel climate governance and track their evolution over time."
+
+msgid "Brasil — linha de base 2025"
+msgstr "Brazil — 2025 baseline"
+
+msgid "Para o Brasil, o mapa apresenta inicialmente a nota país resultante da análise realizada em 2025, que constitui a linha de base do Radar Brasil: Federalismo Climático."
+msgstr "For Brazil, the map initially presents the Country Score resulting from the analysis carried out in 2025, which constitutes the baseline of Radar Brasil: Climate Federalism."
+
+msgid "O Nível País é uma síntese dos resultados obtidos nos quatro eixos de análise: Governança, Políticas e Planos, Programas e Linhas de Financiamento. Seu cálculo ocorre em três etapas:"
+msgstr "Country Level is a synthesis of the results obtained across the four analysis axes: Governance, Policies and Plans, Programs and Financing Lines. Its calculation takes place in three stages:"
+
+msgid "média dos níveis obtidos nos critérios de cada componente, com peso diferenciado para um critério considerado estratégico para o federalismo climático."
+msgstr "average of the levels obtained in the criteria of each component, with a differentiated weight for a criterion considered strategic for climate federalism."
+
+msgid "consolidação dos resultados dos componentes de cada eixo, considerando fatores de relevância definidos na metodologia."
+msgstr "consolidation of the results of the components of each axis, considering relevance factors defined in the methodology."
+
+msgid "média dos resultados dos quatro eixos, sintetizando a capacidade identificada de implementação do federalismo climático."
+msgstr "average of the results of the four axes, synthesizing the identified capacity for implementing climate federalism."
+
+msgid "Brasil 2025"
+msgstr "Brazil 2025"
+
+msgid "Na análise referente a 2025, o Brasil alcançou Nível País 3, resultado que estabelece a linha de base do Radar e servirá como referência para o acompanhamento de sua evolução nos próximos ciclos."
+msgstr "In the 2025 analysis, Brazil reached Country Level 3, a result that establishes the Radar's baseline and will serve as a reference for tracking its evolution in future cycles."
+
+msgid "A proposta do Radar Brasil sobre a evolução do mapa consiste em incorporar, progressivamente, os demais países signatários do CHAMP à medida que metodologias e informações comparáveis estejam disponíveis, possibilitando uma visão internacional do desenvolvimento do federalismo climático."
+msgstr "Radar Brasil's proposal for the map's evolution is to progressively incorporate the other CHAMP signatory countries as comparable methodologies and information become available, enabling an international view of climate federalism development."
+
 msgid "Compromissos Climáticos"
 msgstr "Climate Commitments"
 
@@ -1611,6 +1644,9 @@ msgstr "Information is systematized in a database and classified by the FNP tech
 
 msgid "Quais os fatores predominantes para a avaliação da governança multinível?"
 msgstr "What are the predominant factors for assessing multilevel governance?"
+
+msgid "Fatores predominantes para a avaliação da governança multinível?"
+msgstr "Predominant factors for assessing multilevel governance?"
 
 msgid "Aderência à agenda climática, interface com estados e municípios, relevância para a coordenação federativa e disponibilidade de informações públicas."
 msgstr "Adherence to the climate agenda, interface with states and municipalities, relevance to federative coordination and availability of public information."

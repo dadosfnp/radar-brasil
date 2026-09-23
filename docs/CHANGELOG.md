@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (29a rodada)
+
+### fix — i18n EN: strings faltando no Fact Sheet (Sobre) e na intro do Nível País
+
+- `sobre.html`: titulo "Fatores predominantes para a avaliacao da governanca multinivel?" (Sheet-02, `.factor-title h3`) usava `{% trans %}` mas o msgid nao existia no `django.po` — aparecia em portugues mesmo com EN selecionado
+- `nota-pais.html`: bloco `.np-intro` inteiro (2 paragrafos do topo + card "Brasil - linha de base 2025" com 2 paragrafos + 3 definicoes de nivel + badge "Brasil 2025" + destaque + fechamento) foi reescrito em algum momento anterior mas o `django.po` ainda so tinha a versao antiga do texto ("No Mapa Mundi abaixo...") -- 11 strings novas adicionadas
+- `django.mo` recompilado (547 entradas) via polib
+- Testado com Playwright headless (cookie `django_language=en`): todas as strings renderizam em ingles corretamente, incluindo caracteres especiais (em-dash em "Brazil — 2025 baseline")
+
+**Arquivos:** `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-23 (28a rodada)
 
 ### fix — Sobre: legenda do gauge descentralizada + overflow horizontal na pagina
