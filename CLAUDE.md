@@ -347,9 +347,11 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-10)
+### Header Global — estado (2026-09-23)
 
-CSS: `static/css/base.css` **v=18** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=19** | Template: `base_templates/base.html`
+
+**Fix v19 — menu quebrava linha em notebooks:** com fonte cheia os 7 itens do menu (`Sobre, Metodologia, Paineis, Componentes, Financiamento Climatico, Mapa Georreferenciado, Nivel Pais`) so cabem em uma linha a partir de ~1570px de largura efetiva. Os breakpoints intermediarios (1280px/1024px) que so encolhiam fonte/padding nao eram suficientes — o menu quebrava para 2-3 linhas em qualquer largura entre ~769px e ~1565px (a maioria dos notebooks comuns, e qualquer tela com zoom do navegador ou escala de SO reduzindo a largura efetiva). Corrigido estendendo o breakpoint do hamburger (antes so `<=768px`) para **`<=1600px`**: acima disso o menu aparece em uma linha, abaixo disso colapsa para dropdown — nunca mais quebra, independente de resolucao/escala do dispositivo. As regras de encolher fonte nos breakpoints 1280/1024px foram removidas (ficaram obsoletas); mantido so o encolhimento progressivo das logos nesses breakpoints. **Regra geral daqui pra frente: se o menu nao couber em uma linha em algum breakpoint, a solucao e ajustar o ponto onde ele vira hamburger — nao tentar encolher fonte/padding indefinidamente.**
 
 **Gap acima do header (v15):**
 - `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }` — cobre gap de renderizacao acima do sticky header com navy; nao afeta landing (usa `.lp-body`).
@@ -598,7 +600,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=18 |
+| `base.css` | v=19 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
 | `metodologia.css` | v=52 |

@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (30a rodada)
+
+### fix — Header: menu de navegacao quebrava linha em notebooks (base.css v19)
+
+- Com a fonte cheia dos 7 itens do menu (`Sobre, Metodologia, Paineis, Componentes, Financiamento Climatico, Mapa Georreferenciado, Nivel Pais`), so cabiam em uma linha a partir de ~1570px de largura efetiva
+- Havia dois breakpoints intermediarios (1280px/1024px) tentando encolher fonte/padding dos links para caber, mas nao eram suficientes -- o menu quebrava para 2-3 linhas em qualquer largura entre ~769px e ~1565px (a maioria dos notebooks comuns, e qualquer tela com escala de SO/zoom do navegador reduzindo a largura efetiva, ex.: usuario precisando ir para 90% de zoom para caber)
+- Corrigido estendendo o breakpoint do menu hamburger (que ja existia para mobile <=768px) para `max-width: 1600px` -- acima disso o menu aparece em uma linha normalmente, abaixo disso colapsa para o dropdown, nunca mais quebra
+- Removidas as regras de encolher fonte dos nav-links nos breakpoints 1280px/1024px (obsoletas, o menu ali agora esta sempre no modo dropdown); mantido apenas o encolhimento progressivo das logos nesses breakpoints
+- Testado com Playwright headless em 16 larguras (375px a 1920px): nenhuma quebra de linha em nenhuma largura, dropdown abre corretamente em coluna unica
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+---
+
 ## 2026-09-23 (29a rodada)
 
 ### fix — i18n EN: strings faltando no Fact Sheet (Sobre) e na intro do Nível País
