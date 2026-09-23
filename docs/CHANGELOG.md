@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (27a rodada)
+
+### fix — Modal ficha tecnica (Componentes): overlay atras do header ao rolar a pagina
+
+- `.ap-modal-overlay` tinha `z-index: 1000`, menor que `.rb-header-wrapper` (`z-index: 1001`)
+- O cabecalho colorido do modal (titulo, botao PDF, X de fechar) ficava coberto pelo header sticky do site
+- Corrigido para `z-index: 1100` — acima do header em qualquer posicao de rolagem
+
+**Arquivos:** `static/css/avaliacao-painel.css`, `templates/municipios/avaliacao-painel.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+---
+
 ## 2026-09-18 (26a rodada)
 
 ### style — Fact Sheet v23: animacoes de entrada nos elementos

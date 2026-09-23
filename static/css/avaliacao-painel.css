@@ -585,7 +585,7 @@ body.avaliacao-painel-page .rb-main {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,.45);
-    z-index: 1000;
+    z-index: 1100; /* acima do rb-header-wrapper (1001) para nao ficar atras do header ao rolar a pagina */
     display: flex;
     align-items: center;
     justify-content: center;
