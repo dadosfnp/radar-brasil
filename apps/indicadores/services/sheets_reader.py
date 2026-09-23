@@ -116,6 +116,26 @@ _EN_EIXO = {
 }
 
 
+def _corrigir_mojibake(valor):
+    """Corrige texto colado nas planilhas com encoding errado (UTF-8 lido como
+    Latin-1/cp1252 — ex.: "São Luís" virou "SÃ£o LuÃ­s"). So mexe em strings que
+    contem os marcadores classicos desse tipo de corrupcao ('Ã' ou 'Â' seguidos
+    de outro caractere), e so aplica a correcao se o round-trip latin-1→utf-8
+    for bem-sucedido — texto limpo nunca e alterado."""
+    if not isinstance(valor, str) or ("Ã" not in valor and "Â" not in valor):
+        return valor
+    try:
+        corrigido = valor.encode("latin-1").decode("utf-8")
+    except (UnicodeDecodeError, UnicodeEncodeError):
+        return valor
+    return corrigido
+
+
+def _corrigir_mojibake_df(df: pd.DataFrame) -> pd.DataFrame:
+    """Aplica _corrigir_mojibake em todas as celulas de texto do DataFrame."""
+    return df.map(_corrigir_mojibake)
+
+
 def _normalizar(texto: str) -> str:
     return (
         unicodedata.normalize("NFKD", str(texto))
@@ -146,7 +166,7 @@ def _ler(cfg: dict, worksheet_name: str = "dados") -> pd.DataFrame:
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
     df.columns = [str(col).strip() for col in df.columns]
-    return df
+    return _corrigir_mojibake_df(df)
 
 
 def ler_fichas(lang: str) -> pd.DataFrame:
@@ -193,6 +213,7 @@ def ler_financiamento(lang: str) -> pd.DataFrame:
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
     df.columns = [str(col).strip() for col in df.columns]
+    df = _corrigir_mojibake_df(df)
     if lang == "en":
         df.rename(columns=_EN_COLS_FINANCIAMENTO, inplace=True)
     return df
@@ -207,6 +228,7 @@ def ler_mapa(lang: str) -> pd.DataFrame:
     dados = ws.get_all_records()
     df = pd.DataFrame(dados)
     df.columns = [str(col).strip() for col in df.columns]
+    df = _corrigir_mojibake_df(df)
     if lang == "en":
         df.rename(columns=_EN_COLS_MAPA, inplace=True)
     return df

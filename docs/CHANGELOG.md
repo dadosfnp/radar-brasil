@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (33a rodada)
+
+### fix — Encoding corrompido (mojibake) em textos vindos do Google Sheets
+
+- Cards do Mapa Georreferenciado mostrando nomes como "SÃ£o LuÃ­s" em vez de "São Luís" -- classico caso de texto UTF-8 lido/colado como Latin-1/cp1252 (cada caractere acentuado virou dois: "ã" -> "Ã£", "í" -> "Ã­")
+- Apanhado geral no banco (dev, `.venv` local) confirmou o mesmo padrao tambem em `RegistroFicha` e `RegistroParametro` (ex.: "PAC SeleÃ§Ãµes" em vez de "PAC Seleções"), em PT e EN -- nao era so no Mapa nem so em EN
+- Causa: o texto ja vem assim da celula da planilha (alguem colou conteudo mal decodificado); o `sync_sheets_db` so importa o que esta na Sheet, sem corrigir
+- Corrigido na leitura (`sheets_reader.py`): nova funcao `_corrigir_mojibake()` tenta o round-trip `encode('latin-1').decode('utf-8')` em toda celula de texto, mas so quando a celula contem os marcadores classicos desse tipo de corrupcao ('Ã' ou 'Â'); se o round-trip falhar (nao e mojibake de verdade, ex.: "PAVIMENTAÇÃO" com Ç/Ã legitimos), o texto original e mantido intacto -- sem falsos positivos
+- Aplicado nos 3 pontos de leitura das planilhas (`_ler`, `ler_financiamento`, `ler_mapa`) -- cobre fichas, parametros, financiamento e mapa, PT e EN, automaticamente a cada `sync_sheets_db`
+- Validado com Playwright/scan direto no banco: strings corrompidas (Seleções, Consórcio, Sertão, Pajeú) corrigidas corretamente; strings limpas e o caso "PAVIMENTAÇÃO" (Ç/Ã legitimos em maiusculas) permanecem intactos
+- **Nao corrige dados ja salvos automaticamente** -- precisa rodar `sync_sheets_db` novamente (reimporta e substitui os registros de cada idioma) para os dados existentes no banco de producao serem corrigidos
+
+**Arquivos:** `apps/indicadores/services/sheets_reader.py`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-23 (32a rodada)
 
 ### fix — Landing (EN): chips do card "Knowledge in Action" quebravam linha (landing.css v13)
