@@ -478,13 +478,49 @@ body.rb-body {
 /* Seção idioma no dropdown mobile — oculta no desktop */
 .rb-nav-lang-section { display: none; }
 
-/* ---- NAV COLAPSA PARA HAMBURGER — <=1600px ----
-   Com fonte cheia os 7 itens do menu so cabem numa linha a partir de ~1570px;
-   abaixo disso (notebooks comuns, ou qualquer tela com escala de SO/zoom que
-   reduza a largura efetiva) o menu quebrava para uma segunda linha em vez de
-   virar hamburger. Empurrando o breakpoint do hamburger para 1600px isso
-   nunca mais quebra, independente de resolucao/escala do dispositivo. */
+/* ---- NAV DESKTOP FLUIDO — notebooks/telas menores continuam em UMA LINHA ----
+   Os 7 itens do menu com fonte cheia (1.051rem/18px) só cabem numa linha a
+   partir de ~1570px de largura efetiva. Em vez de colapsar pra hamburger,
+   fonte/padding dos links e altura das logos encolhem em degraus conforme a
+   tela estreita — assim a versão desktop continua parecendo desktop em
+   qualquer notebook comum (1600/1440/1366/1280/1024...), incluindo quando o
+   usuário usa zoom do navegador ou escala de SO que reduz a largura efetiva.
+   Medido empiricamente com Playwright headless em cada degrau. */
 @media (max-width: 1600px) {
+    .rb-nav-link { font-size: 0.95rem; padding: 8px 14px; }
+    .rb-header-radar-img { height: 68px; }
+    .rb-header-logo-img { height: 56px; }
+}
+@media (max-width: 1440px) {
+    .rb-nav-link { font-size: 0.875rem; padding: 8px 12px; }
+    .rb-header-radar-img { height: 64px; }
+    .rb-header-logo-img { height: 52px; }
+}
+@media (max-width: 1300px) {
+    .rb-nav-link { font-size: 0.8125rem; padding: 8px 10px; }
+    .rb-header-radar-img { height: 58px; }
+    .rb-header-logo-img { height: 48px; }
+}
+@media (max-width: 1180px) {
+    .rb-nav-link { font-size: 0.75rem; padding: 8px 8px; }
+    .rb-header-radar-img { height: 52px; }
+    .rb-header-logo-img { height: 42px; }
+}
+@media (max-width: 1080px) {
+    .rb-nav-link { font-size: 0.6875rem; padding: 8px 6px; }
+    .rb-header-radar-img { height: 46px; }
+    .rb-header-logo-img { height: 38px; }
+}
+@media (max-width: 980px) {
+    .rb-nav-link { font-size: 0.625rem; padding: 8px 5px; }
+    .rb-header-radar-img { height: 42px; }
+    .rb-header-logo-img { height: 34px; }
+}
+
+/* Abaixo de ~900px nem 10px de fonte cabe mais numa linha (janela estreita
+   ou tablet, nao notebook real) -- ai sim colapsa pra hamburger, igual ao
+   padrao mobile abaixo. */
+@media (max-width: 900px) {
     .rb-main-nav {
         flex-direction: row;
         align-items: center;
@@ -495,14 +531,13 @@ body.rb-body {
         display: flex;
         margin: 0;
     }
-
     .rb-nav-links {
         display: none;
         position: absolute;
-        top: 100%;       /* imediatamente abaixo do header */
+        top: 100%;
         left: 0;
         right: 0;
-        z-index: 1;      /* dentro do contexto de empilhamento do header-wrapper */
+        z-index: 1;
         flex-direction: column;
         align-items: stretch;
         flex-wrap: nowrap;
@@ -516,7 +551,6 @@ body.rb-body {
     .rb-main-nav.nav-open .rb-nav-links {
         display: flex;
     }
-
     .rb-nav-link {
         padding: 11px 18px;
         border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -532,26 +566,6 @@ body.rb-body {
         border-left-color: #ffffff;
         padding-left: 15px;
         color: #ffffff;
-    }
-}
-
-/* ---- BREAKPOINT INTERMEDIÁRIO — logos um pouco menores em notebooks ---- */
-@media (max-width: 1280px) and (min-width: 769px) {
-    .rb-header-radar-img {
-        height: 60px;
-    }
-    .rb-header-logo-img {
-        height: 50px;
-    }
-}
-
-@media (max-width: 1024px) and (min-width: 769px) {
-    /* Telas ainda menores (tablets landscape, notebooks compactos) */
-    .rb-header-radar-img {
-        height: 53px;
-    }
-    .rb-header-logo-img {
-        height: 44px;
     }
 }
 

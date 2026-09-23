@@ -4,6 +4,32 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (31a rodada)
+
+### fix — Header: revisao do fix de menu (base.css v20) — nav desktop fluido em vez de hamburger
+
+A 30a rodada (abaixo) resolveu a quebra de linha estendendo o hamburger para `max-width:1600px`, mas isso fez a versao desktop de qualquer notebook comum (1366/1440/1600px) virar hamburger — feedback do usuario: "quero que a versao desktop fique como versao desktop... nao colocar o sanduiche do mobile como solucao".
+
+**Revertido** o hamburger em 1600px. **Nova abordagem:** fonte/padding dos nav-links e altura das logos encolhem em 6 degraus conforme a tela estreita, mantendo o menu completo em uma linha (nav desktop de verdade, nao dropdown):
+
+| max-width | fonte do link | padding-x | logo Radar | logo FNP |
+|---|---|---|---|---|
+| (base) >1600px | 1.051rem | 18px | 74px | 62px |
+| 1600px | 0.95rem | 14px | 68px | 56px |
+| 1440px | 0.875rem | 12px | 64px | 52px |
+| 1300px | 0.8125rem | 10px | 58px | 48px |
+| 1180px | 0.75rem | 8px | 52px | 42px |
+| 1080px | 0.6875rem | 6px | 46px | 38px |
+| 980px | 0.625rem | 5px | 42px | 34px |
+
+Cada degrau foi encontrado empiricamente com Playwright headless (menor fonte que ainda cabe em uma linha em cada largura, com margem de seguranca). Abaixo de **900px** nem 10px de fonte cabe mais em uma linha — essa faixa (janela estreita/tablet, nao notebook real) e a unica que ainda colapsa para hamburger, igual ao padrao mobile ja existente em `<=768px`.
+
+Testado com Playwright headless em 31 larguras (375px a 1920px, incluindo todas as resolucoes comuns de notebook: 1920/1600/1536/1440/1400/1366/1300/1280/1024): menu sempre em uma linha ate 920px, sem sobrepor a logo FNP; hamburger so entra abaixo de 900px.
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+---
+
 ## 2026-09-23 (30a rodada)
 
 ### fix — Header: menu de navegacao quebrava linha em notebooks (base.css v19)
@@ -13,6 +39,7 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Corrigido estendendo o breakpoint do menu hamburger (que ja existia para mobile <=768px) para `max-width: 1600px` -- acima disso o menu aparece em uma linha normalmente, abaixo disso colapsa para o dropdown, nunca mais quebra
 - Removidas as regras de encolher fonte dos nav-links nos breakpoints 1280px/1024px (obsoletas, o menu ali agora esta sempre no modo dropdown); mantido apenas o encolhimento progressivo das logos nesses breakpoints
 - Testado com Playwright headless em 16 larguras (375px a 1920px): nenhuma quebra de linha em nenhuma largura, dropdown abre corretamente em coluna unica
+- **Revisado na 31a rodada** apos feedback do usuario -- ver acima
 
 **Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/CHANGELOG.md`, `docs/design.md`
 

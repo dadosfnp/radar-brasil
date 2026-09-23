@@ -349,9 +349,25 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Header Global — estado (2026-09-23)
 
-CSS: `static/css/base.css` **v=19** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=20** | Template: `base_templates/base.html`
 
-**Fix v19 — menu quebrava linha em notebooks:** com fonte cheia os 7 itens do menu (`Sobre, Metodologia, Paineis, Componentes, Financiamento Climatico, Mapa Georreferenciado, Nivel Pais`) so cabem em uma linha a partir de ~1570px de largura efetiva. Os breakpoints intermediarios (1280px/1024px) que so encolhiam fonte/padding nao eram suficientes — o menu quebrava para 2-3 linhas em qualquer largura entre ~769px e ~1565px (a maioria dos notebooks comuns, e qualquer tela com zoom do navegador ou escala de SO reduzindo a largura efetiva). Corrigido estendendo o breakpoint do hamburger (antes so `<=768px`) para **`<=1600px`**: acima disso o menu aparece em uma linha, abaixo disso colapsa para dropdown — nunca mais quebra, independente de resolucao/escala do dispositivo. As regras de encolher fonte nos breakpoints 1280/1024px foram removidas (ficaram obsoletas); mantido so o encolhimento progressivo das logos nesses breakpoints. **Regra geral daqui pra frente: se o menu nao couber em uma linha em algum breakpoint, a solucao e ajustar o ponto onde ele vira hamburger — nao tentar encolher fonte/padding indefinidamente.**
+**Fix v20 — nav desktop fluido (menu quebrava linha em notebooks):** com fonte cheia os 7 itens do menu so cabem em uma linha a partir de ~1570px de largura efetiva. Uma primeira tentativa (v19) estendeu o breakpoint do hamburger de `<=768px` para `<=1600px`, mas isso fazia notebooks comuns (1366/1440/1600px) mostrarem o menu hamburger mobile em vez do menu desktop — **rejeitado pelo usuario**: "quero que a versao desktop fique como versao desktop... nao colocar o sanduiche do mobile como solucao".
+
+**Solucao final (v20):** fonte/padding dos nav-links e altura das logos encolhem em 6 degraus conforme a tela estreita, mantendo sempre o menu completo em uma linha (nav desktop de verdade):
+
+| max-width | fonte do link | padding-x | logo Radar | logo FNP |
+|---|---|---|---|---|
+| (base) >1600px | 1.051rem | 18px | 74px | 62px |
+| 1600px | 0.95rem | 14px | 68px | 56px |
+| 1440px | 0.875rem | 12px | 64px | 52px |
+| 1300px | 0.8125rem | 10px | 58px | 48px |
+| 1180px | 0.75rem | 8px | 52px | 42px |
+| 1080px | 0.6875rem | 6px | 46px | 38px |
+| 980px | 0.625rem | 5px | 42px | 34px |
+
+Cada degrau foi encontrado empiricamente com Playwright (menor fonte que ainda cabe em uma linha em cada largura). Abaixo de **900px** nem 10px de fonte cabe mais — so ai colapsa para hamburger (janela estreita/tablet, nao notebook real), igual ao padrao mobile ja existente em `<=768px`.
+
+**Regra geral daqui pra frente: hamburger e so para telas realmente estreitas (<900px, tablet/mobile). Se o menu nao couber em um notebook, a solucao e adicionar um degrau de encolhimento fluido (fonte/padding/logos), nunca esconder o menu atras de um hamburger em largura de notebook.**
 
 **Gap acima do header (v15):**
 - `body.rb-body::before { position: fixed; top: 0; height: 20px; background: var(--color-header-bg); z-index: 1000; pointer-events: none }` — cobre gap de renderizacao acima do sticky header com navy; nao afeta landing (usa `.lp-body`).
@@ -600,7 +616,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=19 |
+| `base.css` | v=20 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=12 |
 | `metodologia.css` | v=52 |
