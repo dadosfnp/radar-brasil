@@ -419,9 +419,9 @@ Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para e
 Escalar o `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
 Iframes nas paginas usam `mask-image` para dissolver bordas.
 
-### Landing Page — estado (2026-09-09)
+### Landing Page — estado (2026-09-23)
 
-CSS: `static/css/landing.css` v=12 | Template: `templates/municipios/landing.html`
+CSS: `static/css/landing.css` v=13 | Template: `templates/municipios/landing.html`
 
 Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon` (fundo cinza, cursor default, badge "Em breve").
 
@@ -430,6 +430,8 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 - "Mapas" → `{% url 'indicadores:mapa_georreferenciado' %}`
 - "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
 - CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
+
+**Fix v13 — chips quebravam linha em EN:** `.lp-info-card` tem largura fixa 210px; em EN "Dashboards"+"Maps"+"Data" ultrapassavam por poucos pixels a largura disponivel (cabia em PT com "Painéis"/"Mapas"/"Dados", que sao mais curtos). `.lp-info-chip` padding reduzido de `3px 10px` para `3px 8px` (minimo medido com Playwright foi 9px, usado 8px com margem). **Atencao com strings EN mais longas que PT em containers de largura fixa** — vale testar chips/pills/badges nos dois idiomas ao adicionar.
 
 ### Metodologia — estado (2026-09-17)
 
@@ -618,7 +620,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 |---|---|
 | `base.css` | v=20 |
 | `inicio.css` | v=12 |
-| `landing.css` | v=12 |
+| `landing.css` | v=13 |
 | `metodologia.css` | v=52 |
 | `sobre.css` | v=25 |
 | `avaliacao-painel.css` | v=15 |

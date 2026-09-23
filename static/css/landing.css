@@ -228,10 +228,11 @@ body.lp-body .rb-main {
     color: #264584;
     background: rgba(38,69,132,.09);
     border-radius: 20px;
-    padding: 3px 10px;
+    padding: 3px 8px; /* 8px (era 10px) -- em EN "Dashboards"+"Maps"+"Data" so cabem numa linha com esse padding */
     text-decoration: none;
     cursor: pointer;
     transition: background .15s, color .15s;
+    white-space: nowrap;
 }
 a.lp-info-chip:hover {
     background: rgba(38,69,132,.22);

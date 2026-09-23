@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (32a rodada)
+
+### fix — Landing (EN): chips do card "Knowledge in Action" quebravam linha (landing.css v13)
+
+- `.lp-info-chip` com `padding: 3px 10px` -- em EN "Dashboards" + "Maps" + "Data" ultrapassavam a largura disponivel do card (`.lp-info-card`, 210px) por poucos pixels, e "Data" caia para uma segunda linha
+- Em PT ("Painéis"/"Mapas"/"Dados") cabia normalmente, entao so aparecia com EN selecionado
+- Corrigido reduzindo o padding horizontal do chip para `8px` (testado com Playwright: minimo que cabe e 9px, usado 8px com margem de seguranca); adicionado `white-space: nowrap` como reforço
+- Testado com Playwright headless em PT e EN: nenhuma quebra em nenhum dos dois idiomas
+
+**Arquivos:** `static/css/landing.css`, `templates/municipios/landing.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+---
+
 ## 2026-09-23 (31a rodada)
 
 ### fix — Header: revisao do fix de menu (base.css v20) — nav desktop fluido em vez de hamburger
