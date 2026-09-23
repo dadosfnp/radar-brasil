@@ -172,6 +172,9 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     margin: 0;
     padding: 40px 16px 56px;
     background: #f5f7fb;
+    overflow-x: hidden; /* .fact-sheets ocupa 100% da largura antes do scale(1.4); sem isso a caixa
+                            invisivel escalada cria overflow horizontal na pagina, deslocando a
+                            rolagem e cortando visualmente o lado direito das sheets (ex.: legenda) */
 }
 
 /* Wrapper com duas sheets empilhadas, centradas — escala 140% via transform.
@@ -735,6 +738,13 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     from { opacity: 0; }
     to   { opacity: 1; }
 }
+/* Variante de fs-up para elementos centralizados via left:50%+translateX(-50%) --
+   a keyframe precisa reafirmar o -50% em X a cada frame, senao a animation
+   substitui o transform inteiro e o elemento perde a centralizacao ao final */
+@keyframes fs-up-centered {
+    from { opacity: 0; transform: translateX(-50%) translateY(12px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
 
 /* Estado inicial — aplicado só via JS (.fs-animate) */
 .fs-animate .sheet01-hero h1,
@@ -767,7 +777,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 .fs-animate.fs-visible .speech                    { animation: fs-pop       0.45s 0.18s ease-out both; }
 .fs-animate.fs-visible .gauge                     { animation: fs-pop       0.55s 0.36s ease-out both; }
 .fs-animate.fs-visible .gauge-number              { animation: fs-fade      0.40s 0.82s ease-out both; }
-.fs-animate.fs-visible .legend                    { animation: fs-up        0.40s 0.74s ease-out both; }
+.fs-animate.fs-visible .legend                    { animation: fs-up-centered 0.40s 0.74s ease-out both; }
 
 /* ── Sheet-02 ── */
 .fs-animate.fs-visible .methodology h2            { animation: fs-up        0.45s 0.08s ease-out both; }

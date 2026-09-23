@@ -4,6 +4,29 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-23 (28a rodada)
+
+### fix — Sobre: legenda do gauge descentralizada + overflow horizontal na pagina
+
+Dois problemas distintos identificados e corrigidos na secao Fact Sheet (Sobre):
+
+**1. Legenda perdia a centralizacao apos a animacao de entrada (causa raiz do bug reportado):**
+- `.legend` centraliza via `left:50%; transform: translateX(-50%)`
+- A entrada v23 aplicou `animation: fs-up` na legenda ao entrar no viewport; a keyframe `fs-up` define `transform: translateY(...)` sem o `translateX(-50%)`
+- CSS nao mescla transforms — a animation substitui o `transform` inteiro pela duracao (e permanentemente, por causa do `fill-mode: both`), entao a legenda perdia o -50% em X assim que a animacao rodava, ficando com a borda esquerda no centro do sheet e o restante cortado a direita
+- Corrigido com nova keyframe `fs-up-centered` que reafirma `translateX(-50%)` em todos os frames; `.legend` passou a usar essa animation em vez de `fs-up`
+- Testado com Playwright headless: centro da legenda e do sheet coincidem exatamente apos a animacao (antes: ~178px de diferenca)
+
+**2. Overflow horizontal fantasma na pagina:**
+- `.fact-sheets` ocupa 100% da largura de `.sb-infographic` (full-bleed, `.rb-main` expandido) antes do `transform: scale(1.4)`
+- O `scale` amplia essa caixa larga inteira a partir do centro, criando uma area invisivel maior que a viewport e gerando scrollbar horizontal na pagina (sem conteudo visivel nela)
+- Corrigido com `overflow-x: hidden` em `.sb-infographic`, contendo o overflow escalado sem afetar o layout visivel
+- Confirmado via Playwright: `scrollWidth` da pagina volta a ser igual ao `innerWidth`
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `docs/CHANGELOG.md`, `docs/design.md`
+
+---
+
 ## 2026-09-23 (27a rodada)
 
 ### fix — Modal ficha tecnica (Componentes): overlay atras do header ao rolar a pagina
