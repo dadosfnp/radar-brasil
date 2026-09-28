@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-28 (35a rodada)
+
+### docs: Skills recomendadas, CONSTRAINTS.md e grafo local
+
+- `CLAUDE.md`: nova secao "Skills recomendadas neste projeto" (quando usar cada skill aqui + particularidades para agentes) e atualizacao do estado de 2026-09-28
+- `CONSTRAINTS.md` (novo): barra minima de qualidade em 3 dimensoes (peso de imagens <= 500 KB, testes nos services, acessibilidade basica); ainda sem verificacao no CI
+- `.gitignore`: ignora `graphify-out/` (grafo de conhecimento gerado localmente pelo graphify)
+
+**Arquivos:** `CLAUDE.md`, `CONSTRAINTS.md`, `.gitignore`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-28 (34a rodada)
 
 ### chore — Nota Metodologica atualizada

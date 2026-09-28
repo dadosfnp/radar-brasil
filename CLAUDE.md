@@ -282,18 +282,40 @@ Padrão: **Conventional Commits**, descrições em **português**
 
 ---
 
-## Estado Atual do Projeto (2026-09-23)
+## Skills recomendadas neste projeto
 
-### Branch atual: `main` — `e3e4428`
+| Skill | Quando usar aqui |
+|---|---|
+| `frontend-ui-engineering` | Quase todo trabalho é CSS/template. Testar PT **e** EN (strings EN são mais longas) e os breakpoints do header (1600/1440/1300/1180/1080/980/900) + 768/480 |
+| `browser-testing-with-devtools` | Conferir layout real antes de commitar CSS (historicamente feito com Playwright). Exige o MCP chrome-devtools configurado |
+| `git-workflow-and-versioning` | Branch a partir de `next`, CHANGELOG no mesmo commit, push em `origin` **e** `prod` |
+| `code-review-and-quality` / `ponytail-review` | Antes do merge `next` → `main` |
+| `security-and-hardening` | Ao mexer em `sync_sheets_db`/`sheets_reader` (credenciais da service account) ou em links vindos das planilhas (validação `startswith("http")`) |
+| `performance-optimization` | Imagens de `static/img/` (fotos da Metodologia/Sobre têm 4 a 9 MB cada) |
+| `shipping-and-launch` | Deploy no droplet: `build` obrigatório para estáticos, `compilemessages` após mudar `.po`, `sync_sheets_db` após fix em leitura de dados |
+| `graphify` | Perguntas de arquitetura: grafo em `graphify-out/` (não versionado). Atualizar com `/graphify . --update` |
+
+Particularidades que um agente precisa saber (detalhes nas seções acima):
+
+- Runtime lê só do ORM; Google Sheets só via `sync_sheets_db`. Nunca importar `sheets_reader` em services/views.
+- Testes: só `apps/indicadores/tests.py` (pytest + pytest-django, `conftest.py` mocka o gspread). CI roda flake8 + black `--check` + pytest.
+- Cache-buster `?v=N` no template: incrementar ao alterar qualquer CSS/JS e atualizar a tabela de versões.
+- Prefixo de classe CSS por página (`.ap-`, `.mg-`, `.fc-`, `.np-`, `.pm-`); JS vanilla, um arquivo por página, strings via `RBi18n.t()`.
+
+---
+
+## Estado Atual do Projeto (2026-09-28)
+
+### Branch atual: `main` (`6b2120b`)
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `e3e4428` | `e3e4428` |
-| `prod` (dadosfnp) | `e3e4428` | `e3e4428` |
+| `origin` (brunofnp) | `e3e4428` | `6b2120b` |
+| `prod` (dadosfnp) | `e3e4428` | `6b2120b` |
 
-> `origin`, `prod`, `main` e `next` todos identicos e sincronizados em `e3e4428`. Criar feature branches a partir de `next`.
+> `main` em `6b2120b` nos dois remotos. `next` remoto ainda em `63db160` (local ja sincronizado com `main`); push de `next` pendente. Deploy no droplet pendente (usuario roda direto no terminal ja aberto no droplet).
 
 ### Git — autenticacao configurada
 
@@ -446,6 +468,7 @@ Hero padronizado com Inicio (mesma altura, badge, tipografia).
 **Card Nota Metodologica (v43):**
 - Card-link abaixo de "Para saber mais, acesse a nota metodologica."
 - iframe com capa real do PDF `static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf` escalado `scale(0.1344)` em container `80x113px` (proporcao A4)
+- PDF atualizado em 2026-09-28 (versao revisada substituiu a anterior, commit `6b2120b`)
 - iframe carregado via JS (`data-pdf`) para evitar problemas de encoding com o nome do arquivo
 - Clique em qualquer ponto do card abre o PDF em nova aba (`target="_blank"`)
 - Hover: `translateY(-2px)` + `box-shadow` + borda mais escura
@@ -640,7 +663,15 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-Nenhuma pendencia conhecida ao fim do expediente de 2026-09-23 — `main`/`next` sincronizados nos dois remotos (`e3e4428`) e deployados no droplet, incluindo `sync_sheets_db` re-executado (fix de mojibake aplicado aos dados ja salvos). Sem arquivos soltos nao commitados.
+Deploy no droplet pendente para o commit `6b2120b` (PDF da Nota Metodologica atualizado):
+```bash
+cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
+```
+Apos o deploy, sincronizar `next`: `git branch -f next main && git push origin next --force-with-lease`
+
+**Resumo do dia (2026-09-28):**
+- PDF da Nota Metodologica substituido pela versao revisada (`static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf`)
+- Commit `6b2120b` publicado em `origin main` e `prod main`
 
 **Resumo do dia (2026-09-23) — 6 fixes, todos deployados:**
 1. Modal ficha tecnica (Componentes): z-index atras do header ao rolar

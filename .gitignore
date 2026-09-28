@@ -72,3 +72,6 @@ teste_sheets.py
 Thumbs.db
 desktop.ini
 $RECYCLE.BIN/
+
+# ── GRAPHIFY (grafo de conhecimento local) ───────────────────────
+graphify-out/
