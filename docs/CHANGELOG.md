@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-28 (34a rodada)
+
+### chore — Nota Metodologica atualizada
+
+- Substituicao do PDF `static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf` pela versao revisada
+
+**Arquivos:** `static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-23 (33a rodada)
 
 ### fix — Encoding corrompido (mojibake) em textos vindos do Google Sheets
