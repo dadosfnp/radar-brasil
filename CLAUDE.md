@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-23 (fim do expediente)
+> Última atualização: 2026-09-28 (fim do expediente)
 
 ---
 
@@ -306,16 +306,16 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ## Estado Atual do Projeto (2026-09-28)
 
-### Branch atual: `main` (`6b2120b`)
+### Branch atual: `main` (`43bd8e9`)
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `e3e4428` | `6b2120b` |
-| `prod` (dadosfnp) | `e3e4428` | `6b2120b` |
+| `origin` (brunofnp) | `43bd8e9` | `43bd8e9` |
+| `prod` (dadosfnp) | `43bd8e9` | `43bd8e9` |
 
-> `main` em `6b2120b` nos dois remotos. `next` remoto ainda em `63db160` (local ja sincronizado com `main`); push de `next` pendente. Deploy no droplet pendente (usuario roda direto no terminal ja aberto no droplet).
+> `main` e `next` em `43bd8e9` nos dois remotos e no droplet (deploy feito em 2026-09-28). O commit de fim de expediente de 2026-09-28 (so CLAUDE.md) fica local ate o proximo push.
 
 ### Git — autenticacao configurada
 
@@ -334,7 +334,7 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Deploy feito em 2026-09-23 (commit `e3e4428`) — usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
+Deploy feito em 2026-09-28 (commit `43bd8e9`). O usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
@@ -663,15 +663,20 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-Deploy no droplet pendente para o commit `6b2120b` (PDF da Nota Metodologica atualizado):
-```bash
-cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
-```
-Apos o deploy, sincronizar `next`: `git branch -f next main && git push origin next --force-with-lease`
+Nenhum deploy pendente. Proximos passos:
 
-**Resumo do dia (2026-09-28):**
-- PDF da Nota Metodologica substituido pela versao revisada (`static/doc/Mutirão Brasil - Nota Metodológica 01 (Radar Brasil).pdf`)
-- Commit `6b2120b` publicado em `origin main` e `prod main`
+- **Fact Sheet (Sobre):** usuario vai trazer novas alteracoes na proxima sessao
+- **Auditoria ponytail (nao aplicada, aguardando decisao):** decorador `@_api` para os 9 try/except das views, helper do dict de filtros do financiamento, `TemplateView` para as 8 views que so renderizam, trocar `oauth2client` (descontinuado) por `gspread.service_account_from_dict` (testar `sync_sheets_db` de verdade antes de subir), apagar `apps/municipios/templates/municipios/home.html` (orfao) e os `admin.py` vazios
+- **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
+- **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) e `fundo-bg.png` (930 KB); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
+- **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
+
+**Resumo do dia (2026-09-28): tudo deployado (`43bd8e9`):**
+- PDF da Nota Metodologica substituido pela versao revisada (`6b2120b`); producao servindo o arquivo novo (3.626.606 bytes, conferido)
+- Skills instaladas no usuario (ponytail, Agent Skills, graphify); secao "Skills recomendadas" neste arquivo
+- `CONSTRAINTS.md` criado (imagens, testes, acessibilidade), so documento, sem CI
+- Grafo graphify gerado em `graphify-out/` (ignorado no git); PDF entrou sem conteudo (falta `pypdf`)
+- Auditoria ponytail rodada; achados listados nas pendencias acima
 
 **Resumo do dia (2026-09-23) — 6 fixes, todos deployados:**
 1. Modal ficha tecnica (Componentes): z-index atras do header ao rolar
