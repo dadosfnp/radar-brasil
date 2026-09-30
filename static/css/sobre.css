@@ -64,6 +64,40 @@ body.sobre-page .rb-main {
     margin: 0;
 }
 
+/* Indicador do scroll-stack de fotos: tracos a esquerda da foto (que fica em
+   left: 14vw dentro de .meto-scroll-photos, ver metodologia.css). O traco da foto
+   ativa fica mais longo e navy; atualizado no JS de sobre.html. So desktop (> 900px),
+   onde as fotos rolam com a roda do mouse. */
+.meto-scroll-indicator {
+    position: absolute;
+    top: 50%;
+    right: calc(100% - 14vw + 22px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.meto-scroll-indicator span {
+    display: block;
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(38, 69, 132, .32);
+    transition: width .3s ease, background-color .3s ease;
+}
+
+.meto-scroll-indicator span.is-active {
+    width: 38px;
+    background: #264584;
+}
+
+@media (max-width: 900px) {
+    .meto-scroll-indicator { display: none; }
+}
+
 /* Linha de divisao entre "Por que avaliar" e a secao de fotos */
 body.sobre-page .meto-scroll-section { border-top: 1px solid rgba(38,69,132,.10); }
 body.sobre-page .meto-federalism-section { border-bottom: none; }

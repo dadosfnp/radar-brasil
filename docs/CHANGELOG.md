@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### feat: Indicador de rolagem no scroll-stack de fotos (Sobre)
+
+- As fotos da secao "Federalismo Climatico" rolam com a roda do mouse, mas nada sinalizava isso ao usuario
+- Novo indicador a esquerda da foto: um traco por foto (4), o da foto atual mais longo e navy `#264584`, os demais curtos `rgba(38,69,132,.32)`; atualizado no mesmo `updateScrollPhotos()` e com transicao suave
+- So desktop (> 900px), onde a rolagem por roda existe; no mobile as fotos trocam por toque
+- Validado com Playwright a 1280, 1440 e 1920px: indicador centrado na foto, a 22px dela, acompanhando a rolagem nos dois sentidos
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### style: Textos pequenos dos graficos do Fact Sheet mais legiveis
 
 - Rotulos das categorias, textos verticais das barras ("Em acompanhamento" / "Em analise") e notas de rodape estavam muito pequenos

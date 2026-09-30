@@ -5,6 +5,12 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Scroll-stack de fotos: indicador de rolagem (2026-09-30)
+
+Tracos horizontais a esquerda da foto (`.meto-scroll-indicator` em `sobre.css`), um por foto, alinhados a direita e centrados na vertical, a 22px da foto (`right: calc(100% - 14vw + 22px)`, ja que a foto fica em `left: 14vw`). Ativo: 38px x 3px navy `#264584`; inativos: 20px `rgba(38,69,132,.32)`; transicao de largura/cor .3s. Foto ativa = a ultima que passou da metade da entrada (`floor(prog / segmento - 0.5)`). Escondido em <= 900px (sem rolagem por roda). Pedido do usuario para sinalizar que as fotos podem ser roladas.
+
+---
+
 ## Hero da pagina Sobre: titulo em 2 linhas (2026-09-30)
 
 O hero do Sobre reutiliza o componente da Metodologia (`.meto-hero-*` em `metodologia.css`), com o mesmo estilo de titulo (Sora 800, 2.5rem, `#101d4f`). O texto novo ("O que é o Radar Brasil - Federalismo Climático?") precisava de 492px e a coluna tem 474px, entao quebrava em 3 linhas, parecendo outro padrao. Ajuste so no Sobre, no desktop: `body.sobre-page .meto-hero-left h1 { margin-right: -24px }` (usa parte do `padding-right: 32px` da coluna). Espaco inseparavel antes do hifen mantem o "-" no fim da 1a linha. Regra: titulos de hero devem caber no mesmo numero de linhas da Metodologia; se um texto novo nao couber, ajustar espaco antes de mudar a tipografia.
