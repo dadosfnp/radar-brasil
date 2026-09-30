@@ -461,7 +461,9 @@ Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "V
 
 ### Metodologia — estado (2026-09-17)
 
-CSS: `static/css/metodologia.css` **v=52** | Template: `templates/municipios/metodologia.html`
+CSS: `static/css/metodologia.css` **v=53** | Template: `templates/municipios/metodologia.html`
+
+**Hero mobile (v53):** em <= 900px o mapa HUD animado vira fundo do titulo/subtitulo (`opacity: .4`), em vez de sumir. Vale tambem para o Sobre (mesmo hero).
 
 Hero padronizado com Inicio (mesma altura, badge, tipografia).
 
@@ -649,7 +651,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=20 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=13 |
-| `metodologia.css` | v=52 |
+| `metodologia.css` | v=53 |
 | `sobre.css` | v=26 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
@@ -691,7 +693,7 @@ Nota informativa (nao acionavel): DNS do `fnp.org.br` gerenciado em conta Digita
 
 ### Pagina Sobre: estado (2026-09-30)
 
-CSS: `static/css/sobre.css` **v=26** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
+CSS: `static/css/sobre.css` **v=26** + `metodologia.css` **v=53** | Template: `templates/municipios/sobre.html`
 
 Secoes em ordem:
 1. Fact Sheet (sb-infographic): folha unica de 630px "Evolucao do Federalismo Climatico", ampliada 1.4x via `zoom` no desktop (>= 960px)

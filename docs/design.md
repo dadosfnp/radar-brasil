@@ -5,6 +5,12 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Hero Metodologia/Sobre no mobile: mapa HUD como fundo (2026-09-30)
+
+Em <= 900px o `.meto-hero-right` (iframe do mapa HUD animado) deixou de ser escondido: vira camada de fundo `position: absolute; inset: 0; opacity: .4; pointer-events: none` dentro do `.meto-hero-inner` (`position: relative; overflow: hidden`), com `.meto-hero-left` por cima (`z-index: 1`). A mascara de degrade vertical do iframe (`mask-image`) ja dissolve as bordas. Opacidade .4 escolhida para manter o texto navy legivel sobre o mapa azul.
+
+---
+
 ## Scroll-stack de fotos: indicador de rolagem (2026-09-30)
 
 Bolinhas verticais a esquerda da foto (`.meto-scroll-indicator` em `sobre.css`), uma por foto, centradas na vertical, a 26px da foto (`right: calc(100% - 14vw + 26px)`, ja que a foto fica em `left: 14vw`). Inativas: 9px `rgba(38,69,132,.22)`; ativa: pilula 9x28px navy `#264584`, com transicao de altura (`cubic-bezier(.22,1,.36,1)`, .4s). Foto ativa = a ultima que passou da metade da entrada (`floor(prog / segmento - 0.5)`). Escondido em <= 900px (sem rolagem por roda).

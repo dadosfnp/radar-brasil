@@ -1310,7 +1310,17 @@ body.metodologia-page .rb-main {
     .meto-inner { padding: 0 20px; }
 
     .meto-hero-inner { grid-template-columns: 1fr; padding: 0 20px; }
-    .meto-hero-right { display: none; }
+    /* Mapa HUD animado vira fundo do titulo/subtitulo (em vez de sumir) */
+    .meto-hero-inner { position: relative; overflow: hidden; }
+    .meto-hero-left { position: relative; z-index: 1; }
+    .meto-hero-right {
+        position: absolute;
+        inset: 0;
+        height: auto;
+        z-index: 0;
+        opacity: .4;
+        pointer-events: none;
+    }
     .meto-hero-left h1 { font-size: 1.5rem; }
 
     .meto-federalism-body { grid-template-columns: 1fr; }

@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-30 (37a rodada)
+
+### style: Mapa animado como fundo do hero no mobile (Metodologia e Sobre)
+
+- No mobile (<= 900px) o mapa HUD animado do hero ficava escondido (`display: none`), deixando titulo e subtitulo sobre fundo liso
+- Agora o mapa ocupa o hero inteiro atras do texto (posicao absoluta, `opacity: .4`, sem capturar toque) e o texto fica por cima (`z-index: 1`)
+- Vale para as duas paginas que usam o hero `.meto-hero-*`; `metodologia.css` v=53
+- Validado com Playwright a 390 e 768px nas duas paginas: texto legivel, sem scroll horizontal
+
+**Arquivos:** `static/css/metodologia.css`, `templates/municipios/metodologia.html`, `templates/municipios/sobre.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-09-30 (36a rodada)
 
 ### style: Indicador do scroll-stack de fotos no estilo bolinhas
