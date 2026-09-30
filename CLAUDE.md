@@ -649,7 +649,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `inicio.css` | v=12 |
 | `landing.css` | v=13 |
 | `metodologia.css` | v=52 |
-| `sobre.css` | v=25 |
+| `sobre.css` | v=26 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
@@ -688,24 +688,26 @@ Nenhum deploy pendente. Proximos passos:
 
 Nota informativa (nao acionavel): DNS do `fnp.org.br` gerenciado em conta DigitalOcean separada ("Nucleo de Dados"). SSL expira 2026-11-15 (renovacao automatica via certbot).
 
-### Pagina Sobre — estado (2026-09-23)
+### Pagina Sobre: estado (2026-09-30)
 
-CSS: `static/css/sobre.css` **v=25** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
+CSS: `static/css/sobre.css` **v=26** + `metodologia.css` **v=52** | Template: `templates/municipios/sobre.html`
 
 Secoes em ordem:
-1. Fact Sheet (sb-infographic) — 2 folhas A4 em escala 1.4x com transform:scale(1.4)
+1. Fact Sheet (sb-infographic): folha unica de 630px "Evolucao do Federalismo Climatico", ampliada 1.4x via `zoom` no desktop (>= 960px)
 2. "Por que avaliar o Federalismo Climatico?" (meto-federalism-section)
 3. Scroll-stack de 4 fotos (meto-scroll-section)
 4. Historico do Federalismo Climatico (meto-timeline-section)
 5. FAQ com accordion (sb-faq-section)
 
-**Fact Sheet v23 — estado atual:**
-- Sheet-01 (594x820px): hero navy com h1/h2/outline-btn, 3 info-cards, S-curve SVG de fundo, secao de avaliacao com speech-bubble + gauge semicircular (4 cores) + legenda
-- Sheet-02 (583x772px): metodologia com 3 method-pills, fatores predominantes com factor-title (4 cantos arredondados) + chevrons + 5 paragrafos no factor-copy
-- Gauge: conic-gradient `from 270deg at 50% 100%` — 4 segmentos (Governanca/Politicas/Programas/Linhas)
-- Animacoes v23: IntersectionObserver dispara `.fs-visible` em cada `.fact-sheet`; 4 keyframes (fs-up, fs-from-left, fs-pop, fs-fade); stagger entre elementos; prefers-reduced-motion compativel
+**Fact Sheet v26 (2026-09-30), estado atual:** detalhes em `docs/design.md`.
+- Topo `.hero`: marca + botao, 3 info-cards (em fluxo, `min-height` 229px), card de avaliacao com gauge meio-donut (`conic-gradient from 270deg at 50% 100%`, fatias 32/18/18/30 em 180deg) + legenda
+- Bloco `.evolution`: grafico Nivel Pais por ano (2025 = 3) + barras de componentes 2025 (32/18/18/30) e 2026 ("em analise")
+- CSS todo escopado em `.sb-infographic` (nomes genericos: `.hero`, `.legend`, `.charts`...); variaveis `--fs-*`; fonte Arial dentro da folha
+- Mobile <= 600px: graficos em 1 coluna e avaliacao empilhada (texto, gauge, legenda)
+- Animacoes: mesmo IntersectionObserver (`.fs-animate`/`.fs-visible`); nao animar elementos com `transform` estatico (licao do fix v25 abaixo)
+- Numeros dos graficos e do gauge sao fixos no HTML: atualizar a mao quando o Radar 2026 tiver resultado
 
-**Fix v24 — overflow horizontal fantasma:** `.fact-sheets` ocupa 100% da largura de `.sb-infographic` (full-bleed) antes do `transform: scale(1.4)`; o scale amplia essa caixa larga inteira a partir do centro, criando area invisivel maior que a viewport e scrollbar horizontal na pagina. Corrigido com `overflow-x: hidden` em `.sb-infographic`.
+Historico das folhas A4 (v15 a v25, substituidas em v26) no `docs/design.md`. Licao que continua valendo:
 
 **Fix v25 — legenda do gauge perdia centralizacao:** `.legend` centraliza via `left:50% + transform:translateX(-50%)`; a animation `fs-up` (v23) define `transform:translateY(...)` na keyframe, e como CSS nao mescla transforms, a animation substitui o transform inteiro — com `fill-mode:both` o valor final ficava permanente, perdendo o `-50%` em X (legenda com borda esquerda no centro do sheet, cortada a direita). Corrigido com nova keyframe `fs-up-centered` que reafirma `translateX(-50%)` em todo frame. **Cuidado ao adicionar `animation` com `transform` em qualquer elemento que ja se posicione via `transform` estatico (ex.: `translateX(-50%)` para centralizar) — a keyframe precisa incluir esse transform em todos os frames, senao ele se perde.**
 

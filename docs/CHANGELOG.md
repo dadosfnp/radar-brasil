@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-09-30 (36a rodada)
+
+### feat: Fact Sheet substituido pela versao "Evolucao do Federalismo Climatico"
+
+- Pagina Sobre: as 2 folhas A4 antigas deram lugar a uma folha unica (topo com cards + avaliacao, e bloco de evolucao com grafico do Nivel Pais por ano e componentes avaliados em 2025/2026), a partir do HTML/CSS fornecido
+- CSS escopado em `.sb-infographic`; ampliacao de 140% no desktop via `zoom` (sem hack de margem); `sobre.css` v=26
+- Corrigidos defeitos do design original: fatias e numeros do gauge, coluna direita dos graficos cortada, anos sobrepostos, texto cortado no primeiro card, botao quebrando linha e sobreposicao no mobile
+- i18n: 7 novas strings EN no `django.po` + `django.mo` recompilado
+- Validado com Playwright em PT e EN a 1440, 800 e 390px: sem scroll horizontal, sem erros no console, animacoes terminam visiveis
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-09-28 (35a rodada)
 
 ### docs: Skills recomendadas, CONSTRAINTS.md e grafo local

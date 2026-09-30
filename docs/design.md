@@ -5,6 +5,31 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fact Sheet v26: Evolucao do Federalismo Climatico (2026-09-30)
+
+Substitui as 2 folhas A4 (v15 a v25) por **uma folha de 630px** com dois blocos, a partir do HTML/CSS entregue pelo usuario (`fact-sheet-evolucao.html/.css`):
+
+- **Topo (`.hero`):** marca (h1/h2 + botao "Sobre o Radar Brasil"), anel decorativo, 3 info-cards (O que e / Fontes / Recorte temporal) e card de avaliacao com gauge meio-donut + legenda.
+- **Evolucao (`.evolution`):** grafico "Nivel Pais ao longo do tempo" (2025 = 3; 2026 a 2028 em cinza) e dois graficos de barras de componentes avaliados (2025: 32/18/18/30; 2026: "em analise").
+- Paleta propria da folha em variaveis `--fs-*` (navy `#182253`, slate `#63779f`, ciano `#56d7df`), fonte Arial dentro da folha, como no design.
+
+**Integracao:**
+- Todas as regras escopadas em `.sb-infographic` (classes genericas como `.hero`, `.legend`, `.charts`); `:root` e `body` do arquivo original viraram variaveis/estilos da secao.
+- Ampliacao de 140% no desktop via `zoom: 1.4` (>= 960px) em vez de `transform: scale(1.4)`: o zoom entra no layout, dispensando `margin-bottom` de compensacao e o `overflow-x: hidden` do fix v24.
+- Textos em `{% trans %}`; strings ja existentes reaproveitam traducoes; 7 novas no `django.po`.
+
+**Correcoes sobre o design original (defeitos que ja existiam renderizando o arquivo sozinho):**
+- Gauge: conic-gradient sem `at 50% 100%` e com fatias calculadas sobre 360deg mostrava so parte das cores e escondia o "32". Agora `from 270deg at 50% 100%`, fatias proporcionais a 32/18/18/30 em 180deg e numeros no centro de cada fatia (raio medio 95px).
+- Colunas dos graficos: `53% 47%` + `gap: 28px` passava de 100% e cortava a coluna direita (so 2 de 4 barras visiveis). Agora `minmax(0,53fr) minmax(0,47fr)`; titulos dos graficos pequenos sem `nowrap` (17px, quebram em 2 linhas).
+- Anos do grafico de linha sobrepostos ("2025202620272028") e barras de ~6px: barras e anos com a mesma geometria (gap 12px, anos 11px).
+- Card "O que e o Radar Brasil" cortava o texto (altura fixa 229px em posicao absoluta): topo em fluxo normal (`padding-top: 130px`), cards com `min-height` e avaliacao logo abaixo, crescendo com o texto em PT e EN.
+- Botao "Sobre o Radar Brasil" quebrava em 2 linhas (largura fixa 172px): `inline-flex` com largura automatica.
+- Mobile (<= 600px): texto, gauge e legenda da avaliacao empilhados (lado a lado sobrepunha o texto).
+
+**Animacoes:** mantido o IntersectionObserver do template (`.fs-animate` / `.fs-visible`), keyframes redefinidas para os novos elementos, sem animar elementos com `transform` estatico (ver fix v25).
+
+---
+
 ## Fact Sheet v15 — 2026-09-18
 
 **Gauge conic-gradient corrigido:** adicionado `at 50% 100%` ao conic-gradient para centrar o gradiente na borda inferior do elemento (x=155, y=155), que e o centro geometrico real do semicirculo criado pelo border-radius. Sem esse parametro o gradiente centrava em 50% 50% (centro do retangulo = y=77.5), fazendo com que apenas 2 dos 4 segmentos aparecessem nos 180° visiveis. Com `at 50% 100%` os 4 segmentos (Governanca/Politicas/Programas/Linhas) aparecem corretamente proporcionais.

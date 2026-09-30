@@ -8,7 +8,7 @@
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
-    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=25">
+    <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=26">
 {% endblock %}
 
 {% block content %}
@@ -41,153 +41,199 @@
 </div>
 
 <!-- ═══════════════════════════════════════════
-     FACT SHEET — infográfico nativo
+     FACT SHEET: Evolução do Federalismo Climático
      ═══════════════════════════════════════════ -->
 <section class="sb-infographic">
-<div class="fact-sheets">
+<div class="fact-sheet">
 
-    <!-- ══════════════ SHEET 01 ══════════════ -->
-    <div class="fact-sheet sheet-01">
+    <!-- Bloco superior: identidade + cards + avaliação -->
+    <div class="hero">
 
-        <!-- Hero: header navy + ícones circulares + cards-balão -->
-        <div class="sheet01-hero">
+        <div class="brand">
             <h1>Radar Brasil</h1>
-            <h2>Federalismo climático</h2>
-            <span class="outline-btn">{% trans "Sobre o Radar Brasil" %}</span>
+            <h2>{% trans "Federalismo climático" %}</h2>
+            <a href="#evolucao" class="about-button">
+                {% trans "Sobre o Radar Brasil" %} <span aria-hidden="true">›</span>
+            </a>
+        </div>
 
-            <div class="network" aria-hidden="true">
-                <span class="network-line line-a"></span>
-                <span class="network-line line-b"></span>
-                <span class="network-line line-c"></span>
-            </div>
+        <div class="decorative-ring" aria-hidden="true">
+            <span></span>
+            <i></i>
+        </div>
 
-            <!-- Curva S decorativa atrás dos ícones (bezier passando pelo centro dos 3 cards) -->
-            <svg class="hero-wave" aria-hidden="true" viewBox="0 0 594 200" preserveAspectRatio="none">
-                <path d="M0 100 C 100 20, 200 180, 297 100 S 494 20, 594 100"
-                      fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="7.5"/>
-            </svg>
+        <div class="info-grid">
 
-            <!-- Card 01: O que é -->
-            <div class="info-card card-01">
-                <div class="round-icon">
-                    <img src="{% static 'img/avatar-principal.svg' %}" alt="" aria-hidden="true" class="card-avatar-icon">
+            <article class="info-card">
+                <div class="icon-circle" aria-hidden="true">
+                    <div class="icon-brazil"><span>◆</span></div>
                 </div>
-                <div class="card-body">
-                    <p><strong>{% trans "O que é o Radar Brasil:" %}</strong> {% trans "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal." %}</p>
+                <div class="info-content">
+                    <h3>{% trans "O que é o Radar Brasil:" %}</h3>
+                    <p>{% trans "Instrumento sistemático para diagnosticar a implementação do federalismo climático no Brasil, identificando avanços, lacunas e assimetrias nas iniciativas, políticas, programas, planos e linhas de financiamento do Governo Federal." %}</p>
                 </div>
-            </div>
+            </article>
 
-            <!-- Card 02: Fontes dos dados (navy escuro) — monitor com gráfico de linha -->
-            <div class="info-card card-02">
-                <div class="round-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <rect x="2" y="3" width="20" height="14" rx="2"/>
-                        <polyline points="6 13 9 9 12 11 16 7" stroke-width="1.4"/>
-                        <path d="M8 21h8M12 17v4"/>
-                    </svg>
+            <article class="info-card info-card-blue">
+                <div class="icon-circle" aria-hidden="true">
+                    <div class="icon-monitor"><span>⌁</span></div>
                 </div>
-                <div class="card-body">
-                    <p><strong>{% trans "Fontes dos dados do Radar Brasil:" %}</strong> {% trans "Os dados foram levantados exclusivamente em fontes oficiais do Governo Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano Plurianual (PPA) vigente." %}</p>
+                <div class="info-content">
+                    <h3>{% trans "Fontes dos dados do Radar Brasil:" %}</h3>
+                    <p>{% trans "Os dados foram levantados exclusivamente em fontes oficiais do Governo Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano Plurianual (PPA) vigente." %}</p>
                 </div>
-            </div>
+            </article>
 
-            <!-- Card 03: Recorte temporal — relógio analógico -->
-            <div class="info-card card-03">
-                <div class="round-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
+            <article class="info-card">
+                <div class="icon-circle" aria-hidden="true">
+                    <div class="icon-clock"></div>
                 </div>
-                <div class="card-body">
-                    <p><strong>{% trans "Recorte temporal:" %}</strong> {% trans "Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o primeiro semestre de 2025, estabelecendo uma linha de base para o diagnóstico inicial do federalismo climático." %}</p>
+                <div class="info-content">
+                    <h3>{% trans "Recorte temporal:" %}</h3>
+                    <p>{% trans "Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o primeiro semestre de 2025, estabelecendo uma linha de base para o diagnóstico inicial do federalismo climático." %}</p>
                 </div>
-            </div>
-        </div><!-- /sheet01-hero -->
+            </article>
 
-        <!-- Avaliação: speech bubble + gauge semicircular + legenda -->
-        <div class="sheet01-evaluation">
-            <div class="speech">
-                <h3>{% trans "O que o Radar Brasil avalia?" %}</h3>
+        </div>
+
+        <div class="evaluation-card">
+            <div class="evaluation-copy">
+                <h3><span aria-hidden="true"></span>{% trans "O que o Radar Brasil avalia?" %}</h3>
                 <p>{% trans "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais." %}</p>
-                <div class="speech-tail" aria-hidden="true"></div>
             </div>
 
-            <!-- Gauge semicircular via conic-gradient -->
-            <div class="gauge" aria-hidden="true">
-                <div class="gauge-inner">
-                    <span class="gauge-number n32">32</span>
-                    <span class="gauge-number n18a">18</span>
-                    <span class="gauge-number n18b">18</span>
-                    <span class="gauge-number n30">30</span>
-                </div>
+            <div class="mini-gauge" role="img" aria-label="{% trans 'Governança' %} 32, {% trans 'Políticas e Planos' %} 18, {% trans 'Programas' %} 18, {% trans 'Linhas de Financiamento' %} 30">
+                <div class="gauge-value value-32" aria-hidden="true">32</div>
+                <div class="gauge-value value-18a" aria-hidden="true">18</div>
+                <div class="gauge-value value-18b" aria-hidden="true">18</div>
+                <div class="gauge-value value-30" aria-hidden="true">30</div>
             </div>
 
             <div class="legend">
-                <span><i class="dot dot-gov"></i>{% trans "Governança" %}</span>
-                <span><i class="dot dot-pol"></i>{% trans "Políticas e Planos" %}</span>
-                <span><i class="dot dot-pro"></i>{% trans "Programas" %}</span>
-                <span><i class="dot dot-fin"></i>{% trans "Linhas de Financiamento" %}</span>
+                <span><i class="legend-dot governance"></i>{% trans "Governança" %}</span>
+                <span><i class="legend-dot plans"></i>{% trans "Políticas e Planos" %}</span>
+                <span><i class="legend-dot programs"></i>{% trans "Programas" %}</span>
+                <span><i class="legend-dot funding"></i>{% trans "Linhas de Financiamento" %}</span>
             </div>
+        </div>
+    </div><!-- /hero -->
 
-            <div class="bottom-wave" aria-hidden="true"></div>
-        </div><!-- /sheet01-evaluation -->
+    <!-- Bloco inferior: evolução no tempo -->
+    <div class="evolution" id="evolucao">
 
-    </div><!-- /sheet-01 -->
+        <h2 class="evolution-title">{% trans "Evolução do Federalismo Climático brasileiro no tempo" %}</h2>
 
-    <!-- ══════════════ SHEET 02 ══════════════ -->
-    <div class="fact-sheet sheet-02">
+        <div class="charts">
 
-        <!-- Metodologia: Eixos / Critérios / Parâmetros -->
-        <div class="methodology">
-            <h2>{% trans "Como avaliamos o federalismo climático?" %}</h2>
+            <!-- Gráfico 1: Nível País por ano -->
+            <article class="chart-card chart-timeline">
+                <h3>{% trans "Nível País ao longo do tempo" %}</h3>
 
-            <div class="method-pill pill-axes">
-                <div class="pill-label">{% trans "Eixos" %}</div>
-                <div class="pill-copy">
-                    {% trans "Governança" %}<br>
-                    {% trans "Políticas e Planos" %}<br>
-                    {% trans "Programas" %}<br>
-                    {% trans "Linhas de Financiamento" %}
+                <div class="timeline-chart">
+                    <div class="y-axis-title">{% trans "Nível" %}</div>
+
+                    <div class="y-labels" aria-hidden="true">
+                        <span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
+                    </div>
+
+                    <div class="grid-lines" aria-hidden="true">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+
+                    <div class="y-axis" aria-hidden="true"></div>
+                    <div class="x-axis" aria-hidden="true"></div>
+                    <div class="arrow-y" aria-hidden="true"></div>
+                    <div class="arrow-x" aria-hidden="true"></div>
+
+                    <div class="timeline-bars">
+                        <div class="year-bar active"><strong>3</strong></div>
+                        <div class="year-bar"></div>
+                        <div class="year-bar"></div>
+                        <div class="year-bar"></div>
+                    </div>
+
+                    <div class="years">
+                        <span>2025</span><span>2026</span><span>2027</span><span>2028</span>
+                    </div>
+
+                    <div class="x-axis-label">{% trans "Ano" %}</div>
                 </div>
+            </article>
+
+            <!-- Gráficos 2 e 3: componentes avaliados por eixo -->
+            <div class="right-charts">
+
+                <article class="chart-card small-chart">
+                    <h3>{% trans "Número de componentes avaliados em 2025" %}</h3>
+
+                    <div class="bar-chart">
+                        <div class="small-y-axis" aria-hidden="true">
+                            <span>40</span><span>30</span><span>20</span><span>10</span>
+                        </div>
+                        <div class="small-grid" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="small-axis" aria-hidden="true"></div>
+
+                        <div class="component-bars">
+                            <div class="component">
+                                <b style="height:76%"><em>32</em></b>
+                                <label>{% trans "Governança" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:43%"><em>18</em></b>
+                                <label>{% trans "Políticas e Planos" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:43%"><em>18</em></b>
+                                <label>{% trans "Programas" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:71%"><em>30</em></b>
+                                <label>{% trans "Linhas de Financiamento" %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="chart-card small-chart">
+                    <h3>{% trans "Número de componentes avaliados em 2026" %}</h3>
+
+                    <div class="bar-chart">
+                        <div class="small-y-axis" aria-hidden="true">
+                            <span>40</span><span>30</span><span>20</span><span>10</span>
+                        </div>
+                        <div class="small-grid" aria-hidden="true">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="small-axis" aria-hidden="true"></div>
+
+                        <div class="component-bars analysis-bars">
+                            <div class="component">
+                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
+                                <label>{% trans "Governança" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
+                                <label>{% trans "Políticas e Planos" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
+                                <label>{% trans "Programas" %}</label>
+                            </div>
+                            <div class="component">
+                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
+                                <label>{% trans "Linhas de Financiamento" %}</label>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
             </div>
+        </div>
+    </div><!-- /evolution -->
 
-            <div class="method-pill pill-criteria">
-                <div class="pill-label">{% trans "Critérios" %}</div>
-                <div class="pill-copy">{% trans "Dimensão específica de análise que detalha cada eixo em aspectos mensuráveis e distintos (de 3 a 5 por eixo)." %}</div>
-            </div>
-
-            <div class="method-pill pill-parameters">
-                <div class="pill-label">{% trans "Parâmetros" %}</div>
-                <div class="pill-copy">{% trans "Foram definidos 5 níveis de maturidade para cada critério na escala de avaliação." %}</div>
-            </div>
-        </div><!-- /methodology -->
-
-        <!-- Fatores predominantes -->
-        <div class="factors">
-            <div class="factor-title">
-                <h3>{% trans "Fatores predominantes para a avaliação da governança multinível?" %}</h3>
-                <span class="ft-corner ft-bl" aria-hidden="true"></span>
-                <span class="ft-corner ft-br" aria-hidden="true"></span>
-            </div>
-
-            <div class="chevrons" aria-hidden="true">
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="factor-copy">
-                <p class="lead">{% trans "Aderência à agenda climática, interface com estados e municípios, relevância para a coordenação federativa e disponibilidade de informações públicas." %}</p>
-                <p class="relevance"><strong>{% trans "Fator de relevância:" %}</strong></p>
-                <p><strong>{% trans "Peso 3" %}</strong> {% trans "para os componentes que declaram, em seu texto ou instrumento formal, mitigação ou adaptação às mudanças climáticas como objetivo." %}</p>
-                <p><strong>{% trans "Peso 2" %}</strong> {% trans "aos componentes que possuem objetivos que se relacionam diretamente a mitigação ou adaptação às mudanças climáticas." %}</p>
-                <p><strong>{% trans "Peso 1" %}</strong> {% trans "aos componentes cujos objetivos se relacionam apenas indiretamente à mitigação ou adaptação às mudanças climáticas." %}</p>
-            </div>
-        </div><!-- /factors -->
-
-    </div><!-- /sheet-02 -->
-
-</div><!-- /fact-sheets -->
+</div><!-- /fact-sheet -->
 </section>
 
 <!-- ═══════════════════════════════════════════

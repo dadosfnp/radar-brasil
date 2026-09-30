@@ -1,9 +1,9 @@
 # English translations for Radar Brasil
 msgid ""
 msgstr ""
+"Language: en\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # ── Navegação ──────────────────────────────────────────────────
@@ -1701,3 +1701,31 @@ msgstr "A specific dimension of analysis that details each axis into measurable 
 
 msgid "Foram definidos 5 níveis de maturidade para cada critério na escala de avaliação."
 msgstr "5 maturity levels were defined for each criterion on the assessment scale."
+
+#: templates/municipios/sobre.html
+msgid "Federalismo climático"
+msgstr "Climate federalism"
+
+#: templates/municipios/sobre.html
+msgid "Evolução do Federalismo Climático brasileiro no tempo"
+msgstr "Evolution of Brazilian Climate Federalism over time"
+
+#: templates/municipios/sobre.html
+msgid "Nível País ao longo do tempo"
+msgstr "Country Level over time"
+
+#: templates/municipios/sobre.html
+msgid "Ano"
+msgstr "Year"
+
+#: templates/municipios/sobre.html
+msgid "Número de componentes avaliados em 2025"
+msgstr "Number of components assessed in 2025"
+
+#: templates/municipios/sobre.html
+msgid "Número de componentes avaliados em 2026"
+msgstr "Number of components assessed in 2026"
+
+#: templates/municipios/sobre.html
+msgid "em análise"
+msgstr "under review"
