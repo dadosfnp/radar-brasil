@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Graficos do Fact Sheet no novo layout de cards
+
+- Bloco "Evolucao do Federalismo Climatico brasileiro no tempo" com cabecalho (sobretitulo, titulo, subtitulo, selo "Atualizacao 2025-2026") e graficos em cards brancos com sobretitulo, titulo, icone/selo do ano e nota de rodape
+- Graficos (SVG) com barras de cantos arredondados, anos e eixos sem resultado em cinza com texto vertical, valores na base das barras e eixos alinhados as grades
+- Titulos dos graficos de componentes encurtados para "Componentes avaliados em 2025/2026"
+- 16 novas strings EN no `django.po` + `django.mo` recompilado
+- Validado com Playwright em PT e EN a 1440, 800 e 390px: nada fora da folha ou dos cards, sem erros
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### fix: Graficos do Fact Sheet desalinhados e vazando as margens
 
 - Graficos "Nivel Pais ao longo do tempo" e "Numero de componentes avaliados em 2025/2026" refeitos em SVG inline (antes: dezenas de `div` em posicao absoluta que desalinhavam conforme a largura)

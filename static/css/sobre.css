@@ -441,43 +441,125 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .evolution {
     position: relative;
-    padding: 18px 15px 18px;
-    background: #fff;
+    padding: 20px 15px 18px;
+    background: #f5f7fb;
     font-family: 'DM Sans', sans-serif;
+    color: #1a2757;
+}
+
+.sb-infographic .evolution-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.sb-infographic .chart-eyebrow {
+    margin: 0 0 3px;
+    color: #3a6f9f;
+    font-size: 7px;
+    line-height: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .sb-infographic .evolution-title {
-    margin: 0 0 14px;
+    margin: 0;
+    max-width: 420px;
     color: #1a2757;
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 21px;
+    line-height: 25px;
     font-weight: 700;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.5px;
+}
+
+.sb-infographic .evolution-subtitle {
+    margin: 5px 0 0;
+    color: #5b6b8a;
+    font-size: 9.5px;
+    line-height: 13px;
+}
+
+.sb-infographic .evolution-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    padding: 5px 10px;
+    border: 1px solid #dfe5ee;
+    border-radius: 999px;
+    background: #fff;
+    color: #1a2757;
+    font-size: 8px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.sb-infographic .evolution-badge i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
 }
 
 .sb-infographic .charts {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 13px;
+    gap: 12px;
 }
 
 .sb-infographic .chart-card {
     display: flex;
     flex-direction: column;
-    padding: 12px 12px 10px;
-    border-radius: 10px;
-    background: #edf2fa;
-    box-shadow: 0 1px 3px rgba(24, 34, 83, .06);
+    padding: 13px 13px 11px;
+    border: 1px solid #e6eaf1;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(16, 29, 79, .04);
+}
+
+.sb-infographic .chart-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
 }
 
 .sb-infographic .chart-card h3 {
-    margin: 0 0 6px;
+    margin: 0;
     color: #1a2757;
-    font-size: 12.5px;
-    line-height: 16px;
+    font-size: 12px;
+    line-height: 15px;
     font-weight: 700;
     letter-spacing: -0.2px;
-    text-align: center;
+}
+
+.sb-infographic .chart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #e8f0fb;
+    color: #24407a;
+}
+
+.sb-infographic .chart-icon svg { width: 13px; height: 13px; }
+
+.sb-infographic .chart-year {
+    flex-shrink: 0;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #eef1f6;
+    color: #1a2757;
+    font-size: 8px;
+    line-height: 12px;
+    font-weight: 700;
 }
 
 .sb-infographic .chart-svg {
@@ -494,25 +576,55 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .right-charts {
     display: grid;
-    gap: 13px;
+    gap: 12px;
 }
 
-.sb-infographic .chart-tick { font-size: 12px; fill: #374151; }
-.sb-infographic .chart-tick-sm { font-size: 8.5px; fill: #4b5563; }
-.sb-infographic .chart-axis-label { font-size: 11px; fill: #374151; }
-.sb-infographic .chart-bar-value { font-size: 16px; font-weight: 700; }
-.sb-infographic .chart-bar-value-sm { font-size: 9.5px; }
-.sb-infographic .chart-bar-note { font-size: 8px; font-weight: 600; fill: #374151; }
+.sb-infographic .chart-tick { font-size: 8px; fill: #6b7280; }
+.sb-infographic .chart-tick-sm { font-size: 6.5px; }
+.sb-infographic .chart-axis-label { font-size: 7.5px; fill: #6b7280; }
+.sb-infographic .chart-bar-value { font-size: 8px; font-weight: 700; }
+.sb-infographic .chart-bar-note { font-size: 6.5px; font-weight: 500; fill: #5b6b8a; }
 
-/* Rotulos: mesma faixa do plot no viewBox (x 30 a 282 de 290) */
+/* Rotulos: mesma faixa do plot no viewBox (x 24 a 266 de 270) */
 .sb-infographic .chart-labels {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 3px 2.76% 0 10.34%;
-    color: #374151;
-    font-size: 8px;
-    line-height: 10px;
+    padding: 4px 1.48% 0 8.89%;
+    color: #4b5563;
+    font-size: 7px;
+    line-height: 9px;
     text-align: center;
+}
+
+.sb-infographic .chart-note {
+    margin: 8px 0 0;
+    color: #5b6b8a;
+    font-size: 7.5px;
+    line-height: 11px;
+}
+
+.sb-infographic .chart-note strong {
+    color: #1a2757;
+    font-weight: 700;
+}
+
+.sb-infographic .chart-note-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #f1f4f9;
+}
+
+.sb-infographic .chart-note-box i {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    margin-top: 2.5px;
+    border-radius: 50%;
+    background: #24407a;
 }
 
 /* ── Responsivo ── */
@@ -534,8 +646,15 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     .sb-infographic .legend { position: static; margin-top: 10px; flex-wrap: wrap; justify-content: center; gap: 6px 10px; }
     .sb-infographic .legend span { font-size: 8px; }
     .sb-infographic .charts { grid-template-columns: minmax(0, 1fr); }
-    .sb-infographic .chart-card h3 { font-size: 14px; line-height: 18px; }
+    /* Sem zoom no mobile: textos do bloco de evolucao um pouco maiores */
+    .sb-infographic .evolution-head { flex-direction: column; align-items: flex-start; }
+    .sb-infographic .chart-eyebrow { font-size: 9px; line-height: 12px; }
+    .sb-infographic .evolution-subtitle { font-size: 12px; line-height: 16px; }
+    .sb-infographic .evolution-badge { font-size: 10px; }
+    .sb-infographic .chart-card h3 { font-size: 15px; line-height: 19px; }
+    .sb-infographic .chart-year { font-size: 10px; }
     .sb-infographic .chart-labels { font-size: 9px; line-height: 11px; }
+    .sb-infographic .chart-note { font-size: 10.5px; line-height: 15px; }
 }
 
 /* ── Animações de entrada (classe .fs-animate aplicada via JS em sobre.html) ── */

@@ -1737,3 +1737,67 @@ msgstr "What is Radar Brasil - Climate Federalism?"
 #: templates/municipios/sobre.html
 msgid "Esta plataforma de avaliação do federalismo climático brasileiro é uma iniciativa da FNP no âmbito do Programa Mutirão Brasil, em parceria com o C40 e o GCoM."
 msgstr "This platform for assessing Brazilian climate federalism is an initiative of FNP under the Mutirão Brasil Program, in partnership with C40 and GCoM."
+
+#: templates/municipios/sobre.html
+msgid "Série histórica e acompanhamento"
+msgstr "Historical series and monitoring"
+
+#: templates/municipios/sobre.html
+msgid "Panorama do nível nacional e do andamento das avaliações por eixo."
+msgstr "Overview of the national level and of the progress of assessments by axis."
+
+#: templates/municipios/sobre.html
+msgid "Atualização 2025-2026"
+msgstr "Update 2025-2026"
+
+#: templates/municipios/sobre.html
+msgid "Série temporal"
+msgstr "Time series"
+
+#: templates/municipios/sobre.html
+msgid "Resultado consolidado"
+msgstr "Consolidated result"
+
+#: templates/municipios/sobre.html
+msgid "Acompanhamento"
+msgstr "Monitoring"
+
+#: templates/municipios/sobre.html
+msgid "Componentes avaliados em 2025"
+msgstr "Components assessed in 2025"
+
+#: templates/municipios/sobre.html
+msgid "Componentes avaliados em 2026"
+msgstr "Components assessed in 2026"
+
+#: templates/municipios/sobre.html
+msgid "Em acompanhamento"
+msgstr "Under monitoring"
+
+#: templates/municipios/sobre.html
+msgid "Em análise"
+msgstr "Under review"
+
+#: templates/municipios/sobre.html
+msgid "nível consolidado 3. Os anos seguintes são exibidos como horizonte de acompanhamento, sem atribuição de pontuação."
+msgstr "consolidated level 3. The following years are shown as a monitoring horizon, with no score assigned."
+
+#: templates/municipios/sobre.html
+msgid "Total:"
+msgstr "Total:"
+
+#: templates/municipios/sobre.html
+msgid "98 componentes"
+msgstr "98 components"
+
+#: templates/municipios/sobre.html
+msgid "avaliados em 2025."
+msgstr "assessed in 2025."
+
+#: templates/municipios/sobre.html
+msgid "Os quatro eixos estão"
+msgstr "All four axes are"
+
+#: templates/municipios/sobre.html
+msgid "; valores finais ainda não consolidados."
+msgstr "; final values not yet consolidated."
