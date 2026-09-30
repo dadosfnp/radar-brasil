@@ -64,34 +64,38 @@ body.sobre-page .rb-main {
     margin: 0;
 }
 
-/* Indicador do scroll-stack de fotos: tracos a esquerda da foto (que fica em
-   left: 14vw dentro de .meto-scroll-photos, ver metodologia.css). O traco da foto
-   ativa fica mais longo e navy; atualizado no JS de sobre.html. So desktop (> 900px),
-   onde as fotos rolam com a roda do mouse. */
+/* Indicador do scroll-stack de fotos: bolinhas verticais a esquerda da foto (que fica
+   em left: 14vw dentro de .meto-scroll-photos, ver metodologia.css), uma por foto. A da
+   foto ativa vira uma pilula navy alongada. Atualizado no JS de sobre.html.
+   So desktop (> 900px), onde as fotos rolam com a roda do mouse. */
 .meto-scroll-indicator {
     position: absolute;
     top: 50%;
-    right: calc(100% - 14vw + 22px);
+    right: calc(100% - 14vw + 26px);
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
     transform: translateY(-50%);
     pointer-events: none;
 }
 
 .meto-scroll-indicator span {
     display: block;
-    width: 20px;
-    height: 3px;
-    border-radius: 2px;
-    background: rgba(38, 69, 132, .32);
-    transition: width .3s ease, background-color .3s ease;
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(38, 69, 132, .22);
+    transition: height .4s cubic-bezier(.22, 1, .36, 1), background-color .3s ease;
 }
 
 .meto-scroll-indicator span.is-active {
-    width: 38px;
+    height: 28px;
     background: #264584;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .meto-scroll-indicator span { transition: none; }
 }
 
 @media (max-width: 900px) {

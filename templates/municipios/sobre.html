@@ -444,7 +444,7 @@
             </div>
             <!-- Indicador: sinaliza que da para rolar as fotos (um traco por foto) -->
             <div class="meto-scroll-indicator" aria-hidden="true">
-                <span></span><span></span><span></span><span></span>
+                <span class="is-active"></span><span></span><span></span><span></span>
             </div>
         </div>
 
@@ -651,7 +651,7 @@
     var scrollPhotos = scrollPhotosEl ? Array.prototype.slice.call(scrollPhotosEl.querySelectorAll('.meto-scroll-photo')) : [];
     var PEEK = 26;
     var photoProgress = 0;
-    var indicatorBars = scrollPhotosEl ? scrollPhotosEl.querySelectorAll('.meto-scroll-indicator span') : [];
+    var indicatorDots = scrollPhotosEl ? scrollPhotosEl.querySelectorAll('.meto-scroll-indicator span') : [];
 
     function updateScrollPhotos(prog) {
         if (!scrollPhotosEl || !scrollPhotos.length) return;
@@ -675,8 +675,8 @@
         });
         /* foto ativa = a ultima que ja passou da metade da entrada */
         var active = Math.max(0, Math.min(scrollPhotos.length - 1, Math.floor(prog / segment - 0.5)));
-        Array.prototype.forEach.call(indicatorBars, function(bar, i) {
-            bar.classList.toggle('is-active', i === active);
+        Array.prototype.forEach.call(indicatorDots, function(dot, i) {
+            dot.classList.toggle('is-active', i === active);
         });
     }
 

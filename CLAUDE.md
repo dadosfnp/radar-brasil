@@ -493,7 +493,7 @@ JS — wheel handler ativo apenas sobre `.meto-scroll-photos` (nao a secao intei
 - Animacao de entrada: `rotate((1-p)*-6deg)` ao subir, straightens em `p=1`
 - Loop bidirecional infinito sem frame branco: `displayProg = ((photoProgress - initProg) % 1 + 1) % 1 + initProg`
 - PEEK = 26px — borda das fotos abaixo aparece apenas apos comecar a rolar (nao no estado inicial)
-- Indicador de rolagem (2026-09-30, `sobre.css`): 4 tracos a esquerda da foto, o ativo longo e navy, sincronizado em `updateScrollPhotos()`; so desktop
+- Indicador de rolagem (2026-09-30, `sobre.css`): 4 bolinhas a esquerda da foto, a ativa vira pilula navy, sincronizado em `updateScrollPhotos()`; so desktop. Usuario prefere o estilo bolinha (tracos e contador+trilho foram rejeitados)
 - Mobile `<=900px`: layout estatico (1 coluna, primeira foto visivel, secao `height: auto`)
 
 **Timeline (v25 — sem alteracoes recentes):**

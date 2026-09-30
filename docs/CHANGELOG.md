@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Indicador do scroll-stack de fotos no estilo bolinhas
+
+- Tracos horizontais da 1a versao ficaram "crus"; testada uma versao com contador "01 / 04", trilho e icone de mouse, que o usuario nao aprovou
+- Versao final: 4 bolinhas verticais, a da foto atual vira pilula navy alongada com transicao suave; demais em azul claro
+- Validado com Playwright: acompanha as 4 fotos e o recomeco do ciclo, sem erros no console
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### feat: Indicador de rolagem no scroll-stack de fotos (Sobre)
 
 - As fotos da secao "Federalismo Climatico" rolam com a roda do mouse, mas nada sinalizava isso ao usuario

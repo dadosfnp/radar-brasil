@@ -7,7 +7,9 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ## Scroll-stack de fotos: indicador de rolagem (2026-09-30)
 
-Tracos horizontais a esquerda da foto (`.meto-scroll-indicator` em `sobre.css`), um por foto, alinhados a direita e centrados na vertical, a 22px da foto (`right: calc(100% - 14vw + 22px)`, ja que a foto fica em `left: 14vw`). Ativo: 38px x 3px navy `#264584`; inativos: 20px `rgba(38,69,132,.32)`; transicao de largura/cor .3s. Foto ativa = a ultima que passou da metade da entrada (`floor(prog / segmento - 0.5)`). Escondido em <= 900px (sem rolagem por roda). Pedido do usuario para sinalizar que as fotos podem ser roladas.
+Bolinhas verticais a esquerda da foto (`.meto-scroll-indicator` em `sobre.css`), uma por foto, centradas na vertical, a 26px da foto (`right: calc(100% - 14vw + 26px)`, ja que a foto fica em `left: 14vw`). Inativas: 9px `rgba(38,69,132,.22)`; ativa: pilula 9x28px navy `#264584`, com transicao de altura (`cubic-bezier(.22,1,.36,1)`, .4s). Foto ativa = a ultima que passou da metade da entrada (`floor(prog / segmento - 0.5)`). Escondido em <= 900px (sem rolagem por roda).
+
+Historico: 1a versao com tracos horizontais (achada "crua" pelo usuario); 2a com contador "01 / 04", trilho e icone de mouse (rejeitada: "prefiro o estilo bolinha"); versao final com bolinhas.
 
 ---
 
