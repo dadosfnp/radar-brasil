@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### fix: Graficos do Fact Sheet desalinhados e vazando as margens
+
+- Graficos "Nivel Pais ao longo do tempo" e "Numero de componentes avaliados em 2025/2026" refeitos em SVG inline (antes: dezenas de `div` em posicao absoluta que desalinhavam conforme a largura)
+- Layout pela referencia: duas colunas iguais, titulos em uma linha, barras largas, anos futuros em cinzas progressivos
+- Estetica harmonizada com o topo da folha: cards arredondados, DM Sans, titulos navy, grade tracejada e eixos com setas
+- CSS dos graficos reduzido de ~300 para ~90 linhas
+- Validado com Playwright em PT e EN a 1440, 800 e 390px: nada fora da folha ou dos cards, titulos em uma linha, sem erros
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### fix: Gauge do Fact Sheet serrilhado
 
 - Divisas entre as fatias apareciam serrilhadas (`conic-gradient` com paradas duras nao tem antialiasing)

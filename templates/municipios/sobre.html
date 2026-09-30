@@ -140,39 +140,43 @@
 
         <div class="charts">
 
-            <!-- Gráfico 1: Nível País por ano -->
+            <!-- Gráfico 1: Nível País por ano (SVG: eixos, grade e barras na mesma geometria) -->
             <article class="chart-card chart-timeline">
                 <h3>{% trans "Nível País ao longo do tempo" %}</h3>
-
-                <div class="timeline-chart">
-                    <div class="y-axis-title">{% trans "Nível" %}</div>
-
-                    <div class="y-labels" aria-hidden="true">
-                        <span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
-                    </div>
-
-                    <div class="grid-lines" aria-hidden="true">
-                        <span></span><span></span><span></span><span></span><span></span>
-                    </div>
-
-                    <div class="y-axis" aria-hidden="true"></div>
-                    <div class="x-axis" aria-hidden="true"></div>
-                    <div class="arrow-y" aria-hidden="true"></div>
-                    <div class="arrow-x" aria-hidden="true"></div>
-
-                    <div class="timeline-bars">
-                        <div class="year-bar active"><strong>3</strong></div>
-                        <div class="year-bar"></div>
-                        <div class="year-bar"></div>
-                        <div class="year-bar"></div>
-                    </div>
-
-                    <div class="years">
-                        <span>2025</span><span>2026</span><span>2027</span><span>2028</span>
-                    </div>
-
-                    <div class="x-axis-label">{% trans "Ano" %}</div>
-                </div>
+                <svg class="chart-svg" viewBox="0 0 290 330" role="img" aria-label="{% trans 'Nível País ao longo do tempo' %}: 2025 = 3">
+                    <g stroke="#c3cad4" stroke-width="1" stroke-dasharray="2 3">
+                        <line x1="50" y1="240" x2="266" y2="240"/>
+                        <line x1="50" y1="190" x2="266" y2="190"/>
+                        <line x1="50" y1="140" x2="266" y2="140"/>
+                        <line x1="50" y1="90" x2="266" y2="90"/>
+                        <line x1="50" y1="40" x2="266" y2="40"/>
+                    </g>
+                    <g class="chart-tick" text-anchor="end" dominant-baseline="central" aria-hidden="true">
+                        <text x="34" y="240">1</text>
+                        <text x="34" y="190">2</text>
+                        <text x="34" y="140">3</text>
+                        <text x="34" y="90">4</text>
+                        <text x="34" y="40">5</text>
+                    </g>
+                    <rect x="66.5" y="140" width="34" height="150" fill="#24407a"/>
+                    <rect x="117.5" y="140" width="34" height="150" fill="#d9dde3"/>
+                    <rect x="168.5" y="140" width="34" height="150" fill="#e1e4e9"/>
+                    <rect x="219.5" y="140" width="34" height="150" fill="#e8eaee"/>
+                    <text class="chart-bar-value" x="83.5" y="160" text-anchor="middle" fill="#fff">3</text>
+                    <g stroke="#6b7280" stroke-width="2.5" stroke-linecap="square" fill="none">
+                        <line x1="46" y1="290" x2="46" y2="30"/>
+                        <line x1="46" y1="290" x2="274" y2="290"/>
+                    </g>
+                    <path d="M39 32 L46 16 L53 32 Z M272 283 L288 290 L272 297 Z" fill="#6b7280"/>
+                    <g class="chart-tick" text-anchor="middle" aria-hidden="true">
+                        <text x="83.5" y="309">2025</text>
+                        <text x="134.5" y="309">2026</text>
+                        <text x="185.5" y="309">2027</text>
+                        <text x="236.5" y="309">2028</text>
+                    </g>
+                    <text class="chart-axis-label" x="160" y="327" text-anchor="middle">{% trans "Ano" %}</text>
+                    <text class="chart-axis-label" x="0" y="0" text-anchor="middle" transform="translate(13 140) rotate(-90)">{% trans "Nível" %}</text>
+                </svg>
             </article>
 
             <!-- Gráficos 2 e 3: componentes avaliados por eixo -->
@@ -180,67 +184,67 @@
 
                 <article class="chart-card small-chart">
                     <h3>{% trans "Número de componentes avaliados em 2025" %}</h3>
-
-                    <div class="bar-chart">
-                        <div class="small-y-axis" aria-hidden="true">
-                            <span>40</span><span>30</span><span>20</span><span>10</span>
-                        </div>
-                        <div class="small-grid" aria-hidden="true">
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <div class="small-axis" aria-hidden="true"></div>
-
-                        <div class="component-bars">
-                            <div class="component">
-                                <b style="height:76%"><em>32</em></b>
-                                <label>{% trans "Governança" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:43%"><em>18</em></b>
-                                <label>{% trans "Políticas e Planos" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:43%"><em>18</em></b>
-                                <label>{% trans "Programas" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:71%"><em>30</em></b>
-                                <label>{% trans "Linhas de Financiamento" %}</label>
-                            </div>
-                        </div>
+                    <svg class="chart-svg" viewBox="0 0 290 112" role="img" aria-label="{% trans 'Governança' %} 32, {% trans 'Políticas e Planos' %} 18, {% trans 'Programas' %} 18, {% trans 'Linhas de Financiamento' %} 30">
+                    <g stroke="#c3cad4" stroke-width="1" stroke-dasharray="2 3">
+                        <line x1="33" y1="75.0" x2="282" y2="75.0"/>
+                        <line x1="33" y1="54.0" x2="282" y2="54.0"/>
+                        <line x1="33" y1="33.0" x2="282" y2="33.0"/>
+                        <line x1="33" y1="12.0" x2="282" y2="12.0"/>
+                    </g>
+                    <g class="chart-tick chart-tick-sm" text-anchor="end" dominant-baseline="central" aria-hidden="true">
+                        <text x="22" y="75.0">10</text>
+                        <text x="22" y="54.0">20</text>
+                        <text x="22" y="33.0">30</text>
+                        <text x="22" y="12.0">40</text>
+                    </g>
+                    <rect x="43.5" y="28.8" width="36" height="67.2" fill="#24407a"/>
+                    <rect x="106.5" y="58.2" width="36" height="37.8" fill="#24407a"/>
+                    <rect x="169.5" y="58.2" width="36" height="37.8" fill="#24407a"/>
+                    <rect x="232.5" y="33.0" width="36" height="63.0" fill="#24407a"/>
+                    <text class="chart-bar-value chart-bar-value-sm" x="61.5" y="40.8" text-anchor="middle" fill="#fff">32</text>
+                    <text class="chart-bar-value chart-bar-value-sm" x="124.5" y="70.2" text-anchor="middle" fill="#fff">18</text>
+                    <text class="chart-bar-value chart-bar-value-sm" x="187.5" y="70.2" text-anchor="middle" fill="#fff">18</text>
+                    <text class="chart-bar-value chart-bar-value-sm" x="250.5" y="45.0" text-anchor="middle" fill="#fff">30</text>
+                    <path d="M30 6 V96 H284" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div class="chart-labels" aria-hidden="true">
+                        <span>{% trans "Governança" %}</span>
+                        <span>{% trans "Políticas e Planos" %}</span>
+                        <span>{% trans "Programas" %}</span>
+                        <span>{% trans "Linhas de Financiamento" %}</span>
                     </div>
                 </article>
 
                 <article class="chart-card small-chart">
                     <h3>{% trans "Número de componentes avaliados em 2026" %}</h3>
-
-                    <div class="bar-chart">
-                        <div class="small-y-axis" aria-hidden="true">
-                            <span>40</span><span>30</span><span>20</span><span>10</span>
-                        </div>
-                        <div class="small-grid" aria-hidden="true">
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <div class="small-axis" aria-hidden="true"></div>
-
-                        <div class="component-bars analysis-bars">
-                            <div class="component">
-                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
-                                <label>{% trans "Governança" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
-                                <label>{% trans "Políticas e Planos" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
-                                <label>{% trans "Programas" %}</label>
-                            </div>
-                            <div class="component">
-                                <b style="height:76%"><em>{% trans "em análise" %}</em></b>
-                                <label>{% trans "Linhas de Financiamento" %}</label>
-                            </div>
-                        </div>
+                    <svg class="chart-svg" viewBox="0 0 290 112" role="img" aria-label="{% trans 'em análise' %}">
+                    <g stroke="#c3cad4" stroke-width="1" stroke-dasharray="2 3">
+                        <line x1="33" y1="75.0" x2="282" y2="75.0"/>
+                        <line x1="33" y1="54.0" x2="282" y2="54.0"/>
+                        <line x1="33" y1="33.0" x2="282" y2="33.0"/>
+                        <line x1="33" y1="12.0" x2="282" y2="12.0"/>
+                    </g>
+                    <g class="chart-tick chart-tick-sm" text-anchor="end" dominant-baseline="central" aria-hidden="true">
+                        <text x="22" y="75.0">10</text>
+                        <text x="22" y="54.0">20</text>
+                        <text x="22" y="33.0">30</text>
+                        <text x="22" y="12.0">40</text>
+                    </g>
+                    <rect x="43.5" y="28.8" width="36" height="67.2" fill="#d3d7dd"/>
+                    <rect x="106.5" y="28.8" width="36" height="67.2" fill="#d3d7dd"/>
+                    <rect x="169.5" y="28.8" width="36" height="67.2" fill="#d3d7dd"/>
+                    <rect x="232.5" y="28.8" width="36" height="67.2" fill="#d3d7dd"/>
+                    <text class="chart-bar-note" x="0" y="0" text-anchor="middle" dominant-baseline="central" transform="translate(61.5 62.4) rotate(-90)">{% trans "em análise" %}</text>
+                    <text class="chart-bar-note" x="0" y="0" text-anchor="middle" dominant-baseline="central" transform="translate(124.5 62.4) rotate(-90)">{% trans "em análise" %}</text>
+                    <text class="chart-bar-note" x="0" y="0" text-anchor="middle" dominant-baseline="central" transform="translate(187.5 62.4) rotate(-90)">{% trans "em análise" %}</text>
+                    <text class="chart-bar-note" x="0" y="0" text-anchor="middle" dominant-baseline="central" transform="translate(250.5 62.4) rotate(-90)">{% trans "em análise" %}</text>
+                    <path d="M30 6 V96 H284" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div class="chart-labels" aria-hidden="true">
+                        <span>{% trans "Governança" %}</span>
+                        <span>{% trans "Políticas e Planos" %}</span>
+                        <span>{% trans "Programas" %}</span>
+                        <span>{% trans "Linhas de Financiamento" %}</span>
                     </div>
                 </article>
 

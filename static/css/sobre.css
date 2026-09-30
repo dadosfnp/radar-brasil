@@ -435,309 +435,84 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 .sb-infographic .funding { background: #17245a; }
 
 /* ── Bloco de evolução ── */
+/* Graficos em SVG inline (sobre.html): eixos, grade, barras e valores na mesma
+   geometria do viewBox, escalando juntos em qualquer largura. Rotulos de categoria
+   em HTML (quebram linha em PT/EN) alinhados as barras por porcentagem do viewBox. */
 
 .sb-infographic .evolution {
     position: relative;
-    padding: 17px 14px 20px;
+    padding: 18px 15px 18px;
     background: #fff;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .sb-infographic .evolution-title {
-    margin: 0 0 22px;
-    color: #111;
-    font-size: 23px;
-    line-height: 27px;
+    margin: 0 0 14px;
+    color: #1a2757;
+    font-size: 18px;
+    line-height: 22px;
     font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .sb-infographic .charts {
     display: grid;
-    grid-template-columns: minmax(0, 53fr) minmax(0, 47fr);
-    gap: 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 13px;
 }
 
 .sb-infographic .chart-card {
-    background: var(--fs-blue-panel);
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 10px;
+    border-radius: 10px;
+    background: #edf2fa;
+    box-shadow: 0 1px 3px rgba(24, 34, 83, .06);
 }
 
 .sb-infographic .chart-card h3 {
-    margin: 0;
-    color: #111;
-    font-size: 21px;
-    line-height: 25px;
+    margin: 0 0 6px;
+    color: #1a2757;
+    font-size: 12.5px;
+    line-height: 16px;
     font-weight: 700;
-}
-
-/* ── Gráfico de linha / Nível País ── */
-
-.sb-infographic .chart-timeline {
-    min-height: 423px;
-    padding: 20px 13px;
-}
-
-.sb-infographic .chart-timeline h3 {
+    letter-spacing: -0.2px;
     text-align: center;
-    margin-bottom: 18px;
 }
 
-.sb-infographic .timeline-chart {
-    position: relative;
-    height: 335px;
-    margin-top: 2px;
-}
-
-.sb-infographic .y-axis-title {
-    position: absolute;
-    left: 2px;
-    top: 151px;
-    transform: rotate(-90deg);
-    color: #111;
-    font-size: 11px;
-}
-
-.sb-infographic .y-labels {
-    position: absolute;
-    left: 38px;
-    top: 45px;
-    height: 228px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #111;
-    font-size: 17px;
-}
-
-.sb-infographic .grid-lines {
-    position: absolute;
-    left: 66px;
-    right: 55px;
-    top: 47px;
-    height: 227px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sb-infographic .grid-lines span {
+.sb-infographic .chart-svg {
+    display: block;
     width: 100%;
-    border-top: 2px dotted #c2c8d0;
+    height: auto;
+    overflow: visible;
+    font-family: 'DM Sans', sans-serif;
 }
 
-.sb-infographic .y-axis {
-    position: absolute;
-    left: 65px;
-    top: 37px;
-    width: 4px;
-    height: 264px;
-    background: #666;
+.sb-infographic .chart-timeline .chart-svg {
+    margin: auto 0;
 }
-
-.sb-infographic .x-axis {
-    position: absolute;
-    left: 65px;
-    right: 48px;
-    bottom: 33px;
-    height: 4px;
-    background: #666;
-}
-
-.sb-infographic .arrow-y {
-    position: absolute;
-    left: 58px;
-    top: 31px;
-    width: 0;
-    height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-bottom: 22px solid #666;
-}
-
-.sb-infographic .arrow-x {
-    position: absolute;
-    right: 41px;
-    bottom: 26px;
-    width: 0;
-    height: 0;
-    border-top: 9px solid transparent;
-    border-bottom: 9px solid transparent;
-    border-left: 22px solid #666;
-}
-
-.sb-infographic .timeline-bars {
-    position: absolute;
-    left: 84px;
-    right: 62px;
-    bottom: 37px;
-    height: 235px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    align-items: end;
-}
-
-.sb-infographic .year-bar {
-    height: 150px;
-    background: #e0e4e8;
-    position: relative;
-}
-
-.sb-infographic .year-bar.active {
-    height: 150px;
-    background: #2b4b86;
-}
-
-.sb-infographic .year-bar.active strong {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-size: 16px;
-}
-
-.sb-infographic .years {
-    position: absolute;
-    left: 78px;
-    right: 56px;
-    bottom: 10px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    text-align: center;
-    color: #111;
-    font-size: 11px;
-}
-
-.sb-infographic .x-axis-label {
-    position: absolute;
-    bottom: -18px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #111;
-    font-size: 12px;
-}
-
-/* ── Gráficos de barras ── */
 
 .sb-infographic .right-charts {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 22px;
+    gap: 13px;
 }
 
-.sb-infographic .small-chart {
-    height: 201px;
-    padding: 12px 13px 8px 28px;
-}
+.sb-infographic .chart-tick { font-size: 12px; fill: #374151; }
+.sb-infographic .chart-tick-sm { font-size: 8.5px; fill: #4b5563; }
+.sb-infographic .chart-axis-label { font-size: 11px; fill: #374151; }
+.sb-infographic .chart-bar-value { font-size: 16px; font-weight: 700; }
+.sb-infographic .chart-bar-value-sm { font-size: 9.5px; }
+.sb-infographic .chart-bar-note { font-size: 8px; font-weight: 600; fill: #374151; }
 
-.sb-infographic .small-chart h3 {
-    font-size: 17px;
-    line-height: 20px;
-    margin-bottom: 6px;
-}
-
-.sb-infographic .bar-chart {
-    position: relative;
-    height: 135px;
-}
-
-.sb-infographic .small-y-axis {
-    position: absolute;
-    left: 0;
-    top: 12px;
-    height: 94px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: #111;
-    font-size: 8px;
-}
-
-.sb-infographic .small-grid {
-    position: absolute;
-    left: 31px;
-    right: 9px;
-    top: 13px;
-    height: 94px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.sb-infographic .small-grid span {
-    width: 100%;
-    border-top: 1px dotted #aeb7c4;
-}
-
-.sb-infographic .small-axis {
-    position: absolute;
-    left: 31px;
-    right: 8px;
-    top: 106px;
-    height: 2px;
-    background: #888;
-}
-
-.sb-infographic .component-bars {
-    position: absolute;
-    left: 39px;
-    right: 14px;
-    top: 13px;
-    height: 111px;
+/* Rotulos: mesma faixa do plot no viewBox (x 30 a 282 de 290) */
+.sb-infographic .chart-labels {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 15px;
-    align-items: end;
-}
-
-.sb-infographic .component {
-    position: relative;
-    height: 111px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-direction: column;
-}
-
-.sb-infographic .component b {
-    position: relative;
-    width: min(47px, 100%);
-    min-height: 3px;
-    display: block;
-    background: #2b4b86;
-}
-
-.sb-infographic .component b em {
-    position: absolute;
-    top: 11px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #fff;
+    padding: 3px 2.76% 0 10.34%;
+    color: #374151;
     font-size: 8px;
-    font-style: normal;
-    font-weight: 700;
-}
-
-.sb-infographic .component label {
-    position: absolute;
-    top: 112px;
-    width: calc(100% + 14px);
+    line-height: 10px;
     text-align: center;
-    color: #111;
-    font-size: 7px;
-    line-height: 9px;
-}
-
-.sb-infographic .analysis-bars .component b {
-    background: #d1d5d9;
-}
-
-.sb-infographic .analysis-bars .component b em {
-    top: 26px;
-    left: 50%;
-    color: #111;
-    writing-mode: vertical-rl;
-    transform: translateX(-50%) rotate(180deg);
-    font-size: 7px;
 }
 
 /* ── Responsivo ── */
@@ -758,8 +533,9 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     .sb-infographic .mini-gauge { position: relative; right: auto; top: auto; margin: 14px auto 0; }
     .sb-infographic .legend { position: static; margin-top: 10px; flex-wrap: wrap; justify-content: center; gap: 6px 10px; }
     .sb-infographic .legend span { font-size: 8px; }
-    .sb-infographic .charts { grid-template-columns: 1fr; }
-    .sb-infographic .right-charts { grid-template-rows: auto auto; }
+    .sb-infographic .charts { grid-template-columns: minmax(0, 1fr); }
+    .sb-infographic .chart-card h3 { font-size: 14px; line-height: 18px; }
+    .sb-infographic .chart-labels { font-size: 9px; line-height: 11px; }
 }
 
 /* ── Animações de entrada (classe .fs-animate aplicada via JS em sobre.html) ── */
