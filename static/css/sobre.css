@@ -449,9 +449,9 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 .sb-infographic .evolution {
     position: relative;
     padding: 20px 15px 18px;
-    background: #f5f7fb;
+    background: #161c4e;
     font-family: 'DM Sans', sans-serif;
-    color: #1a2757;
+    color: #fff;
 }
 
 .sb-infographic .evolution-head {
@@ -464,7 +464,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .chart-eyebrow {
     margin: 0 0 3px;
-    color: #3a6f9f;
+    color: #adc6e5;
     font-size: 7px;
     line-height: 10px;
     font-weight: 700;
@@ -475,7 +475,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 .sb-infographic .evolution-title {
     margin: 0;
     max-width: 420px;
-    color: #1a2757;
+    color: #fff;
     font-size: 21px;
     line-height: 25px;
     font-weight: 700;
@@ -484,7 +484,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .evolution-subtitle {
     margin: 5px 0 0;
-    color: #5b6b8a;
+    color: rgba(255, 255, 255, .75);
     font-size: 9.5px;
     line-height: 13px;
 }
@@ -495,10 +495,10 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     gap: 6px;
     flex-shrink: 0;
     padding: 5px 10px;
-    border: 1px solid #dfe5ee;
+    border: 1px solid rgba(173, 198, 229, .3);
     border-radius: 999px;
-    background: #fff;
-    color: #1a2757;
+    background: rgba(255, 255, 255, .06);
+    color: #fff;
     font-size: 8px;
     font-weight: 600;
     white-space: nowrap;
@@ -521,10 +521,10 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     display: flex;
     flex-direction: column;
     padding: 13px 13px 11px;
-    border: 1px solid #e6eaf1;
+    border: 1px solid rgba(173, 198, 229, .22);
     border-radius: 12px;
-    background: #fff;
-    box-shadow: 0 1px 2px rgba(16, 29, 79, .04);
+    background: #1d2560;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .18);
 }
 
 .sb-infographic .chart-head {
@@ -537,7 +537,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .chart-card h3 {
     margin: 0;
-    color: #1a2757;
+    color: #fff;
     font-size: 12px;
     line-height: 15px;
     font-weight: 700;
@@ -552,8 +552,8 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     width: 22px;
     height: 22px;
     border-radius: 6px;
-    background: #e8f0fb;
-    color: #24407a;
+    background: rgba(173, 198, 229, .14);
+    color: #adc6e5;
 }
 
 .sb-infographic .chart-icon svg { width: 13px; height: 13px; }
@@ -562,8 +562,8 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     flex-shrink: 0;
     padding: 2px 8px;
     border-radius: 999px;
-    background: #eef1f6;
-    color: #1a2757;
+    background: rgba(173, 198, 229, .14);
+    color: #fff;
     font-size: 8px;
     line-height: 12px;
     font-weight: 700;
@@ -586,18 +586,18 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     gap: 12px;
 }
 
-.sb-infographic .chart-tick { font-size: 8px; fill: #6b7280; }
+.sb-infographic .chart-tick { font-size: 8px; fill: rgba(255, 255, 255, .65); }
 .sb-infographic .chart-tick-sm { font-size: 6.5px; }
-.sb-infographic .chart-axis-label { font-size: 7.5px; fill: #6b7280; }
+.sb-infographic .chart-axis-label { font-size: 7.5px; fill: rgba(255, 255, 255, .65); }
 .sb-infographic .chart-bar-value { font-size: 8px; font-weight: 700; }
-.sb-infographic .chart-bar-note { font-size: 6.5px; font-weight: 500; fill: #5b6b8a; }
+.sb-infographic .chart-bar-note { font-size: 6.5px; font-weight: 500; fill: rgba(255, 255, 255, .7); }
 
 /* Rotulos: mesma faixa do plot no viewBox (x 24 a 266 de 270) */
 .sb-infographic .chart-labels {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     padding: 4px 1.48% 0 8.89%;
-    color: #4b5563;
+    color: rgba(255, 255, 255, .75);
     font-size: 7px;
     line-height: 9px;
     text-align: center;
@@ -605,13 +605,13 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
 
 .sb-infographic .chart-note {
     margin: 8px 0 0;
-    color: #5b6b8a;
+    color: rgba(255, 255, 255, .72);
     font-size: 7.5px;
     line-height: 11px;
 }
 
 .sb-infographic .chart-note strong {
-    color: #1a2757;
+    color: #fff;
     font-weight: 700;
 }
 
@@ -622,7 +622,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     margin-top: 10px;
     padding: 8px 10px;
     border-radius: 8px;
-    background: #f1f4f9;
+    background: rgba(173, 198, 229, .08);
 }
 
 .sb-infographic .chart-note-box i {
@@ -631,7 +631,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     height: 6px;
     margin-top: 2.5px;
     border-radius: 50%;
-    background: #24407a;
+    background: #adc6e5;
 }
 
 /* ── Responsivo ── */

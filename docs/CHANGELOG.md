@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Bloco de evolucao do Fact Sheet em azul escuro
+
+- Mesmo layout de cards, na paleta de azul escuro da antiga folha 02 do Fact Sheet: fundo `#161c4e`, cards `#1d2560`, destaque `#adc6e5`, textos brancos
+- Barras de 2025 em azul claro com numeros em navy; barras sem resultado, grade e eixos em azul translucido
+- Validado com Playwright em PT e EN a 1440, 800 e 390px
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### style: Titulo do hero do Sobre no mesmo padrao da Metodologia
 
 - O estilo ja era identico (Sora 800, 40px, mesma cor, conferido com Playwright), mas o texto do Sobre e mais longo e quebrava em 3 linhas ("O que é o Radar / Brasil - Federalismo / Climático?"), enquanto o da Metodologia fecha em 2
