@@ -32,6 +32,7 @@ Substitui as 2 folhas A4 (v15 a v25) por **uma folha de 630px** com dois blocos,
 - Cards: gap 13px, raio 10px, fundo `#edf2fa` (card do meio `#dfe8f6` com filete `#d2def0`), sombra sutil.
 - Botao "Sobre o Radar Brasil": pill `#dcebfa`, texto 11px/600, seta ciano solta (sem circulo).
 - Avaliacao: fundo `#e7eff9` liso, gauge 264x132 com filetes brancos entre as fatias, cores `#e3e7ee`/`#5f729f`/`#b3c9e8`/`#17245a`, legenda 9px.
+- **Gauge em SVG:** o `conic-gradient` com paradas duras ficava serrilhado nas divisas das fatias (o navegador nao suaviza essas bordas). Trocado por `<svg>` inline com 4 setores de anel em arcos vetoriais (raio externo 132, interno 64, centro na base, filetes brancos de 1.5px via `stroke`) e numeros como `<text>` no centro de cada fatia. Regra: grafico de fatias com bordas nitidas deve ser SVG, nao `conic-gradient`.
 - Diferenca conhecida: o card 1 quebra em 9 linhas (referencia: 8), deixando os cards ~20px mais altos.
 
 **Animacoes:** mantido o IntersectionObserver do template (`.fs-animate` / `.fs-visible`), keyframes redefinidas para os novos elementos, sem animar elementos com `transform` estatico (ver fix v25).

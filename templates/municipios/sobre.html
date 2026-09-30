@@ -109,12 +109,20 @@
                 <p>{% trans "Foco nas iniciativas e instrumentos federais que promovem a cooperação interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta de mecanismos de articulação multinível, e não a capacidade institucional dos entes subnacionais." %}</p>
             </div>
 
-            <div class="mini-gauge" role="img" aria-label="{% trans 'Governança' %} 32, {% trans 'Políticas e Planos' %} 18, {% trans 'Programas' %} 18, {% trans 'Linhas de Financiamento' %} 30">
-                <div class="gauge-value value-32" aria-hidden="true">32</div>
-                <div class="gauge-value value-18a" aria-hidden="true">18</div>
-                <div class="gauge-value value-18b" aria-hidden="true">18</div>
-                <div class="gauge-value value-30" aria-hidden="true">30</div>
-            </div>
+            <svg class="mini-gauge" viewBox="0 0 264 132" role="img" aria-label="{% trans 'Governança' %} 32, {% trans 'Políticas e Planos' %} 18, {% trans 'Programas' %} 18, {% trans 'Linhas de Financiamento' %} 30">
+                <g stroke="#fff" stroke-width="1.5" stroke-linejoin="round">
+                    <path d="M0 132A132 132 0 0 1 63.57 19.12L98.82 77.27A64 64 0 0 0 68 132Z" fill="#e3e7ee"/>
+                    <path d="M63.57 19.12A132 132 0 0 1 136.23 0.07L134.05 68.03A64 64 0 0 0 98.82 77.27Z" fill="#5f729f"/>
+                    <path d="M136.23 0.07A132 132 0 0 1 207.52 23.74L168.62 79.51A64 64 0 0 0 134.05 68.03Z" fill="#b3c9e8"/>
+                    <path d="M207.52 23.74A132 132 0 0 1 264 132L196 132A64 64 0 0 0 168.62 79.51Z" fill="#17245a"/>
+                </g>
+                <g class="gauge-values" text-anchor="middle" dominant-baseline="central" aria-hidden="true">
+                    <text x="46.6" y="83.9" fill="#182253">32</text>
+                    <text x="107.1" y="37.2" fill="#fff">18</text>
+                    <text x="162.9" y="39" fill="#182253">18</text>
+                    <text x="218.9" y="86.7" fill="#fff">30</text>
+                </g>
+            </svg>
 
             <div class="legend">
                 <span><i class="legend-dot governance"></i>{% trans "Governança" %}</span>

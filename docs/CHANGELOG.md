@@ -6,6 +6,13 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### fix: Gauge do Fact Sheet serrilhado
+
+- Divisas entre as fatias apareciam serrilhadas (`conic-gradient` com paradas duras nao tem antialiasing)
+- Gauge redesenhado em SVG inline: 4 setores de anel em arcos vetoriais, filetes brancos via `stroke` e numeros em `<text>`; CSS do gradiente e do furo (`::after`) removido
+
+**Arquivos:** `templates/municipios/sobre.html`, `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### style: Areas em azul claro do Fact Sheet iguais a referencia
 
 - Cards, botao "Sobre o Radar Brasil" e card de avaliacao reestilizados pela imagem de referencia: fonte DM Sans, novos icones (mapa do Brasil, monitor com grafico, relogio), cores, espacamentos e gauge com filetes brancos entre as fatias

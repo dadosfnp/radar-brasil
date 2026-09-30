@@ -387,51 +387,22 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
     letter-spacing: -0.25px;
 }
 
-/* Meio donut: fatias proporcionais a 32/18/18/30 em 180deg, separadas por filetes brancos */
+/* Meio donut em SVG (sobre.html): arcos vetoriais sem serrilhado.
+   Fatias proporcionais a 32/18/18/30 em 180deg, raio 132/64, filetes brancos de 1.5px. */
 .sb-infographic .mini-gauge {
+    display: block;
     position: absolute;
     right: 15px;
     top: 10px;
     width: 264px;
     height: 132px;
-    border-radius: 132px 132px 0 0;
-    background: conic-gradient(
-        from 270deg at 50% 100%,
-        #e3e7ee 0deg 57.9deg,
-        #fff 57.9deg 59.7deg,
-        #5f729f 59.7deg 90.9deg,
-        #fff 90.9deg 92.7deg,
-        #b3c9e8 92.7deg 124deg,
-        #fff 124deg 125.8deg,
-        #17245a 125.8deg 180deg,
-        transparent 180deg
-    );
+    overflow: visible;
 }
 
-.sb-infographic .mini-gauge::after {
-    content: "";
-    position: absolute;
-    left: 68px;
-    bottom: 0;
-    width: 128px;
-    height: 64px;
-    border-radius: 64px 64px 0 0;
-    background: #e7eff9;
-}
-
-.sb-infographic .gauge-value {
-    position: absolute;
-    z-index: 2;
-    transform: translate(-50%, -50%);
+.sb-infographic .gauge-values {
     font-size: 15px;
     font-weight: 700;
 }
-
-/* Centro de cada fatia no raio medio (98px a partir da base) */
-.sb-infographic .value-32 { left: 17.7%; top: 63.6%; color: var(--fs-navy); }
-.sb-infographic .value-18a { left: 40.6%; top: 28.2%; color: #fff; }
-.sb-infographic .value-18b { left: 61.7%; top: 29.5%; color: var(--fs-navy); }
-.sb-infographic .value-30 { left: 82.9%; top: 65.6%; color: #fff; }
 
 .sb-infographic .legend {
     position: absolute;
