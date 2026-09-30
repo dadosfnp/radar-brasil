@@ -18,6 +18,13 @@ body.sobre-page .rb-main {
     min-height: 0;
 }
 
+/* Titulo do hero: mesmo estilo da Metodologia (metodologia.css), mas o texto e mais
+   longo e quebrava em 3 linhas. No desktop o h1 avanca 24px sobre o padding-right de
+   32px da coluna para fechar em 2 linhas, sem mudar fonte/tamanho. */
+@media (min-width: 901px) {
+    body.sobre-page .meto-hero-left h1 { margin-right: -24px; }
+}
+
 /* Fact sheet placeholder */
 .sb-factsheet-placeholder {
     background: transparent;

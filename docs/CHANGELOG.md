@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Titulo do hero do Sobre no mesmo padrao da Metodologia
+
+- O estilo ja era identico (Sora 800, 40px, mesma cor, conferido com Playwright), mas o texto do Sobre e mais longo e quebrava em 3 linhas ("O que é o Radar / Brasil - Federalismo / Climático?"), enquanto o da Metodologia fecha em 2
+- No desktop (>= 901px) o h1 do Sobre avanca 24px sobre o padding-right de 32px da coluna: fecha em 2 linhas ("O que é o Radar Brasil -" / "Federalismo Climático?") sem mudar fonte ou tamanho
+- As duas paginas agora quebram igual em todas as larguras (3 linhas ate 1100px, 2 linhas a partir de 1180px), em PT e EN
+
+**Arquivos:** `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
 ### style: Graficos do Fact Sheet no novo layout de cards
 
 - Bloco "Evolucao do Federalismo Climatico brasileiro no tempo" com cabecalho (sobretitulo, titulo, subtitulo, selo "Atualizacao 2025-2026") e graficos em cards brancos com sobretitulo, titulo, icone/selo do ano e nota de rodape

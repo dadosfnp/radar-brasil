@@ -5,6 +5,12 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Hero da pagina Sobre: titulo em 2 linhas (2026-09-30)
+
+O hero do Sobre reutiliza o componente da Metodologia (`.meto-hero-*` em `metodologia.css`), com o mesmo estilo de titulo (Sora 800, 2.5rem, `#101d4f`). O texto novo ("O que é o Radar Brasil - Federalismo Climático?") precisava de 492px e a coluna tem 474px, entao quebrava em 3 linhas, parecendo outro padrao. Ajuste so no Sobre, no desktop: `body.sobre-page .meto-hero-left h1 { margin-right: -24px }` (usa parte do `padding-right: 32px` da coluna). Espaco inseparavel antes do hifen mantem o "-" no fim da 1a linha. Regra: titulos de hero devem caber no mesmo numero de linhas da Metodologia; se um texto novo nao couber, ajustar espaco antes de mudar a tipografia.
+
+---
+
 ## Fact Sheet v26: Evolucao do Federalismo Climatico (2026-09-30)
 
 Substitui as 2 folhas A4 (v15 a v25) por **uma folha de 630px** com dois blocos, a partir do HTML/CSS entregue pelo usuario (`fact-sheet-evolucao.html/.css`):
