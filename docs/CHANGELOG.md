@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Textos pequenos dos graficos do Fact Sheet mais legiveis
+
+- Rotulos das categorias, textos verticais das barras ("Em acompanhamento" / "Em analise") e notas de rodape estavam muito pequenos
+- Aumentados (rotulos 7 para 9px, textos das barras 6.5 para 8.5px, notas 7.5 para 9.5px, antes do zoom 1.4; mobile tambem maior) e com mais contraste sobre o fundo escuro
+- Validado com Playwright em PT e EN a 1440, 800 e 390px: rotulos cabem nas colunas, nada fora dos cards
+
+**Arquivos:** `static/css/sobre.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
 ### style: Bloco de evolucao do Fact Sheet em azul escuro
 
 - Mesmo layout de cards, na paleta de azul escuro da antiga folha 02 do Fact Sheet: fundo `#161c4e`, cards `#1d2560`, destaque `#adc6e5`, textos brancos
