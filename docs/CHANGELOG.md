@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### feat: Novo titulo e subtitulo do hero da pagina Sobre
+
+- Titulo: "O que é o Radar Brasil - Federalismo Climático?" (era "Como avaliamos o Radar Brasil?"); espaco inseparavel antes do hifen para ele nao abrir a linha seguinte
+- Subtitulo: "Esta plataforma de avaliação do federalismo climático brasileiro é uma iniciativa da FNP no âmbito do Programa Mutirão Brasil, em parceria com o C40 e o GCoM."
+- Traducoes EN adicionadas no `django.po` + `django.mo` recompilado
+
+**Arquivos:** `templates/municipios/sobre.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/CHANGELOG.md`
+
 ### feat: Fact Sheet substituido pela versao "Evolucao do Federalismo Climatico"
 
 - Pagina Sobre: as 2 folhas A4 antigas deram lugar a uma folha unica (topo com cards + avaliacao, e bloco de evolucao com grafico do Nivel Pais por ano e componentes avaliados em 2025/2026), a partir do HTML/CSS fornecido

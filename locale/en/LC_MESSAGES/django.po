@@ -1729,3 +1729,11 @@ msgstr "Number of components assessed in 2026"
 #: templates/municipios/sobre.html
 msgid "em análise"
 msgstr "under review"
+
+#: templates/municipios/sobre.html
+msgid "O que é o Radar Brasil - Federalismo Climático?"
+msgstr "What is Radar Brasil - Climate Federalism?"
+
+#: templates/municipios/sobre.html
+msgid "Esta plataforma de avaliação do federalismo climático brasileiro é uma iniciativa da FNP no âmbito do Programa Mutirão Brasil, em parceria com o C40 e o GCoM."
+msgstr "This platform for assessing Brazilian climate federalism is an initiative of FNP under the Mutirão Brasil Program, in partnership with C40 and GCoM."
