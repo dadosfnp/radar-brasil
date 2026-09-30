@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-09-30 (36a rodada)
 
+### style: Areas em azul claro do Fact Sheet iguais a referencia
+
+- Cards, botao "Sobre o Radar Brasil" e card de avaliacao reestilizados pela imagem de referencia: fonte DM Sans, novos icones (mapa do Brasil, monitor com grafico, relogio), cores, espacamentos e gauge com filetes brancos entre as fatias
+- Novo icone `static/img/icon-brasil-fact-sheet.svg` (variante recolorida de `avatar-principal.svg`)
+- DM Sans 700 incluida no link de fontes da pagina Sobre
+- Validado com Playwright em PT e EN a 1440, 800 e 390px
+
+**Arquivos:** `static/css/sobre.css`, `templates/municipios/sobre.html`, `static/img/icon-brasil-fact-sheet.svg`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### feat: Novo titulo e subtitulo do hero da pagina Sobre
 
 - Titulo: "O que é o Radar Brasil - Federalismo Climático?" (era "Como avaliamos o Radar Brasil?"); espaco inseparavel antes do hifen para ele nao abrir a linha seguinte

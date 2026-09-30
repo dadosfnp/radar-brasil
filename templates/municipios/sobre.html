@@ -6,7 +6,7 @@
 {% block body_class %}rb-body sobre-page{% endblock %}
 
 {% block extra_head %}
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=52">
     <link rel="stylesheet" href="{% static 'css/sobre.css' %}?v=26">
 {% endblock %}
@@ -66,7 +66,7 @@
 
             <article class="info-card">
                 <div class="icon-circle" aria-hidden="true">
-                    <div class="icon-brazil"><span>◆</span></div>
+                    <img src="{% static 'img/icon-brasil-fact-sheet.svg' %}" alt="" class="icon-brazil">
                 </div>
                 <div class="info-content">
                     <h3>{% trans "O que é o Radar Brasil:" %}</h3>
@@ -76,7 +76,11 @@
 
             <article class="info-card info-card-blue">
                 <div class="icon-circle" aria-hidden="true">
-                    <div class="icon-monitor"><span>⌁</span></div>
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2.5" y="3.5" width="19" height="13" rx="1.5"/>
+                        <polyline points="6 13 9.5 9.5 12.5 11.5 17.5 6.5"/>
+                        <path d="M8.5 20.5h7M12 16.5v4"/>
+                    </svg>
                 </div>
                 <div class="info-content">
                     <h3>{% trans "Fontes dos dados do Radar Brasil:" %}</h3>
@@ -86,7 +90,10 @@
 
             <article class="info-card">
                 <div class="icon-circle" aria-hidden="true">
-                    <div class="icon-clock"></div>
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9.5"/>
+                        <polyline points="12 6.5 12 12 15.5 14"/>
+                    </svg>
                 </div>
                 <div class="info-content">
                     <h3>{% trans "Recorte temporal:" %}</h3>

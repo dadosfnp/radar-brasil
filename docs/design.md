@@ -26,6 +26,14 @@ Substitui as 2 folhas A4 (v15 a v25) por **uma folha de 630px** com dois blocos,
 - Botao "Sobre o Radar Brasil" quebrava em 2 linhas (largura fixa 172px): `inline-flex` com largura automatica.
 - Mobile (<= 600px): texto, gauge e legenda da avaliacao empilhados (lado a lado sobrepunha o texto).
 
+**Ajuste fino das areas em azul claro (2026-09-30, mesma v26, pela imagem de referencia do usuario):**
+- Fonte DM Sans nos cards, botao e avaliacao (h3 700 com `letter-spacing: -0.3px`; textos 12px/16.5px e 11.5px/19px); DM Sans 700 adicionada ao link de fontes do `sobre.html`. Titulo "Radar Brasil"/subtitulo continuam Arial como no design original.
+- Icones: mapa do Brasil em anel ciano (`static/img/icon-brasil-fact-sheet.svg`, variante de `avatar-principal.svg` com anel `#56d7df` e mapa `#182253`), monitor com grafico de linha e relogio em SVG de traco navy; circulo de 48px `#dbe6f6`.
+- Cards: gap 13px, raio 10px, fundo `#edf2fa` (card do meio `#dfe8f6` com filete `#d2def0`), sombra sutil.
+- Botao "Sobre o Radar Brasil": pill `#dcebfa`, texto 11px/600, seta ciano solta (sem circulo).
+- Avaliacao: fundo `#e7eff9` liso, gauge 264x132 com filetes brancos entre as fatias, cores `#e3e7ee`/`#5f729f`/`#b3c9e8`/`#17245a`, legenda 9px.
+- Diferenca conhecida: o card 1 quebra em 9 linhas (referencia: 8), deixando os cards ~20px mais altos.
+
 **Animacoes:** mantido o IntersectionObserver do template (`.fs-animate` / `.fs-visible`), keyframes redefinidas para os novos elementos, sem animar elementos com `transform` estatico (ver fix v25).
 
 ---

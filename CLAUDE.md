@@ -702,7 +702,8 @@ Secoes em ordem:
 **Fact Sheet v26 (2026-09-30), estado atual:** detalhes em `docs/design.md`.
 - Topo `.hero`: marca + botao, 3 info-cards (em fluxo, `min-height` 229px), card de avaliacao com gauge meio-donut (`conic-gradient from 270deg at 50% 100%`, fatias 32/18/18/30 em 180deg) + legenda
 - Bloco `.evolution`: grafico Nivel Pais por ano (2025 = 3) + barras de componentes 2025 (32/18/18/30) e 2026 ("em analise")
-- CSS todo escopado em `.sb-infographic` (nomes genericos: `.hero`, `.legend`, `.charts`...); variaveis `--fs-*`; fonte Arial dentro da folha
+- CSS todo escopado em `.sb-infographic` (nomes genericos: `.hero`, `.legend`, `.charts`...); variaveis `--fs-*`; titulo/subtitulo em Arial, cards/botao/avaliacao em DM Sans (ajustados pela imagem de referencia do usuario)
+- Icone do card 1: `static/img/icon-brasil-fact-sheet.svg`; cards 2 e 3 com SVG inline
 - Mobile <= 600px: graficos em 1 coluna e avaliacao empilhada (texto, gauge, legenda)
 - Animacoes: mesmo IntersectionObserver (`.fs-animate`/`.fs-visible`); nao animar elementos com `transform` estatico (licao do fix v25 abaixo)
 - Numeros dos graficos e do gauge sao fixos no HTML: atualizar a mao quando o Radar 2026 tiver resultado
