@@ -1801,3 +1801,71 @@ msgstr "All four axes are"
 #: templates/municipios/sobre.html
 msgid "; valores finais ainda não consolidados."
 msgstr "; final values not yet consolidated."
+
+#: templates/assistente/_widget.html
+msgid "Fontes"
+msgstr "Sources"
+
+#: templates/assistente/_widget.html
+msgid "O assistente está indisponível no momento. Tente novamente mais tarde."
+msgstr "The assistant is unavailable right now. Please try again later."
+
+#: templates/assistente/_widget.html
+msgid "Consultando os dados do Radar Brasil…"
+msgstr "Checking the Radar Brasil data…"
+
+#: templates/assistente/_widget.html
+msgid "Assistente Radar Brasil"
+msgstr "Radar Brasil Assistant"
+
+#: templates/assistente/_widget.html
+msgid "Pergunte sobre os dados da plataforma"
+msgstr "Ask about the platform data"
+
+#: templates/assistente/_widget.html
+msgid "Limpar conversa"
+msgstr "Clear conversation"
+
+#: templates/assistente/_widget.html
+msgid "Expandir"
+msgstr "Expand"
+
+#: templates/assistente/_widget.html
+msgid "Pergunte alguma coisa sobre os dados do Radar Brasil"
+msgstr "Ask anything about the Radar Brasil data"
+
+#: templates/assistente/_widget.html
+msgid "Qual o nível do CONDRAF em cada critério?"
+msgstr "What is the CONDRAF level in each criterion?"
+
+#: templates/assistente/_widget.html
+msgid "Como está Niterói no Novo PAC?"
+msgstr "How is Niterói doing in the Novo PAC?"
+
+#: templates/assistente/_widget.html
+msgid "Sua pergunta"
+msgstr "Your question"
+
+#: templates/assistente/_widget.html
+msgid "Ex: Como está o eixo Governança?"
+msgstr "E.g.: How is the Governance axis doing?"
+
+#: templates/assistente/_widget.html
+msgid "Enviar"
+msgstr "Send"
+
+#: templates/assistente/_widget.html
+msgid "Respostas geradas por IA com base nos dados do Radar Brasil. Não insira dados pessoais."
+msgstr "AI-generated answers based on Radar Brasil data. Do not enter personal data."
+
+#: templates/assistente/_widget.html
+msgid "DPO:"
+msgstr "DPO:"
+
+#: templates/assistente/_widget.html
+msgid "Abrir o Assistente Radar Brasil"
+msgstr "Open the Radar Brasil Assistant"
+
+#: templates/assistente/_widget.html
+msgid "Fechar o Assistente Radar Brasil"
+msgstr "Close the Radar Brasil Assistant"

@@ -663,6 +663,9 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `financiamento-climatico.js` | v=5 |
 | `nota-pais.css` | v=10 |
 | `linha-do-tempo.css` | v=1 |
+| `components.css` | v=3 |
+| `assistente.css` | v=1 |
+| `assistente.js` | v=1 |
 
 ### Pendencias
 

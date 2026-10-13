@@ -217,3 +217,13 @@ class PerguntarAPITest(TestCase):
         res = self._post({"pergunta": "a"})
         self.assertEqual(res.status_code, 503)
         self.assertEqual(InteracaoAssistente.objects.get().erro, "429 cota")
+
+
+class WidgetTest(TestCase):
+    def test_paginas_tem_o_botao_do_chat_no_lugar_do_voltar_ao_topo(self):
+        for nome in ("municipios:home", "municipios:sobre", "indicadores:mapa_georreferenciado"):
+            html = self.client.get(reverse(nome)).content.decode()
+            self.assertIn('id="as-botao"', html, nome)
+            self.assertIn(reverse("assistente:perguntar"), html, nome)
+            self.assertIn("nucleo.dados@fnp.org.br", html, nome)
+            self.assertNotIn("rb-scroll-top", html, nome)

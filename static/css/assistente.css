@@ -1,0 +1,392 @@
+/* ══════════════════════════════════════════════════════════
+   ASSISTENTE RADAR BRASIL: botao flutuante + painel de chat
+   (templates/assistente/_widget.html, static/js/assistente.js)
+   Substitui o antigo botao "voltar ao topo" no canto inferior direito.
+   ══════════════════════════════════════════════════════════ */
+
+.as-root {
+    --as-navy: var(--hdr-700, #101d4f);
+    --as-primaria: var(--color-primary, #264584);
+    --as-fundo: #f6f8fc;
+    --as-borda: #e2e8f2;
+    --as-texto: #1f2a4d;
+    --as-suave: #5b6b8a;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+}
+
+.as-visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+/* ── Botao flutuante ── */
+.as-botao {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--as-navy);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(16, 29, 79, .35);
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.as-botao:hover { background: var(--as-primaria); transform: translateY(-2px); }
+.as-botao:focus-visible { outline: 3px solid #8aaad4; outline-offset: 2px; }
+.as-botao svg { width: 24px; height: 24px; }
+.as-botao .as-botao-fechar { display: none; }
+.as-botao[aria-expanded="true"] .as-botao-ia { display: none; }
+.as-botao[aria-expanded="true"] .as-botao-fechar { display: block; }
+
+/* ── Painel ── */
+.as-painel {
+    position: fixed;
+    right: 24px;
+    bottom: 92px;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: min(620px, calc(100vh - 120px));
+    border: 1px solid var(--as-borda);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 16px 48px rgba(16, 29, 79, .22);
+    overflow: hidden;
+    animation: as-entrar .22s ease-out;
+}
+
+.as-painel[hidden] { display: none; }
+
+.as-painel.as-expandido {
+    width: min(760px, calc(100vw - 48px));
+    height: calc(100vh - 120px);
+}
+
+@keyframes as-entrar {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Cabecalho navy */
+.as-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px 14px 16px;
+    background: var(--as-navy);
+    color: #fff;
+}
+
+.as-cabecalho-icone {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .12);
+}
+
+.as-cabecalho-icone svg { width: 20px; height: 20px; }
+.as-cabecalho-texto { flex: 1; min-width: 0; }
+
+.as-cabecalho-texto h2 {
+    margin: 0;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.as-cabecalho-texto p {
+    margin: 2px 0 0;
+    color: rgba(255, 255, 255, .72);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.as-acoes { display: flex; gap: 2px; }
+
+.as-acao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, .8);
+    cursor: pointer;
+}
+
+.as-acao:hover { background: rgba(255, 255, 255, .12); color: #fff; }
+.as-acao:focus-visible { outline: 2px solid #8aaad4; }
+.as-acao svg { width: 17px; height: 17px; }
+
+/* Mensagens */
+.as-mensagens {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 16px;
+    background: var(--as-fundo);
+    overflow-y: auto;
+}
+
+.as-vazio {
+    margin: auto 0;
+    text-align: center;
+}
+
+.as-vazio-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    background: #e7eefa;
+    color: var(--as-navy);
+}
+
+.as-vazio-icone svg { width: 26px; height: 26px; }
+
+.as-vazio-titulo {
+    margin: 0 0 14px;
+    color: var(--as-texto);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.as-sugestoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.as-sugestao {
+    max-width: 100%;
+    padding: 8px 14px;
+    border: 1px solid var(--as-borda);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--as-primaria);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .2s ease, background-color .2s ease;
+}
+
+.as-sugestao:hover { border-color: var(--as-primaria); background: #eef3fb; }
+
+.as-msg {
+    max-width: 88%;
+    padding: 10px 13px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 21px;
+    overflow-wrap: anywhere;
+}
+
+.as-msg-usuario {
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    background: var(--as-navy);
+    color: #fff;
+}
+
+.as-msg-assistente {
+    align-self: flex-start;
+    border: 1px solid var(--as-borda);
+    border-bottom-left-radius: 4px;
+    background: #fff;
+    color: var(--as-texto);
+}
+
+.as-msg-assistente p { margin: 0 0 8px; }
+.as-msg-assistente p:last-child { margin-bottom: 0; }
+.as-msg-assistente ul { margin: 0 0 8px; padding-left: 18px; }
+.as-msg-assistente li { margin-bottom: 3px; }
+
+.as-msg-erro {
+    align-self: center;
+    max-width: 100%;
+    border: 1px solid #f3d6a6;
+    background: #fff8eb;
+    color: #7a4b00;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Citacao [F12] vira um numero clicavel que leva a fonte */
+.as-cita {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    margin: 0 1px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: #e7eefa;
+    color: var(--as-primaria);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    vertical-align: 1px;
+}
+
+a.as-cita:hover { background: var(--as-primaria); color: #fff; }
+
+.as-fontes {
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px solid var(--as-borda);
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.as-fontes-titulo {
+    margin: 0 0 5px;
+    color: var(--as-suave);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    font-size: 10.5px;
+}
+
+.as-fontes ol { margin: 0; padding-left: 18px; }
+.as-fontes li { margin-bottom: 3px; color: var(--as-texto); }
+.as-fontes a { color: var(--as-primaria); }
+.as-fonte-eixo { color: var(--as-suave); }
+
+/* Indicador de "pensando" */
+.as-digitando {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--as-suave);
+    font-size: 13px;
+}
+
+.as-pontos { display: inline-flex; gap: 3px; }
+
+.as-pontos i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--as-primaria);
+    animation: as-ponto 1.2s infinite ease-in-out;
+}
+
+.as-pontos i:nth-child(2) { animation-delay: .15s; }
+.as-pontos i:nth-child(3) { animation-delay: .3s; }
+
+@keyframes as-ponto {
+    0%, 80%, 100% { opacity: .25; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* Entrada */
+.as-form {
+    display: flex;
+    gap: 8px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--as-borda);
+    background: #fff;
+}
+
+.as-entrada {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid var(--as-borda);
+    border-radius: 10px;
+    color: var(--as-texto);
+    font: inherit;
+    font-size: 14px;
+}
+
+.as-entrada:focus { border-color: var(--as-primaria); outline: 2px solid rgba(38, 69, 132, .15); }
+
+.as-enviar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: var(--as-navy);
+    color: #fff;
+    cursor: pointer;
+}
+
+.as-enviar:hover { background: var(--as-primaria); }
+.as-enviar:disabled { opacity: .5; cursor: default; }
+.as-enviar svg { width: 18px; height: 18px; }
+
+.as-rodape {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 0;
+    padding: 0 14px 10px;
+    background: #fff;
+    color: var(--as-suave);
+    font-size: 11px;
+    line-height: 15px;
+}
+
+.as-rodape svg { flex-shrink: 0; width: 13px; height: 13px; margin-top: 1px; }
+.as-rodape a { color: var(--as-primaria); }
+
+/* Mapa Georreferenciado em tela cheia (<= 900px): a legenda fica fixa no canto
+   inferior direito do mapa (ate ~192px da base); o botao sobe para acima dela */
+@media (max-width: 900px) {
+    body.mapa-page .as-botao { bottom: 204px; }
+}
+
+/* ── Mobile: painel em tela cheia ── */
+@media (max-width: 600px) {
+    .as-botao { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+
+    .as-painel,
+    .as-painel.as-expandido {
+        inset: 0;
+        z-index: 2400;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0;
+    }
+
+    .as-so-desktop { display: none; }
+    .as-msg { max-width: 92%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .as-painel { animation: none; }
+    .as-pontos i { animation: none; opacity: .6; }
+}

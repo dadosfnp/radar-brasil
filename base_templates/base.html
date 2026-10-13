@@ -30,8 +30,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=2">
-    <link rel="stylesheet" href="{% static 'css/components.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}?v=3">
     <link rel="stylesheet" href="{% static 'css/base.css' %}?v=20">
+    <link rel="stylesheet" href="{% static 'css/assistente.css' %}?v=1">
     {% block extra_head %}{% endblock %}
 </head>
 <body class="{% block body_class %}rb-body{% endblock %}">
@@ -179,11 +180,8 @@
     <script src="{% static 'js/i18n.js' %}"></script>
     {% block extra_js %}{% endblock %}
 
-    <button id="rb-scroll-top" class="rb-scroll-top" aria-label="{% trans 'Voltar ao topo' %}" hidden>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="18 15 12 9 6 15"/>
-        </svg>
-    </button>
+    {% include "assistente/_widget.html" %}
+    <script src="{% static 'js/assistente.js' %}?v=1"></script>
 
     <script>
         (function () {
@@ -218,12 +216,6 @@
                     setNavOpen(false);
                 }
             });
-        })();
-        (function () {
-            var top = document.getElementById('rb-scroll-top');
-            if (!top) return;
-            window.addEventListener('scroll', function () { top.hidden = window.scrollY < 400; }, { passive: true });
-            top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
         })();
     </script>
 </body>

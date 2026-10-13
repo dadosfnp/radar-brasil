@@ -5,6 +5,19 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Assistente Radar Brasil: widget de chat (2026-10-13)
+
+Botao flutuante + painel de chat em todas as paginas (`templates/assistente/_widget.html` incluido no `base.html`; prefixo `.as-` em `static/css/assistente.css`). **Substitui o antigo botao "voltar ao topo"** (`.rb-scroll-top`, removido), a pedido do usuario.
+
+- **Botao:** 56px (52px no mobile), navy `#101d4f` com borda branca de 3px e sombra, icone de IA (estrelas); vira seta para baixo quando o painel esta aberto. Canto inferior direito (24px; 16px no mobile). No Mapa Georreferenciado em <= 900px sobe para `bottom: 204px`, acima da legenda fixa do mapa.
+- **Painel:** 400x620px (expandido: ate 760px de largura e altura da tela), raio 16px, borda `#e2e8f2`, sombra. Cabecalho navy solido (sem degrade) com icone em quadrado translucido, titulo Sora 15px/700, subtitulo 12px; acoes limpar/expandir/fechar. Corpo `#f6f8fc`.
+- **Mensagens:** pergunta em balao navy a direita; resposta em balao branco com borda a esquerda; citacoes como numeros em pilula `#e7eefa`/`#264584`; bloco "Fontes" numerado ao fim da resposta; aviso de erro em amarelo claro.
+- **Rodape:** escudo + "Respostas geradas por IA... Nao insira dados pessoais." + DPO `nucleo.dados@fnp.org.br`.
+- **Mobile (<= 600px):** painel em tela cheia (`z-index: 2400`, acima do header e do menu), sem o botao expandir.
+- Tipografia DM Sans; animacoes de entrada e dos pontos de "digitando" desligadas em `prefers-reduced-motion`.
+
+---
+
 ## Hero Metodologia/Sobre no mobile: mapa HUD como fundo (2026-09-30)
 
 Em <= 900px o `.meto-hero-right` (iframe do mapa HUD animado) deixou de ser escondido: vira camada de fundo `position: absolute; inset: 0; opacity: .4; pointer-events: none` dentro do `.meto-hero-inner` (`position: relative; overflow: hidden`), com `.meto-hero-left` por cima (`z-index: 1`). A mascara de degrade vertical do iframe (`mask-image`) ja dissolve as bordas. Opacidade .4 escolhida para manter o texto navy legivel sobre o mapa azul.

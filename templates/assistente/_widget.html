@@ -1,0 +1,70 @@
+{% load i18n %}
+{# Assistente de dados: botao flutuante + painel de chat (incluido no base.html) #}
+<div id="as-root" class="as-root"
+     data-url="{% url 'assistente:perguntar' %}"
+     data-txt-fontes="{% trans 'Fontes' %}"
+     data-txt-erro="{% trans 'O assistente está indisponível no momento. Tente novamente mais tarde.' %}"
+     data-txt-pensando="{% trans 'Consultando os dados do Radar Brasil…' %}">
+    {% csrf_token %}
+
+    <section id="as-painel" class="as-painel" role="dialog" aria-modal="false"
+             aria-labelledby="as-titulo" hidden>
+        <header class="as-cabecalho">
+            <span class="as-cabecalho-icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+            </span>
+            <div class="as-cabecalho-texto">
+                <h2 id="as-titulo">{% trans "Assistente Radar Brasil" %}</h2>
+                <p>{% trans "Pergunte sobre os dados da plataforma" %}</p>
+            </div>
+            <div class="as-acoes">
+                <button type="button" class="as-acao" data-acao="limpar" title="{% trans 'Limpar conversa' %}" aria-label="{% trans 'Limpar conversa' %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 21h10"/><path d="M5.5 13.5l7-7a2.1 2.1 0 0 1 3 0l3 3a2.1 2.1 0 0 1 0 3L12 19H8.5L5.5 16a1.8 1.8 0 0 1 0-2.5z"/><path d="M9 10l5 5"/></svg>
+                </button>
+                <button type="button" class="as-acao as-so-desktop" data-acao="expandir" title="{% trans 'Expandir' %}" aria-label="{% trans 'Expandir' %}" aria-pressed="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                </button>
+                <button type="button" class="as-acao" data-acao="fechar" title="{% trans 'Fechar' %}" aria-label="{% trans 'Fechar' %}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="as-mensagens" class="as-mensagens" aria-live="polite">
+            <div class="as-vazio" id="as-vazio">
+                <span class="as-vazio-icone" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+                </span>
+                <p class="as-vazio-titulo">{% trans "Pergunte alguma coisa sobre os dados do Radar Brasil" %}</p>
+                <div class="as-sugestoes">
+                    <button type="button" class="as-sugestao">{% trans "Qual a origem do Radar Brasil?" %}</button>
+                    <button type="button" class="as-sugestao">{% trans "Qual o nível do CONDRAF em cada critério?" %}</button>
+                    <button type="button" class="as-sugestao">{% trans "Como está Niterói no Novo PAC?" %}</button>
+                </div>
+            </div>
+        </div>
+
+        <form id="as-form" class="as-form" autocomplete="off">
+            <label class="as-visualmente-oculto" for="as-entrada">{% trans "Sua pergunta" %}</label>
+            <input id="as-entrada" class="as-entrada" type="text" maxlength="500"
+                   placeholder="{% trans 'Ex: Como está o eixo Governança?' %}">
+            <button type="submit" class="as-enviar" aria-label="{% trans 'Enviar' %}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg>
+            </button>
+        </form>
+
+        <p class="as-rodape">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>{% trans "Respostas geradas por IA com base nos dados do Radar Brasil. Não insira dados pessoais." %}
+                {% trans "DPO:" %} <a href="mailto:nucleo.dados@fnp.org.br">nucleo.dados@fnp.org.br</a></span>
+        </p>
+    </section>
+
+    <button type="button" id="as-botao" class="as-botao" aria-controls="as-painel" aria-expanded="false"
+            aria-label="{% trans 'Abrir o Assistente Radar Brasil' %}"
+            data-label-aberto="{% trans 'Fechar o Assistente Radar Brasil' %}"
+            data-label-fechado="{% trans 'Abrir o Assistente Radar Brasil' %}">
+        <svg class="as-botao-ia" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+        <svg class="as-botao-fechar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+</div>

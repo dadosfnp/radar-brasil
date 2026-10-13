@@ -6,6 +6,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### feat: Assistente de dados, etapa 3 (widget do chat no lugar do "voltar ao topo")
+
+- Pedido do usuario: o botao flutuante do chat substitui o botao "voltar ao topo" no canto inferior direito, em todas as paginas
+- Removidos: botao `#rb-scroll-top` e seu JS (`base.html`) e o CSS `.rb-scroll-top` (`components.css` v=3)
+- Novo widget (`templates/assistente/_widget.html`, `static/css/assistente.css` v=1, `static/js/assistente.js` v=1), no padrao da referencia "Assistente FNP": botao navy com icone de IA; painel com cabecalho navy (limpar, expandir, fechar); estado vazio com 3 sugestoes clicaveis; entrada com envio; indicador "Consultando os dados do Radar Brasil..."; rodape com aviso de IA, "nao insira dados pessoais" e DPO `nucleo.dados@fnp.org.br`
+- Citacoes `[F12]`/`[P3]`/`[MAPA]` viram numeros clicaveis que levam a lista "Fontes" da resposta, com link para a fonte (externos em nova aba)
+- Seguranca: texto do modelo sempre escapado antes de virar HTML (so negrito, listas e paragrafos sao aplicados); links aceitos apenas `http(s)` ou caminho interno; token CSRF do proprio template (cookie CSRF e HttpOnly)
+- Conversa guardada no `sessionStorage` (sobrevive a troca de pagina); Esc fecha; mobile (<= 600px) em tela cheia; no Mapa Georreferenciado em <= 900px o botao sobe para acima da legenda do mapa
+- 19 strings EN no `django.po` + `django.mo`
+- Validado com Playwright: pergunta real respondida em ~6s com citacao e fonte, persistencia entre paginas, Esc, mobile, sem sobreposicao com legenda/controles do mapa, sem erros no console. 1 teste novo (29 no total)
+
+**Arquivos:** `templates/assistente/_widget.html`, `static/css/assistente.css`, `static/js/assistente.js`, `base_templates/base.html`, `static/css/components.css`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `apps/assistente/tests.py`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### fix: Assistente de dados, primeiro teste real com o Gemini
 
 - Chave `GEMINI_API_KEY` criada na conta `nucleo.dados@fnp.org.br` (plano gratuito, sem faturamento)

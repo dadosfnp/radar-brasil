@@ -269,42 +269,6 @@
 }
 
 
-/* ══════════════════════════════════════════════════════════
-   SCROLL TO TOP — botão voltar ao topo (global)
-   ══════════════════════════════════════════════════════════ */
-
-.rb-scroll-top {
-    position: fixed;
-    bottom: 28px;
-    right: 24px;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: var(--color-primary-dark);
-    color: #fff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 900;
-    box-shadow: 0 4px 16px rgba(16,29,79,.35);
-    transition: transform var(--transition-base), background var(--transition-base), opacity var(--transition-base);
-    opacity: 0.88;
-}
-
-.rb-scroll-top:hover {
-    background: var(--color-primary);
-    transform: translateY(-3px);
-    opacity: 1;
-}
-
-.rb-scroll-top:active { transform: translateY(0); }
-
-/* Oculta em páginas de mapa full-screen (scroll mínimo + conflito com legenda) */
-body.mapa-page .rb-scroll-top,
-body.np-body   .rb-scroll-top { display: none !important; }
-
 /* error state in pm chart area */
 .pm-chart-error {
     display: flex;
