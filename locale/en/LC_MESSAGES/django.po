@@ -1869,3 +1869,19 @@ msgstr "Open the Radar Brasil Assistant"
 #: templates/assistente/_widget.html
 msgid "Fechar o Assistente Radar Brasil"
 msgstr "Close the Radar Brasil Assistant"
+
+#: templates/assistente/_widget.html
+msgid "Esta resposta foi útil?"
+msgstr "Was this answer helpful?"
+
+#: templates/assistente/_widget.html
+msgid "Sim, foi útil"
+msgstr "Yes, it was helpful"
+
+#: templates/assistente/_widget.html
+msgid "Não foi útil"
+msgstr "Not helpful"
+
+#: templates/assistente/_widget.html
+msgid "Obrigado pelo retorno!"
+msgstr "Thanks for the feedback!"

@@ -17,11 +17,7 @@ from apps.assistente.ferramentas import consultar_mapa as _consultar_mapa
 # no gemini-3.5-flash) e pode responder 503 ("alta demanda"); a pergunta segue para o
 # proximo da lista. Ordem e tempos medidos em 2026-10-13 (2s, 2s, 14s, 44s).
 _PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-3.5-flash-lite"
-MODELOS = [
-    m.strip()
-    for m in os.environ.get("GEMINI_MODELS", _PADRAO).split(",")
-    if m.strip()
-]
+MODELOS = [m.strip() for m in os.environ.get("GEMINI_MODELS", _PADRAO).split(",") if m.strip()]
 _TENTAR_PROXIMO = {429, 503}
 MAX_HISTORICO = 6  # ultimas mensagens (pergunta/resposta) enviadas como memoria
 

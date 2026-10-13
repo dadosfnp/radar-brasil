@@ -71,6 +71,20 @@
         return '<div class="as-fontes"><p class="as-fontes-titulo">' + escapar(raiz.dataset.txtFontes) + '</p><ol>' + itens + '</ol></div>';
     }
 
+    /* "Esta resposta foi útil?" com 👍/👎; o voto fica em msg.util e no servidor */
+    function htmlFeedback(msg) {
+        if (!msg.id) return '';
+        var d = raiz.dataset;
+        var botao = function (util, rotulo, classe) {
+            return '<button type="button" class="as-voto ' + classe + '" data-util="' + util + '" aria-pressed="' +
+                (msg.util === util) + '" aria-label="' + escapar(rotulo) + '" title="' + escapar(rotulo) + '">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11"/><path d="M15 5.9L14 10h5.8a2 2 0 0 1 1.9 2.5l-2.3 8A2 2 0 0 1 17.5 22H7a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L15 2a3.1 3.1 0 0 1 0 3.9z"/></svg></button>';
+        };
+        var texto = msg.util === undefined ? d.txtUtil : d.txtObrigado;
+        return '<div class="as-feedback" data-id="' + msg.id + '"><span>' + escapar(texto) + '</span>' +
+            botao(true, d.txtSim, 'as-voto-sim') + botao(false, d.txtNao, 'as-voto-nao') + '</div>';
+    }
+
     function adicionar(msg) {
         vazio.hidden = true;
         var el = document.createElement('div');
@@ -82,7 +96,7 @@
             el.textContent = msg.texto;
         } else {
             el.className = 'as-msg as-msg-assistente';
-            el.innerHTML = formatar(msg.texto, msg.fontes) + htmlFontes(msg.fontes);
+            el.innerHTML = formatar(msg.texto, msg.fontes) + htmlFontes(msg.fontes) + htmlFeedback(msg);
         }
         lista.appendChild(el);
         lista.scrollTop = lista.scrollHeight;
@@ -126,7 +140,7 @@
             .then(function (r) { return r.json().catch(function () { return {}; }); })
             .then(function (dados) {
                 if (dados.resposta) {
-                    conversa.push({ papel: 'assistente', texto: dados.resposta, fontes: dados.fontes || [] });
+                    conversa.push({ papel: 'assistente', id: dados.id, texto: dados.resposta, fontes: dados.fontes || [] });
                     salvar();
                     adicionar(conversa[conversa.length - 1]);
                 } else {
@@ -142,9 +156,28 @@
             });
     }
 
+    function votar(voto) {
+        var caixa = voto.closest('.as-feedback');
+        var id = Number(caixa.dataset.id);
+        var util = voto.dataset.util === 'true';
+        var msg = conversa.filter(function (m) { return m.id === id; })[0];
+        fetch(raiz.dataset.urlAvaliar, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrf },
+            body: JSON.stringify({ id: id, util: util })
+        }).then(function (r) {
+            if (!r.ok || !msg) return;
+            msg.util = util;
+            salvar();
+            caixa.outerHTML = htmlFeedback(msg);
+        }).catch(function () { /* sem rede: voto nao registrado, nada a fazer */ });
+    }
+
     botao.addEventListener('click', function () { abrir(painel.hidden); });
 
     painel.addEventListener('click', function (e) {
+        var voto = e.target.closest('.as-voto');
+        if (voto) { votar(voto); return; }
         var acao = e.target.closest('[data-acao]');
         if (acao) {
             if (acao.dataset.acao === 'fechar') abrir(false);

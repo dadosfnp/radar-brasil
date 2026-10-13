@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### feat: Assistente, respostas reaproveitadas, feedback, revisao no admin e retencao (LGPD)
+
+- **Respostas reaproveitadas:** a primeira pergunta de uma conversa, se ja foi respondida com os mesmos dados, devolve a resposta guardada sem chamar a IA (~0,5s no teste, contra ~10s) e sem contar no limite diario. Chave = pergunta normalizada (sem acento, caixa, espacos e pontuacao final) + idioma + versao dos dados (`versao_respostas()`: fichas, financiamentos, Mapa e FAQ); qualquer `sync_sheets_db` ou edicao do FAQ invalida tudo. Perguntas de acompanhamento (com historico) e respostas marcadas como nao uteis nunca sao reaproveitadas
+- **Feedback no widget:** "Esta resposta foi util?" com 👍/👎 abaixo de cada resposta; voto gravado em `InteracaoAssistente.util`, pode ser trocado e persiste na conversa. `POST /assistente/api/avaliar/` so aceita interacoes do proprio visitante (hash do IP) nas ultimas 24h
+- **Revisao pela equipe:** interacoes no admin do Django (`/admin/`), so leitura, com busca por pergunta/resposta e filtros por feedback, reaproveitamento, idioma, modelo e erro
+- **Retencao (LGPD):** `python manage.py limpar_assistente [--dias N] [--simular]` apaga interacoes mais antigas que `ASSISTENTE_RETENCAO_DIAS` (padrao 90, a confirmar com o DPO); rodar diariamente via cron no droplet
+- Migration 0002 (`chave_cache`, `em_cache`, `util`); `assistente.css` v=3, `assistente.js` v=2; 4 strings EN
+- 8 testes novos (42 no total); validado no navegador: voto gravado e mantido entre paginas, mesma pergunta em outra sessao respondida em 0,5s
+
+**Arquivos:** `apps/assistente/views.py`, `apps/assistente/urls.py`, `apps/assistente/models.py`, `apps/assistente/migrations/0002_interacaoassistente_chave_cache_and_more.py`, `apps/assistente/contexto.py`, `apps/assistente/admin.py`, `apps/assistente/management/commands/limpar_assistente.py`, `apps/assistente/tests.py`, `templates/assistente/_widget.html`, `static/js/assistente.js`, `static/css/assistente.css`, `base_templates/base.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `.env.example`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### chore: Mais modelos gratuitos na lista de reserva do assistente
 
 - Decisao do usuario: seguir no plano gratuito por enquanto (desenvolvimento e testes internos)

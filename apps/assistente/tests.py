@@ -206,11 +206,13 @@ class PerguntarAPITest(TestCase):
             "tokens_entrada": 1,
             "tokens_saida": 1,
         }
-        for _ in range(2):
-            self.assertEqual(self._post({"pergunta": "a"}).status_code, 200)
-        self.assertEqual(self._post({"pergunta": "a"}).status_code, 429)
+        # perguntas diferentes (repetida seria reaproveitada e nao contaria no limite)
+        for n in range(2):
+            self.assertEqual(self._post({"pergunta": f"pergunta {n}"}).status_code, 200)
+        self.assertEqual(self._post({"pergunta": "pergunta 3"}).status_code, 429)
         # outro visitante continua liberado
-        self.assertEqual(self._post({"pergunta": "a"}, HTTP_X_REAL_IP="9.9.9.9").status_code, 200)
+        outro = self._post({"pergunta": "pergunta 4"}, HTTP_X_REAL_IP="9.9.9.9")
+        self.assertEqual(outro.status_code, 200)
 
     @patch("apps.assistente.views.responder", side_effect=AssistenteIndisponivel("429 cota"))
     def test_provedor_indisponivel_retorna_503_e_nao_conta_no_limite(self, _):
@@ -289,3 +291,110 @@ class AvaliacaoTest(TestCase):
         saida = StringIO()
         call_command("avaliar_assistente", "--limite", "2", "--pausa", "0", stdout=saida)
         self.assertIn("Aprovados: 0/2", saida.getvalue())
+
+
+_OK = {
+    "resposta": "Resposta [P1]",
+    "fontes": [],
+    "modelo": "m",
+    "tokens_entrada": 1,
+    "tokens_saida": 1,
+}
+
+
+class ReaproveitamentoTest(TestCase):
+    url = reverse("assistente:perguntar")
+
+    def _post(self, corpo, **extra):
+        return self.client.post(
+            self.url, json.dumps(corpo), content_type="application/json", **extra
+        )
+
+    @patch("apps.assistente.views.responder", return_value=_OK)
+    def test_mesma_pergunta_reaproveita_sem_chamar_a_ia_nem_contar_no_limite(self, responder_mock):
+        self.assertEqual(
+            self._post({"pergunta": "Qual a origem do Radar Brasil?"}).status_code, 200
+        )
+        res = self._post({"pergunta": "  qual a ORIGEM do radar brasil "}, HTTP_X_REAL_IP="8.8.8.8")
+        self.assertEqual(res.json()["resposta"], "Resposta [P1]")
+        self.assertEqual(responder_mock.call_count, 1)
+        self.assertTrue(InteracaoAssistente.objects.get(pk=res.json()["id"]).em_cache)
+
+    @patch("apps.assistente.views.responder", return_value=_OK)
+    def test_dados_novos_ou_pergunta_de_acompanhamento_chamam_a_ia(self, responder_mock):
+        self._post({"pergunta": "Qual a origem?"})
+        historico = [{"papel": "usuario", "texto": "oi"}]
+        self._post({"pergunta": "Qual a origem?", "historico": historico})
+        self.assertEqual(responder_mock.call_count, 2)
+        RegistroFicha.objects.create(lang="pt", estrutura="Nova ficha", eixo="programas")
+        self._post({"pergunta": "Qual a origem?"})
+        self.assertEqual(responder_mock.call_count, 3)
+
+    @patch("apps.assistente.views.responder", return_value=_OK)
+    def test_resposta_marcada_como_nao_util_nao_e_reaproveitada(self, responder_mock):
+        rid = self._post({"pergunta": "Qual a origem?"}).json()["id"]
+        InteracaoAssistente.objects.filter(pk=rid).update(util=False)
+        self._post({"pergunta": "Qual a origem?"})
+        self.assertEqual(responder_mock.call_count, 2)
+
+
+class FeedbackTest(TestCase):
+    url = reverse("assistente:avaliar")
+
+    def setUp(self):
+        self.ip_hash = (
+            __import__("hashlib")
+            .sha256(f"{__import__('django.conf').conf.settings.SECRET_KEY}:127.0.0.1".encode())
+            .hexdigest()
+        )
+        self.reg = InteracaoAssistente.objects.create(
+            lang="pt", ip_hash=self.ip_hash, pergunta="p", resposta="r"
+        )
+
+    def _votar(self, corpo, **extra):
+        return self.client.post(
+            self.url, json.dumps(corpo), content_type="application/json", **extra
+        )
+
+    def test_visitante_avalia_e_troca_o_proprio_voto(self):
+        self.assertEqual(self._votar({"id": self.reg.pk, "util": False}).status_code, 200)
+        self.assertEqual(self._votar({"id": self.reg.pk, "util": True}).status_code, 200)
+        self.reg.refresh_from_db()
+        self.assertTrue(self.reg.util)
+
+    def test_nao_avalia_resposta_de_outro_visitante_nem_aceita_valor_invalido(self):
+        self.assertEqual(
+            self._votar({"id": self.reg.pk, "util": True}, HTTP_X_REAL_IP="9.9.9.9").status_code,
+            404,
+        )
+        self.assertEqual(self._votar({"id": self.reg.pk, "util": "sim"}).status_code, 400)
+        self.reg.refresh_from_db()
+        self.assertIsNone(self.reg.util)
+
+
+class AdminELimpezaTest(TestCase):
+    def test_admin_lista_interacoes_so_para_leitura(self):
+        from django.contrib.auth.models import User
+
+        InteracaoAssistente.objects.create(lang="pt", ip_hash="x", pergunta="Pergunta de teste")
+        self.client.force_login(User.objects.create_superuser("admin", "a@a.com", "x"))
+        res = self.client.get("/admin/assistente/interacaoassistente/")
+        self.assertContains(res, "Pergunta de teste")
+        self.assertNotContains(res, "/admin/assistente/interacaoassistente/add/")
+
+    def test_limpeza_apaga_so_o_que_passou_do_prazo(self):
+        from datetime import timedelta
+        from io import StringIO
+
+        from django.core.management import call_command
+        from django.utils import timezone
+
+        velha = InteracaoAssistente.objects.create(lang="pt", ip_hash="x", pergunta="velha")
+        InteracaoAssistente.objects.filter(pk=velha.pk).update(
+            criado_em=timezone.now() - timedelta(days=100)
+        )
+        InteracaoAssistente.objects.create(lang="pt", ip_hash="x", pergunta="nova")
+        call_command("limpar_assistente", "--dias", "90", stdout=StringIO())
+        self.assertEqual(
+            list(InteracaoAssistente.objects.values_list("pergunta", flat=True)), ["nova"]
+        )

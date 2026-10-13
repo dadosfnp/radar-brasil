@@ -279,6 +279,36 @@ a.as-cita:hover { background: var(--as-primaria); color: #fff; }
 .as-fontes a { color: var(--as-primaria); }
 .as-fonte-eixo { color: var(--as-suave); }
 
+/* Feedback: "Esta resposta foi útil?" */
+.as-feedback {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    color: var(--as-suave);
+    font-size: 12px;
+}
+
+.as-feedback span { margin-right: 4px; }
+
+.as-voto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--as-suave);
+    cursor: pointer;
+}
+
+.as-voto svg { width: 15px; height: 15px; }
+.as-voto-nao svg { transform: scaleY(-1); }
+.as-voto:hover { background: #eef3fb; color: var(--as-primaria); }
+.as-voto[aria-pressed="true"] { border-color: #c9d6ee; background: #e7eefa; color: var(--as-primaria); }
+
 /* Indicador de "pensando" */
 .as-digitando {
     display: flex;

@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import time
+import unicodedata
 from datetime import timedelta
 
 from django.conf import settings
@@ -10,6 +11,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
+from apps.assistente.contexto import versao_respostas
 from apps.assistente.models import InteracaoAssistente
 from apps.assistente.servico import AssistenteIndisponivel, responder
 from apps.indicadores.views import _lang
@@ -42,6 +44,24 @@ def _ip_hash(request) -> str:
     return hashlib.sha256(f"{settings.SECRET_KEY}:{ip}".encode()).hexdigest()
 
 
+def _normalizar_pergunta(texto: str) -> str:
+    """ "Qual a origem do Radar Brasil?" == "qual a ORIGEM do radar brasil" (sem acento,
+    caixa, espacos extras e pontuacao final)."""
+    sem_acento = unicodedata.normalize("NFD", texto).encode("ascii", "ignore").decode()
+    return " ".join(sem_acento.casefold().split()).rstrip("?!. ")
+
+
+def _chave_cache(pergunta: str, lang: str) -> str:
+    base = f"{lang}|{versao_respostas(lang)}|{_normalizar_pergunta(pergunta)}"
+    return hashlib.sha256(base.encode()).hexdigest()
+
+
+def _resposta_json(registro) -> JsonResponse:
+    return JsonResponse(
+        {"id": registro.pk, "resposta": registro.resposta, "fontes": registro.fontes}
+    )
+
+
 @require_POST
 def perguntar(request):
     lang = _lang(request)
@@ -57,17 +77,36 @@ def perguntar(request):
     if not pergunta or len(pergunta) > MAX_PERGUNTA:
         return JsonResponse({"erro": msg["invalida"]}, status=400)
 
-    # Limites em janela de 24h, contados no banco (vale para todos os workers do Gunicorn)
     ip_hash = _ip_hash(request)
+    registro = InteracaoAssistente(lang=lang, ip_hash=ip_hash, pergunta=pergunta)
+
+    # Primeira pergunta da conversa ja respondida com os mesmos dados: reaproveita, sem
+    # gastar cota (perguntas de acompanhamento dependem do historico e nao entram aqui).
+    if not historico:
+        registro.chave_cache = _chave_cache(pergunta, lang)
+        anterior = (
+            InteracaoAssistente.objects.filter(
+                chave_cache=registro.chave_cache, erro="", em_cache=False
+            )
+            .exclude(util=False)  # resposta marcada como nao util nao e reaproveitada
+            .first()
+        )
+        if anterior:
+            registro.resposta, registro.fontes = anterior.resposta, anterior.fontes
+            registro.modelo, registro.em_cache, registro.latencia_ms = anterior.modelo, True, 0
+            registro.save()
+            return _resposta_json(registro)
+
+    # Limites em janela de 24h, contados no banco (vale para todos os workers do Gunicorn).
+    # Respostas reaproveitadas nao contam: nao gastam cota.
     hoje = InteracaoAssistente.objects.filter(
-        criado_em__gte=timezone.now() - timedelta(days=1), erro=""
+        criado_em__gte=timezone.now() - timedelta(days=1), erro="", em_cache=False
     )
     if hoje.filter(ip_hash=ip_hash).count() >= LIMITE_IP_DIA:
         return JsonResponse({"erro": msg["limite_ip"]}, status=429)
     if hoje.count() >= LIMITE_TOTAL_DIA:
         return JsonResponse({"erro": msg["limite_total"]}, status=429)
 
-    registro = InteracaoAssistente(lang=lang, ip_hash=ip_hash, pergunta=pergunta)
     inicio = time.monotonic()
     try:
         r = responder(pergunta, historico, lang)
@@ -90,4 +129,26 @@ def perguntar(request):
     registro.tokens_saida = r["tokens_saida"]
     registro.latencia_ms = int((time.monotonic() - inicio) * 1000)
     registro.save()
-    return JsonResponse({"resposta": r["resposta"], "fontes": r["fontes"]})
+    return _resposta_json(registro)
+
+
+@require_POST
+def avaliar_resposta(request):
+    """Botoes util/nao util do widget. So vale para respostas do proprio visitante, nas
+    ultimas 24h; pode trocar o voto."""
+    try:
+        dados = json.loads(request.body or b"{}")
+        pk, util = int(dados["id"]), dados["util"]
+        if not isinstance(util, bool):
+            raise ValueError
+    except (ValueError, KeyError, TypeError):
+        return JsonResponse({"erro": "invalido"}, status=400)
+    atualizadas = InteracaoAssistente.objects.filter(
+        pk=pk,
+        ip_hash=_ip_hash(request),
+        criado_em__gte=timezone.now() - timedelta(days=1),
+        erro="",
+    ).update(util=util)
+    if not atualizadas:
+        return JsonResponse({"erro": "nao encontrado"}, status=404)
+    return JsonResponse({"ok": True})

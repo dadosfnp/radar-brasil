@@ -2,6 +2,11 @@
 {# Assistente de dados: botao flutuante + painel de chat (incluido no base.html) #}
 <div id="as-root" class="as-root"
      data-url="{% url 'assistente:perguntar' %}"
+     data-url-avaliar="{% url 'assistente:avaliar' %}"
+     data-txt-util="{% trans 'Esta resposta foi útil?' %}"
+     data-txt-sim="{% trans 'Sim, foi útil' %}"
+     data-txt-nao="{% trans 'Não foi útil' %}"
+     data-txt-obrigado="{% trans 'Obrigado pelo retorno!' %}"
      data-txt-fontes="{% trans 'Fontes' %}"
      data-txt-erro="{% trans 'O assistente está indisponível no momento. Tente novamente mais tarde.' %}"
      data-txt-pensando="{% trans 'Consultando os dados do Radar Brasil…' %}">

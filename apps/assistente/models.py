@@ -16,6 +16,10 @@ class InteracaoAssistente(models.Model):
     tokens_saida = models.PositiveIntegerField(null=True, blank=True)
     latencia_ms = models.PositiveIntegerField(null=True, blank=True)
     erro = models.CharField(max_length=200, blank=True)
+    # Reaproveitamento: mesma pergunta (normalizada) + idioma + versao dos dados
+    chave_cache = models.CharField(max_length=64, blank=True, db_index=True)
+    em_cache = models.BooleanField(default=False)  # resposta reaproveitada, sem chamar a IA
+    util = models.BooleanField(null=True, blank=True)  # feedback do visitante (sim/nao)
 
     class Meta:
         ordering = ["-criado_em"]

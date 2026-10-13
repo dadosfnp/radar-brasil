@@ -20,7 +20,7 @@ from django.conf import settings
 from django.db.models import Max
 from django.utils import translation
 
-from apps.indicadores.models import RegistroFicha, RegistroFinanciamento
+from apps.indicadores.models import RegistroFicha, RegistroFinanciamento, RegistroMapa
 from apps.indicadores.services.avaliacao_painel import get_ficha, get_tabela
 
 _EIXO_LABEL = {
@@ -103,6 +103,13 @@ def _versao_dados(lang: str) -> tuple:
     f = RegistroFicha.objects.filter(lang=lang).aggregate(m=Max("id"))["m"]
     l_ = RegistroFinanciamento.objects.filter(lang=lang).aggregate(m=Max("id"))["m"]
     return (f, l_, _SOBRE_HTML.stat().st_mtime)
+
+
+def versao_respostas(lang: str) -> str:
+    """Muda sempre que algo que alimenta as respostas muda (contexto + dados do Mapa).
+    Respostas guardadas so sao reaproveitadas dentro da mesma versao."""
+    mapa = RegistroMapa.objects.filter(lang=lang).aggregate(m=Max("id"))["m"]
+    return f"{_versao_dados(lang)}|{mapa}"
 
 
 def montar_contexto(lang: str = "pt") -> dict:
