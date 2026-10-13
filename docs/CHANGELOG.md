@@ -6,6 +6,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### fix: Assistente de dados, primeiro teste real com o Gemini
+
+- Chave `GEMINI_API_KEY` criada na conta `nucleo.dados@fnp.org.br` (plano gratuito, sem faturamento)
+- Corrigido: o cliente do Gemini era descartado na mesma linha e o Python fechava a conexao no meio da requisicao; agora fica referenciado. Troca para a interface de chat do SDK (`chats.create` + `send_message`), recomendada para chamada de funcao
+- Modelos testados em 2026-10-13: `gemini-flash-latest` e `gemini-3.8-flash` com 503 (alta demanda), `gemini-2.5-*` indisponiveis para contas novas, `gemini-3.5-flash` respondendo em ~1,7s. Padrao: `gemini-3.5-flash` com reserva automatica `gemini-3.1-flash-lite` quando o principal responde 503 ou 429 (variavel `GEMINI_MODELS`)
+- Teste real (4 perguntas, 5 a 12s cada, ~44 mil tokens de entrada): FAQ respondido citando [P2]; Niteroi via `consultar_mapa` (5 empreendimentos, R$ 724,6 mi); CONDRAF com os 5 niveis conferidos contra a base; pergunta sobre eleicao recusada como fora do escopo
+- 1 teste novo (reserva de modelo); total 28
+
+**Arquivos:** `apps/assistente/servico.py`, `apps/assistente/tests.py`, `.env.example`, `docs/CHANGELOG.md`
+
 ### feat: Assistente de dados, etapa 2 (Gemini Flash e API do chat)
 
 - Provedor: Gemini Flash no plano gratuito do Google AI Studio (decisao do usuario; a API do Claude nao tem plano gratuito). SDK oficial `google-genai` 2.30.0; `google-auth` atualizado para 2.62.0 (exigencia do SDK; sync das planilhas conferido)

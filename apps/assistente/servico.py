@@ -13,7 +13,14 @@ from google.genai import errors, types
 from apps.assistente.contexto import montar_contexto
 from apps.assistente.ferramentas import consultar_mapa as _consultar_mapa
 
-MODELO = os.environ.get("GEMINI_MODEL", "gemini-flash-latest")
+# Principal + reservas: no plano gratuito um modelo pode responder 503 ("alta demanda")
+# ou 429 (cota); a pergunta segue para o proximo da lista. Medido em 2026-10-13.
+MODELOS = [
+    m.strip()
+    for m in os.environ.get("GEMINI_MODELS", "gemini-3.5-flash,gemini-3.1-flash-lite").split(",")
+    if m.strip()
+]
+_TENTAR_PROXIMO = {429, 503}
 MAX_HISTORICO = 6  # ultimas mensagens (pergunta/resposta) enviadas como memoria
 
 FONTE_MAPA = {
@@ -110,28 +117,34 @@ def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
         """
         return _consultar_mapa(lang, municipio, uf, regiao, eixo, estagio)
 
-    conversa = [
+    historico_gemini = [
         types.Content(
             role="user" if m.get("papel") == "usuario" else "model",
             parts=[types.Part.from_text(text=str(m.get("texto", ""))[:2000])],
         )
         for m in historico[-MAX_HISTORICO:]
     ]
-    conversa.append(types.Content(role="user", parts=[types.Part.from_text(text=pergunta)]))
 
-    try:
-        resp = _cliente().models.generate_content(
-            model=MODELO,
-            contents=conversa,
-            config=types.GenerateContentConfig(
-                system_instruction=_INSTRUCOES[lang] + ctx["texto"],
-                tools=[consultar_mapa],
-                temperature=0.2,
-                max_output_tokens=1024,
-            ),
-        )
-    except errors.APIError as e:
-        raise AssistenteIndisponivel(f"{e.code} {e.status}") from e
+    config = types.GenerateContentConfig(
+        system_instruction=_INSTRUCOES[lang] + ctx["texto"],
+        tools=[consultar_mapa],
+        temperature=0.2,
+        max_output_tokens=1024,
+    )
+    # O cliente precisa ficar referenciado ate o fim: ao ser coletado ele fecha a conexao
+    cliente = _cliente()
+    resp = erro = None
+    for modelo in MODELOS:
+        chat = cliente.chats.create(model=modelo, history=historico_gemini, config=config)
+        try:
+            resp = chat.send_message(pergunta)
+            break
+        except errors.APIError as e:
+            erro = e
+            if e.code not in _TENTAR_PROXIMO:
+                break
+    if resp is None:
+        raise AssistenteIndisponivel(f"{erro.code} {erro.status}") from erro
 
     texto = (resp.text or "").strip()
     fontes_disp = {**ctx["fontes"], "MAPA": FONTE_MAPA}
@@ -140,7 +153,7 @@ def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
     return {
         "resposta": texto,
         "fontes": [{"id": i, **fontes_disp[i]} for i in citadas],
-        "modelo": MODELO,
+        "modelo": modelo,
         "tokens_entrada": getattr(uso, "prompt_token_count", None),
         "tokens_saida": getattr(uso, "candidates_token_count", None),
     }

@@ -121,23 +121,40 @@ class ResponderTest(TestCase):
     @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
     @patch("apps.assistente.servico.genai.Client")
     def test_cita_so_fontes_existentes_e_envia_contexto(self, Client):
-        gerar = Client.return_value.models.generate_content
-        gerar.return_value = _resposta_gemini("O CF é consultivo [F1][F999]. Niterói [MAPA].")
+        criar = Client.return_value.chats.create
+        criar.return_value.send_message.return_value = _resposta_gemini(
+            "O CF é consultivo [F1][F999]. Niterói [MAPA]."
+        )
 
         r = responder("O que é o CF?", [{"papel": "usuario", "texto": "oi"}], "pt")
 
         self.assertEqual([f["id"] for f in r["fontes"]], ["F1", "MAPA"])
         self.assertEqual(r["fontes"][0]["titulo"], "Conselho da Federação (CF)")
         self.assertEqual(r["tokens_entrada"], 41000)
-        config = gerar.call_args.kwargs["config"]
+        self.assertEqual(r["modelo"], "gemini-3.5-flash")
+        config = criar.call_args.kwargs["config"]
         self.assertIn("[F1] Conselho da Federação (CF)", config.system_instruction)
         self.assertEqual(config.tools[0].__name__, "consultar_mapa")
-        self.assertEqual(len(gerar.call_args.kwargs["contents"]), 2)  # historico + pergunta
+        self.assertEqual(len(criar.call_args.kwargs["history"]), 1)
+        criar.return_value.send_message.assert_called_once_with("O que é o CF?")
 
     @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
     @patch("apps.assistente.servico.genai.Client")
-    def test_cota_esgotada_vira_indisponivel(self, Client):
-        Client.return_value.models.generate_content.side_effect = errors.ClientError(
+    def test_modelo_sobrecarregado_passa_para_a_reserva(self, Client):
+        sobrecarga = errors.ServerError(
+            503, {"error": {"code": 503, "status": "UNAVAILABLE", "message": "alta demanda"}}
+        )
+        Client.return_value.chats.create.return_value.send_message.side_effect = [
+            sobrecarga,
+            _resposta_gemini("ok [P1]"),
+        ]
+        r = responder("Pergunta", [], "pt")
+        self.assertEqual(r["modelo"], "gemini-3.1-flash-lite")
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.assistente.servico.genai.Client")
+    def test_cota_esgotada_em_todos_os_modelos_vira_indisponivel(self, Client):
+        Client.return_value.chats.create.return_value.send_message.side_effect = errors.ClientError(
             429, {"error": {"code": 429, "status": "RESOURCE_EXHAUSTED", "message": "cota"}}
         )
         with self.assertRaises(AssistenteIndisponivel):
