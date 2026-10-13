@@ -71,11 +71,16 @@ def perguntar(request):
     inicio = time.monotonic()
     try:
         r = responder(pergunta, historico, lang)
-    except AssistenteIndisponivel as e:
-        registro.erro = str(e)[:200]
+    except Exception as e:
+        # Cota/sobrecarga (AssistenteIndisponivel) ou falha inesperada (rede, SDK): o
+        # visitante sempre recebe a mensagem amigavel e a falha fica registrada.
+        if isinstance(e, AssistenteIndisponivel):
+            logger.warning("Assistente indisponivel: %s", e)
+        else:
+            logger.exception("Erro inesperado no assistente")
+        registro.erro = f"{type(e).__name__}: {e}"[:200]
         registro.latencia_ms = int((time.monotonic() - inicio) * 1000)
         registro.save()
-        logger.warning("Assistente indisponivel: %s", e)
         return JsonResponse({"erro": msg["indisponivel"]}, status=503)
 
     registro.resposta = r["resposta"]

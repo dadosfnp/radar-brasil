@@ -216,7 +216,14 @@ class PerguntarAPITest(TestCase):
     def test_provedor_indisponivel_retorna_503_e_nao_conta_no_limite(self, _):
         res = self._post({"pergunta": "a"})
         self.assertEqual(res.status_code, 503)
-        self.assertEqual(InteracaoAssistente.objects.get().erro, "429 cota")
+        self.assertEqual(InteracaoAssistente.objects.get().erro, "AssistenteIndisponivel: 429 cota")
+
+    @patch("apps.assistente.views.responder", side_effect=ConnectionError("rede caiu"))
+    def test_falha_inesperada_tambem_vira_503_em_json_e_fica_registrada(self, _):
+        res = self._post({"pergunta": "a"})
+        self.assertEqual(res.status_code, 503)
+        self.assertIn("indisponível", res.json()["erro"])
+        self.assertEqual(InteracaoAssistente.objects.get().erro, "ConnectionError: rede caiu")
 
 
 class WidgetTest(TestCase):
@@ -225,5 +232,5 @@ class WidgetTest(TestCase):
             html = self.client.get(reverse(nome)).content.decode()
             self.assertIn('id="as-botao"', html, nome)
             self.assertIn(reverse("assistente:perguntar"), html, nome)
-            self.assertIn("nucleo.dados@fnp.org.br", html, nome)
+            self.assertIn("mutiraobrasil@fnp.org.br", html, nome)
             self.assertNotIn("rb-scroll-top", html, nome)

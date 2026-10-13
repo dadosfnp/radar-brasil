@@ -6,6 +6,15 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### fix: Assistente, falhas inesperadas viravam erro 500 sem registro; DPO trocado
+
+- Pergunta do usuario sem resposta no teste local: o `runserver` dele estava com uma versao antiga do `servico.py` carregada (referencia a `MODELO`, nome ja removido); o arquivo atual funciona. Solucao: reiniciar o servidor
+- O episodio mostrou uma falha real: qualquer erro fora de `AssistenteIndisponivel` (ex.: queda de rede que o SDK nao trata como erro da API) virava pagina 500, sem registro e com o widget mostrando so a mensagem generica. Agora a view captura qualquer excecao: registra `Tipo: mensagem` em `InteracaoAssistente.erro`, loga com traceback e responde 503 em JSON com a mensagem amigavel
+- DPO do widget: `mutiraobrasil@fnp.org.br` (era `nucleo.dados@fnp.org.br`, que continua como contato de seguranca no `SECURITY.md`)
+- 1 teste novo (falha inesperada); total 30
+
+**Arquivos:** `apps/assistente/views.py`, `apps/assistente/tests.py`, `templates/assistente/_widget.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
 ### style: Botao do assistente no modelo do sistema FNP
 
 - Sem a borda branca de 3px; fundo navy `#1f3266` (um tom acima do rodape `#101d4f`, para nao sumir sobre ele) com sombra suave
