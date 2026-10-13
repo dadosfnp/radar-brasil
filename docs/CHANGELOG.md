@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-13 (38a rodada)
+
+### feat: Assistente de dados, etapa 1 (contexto e consulta ao Mapa)
+
+- Novo app `apps/assistente` (base do chat de dados do Radar Brasil; ainda sem modelo de linguagem, sem endpoint e sem widget)
+- `contexto.py`: monta todo o conteudo textual como fontes numeradas para ir inteiro no prompt: FAQ da pagina Sobre (`[P1]`..`[P9]`, lido do proprio template e traduzido pelo `.po`), fichas tecnicas com os criterios avaliados (`[F1]`..), linhas de financiamento (`[L1]`..). Reaproveita `get_ficha()`/`get_tabela()` (mesmos rotulos e renomeacoes do site). Cache por processo, invalidado a cada `sync_sheets_db` ou edicao do FAQ
+- Tamanho medido: 153 fontes, ~41 mil tokens por idioma (PT e EN); arquitetura enxuta aprovada pelo usuario (sem embeddings/vector store enquanto o corpus couber no contexto)
+- `ferramentas.py`: `consultar_mapa()` agrega os empreendimentos do Novo PAC (RegistroMapa) por municipio (sem diferenciar acento), UF, regiao, eixo e estagio: totais, investimento estimado, divisao por estagio/eixo/executor e os 15 maiores empreendimentos
+- 7 testes novos em `apps/assistente/tests.py`; CI passa a rodar `pytest apps` (antes so `apps/indicadores/tests.py`)
+
+**Arquivos:** `apps/assistente/__init__.py`, `apps/assistente/apps.py`, `apps/assistente/contexto.py`, `apps/assistente/ferramentas.py`, `apps/assistente/tests.py`, `setup/settings.py`, `.github/workflows/ci.yml`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-09-30 (37a rodada)
 
 ### style: Mapa animado como fundo do hero no mobile (Metodologia e Sobre)

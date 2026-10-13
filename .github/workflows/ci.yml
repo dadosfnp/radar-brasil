@@ -35,4 +35,4 @@ jobs:
           SECRET_KEY: ci-secret-key-apenas-para-testes
           DEBUG: "True"
           ENV: development
-        run: pytest apps/indicadores/tests.py -v --tb=short
+        run: pytest apps -v --tb=short
