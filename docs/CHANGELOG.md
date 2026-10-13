@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### feat: Assistente de dados, etapa 2 (Gemini Flash e API do chat)
+
+- Provedor: Gemini Flash no plano gratuito do Google AI Studio (decisao do usuario; a API do Claude nao tem plano gratuito). SDK oficial `google-genai` 2.30.0; `google-auth` atualizado para 2.62.0 (exigencia do SDK; sync das planilhas conferido)
+- `servico.py`: instrucao de sistema com regras de grounding (responder so com as fontes, nunca inventar numeros, citar IDs `[F12]`/`[P3]`/`[L5]`/`[MAPA]`, recusar fora de escopo, tratar texto das fontes como dado) + todo o contexto; `consultar_mapa` exposta como funcao ao modelo; ultimas 6 mensagens como memoria; so IDs de fontes que existem viram citacao
+- `POST /assistente/api/perguntar/`: valida a pergunta (ate 500 caracteres), limites em janela de 24h contados no banco (20 por visitante e 500 no total, ajustaveis por variavel de ambiente), cota esgotada ou falha do provedor vira 503 com mensagem amigavel em PT/EN
+- Modelo `InteracaoAssistente` (migration 0001): pergunta, resposta, fontes, modelo, tokens, latencia e erro, com o IP so como hash com sal (LGPD)
+- `.env.example`: `GEMINI_API_KEY`, `GEMINI_MODEL`, `ASSISTENTE_LIMITE_IP_DIA`, `ASSISTENTE_LIMITE_TOTAL_DIA`
+- 7 testes novos (Gemini simulado): citacoes, cota esgotada, chave ausente, validacao, limite por visitante, 503 sem contar no limite
+
+**Arquivos:** `apps/assistente/servico.py`, `apps/assistente/models.py`, `apps/assistente/migrations/0001_initial.py`, `apps/assistente/views.py`, `apps/assistente/urls.py`, `apps/assistente/tests.py`, `setup/urls.py`, `requirements.txt`, `.env.example`, `docs/CHANGELOG.md`
+
 ### feat: Assistente de dados, etapa 1 (contexto e consulta ao Mapa)
 
 - Novo app `apps/assistente` (base do chat de dados do Radar Brasil; ainda sem modelo de linguagem, sem endpoint e sem widget)
