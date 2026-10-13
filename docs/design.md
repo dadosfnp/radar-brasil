@@ -9,7 +9,7 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 Botao flutuante + painel de chat em todas as paginas (`templates/assistente/_widget.html` incluido no `base.html`; prefixo `.as-` em `static/css/assistente.css`). **Substitui o antigo botao "voltar ao topo"** (`.rb-scroll-top`, removido), a pedido do usuario.
 
-- **Botao:** 56px (52px no mobile), navy `#101d4f` com borda branca de 3px e sombra, icone de IA (estrelas); vira seta para baixo quando o painel esta aberto. Canto inferior direito (24px; 16px no mobile). No Mapa Georreferenciado em <= 900px sobe para `bottom: 204px`, acima da legenda fixa do mapa.
+- **Botao:** 56px (52px no mobile), navy `#1f3266` sem borda (modelo do sistema FNP; um tom acima do rodape para nao sumir sobre ele), sombra suave, icone "brilhos" (estrela de 4 pontas + "+"); vira seta para baixo quando o painel esta aberto. Canto inferior direito (24px; 16px no mobile). No Mapa Georreferenciado em <= 900px sobe para `bottom: 204px`, acima da legenda fixa do mapa.
 - **Painel:** 400x620px (expandido: ate 760px de largura e altura da tela), raio 16px, borda `#e2e8f2`, sombra. Cabecalho navy solido (sem degrade) com icone em quadrado translucido, titulo Sora 15px/700, subtitulo 12px; acoes limpar/expandir/fechar. Corpo `#f6f8fc`.
 - **Mensagens:** pergunta em balao navy a direita; resposta em balao branco com borda a esquerda; citacoes como numeros em pilula `#e7eefa`/`#264584`; bloco "Fontes" numerado ao fim da resposta; aviso de erro em amarelo claro.
 - **Rodape:** escudo + "Respostas geradas por IA... Nao insira dados pessoais." + DPO `nucleo.dados@fnp.org.br`.

@@ -6,6 +6,14 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### style: Botao do assistente no modelo do sistema FNP
+
+- Sem a borda branca de 3px; fundo navy `#1f3266` (um tom acima do rodape `#101d4f`, para nao sumir sobre ele) com sombra suave
+- Icone trocado pelo "brilhos" do Assistente FNP (estrela de 4 pontas + "+" no canto superior direito), tambem no cabecalho e no estado vazio do painel
+- `assistente.css` v=2
+
+**Arquivos:** `templates/assistente/_widget.html`, `static/css/assistente.css`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
 ### feat: Assistente de dados, etapa 3 (widget do chat no lugar do "voltar ao topo")
 
 - Pedido do usuario: o botao flutuante do chat substitui o botao "voltar ao topo" no canto inferior direito, em todas as paginas
