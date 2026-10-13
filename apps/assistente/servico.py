@@ -13,11 +13,13 @@ from google.genai import errors, types
 from apps.assistente.contexto import montar_contexto
 from apps.assistente.ferramentas import consultar_mapa as _consultar_mapa
 
-# Principal + reservas: no plano gratuito um modelo pode responder 503 ("alta demanda")
-# ou 429 (cota); a pergunta segue para o proximo da lista. Medido em 2026-10-13.
+# Principal + reservas: no plano gratuito cada modelo tem cota propria (20 requisicoes/dia
+# no gemini-3.5-flash) e pode responder 503 ("alta demanda"); a pergunta segue para o
+# proximo da lista. Ordem e tempos medidos em 2026-10-13 (2s, 2s, 14s, 44s).
+_PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-3.5-flash-lite"
 MODELOS = [
     m.strip()
-    for m in os.environ.get("GEMINI_MODELS", "gemini-3.5-flash,gemini-3.1-flash-lite").split(",")
+    for m in os.environ.get("GEMINI_MODELS", _PADRAO).split(",")
     if m.strip()
 ]
 _TENTAR_PROXIMO = {429, 503}

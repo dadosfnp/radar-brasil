@@ -6,6 +6,13 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### chore: Mais modelos gratuitos na lista de reserva do assistente
+
+- Decisao do usuario: seguir no plano gratuito por enquanto (desenvolvimento e testes internos)
+- Cada modelo tem cota diaria propria; a lista de reserva passa a ter 4 modelos que responderam no teste de 2026-10-13: `gemini-3.5-flash` (~2s), `gemini-3.1-flash-lite` (~2s), `gemini-3-flash-preview` (~14s), `gemini-3.5-flash-lite` (~44s). Fora da lista: `gemini-3.6/3.7/3.8-flash` e `gemini-flash-latest` (503 ou cota esgotada no teste) e `gemini-flash-lite-latest` (~120s)
+
+**Arquivos:** `apps/assistente/servico.py`, `.env.example`, `docs/CHANGELOG.md`
+
 ### feat: Avaliador do assistente (golden set) e cota real do plano gratuito
 
 - `python manage.py avaliar_assistente [--lang en] [--limite N] [--pausa S] [--saida arquivo.json]`: roda as perguntas do FAQ (fonte esperada = a propria pergunta) + `apps/assistente/golden_set.json` (4 casos semente: Mapa, ficha, agregacao regional e recusa fora de escopo; substituir pelas 20-30 perguntas dos especialistas)
