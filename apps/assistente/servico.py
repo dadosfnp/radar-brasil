@@ -150,10 +150,18 @@ def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
     fontes_disp = {**ctx["fontes"], "MAPA": FONTE_MAPA}
     citadas = list(dict.fromkeys(i for i in _ID_FONTE.findall(texto) if i in fontes_disp))
     uso = resp.usage_metadata
+    # O que consultar_mapa devolveu ao modelo (usado pelo avaliador para checar numeros)
+    dados_ferramentas = [
+        parte.function_response.response
+        for conteudo in (getattr(resp, "automatic_function_calling_history", None) or [])
+        for parte in (conteudo.parts or [])
+        if getattr(parte, "function_response", None)
+    ]
     return {
         "resposta": texto,
         "fontes": [{"id": i, **fontes_disp[i]} for i in citadas],
         "modelo": modelo,
         "tokens_entrada": getattr(uso, "prompt_token_count", None),
         "tokens_saida": getattr(uso, "candidates_token_count", None),
+        "dados_ferramentas": dados_ferramentas,
     }

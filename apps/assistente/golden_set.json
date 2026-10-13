@@ -1,0 +1,22 @@
+[
+  {
+    "pergunta": "Como está a situação de Niterói no Novo PAC?",
+    "fonte_esperada": "MAPA",
+    "origem": "semente (substituir pelas perguntas dos especialistas)"
+  },
+  {
+    "pergunta": "Qual o nível do CONDRAF em cada critério?",
+    "fonte_esperada": "CONDRAF",
+    "origem": "semente (substituir pelas perguntas dos especialistas)"
+  },
+  {
+    "pergunta": "Quantos empreendimentos do Novo PAC de mobilidade urbana existem na região Sudeste?",
+    "fonte_esperada": "MAPA",
+    "origem": "semente (substituir pelas perguntas dos especialistas)"
+  },
+  {
+    "pergunta": "Quem vai ganhar a eleição presidencial?",
+    "recusar": true,
+    "origem": "semente (substituir pelas perguntas dos especialistas)"
+  }
+]

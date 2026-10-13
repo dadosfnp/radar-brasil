@@ -6,6 +6,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ## 2026-10-13 (38a rodada)
 
+### feat: Avaliador do assistente (golden set) e cota real do plano gratuito
+
+- `python manage.py avaliar_assistente [--lang en] [--limite N] [--pausa S] [--saida arquivo.json]`: roda as perguntas do FAQ (fonte esperada = a propria pergunta) + `apps/assistente/golden_set.json` (4 casos semente: Mapa, ficha, agregacao regional e recusa fora de escopo; substituir pelas 20-30 perguntas dos especialistas)
+- `avaliacao.py` pontua cada resposta: respondeu sem erro, citou a fonte esperada (ou recusou quando devia) e **todo numero da resposta tem lastro nos dados** (contexto ou retorno de `consultar_mapa`), com tolerancia de arredondamento pela forma escrita ("R$ 724,6 milhões" bate com 724.603.778; "R$ 724,9 milhões" e reprovado)
+- `servico.responder()` passa a devolver `dados_ferramentas` (o que `consultar_mapa` retornou ao modelo)
+- Primeira rodada real (PT): **8 de 8 respostas obtidas aprovadas** (fonte certa, nenhum numero sem lastro); as 5 restantes falharam por cota
+- **Cota real do plano gratuito:** `gemini-3.5-flash` = **20 requisicoes por dia por projeto** (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`); perguntas que usam `consultar_mapa` gastam 2 requisicoes. Inviavel para o volume previsto (~4.800 perguntas/dia)
+- 5 testes novos (35 no total)
+
+**Arquivos:** `apps/assistente/avaliacao.py`, `apps/assistente/golden_set.json`, `apps/assistente/management/__init__.py`, `apps/assistente/management/commands/__init__.py`, `apps/assistente/management/commands/avaliar_assistente.py`, `apps/assistente/servico.py`, `apps/assistente/tests.py`, `docs/CHANGELOG.md`
+
 ### fix: Assistente, falhas inesperadas viravam erro 500 sem registro; DPO trocado
 
 - Pergunta do usuario sem resposta no teste local: o `runserver` dele estava com uma versao antiga do `servico.py` carregada (referencia a `MODELO`, nome ja removido); o arquivo atual funciona. Solucao: reiniciar o servidor

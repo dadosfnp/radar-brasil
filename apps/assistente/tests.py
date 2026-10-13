@@ -234,3 +234,58 @@ class WidgetTest(TestCase):
             self.assertIn(reverse("assistente:perguntar"), html, nome)
             self.assertIn("mutiraobrasil@fnp.org.br", html, nome)
             self.assertNotIn("rb-scroll-top", html, nome)
+
+
+class AvaliacaoTest(TestCase):
+    DADOS = '"investimento": 724603778.0, total 5, Nível 3, 2025'
+
+    def test_numeros_arredondados_tem_lastro_e_inventados_nao(self):
+        from apps.assistente.avaliacao import numeros_sem_lastro
+
+        self.assertEqual(numeros_sem_lastro("R$ 724,6 milhões em 5 obras [F19]", self.DADOS), [])
+        self.assertEqual(
+            numeros_sem_lastro("São 8 obras e R$ 999 milhões", self.DADOS),
+            ["8", "999 milhões"],
+        )
+
+    def test_pontuacao_fonte_recusa_e_alucinacao(self):
+        from apps.assistente.avaliacao import avaliar
+
+        citou = {"resposta": "Nível 3 [F1]", "fontes": [{"id": "F1", "titulo": "CONDRAF"}]}
+        self.assertTrue(avaliar({"fonte_esperada": "condraf"}, citou, self.DADOS)["aprovado"])
+        self.assertFalse(avaliar({"fonte_esperada": "MAPA"}, citou, self.DADOS)["aprovado"])
+        self.assertFalse(avaliar({"recusar": True}, citou, self.DADOS)["aprovado"])
+        recusou = {"resposta": "Fora do escopo.", "fontes": []}
+        self.assertTrue(avaliar({"recusar": True}, recusou, self.DADOS)["aprovado"])
+        inventou = {"resposta": "São 42 obras [F1]", "fontes": [{"id": "F1", "titulo": "CONDRAF"}]}
+        self.assertEqual(
+            avaliar({"fonte_esperada": "F1"}, inventou, self.DADOS)["numeros_sem_lastro"], ["42"]
+        )
+
+    def test_numeros_da_ferramenta_contam_como_lastro(self):
+        from apps.assistente.avaliacao import avaliar
+
+        r = {
+            "resposta": "Niterói tem 7 obras [MAPA]",
+            "fontes": [{"id": "MAPA", "titulo": "Mapa"}],
+            "dados_ferramentas": [{"total_empreendimentos": 7}],
+        }
+        self.assertTrue(avaliar({"fonte_esperada": "MAPA"}, r, "")["aprovado"])
+
+    def test_casos_incluem_faq_e_golden_set(self):
+        from apps.assistente.avaliacao import carregar_casos
+
+        casos = carregar_casos("pt")
+        self.assertEqual(casos[0]["origem"], "FAQ")
+        self.assertTrue(any(c.get("recusar") for c in casos))
+
+    @patch("apps.assistente.management.commands.avaliar_assistente.responder")
+    def test_comando_mostra_placar(self, responder_mock):
+        from io import StringIO
+
+        from django.core.management import call_command
+
+        responder_mock.return_value = {"resposta": "ok", "fontes": [], "modelo": "m"}
+        saida = StringIO()
+        call_command("avaliar_assistente", "--limite", "2", "--pausa", "0", stdout=saida)
+        self.assertIn("Aprovados: 0/2", saida.getvalue())
