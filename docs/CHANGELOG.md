@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-14 (39a rodada)
+
+### perf: Assistente responde ou desiste rapido quando o Gemini gratuito esta lento
+
+- Usuario relatou respostas muito demoradas. Medicao nos registros: 4-5s com o `gemini-3.5-flash`; apos a cota diaria dele acabar (20/dia), as perguntas caiam nas reservas lentas (`gemini-3-flash-preview` 8-17s, `gemini-3.5-flash-lite` 17s). Teste direto em 14/10: plano gratuito sobrecarregado em todos os modelos (503 em 1s nos rapidos; `3-flash-preview` travando 24-30s ate falhar)
+- Causa que piorava tudo: o SDK do Google repetia cada chamada que falhava ate 5 vezes com espera crescente, e nao havia tempo limite (uma chamada chegou a travar por mais de 400s no teste)
+- Correcoes em `servico.py`: SDK sem repeticoes (`attempts=1`, a reserva e a nossa lista); tempo limite de 15s por chamada (`GEMINI_TIMEOUT_S`) e teto de 25s por pergunta incluindo reservas (`ASSISTENTE_ORCAMENTO_S`); modelo com cota diaria esgotada (429) fica marcado no cache e e pulado ate a cota voltar (prazo lido do `retryDelay` do Google); timeout e 500/504 tambem passam para a reserva; reservas lentas removidas da lista padrao (fica `gemini-3.5-flash` + `gemini-3.1-flash-lite`)
+- Resultado com o Google sobrecarregado: mensagem de indisponivel em 3-6s, contra 30s a mais de 1 min antes
+- Nivel de "raciocinio" (thinking) do modelo nao foi alterado: o ganho nao pode ser medido com o servico sobrecarregado; medir quando normalizar
+- 3 testes novos (45 no total)
+
+**Arquivos:** `apps/assistente/servico.py`, `apps/assistente/tests.py`, `.env.example`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-10-13 (38a rodada)
 
 ### feat: Assistente, respostas reaproveitadas, feedback, revisao no admin e retencao (LGPD)

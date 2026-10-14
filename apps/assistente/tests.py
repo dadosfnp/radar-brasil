@@ -114,9 +114,56 @@ def _resposta_gemini(texto):
 
 class ResponderTest(TestCase):
     def setUp(self):
+        from django.core.cache import cache
+
+        cache.clear()  # memoria de "modelo sem cota" nao pode vazar entre testes
         RegistroFicha.objects.create(
             lang="pt", estrutura="Conselho da Federação (CF)", eixo="governanca"
         )
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.assistente.servico.genai.Client")
+    def test_sdk_sem_repeticoes_e_com_tempo_limite(self, Client):
+        Client.return_value.chats.create.return_value.send_message.return_value = _resposta_gemini(
+            "ok [P1]"
+        )
+        responder("Pergunta", [], "pt")
+        http = Client.call_args.kwargs["http_options"]
+        self.assertEqual(http.retry_options.attempts, 1)
+        self.assertEqual(http.timeout, 15000)
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.assistente.servico.genai.Client")
+    def test_modelo_sem_cota_e_pulado_ate_a_cota_voltar(self, Client):
+        sem_cota = errors.ClientError(
+            429,
+            {
+                "error": {
+                    "code": 429,
+                    "status": "RESOURCE_EXHAUSTED",
+                    "message": "cota",
+                    "details": [{"retryDelay": "3600s"}],
+                }
+            },
+        )
+        envio = Client.return_value.chats.create.return_value.send_message
+        envio.side_effect = [sem_cota, _resposta_gemini("ok [P1]"), _resposta_gemini("ok [P1]")]
+        self.assertEqual(responder("Pergunta 1", [], "pt")["modelo"], "gemini-3.1-flash-lite")
+        # segunda pergunta ja vai direto para a reserva, sem gastar tentativa no esgotado
+        self.assertEqual(responder("Pergunta 2", [], "pt")["modelo"], "gemini-3.1-flash-lite")
+        modelos = [c.kwargs["model"] for c in Client.return_value.chats.create.call_args_list]
+        self.assertEqual(
+            modelos, ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3.1-flash-lite"]
+        )
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.assistente.servico.genai.Client")
+    def test_tempo_esgotado_passa_para_a_reserva(self, Client):
+        import httpx
+
+        envio = Client.return_value.chats.create.return_value.send_message
+        envio.side_effect = [httpx.ReadTimeout("lento"), _resposta_gemini("ok [P1]")]
+        self.assertEqual(responder("Pergunta", [], "pt")["modelo"], "gemini-3.1-flash-lite")
 
     @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
     @patch("apps.assistente.servico.genai.Client")

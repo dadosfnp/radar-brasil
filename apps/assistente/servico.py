@@ -6,19 +6,27 @@ por chamada de funcao (ferramentas.py). O provedor fica isolado neste modulo.
 
 import os
 import re
+import time
 
+import httpx
+from django.core.cache import cache
 from google import genai
 from google.genai import errors, types
 
 from apps.assistente.contexto import montar_contexto
 from apps.assistente.ferramentas import consultar_mapa as _consultar_mapa
 
-# Principal + reservas: no plano gratuito cada modelo tem cota propria (20 requisicoes/dia
+# Principal + reserva: no plano gratuito cada modelo tem cota propria (20 requisicoes/dia
 # no gemini-3.5-flash) e pode responder 503 ("alta demanda"); a pergunta segue para o
-# proximo da lista. Ordem e tempos medidos em 2026-10-13 (2s, 2s, 14s, 44s).
-_PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite,gemini-3-flash-preview,gemini-3.5-flash-lite"
+# proximo da lista. So modelos rapidos (~2s em 2026-10-13): gemini-3-flash-preview e
+# gemini-3.5-flash-lite sairam da lista porque travavam 15-45s antes de responder ou falhar.
+_PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite"
 MODELOS = [m.strip() for m in os.environ.get("GEMINI_MODELS", _PADRAO).split(",") if m.strip()]
-_TENTAR_PROXIMO = {429, 503}
+_TENTAR_PROXIMO = {429, 500, 503, 504}
+# Tempo maximo por chamada ao Gemini e para a pergunta inteira (com reservas). Sem isso o
+# SDK repetia cada falha 5 vezes com espera crescente e o visitante esperava mais de 1 min.
+TIMEOUT_S = int(os.environ.get("GEMINI_TIMEOUT_S", "15"))
+ORCAMENTO_S = int(os.environ.get("ASSISTENTE_ORCAMENTO_S", "25"))
 MAX_HISTORICO = 6  # ultimas mensagens (pergunta/resposta) enviadas como memoria
 
 FONTE_MAPA = {
@@ -91,7 +99,23 @@ def _cliente() -> genai.Client:
     chave = os.environ.get("GEMINI_API_KEY")
     if not chave:
         raise AssistenteIndisponivel("GEMINI_API_KEY nao configurada")
-    return genai.Client(api_key=chave)
+    return genai.Client(
+        api_key=chave,
+        http_options=types.HttpOptions(
+            timeout=TIMEOUT_S * 1000,  # milissegundos
+            retry_options=types.HttpRetryOptions(attempts=1),  # a reserva e a nossa lista
+        ),
+    )
+
+
+def _segundos_ate_liberar(erro: errors.APIError) -> int:
+    """Do 429 de cota diaria, quanto falta para a cota voltar (RetryInfo.retryDelay)."""
+    detalhes = (erro.details or {}).get("error", {}).get("details", [])
+    for d in detalhes if isinstance(erro.details, dict) else []:
+        atraso = str(d.get("retryDelay", "")).rstrip("s")
+        if atraso.replace(".", "", 1).isdigit():
+            return int(float(atraso))
+    return 3600
 
 
 def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
@@ -132,17 +156,31 @@ def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
     # O cliente precisa ficar referenciado ate o fim: ao ser coletado ele fecha a conexao
     cliente = _cliente()
     resp = erro = None
+    inicio = time.monotonic()
     for modelo in MODELOS:
+        if cache.get(f"assistente:sem-cota:{modelo}"):
+            continue  # cota diaria esgotada: nem tenta ate ela voltar
+        if time.monotonic() - inicio > ORCAMENTO_S:
+            break
         chat = cliente.chats.create(model=modelo, history=historico_gemini, config=config)
         try:
             resp = chat.send_message(pergunta)
             break
         except errors.APIError as e:
             erro = e
+            if e.code == 429:
+                cache.set(f"assistente:sem-cota:{modelo}", True, _segundos_ate_liberar(e))
             if e.code not in _TENTAR_PROXIMO:
                 break
+        except httpx.TimeoutException as e:
+            erro = e
     if resp is None:
-        raise AssistenteIndisponivel(f"{erro.code} {erro.status}") from erro
+        motivo = (
+            f"{erro.code} {erro.status}"
+            if isinstance(erro, errors.APIError)
+            else (type(erro).__name__ if erro else "todos os modelos sem cota")
+        )
+        raise AssistenteIndisponivel(motivo) from erro
 
     texto = (resp.text or "").strip()
     fontes_disp = {**ctx["fontes"], "MAPA": FONTE_MAPA}
