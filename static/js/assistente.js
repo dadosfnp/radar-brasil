@@ -109,12 +109,42 @@
         conversa.forEach(adicionar);
     }
 
-    function abrir(aberto) {
+    /* Mesma condicao do CSS: celular (em pe ou deitado) abre o painel em tela cheia */
+    var telaCheia = window.matchMedia('(max-width: 600px), (max-height: 500px) and (pointer: coarse)');
+
+    /* Teclado do celular: o painel acompanha a area visivel para o campo nao ficar escondido */
+    function ajustarAoTeclado() {
+        var vv = window.visualViewport;
+        if (!vv || painel.hidden || !telaCheia.matches) { painel.style.height = painel.style.top = ''; return; }
+        painel.style.top = vv.offsetTop + 'px';
+        painel.style.height = vv.height + 'px';
+    }
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', ajustarAoTeclado);
+        window.visualViewport.addEventListener('scroll', ajustarAoTeclado);
+    }
+
+    function abrir(aberto, peloVoltar) {
+        /* Em tela cheia o "voltar" do celular fecha o chat em vez de sair da pagina */
+        if (telaCheia.matches && !aberto && !peloVoltar && history.state && history.state.asPainel) {
+            history.back();  /* o popstate abaixo fecha o painel */
+            return;
+        }
+        if (telaCheia.matches && aberto && painel.hidden) history.pushState({ asPainel: true }, '');
         painel.hidden = !aberto;
         botao.setAttribute('aria-expanded', aberto);
         botao.setAttribute('aria-label', aberto ? botao.dataset.labelAberto : botao.dataset.labelFechado);
-        if (aberto) { lista.scrollTop = lista.scrollHeight; entrada.focus(); } else { botao.focus(); }
+        document.documentElement.classList.toggle('as-travado', aberto && telaCheia.matches);
+        ajustarAoTeclado();
+        if (aberto) {
+            lista.scrollTop = lista.scrollHeight;
+            if (!telaCheia.matches) entrada.focus();  /* no celular o teclado so sobe ao tocar no campo */
+        } else {
+            botao.focus();
+        }
     }
+
+    window.addEventListener('popstate', function () { if (!painel.hidden) abrir(false, true); });
 
     function perguntar(texto) {
         texto = texto.trim();
@@ -152,7 +182,7 @@
                 aguarde.remove();
                 ocupado = false;
                 enviar.disabled = false;
-                entrada.focus();
+                if (!telaCheia.matches) entrada.focus();  /* no celular nao cobre a resposta com o teclado */
             });
     }
 
@@ -181,7 +211,7 @@
         var acao = e.target.closest('[data-acao]');
         if (acao) {
             if (acao.dataset.acao === 'fechar') abrir(false);
-            if (acao.dataset.acao === 'limpar') { conversa = []; salvar(); renderizar(); entrada.focus(); }
+            if (acao.dataset.acao === 'limpar') { conversa = []; salvar(); renderizar(); if (!telaCheia.matches) entrada.focus(); }
             if (acao.dataset.acao === 'expandir') {
                 var exp = painel.classList.toggle('as-expandido');
                 acao.setAttribute('aria-pressed', exp);

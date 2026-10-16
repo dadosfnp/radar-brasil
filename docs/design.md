@@ -14,7 +14,8 @@ Botao flutuante + painel de chat em todas as paginas (`templates/assistente/_wid
 - **Mensagens:** pergunta em balao navy a direita; resposta em balao branco com borda a esquerda; citacoes como numeros em pilula `#e7eefa`/`#264584`; bloco "Fontes" numerado ao fim da resposta; aviso de erro em amarelo claro.
 - **Feedback:** abaixo das fontes, "Esta resposta foi util?" (12px, `--as-suave`) + dois botoes 28x28 com polegar (o de "nao" espelhado na vertical), raio 8px; votado = fundo `#e7eefa`, borda `#c9d6ee`, icone `#264584`; o texto vira "Obrigado pelo retorno!".
 - **Rodape:** escudo + "Respostas geradas por IA... Nao insira dados pessoais." + DPO `mutiraobrasil@fnp.org.br`.
-- **Mobile (<= 600px):** painel em tela cheia (`z-index: 2400`, acima do header e do menu), sem o botao expandir.
+- **Mobile (<= 600px, ou celular deitado com ate 500px de altura):** painel em tela cheia (`z-index: 2400`, `100dvh`, acompanha o teclado via `visualViewport`), sem o botao expandir; deitado, o subtitulo do cabecalho some e o rodape de IA/DPO continua. Pagina de tras travada e botao voltar do celular fecha o chat.
+- **Telas de toque:** alvos de 44px (limpar, fechar, votar; enviar 46px), campo com fonte de 16px (evita o zoom do iPhone), citacoes com area de toque ampliada por `::after`.
 - Tipografia DM Sans; animacoes de entrada e dos pontos de "digitando" desligadas em `prefers-reduced-motion`.
 
 ---

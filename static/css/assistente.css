@@ -147,6 +147,7 @@
     padding: 18px 16px;
     background: var(--as-fundo);
     overflow-y: auto;
+    overscroll-behavior: contain;  /* rolar a conversa ate o fim nao rola a pagina de tras */
 }
 
 .as-vazio {
@@ -398,8 +399,20 @@ a.as-cita:hover { background: var(--as-primaria); color: #fff; }
     body.mapa-page .as-botao { bottom: 204px; }
 }
 
-/* ── Mobile: painel em tela cheia ── */
-@media (max-width: 600px) {
+/* ── Telas de toque (celular e tablet): alvos de 44px e sem zoom do iPhone ── */
+@media (pointer: coarse) {
+    .as-acao,
+    .as-voto { width: 44px; height: 44px; }
+    .as-enviar { width: 46px; height: 46px; }
+    .as-entrada { height: 46px; font-size: 16px; }  /* < 16px faz o iPhone dar zoom ao tocar */
+    .as-sugestao { min-height: 44px; }
+    /* citacao continua pequena no texto, mas com area de toque de ~44px */
+    .as-cita { position: relative; }
+    .as-cita::after { content: ""; position: absolute; inset: -13px -10px; }
+}
+
+/* ── Celular (em pe, ou deitado com pouca altura): painel em tela cheia ── */
+@media (max-width: 600px), (max-height: 500px) and (pointer: coarse) {
     .as-botao { right: 16px; bottom: 16px; width: 52px; height: 52px; }
 
     .as-painel,
@@ -408,12 +421,26 @@ a.as-cita:hover { background: var(--as-primaria); color: #fff; }
         z-index: 2400;
         width: 100%;
         height: 100%;
+        height: 100dvh;  /* acompanha as barras do navegador; o JS ajusta para o teclado */
         border: none;
         border-radius: 0;
     }
 
     .as-so-desktop { display: none; }
     .as-msg { max-width: 92%; }
+    .as-rodape { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+}
+
+/* Pagina de tras travada enquanto o chat ocupa a tela */
+html.as-travado,
+html.as-travado body { overflow: hidden; }
+
+/* Celular deitado: cabecalho mais compacto para sobrar espaco para a conversa
+   (o rodape com aviso de IA e DPO continua visivel: transparencia/LGPD) */
+@media (max-height: 500px) and (pointer: coarse) {
+    .as-cabecalho { padding-top: 6px; padding-bottom: 6px; }
+    .as-cabecalho-texto p { display: none; }
+    .as-form { padding-top: 8px; padding-bottom: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

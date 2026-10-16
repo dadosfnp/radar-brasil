@@ -4,6 +4,23 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-16 (40a rodada)
+
+### fix: Assistente compativel com celular e tablet
+
+- Medicao com Playwright (iPhone 13 em pe e deitado, Galaxy S9+, iPad Mini) mostrou 5 problemas: campo com fonte de 14px (o iPhone da zoom na pagina ao tocar); alvos de toque de 28 a 42px (padrao do projeto: 44px); celular deitado com painel flutuante de 222px de altura cobrindo o cabecalho; pagina de tras rolando junto com o chat; teclado podendo cobrir o campo
+- Telas de toque (`pointer: coarse`): campo com 16px, botoes limpar/fechar/votar com 44px e enviar com 46px, sugestoes com 44px de altura minima, citacoes com area de toque ampliada (~44px) sem mudar o visual
+- Tela cheia tambem no celular deitado (`max-height: 500px` + toque), com cabecalho compacto; rodape de IA/DPO mantido (transparencia); altura `100dvh` e ajuste ao teclado via `visualViewport`
+- Pagina de tras travada enquanto o chat ocupa a tela (`html.as-travado`); rolagem da conversa nao vaza para a pagina (`overscroll-behavior: contain`)
+- Botao "voltar" do celular fecha o chat em vez de sair da pagina (`history.pushState` ao abrir em tela cheia)
+- No celular o teclado so sobe quando o visitante toca no campo (antes subia ao abrir o chat e a cada resposta, cobrindo o texto)
+- iPad e desktop: painel flutuante como antes; desktop sem mudanca visual
+- `assistente.css` v=4, `assistente.js` v=3. Validado com Playwright nos 4 aparelhos + desktop, sem erros no console e sem rolagem horizontal
+
+**Arquivos:** `static/css/assistente.css`, `static/js/assistente.js`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-14 (39a rodada)
 
 ### perf: Assistente responde ou desiste rapido quando o Gemini gratuito esta lento

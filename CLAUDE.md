@@ -664,8 +664,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `nota-pais.css` | v=10 |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
-| `assistente.css` | v=3 |
-| `assistente.js` | v=2 |
+| `assistente.css` | v=4 |
+| `assistente.js` | v=3 |
 
 ### Pendencias
 
