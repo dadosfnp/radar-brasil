@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-19 (41a rodada)
+
+### docs: fim de expediente, Assistente de dados em producao
+
+- `feature/assistente-dados` integrada em `next` e `main` (fast-forward, `916669a`) e publicada em `origin` e `prod`; deploy no droplet com `GEMINI_API_KEY` no `.env`
+- `CLAUDE.md`: estado atual, secao do Assistente, CI com 45 testes (`pytest apps`), tokens separados por remoto (escopo `workflow` necessario para alterar a CI), pendencias (chave da service account no historico publico, plano pago, cron de retencao)
+
+**Arquivos:** `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-10-16 (40a rodada)
 
 ### fix: Assistente compativel com celular e tablet

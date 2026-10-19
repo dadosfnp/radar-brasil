@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-09-28 (fim do expediente)
+> Última atualização: 2026-10-19 (fim do expediente)
 
 ---
 
@@ -221,7 +221,7 @@ Arquivo: `.github/workflows/ci.yml`
 Roda em push para `next` e `main` (remoto `origin`):
 1. `flake8 apps setup` — lint Python (max-line-length=100, config em `.flake8`)
 2. `black apps setup --check` — formatação Python
-3. `pytest apps/indicadores/tests.py -v --tb=short` — 13 testes
+3. `pytest apps -v --tb=short`: 45 testes (indicadores + assistente)
 
 **Antes de commitar código Python**: sempre rodar `python -m flake8 apps setup` e `python -m black apps setup --check` localmente.
 
@@ -298,28 +298,32 @@ Padrão: **Conventional Commits**, descrições em **português**
 Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 - Runtime lê só do ORM; Google Sheets só via `sync_sheets_db`. Nunca importar `sheets_reader` em services/views.
-- Testes: só `apps/indicadores/tests.py` (pytest + pytest-django, `conftest.py` mocka o gspread). CI roda flake8 + black `--check` + pytest.
+- Testes: `apps/indicadores/tests.py` e `apps/assistente/tests.py` (pytest + pytest-django, `conftest.py` mocka o gspread; o Gemini e mockado nos testes). CI roda flake8 + black `--check` + pytest.
 - Cache-buster `?v=N` no template: incrementar ao alterar qualquer CSS/JS e atualizar a tabela de versões.
 - Prefixo de classe CSS por página (`.ap-`, `.mg-`, `.fc-`, `.np-`, `.pm-`); JS vanilla, um arquivo por página, strings via `RBi18n.t()`.
 
 ---
 
-## Estado Atual do Projeto (2026-09-28)
+## Estado Atual do Projeto (2026-10-19)
 
-### Branch atual: `main` (`43bd8e9`)
+### Branch atual: `docs/fim-expediente-2026-10-19` (so este CLAUDE.md + CHANGELOG, local)
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `43bd8e9` | `43bd8e9` |
-| `prod` (dadosfnp) | `43bd8e9` | `43bd8e9` |
+| `origin` (brunofnp) | `916669a` | `916669a` |
+| `prod` (dadosfnp) | `916669a` | `916669a` |
 
-> `main` e `next` em `43bd8e9` nos dois remotos e no droplet (deploy feito em 2026-09-28). O commit de fim de expediente de 2026-09-28 (so CLAUDE.md) fica local ate o proximo push.
+> `main` e `next` em `916669a` nos dois remotos e no droplet (deploy do Assistente feito em 2026-10-19). O commit de fim de expediente de 2026-10-19 fica local na branch `docs/fim-expediente-2026-10-19` ate o proximo push.
 
 ### Git — autenticacao configurada
 
-Remotos `origin` e `prod` configurados com PAT do brunofnp no `.git/config` para push automatico sem prompt interativo. Config apenas local, nao versionada.
+Remotos com PAT no `.git/config` (config apenas local, nao versionada). Desde 2026-10-19 sao **dois tokens diferentes**, ambos classic com escopos `repo` + `workflow` (sem `workflow` o GitHub recusa push que altere `.github/workflows/ci.yml`):
+- `origin`: token da conta **brunofnp** (o repo `brunofnp/radar-brasil` e privado; token de outra conta responde "Repository not found")
+- `prod`: token da conta **dadosfnp**
+
+Remoto extra `pessoal` (`devBrunoMarra/radar-brasil`) existe no config local, sem uso no fluxo.
 
 ### SSH — alias configurado
 
@@ -334,7 +338,7 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Deploy feito em 2026-09-28 (commit `43bd8e9`). O usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
+Deploy feito em 2026-10-19 (commit `916669a`, Assistente de dados). `GEMINI_API_KEY` ja esta no `.env` do droplet. O usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
@@ -425,6 +429,18 @@ Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
 **Altura do header mobile:** ~88px (wrapper 6+6px + header-top 4+4px + logo 68px)
 
 Nav visivel em TODAS as paginas inclusive landing.
+
+### Assistente de dados (RAG): estado (2026-10-19, em producao)
+
+App `apps/assistente/` | CSS `static/css/assistente.css` v=4 | JS `static/js/assistente.js` v=3 | Template `templates/assistente/_widget.html` (incluido no `base.html`, substitui o antigo botao "voltar ao topo")
+
+- Arquitetura enxuta (sem banco vetorial): contexto completo por idioma (~41.7k tokens, 153 fontes: FAQ P1-P9 do `sobre.html`, fichas F1-F98, financiamentos L1-L46) + ferramenta `consultar_mapa` sobre os 2.322 empreendimentos do Novo PAC. Respostas com citacoes `[F12]`/`[P3]`/`[L5]`/`[MAPA]`
+- Gemini via `google-genai`, **plano gratuito** (~20 req/dia por modelo, ~60 perguntas/dia somando a reserva). Modelos em `GEMINI_MODELS` (padrao `gemini-3.5-flash,gemini-3.1-flash-lite`); SDK sem retries, timeout 15s por chamada e 25s por pergunta; modelo sem cota (429) e pulado ate a cota voltar
+- `InteracaoAssistente` grava pergunta/resposta/fontes/tokens/latencia; IP so como hash; respostas reaproveitadas para a mesma pergunta com os mesmos dados (nao gasta cota); 👍/👎 por resposta; admin so leitura em `/admin`
+- Comandos: `avaliar_assistente` (golden set: FAQ + `golden_set.json`, confere fonte e numeros), `limpar_assistente` (retencao `ASSISTENTE_RETENCAO_DIAS`, padrao 90)
+- DPO no widget: `mutiraobrasil@fnp.org.br`
+- Mobile: tela cheia em celular (em pe e deitado), alvos 44px, campo 16px, "voltar" fecha o chat
+- Plano pago recomendado para a gerencia (documentos fora do repo, em `04-Radar Brasil/`): Gemini 3.6 Flash com cache, ~US$ 189/mes no piloto (1.000 perguntas/dia) e ~US$ 784/mes na meta (4.800/dia); cobranca por uso, sem mensalidade minima; preco dobra em jan/2027
 
 ### Pagina Inicio — estado (2026-09-01)
 
@@ -669,13 +685,23 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-Nenhum deploy pendente. Proximos passos:
+Nenhum deploy de codigo pendente. Proximos passos:
+
+- **SEGURANCA (urgente):** chave privada da service account do Google Sheets (`radar-brasil-sheets@robust-charge-494120-s3`, key id `f40019d3`) esta no historico do repo **publico** `prod` (commit `5eecb76`, arquivo `.secrests/fnp-radar-sheets.json.json`). Apagar a chave no GCP, gerar outra para o `.env` do droplet, reduzir escopo para leitura; reescrever historico so com autorizacao
+- **Assistente:** decisao da gerencia sobre o plano pago (apresentacao feita em 2026-10-19); `createsuperuser` no droplet; cron do `limpar_assistente` (confirmar 90 dias com o DPO); especialistas definirem 20 a 30 perguntas para o `golden_set.json`
+- **XSS armazenado (baixo risco, dados vem das planilhas internas):** `avaliacao-painel.js`, `financiamento-climatico.js` e `mapa-georreferenciado.js` montam HTML com texto das planilhas sem escapar
 
 - **Fact Sheet (Sobre):** usuario vai trazer novas alteracoes na proxima sessao
 - **Auditoria ponytail (nao aplicada, aguardando decisao):** decorador `@_api` para os 9 try/except das views, helper do dict de filtros do financiamento, `TemplateView` para as 8 views que so renderizam, trocar `oauth2client` (descontinuado) por `gspread.service_account_from_dict` (testar `sync_sheets_db` de verdade antes de subir), apagar `apps/municipios/templates/municipios/home.html` (orfao) e os `admin.py` vazios
 - **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
 - **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) e `fundo-bg.png` (930 KB); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
 - **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
+
+**Resumo do periodo (2026-10-13 a 2026-10-19): Assistente de dados no ar (`916669a`):**
+- App `apps/assistente` construido em 3 etapas (contexto, Gemini + API, widget), avaliador golden set (8/8 aprovadas), reaproveitamento de respostas, feedback, admin, retencao, latencia, compatibilidade mobile; 45 testes
+- Revisao de seguranca da branch: limpa; achado fora da branch (chave da service account no historico publico) nas pendencias
+- Documentos para a gerencia (planilha de opcoes, Word com planos, apresentacao do RAG) em `04-Radar Brasil/`, fora do repo
+- Push em `origin` e `prod` exigiu tokens novos com escopo `workflow` (ver "Git — autenticacao configurada"); deploy no droplet com `GEMINI_API_KEY`
 
 **Resumo do dia (2026-09-28): tudo deployado (`43bd8e9`):**
 - PDF da Nota Metodologica substituido pela versao revisada (`6b2120b`); producao servindo o arquivo novo (3.626.606 bytes, conferido)
