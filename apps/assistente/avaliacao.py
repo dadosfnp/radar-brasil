@@ -33,7 +33,7 @@ _NUMERO = re.compile(
     r"(\d+(?:[.,]\d+)*)(?:\s*(mil|milhão|milhões|thousand|millions?|bilhão|bilhões|billions?)\b)?",
     re.I,
 )
-_CITACAO = re.compile(r"\[(?:[PFL]\d+|MAPA)\]")
+_CITACAO = re.compile(r"\[(?:[PFLS]\d+|MAPA)(?:\s*[,;]\s*(?:[PFLS]\d+|MAPA))*\]")
 
 
 def _leituras(bruto: str) -> set:

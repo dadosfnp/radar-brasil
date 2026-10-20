@@ -15,6 +15,21 @@
     "origem": "semente (substituir pelas perguntas dos especialistas)"
   },
   {
+    "pergunta": "Qual é a nota em Nível País para o Brasil?",
+    "fonte_esperada": "Nível País",
+    "origem": "paginas da plataforma"
+  },
+  {
+    "pergunta": "Como é calculado o Nível Eixo?",
+    "fonte_esperada": "Metodologia",
+    "origem": "paginas da plataforma"
+  },
+  {
+    "pergunta": "Quais são os pesos do fator de relevância dos componentes?",
+    "fonte_esperada": "Fator de Relevância",
+    "origem": "paginas da plataforma"
+  },
+  {
     "pergunta": "Quem vai ganhar a eleição presidencial?",
     "recusar": true,
     "origem": "semente (substituir pelas perguntas dos especialistas)"

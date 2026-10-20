@@ -6,10 +6,10 @@ from django.test import TestCase
 from django.urls import reverse
 from google.genai import errors
 
-from apps.assistente.contexto import ler_faq, montar_contexto
+from apps.assistente.contexto import ler_faq, ler_paginas, montar_contexto
 from apps.assistente.ferramentas import consultar_mapa
 from apps.assistente.models import InteracaoAssistente
-from apps.assistente.servico import AssistenteIndisponivel, responder
+from apps.assistente.servico import AssistenteIndisponivel, ids_citados, responder
 from apps.indicadores.models import (
     RegistroFicha,
     RegistroFinanciamento,
@@ -69,6 +69,32 @@ class ContextoTest(TestCase):
         self.assertNotIn("{%", pt[1][1] + en[1][1])
         ctx = montar_contexto("pt")
         self.assertEqual(ctx["fontes"]["P2"]["titulo"], "Qual a origem do Radar Brasil?")
+
+    def test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas(self):
+        pt = {titulo: (texto, url) for titulo, texto, url in ler_paginas("pt")}
+        en = {titulo: (texto, url) for titulo, texto, url in ler_paginas("en")}
+        self.assertEqual(len(pt), len(en))
+
+        # Nível País do Brasil, que so existe no texto das paginas
+        nivel_pais = " ".join(t for titulo, (t, _) in pt.items() if titulo.startswith("Nível País"))
+        self.assertIn("Nível País 3", nivel_pais)
+        self.assertTrue(any(t.startswith("Country Level") for t in en))
+
+        # Formula da Metodologia em uma linha, com a fracao escrita
+        calculo = pt["Metodologia: Fator de Relevância dos Componentes"][0]
+        self.assertIn("NP BR = ∑ NE k / 4 eixos", calculo)
+        self.assertIn("Governança | 32", calculo)
+
+        tudo = "\n".join(t for t, _ in pt.values())
+        self.assertNotIn("Ir para o conteúdo principal", tudo)  # navegacao fica de fora
+        self.assertNotIn("Qual a origem do Radar Brasil?", tudo)  # FAQ ja entra como [P..]
+        self.assertNotIn("{%", tudo)
+
+        ctx = montar_contexto("pt")
+        sid = next(i for i, f in ctx["fontes"].items() if f["titulo"].startswith("Nível País:"))
+        self.assertEqual(ctx["fontes"][sid]["url"], "/indicadores/nota-pais/")
+        self.assertEqual(ctx["fontes"][sid]["eixo"], "Página")
+        self.assertIn(f"[{sid}] Nível País:", ctx["texto"])
 
     def test_contexto_acompanha_novo_sync(self):
         self.assertNotIn("Novo Programa", montar_contexto("pt")["texto"])
@@ -184,6 +210,13 @@ class ResponderTest(TestCase):
         self.assertEqual(config.tools[0].__name__, "consultar_mapa")
         self.assertEqual(len(criar.call_args.kwargs["history"]), 1)
         criar.return_value.send_message.assert_called_once_with("O que é o CF?")
+
+    def test_reconhece_citacoes_em_lista_e_de_paginas(self):
+        self.assertEqual(
+            ids_citados("Nível 3 [S2]. Conselhos [F11, F29] e [F11]; mapa [MAPA][P1; L4]."),
+            ["S2", "F11", "F29", "MAPA", "P1", "L4"],
+        )
+        self.assertEqual(ids_citados("[F1-F98] e [nota]"), [])
 
     @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
     @patch("apps.assistente.servico.genai.Client")

@@ -46,10 +46,13 @@ Regras:
 Se a informação não estiver nelas, diga que não a encontrou nos dados do Radar Brasil e \
 sugira reformular a pergunta. Nunca invente números, nomes, níveis ou datas.
 2. Cite a fonte de cada afirmação com o ID entre colchetes logo após a frase, por exemplo \
-[F12], [P3] ou [L5]. Para dados obtidos com consultar_mapa, cite [MAPA].
+[F12], [P3], [L5] ou [S2], um ID por colchete. Para dados obtidos com consultar_mapa, \
+cite [MAPA].
 3. O Radar avalia instrumentos do Governo Federal, não estados nem municípios. Cada \
 componente recebe um nível de 1 a 5 em cada critério. Os dados são de 2025; 2026 está \
-em análise.
+em análise. As fontes [S..] são textos das páginas da plataforma (metodologia de cálculo, \
+Nível País, histórico, apresentação): use-as para perguntas sobre a metodologia, o Nível \
+País e o Radar em geral. Para contagens e níveis de componentes, prefira as fichas [F..].
 4. Para perguntas sobre empreendimentos do Novo PAC em municípios, UFs, regiões, eixos ou \
 estágios, chame consultar_mapa.
 5. Se a pergunta fugir do escopo do Radar Brasil, recuse com educação e diga sobre o que \
@@ -71,10 +74,14 @@ Rules:
 the information is not there, say you did not find it in the Radar Brasil data and suggest \
 rephrasing. Never invent numbers, names, levels or dates.
 2. Cite the source of each statement with its ID in brackets right after the sentence, \
-e.g. [F12], [P3] or [L5]. For data from consultar_mapa, cite [MAPA].
+e.g. [F12], [P3], [L5] or [S2], one ID per bracket. For data from consultar_mapa, cite \
+[MAPA].
 3. Radar assesses Federal Government instruments, not states or municipalities. Each \
 component gets a level from 1 to 5 in each criterion. Data refers to 2025; 2026 is \
-under review.
+under review. [S..] sources are texts from the platform pages (calculation methodology, \
+Country Level, history, overview): use them for questions about the methodology, the \
+Country Level and Radar in general. For component counts and levels, prefer the [F..] \
+sheets.
 4. For questions about Novo PAC projects in municipalities, states, regions, axes or \
 stages, call consultar_mapa.
 5. If the question is outside the scope of Radar Brasil, politely decline and say what you \
@@ -88,7 +95,15 @@ SOURCES:
 """,
 }
 
-_ID_FONTE = re.compile(r"\[([PFL]\d+|MAPA)\]")
+# [F11] e tambem listas que o modelo as vezes escreve, como [F11, F29]
+_ID = r"(?:[PFLS]\d+|MAPA)"
+_GRUPO_FONTES = re.compile(rf"\[({_ID}(?:\s*[,;]\s*{_ID})*)\]")
+
+
+def ids_citados(texto: str) -> list:
+    """IDs citados no texto, na ordem, sem repetir."""
+    ids = (i for g in _GRUPO_FONTES.findall(texto) for i in re.split(r"\s*[,;]\s*", g))
+    return list(dict.fromkeys(ids))
 
 
 class AssistenteIndisponivel(Exception):
@@ -184,7 +199,7 @@ def responder(pergunta: str, historico: list, lang: str = "pt") -> dict:
 
     texto = (resp.text or "").strip()
     fontes_disp = {**ctx["fontes"], "MAPA": FONTE_MAPA}
-    citadas = list(dict.fromkeys(i for i in _ID_FONTE.findall(texto) if i in fontes_disp))
+    citadas = [i for i in ids_citados(texto) if i in fontes_disp]
     uso = resp.usage_metadata
     # O que consultar_mapa devolveu ao modelo (usado pelo avaliador para checar numeros)
     dados_ferramentas = [

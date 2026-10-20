@@ -221,7 +221,7 @@ Arquivo: `.github/workflows/ci.yml`
 Roda em push para `next` e `main` (remoto `origin`):
 1. `flake8 apps setup` — lint Python (max-line-length=100, config em `.flake8`)
 2. `black apps setup --check` — formatação Python
-3. `pytest apps -v --tb=short`: 45 testes (indicadores + assistente)
+3. `pytest apps -v --tb=short`: 47 testes (indicadores + assistente)
 
 **Antes de commitar código Python**: sempre rodar `python -m flake8 apps setup` e `python -m black apps setup --check` localmente.
 
@@ -432,9 +432,11 @@ Nav visivel em TODAS as paginas inclusive landing.
 
 ### Assistente de dados (RAG): estado (2026-10-19, em producao)
 
-App `apps/assistente/` | CSS `static/css/assistente.css` v=6 | JS `static/js/assistente.js` v=4 | Template `templates/assistente/_widget.html` (incluido no `base.html`, substitui o antigo botao "voltar ao topo")
+App `apps/assistente/` | CSS `static/css/assistente.css` v=6 | JS `static/js/assistente.js` v=5 | Template `templates/assistente/_widget.html` (incluido no `base.html`, substitui o antigo botao "voltar ao topo")
 
-- Arquitetura enxuta (sem banco vetorial): contexto completo por idioma (~41.7k tokens, 153 fontes: FAQ P1-P9 do `sobre.html`, fichas F1-F98, financiamentos L1-L46) + ferramenta `consultar_mapa` sobre os 2.322 empreendimentos do Novo PAC. Respostas com citacoes `[F12]`/`[P3]`/`[L5]`/`[MAPA]`
+- Arquitetura enxuta (sem banco vetorial): contexto completo por idioma (~50k tokens, 174 fontes: FAQ P1-P9 do `sobre.html`, secoes das paginas S1-S21, fichas F1-F98, financiamentos L1-L46) + ferramenta `consultar_mapa` sobre os 2.322 empreendimentos do Novo PAC. Respostas com citacoes `[F12]`/`[P3]`/`[S4]`/`[L5]`/`[MAPA]` (listas como `[F11, F29]` tambem sao reconhecidas)
+- Paginas como fontes (`contexto.PAGINAS`): Nivel Pais, Metodologia, Sobre (sem o FAQ), Inicio e Landing, lidas do template renderizado em PT e EN e cortadas em cada h1-h3. Editar a pagina (ou recompilar o `.mo`) atualiza o assistente sozinho. E a unica fonte do Nivel Pais (Brasil 2025 = 3), que nao existe no banco
+- Divergencia conhecida: a tabela do Nivel Eixo na Metodologia diz Politicas e Planos 17 e Linhas de Financiamento 17; o banco e o Fact Sheet tem 18 e 30 (98 no total). O prompt manda preferir as fichas para contagens
 - Gemini via `google-genai`, **plano gratuito** (~20 req/dia por modelo, ~60 perguntas/dia somando a reserva). Modelos em `GEMINI_MODELS` (padrao `gemini-3.5-flash,gemini-3.1-flash-lite`); SDK sem retries, timeout 15s por chamada e 25s por pergunta; modelo sem cota (429) e pulado ate a cota voltar
 - `InteracaoAssistente` grava pergunta/resposta/fontes/tokens/latencia; IP so como hash; respostas reaproveitadas para a mesma pergunta com os mesmos dados (nao gasta cota); 👍/👎 por resposta; admin so leitura em `/admin`
 - Comandos: `avaliar_assistente` (golden set: FAQ + `golden_set.json`, confere fonte e numeros), `limpar_assistente` (retencao `ASSISTENTE_RETENCAO_DIAS`, padrao 90)
@@ -681,7 +683,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |
-| `assistente.js` | v=4 |
+| `assistente.js` | v=5 |
 
 ### Pendencias
 

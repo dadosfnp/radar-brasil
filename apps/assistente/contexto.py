@@ -1,11 +1,12 @@
 """
 Contexto do Assistente de Dados: todo o conteudo textual do Radar Brasil
-(FAQ da pagina Sobre + fichas tecnicas com criterios avaliados + linhas de
-financiamento) como fontes numeradas, para ir inteiro no prompt do modelo.
+(FAQ da pagina Sobre + textos das paginas institucionais + fichas tecnicas com
+criterios avaliados + linhas de financiamento) como fontes numeradas, para ir
+inteiro no prompt do modelo.
 
-Cada fonte recebe um ID curto ([P3] = pergunta do FAQ, [F12] = ficha,
-[L3] = linha de financiamento) que o modelo cita na resposta; o widget troca o
-ID pelo titulo e link da fonte.
+Cada fonte recebe um ID curto ([P3] = pergunta do FAQ, [S4] = secao de pagina,
+[F12] = ficha, [L3] = linha de financiamento) que o modelo cita na resposta; o
+widget troca o ID pelo titulo e link da fonte.
 
 Dados do Mapa (Novo PAC por municipio) nao entram aqui: sao tabulares e vao
 pela ferramenta consultar_mapa (ferramentas.py).
@@ -14,10 +15,13 @@ pela ferramenta consultar_mapa (ferramentas.py).
 import html
 import re
 from functools import lru_cache
+from html.parser import HTMLParser
 from pathlib import Path
 
 from django.conf import settings
 from django.db.models import Max
+from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils import translation
 
 from apps.indicadores.models import RegistroFicha, RegistroFinanciamento, RegistroMapa
@@ -72,6 +76,8 @@ _TXT = {
 }
 
 
+_PAGINA = {"pt": "Página", "en": "Page"}
+
 _SOBRE_HTML = Path(settings.BASE_DIR) / "templates" / "municipios" / "sobre.html"
 _FAQ_RE = re.compile(
     r'<button class="sb-faq-question"[^>]*>(.*?)</button>\s*'
@@ -97,12 +103,140 @@ def ler_faq(lang: str = "pt") -> list:
     return [(_texto_faq(q, lang), _texto_faq(a, lang)) for q, a in trechos]
 
 
+# Paginas institucionais que viram fontes [S..]: (template, rota, nome por idioma).
+# O texto vem do template renderizado, entao editar a pagina atualiza o assistente.
+PAGINAS = [
+    (
+        "municipios/nota-pais.html",
+        "indicadores:nota_pais",
+        {"pt": "Nível País", "en": "Country Level"},
+    ),
+    (
+        "municipios/metodologia.html",
+        "municipios:metodologia",
+        {"pt": "Metodologia", "en": "Methodology"},
+    ),
+    ("municipios/sobre.html", "municipios:sobre", {"pt": "Sobre", "en": "About"}),
+    ("municipios/inicio.html", "municipios:inicio", {"pt": "Início", "en": "Home"}),
+    ("municipios/landing.html", "municipios:home", {"pt": "Página inicial", "en": "Landing page"}),
+]
+_TEMPLATES = Path(settings.BASE_DIR) / "templates"
+_MO = Path(settings.BASE_DIR) / "locale" / "en" / "LC_MESSAGES" / "django.mo"
+
+
+class _TextoDaPagina(HTMLParser):
+    """HTML renderizado -> [(titulo da secao, texto)], cortando a pagina em cada h1-h3.
+    Ignora o que nao e conteudo (menu, rodape, scripts, desenhos, o proprio chat) e o
+    FAQ, que ja entra como [P..]."""
+
+    _PULAR = {
+        "head",
+        "script",
+        "style",
+        "svg",
+        "noscript",
+        "header",
+        "nav",
+        "footer",
+        "iframe",
+        "form",
+    }
+    _PULAR_CLASSE = {"sb-faq-section", "rb-skip-link"}
+    _TITULOS = {"h1", "h2", "h3"}
+    _QUEBRA = {"p", "li", "div", "tr", "br", "h4", "h5", "h6", "section", "table"}
+    _CELULA = {"td", "th"}
+    _MINIMO = 40  # secao com menos texto que isso e migalha de navegacao, nao conteudo
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.secoes, self._pulando, self._titulo = [], [], None
+        self._buf, self._no_titulo = [], False
+        self._math = []  # [tag, filhos ja fechados] dentro de <math>, para escrever fracoes
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if self._pulando:
+            if tag == self._pulando[0]:
+                self._pulando.append(tag)
+            return
+        if (
+            tag in self._PULAR
+            or a.get("id") == "as-root"
+            or self._PULAR_CLASSE & set((a.get("class") or "").split())
+        ):
+            self._pulando.append(tag)
+        elif tag == "math" or self._math:
+            self._math.append([tag, 0])
+        elif tag in self._TITULOS:
+            self._fechar_secao()
+            self._no_titulo = True
+        elif tag in self._QUEBRA:
+            self._buf.append("\n")
+
+    def handle_endtag(self, tag):
+        if self._pulando:
+            if tag == self._pulando[0]:
+                self._pulando.pop()
+        elif self._math:
+            self._math.pop()
+            # <mfrac>numerador denominador</mfrac> vira "numerador / denominador"
+            if self._math and self._math[-1][0] == "mfrac":
+                self._math[-1][1] += 1
+                if self._math[-1][1] == 1:
+                    self._buf.append(" / ")
+        elif tag in self._TITULOS and self._no_titulo:
+            self._titulo = _limpar("".join(self._buf)) or self._titulo
+            self._buf, self._no_titulo = [], False
+        elif tag in self._CELULA:
+            self._buf.append(" | ")
+        elif tag in self._QUEBRA:
+            self._buf.append("\n")
+
+    def handle_data(self, data):
+        # quebra de linha dentro do HTML e so formatacao do template: vira espaco
+        if not self._pulando:
+            self._buf.append(data.replace("\n", " ").replace("﻿", ""))
+
+    def _fechar_secao(self):
+        texto = _limpar("".join(self._buf), linhas=True)
+        if len(texto) >= self._MINIMO:
+            self.secoes.append((self._titulo, texto))
+        self._buf = []
+
+    def close(self):
+        super().close()
+        self._fechar_secao()
+
+
+def _limpar(texto: str, linhas: bool = False) -> str:
+    partes = (" ".join(linha.split()).strip(" |") for linha in texto.splitlines())
+    partes = [p for p in partes if p]
+    return "\n".join(partes) if linhas else " ".join(partes)
+
+
+def ler_paginas(lang: str = "pt") -> list:
+    """[(titulo, texto, url)] de cada secao das paginas institucionais, no idioma."""
+    secoes = []
+    with translation.override("en" if lang == "en" else "pt-br"):
+        for template, rota, nome in PAGINAS:
+            parser = _TextoDaPagina()
+            # token falso so para o {% csrf_token %} do chat nao gerar aviso; o chat e ignorado
+            parser.feed(render_to_string(template, {"csrf_token": "-"}))
+            parser.close()
+            url = reverse(rota)
+            for titulo, texto in parser.secoes:
+                secoes.append((f"{nome[lang]}: {titulo}" if titulo else nome[lang], texto, url))
+    return secoes
+
+
 def _versao_dados(lang: str) -> tuple:
-    """Muda a cada sync_sheets_db (apaga e reinsere, gerando novos IDs) e a cada
-    edicao do FAQ no template."""
+    """Muda a cada sync_sheets_db (apaga e reinsere, gerando novos IDs), a cada
+    edicao das paginas (FAQ incluido) e a cada traducao compilada."""
     f = RegistroFicha.objects.filter(lang=lang).aggregate(m=Max("id"))["m"]
     l_ = RegistroFinanciamento.objects.filter(lang=lang).aggregate(m=Max("id"))["m"]
-    return (f, l_, _SOBRE_HTML.stat().st_mtime)
+    paginas = tuple((_TEMPLATES / t).stat().st_mtime for t, _, _ in PAGINAS)
+    mo = _MO.stat().st_mtime if _MO.exists() else 0
+    return (f, l_, paginas, mo)
 
 
 def versao_respostas(lang: str) -> str:
@@ -130,6 +264,11 @@ def _montar(lang: str, _versao: tuple) -> dict:
         pid = f"P{n}"
         blocos.append(f"[{pid}] {pergunta}\n{resposta}")
         fontes[pid] = {"titulo": pergunta, "eixo": "FAQ", "url": "/sobre/"}
+
+    for n, (titulo, texto, url) in enumerate(ler_paginas(lang), start=1):
+        sid = f"S{n}"
+        blocos.append(f"[{sid}] {titulo}\n{texto}")
+        fontes[sid] = {"titulo": titulo, "eixo": _PAGINA[lang], "url": url}
 
     fichas = RegistroFicha.objects.filter(lang=lang).order_by("eixo", "estrutura")
     for n, reg in enumerate(fichas, start=1):

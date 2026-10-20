@@ -43,8 +43,11 @@
         escapar(texto).split('\n').forEach(function (linha) {
             linha = linha.trim();
             linha = linha.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            linha = linha.replace(/\[([PFL]\d+|MAPA)\]/g, function (m, id) {
-                return numero[id] ? '<a class="as-cita" href="#" data-fonte="' + numero[id] + '">' + numero[id] + '</a>' : '';
+            /* [F11] e tambem listas como [F11, F29] */
+            linha = linha.replace(/\[((?:[PFLS]\d+|MAPA)(?:\s*[,;]\s*(?:[PFLS]\d+|MAPA))*)\]/g, function (m, grupo) {
+                return grupo.split(/\s*[,;]\s*/).map(function (id) {
+                    return numero[id] ? '<a class="as-cita" href="#" data-fonte="' + numero[id] + '">' + numero[id] + '</a>' : '';
+                }).join('');
             });
             if (/^[-*] /.test(linha)) {
                 if (!emLista) { html += '<ul>'; emLista = true; }

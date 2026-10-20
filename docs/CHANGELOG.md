@@ -4,6 +4,24 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-20 (44a rodada)
+
+### feat: Assistente usa os textos das paginas da plataforma como fonte
+
+- Usuario perguntou o Nivel Pais do Brasil e o assistente respondeu que nao havia a informacao: o Nivel Pais (Brasil 2025 = 3) e a metodologia de calculo so existem no texto das paginas, que nao estavam no contexto
+- `contexto.ler_paginas()`: renderiza os templates de Nivel Pais, Metodologia, Sobre, Inicio e Landing no idioma da pergunta e corta o texto em secoes (h1-h3), ignorando menu, rodape, scripts, desenhos, o proprio chat e o FAQ (que ja entra como [P..]). Formulas MathML saem em uma linha (`NE k = [ ∑ ( NPa ⋅ Fr ) ] / ∑ Fr`) e tabelas com colunas separadas por `|`
+- Cada secao vira uma fonte `[S..]` com link para a pagina; editar a pagina ou recompilar as traducoes atualiza o assistente sozinho (versao do contexto inclui a data dos templates e do `.mo`)
+- 21 secoes por idioma; contexto de ~41,7k para ~50,4k tokens por pergunta (+21% de custo por pergunta)
+- Citacoes em lista (`[F11, F29]`), que o modelo as vezes escreve, agora viram links no chat e contam como fonte; prompt pede um ID por colchete
+- Golden set: 3 perguntas novas (Nivel Pais, calculo do Nivel Eixo, fator de relevancia)
+- Teste real no Gemini: "Qual e a nota em Nivel Pais para o Brasil" responde Nivel Pais 3 citando a pagina; "Como e calculado o Nivel Eixo?" traz a formula citando a Metodologia; nenhum numero sem lastro
+- Calculo automatico do Nivel Eixo/Pais a partir do banco ficou de fora: o fator de relevancia (peso 1 a 3) de cada componente e o criterio prioritario de cada eixo nao estao nas planilhas
+- 2 testes novos (47 no total); `assistente.js` v=5
+
+**Arquivos:** `apps/assistente/contexto.py`, `apps/assistente/servico.py`, `apps/assistente/avaliacao.py`, `apps/assistente/golden_set.json`, `apps/assistente/tests.py`, `static/js/assistente.js`, `base_templates/base.html`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-20 (43a rodada)
 
 ### style: icone do Assistente com o simbolo do Radar Brasil
