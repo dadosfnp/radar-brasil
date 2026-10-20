@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-20 (43a rodada)
+
+### style: icone do Assistente com o simbolo do Radar Brasil
+
+- Estrelinha generica de IA trocada pelo simbolo do Radar Brasil com uma estrelinha ao lado, no botao flutuante, no cabecalho e no estado vazio do chat
+- Desenho unico em `<symbol>` reaproveitado com `<use>`; `assistente.css` v=6
+
+**Arquivos:** `templates/assistente/_widget.html`, `static/css/assistente.css`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-20 (42a rodada)
 
 ### style: icones de voto do Assistente redesenhados

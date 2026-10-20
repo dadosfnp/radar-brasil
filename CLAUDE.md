@@ -432,7 +432,7 @@ Nav visivel em TODAS as paginas inclusive landing.
 
 ### Assistente de dados (RAG): estado (2026-10-19, em producao)
 
-App `apps/assistente/` | CSS `static/css/assistente.css` v=5 | JS `static/js/assistente.js` v=4 | Template `templates/assistente/_widget.html` (incluido no `base.html`, substitui o antigo botao "voltar ao topo")
+App `apps/assistente/` | CSS `static/css/assistente.css` v=6 | JS `static/js/assistente.js` v=4 | Template `templates/assistente/_widget.html` (incluido no `base.html`, substitui o antigo botao "voltar ao topo")
 
 - Arquitetura enxuta (sem banco vetorial): contexto completo por idioma (~41.7k tokens, 153 fontes: FAQ P1-P9 do `sobre.html`, fichas F1-F98, financiamentos L1-L46) + ferramenta `consultar_mapa` sobre os 2.322 empreendimentos do Novo PAC. Respostas com citacoes `[F12]`/`[P3]`/`[L5]`/`[MAPA]`
 - Gemini via `google-genai`, **plano gratuito** (~20 req/dia por modelo, ~60 perguntas/dia somando a reserva). Modelos em `GEMINI_MODELS` (padrao `gemini-3.5-flash,gemini-3.1-flash-lite`); SDK sem retries, timeout 15s por chamada e 25s por pergunta; modelo sem cota (429) e pulado ate a cota voltar
@@ -680,7 +680,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `nota-pais.css` | v=10 |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
-| `assistente.css` | v=5 |
+| `assistente.css` | v=6 |
 | `assistente.js` | v=4 |
 
 ### Pendencias

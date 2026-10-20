@@ -5,6 +5,14 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Assistente: icone com o simbolo do Radar Brasil (2026-10-20)
+
+- A "estrelinha" generica de IA foi trocada pelo simbolo do Radar Brasil (so o circulo com o mapa, de `static/img/avatar-negativo.svg`) com uma estrelinha de 4 pontas no canto superior direito
+- Desenho definido uma vez no widget como `<symbol id="as-logo">` (cor via `currentColor`) e reaproveitado com `<use>` no botao flutuante, no cabecalho e no estado vazio
+- O `viewBox` fica so no `<symbol>`; repetir no `<svg>` que faz o `<use>` desloca o desenho
+- Simbolo em destaque e estrelinha pequena (raio 27 no `viewBox` de 230, enquadrado justo em `58 16 230 230`); tamanhos maiores que os icones de traco, porque o simbolo tem detalhe fino: botao 40px (o botao continua com 56px, area de clique igual), cabecalho 34px, estado vazio 46px
+- `assistente.css` v=6
+
 ## Assistente: icones de voto util/nao util (2026-10-20)
 
 - Usuario achou os polegares ruins: o caminho do SVG estava malformado e o "nao util" era o "util" espelhado na vertical (`scaleY(-1)`), o que deixava o polegar torto

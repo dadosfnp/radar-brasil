@@ -46,6 +46,7 @@
 .as-botao:hover { background: var(--as-primaria); transform: translateY(-2px); }
 .as-botao:focus-visible { outline: 3px solid #8aaad4; outline-offset: 2px; }
 .as-botao svg { width: 22px; height: 22px; }
+.as-botao .as-botao-ia { width: 40px; height: 40px; }  /* simbolo do Radar tem detalhe fino: maior que os icones de traco */
 .as-botao .as-botao-fechar { display: none; }
 .as-botao[aria-expanded="true"] .as-botao-ia { display: none; }
 .as-botao[aria-expanded="true"] .as-botao-fechar { display: block; }
@@ -101,7 +102,7 @@
     background: rgba(255, 255, 255, .12);
 }
 
-.as-cabecalho-icone svg { width: 20px; height: 20px; }
+.as-cabecalho-icone svg { width: 34px; height: 34px; }
 .as-cabecalho-texto { flex: 1; min-width: 0; }
 
 .as-cabecalho-texto h2 {
@@ -167,7 +168,7 @@
     color: var(--as-navy);
 }
 
-.as-vazio-icone svg { width: 26px; height: 26px; }
+.as-vazio-icone svg { width: 46px; height: 46px; }
 
 .as-vazio-titulo {
     margin: 0 0 14px;
