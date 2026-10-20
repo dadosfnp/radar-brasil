@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-10-19 (fim do expediente)
+> Última atualização: 2026-10-20 (fim do expediente)
 
 ---
 
@@ -304,18 +304,18 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ---
 
-## Estado Atual do Projeto (2026-10-19)
+## Estado Atual do Projeto (2026-10-20)
 
-### Branch atual: `docs/fim-expediente-2026-10-19` (so este CLAUDE.md + CHANGELOG, local)
+### Branch atual: `docs/fim-expediente-2026-10-20` (so este CLAUDE.md + CHANGELOG, local)
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `916669a` | `916669a` |
-| `prod` (dadosfnp) | `916669a` | `916669a` |
+| `origin` (brunofnp) | `b74d213` | `b74d213` |
+| `prod` (dadosfnp) | `b74d213` | `b74d213` |
 
-> `main` e `next` em `916669a` nos dois remotos e no droplet (deploy do Assistente feito em 2026-10-19). O commit de fim de expediente de 2026-10-19 fica local na branch `docs/fim-expediente-2026-10-19` ate o proximo push.
+> `main` e `next` em `b74d213` nos dois remotos. **Droplet: confirmar se o deploy de `b74d213` (paginas como fontes do Assistente) foi feito**; o ultimo deploy conferido foi o dos icones. O commit de fim de expediente de 2026-10-20 fica local na branch `docs/fim-expediente-2026-10-20` ate o proximo push.
 
 ### Git — autenticacao configurada
 
@@ -338,7 +338,7 @@ Claude nao consegue SSH no droplet diretamente — o usuario deve rodar os coman
 
 ### Droplet — estado atual
 
-Deploy feito em 2026-10-19 (commit `916669a`, Assistente de dados). `GEMINI_API_KEY` ja esta no `.env` do droplet. O usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
+Deploy do Assistente em 2026-10-19/20. `.env` do droplet tem `GEMINI_API_KEY` (so foi salva de fato em 2026-10-20: o chat respondia 'indisponivel' porque a linha nao existia; conferir com `docker compose exec radarbrasil sh -c 'echo ${#GEMINI_API_KEY}'`, deve dar 53), `GEMINI_TIMEOUT_S=35` e `ASSISTENTE_ORCAMENTO_S=45` (paliativo: o Gemini gratuito chega a 17s so para responder 'ok' nos picos; respostas levam ate ~46s). Mudanca no `.env` exige `docker compose up -d --force-recreate`. O usuario roda os comandos direto no terminal ja aberto no droplet (nao precisa do wrapper `ssh fnp-web "..."` quando ja esta conectado):
 ```bash
 cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 ```
@@ -687,10 +687,13 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 ### Pendencias
 
-Nenhum deploy de codigo pendente. Proximos passos:
+Proximos passos:
+
+- **Deploy pendente (confirmar):** `b74d213` no droplet (git pull + build + up -d)
+- **SEGURANCA (urgente):** os dois PATs do GitHub (`ghp_...`) apareceram em texto aberto numa saida de terminal colada no chat em 2026-10-20. Revogar nas contas brunofnp e dadosfnp, gerar novos (`repo` + `workflow`; `origin` = brunofnp, `prod` = dadosfnp) e limpar o historico do PowerShell
 
 - **SEGURANCA (urgente):** chave privada da service account do Google Sheets (`radar-brasil-sheets@robust-charge-494120-s3`, key id `f40019d3`) esta no historico do repo **publico** `prod` (commit `5eecb76`, arquivo `.secrests/fnp-radar-sheets.json.json`). Apagar a chave no GCP, gerar outra para o `.env` do droplet, reduzir escopo para leitura; reescrever historico so com autorizacao
-- **Assistente:** decisao da gerencia sobre o plano pago (apresentacao feita em 2026-10-19); `createsuperuser` no droplet; cron do `limpar_assistente` (confirmar 90 dias com o DPO); especialistas definirem 20 a 30 perguntas para o `golden_set.json`
+- **Assistente:** decisao da gerencia sobre o plano pago (apresentacao feita em 2026-10-19; documentos atualizados em 2026-10-20 com 51 mil tokens/pergunta: opcao C US$ 214 piloto, US$ 888 / R$ 4.794 meta; geradores no scratchpad da sessao: `planilha_ia.py`, `doc/gerar.js`, `doc/apresentacao.js`); plano gratuito oscila (503 de alta demanda) e e lento: so o pago resolve; melhorias opcionais oferecidas e nao feitas: aviso de espera apos ~10s e mensagem de erro 'alta demanda'; `createsuperuser` no droplet; cron do `limpar_assistente` (confirmar 90 dias com o DPO); especialistas definirem 20 a 30 perguntas para o `golden_set.json`
 - **XSS armazenado (baixo risco, dados vem das planilhas internas):** `avaliacao-painel.js`, `financiamento-climatico.js` e `mapa-georreferenciado.js` montam HTML com texto das planilhas sem escapar
 
 - **Fact Sheet (Sobre):** usuario vai trazer novas alteracoes na proxima sessao
@@ -698,6 +701,13 @@ Nenhum deploy de codigo pendente. Proximos passos:
 - **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
 - **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) e `fundo-bg.png` (930 KB); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
 - **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
+
+**Resumo do dia (2026-10-20): Assistente com paginas como fontes (`b74d213`):**
+- Producao: chave do Gemini nao estava no `.env` do droplet (corrigido); depois, instabilidade do plano gratuito (paliativo de timeout no `.env`)
+- Icones de voto redesenhados e icone do assistente com o simbolo do Radar + estrelinha (`assistente.css` v=6)
+- Paginas Nivel Pais, Metodologia, Sobre, Inicio e Landing viraram fontes `[S..]` (o Nivel Pais 3 so existe nelas); contexto ~50k tokens; citacoes em lista reconhecidas; 47 testes
+- Tabela da Metodologia (17/17) mantida a pedido do usuario, apesar de divergir do banco (18/30)
+- Calculo do Nivel Eixo/Pais pelo banco: inviavel sem o fator de relevancia (1 a 3) e o criterio prioritario nas planilhas
 
 **Resumo do periodo (2026-10-13 a 2026-10-19): Assistente de dados no ar (`916669a`):**
 - App `apps/assistente` construido em 3 etapas (contexto, Gemini + API, widget), avaliador golden set (8/8 aprovadas), reaproveitamento de respostas, feedback, admin, retencao, latencia, compatibilidade mobile; 45 testes

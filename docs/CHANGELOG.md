@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-20 (45a rodada)
+
+### docs: fim de expediente
+
+- `CLAUDE.md`: estado dos remotos (`b74d213`), configuracao do `.env` do droplet (chave do Gemini e tempos limite do paliativo), pendencias (deploy de `b74d213`, revogar tokens do GitHub expostos, decisao do plano pago) e resumo do dia
+
+**Arquivos:** `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-10-20 (44a rodada)
 
 ### feat: Assistente usa os textos das paginas da plataforma como fonte
