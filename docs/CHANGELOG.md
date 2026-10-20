@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-20 (42a rodada)
+
+### style: icones de voto do Assistente redesenhados
+
+- Polegares util/nao util com desenho proprio cada um (Lucide); antes o SVG estava malformado e o "nao util" era o "util" espelhado, ficando torto
+- Voto escolhido fica com o polegar preenchido
+- `assistente.css` v=5, `assistente.js` v=4
+
+**Arquivos:** `static/css/assistente.css`, `static/js/assistente.js`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-19 (41a rodada)
 
 ### docs: fim de expediente, Assistente de dados em producao

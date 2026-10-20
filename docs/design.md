@@ -5,6 +5,13 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Assistente: icones de voto util/nao util (2026-10-20)
+
+- Usuario achou os polegares ruins: o caminho do SVG estava malformado e o "nao util" era o "util" espelhado na vertical (`scaleY(-1)`), o que deixava o polegar torto
+- Agora cada voto tem o proprio desenho (polegares do Lucide), traco 1.8 igual aos demais icones do widget, 16px
+- Voto escolhido: alem do fundo azul claro e da borda, o polegar fica preenchido (`fill: currentColor; fill-opacity: .18`)
+- `assistente.css` v=5, `assistente.js` v=4
+
 ## Assistente Radar Brasil: widget de chat (2026-10-13)
 
 Botao flutuante + painel de chat em todas as paginas (`templates/assistente/_widget.html` incluido no `base.html`; prefixo `.as-` em `static/css/assistente.css`). **Substitui o antigo botao "voltar ao topo"** (`.rb-scroll-top`, removido), a pedido do usuario.

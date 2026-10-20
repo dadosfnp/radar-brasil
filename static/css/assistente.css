@@ -305,10 +305,10 @@ a.as-cita:hover { background: var(--as-primaria); color: #fff; }
     cursor: pointer;
 }
 
-.as-voto svg { width: 15px; height: 15px; }
-.as-voto-nao svg { transform: scaleY(-1); }
+.as-voto svg { width: 16px; height: 16px; }
 .as-voto:hover { background: #eef3fb; color: var(--as-primaria); }
 .as-voto[aria-pressed="true"] { border-color: #c9d6ee; background: #e7eefa; color: var(--as-primaria); }
+.as-voto[aria-pressed="true"] svg { fill: currentColor; fill-opacity: .18; }  /* voto escolhido fica preenchido */
 
 /* Indicador de "pensando" */
 .as-digitando {

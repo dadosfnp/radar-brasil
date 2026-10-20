@@ -75,10 +75,16 @@
     function htmlFeedback(msg) {
         if (!msg.id) return '';
         var d = raiz.dataset;
+        /* polegares do Lucide: um desenho para cada voto (espelhar o "sim" deixava o "nao" torto) */
+        var ICONES = {
+            'true': '<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>',
+            'false': '<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/>'
+        };
         var botao = function (util, rotulo, classe) {
             return '<button type="button" class="as-voto ' + classe + '" data-util="' + util + '" aria-pressed="' +
                 (msg.util === util) + '" aria-label="' + escapar(rotulo) + '" title="' + escapar(rotulo) + '">' +
-                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11"/><path d="M15 5.9L14 10h5.8a2 2 0 0 1 1.9 2.5l-2.3 8A2 2 0 0 1 17.5 22H7a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L15 2a3.1 3.1 0 0 1 0 3.9z"/></svg></button>';
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+                ICONES[util] + '</svg></button>';
         };
         var texto = msg.util === undefined ? d.txtUtil : d.txtObrigado;
         return '<div class="as-feedback" data-id="' + msg.id + '"><span>' + escapar(texto) + '</span>' +
