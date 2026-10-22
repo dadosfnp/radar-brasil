@@ -5,6 +5,12 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Rodape: fresta clara abaixo da barra de copyright (2026-10-22)
+
+- Usuario viu uma linha clara abaixo do rodape (pagina Nivel Pais). Medicao com Playwright: em todas as paginas sobram 0,6 a 1,4 px entre o fim do rodape e o fim da pagina, porque a altura do conteudo e fracionada e a pagina arredonda para cima. Nessa fracao aparecia o fundo do `html` (imagem `fundo-bg.png`, azul claro)
+- Correcao em `.rb-footer-landing`: `box-shadow: 0 4px 0 var(--color-header-bg)`. A sombra solida na cor do rodape cobre a fresta; nao entra no calculo de altura da pagina (nao cria rolagem extra) e nao e cortada pelo `overflow: hidden` do proprio rodape
+- `base.css` v=21
+
 ## Assistente: icone com o simbolo do Radar Brasil (2026-10-20)
 
 - A "estrelinha" generica de IA foi trocada pelo simbolo do Radar Brasil (so o circulo com o mapa, de `static/img/avatar-negativo.svg`) com uma estrelinha de 4 pontas no canto superior direito

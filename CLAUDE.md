@@ -379,7 +379,7 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 ### Header Global — estado (2026-09-23)
 
-CSS: `static/css/base.css` **v=20** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=21** | Template: `base_templates/base.html`
 
 **Fix v20 — nav desktop fluido (menu quebrava linha em notebooks):** com fonte cheia os 7 itens do menu so cabem em uma linha a partir de ~1570px de largura efetiva. Uma primeira tentativa (v19) estendeu o breakpoint do hamburger de `<=768px` para `<=1600px`, mas isso fazia notebooks comuns (1366/1440/1600px) mostrarem o menu hamburger mobile em vez do menu desktop — **rejeitado pelo usuario**: "quero que a versao desktop fique como versao desktop... nao colocar o sanduiche do mobile como solucao".
 
@@ -666,7 +666,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=20 |
+| `base.css` | v=21 |
 | `inicio.css` | v=12 |
 | `landing.css` | v=13 |
 | `metodologia.css` | v=53 |

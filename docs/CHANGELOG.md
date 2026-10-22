@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-22 (46a rodada)
+
+### style: fresta clara abaixo do rodape
+
+- Sobravam 0,6 a 1,4 px entre o rodape e o fim da pagina (altura fracionada), mostrando o fundo claro do `html` como uma linha branca
+- `.rb-footer-landing` com sombra solida navy de 4px logo abaixo, cobrindo a fresta sem mudar a altura da pagina
+- Conferido com Playwright em Nivel Pais, Sobre, Inicio, Metodologia e Landing, nas escalas 100%, 125% e 150%
+- `base.css` v=21
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-20 (45a rodada)
 
 ### docs: fim de expediente

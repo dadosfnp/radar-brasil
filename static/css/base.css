@@ -243,6 +243,10 @@ body.rb-body {
     background-color: var(--color-header-bg);
     overflow: hidden;
     flex-shrink: 0;
+    /* A pagina tem altura fracionada e sobra < 2px abaixo do rodape, onde aparecia o
+       fundo claro do html. A sombra solida na mesma cor cobre a fresta sem alterar a
+       altura da pagina. */
+    box-shadow: 0 4px 0 var(--color-header-bg);
 }
 
 .rb-footer-wave {
