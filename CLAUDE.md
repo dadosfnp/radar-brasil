@@ -135,7 +135,7 @@ O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no ban
 
 **Regra do rename condicional:** `fin_key = "Financing" if lang == "en" else "Financiamento"` removido do `display_map` quando `eixo_front != "Governanca"`. Aplicado em `dados_para_grafico` e `get_tabela`.
 
-**Correção de mojibake (2026-09-23):** algumas células das planilhas foram coladas com encoding errado (UTF-8 lido como Latin-1 — ex.: "São Luís" virou "SÃ£o LuÃ­s", "Seleções" virou "SeleÃ§Ãµes"). `sheets_reader.py` aplica `_corrigir_mojibake()` em toda célula de texto lida (nos 3 pontos de leitura: `_ler`, `ler_financiamento`, `ler_mapa`) — só mexe em texto com os marcadores 'Ã'/'Â' e só troca se o round-trip `encode('latin-1').decode('utf-8')` for válido (texto limpo, incluindo maiúsculas legítimas como "PAVIMENTAÇÃO", nunca é alterado). Isso corrige automaticamente a cada `sync_sheets_db`, mas **não corrige dados já salvos** — é preciso rodar `sync_sheets_db` de novo (reimporta e substitui por idioma) para sanear os registros existentes no banco.
+**Correção de mojibake (2026-09-23):** algumas células das planilhas foram coladas com encoding errado (UTF-8 lido como Latin-1 — ex.: "São Luís" virou "SÃ£o LuÃ­s", "Seleções" virou "SeleÃ§Ãµes"). `sheets_reader.py` aplica `_corrigir_mojibake()` em toda célula de texto lida (nos 3 pontos de leitura: `_ler`, `ler_financiamento`, `ler_mapa`) — só mexe em texto com os marcadores 'Ã'/'Â' e só troca se o round-trip `encode('latin-1').decode('utf-8')` for válido (texto limpo, incluindo maiúsculas legítimas como "PAVIMENTAÇÃO", nunca é alterado). **Ampliada em 2026-10-23:** a versao antiga so tratava 'Ã'/'Â' e a celula inteira, e deixava passar pontuacao corrompida ('â€“' = '–', 'â€™' = '’', 'â€‹' = espaco invisivel) nos dados EN do Mapa e do Financiamento. Agora corrige trecho a trecho (regex de byte inicial UTF-8 + continuacoes lidas como Latin-1 ou cp1252, convertendo so o que forma UTF-8 valido) e remove U+200B; acento legitimo na mesma celula nao e afetado. Teste em `apps/indicadores/tests.py` (`CorrigirMojibakeTest`). Varredura de producao (paginas + APIs, PT e EN): script `varre_acentos.py` no scratchpad da sessao. Isso corrige automaticamente a cada `sync_sheets_db`, mas **não corrige dados já salvos** — é preciso rodar `sync_sheets_db` de novo (reimporta e substitui por idioma) para sanear os registros existentes no banco.
 
 ---
 
@@ -221,7 +221,7 @@ Arquivo: `.github/workflows/ci.yml`
 Roda em push para `next` e `main` (remoto `origin`):
 1. `flake8 apps setup` — lint Python (max-line-length=100, config em `.flake8`)
 2. `black apps setup --check` — formatação Python
-3. `pytest apps -v --tb=short`: 47 testes (indicadores + assistente)
+3. `pytest apps -v --tb=short`: 48 testes (indicadores + assistente)
 
 **Antes de commitar código Python**: sempre rodar `python -m flake8 apps setup` e `python -m black apps setup --check` localmente.
 

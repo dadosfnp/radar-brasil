@@ -100,3 +100,31 @@ class PaginasViewTest(TestCase):
         for url in urls:
             res = self.client.get(url)
             self.assertEqual(res.status_code, 200, f"url={url}")
+
+
+class CorrigirMojibakeTest(TestCase):
+    def test_corrige_acentos_e_pontuacao_e_preserva_texto_limpo(self):
+        from apps.indicadores.services.sheets_reader import _corrigir_mojibake as fix
+
+        # UTF-8 lido como Latin-1 (controles C1) e como cp1252
+        self.assertEqual(fix("S\u00c3\u00a3o Lu\u00c3\u00ads"), "São Luís")
+        self.assertEqual(fix("\u00c3\u0081frica e \u00c3\u0081sia"), "África e Ásia")
+        self.assertEqual(
+            fix("Bus corridor \u00e2\u0080\u0093 Av. Central"), "Bus corridor – Av. Central"
+        )
+        self.assertEqual(fix("the entity\u00e2\u20ac\u2122s ability"), "the entity’s ability")
+        # espaco invisivel corrompido (e o proprio) some
+        self.assertEqual(fix("Port of Sergipe\u00e2\u0080\u008b"), "Port of Sergipe")
+        # celula com acento legitimo e trecho corrompido: corrige so o trecho
+        self.assertEqual(fix("Câmara \u00e2\u0080\u0093 São Paulo"), "Câmara – São Paulo")
+        # texto limpo nao muda
+        for limpo in (
+            "PAVIMENTAÇÃO",
+            "Câmara Técnica",
+            "âmbito",
+            "Âmbito federal",
+            "Ação",
+            42,
+            None,
+        ):
+            self.assertEqual(fix(limpo), limpo)

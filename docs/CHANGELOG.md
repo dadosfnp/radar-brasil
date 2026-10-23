@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-10-23 (47a rodada)
+
+### fix: acentos e pontuacao corrompidos (Nivel Pais e dados EN)
+
+- Filtro "Regioes Monitoradas" do Nivel Pais mostrava "Ãfrica" e "Ãsia": o proprio template estava com o texto corrompido (UTF-8 salvo como Latin-1), o que tambem impedia a traducao EN de ser encontrada. Corrigido para "África" e "Ásia" (e um comentario no mesmo arquivo)
+- Varredura de toda a producao (9 paginas, APIs, filtros dos 4 eixos e tabela/ficha de cada componente, PT e EN, 562 pedidos): PT limpo; alem do template, 73 trechos corrompidos so nos dados EN: Mapa (`api/mapa/dados`, 49), Financiamento (`api/financiamento/tabela`, 4), nomes e fichas de componentes (`api/avaliacao`, 20, ex.: "National Climate Change Fund â€“ FNMC"). Todos de pontuacao: "â€“" (–), "â€™" (’), "â€œ" (“) e "â€‹" (espaco invisivel)
+- `sheets_reader._corrigir_mojibake` reescrita: corrige trecho a trecho em vez da celula inteira, reconhece o byte inicial "â" (antes so "Ã"/"Â") e continuacoes lidas como Latin-1 ou cp1252, so converte sequencias que formam UTF-8 valido e remove o espaco invisivel U+200B. Acento legitimo na mesma celula ("Câmara – São Paulo") fica intacto
+- Teste novo `CorrigirMojibakeTest` (48 no total)
+- **Depois do deploy, rodar `sync_sheets_db` no droplet** para reimportar as planilhas com a correcao
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `apps/indicadores/services/sheets_reader.py`, `apps/indicadores/tests.py`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-10-22 (46a rodada)
 
 ### style: fresta clara abaixo do rodape

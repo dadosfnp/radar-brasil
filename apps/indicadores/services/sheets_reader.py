@@ -6,6 +6,7 @@ Os services de indicadores NÃO importam este módulo; eles leem direto do banco
 
 import json
 import os
+import re
 import unicodedata
 
 import gspread
@@ -116,19 +117,42 @@ _EN_EIXO = {
 }
 
 
+# Como cada byte de continuacao UTF-8 (0x80-0xBF) aparece quando o texto e lido
+# como Latin-1 (controles C1 e \xa0-\xbf) ou como cp1252 (aspas curvas, travessoes etc.)
+_CONT = (
+    "\u0080-\u00bf\u0152\u0153\u0160\u0161\u0178\u017d\u017e\u0192\u02c6\u02dc"
+    "\u2013\u2014\u2018-\u201a\u201c-\u201e\u2020-\u2022\u2026\u2030\u2039\u203a"
+    "\u20ac\u2122"
+)
+# Byte inicial de 2, 3 ou 4 bytes seguido do numero certo de continuacoes
+_MOJIBAKE_RE = re.compile(
+    "[\u00c2-\u00df][" + _CONT + "]"
+    "|[\u00e0-\u00ef][" + _CONT + "]{2}"
+    "|[\u00f0-\u00f4][" + _CONT + "]{3}"
+)
+
+
+def _bytes_do_trecho(trecho: str) -> bytes:
+    return b"".join(c.encode("latin-1") if ord(c) < 256 else c.encode("cp1252") for c in trecho)
+
+
+def _corrigir_trecho(m):
+    try:
+        return _bytes_do_trecho(m.group(0)).decode("utf-8")
+    except (UnicodeDecodeError, UnicodeEncodeError):
+        return m.group(0)
+
+
 def _corrigir_mojibake(valor):
     """Corrige texto colado nas planilhas com encoding errado (UTF-8 lido como
-    Latin-1/cp1252 — ex.: "São Luís" virou "SÃ£o LuÃ­s"). So mexe em strings que
-    contem os marcadores classicos desse tipo de corrupcao ('Ã' ou 'Â' seguidos
-    de outro caractere), e so aplica a correcao se o round-trip latin-1→utf-8
-    for bem-sucedido — texto limpo nunca e alterado."""
-    if not isinstance(valor, str) or ("Ã" not in valor and "Â" not in valor):
+    Latin-1/cp1252: "S\u00e3o" virou "S\u00c3\u00a3o", "\u2013" virou "\u00e2\u20ac\u201c").
+    Corrige trecho a trecho, so onde a sequencia forma um caractere UTF-8 valido:
+    acento legitimo ("C\u00e2mara", "PAVIMENTA\u00c7\u00c3O") nunca e alterado, mesmo na
+    mesma celula de um trecho corrompido. Tambem remove o espaco invisivel (U+200B)
+    que vem junto de textos copiados."""
+    if not isinstance(valor, str):
         return valor
-    try:
-        corrigido = valor.encode("latin-1").decode("utf-8")
-    except (UnicodeDecodeError, UnicodeEncodeError):
-        return valor
-    return corrigido
+    return _MOJIBAKE_RE.sub(_corrigir_trecho, valor).replace("\u200b", "")
 
 
 def _corrigir_mojibake_df(df: pd.DataFrame) -> pd.DataFrame:
