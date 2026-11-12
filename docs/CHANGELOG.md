@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-12 (45a rodada)
+
+### fix: terceiro modelo de fallback do Gemini no Assistente
+
+- Producao ficou indisponivel por dois dias (2026-10-21) com os dois modelos do Assistente respondendo 503 (alta demanda) ao mesmo tempo — cota/sobrecarga do plano gratuito afetando `gemini-3.5-flash` e `gemini-3.1-flash-lite` juntos
+- Terceiro modelo de reserva (`gemini-3-flash`) adicionado a `GEMINI_MODELS`; a pergunta so fica indisponivel se os tres falharem
+- `ASSISTENTE_ORCAMENTO_S` (orcamento por pergunta) de 25 para 40s, para cobrir as 3 tentativas de 15s cada com folga
+- Testado: 34/34 testes do Assistente passando, `flake8`/`black --check` limpos
+
+**Arquivos:** `apps/assistente/servico.py`, `.env.example`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-10-20 (44a rodada)
 
 ### feat: Assistente usa os textos das paginas da plataforma como fonte
