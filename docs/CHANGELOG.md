@@ -4,7 +4,7 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
-## 2026-11-12 (45a rodada)
+## 2026-11-12 (48a rodada)
 
 ### fix: terceiro modelo de fallback do Gemini no Assistente
 
@@ -14,6 +14,43 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Testado: 34/34 testes do Assistente passando, `flake8`/`black --check` limpos
 
 **Arquivos:** `apps/assistente/servico.py`, `.env.example`, `docs/CHANGELOG.md`
+
+---
+
+## 2026-10-23 (47a rodada)
+
+### fix: acentos e pontuacao corrompidos (Nivel Pais e dados EN)
+
+- Filtro "Regioes Monitoradas" do Nivel Pais mostrava "Ãfrica" e "Ãsia": o proprio template estava com o texto corrompido (UTF-8 salvo como Latin-1), o que tambem impedia a traducao EN de ser encontrada. Corrigido para "África" e "Ásia" (e um comentario no mesmo arquivo)
+- Varredura de toda a producao (9 paginas, APIs, filtros dos 4 eixos e tabela/ficha de cada componente, PT e EN, 562 pedidos): PT limpo; alem do template, 73 trechos corrompidos so nos dados EN: Mapa (`api/mapa/dados`, 49), Financiamento (`api/financiamento/tabela`, 4), nomes e fichas de componentes (`api/avaliacao`, 20, ex.: "National Climate Change Fund â€“ FNMC"). Todos de pontuacao: "â€“" (–), "â€™" (’), "â€œ" (“) e "â€‹" (espaco invisivel)
+- `sheets_reader._corrigir_mojibake` reescrita: corrige trecho a trecho em vez da celula inteira, reconhece o byte inicial "â" (antes so "Ã"/"Â") e continuacoes lidas como Latin-1 ou cp1252, so converte sequencias que formam UTF-8 valido e remove o espaco invisivel U+200B. Acento legitimo na mesma celula ("Câmara – São Paulo") fica intacto
+- Teste novo `CorrigirMojibakeTest` (48 no total)
+- **Depois do deploy, rodar `sync_sheets_db` no droplet** para reimportar as planilhas com a correcao
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `apps/indicadores/services/sheets_reader.py`, `apps/indicadores/tests.py`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
+## 2026-10-22 (46a rodada)
+
+### style: fresta clara abaixo do rodape
+
+- Sobravam 0,6 a 1,4 px entre o rodape e o fim da pagina (altura fracionada), mostrando o fundo claro do `html` como uma linha branca
+- `.rb-footer-landing` com sombra solida navy de 4px logo abaixo, cobrindo a fresta sem mudar a altura da pagina
+- Conferido com Playwright em Nivel Pais, Sobre, Inicio, Metodologia e Landing, nas escalas 100%, 125% e 150%
+- `base.css` v=21
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
+## 2026-10-20 (45a rodada)
+
+### docs: fim de expediente
+
+- `CLAUDE.md`: estado dos remotos (`b74d213`), configuracao do `.env` do droplet (chave do Gemini e tempos limite do paliativo), pendencias (deploy de `b74d213`, revogar tokens do GitHub expostos, decisao do plano pago) e resumo do dia
+
+**Arquivos:** `CLAUDE.md`, `docs/CHANGELOG.md`
 
 ---
 
