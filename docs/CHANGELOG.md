@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (54a rodada)
+
+### fix: Painel - Visao Geral refeita pra bater com os slides dos especialistas
+
+- Usuario apontou que a primeira entrega (abas sempre visiveis) nao batia com os slides detalhados que ele mandou — reescrito do zero em 2 etapas: visao inicial com os 4 eixos recolhidos (foto de fundo, sem bolhas) e, so ao abrir um, bolhas de navegacao + aquele eixo expandido com criterios em cards navy (nao brancos)
+- KPI strip e header navy "Painel Multinível" com abas removidos — nao apareciam em nenhum slide
+- Texto do waffle trocado pra bater literalmente com o slide
+- `painel-multinivel.css` v=19, `painel-multinivel.js` v=11 (reescrita quase total dos dois)
+
+**Arquivos:** `templates/municipios/painel-multinivel.html`, `static/css/painel-multinivel.css`, `static/js/painel-multinivel.js`, `static/js/i18n.js`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-11-16 (53a rodada)
 
 ### feat: Landing - redesign completo (hero mapa + novas secoes)

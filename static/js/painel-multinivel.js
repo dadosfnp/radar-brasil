@@ -5,7 +5,14 @@ const EIXOS = [
   "Linhas de Financiamento",
 ];
 
-// Imagem de fundo do card-resumo de cada eixo (mesma imagem usada na Landing).
+const NOME_EIXO = {
+  "Governanca":              "Governança",
+  "Politicas e Planos":      "Políticas e Planos",
+  "Programas":               "Programas",
+  "Linhas de Financiamento": "Linhas de Financiamento",
+};
+
+// Imagem de fundo do card de eixo recolhido (mesma imagem usada na Landing).
 // URLs vêm resolvidas pelo Django em window.EIXO_IMAGENS (ver painel-multinivel.html)
 // — nunca montar "/static/img/..." na mão aqui, quebra com o storage de manifest.
 const EIXO_IMAGEM = window.EIXO_IMAGENS || {};
@@ -35,6 +42,13 @@ const NIVEL_BORDER = {
   "Level 4":  "#52a059",
   "Level 5":  "#0f2d20",
 };
+
+const cacheEixos = {};
+let eixoAberto = null;
+
+function _isEn() {
+  return (document.documentElement.lang || "").startsWith("en");
+}
 
 function _niveisOrdem(isEn) {
   return isEn
@@ -86,7 +100,7 @@ function construirWaffleCriterio(nomeCriterio, contagemPorNivel, isEn) {
   const explicacao = document.createElement("p");
   explicacao.className = "pm-waffle-explicacao";
   explicacao.textContent = RBi18n.t(
-    "Cada quadradinho representa um componente avaliado; a cor indica o nível (1 a 5) obtido por ele neste critério."
+    "Abaixo, cada célula corresponde a um componente avaliado neste critério, colorido pelo seu nível, numa escala de 1 a 5."
   );
   container.appendChild(explicacao);
 
@@ -154,11 +168,11 @@ function construirWaffleCriterio(nomeCriterio, contagemPorNivel, isEn) {
   return container;
 }
 
-function construirCaret() {
+function construirCaret(direcao) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttribute("class", "pm-criterio-caret");
-  svg.setAttribute("width", "12");
-  svg.setAttribute("height", "7");
+  svg.setAttribute("class", "pm-caret pm-caret--" + direcao);
+  svg.setAttribute("width", "14");
+  svg.setAttribute("height", "8");
   svg.setAttribute("viewBox", "0 0 10 6");
   svg.setAttribute("fill", "none");
   svg.setAttribute("aria-hidden", "true");
@@ -172,128 +186,12 @@ function construirCaret() {
   return svg;
 }
 
-// Resumo do eixo ativo (descrição + Nível Eixo + total de componentes), com a foto
-// do eixo como fundo — mesma imagem usada nos cards de eixo da Landing
-function construirResumoEixo(eixo, dados, isEn) {
-  const resumo = document.createElement("div");
-  resumo.className = "pm-eixo-resumo";
-  const img = EIXO_IMAGEM[eixo];
-  if (img) {
-    resumo.style.backgroundImage =
-      `linear-gradient(135deg, rgba(16,29,79,.88), rgba(16,29,79,.72)), url("${img}")`;
-  }
-
-  if (dados.descricao_eixo) {
-    const desc = document.createElement("p");
-    desc.className = "pm-eixo-descricao";
-    desc.textContent = dados.descricao_eixo;
-    resumo.appendChild(desc);
-  }
-
-  const meta = document.createElement("div");
-  meta.className = "pm-eixo-meta";
-
-  if (dados.nivel_eixo != null) {
-    const score = document.createElement("span");
-    score.className = "pm-eixo-score";
-    const rotulo = isEn ? "Axis Level" : "Nível Eixo";
-    score.textContent = rotulo + ": " + dados.nivel_eixo + "/5";
-    meta.appendChild(score);
-  }
-  if (dados.total_componentes) {
-    const total = document.createElement("span");
-    total.className = "pm-eixo-total";
-    const palavra = isEn ? "components evaluated" : "componentes avaliados";
-    total.textContent = dados.total_componentes + " " + palavra;
-    meta.appendChild(total);
-  }
-  resumo.appendChild(meta);
-
-  return resumo;
-}
-
-// Lista de critérios em acordeão: cada um colapsado por padrão, com seta própria;
-// vários podem ficar abertos ao mesmo tempo (só a troca de EIXO via abas é exclusiva)
-function renderizarCriterios(eixo, dados) {
-  const wrapper = document.getElementById("pm-chart-wrapper");
-  if (!wrapper) return;
-  wrapper.innerHTML = "";
-
-  if (!dados.criterios || dados.criterios.length === 0) return;
-
-  const isEn = (document.documentElement.lang || "").startsWith("en");
-  const matrix = construirMatrizPorCriterio(dados);
-
-  wrapper.appendChild(construirResumoEixo(eixo, dados, isEn));
-
-  const lista = document.createElement("div");
-  lista.className = "pm-criterios-lista";
-
-  dados.criterios.forEach((criterio) => {
-    const item = document.createElement("div");
-    item.className = "pm-criterio-item";
-
-    const header = document.createElement("button");
-    header.type = "button";
-    header.className = "pm-criterio-header";
-    header.setAttribute("aria-expanded", "false");
-
-    const info = document.createElement("span");
-    info.className = "pm-criterio-info";
-
-    const nomeRow = document.createElement("span");
-    nomeRow.className = "pm-criterio-nome-row";
-    const nome = document.createElement("span");
-    nome.className = "pm-criterio-nome";
-    nome.textContent = criterio.nome;
-    nomeRow.appendChild(nome);
-    if (criterio.peso > 1) {
-      const peso = document.createElement("span");
-      peso.className = "pm-criterio-peso";
-      peso.textContent = (isEn ? "weight" : "peso") + " " + criterio.peso;
-      nomeRow.appendChild(peso);
-    }
-    info.appendChild(nomeRow);
-
-    if (criterio.descricao) {
-      const desc = document.createElement("span");
-      desc.className = "pm-criterio-desc";
-      desc.textContent = criterio.descricao;
-      info.appendChild(desc);
-    }
-    header.appendChild(info);
-
-    const scoreWrap = document.createElement("span");
-    scoreWrap.className = "pm-criterio-score";
-    scoreWrap.appendChild(construirPillBar(criterio.nivel_medio, isEn));
-    scoreWrap.appendChild(construirCaret());
-    header.appendChild(scoreWrap);
-
-    item.appendChild(header);
-
-    const detalhe = document.createElement("div");
-    detalhe.className = "pm-criterio-detalhe";
-    detalhe.hidden = true;
-
-    header.addEventListener("click", () => {
-      const aberto = header.getAttribute("aria-expanded") === "true";
-      const novoEstado = !aberto;
-      header.setAttribute("aria-expanded", String(novoEstado));
-      item.classList.toggle("open", novoEstado);
-      if (novoEstado && !detalhe.dataset.built) {
-        detalhe.appendChild(
-          construirWaffleCriterio(criterio.nome, matrix[criterio.nome] || {}, isEn)
-        );
-        detalhe.dataset.built = "1";
-      }
-      detalhe.hidden = !novoEstado;
-    });
-
-    item.appendChild(detalhe);
-    lista.appendChild(item);
-  });
-
-  wrapper.appendChild(lista);
+async function fetchEixo(eixo) {
+  if (cacheEixos[eixo]) return cacheEixos[eixo];
+  const resp = await fetch(`/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`);
+  const dados = await resp.json();
+  cacheEixos[eixo] = dados;
+  return dados;
 }
 
 // Overlay de erro no gráfico
@@ -325,18 +223,247 @@ function mostrarLoader(visivel) {
   if (wrapper) wrapper.style.opacity = visivel ? "0.3" : "1";
 }
 
-async function carregarDados(eixo) {
-  const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
+// ── Visão geral: 4 eixos recolhidos, sem bolhas ──────────────────────────
+
+function construirEixoOverviewCard(eixo, dados, isEn) {
+  const card = document.createElement("button");
+  card.type = "button";
+  card.className = "pm-eixo-overview";
+  const img = EIXO_IMAGEM[eixo];
+  if (img) {
+    card.style.backgroundImage =
+      `linear-gradient(100deg, rgba(16,29,79,.80), rgba(16,29,79,.55)), url("${img}")`;
+  }
+
+  card.appendChild(construirCaret("down"));
+
+  const info = document.createElement("span");
+  info.className = "pm-eixo-overview-info";
+  const nome = document.createElement("span");
+  nome.className = "pm-eixo-overview-nome";
+  nome.textContent = RBi18n.t(NOME_EIXO[eixo]);
+  info.appendChild(nome);
+  if (dados.descricao_eixo) {
+    const desc = document.createElement("span");
+    desc.className = "pm-eixo-overview-desc";
+    desc.textContent = dados.descricao_eixo;
+    info.appendChild(desc);
+  }
+  card.appendChild(info);
+
+  const score = document.createElement("span");
+  score.className = "pm-eixo-overview-score";
+  const num = document.createElement("span");
+  num.className = "pm-eixo-overview-score-num";
+  num.appendChild(document.createTextNode(dados.nivel_eixo != null ? dados.nivel_eixo : "–"));
+  const max = document.createElement("small");
+  max.textContent = "/5";
+  num.appendChild(max);
+  score.appendChild(num);
+  const label = document.createElement("span");
+  label.className = "pm-eixo-overview-score-label";
+  label.textContent = isEn ? "Axis Level" : "Nível Eixo";
+  score.appendChild(label);
+  card.appendChild(score);
+
+  card.addEventListener("click", () => abrirEixo(eixo));
+  return card;
+}
+
+async function renderVisaoGeral() {
+  eixoAberto = null;
+  const tabs = document.getElementById("pm-tabs");
+  const footer = document.getElementById("pm-chart-footer");
+  if (tabs) tabs.hidden = true;
+  if (footer) footer.hidden = true;
+
   _ocultarErroGrafico();
   mostrarLoader(true);
   try {
-    const resp  = await fetch(url);
-    const dados = await resp.json();
+    const isEn = _isEn();
+    const todos = await Promise.all(EIXOS.map(fetchEixo));
+    const wrapper = document.getElementById("pm-chart-wrapper");
+    wrapper.innerHTML = "";
+    const lista = document.createElement("div");
+    lista.className = "pm-eixos-overview-list";
+    EIXOS.forEach((eixo, i) => {
+      lista.appendChild(construirEixoOverviewCard(eixo, todos[i], isEn));
+    });
+    wrapper.appendChild(lista);
+  } catch (e) {
+    console.error("Erro fetch:", e);
+    _mostrarErroGrafico("⚠ " + RBi18n.t("Não foi possível carregar os dados. Verifique sua conexão e recarregue a página."));
+  } finally {
+    mostrarLoader(false);
+  }
+}
+
+// ── Eixo expandido: bolhas + resumo + critérios em acordeão ──────────────
+
+function construirResumoEixo(eixo, dados, isEn) {
+  const resumo = document.createElement("div");
+  resumo.className = "pm-eixo-resumo";
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "pm-eixo-resumo-toggle";
+  toggle.setAttribute("aria-label", isEn ? "Back to overview" : "Voltar para a visão geral");
+  toggle.appendChild(construirCaret("up"));
+  toggle.addEventListener("click", renderVisaoGeral);
+  resumo.appendChild(toggle);
+
+  const titulo = document.createElement("span");
+  titulo.className = "pm-eixo-resumo-titulo";
+  const eyebrow = document.createElement("span");
+  eyebrow.className = "pm-eixo-resumo-eyebrow";
+  eyebrow.textContent = isEn ? "Axis" : "Eixo";
+  titulo.appendChild(eyebrow);
+  const nome = document.createElement("span");
+  nome.className = "pm-eixo-resumo-nome";
+  nome.textContent = RBi18n.t(NOME_EIXO[eixo]);
+  titulo.appendChild(nome);
+  resumo.appendChild(titulo);
+
+  if (dados.descricao_eixo) {
+    const desc = document.createElement("p");
+    desc.className = "pm-eixo-resumo-descricao";
+    desc.textContent = dados.descricao_eixo;
+    resumo.appendChild(desc);
+  }
+
+  const meta = document.createElement("span");
+  meta.className = "pm-eixo-resumo-meta";
+  if (dados.total_componentes) {
+    const total = document.createElement("span");
+    total.className = "pm-eixo-resumo-total";
+    total.textContent = dados.total_componentes + " " + (isEn ? "components evaluated" : "componentes avaliados");
+    meta.appendChild(total);
+  }
+  const score = document.createElement("span");
+  score.className = "pm-eixo-resumo-score";
+  const num = document.createElement("span");
+  num.className = "pm-eixo-resumo-score-num";
+  num.appendChild(document.createTextNode(dados.nivel_eixo != null ? dados.nivel_eixo : "–"));
+  const max = document.createElement("small");
+  max.textContent = "/5";
+  num.appendChild(max);
+  score.appendChild(num);
+  const scoreLabel = document.createElement("span");
+  scoreLabel.className = "pm-eixo-resumo-score-label";
+  scoreLabel.textContent = isEn ? "Axis Level" : "Nível Eixo";
+  score.appendChild(scoreLabel);
+  meta.appendChild(score);
+  resumo.appendChild(meta);
+
+  return resumo;
+}
+
+function renderizarCriterios(eixo, dados) {
+  const wrapper = document.getElementById("pm-chart-wrapper");
+  if (!wrapper) return;
+  wrapper.innerHTML = "";
+
+  const isEn = _isEn();
+  wrapper.appendChild(construirResumoEixo(eixo, dados, isEn));
+
+  if (!dados.criterios || dados.criterios.length === 0) return;
+
+  const matrix = construirMatrizPorCriterio(dados);
+  const lista = document.createElement("div");
+  lista.className = "pm-criterios-lista";
+
+  dados.criterios.forEach((criterio) => {
+    const item = document.createElement("div");
+    item.className = "pm-criterio-item";
+
+    const header = document.createElement("button");
+    header.type = "button";
+    header.className = "pm-criterio-header";
+    header.setAttribute("aria-expanded", "false");
+    header.appendChild(construirCaret("down"));
+
+    const info = document.createElement("span");
+    info.className = "pm-criterio-info";
+
+    const nomeRow = document.createElement("span");
+    nomeRow.className = "pm-criterio-nome-row";
+    const nome = document.createElement("span");
+    nome.className = "pm-criterio-nome";
+    nome.textContent = criterio.nome;
+    nomeRow.appendChild(nome);
+    if (criterio.peso > 1) {
+      const peso = document.createElement("span");
+      peso.className = "pm-criterio-peso";
+      peso.textContent = (isEn ? "weight" : "peso") + " " + criterio.peso;
+      nomeRow.appendChild(peso);
+    }
+    info.appendChild(nomeRow);
+
+    if (criterio.descricao) {
+      const desc = document.createElement("span");
+      desc.className = "pm-criterio-desc";
+      desc.textContent = criterio.descricao;
+      info.appendChild(desc);
+    }
+    header.appendChild(info);
+
+    const scoreWrap = document.createElement("span");
+    scoreWrap.className = "pm-criterio-score";
+    scoreWrap.appendChild(construirPillBar(criterio.nivel_medio, isEn));
+    header.appendChild(scoreWrap);
+
+    item.appendChild(header);
+
+    const detalhe = document.createElement("div");
+    detalhe.className = "pm-criterio-detalhe";
+    detalhe.hidden = true;
+
+    header.addEventListener("click", () => {
+      const aberto = header.getAttribute("aria-expanded") === "true";
+      const novoEstado = !aberto;
+      header.setAttribute("aria-expanded", String(novoEstado));
+      item.classList.toggle("open", novoEstado);
+      if (novoEstado && !detalhe.dataset.built) {
+        detalhe.appendChild(
+          construirWaffleCriterio(criterio.nome, matrix[criterio.nome] || {}, isEn)
+        );
+        detalhe.dataset.built = "1";
+      }
+      detalhe.hidden = !novoEstado;
+    });
+
+    item.appendChild(detalhe);
+    lista.appendChild(item);
+  });
+
+  wrapper.appendChild(lista);
+}
+
+function renderPills(eixoAtivo) {
+  const tabs = document.getElementById("pm-tabs");
+  if (!tabs) return;
+  tabs.hidden = false;
+  tabs.querySelectorAll("button[data-eixo]").forEach((btn) => {
+    const ativo = btn.dataset.eixo === eixoAtivo;
+    btn.closest("li").classList.toggle("active", ativo);
+    btn.setAttribute("aria-selected", String(ativo));
+  });
+}
+
+async function abrirEixo(eixo) {
+  eixoAberto = eixo;
+  renderPills(eixo);
+  const footer = document.getElementById("pm-chart-footer");
+  if (footer) footer.hidden = false;
+
+  _ocultarErroGrafico();
+  mostrarLoader(true);
+  try {
+    const dados = await fetchEixo(eixo);
     if (dados.erro) {
       _mostrarErroGrafico("⚠ " + dados.erro);
       return;
     }
-    _ocultarErroGrafico();
     renderizarCriterios(eixo, dados);
   } catch (e) {
     console.error("Erro fetch:", e);
@@ -347,58 +474,19 @@ async function carregarDados(eixo) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tabs = document.querySelectorAll(".pm-tabs li");
-  let abaIdxAtual = 0;
-
-  function ativarAba(idx) {
-    const tabpanel = document.getElementById("pm-chart-wrapper");
-    tabs.forEach((t) => {
-      t.classList.remove("active");
-      const btn = t.querySelector("button");
-      if (btn) btn.setAttribute("aria-selected", "false");
+  document.querySelectorAll("#pm-tabs button[data-eixo]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.eixo !== eixoAberto) abrirEixo(btn.dataset.eixo);
     });
-    tabs[idx].classList.add("active");
-    const activeBtn = tabs[idx].querySelector("button");
-    if (activeBtn) {
-      activeBtn.setAttribute("aria-selected", "true");
-      if (tabpanel) tabpanel.setAttribute("aria-labelledby", activeBtn.id);
-    }
-  }
-
-  tabs.forEach((tab, idx) => {
-    tab.addEventListener("click", () => {
-      abaIdxAtual = idx;
-      ativarAba(idx);
-      carregarDados(EIXOS[idx]);
-    });
-
-    const btn = tab.querySelector("button");
-    if (btn) {
-      btn.addEventListener("keydown", (e) => {
-        let newIdx = idx;
-        if      (e.key === "ArrowRight") { e.preventDefault(); newIdx = (idx + 1) % tabs.length; }
-        else if (e.key === "ArrowLeft")  { e.preventDefault(); newIdx = (idx - 1 + tabs.length) % tabs.length; }
-        else if (e.key === "Home")       { e.preventDefault(); newIdx = 0; }
-        else if (e.key === "End")        { e.preventDefault(); newIdx = tabs.length - 1; }
-        else return;
-        abaIdxAtual = newIdx;
-        ativarAba(newIdx);
-        carregarDados(EIXOS[newIdx]);
-        tabs[newIdx].querySelector("button")?.focus();
-      });
-    }
   });
-
-  const abaParam = new URLSearchParams(window.location.search).get("aba");
-  abaIdxAtual    = Math.max(0, Math.min(parseInt(abaParam, 10) || 0, EIXOS.length - 1));
-
-  ativarAba(abaIdxAtual);
-  carregarDados(EIXOS[abaIdxAtual]);
 
   const critBtn = document.querySelector(".pm-criteria-badge");
   if (critBtn) {
     critBtn.addEventListener("click", () => {
-      window.location.href = `/indicadores/avaliacao-painel/?aba=${abaIdxAtual}`;
+      const idx = Math.max(0, EIXOS.indexOf(eixoAberto));
+      window.location.href = `/indicadores/avaliacao-painel/?aba=${idx}`;
     });
   }
+
+  renderVisaoGeral();
 });

@@ -5,6 +5,20 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Painel: correcao de fidelidade aos slides dos especialistas (2026-11-16)
+
+- Depois de commitado o acordeao com abas sempre visiveis, o usuario mandou 11 imagens mais detalhadas do mockup mostrando um fluxo diferente em 2 etapas, com a reclamacao explicita de que a primeira entrega nao batia com o pedido. Reconstruido do zero pra seguir exatamente o que os slides mostram:
+  1. **Visão geral (estado inicial):** 4 eixos recolhidos empilhados, cada um um botao full-width com foto de fundo (overlay navy), nome, descricao, "Nivel Eixo X/5" — SEM bolhas de navegacao visiveis ainda. KPI strip e o header navy "Painel Multinível" com abas foram removidos (nao apareciam em nenhum slide)
+  2. **Eixo expandido:** ao clicar em qualquer um dos 4, aparecem as bolhas (pilula solida laranja pra ativa, pessego claro pra inativas) acima, e so aquele eixo some dos outros 3 — card de resumo vira fundo cinza claro (sem foto), com seta de "Eixo"/nome/descricao/contagem/nota em uma linha. Os criterios dentro dele viram cards NAVY (nao brancos) com texto branco — nome, descricao, badge "peso N", barrinha de nivel e, ao expandir, o waffle (celulas/regua/legenda) tambem em texto claro sobre o navy
+- Texto da explicacao do waffle trocado para bater literalmente com o slide: "Abaixo, cada célula corresponde a um componente avaliado neste critério, colorido pelo seu nível, numa escala de 1 a 5." (antes era uma parafrase minha)
+- JS reescrito: busca os 4 eixos em paralelo no carregamento da pagina (pra popular a visão geral recolhida de uma vez, com nota real de cada um já visivel sem precisar clicar), cache por eixo evita refetch ao trocar de bolha
+- Seta do resumo do eixo expandido volta pra visão geral — nao aparece explicitamente nos slides, mas e a unica forma de "fechar" um eixo depois de aberto; sem ela o usuario ficaria preso ali
+- `painel-multinivel.css` v=19 (reescrita quase total da secao "Visão Geral"), `painel-multinivel.js` v=11 (reescrita quase total), `i18n.js` (texto do waffle atualizado), `django.po`/`.mo` (3 strings novas: "Visão geral" minusculo, "Eixos de avaliação", "Eixos e critérios de avaliação")
+
+**Arquivos:** `templates/municipios/painel-multinivel.html`, `static/css/painel-multinivel.css`, `static/js/painel-multinivel.js`, `static/js/i18n.js`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## Landing: redesign completo (hero mapa + novas secoes) (2026-11-16)
 
 - Quinta e ultima etapa da reestruturacao pedida pelos especialistas tecnicos (menu, mapas, landing, Nivel Pais, Painel)

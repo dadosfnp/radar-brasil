@@ -584,11 +584,14 @@ CSS: `static/css/mapa-georreferenciado.css` **v=12** | JS: `static/js/mapa-georr
 - Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
 - Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
-### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-16)
+### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-16, v2)
 
-CSS: `static/css/painel-multinivel.css` v=18 | JS: `static/js/painel-multinivel.js` v=9 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=19 | JS: `static/js/painel-multinivel.js` v=11 | Template: `templates/municipios/painel-multinivel.html`
 
-**Reestruturacao 2026-11-16:** troca de eixo continua exclusiva (abas); dentro do eixo ativo, cada criterio agora e um item de acordeao colapsado por padrao (nome/descricao/peso/barrinha de nivel), expande pra revelar o waffle detalhado — varios criterios podem ficar abertos ao mesmo tempo. Card de resumo do eixo (`pm-eixo-resumo`) com foto de fundo (`EIXO_IMAGEM` no JS) + `descricao_eixo` + `nivel_eixo` + `total_componentes`, todos vindos do backend (`dados_para_grafico` em `apps/indicadores/services/painel_multinivel.py`). `EIXO_COUNTS`/`atualizarKPI` (dict hardcoded de contagem por eixo) foram removidos — o numero agora vem do banco via `total_componentes`.
+**Correcao de fidelidade aos slides (2026-11-16, mesma sessao):** a primeira versao usava abas sempre visiveis (tabs classicas) — o usuario mandou slides mais detalhados mostrando um fluxo em 2 etapas: (1) estado inicial "Visão geral" com os 4 eixos recolhidos empilhados, foto de fundo, SEM bolhas de navegacao; (2) ao clicar em qualquer um, aparecem as bolhas (pilula laranja ativa / pilula pessego clara inativa) + só aquele eixo expandido (fundo cinza claro, sem foto) com seus criterios em cards NAVY (nome/descricao/peso/barrinha brancos sobre `var(--color-header-bg)`), nao mais cards brancos. KPI strip (Instancias Avaliadas/Eixos Analisados/Niveis de Avaliacao) e o header navy com label "Painel Multinível" **removidos** — nao apareciam em nenhum dos slides. Clicar na seta do resumo do eixo expandido volta pra visão geral (unica forma de "fechar" — nao estava nos slides mas e necessario, senao fica sem saida).
+- JS: busca os 4 eixos em paralelo (`Promise.all`) pra popular a visão geral recolhida de uma vez; cache simples por eixo (`cacheEixos`) evita refetch ao reabrir
+- Texto da explicacao do waffle trocado pra bater com a frase exata do slide ("Abaixo, cada célula corresponde a um componente avaliado neste critério...")
+- `EIXO_COUNTS`/`atualizarKPI` (dict hardcoded de contagem por eixo) continuam removidos — o numero vem do banco via `total_componentes`
 
 Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro.
 
@@ -679,8 +682,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
-| `painel-multinivel.css` | v=18 |
-| `painel-multinivel.js` | v=10 |
+| `painel-multinivel.css` | v=19 |
+| `painel-multinivel.js` | v=11 |
 | `mapa-georreferenciado.css` | v=12 |
 | `mapa-georreferenciado.js` | v=5 |
 | `financiamento-climatico.css` | v=5 |

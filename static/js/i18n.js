@@ -122,8 +122,8 @@
             "Diversidade e Representatividade":  "Diversity and Representativeness",
 
             // ── Painel Multinível — Visão Geral (acordeão, 2026-11-16) ──
-            "Cada quadradinho representa um componente avaliado; a cor indica o nível (1 a 5) obtido por ele neste critério.":
-                "Each square represents an assessed component; the color shows the level (1 to 5) it received in this criterion.",
+            "Abaixo, cada célula corresponde a um componente avaliado neste critério, colorido pelo seu nível, numa escala de 1 a 5.":
+                "Below, each cell corresponds to a component assessed in this criterion, colored by its level, on a scale of 1 to 5.",
 
             // ── Painel Multinível (abas) ─────────────────────────
             "Governança":             "Governance",
