@@ -5,6 +5,20 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Landing: redesign completo (hero mapa + novas secoes) (2026-11-16)
+
+- Quinta e ultima etapa da reestruturacao pedida pelos especialistas tecnicos (menu, mapas, landing, Nivel Pais, Painel)
+- Hero antiga (iframe `mapa-brasil-hud.html`, so Brasil, sem outros paises, grid 44/56%, card "Conhecimento em Acao") substituida por um mini-mapa Leaflet mundial (mesma paleta/tooltip do Nivel Pais, enxuto — sem filtros/pins/zoom), com titulo/subtitulo novos sobrepostos num scrim branco que desvanece. Hover no Brasil mostra "Brasil 2025 · 3/5 · Nivel Pais" (nota hardcoded, nao existe API de nota por pais — mesmo padrao ja usado em `nota-pais.js`)
+- Nova secao "Por que avaliar o Federalismo Climatico?": triangulo Uniao/Estados/Municipios extraido de `sobre.html` para um partial (`templates/municipios/_federalismo_triangle.html`), incluido nas duas paginas — evita duplicar/desalinhar o conteudo depois. Os 3 nos ganharam foto de fundo (overlay navy pra legibilidade do icone/rotulo em cima)
+- Nova secao "Eixos de avaliacao do Radar": 4 cards com foto de fundo, descricao de uma linha e "Nivel Eixo X/5", vindo do backend do Painel (`dados_para_grafico`) — `apps/municipios/views.py::landing` agora monta `eixos_resumo` chamando essa funcao pros 4 eixos
+- **Correcao sobre o escopo (durante a sessao):** a primeira versao manteve a sidebar "Sobre/Midia/Agenda" + grade "Nossos Paineis" abaixo das secoes novas. Usuario pediu pra tirar esse bloco da pagina, mas em stand-by (nao apagar), caso precise voltar — bloco inteiro (`.lp-content`, sidebar + 4 cards de painel) envolvido em `{% comment %}...{% endcomment %}` em `landing.html`: continua no arquivo, so nao renderiza. Pra reativar, so tirar as duas tags de comentario. **Atencao ao escrever comentario explicativo por perto:** colocar o nome literal da tag `{% endcomment %}` dentro de um comentario Django `{# ... #}` quebrou o parser (gerava `TemplateSyntaxError` mesmo o texto estando "comentado") — evitar escrever nomes de tags Django dentro de outros comentarios/strings no mesmo arquivo
+- **Achado/fix critico antes do commit:** a primeira versao escreveu `{% static 'img/' %}{{ variavel }}` pra montar o caminho da imagem de fundo dos cards — isso ignora o hash do `CompressedManifestStaticFilesStorage` (WhiteNoise) e quebraria em producao (404). Corrigido pra `{% static "img/"|add:variavel %}` (resolve o caminho inteiro de uma vez). O mesmo erro foi encontrado e corrigido retroativamente no `painel-multinivel.js` da rodada anterior (que montava `/static/img/...` direto em JS) — a correcao la foi expor as URLs ja resolvidas via `window.EIXO_IMAGENS`, escrito num `<script>` do template
+- `landing.css` v=15, `landing.js` v=1 (novo arquivo), `painel-multinivel.js` v=10 (fix retroativo)
+
+**Arquivos:** `templates/municipios/landing.html`, `templates/municipios/_federalismo_triangle.html`, `templates/municipios/sobre.html`, `templates/municipios/painel-multinivel.html`, `static/css/landing.css`, `static/css/metodologia.css`, `static/js/landing.js`, `static/js/painel-multinivel.js`, `apps/municipios/views.py`, `apps/indicadores/services/painel_multinivel.py`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## Painel: Visao Geral com acordeao de criterios (2026-11-16)
 
 - Quarta etapa da reestruturacao pedida pelos especialistas tecnicos. A troca de eixo continua exclusiva (abas, como ja era); a mudanca e dentro do eixo ativo: antes o grafico mostrava todos os criterios sempre abertos num grid plano (`renderizarGrid`); agora cada criterio nasce colapsado (nome, descricao de uma linha, badge "peso N" quando houver, barrinha de 5 segmentos ate o nivel medio) com seta propria — varios podem ficar abertos ao mesmo tempo dentro do mesmo eixo, so expande o waffle detalhado (quadradinhos + regua + legenda, reaproveitado de `renderizarGrid`) do criterio clicado

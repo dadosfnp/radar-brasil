@@ -29,6 +29,54 @@ body.lp-body .rb-main {
     background: #ffffff;
 }
 
+/* ══════════════════════════════
+   HERO — mini-mapa mundi, Brasil centralizado (2026-11-16)
+   ══════════════════════════════ */
+
+.lp-hero--map {
+    min-height: 620px;
+    overflow: hidden;
+}
+
+.lp-hero-map {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #ffffff;
+}
+
+.lp-hero-map .leaflet-container {
+    background: #ffffff;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    outline: none;
+}
+
+.lp-hero-map-overlay {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+    margin: 0 0 0 max(24px, calc((100% - 1260px) / 2 + 48px));
+    padding: 72px 32px 56px 0;
+    background: linear-gradient(100deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.88) 55%, rgba(255,255,255,0) 100%);
+}
+
+.lp-hero-map-overlay .lp-hero-heading { font-size: 44px; }
+.lp-hero-map-overlay .lp-hero-sub { font-size: 16px; max-width: 480px; }
+
+/* Tooltip do Brasil no mapa — mesmo padrão amarelo do Nível País (np-tooltip-brazil) */
+.leaflet-tooltip.lp-map-tooltip--brasil {
+    background: rgba(255,204,60,.95);
+    color: #101d4f;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    box-shadow: 0 6px 18px rgba(16,29,79,.22);
+}
+.leaflet-tooltip.lp-map-tooltip--brasil::before { display: none; }
+
 
 .lp-hero-inner {
     position: relative; z-index: 1;
@@ -661,6 +709,103 @@ a.lp-info-chip:hover {
 .lp-panel-arrow--soon svg { stroke: rgba(16,29,79,.32); }
 
 /* ══════════════════════════════
+   POR QUE AVALIAR + EIXOS DE AVALIAÇÃO (2026-11-16)
+   ══════════════════════════════ */
+
+.lp-section {
+    padding: 72px 0;
+}
+
+.lp-federalism-section {
+    background: #fff;
+    border-top: 1px solid rgba(38,69,132,.08);
+    scroll-margin-top: 110px;
+}
+
+.lp-eixos-section {
+    background: #f7f9fc;
+    border-top: 1px solid rgba(38,69,132,.08);
+}
+
+.lp-section-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.lp-eixos-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #101d4f;
+    margin: 0 0 28px;
+    text-align: center;
+}
+
+.lp-eixos-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.lp-eixo-card {
+    border-radius: 14px;
+    padding: 22px 20px;
+    min-height: 220px;
+    background-size: cover;
+    background-position: center;
+    background-color: #101d4f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lp-eixo-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.lp-eixo-nome {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.lp-eixo-score {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.lp-eixo-score-max {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: .75;
+}
+
+.lp-eixo-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: rgba(255,255,255,.92);
+    flex: 1;
+    margin: 0;
+}
+
+.lp-eixo-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.625rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.65);
+}
+
+/* ══════════════════════════════
    RESPONSIVO
    ══════════════════════════════ */
 
@@ -672,16 +817,29 @@ a.lp-info-chip:hover {
     .lp-hero-right { display: none; }
     .lp-info-card { display: none; }
     .lp-hero-heading { font-size: 52px; }
+
+    .lp-eixos-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 860px) {
     .lp-main { grid-template-columns: 1fr; }
     .lp-hero-heading { font-size: 44px; letter-spacing: -1px; }
+
+    .lp-hero--map { min-height: 520px; }
+    .lp-hero-map-overlay {
+        max-width: none;
+        margin: 0;
+        padding: 48px 24px 40px;
+        background: linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.88) 60%, rgba(255,255,255,0) 100%);
+    }
+    .lp-hero-map-overlay .lp-hero-heading { font-size: 32px; }
 }
 
 @media (max-width: 580px) {
     .lp-hero-heading { font-size: 36px; letter-spacing: -.6px; }
     .lp-hero-inner { padding: 40px 24px 40px; }
+    .lp-eixos-grid { grid-template-columns: 1fr; }
+    .lp-eixos-title { font-size: 1.375rem; }
     .lp-content { padding: 28px 16px 48px; }
     .lp-panels { grid-template-columns: 1fr; }
     .lp-panels-header { flex-direction: column; align-items: flex-start; }

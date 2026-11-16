@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (53a rodada)
+
+### feat: Landing - redesign completo (hero mapa + novas secoes)
+
+- Quinta e ultima etapa da reestruturacao pedida pelos especialistas (menu, mapas, landing, Nivel Pais, Painel)
+- Hero antiga (iframe so-Brasil + card de chips) substituida por mini-mapa Leaflet mundial (mesma paleta/tooltip do Nivel Pais) com titulo/subtitulo novos; hover no Brasil mostra a nota
+- Nova secao "Por que avaliar o Federalismo Climatico?" (triangulo extraido pra partial reutilizavel com Sobre) e "Eixos de avaliacao do Radar" (4 cards com Nivel Eixo vindo do backend do Painel)
+- Sidebar "Sobre/Midia/Agenda" + grade "Nossos Paineis" tiradas da pagina a pedido do usuario, mas em stand-by — envolvidas em `{% comment %}` em vez de apagadas, pra poder voltar facil
+- Fix critico: imagem de fundo via `{% static %}` nao pode ser concatenada na mao (quebra com storage de manifest em producao) — corrigido aqui e retroativamente no `painel-multinivel.js` da rodada anterior
+- `landing.css` v=15, `landing.js` v=1 (novo), `painel-multinivel.js` v=10
+
+**Arquivos:** `templates/municipios/landing.html`, `templates/municipios/_federalismo_triangle.html`, `templates/municipios/sobre.html`, `templates/municipios/painel-multinivel.html`, `static/css/landing.css`, `static/css/metodologia.css`, `static/js/landing.js`, `static/js/painel-multinivel.js`, `apps/municipios/views.py`, `apps/indicadores/services/painel_multinivel.py`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-11-16 (52a rodada)
 
 ### feat: Painel - Visao Geral com acordeao de criterios

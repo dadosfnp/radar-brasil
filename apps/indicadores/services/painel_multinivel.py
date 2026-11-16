@@ -21,6 +21,20 @@ EIXO_MAP = {
     "Linhas de Financiamento": "linhas de financiamento",
 }
 
+# Nomes de exibição dos eixos (cards da Landing/Painel ▸ Visão Geral)
+NOME_EIXO_PT = {
+    "Governanca": "Governança",
+    "Politicas e Planos": "Políticas e Planos",
+    "Programas": "Programas",
+    "Linhas de Financiamento": "Linhas de Financiamento",
+}
+NOME_EIXO_EN = {
+    "Governanca": "Governance",
+    "Politicas e Planos": "Policies and Plans",
+    "Programas": "Programs",
+    "Linhas de Financiamento": "Financing Lines",
+}
+
 # Nomes usados para ORDENAÇÃO (devem bater com os valores no banco)
 ORDEM_CRITERIOS = {
     "Governanca": [

@@ -463,19 +463,18 @@ Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para e
 Escalar o `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
 Iframes nas paginas usam `mask-image` para dissolver bordas.
 
-### Landing Page — estado (2026-09-23)
+### Landing Page — estado (2026-11-16)
 
-CSS: `static/css/landing.css` v=13 | Template: `templates/municipios/landing.html`
+CSS: `static/css/landing.css` **v=15** | JS: `static/js/landing.js` **v=1** | Template: `templates/municipios/landing.html`
 
-Hero com iframe HUD animado, grid 44/56%, sidebar "Sobre/Midia/Agenda". Botao "VER AGENDA" desabilitado com `.lp-btn-side--soon` (fundo cinza, cursor default, badge "Em breve").
+**Reestruturacao 2026-11-16 (quinta e ultima etapa da rodada dos especialistas):** hero antigo (iframe `mapa-brasil-hud.html`, grid 44/56%, card "Conhecimento em Acao" com chips Paineis/Mapas/Dados) **removido** — essas classes (`.lp-hero-inner`, `.lp-hero-right`, `.lp-info-card`, `.lp-hud-frame`) ficam orfas no CSS, sem uso. Nova hero (`.lp-hero--map`): mini-mapa Leaflet (mesmo padrao do Nivel Pais — GeoJSON Natural Earth, Brasil navy, resto cinza, bordas brancas) sem filtros/pins/interacao de zoom, so hover no Brasil mostra tooltip amarelo "Brasil 2025 · 3/5 · Nivel Pais" (nota hardcoded em `landing.js`, mesma logica de `COUNTRY_NOTA` do `nota-pais.js` — nao existe API). Titulo/subtitulo novos sobre um scrim branco que desvanece sobre o mapa.
 
-**Card "Conhecimento em Acao" — chips clicaveis (v12):**
-- "Paineis" → `{% url 'municipios:inicio' %}`
-- "Mapas" → `{% url 'indicadores:mapa_georreferenciado' %}`
-- "Dados" → `{% url 'indicadores:financiamento_climatico' %}`
-- CSS: `text-decoration: none`, `cursor: pointer`, `transition`, hover escurece fundo
+Depois da hero, 2 secoes novas:
+- **"Por que avaliar o Federalismo Climatico?"**: triangulo Uniao/Estados/Municipios extraido para um partial reutilizavel `templates/municipios/_federalismo_triangle.html` (incluido aqui e em `sobre.html` — editar so la atualiza as duas paginas). Os 3 nos ganharam foto de fundo (shutterstock, overlay navy escurecido pra legibilidade).
+- **"Eixos de avaliacao do Radar"**: 4 cards (Governanca/Politicas e Planos/Programas/Linhas de Financiamento), foto de fundo por eixo, descricao de uma linha e "Nivel Eixo X/5" — dados vindos do backend (`dados_para_grafico` em `apps/indicadores/services/painel_multinivel.py`, chamado em `apps/municipios/views.py::landing` pros 4 eixos; `eixos_resumo` no contexto).
+- Sidebar "Sobre/Midia/Agenda" e a grade "Nossos Paineis" (4 cards) foram tiradas da pagina a pedido do usuario, mas em **stand-by**: o bloco inteiro (`.lp-content`) esta envolvido em `{% comment %}...{% endcomment %}` em `landing.html`, nao apagado — pra reativar, so tirar as duas tags.
 
-**Fix v13 — chips quebravam linha em EN:** `.lp-info-card` tem largura fixa 210px; em EN "Dashboards"+"Maps"+"Data" ultrapassavam por poucos pixels a largura disponivel (cabia em PT com "Painéis"/"Mapas"/"Dados", que sao mais curtos). `.lp-info-chip` padding reduzido de `3px 10px` para `3px 8px` (minimo medido com Playwright foi 9px, usado 8px com margem). **Atencao com strings EN mais longas que PT em containers de largura fixa** — vale testar chips/pills/badges nos dois idiomas ao adicionar.
+**Cuidado com imagem de fundo via `{% static %}` em producao:** o storage e `CompressedManifestStaticFilesStorage` (nomes com hash); nunca concatenar `{% static 'img/' %}{{ variavel }}` — isso ignora o hash e quebra em producao. Usar `{% static "img/"|add:variavel %}` (resolve o caminho inteiro de uma vez) ou, em JS puro (sem acesso a `{% static %}`), expor as URLs ja resolvidas via um objeto `window.*` escrito num `<script>` do proprio template (ver `EIXO_IMAGENS` em `painel-multinivel.html`) — nunca montar `/static/img/...` na mao no `.js`.
 
 ### Metodologia — estado (2026-09-17)
 
@@ -674,13 +673,14 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=23 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
-| `landing.css` | v=14 |
+| `landing.css` | v=15 |
+| `landing.js` | v=1 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=18 |
-| `painel-multinivel.js` | v=9 |
+| `painel-multinivel.js` | v=10 |
 | `mapa-georreferenciado.css` | v=12 |
 | `mapa-georreferenciado.js` | v=5 |
 | `financiamento-climatico.css` | v=5 |

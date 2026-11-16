@@ -1933,3 +1933,15 @@ msgstr "average of the levels obtained in each criterion of the axis."
 #: templates/municipios/nota-pais.html
 msgid "média dos níveis obtidos nos eixos."
 msgstr "average of the levels obtained across the axes."
+
+#: templates/municipios/landing.html
+msgid "O Brasil é o primeiro país a medir seu federalismo climático."
+msgstr "Brazil is the first country to measure its climate federalism."
+
+#: templates/municipios/landing.html
+msgid "O Radar Brasil avalia como União, estados e municípios cooperam na agenda climática, com uma metodologia pensada para ser aplicada pelos demais signatários da Coalizão para Parcerias Multiníveis de Alta Ambição para Ação Climática - CHAMP."
+msgstr "Radar Brasil assesses how the Union, states and municipalities cooperate on the climate agenda, with a methodology designed to be applied by the other signatories of the Coalition for High Ambition Multilevel Partnerships for Climate Action - CHAMP."
+
+#: templates/municipios/landing.html
+msgid "Eixos de avaliação do Radar"
+msgstr "Radar's assessment axes"

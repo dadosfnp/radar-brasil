@@ -11,7 +11,17 @@
 {% endblock %}
 
 {% block extra_js %}
-  <script src="{% static 'js/painel-multinivel.js' %}?v=9"></script>
+  <script>
+    /* URLs resolvidas pelo Django (manifest com hash em produção) — o JS não pode
+       montar o caminho "na mão", senão quebra com CompressedManifestStaticFilesStorage */
+    window.EIXO_IMAGENS = {
+      "Governanca":              "{% static 'img/shutterstock_2551759713.jpg.jpeg' %}",
+      "Politicas e Planos":      "{% static 'img/shutterstock_2077744378.jpg.jpeg' %}",
+      "Programas":               "{% static 'img/shutterstock_2495902353.jpg.jpeg' %}",
+      "Linhas de Financiamento": "{% static 'img/shutterstock_614431316.jpg.jpeg' %}"
+    };
+  </script>
+  <script src="{% static 'js/painel-multinivel.js' %}?v=10"></script>
 {% endblock %}
 
 {% block content %}

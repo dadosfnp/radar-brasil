@@ -305,6 +305,24 @@ body.metodologia-page .rb-main {
 
 .meto-py-arrow { display: none; }
 
+/* Nó com foto de fundo (2026-11-16) — overlay navy já vem no gradient inline,
+   so precisa de cover/position + texto claro pra contrastar com a foto */
+.meto-py-node-photo {
+    background-size: cover;
+    background-position: center;
+    border-color: rgba(255,255,255,.30);
+}
+.meto-py-node-photo .meto-py-node-icon {
+    background: rgba(255,255,255,.18);
+    color: #fff;
+}
+.meto-py-node-photo .meto-py-node-label { color: #fff; }
+.meto-py-node-photo .meto-py-node-count {
+    color: #fff;
+    background: rgba(255,255,255,.18);
+    border-color: rgba(255,255,255,.30);
+}
+
 .meto-federalism-footer-text {
     margin-top: 32px;
     font-size: 0.875rem;

@@ -5,13 +5,10 @@ const EIXOS = [
   "Linhas de Financiamento",
 ];
 
-// Imagem de fundo do card-resumo de cada eixo (mesma imagem usada na Landing)
-const EIXO_IMAGEM = {
-  "Governanca":              "shutterstock_2551759713.jpg.jpeg",
-  "Politicas e Planos":      "shutterstock_2077744378.jpg.jpeg",
-  "Programas":               "shutterstock_2495902353.jpg.jpeg",
-  "Linhas de Financiamento": "shutterstock_614431316.jpg.jpeg",
-};
+// Imagem de fundo do card-resumo de cada eixo (mesma imagem usada na Landing).
+// URLs vêm resolvidas pelo Django em window.EIXO_IMAGENS (ver painel-multinivel.html)
+// — nunca montar "/static/img/..." na mão aqui, quebra com o storage de manifest.
+const EIXO_IMAGEM = window.EIXO_IMAGENS || {};
 
 const NIVEL_COLORS = {
   "Nível 1":  "#e06b6b",
@@ -183,7 +180,7 @@ function construirResumoEixo(eixo, dados, isEn) {
   const img = EIXO_IMAGEM[eixo];
   if (img) {
     resumo.style.backgroundImage =
-      `linear-gradient(135deg, rgba(16,29,79,.88), rgba(16,29,79,.72)), url("/static/img/${img}")`;
+      `linear-gradient(135deg, rgba(16,29,79,.88), rgba(16,29,79,.72)), url("${img}")`;
   }
 
   if (dados.descricao_eixo) {

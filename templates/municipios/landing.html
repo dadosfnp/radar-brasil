@@ -3,55 +3,57 @@
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=14">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=55">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=15">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
 
 {% block content %}
 
-{# ── HERO ── #}
-<section class="lp-hero">
-    <div class="lp-hero-inner">
+{# ── HERO: mini-mapa mundi, Brasil centralizado ── #}
+<section class="lp-hero lp-hero--map">
+    <div class="lp-hero-map-overlay">
+        <span class="lp-hero-eyebrow">{% trans "Federalismo Climático" %}</span>
+        <h1 class="lp-hero-heading">{% trans "O Brasil é o primeiro país a medir seu federalismo climático." %}</h1>
+        <p class="lp-hero-sub">{% trans "O Radar Brasil avalia como União, estados e municípios cooperam na agenda climática, com uma metodologia pensada para ser aplicada pelos demais signatários da Coalizão para Parcerias Multiníveis de Alta Ambição para Ação Climática - CHAMP." %}</p>
+    </div>
+    <div id="lp-hero-map" class="lp-hero-map" aria-hidden="true"></div>
+</section>
 
-        {# Coluna esquerda #}
-        <div class="lp-hero-left">
-            <span class="lp-hero-eyebrow">{% trans "Informação que transforma territórios" %}</span>
-            <h1 class="lp-hero-heading">Radar Brasil</h1>
-            <p class="lp-hero-sub">
-                {% trans "Impulsionando Ação Climática e Federativa" %}
-            </p>
-            <p class="lp-hero-desc">{% trans "Uma plataforma integrada de informação, análise e colaboração para fortalecer a ação climática e o desenvolvimento sustentável nos territórios." %}</p>
-            <div class="lp-hero-ctas">
-                <a href="{% url 'municipios:inicio' %}" class="lp-cta-primary">{% trans "Explorar Painéis" %} →</a>
-                <a href="{% url 'municipios:metodologia' %}" class="lp-cta-secondary">{% trans "Conhecer o Projeto" %}</a>
-            </div>
-        </div>
-
-        {# Coluna direita — mapa HUD + info card #}
-        <div class="lp-hero-right">
-            <iframe
-                src="{% static 'img/mapa-brasil-hud.html' %}"
-                allowtransparency="true"
-                scrolling="no"
-                class="lp-hud-frame"
-                title="Mapa Brasil HUD">
-            </iframe>
-            <div class="lp-info-card">
-                <span class="lp-info-eyebrow">{% trans "Conhecimento em Ação" %}</span>
-                <p class="lp-info-text">{% trans "Explore nossos painéis e ferramentas para decisões mais informadas e colaborativas." %}</p>
-                <div class="lp-info-chips">
-                    <a href="{% url 'municipios:inicio' %}" class="lp-info-chip">{% trans "Painéis" %}</a>
-                    <a href="{% url 'indicadores:mapa_georreferenciado' %}" class="lp-info-chip">{% trans "Mapas" %}</a>
-                    <a href="{% url 'indicadores:financiamento_climatico' %}" class="lp-info-chip">{% trans "Dados" %}</a>
-                </div>
-            </div>
-        </div>
-
+{# ── POR QUE AVALIAR O FEDERALISMO CLIMÁTICO ── #}
+<section class="lp-section lp-federalism-section" id="lp-por-que-avaliar">
+    <div class="meto-inner">
+        {% include "municipios/_federalismo_triangle.html" %}
     </div>
 </section>
 
-{# ── CONTEÚDO PRINCIPAL ── #}
+{# ── EIXOS DE AVALIAÇÃO DO RADAR ── #}
+<section class="lp-section lp-eixos-section">
+    <div class="lp-section-inner">
+        <h2 class="lp-eixos-title">{% trans "Eixos de avaliação do Radar" %}</h2>
+        <div class="lp-eixos-grid">
+            {% for eixo in eixos_resumo %}
+            <div class="lp-eixo-card"{% if eixo.imagem %} style="background-image: linear-gradient(120deg, rgba(16,29,79,.90), rgba(16,29,79,.74)), url('{% static "img/"|add:eixo.imagem %}')"{% endif %}>
+                <div class="lp-eixo-card-head">
+                    <span class="lp-eixo-nome">{{ eixo.nome }}</span>
+                    <span class="lp-eixo-score">
+                        {% if eixo.nivel != None %}{{ eixo.nivel|floatformat:0 }}{% else %}–{% endif %}<span class="lp-eixo-score-max">/5</span>
+                    </span>
+                </div>
+                {% if eixo.descricao %}<p class="lp-eixo-desc">{{ eixo.descricao }}</p>{% endif %}
+                <span class="lp-eixo-label">{% trans "Nível Eixo" %}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# ── CONTEÚDO PRINCIPAL (sidebar + "Nossos Painéis") ──
+   Em stand-by a pedido do usuário (2026-11-16): tirado da Landing, mas deixado aqui
+   comentado dentro das tags de comentário de bloco, não removido, caso precise voltar. #}
+{% comment %}
 <div class="lp-content">
     <div class="lp-main">
 
@@ -214,10 +216,13 @@
 
     </div>{# /lp-main #}
 </div>{# /lp-content #}
+{% endcomment %}
 
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{% static 'js/landing.js' %}?v=1"></script>
 <script>
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.lp-panel-card').forEach((card, i) => {
