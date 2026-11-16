@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (56a rodada)
+
+### fix: rename EN quebrado para criterio de genero/raca/etnia
+
+- Achado ao testar o Painel com dados reais: a chave de rename em EN ("Gender, Race and Ethnicity Representation") nunca batia com o valor real salvo no banco ("Representation of Gender, Race and Ethnicity") — bug pre-existente, nao introduzido nesta reestruturacao, so ficou visivel agora porque a Visao Geral nova depende do nome renomeado pra achar descricao/peso
+- Corrigida a chave nos dois dicts (`_CRITERIO_DISPLAY_EN`, `_EN_CRITERIO`); teste novo com o valor real do banco
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-16 (55a rodada)
 
 ### fix: correcoes apos teste real no navegador (menu, mapa, comentario vazando)

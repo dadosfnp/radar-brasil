@@ -72,6 +72,26 @@ class VisaoGeralPainelTest(TestCase):
         for criterio in por_nome.values():
             self.assertTrue(criterio["descricao"], f"sem descricao: {criterio['nome']}")
 
+    def test_criterio_de_genero_raca_etnia_em_en_e_renomeado_e_tem_descricao(self):
+        # Achado real (2026-11-16): a chave de rename em EN usava a ordem de palavras
+        # errada ("Gender, Race and Ethnicity Representation") e nunca batia com o
+        # valor de verdade salvo no banco ("Representation of Gender, Race and
+        # Ethnicity") — o criterio nunca era renomeado nem ganhava descricao em EN.
+        from apps.indicadores.services.painel_multinivel import dados_para_grafico
+
+        RegistroParametro.objects.create(
+            lang="en",
+            estrutura="",
+            eixo="governanca",
+            avaliacao="Representation of Gender, Race and Ethnicity",
+            nivel="Nível 2",
+        )
+        corpo = dados_para_grafico("Governanca", lang="en")
+        self.assertNotIn("Representation of Gender, Race and Ethnicity", corpo["labels"])
+        por_nome = {c["nome"]: c for c in corpo["criterios"]}
+        self.assertIn("Diversity and Representativeness", por_nome)
+        self.assertTrue(por_nome["Diversity and Representativeness"]["descricao"])
+
 
 class AvaliacaoAPITest(TestCase):
     def setUp(self):

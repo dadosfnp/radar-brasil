@@ -5,6 +5,17 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: rename EN quebrado para "Representation of Gender, Race and Ethnicity" (2026-11-16)
+
+- Depois de popular o banco de dev com dados reais (`sync_sheets_db`), a verificacao do Painel em EN mostrou o criterio de Governanca sem descricao. Causa: `_CRITERIO_DISPLAY_EN`/`_EN_CRITERIO` em `apps/indicadores/services/painel_multinivel.py` tinham a chave "Gender, Race and Ethnicity Representation", mas o valor real salvo no banco (nas 32 linhas desse criterio, conferido direto no banco) e "Representation of Gender, Race and Ethnicity" — ordem de palavras diferente. Isso e um bug **pre-existente** (nao foi introduzido nesta reestruturacao) que fazia esse criterio nunca ser renomeado em EN (ficava com o nome cru do banco em vez de "Diversity and Representativeness") — so ficou visivel agora porque a nova Visao Geral do Painel depende do nome renomeado pra achar a descricao/peso
+- Corrigido ajustando a chave nos dois dicts para bater com o valor real do banco
+- Teste novo (`test_criterio_de_genero_raca_etnia_em_en_e_renomeado_e_tem_descricao`) usando o valor real do banco, pra nao voltar a quebrar silenciosamente
+- **Licao:** ao adicionar logica nova que depende de um rename existente, vale conferir contra o dado real do banco, nao so contra o dict — o rename desse criterio especifico em EN nunca funcionou e ninguem tinha notado
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`
+
+---
+
 ## Correcoes apos teste real no navegador (2026-11-16)
 
 O usuario finalmente conseguiu rodar o `runserver` local e mandou screenshots reais — apareceram 3 problemas que eu nao tinha como pegar sem browser:

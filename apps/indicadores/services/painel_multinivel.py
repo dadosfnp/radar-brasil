@@ -72,7 +72,7 @@ _CRITERIO_DISPLAY_PT = {
 }
 _CRITERIO_DISPLAY_EN = {
     "Financing": "Financial Sustainability",
-    "Gender, Race and Ethnicity Representation": "Diversity and Representativeness",
+    "Representation of Gender, Race and Ethnicity": "Diversity and Representativeness",
     "Monitoring and Local Participation": "Monitoring and Evaluation",
 }
 
@@ -82,7 +82,7 @@ _EN_CRITERIO = {
     "Federative dialogue space": "Espaço de diálogo federativo",
     "Communication and Transparency": "Comunicação e Transparência",
     "Financing": "Financiamento",
-    "Gender, Race and Ethnicity Representation": "Representação de Gênero, Raça e Etnia",
+    "Representation of Gender, Race and Ethnicity": "Representação de Gênero, Raça e Etnia",
     "Federative Cooperation": "Cooperação Federativa",
     "Capillarity and Territorial Reach": "Capilaridade e Alcance Territorial",
     "Strengthening Local Capacity": "Fortalecimento da Capacidade Local",
