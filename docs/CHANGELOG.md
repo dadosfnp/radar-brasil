@@ -10,8 +10,9 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 - Achado ao testar o Painel com dados reais: a chave de rename em EN ("Gender, Race and Ethnicity Representation") nunca batia com o valor real salvo no banco ("Representation of Gender, Race and Ethnicity") — bug pre-existente, nao introduzido nesta reestruturacao, so ficou visivel agora porque a Visao Geral nova depende do nome renomeado pra achar descricao/peso
 - Corrigida a chave nos dois dicts (`_CRITERIO_DISPLAY_EN`, `_EN_CRITERIO`); teste novo com o valor real do banco
+- Mesma chave errada estava duplicada em `apps/indicadores/services/avaliacao_painel.py` (usado pela pagina Componentes) — corrigida tambem, conferida via busca em todo o `apps/` (nao sobrou nenhuma outra ocorrencia)
 
-**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`, `docs/design.md`, `docs/CHANGELOG.md`
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/tests.py`, `docs/design.md`, `docs/CHANGELOG.md`
 
 ---
 

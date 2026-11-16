@@ -65,7 +65,7 @@ _CRITERIO_DISPLAY_PT = {
 }
 _CRITERIO_DISPLAY_EN = {
     "Financing": "Financial Sustainability",
-    "Gender, Race and Ethnicity Representation": "Diversity and Representativeness",
+    "Representation of Gender, Race and Ethnicity": "Diversity and Representativeness",
     "Monitoring and Local Participation": "Monitoring and Evaluation",
 }
 
