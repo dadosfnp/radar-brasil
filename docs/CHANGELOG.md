@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (49a rodada)
+
+### style: fundo do site 100% branco + paleta consolidada dos mapas
+
+- Primeira etapa da reestruturacao pedida pelos especialistas tecnicos (menu, mapas, landing, Nivel Pais, Painel) — este bloco cobre fundo branco e paleta de mapas, o resto vem em rodadas seguintes
+- Removida a textura `fundo-bg.png` do `html` e das zonas de hero (Inicio, Landing, Metodologia); `--color-bg-page` passa de azul claro para branco
+- Nivel Pais e Mapa Georreferenciado consolidados na mesma paleta (oceano branco, continente cinza, Brasil navy, fronteiras brancas): oceano do Nivel Pais era azul claro, agora branco; Mapa Georreferenciado trocou o tile OSM colorido por CARTO Positron sem rotulos. Novos tokens `--map-ocean-color`/`--map-land-color`/`--map-brazil-color`/`--map-border-color` em `tokens.css`
+- Rotulo da barra de filtros do Nivel Pais alinhado ao padrao visual (maiusculas/peso/espacamento) do Mapa Georreferenciado
+- `base.css` v=22, `tokens.css` v=3, `inicio.css` v=13, `landing.css` v=14, `metodologia.css` v=54, `nota-pais.css` v=12, `mapa-georreferenciado.js` v=5
+
+**Arquivos:** `static/css/base.css`, `static/css/tokens.css`, `static/css/inicio.css`, `static/css/landing.css`, `static/css/metodologia.css`, `static/css/nota-pais.css`, `static/js/mapa-georreferenciado.js`, `static/js/nota-pais.js`, `base_templates/base.html`, `templates/municipios/inicio.html`, `templates/municipios/landing.html`, `templates/municipios/metodologia.html`, `templates/municipios/nota-pais.html`, `templates/municipios/mapa-georreferenciado.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-12 (48a rodada)
 
 ### fix: terceiro modelo de fallback do Gemini no Assistente

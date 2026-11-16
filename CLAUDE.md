@@ -629,10 +629,11 @@ Tabela mobile: card layout com `td:first-child` como cabecalho navy.
 ### Identidade Visual
 
 - `--color-primary`: `#264584` (navy FNP)
-- `--color-bg-page`: `#d9e8f5` (azul claro, fundo global)
-- Background global: `fundo-bg.png` no elemento `html` (via `base.css`)
-- Body das paginas internas: `background: transparent`; body de paginas com hero branco: `background: #ffffff`
+- `--color-bg-page`: `#ffffff` (fundo 100% branco, desde 2026-11-16 — era azul claro `#d9e8f5`)
+- Background global: `#ffffff` solido no elemento `html` (via `base.css`); `fundo-bg.png` nao e mais usado em nenhum CSS (arquivo fica sem uso no repo)
+- Body das paginas internas: `background: transparent` (mostra o branco do `html`); body de paginas com hero proprio: `background: #ffffff`
 - Sem degrades, sem teal/verde (exceto bolinha piscante `#22c55e`)
+- **Paleta consolidada dos mapas** (Nivel Pais + Mapa Georreferenciado): oceano branco, continente cinza `#B0BCC8`, Brasil navy `#264584`, fronteiras brancas — tokens `--map-ocean-color`/`--map-land-color`/`--map-brazil-color`/`--map-border-color` em `tokens.css`. Mapa Georreferenciado usa tile CARTO Positron sem rotulos (`light_nolabels`) no lugar do OSM colorido
 
 ### i18n EN — completo
 
@@ -666,20 +667,21 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=21 |
-| `inicio.css` | v=12 |
-| `landing.css` | v=13 |
-| `metodologia.css` | v=53 |
+| `base.css` | v=22 |
+| `tokens.css` | v=3 |
+| `inicio.css` | v=13 |
+| `landing.css` | v=14 |
+| `metodologia.css` | v=54 |
 | `sobre.css` | v=26 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |
 | `painel-multinivel.js` | v=8 |
 | `mapa-georreferenciado.css` | v=12 |
-| `mapa-georreferenciado.js` | v=4 |
+| `mapa-georreferenciado.js` | v=5 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
-| `nota-pais.css` | v=10 |
+| `nota-pais.css` | v=12 |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |

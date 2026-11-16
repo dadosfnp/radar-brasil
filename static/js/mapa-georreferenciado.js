@@ -187,12 +187,17 @@ function initMap() {
         zoomControl: true,
     });
 
+    // Basemap sobrio (consolidacao de paleta com o Nivel Pais: oceano branco, continente
+    // cinza claro, sem rotulos/ruas coloridas do OSM) — CARTO Positron sem labels.
     L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
         {
             maxZoom: 19,
+            subdomains: "abcd",
             attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' + RBi18n.t("contribuidores"),
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
+                RBi18n.t("contribuidores") +
+                ' &copy; <a href="https://carto.com/attributions">CARTO</a>',
         }
     ).addTo(map);
 

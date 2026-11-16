@@ -5,6 +5,16 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fundo do site 100% branco + paleta consolidada dos mapas (2026-11-16)
+
+- Pedido dos especialistas tecnicos: tirar a textura `fundo-bg.png` (azul clara com padrao) do fundo do site inteiro e deixar tudo branco solido. Trocado em `html` (`base.css`), nas zonas de hero que usavam a mesma imagem como `background` proprio (`.ini-hero` em `inicio.css`, `.lp-hero` em `landing.css`, `.meto-hero-zone` em `metodologia.css`) e no token `--color-bg-page` (`tokens.css`, usado por `.rb-main` e `.linha-do-tempo-page`), que era azul claro (`#d9e8f5`) e virou `#ffffff`. A regra `body.rb-body::before` que cobre a fresta navy acima do header sticky nao mudou — ela usa `--color-header-bg` (continua navy), nao depende do fundo branco
+- `fundo-bg.png` fica sem uso em nenhum CSS agora (so segue commitado no repo, sem referencia); a pendencia de otimizar esse arquivo no `CONSTRAINTS.md` deixa de fazer sentido
+- **Paleta consolidada dos mapas** (Nivel Pais + Mapa Georreferenciado): oceano branco, continente cinza, Brasil navy, fronteiras brancas — novos tokens `--map-ocean-color`/`--map-land-color`/`--map-brazil-color`/`--map-border-color` em `tokens.css`. Nivel Pais ja usava quase essa paleta (so o oceano era azul claro `#bdd8e8`, trocado para `var(--map-ocean-color)`); Mapa Georreferenciado trocou o tile OSM colorido por CARTO Positron sem rotulos (`light_nolabels`), mesma familia de cor sem precisar redesenhar o GeoJSON de municipio. O overlay navy do Brasil no Mapa Georreferenciado ja usava `#264584` (mesmo tom do token novo), mantido como esta — e so contexto visual atras dos marcadores, nao um preenchimento solido
+- Barra de filtros: rotulo do Nivel Pais (`.np-filter-label`) alinhado ao padrao do Mapa Georreferenciado (maiusculas, `font-weight: 700`, `letter-spacing: .07em`, `font-size: 0.625rem`) — a cor/tema continuam distintos de proposito (sidebar clara no Nivel Pais vs sidebar escura no Mapa Georreferenciado), unificar isso e uma decisao maior, fora do escopo desta rodada
+- `base.css`, `inicio.css`, `landing.css`, `metodologia.css`, `nota-pais.css` v=12, `tokens.css` v=3, `mapa-georreferenciado.js` v=5
+
+---
+
 ## Rodape: fresta clara abaixo da barra de copyright (2026-10-22)
 
 - Usuario viu uma linha clara abaixo do rodape (pagina Nivel Pais). Medicao com Playwright: em todas as paginas sobram 0,6 a 1,4 px entre o fim do rodape e o fim da pagina, porque a altura do conteudo e fracionada e a pagina arredonda para cima. Nessa fracao aparecia o fundo do `html` (imagem `fundo-bg.png`, azul claro)

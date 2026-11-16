@@ -35,7 +35,7 @@
     --color-text-dark:      #070e2a;
 
     /* ── Backgrounds ── */
-    --color-bg-page:   #d9e8f5;   /* azul claro da identidade visual */
+    --color-bg-page:   #ffffff;   /* fundo 100% branco (2026-11-16) */
     --color-bg-card:   #ffffff;
     --color-bg-input:  #f5f8fa;
     --color-bg-subtle: #eef2f6;
@@ -44,6 +44,12 @@
     --color-border:        #e4ecf0;
     --color-border-input:  #c8d8ec;
     --color-border-subtle: #c0d4e8;
+
+    /* ── Paleta consolidada dos mapas (Nível País + Mapa Georreferenciado, 2026-11-16) ── */
+    --map-ocean-color:  #ffffff;
+    --map-land-color:   #B0BCC8;
+    --map-brazil-color: #264584;
+    --map-border-color: #ffffff;
 
     /* ── Cores de painel (sem degradê) ── */
     --gradient-panel-header: #264584;

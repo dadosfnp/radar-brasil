@@ -524,6 +524,7 @@ function buildMap(data) {
     style: feature => {
       const iso = getIso(feature.properties);
       const isBrazil = iso === "BRA";
+      // Paleta consolidada com o Mapa Georreferenciado (ver --map-* em tokens.css)
       return {
         fillColor:   isBrazil ? "#264584" : "#B0BCC8",
         fillOpacity: isBrazil ? 0.92 : 0.60,
