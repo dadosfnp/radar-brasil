@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 
+from apps.indicadores.models import RegistroParametro
+
 
 class PainelMultinivelAPITest(TestCase):
     def setUp(self):
@@ -20,6 +22,55 @@ class PainelMultinivelAPITest(TestCase):
     def test_sem_eixo_usa_default_governanca(self):
         res = self.client.get(reverse("indicadores:painel_multinivel_api"))
         self.assertEqual(res.status_code, 200)
+
+
+class VisaoGeralPainelTest(TestCase):
+    """Nível Eixo, peso e descrições do Painel ▸ Visão Geral (2026-11-16)."""
+
+    def setUp(self):
+        self.client = Client()
+        dados = [
+            ("Operacionalidade", ["Nível 2", "Nível 2", "Nível 4", "Nível 4"]),
+            ("Espaço de diálogo federativo", ["Nível 3", "Nível 3", "Nível 3"]),
+            ("Financiamento", ["Nível 2", "Nível 2"]),
+            ("Representação de Gênero, Raça e Etnia", ["Nível 1", "Nível 1", "Nível 1"]),
+            ("Comunicação e Transparência", ["Nível 5", "Nível 5"]),
+        ]
+        for avaliacao, niveis in dados:
+            for nivel in niveis:
+                RegistroParametro.objects.create(
+                    lang="pt",
+                    estrutura="",
+                    eixo="governanca",
+                    avaliacao=avaliacao,
+                    nivel=nivel,
+                )
+
+    def test_nivel_eixo_e_media_simples_dos_criterios(self):
+        res = self.client.get(reverse("indicadores:painel_multinivel_api"), {"eixo": "Governanca"})
+        corpo = res.json()
+        # (3.0 + 3.0 + 2.0 + 1.0 + 5.0) / 5 = 2.8 — média simples, sem peso
+        self.assertEqual(corpo["nivel_eixo"], 2.8)
+        self.assertEqual(corpo["total_componentes"], 4)
+        self.assertTrue(corpo["descricao_eixo"])
+
+    def test_criterios_tem_descricao_peso_e_nivel_medio(self):
+        res = self.client.get(reverse("indicadores:painel_multinivel_api"), {"eixo": "Governanca"})
+        por_nome = {c["nome"]: c for c in res.json()["criterios"]}
+
+        self.assertEqual(por_nome["Operacionalidade"]["nivel_medio"], 3.0)
+        self.assertEqual(por_nome["Operacionalidade"]["peso"], 1)
+
+        # "peso 2" só no Espaço de diálogo federativo (Governança)
+        self.assertEqual(por_nome["Espaço de diálogo federativo"]["peso"], 2)
+
+        # "Financiamento" vira "Sustentabilidade Financeira" no eixo Governança
+        self.assertIn("Sustentabilidade Financeira", por_nome)
+        self.assertEqual(por_nome["Sustentabilidade Financeira"]["nivel_medio"], 2.0)
+        self.assertEqual(por_nome["Sustentabilidade Financeira"]["peso"], 1)
+
+        for criterio in por_nome.values():
+            self.assertTrue(criterio["descricao"], f"sem descricao: {criterio['nome']}")
 
 
 class AvaliacaoAPITest(TestCase):

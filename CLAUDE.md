@@ -585,9 +585,11 @@ CSS: `static/css/mapa-georreferenciado.css` **v=12** | JS: `static/js/mapa-georr
 - Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
 - Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
-### Painel Multinivel — estado (2026-09-09)
+### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-16)
 
-CSS: `static/css/painel-multinivel.css` v=17 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=18 | JS: `static/js/painel-multinivel.js` v=9 | Template: `templates/municipios/painel-multinivel.html`
+
+**Reestruturacao 2026-11-16:** troca de eixo continua exclusiva (abas); dentro do eixo ativo, cada criterio agora e um item de acordeao colapsado por padrao (nome/descricao/peso/barrinha de nivel), expande pra revelar o waffle detalhado — varios criterios podem ficar abertos ao mesmo tempo. Card de resumo do eixo (`pm-eixo-resumo`) com foto de fundo (`EIXO_IMAGEM` no JS) + `descricao_eixo` + `nivel_eixo` + `total_componentes`, todos vindos do backend (`dados_para_grafico` em `apps/indicadores/services/painel_multinivel.py`). `EIXO_COUNTS`/`atualizarKPI` (dict hardcoded de contagem por eixo) foram removidos — o numero agora vem do banco via `total_componentes`.
 
 Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no estado de erro.
 
@@ -677,8 +679,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
-| `painel-multinivel.css` | v=17 |
-| `painel-multinivel.js` | v=8 |
+| `painel-multinivel.css` | v=18 |
+| `painel-multinivel.js` | v=9 |
 | `mapa-georreferenciado.css` | v=12 |
 | `mapa-georreferenciado.js` | v=5 |
 | `financiamento-climatico.css` | v=5 |

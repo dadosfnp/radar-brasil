@@ -5,6 +5,20 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Painel: Visao Geral com acordeao de criterios (2026-11-16)
+
+- Quarta etapa da reestruturacao pedida pelos especialistas tecnicos. A troca de eixo continua exclusiva (abas, como ja era); a mudanca e dentro do eixo ativo: antes o grafico mostrava todos os criterios sempre abertos num grid plano (`renderizarGrid`); agora cada criterio nasce colapsado (nome, descricao de uma linha, badge "peso N" quando houver, barrinha de 5 segmentos ate o nivel medio) com seta propria — varios podem ficar abertos ao mesmo tempo dentro do mesmo eixo, so expande o waffle detalhado (quadradinhos + regua + legenda, reaproveitado de `renderizarGrid`) do criterio clicado
+- Card de resumo do eixo ativo (`pm-eixo-resumo`) com a foto do eixo como fundo (mesma imagem usada no card de eixo da Landing, overlay navy escurecido pra legibilidade), descricao de uma linha e "Nivel Eixo X/5" + "N componentes avaliados"
+- **Backend novo** (`apps/indicadores/services/painel_multinivel.py`): `dados_para_grafico` agora tambem devolve `nivel_eixo` (media simples dos niveis medios de cada criterio — mesma formula de 3 etapas do Nivel Pais, sem ponderacao), `total_componentes` (maior contagem entre os criterios do eixo), `descricao_eixo` e, por criterio, `descricao` + `peso` (so rotulo exibido, nunca entra em nenhuma media) + `nivel_medio`. Textos de descricao/peso sao constantes fixas no modulo (mesmo padrao de `_CRITERIO_DISPLAY_PT`), chaveadas por (eixo, nome de exibicao) — o mesmo nome de criterio (ex. "Operacionalidade") significa coisas diferentes em cada eixo, entao a chave precisa ser o par, nao so o nome
+- 2 criterios de Linhas de Financiamento ganharam nome de exibicao mais curto ("Desenho Participativo", "Execucao Descentralizada") pra bater com o padrao visual dos outros eixos
+- KPI "Instancias Avaliadas" no topo da pagina parou de ser sobrescrito por eixo (removido `EIXO_COUNTS`/`atualizarKPI`, que eram um dict hardcoded manualmente mantido) — o total por eixo agora vive dentro do proprio card de resumo, vindo do backend, sem duplicar numero hardcoded em dois lugares
+- 2 testes novos (`VisaoGeralPainelTest`) criando `RegistroParametro` de verdade e conferindo a media/peso/descricao calculados
+- `painel-multinivel.css` v=18, `painel-multinivel.js` v=9
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`, `static/js/painel-multinivel.js`, `static/css/painel-multinivel.css`, `static/js/i18n.js`, `templates/municipios/painel-multinivel.html`
+
+---
+
 ## Nivel Pais: mapa primeiro, texto reduzido (2026-11-16)
 
 - Terceira etapa da reestruturacao pedida pelos especialistas. Ordem invertida: mapa (sidebar de filtros + Leaflet) agora vem antes do bloco de texto explicativo (`.np-page` e um flex column simples, so trocar a ordem no HTML já reordena visualmente, sem CSS novo)

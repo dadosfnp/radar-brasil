@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (52a rodada)
+
+### feat: Painel - Visao Geral com acordeao de criterios
+
+- Quarta etapa da reestruturacao pedida pelos especialistas (menu, mapas, landing, Nivel Pais, Painel)
+- Dentro do eixo ativo (troca por abas continua exclusiva), cada criterio agora nasce colapsado (nome, descricao, peso quando houver, barrinha de nivel) e expande pra revelar o waffle detalhado; varios podem ficar abertos ao mesmo tempo
+- Card de resumo do eixo com foto de fundo, descricao e "Nivel Eixo X/5"
+- Backend: `dados_para_grafico` ganha `nivel_eixo` (media simples, sem ponderacao), `total_componentes`, `descricao_eixo` e por criterio `descricao`/`peso`/`nivel_medio`
+- 2 testes novos com `RegistroParametro` real conferindo os calculos
+- `painel-multinivel.css` v=18, `painel-multinivel.js` v=9
+
+**Arquivos:** `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`, `static/js/painel-multinivel.js`, `static/css/painel-multinivel.css`, `static/js/i18n.js`, `templates/municipios/painel-multinivel.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-16 (51a rodada)
 
 ### style: Nivel Pais — mapa primeiro, texto reduzido

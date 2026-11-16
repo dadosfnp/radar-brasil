@@ -5,12 +5,12 @@ const EIXOS = [
   "Linhas de Financiamento",
 ];
 
-// Contagens de instâncias por eixo (para KPI dinâmico)
-const EIXO_COUNTS = {
-  "Governanca":              { count: 32, label_pt: "instâncias de governança", label_en: "governance instances" },
-  "Politicas e Planos":     { count: 17, label_pt: "políticas e planos", label_en: "policies and plans" },
-  "Programas":               { count: 18, label_pt: "programas", label_en: "programs" },
-  "Linhas de Financiamento": { count: 17, label_pt: "linhas de financiamento", label_en: "financing lines" },
+// Imagem de fundo do card-resumo de cada eixo (mesma imagem usada na Landing)
+const EIXO_IMAGEM = {
+  "Governanca":              "shutterstock_2551759713.jpg.jpeg",
+  "Politicas e Planos":      "shutterstock_2077744378.jpg.jpeg",
+  "Programas":               "shutterstock_2495902353.jpg.jpeg",
+  "Linhas de Financiamento": "shutterstock_614431316.jpg.jpeg",
 };
 
 const NIVEL_COLORS = {
@@ -39,80 +39,82 @@ const NIVEL_BORDER = {
   "Level 5":  "#0f2d20",
 };
 
-function renderizarGrid(dados) {
-  const wrapper = document.getElementById("pm-chart-wrapper");
-  if (!wrapper) return;
+function _niveisOrdem(isEn) {
+  return isEn
+    ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
+    : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
+}
 
-  wrapper.innerHTML = "";
-
-  if (!dados.labels || dados.labels.length === 0) return;
-
-  const isEn = (document.documentElement.lang || "").startsWith("en");
-  const lang = isEn ? "en" : "pt";
-
+// criterio → { nivel: count }, a partir de labels/datasets (mesmo shape do Chart.js)
+function construirMatrizPorCriterio(dados) {
   const criterios = dados.labels;
-  const totalCriterios = criterios.length;
-
-  // Monta mapa: criterio → { nivel: count }
   const matrix = {};
-  criterios.forEach(c => { matrix[c] = {}; });
-  dados.datasets.forEach(ds => {
+  criterios.forEach((c) => { matrix[c] = {}; });
+  dados.datasets.forEach((ds) => {
     ds.data.forEach((val, i) => {
       if (val > 0) matrix[criterios[i]][ds.label] = val;
     });
   });
+  return matrix;
+}
 
-  // Calcula total de instâncias (soma de counts do primeiro critério)
-  const firstCrit = criterios[0];
-  const totalInstancias = Object.values(matrix[firstCrit] || {}).reduce((a, b) => a + b, 0);
+// Barrinha de 5 segmentos coloridos até o nível médio (arredondado) do critério
+function construirPillBar(nivelMedio, isEn) {
+  const wrap = document.createElement("span");
+  wrap.className = "pm-pill-bar";
 
-  // Container principal
+  const arred = nivelMedio != null ? Math.max(0, Math.min(5, Math.round(nivelMedio))) : 0;
+  const corNivel = arred > 0 ? NIVEL_COLORS[_niveisOrdem(isEn)[arred - 1]] : null;
+
+  for (let i = 1; i <= 5; i++) {
+    const seg = document.createElement("span");
+    seg.className = "pm-pill-seg" + (i <= arred ? " filled" : "");
+    if (i <= arred && corNivel) seg.style.background = corNivel;
+    wrap.appendChild(seg);
+  }
+
+  const label = document.createElement("span");
+  label.className = "pm-pill-label";
+  label.textContent = (nivelMedio != null ? nivelMedio : "–") + "/5";
+  wrap.appendChild(label);
+
+  return wrap;
+}
+
+// Waffle detalhado (células + régua + legenda) de UM critério só
+function construirWaffleCriterio(nomeCriterio, contagemPorNivel, isEn) {
   const container = document.createElement("div");
-  container.className = "pm-grid-container";
+  container.className = "pm-waffle";
 
-  // Para cada critério, renderiza uma linha de células
-  criterios.forEach(criterio => {
-    const row = document.createElement("div");
-    row.className = "pm-grid-row";
+  const explicacao = document.createElement("p");
+  explicacao.className = "pm-waffle-explicacao";
+  explicacao.textContent = RBi18n.t(
+    "Cada quadradinho representa um componente avaliado; a cor indica o nível (1 a 5) obtido por ele neste critério."
+  );
+  container.appendChild(explicacao);
 
-    const rowLabel = document.createElement("div");
-    rowLabel.className = "pm-grid-row-label";
-    rowLabel.textContent = criterio;
-    row.appendChild(rowLabel);
+  const niveisOrdem = _niveisOrdem(isEn);
+  const total = niveisOrdem.reduce((acc, n) => acc + (contagemPorNivel[n] || 0), 0);
 
-    const cells = document.createElement("div");
-    cells.className = "pm-grid-cells";
-
-    const niveisOrdem = isEn
-      ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
-      : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
-
-    niveisOrdem.forEach(nivel => {
-      const count = matrix[criterio][nivel] || 0;
-      for (let i = 0; i < count; i++) {
-        const cell = document.createElement("span");
-        cell.className = "pm-grid-cell";
-        cell.style.background = NIVEL_COLORS[nivel] || "#ccc";
-        cell.style.borderColor = NIVEL_BORDER[nivel] || "#aaa";
-        cell.title = `${criterio}: ${nivel}`;
-        cells.appendChild(cell);
-      }
-    });
-
-    row.appendChild(cells);
-    container.appendChild(row);
+  const cells = document.createElement("div");
+  cells.className = "pm-grid-cells";
+  niveisOrdem.forEach((nivel) => {
+    const count = contagemPorNivel[nivel] || 0;
+    for (let i = 0; i < count; i++) {
+      const cell = document.createElement("span");
+      cell.className = "pm-grid-cell";
+      cell.style.background = NIVEL_COLORS[nivel] || "#ccc";
+      cell.style.borderColor = NIVEL_BORDER[nivel] || "#aaa";
+      cell.title = `${nomeCriterio}: ${nivel}`;
+      cells.appendChild(cell);
+    }
   });
+  container.appendChild(cells);
 
-  // Régua de posições: marcações a cada 5 instâncias
-  if (totalInstancias > 0) {
-    const rulerRow = document.createElement("div");
-    rulerRow.className = "pm-grid-row pm-grid-ruler-row";
-    const rulerLabel = document.createElement("div");
-    rulerLabel.className = "pm-grid-row-label";
-    rulerRow.appendChild(rulerLabel);
+  if (total > 0) {
     const rulerCells = document.createElement("div");
     rulerCells.className = "pm-grid-cells pm-grid-ruler-cells";
-    for (let i = 1; i <= totalInstancias; i++) {
+    for (let i = 1; i <= total; i++) {
       const tick = document.createElement("span");
       if (i % 5 === 0) {
         tick.className = "pm-grid-cell pm-grid-tick pm-grid-tick--label";
@@ -122,18 +124,12 @@ function renderizarGrid(dados) {
       }
       rulerCells.appendChild(tick);
     }
-    rulerRow.appendChild(rulerCells);
-    container.appendChild(rulerRow);
+    container.appendChild(rulerCells);
   }
 
-  // Legenda
   const legend = document.createElement("div");
   legend.className = "pm-grid-legend";
-  const niveisLegenda = isEn
-    ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
-    : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
-
-  niveisLegenda.forEach(nivel => {
+  niveisOrdem.forEach((nivel) => {
     const item = document.createElement("span");
     item.className = "pm-grid-legend-item";
     const dot = document.createElement("span");
@@ -143,18 +139,164 @@ function renderizarGrid(dados) {
     item.appendChild(document.createTextNode(nivel));
     legend.appendChild(item);
   });
+  container.appendChild(legend);
 
-  wrapper.appendChild(container);
-  wrapper.appendChild(legend);
-
-  // Sincroniza scroll horizontal: arrastar qualquer linha rola todas juntas
-  const allCells = wrapper.querySelectorAll(".pm-grid-cells");
-  allCells.forEach(el => {
-    el.addEventListener("scroll", function () {
-      const left = this.scrollLeft;
-      allCells.forEach(other => { if (other !== this) other.scrollLeft = left; });
-    }, { passive: true });
+  // Sincroniza scroll horizontal entre células e régua deste critério
+  const rows = container.querySelectorAll(".pm-grid-cells");
+  rows.forEach((el) => {
+    el.addEventListener(
+      "scroll",
+      function () {
+        const left = this.scrollLeft;
+        rows.forEach((other) => { if (other !== this) other.scrollLeft = left; });
+      },
+      { passive: true }
+    );
   });
+
+  return container;
+}
+
+function construirCaret() {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "pm-criterio-caret");
+  svg.setAttribute("width", "12");
+  svg.setAttribute("height", "7");
+  svg.setAttribute("viewBox", "0 0 10 6");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("aria-hidden", "true");
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "M1 1l4 4 4-4");
+  path.setAttribute("stroke", "currentColor");
+  path.setAttribute("stroke-width", "1.6");
+  path.setAttribute("stroke-linecap", "round");
+  path.setAttribute("stroke-linejoin", "round");
+  svg.appendChild(path);
+  return svg;
+}
+
+// Resumo do eixo ativo (descrição + Nível Eixo + total de componentes), com a foto
+// do eixo como fundo — mesma imagem usada nos cards de eixo da Landing
+function construirResumoEixo(eixo, dados, isEn) {
+  const resumo = document.createElement("div");
+  resumo.className = "pm-eixo-resumo";
+  const img = EIXO_IMAGEM[eixo];
+  if (img) {
+    resumo.style.backgroundImage =
+      `linear-gradient(135deg, rgba(16,29,79,.88), rgba(16,29,79,.72)), url("/static/img/${img}")`;
+  }
+
+  if (dados.descricao_eixo) {
+    const desc = document.createElement("p");
+    desc.className = "pm-eixo-descricao";
+    desc.textContent = dados.descricao_eixo;
+    resumo.appendChild(desc);
+  }
+
+  const meta = document.createElement("div");
+  meta.className = "pm-eixo-meta";
+
+  if (dados.nivel_eixo != null) {
+    const score = document.createElement("span");
+    score.className = "pm-eixo-score";
+    const rotulo = isEn ? "Axis Level" : "Nível Eixo";
+    score.textContent = rotulo + ": " + dados.nivel_eixo + "/5";
+    meta.appendChild(score);
+  }
+  if (dados.total_componentes) {
+    const total = document.createElement("span");
+    total.className = "pm-eixo-total";
+    const palavra = isEn ? "components evaluated" : "componentes avaliados";
+    total.textContent = dados.total_componentes + " " + palavra;
+    meta.appendChild(total);
+  }
+  resumo.appendChild(meta);
+
+  return resumo;
+}
+
+// Lista de critérios em acordeão: cada um colapsado por padrão, com seta própria;
+// vários podem ficar abertos ao mesmo tempo (só a troca de EIXO via abas é exclusiva)
+function renderizarCriterios(eixo, dados) {
+  const wrapper = document.getElementById("pm-chart-wrapper");
+  if (!wrapper) return;
+  wrapper.innerHTML = "";
+
+  if (!dados.criterios || dados.criterios.length === 0) return;
+
+  const isEn = (document.documentElement.lang || "").startsWith("en");
+  const matrix = construirMatrizPorCriterio(dados);
+
+  wrapper.appendChild(construirResumoEixo(eixo, dados, isEn));
+
+  const lista = document.createElement("div");
+  lista.className = "pm-criterios-lista";
+
+  dados.criterios.forEach((criterio) => {
+    const item = document.createElement("div");
+    item.className = "pm-criterio-item";
+
+    const header = document.createElement("button");
+    header.type = "button";
+    header.className = "pm-criterio-header";
+    header.setAttribute("aria-expanded", "false");
+
+    const info = document.createElement("span");
+    info.className = "pm-criterio-info";
+
+    const nomeRow = document.createElement("span");
+    nomeRow.className = "pm-criterio-nome-row";
+    const nome = document.createElement("span");
+    nome.className = "pm-criterio-nome";
+    nome.textContent = criterio.nome;
+    nomeRow.appendChild(nome);
+    if (criterio.peso > 1) {
+      const peso = document.createElement("span");
+      peso.className = "pm-criterio-peso";
+      peso.textContent = (isEn ? "weight" : "peso") + " " + criterio.peso;
+      nomeRow.appendChild(peso);
+    }
+    info.appendChild(nomeRow);
+
+    if (criterio.descricao) {
+      const desc = document.createElement("span");
+      desc.className = "pm-criterio-desc";
+      desc.textContent = criterio.descricao;
+      info.appendChild(desc);
+    }
+    header.appendChild(info);
+
+    const scoreWrap = document.createElement("span");
+    scoreWrap.className = "pm-criterio-score";
+    scoreWrap.appendChild(construirPillBar(criterio.nivel_medio, isEn));
+    scoreWrap.appendChild(construirCaret());
+    header.appendChild(scoreWrap);
+
+    item.appendChild(header);
+
+    const detalhe = document.createElement("div");
+    detalhe.className = "pm-criterio-detalhe";
+    detalhe.hidden = true;
+
+    header.addEventListener("click", () => {
+      const aberto = header.getAttribute("aria-expanded") === "true";
+      const novoEstado = !aberto;
+      header.setAttribute("aria-expanded", String(novoEstado));
+      item.classList.toggle("open", novoEstado);
+      if (novoEstado && !detalhe.dataset.built) {
+        detalhe.appendChild(
+          construirWaffleCriterio(criterio.nome, matrix[criterio.nome] || {}, isEn)
+        );
+        detalhe.dataset.built = "1";
+      }
+      detalhe.hidden = !novoEstado;
+    });
+
+    item.appendChild(detalhe);
+    lista.appendChild(item);
+  });
+
+  wrapper.appendChild(lista);
 }
 
 // Overlay de erro no gráfico
@@ -186,16 +328,6 @@ function mostrarLoader(visivel) {
   if (wrapper) wrapper.style.opacity = visivel ? "0.3" : "1";
 }
 
-function atualizarKPI(eixo) {
-  const info = EIXO_COUNTS[eixo];
-  if (!info) return;
-  const isEn = (document.documentElement.lang || "").startsWith("en");
-  const valEl  = document.getElementById("pm-kpi-inst-value");
-  const subEl  = document.getElementById("pm-kpi-inst-sub");
-  if (valEl) valEl.textContent = info.count;
-  if (subEl) subEl.textContent = isEn ? info.label_en : info.label_pt;
-}
-
 async function carregarDados(eixo) {
   const url = `/indicadores/api/painel-multinivel/?eixo=${encodeURIComponent(eixo)}`;
   _ocultarErroGrafico();
@@ -208,7 +340,7 @@ async function carregarDados(eixo) {
       return;
     }
     _ocultarErroGrafico();
-    renderizarGrid(dados);
+    renderizarCriterios(eixo, dados);
   } catch (e) {
     console.error("Erro fetch:", e);
     _mostrarErroGrafico("⚠ " + RBi18n.t("Não foi possível carregar os dados. Verifique sua conexão e recarregue a página."));
@@ -234,7 +366,6 @@ document.addEventListener("DOMContentLoaded", () => {
       activeBtn.setAttribute("aria-selected", "true");
       if (tabpanel) tabpanel.setAttribute("aria-labelledby", activeBtn.id);
     }
-    atualizarKPI(EIXOS[idx]);
   }
 
   tabs.forEach((tab, idx) => {
