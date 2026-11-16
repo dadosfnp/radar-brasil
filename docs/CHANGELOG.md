@@ -4,6 +4,20 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (55a rodada)
+
+### fix: correcoes apos teste real no navegador (menu, mapa, comentario vazando)
+
+- Capitalizacao do dropdown "Sobre" corrigida ("O Que É o Radar" → "O que é o Radar", idem "Por Que Avaliar...")
+- Mapa Georreferenciado estava quebrado em producao: CARTO Positron passou a exigir API key. Revertido pro tile OSM (sempre gratuito) + filtro CSS pra manter o visual sobrio
+- **Achado tecnico:** comentario Django `{# #}` nao suporta multiplas linhas — vaza como texto literal na pagina. Corrigido em 3 templates (`painel-multinivel.html`, `landing.html`, `_federalismo_triangle.html`)
+- Banco de dev populado via `sync_sheets_db` (dados reais agora disponiveis pra testar filtros/mapa/painel localmente)
+- Fonte do menu aumentada (1.051rem → 1.25rem, degraus do nav fluido escalados) — só 4 itens agora, sobrava espaco
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/css/mapa-georreferenciado.css`, `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/painel-multinivel.html`, `templates/municipios/landing.html`, `templates/municipios/_federalismo_triangle.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-16 (54a rodada)
 
 ### fix: Painel - Visao Geral refeita pra bater com os slides dos especialistas

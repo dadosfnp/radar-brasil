@@ -191,9 +191,9 @@ body.rb-body {
     text-decoration: none;
     color: rgba(255,255,255,0.78);
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 1.051rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    padding: 8px 18px;
+    padding: 8px 20px;
     border-bottom: 2px solid transparent;
     transition: border-color 0.2s, color 0.2s;
     white-space: nowrap;
@@ -570,40 +570,44 @@ body.rb-body {
 .rb-nav-lang-section { display: none; }
 
 /* ---- NAV DESKTOP FLUIDO — notebooks/telas menores continuam em UMA LINHA ----
-   Os 7 itens do menu com fonte cheia (1.051rem/18px) só cabem numa linha a
-   partir de ~1570px de largura efetiva. Em vez de colapsar pra hamburger,
-   fonte/padding dos links e altura das logos encolhem em degraus conforme a
-   tela estreita — assim a versão desktop continua parecendo desktop em
-   qualquer notebook comum (1600/1440/1366/1280/1024...), incluindo quando o
-   usuário usa zoom do navegador ou escala de SO que reduz a largura efetiva.
-   Medido empiricamente com Playwright headless em cada degrau. */
+   Desde a reestruturacao de 2026-11-16 o menu tem só 4 itens (Sobre/Nível
+   País/Painel/Mapa, antes eram 7) — bem mais folga, por isso a fonte base
+   subiu de 1.051rem para 1.25rem (pedido do usuário: ficava pequena sobrando
+   espaço). Fonte/padding dos links e altura das logos encolhem em degraus
+   conforme a tela estreita, escalados na mesma proporção — assim a versão
+   desktop continua parecendo desktop em qualquer notebook comum
+   (1600/1440/1366/1280/1024...), incluindo quando o usuário usa zoom do
+   navegador ou escala de SO que reduz a largura efetiva. Com só 4 itens a
+   folga é bem maior que antes; os degraus abaixo so devem ser necessarios
+   em telas bem mais estreitas que os 1570px originais — conferir com
+   Playwright se sobrar tempo. */
 @media (max-width: 1600px) {
-    .rb-nav-link { font-size: 0.95rem; padding: 8px 14px; }
+    .rb-nav-link { font-size: 1.125rem; padding: 8px 16px; }
     .rb-header-radar-img { height: 68px; }
     .rb-header-logo-img { height: 56px; }
 }
 @media (max-width: 1440px) {
-    .rb-nav-link { font-size: 0.875rem; padding: 8px 12px; }
+    .rb-nav-link { font-size: 1.0625rem; padding: 8px 14px; }
     .rb-header-radar-img { height: 64px; }
     .rb-header-logo-img { height: 52px; }
 }
 @media (max-width: 1300px) {
-    .rb-nav-link { font-size: 0.8125rem; padding: 8px 10px; }
+    .rb-nav-link { font-size: 1rem; padding: 8px 12px; }
     .rb-header-radar-img { height: 58px; }
     .rb-header-logo-img { height: 48px; }
 }
 @media (max-width: 1180px) {
-    .rb-nav-link { font-size: 0.75rem; padding: 8px 8px; }
+    .rb-nav-link { font-size: 0.9375rem; padding: 8px 10px; }
     .rb-header-radar-img { height: 52px; }
     .rb-header-logo-img { height: 42px; }
 }
 @media (max-width: 1080px) {
-    .rb-nav-link { font-size: 0.6875rem; padding: 8px 6px; }
+    .rb-nav-link { font-size: 0.875rem; padding: 8px 8px; }
     .rb-header-radar-img { height: 46px; }
     .rb-header-logo-img { height: 38px; }
 }
 @media (max-width: 980px) {
-    .rb-nav-link { font-size: 0.625rem; padding: 8px 5px; }
+    .rb-nav-link { font-size: 0.8125rem; padding: 8px 6px; }
     .rb-header-radar-img { height: 42px; }
     .rb-header-logo-img { height: 34px; }
 }

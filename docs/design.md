@@ -5,6 +5,24 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Correcoes apos teste real no navegador (2026-11-16)
+
+O usuario finalmente conseguiu rodar o `runserver` local e mandou screenshots reais — apareceram 3 problemas que eu nao tinha como pegar sem browser:
+
+1. **Capitalizacao estranha no dropdown "Sobre":** "O Que É o Radar" e "Por Que Avaliar o Federalismo Climático" tinham Title Case inconsistente (alguns "Que"/"Avaliar" maiusculos, "o" minusculo) — nao batia com a convencao do site (sentence case, so "Federalismo Climático" maiusculo como termo). Corrigido pra "O que é o Radar" e "Por que avaliar o Federalismo Climático", igual ao `<h2>` que ja existia na pagina Sobre.
+
+2. **Mapa Georreferenciado quebrado ("API KEY REQUIRED" sobre o mapa inteiro):** o CARTO Positron (`basemaps.cartocdn.com`) usado no Bloco 1 pra consolidar a paleta com o Nivel Pais passou a exigir API key e nao funciona mais anonimo. **Revertido pro tile OSM** (sempre gratuito, sem chave, zero risco de quebrar de novo) com um filtro CSS (`filter: grayscale(0.85) brightness(1.08) contrast(0.92)` no `.leaflet-tile-pane`) pra manter o visual sobrio sem depender de terceiro. Licao: evitar basemaps de terceiro que podem mudar a politica de acesso sem aviso — OSM + filtro CSS e mais robusto a longo prazo.
+
+3. **Texto de comentario Django vazando como texto visivel na pagina** (ex.: "{# Bolhas de eixo — ocultas até o usuário abrir... #}" aparecendo literalmente na tela, em `painel-multinivel.html`, `landing.html` e `_federalismo_triangle.html`): **achado tecnico importante, testado e confirmado com `Template(...).render()`** — o comentario `{# ... #}` do Django **não suporta múltiplas linhas**; se `{#` e `#}` ficam em linhas diferentes, o Django não reconhece como comentario nenhum e deixa o texto inteiro (chaves incluidas) passar como texto literal pro HTML. `{% comment %}...{% endcomment %}` (block tag) suporta multiplas linhas normalmente — só o `{# #}` de uma linha so e que tem essa limitacao. **Regra daqui pra frente: comentario Django de uma linha so, sempre; multiplas linhas usar `{% comment %}`.**
+
+Tambem a pedido do usuario nesta rodada:
+- **Banco de dev populado:** `sync_sheets_db` rodado localmente (credenciais ja existiam em `.secrets/fnp-radar-sheets.json`) — 98 fichas, 412 parametros, 46 financiamentos, 2322 registros de mapa (PT+EN). **Nota Windows:** o comando quebra com `UnicodeEncodeError` no `cp1252` padrao do console por causa do caractere "→" nas mensagens — rodar com `$env:PYTHONIOENCODING='utf-8'` antes (PowerShell) ou `PYTHONIOENCODING=utf-8` (bash).
+- **Fonte do menu aumentada:** 1.051rem → 1.25rem (e os 6 degraus do nav fluido escalados na mesma proporcao) — o menu tem só 4 itens agora (antes 7), sobrava espaco.
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/css/mapa-georreferenciado.css`, `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `templates/municipios/painel-multinivel.html`, `templates/municipios/landing.html`, `templates/municipios/_federalismo_triangle.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## Painel: correcao de fidelidade aos slides dos especialistas (2026-11-16)
 
 - Depois de commitado o acordeao com abas sempre visiveis, o usuario mandou 11 imagens mais detalhadas do mockup mostrando um fluxo diferente em 2 etapas, com a reclamacao explicita de que a primeira entrega nao batia com o pedido. Reconstruido do zero pra seguir exatamente o que os slides mostram:

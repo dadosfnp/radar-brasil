@@ -188,16 +188,17 @@ function initMap() {
     });
 
     // Basemap sobrio (consolidacao de paleta com o Nivel Pais: oceano branco, continente
-    // cinza claro, sem rotulos/ruas coloridas do OSM) — CARTO Positron sem labels.
+    // cinza claro). CARTO Positron (cartocdn.com) passou a exigir API key e quebrou em
+    // producao ("API KEY REQUIRED" sobre o mapa) — voltado para o OSM, sempre gratuito/sem
+    // chave, com filtro CSS (ver .mg-map-area .leaflet-tile-pane em mapa-georreferenciado.css)
+    // pra dessaturar e ficar sobrio sem depender de terceiro.
     L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
             maxZoom: 19,
-            subdomains: "abcd",
             attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-                RBi18n.t("contribuidores") +
-                ' &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                RBi18n.t("contribuidores"),
         }
     ).addTo(map);
 

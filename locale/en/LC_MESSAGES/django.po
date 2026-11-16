@@ -1887,12 +1887,12 @@ msgid "Obrigado pelo retorno!"
 msgstr "Thanks for the feedback!"
 
 #: base_templates/base.html
-msgid "O Que É o Radar"
-msgstr "What Is the Radar"
+msgid "O que é o Radar"
+msgstr "What is the Radar"
 
 #: base_templates/base.html
-msgid "Por Que Avaliar o Federalismo Climático"
-msgstr "Why Assess Climate Federalism"
+msgid "Por que avaliar o Federalismo Climático"
+msgstr "Why assess Climate Federalism"
 
 #: base_templates/base.html
 msgid "Painel"

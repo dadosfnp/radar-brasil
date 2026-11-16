@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=3">
     <link rel="stylesheet" href="{% static 'css/components.css' %}?v=3">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=23">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=24">
     <link rel="stylesheet" href="{% static 'css/assistente.css' %}?v=6">
     {% block extra_head %}{% endblock %}
 </head>
@@ -62,8 +62,8 @@
                                 <svg class="rb-nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
                             <div class="rb-nav-dropdown">
-                                <a href="{% url 'municipios:sobre' %}#sb-o-que-e" class="rb-nav-dropdown-link">{% trans "O Que É o Radar" %}</a>
-                                <a href="{% url 'municipios:sobre' %}#sb-por-que-avaliar" class="rb-nav-dropdown-link">{% trans "Por Que Avaliar o Federalismo Climático" %}</a>
+                                <a href="{% url 'municipios:sobre' %}#sb-o-que-e" class="rb-nav-dropdown-link">{% trans "O que é o Radar" %}</a>
+                                <a href="{% url 'municipios:sobre' %}#sb-por-que-avaliar" class="rb-nav-dropdown-link">{% trans "Por que avaliar o Federalismo Climático" %}</a>
                                 <a href="{% url 'municipios:metodologia' %}" class="rb-nav-dropdown-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
                             </div>
                         </div>

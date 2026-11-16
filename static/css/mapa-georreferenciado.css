@@ -351,6 +351,12 @@ body.mapa-page .rb-main {
     z-index: 1; /* cria contexto de empilhamento para isolar os z-indexes internos do Leaflet */
 }
 
+/* Dessatura o tile OSM (sempre gratuito, sem chave) pra ficar sobrio — consolidacao de
+   paleta com o Nivel Pais, sem depender de um provedor terceiro que pode exigir API key */
+#mg-map .leaflet-tile-pane {
+    filter: grayscale(0.85) brightness(1.08) contrast(0.92);
+}
+
 /* Loader do mapa */
 .mg-map-loader {
     position: absolute;

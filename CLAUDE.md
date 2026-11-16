@@ -103,6 +103,8 @@ docker compose exec radarbrasil python manage.py sync_sheets_db
 
 O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no banco (apaga e reinsere por idioma).
 
+**Rodando local no Windows (fora do Docker, pra popular o SQLite de dev):** `.venv\Scripts\python manage.py sync_sheets_db` quebra com `UnicodeEncodeError` no `cp1252` padrao do console (as mensagens do comando usam "→"). Rodar com `$env:PYTHONIOENCODING='utf-8'` antes no PowerShell (ou `PYTHONIOENCODING=utf-8` no bash). Credenciais ja existem em `.secrets/fnp-radar-sheets.json` (`GOOGLE_SHEETS_CREDENTIALS` no `.env` local).
+
 ### Planilhas PT
 
 | Tabela | Sheet ID | GID / worksheet |
@@ -211,6 +213,14 @@ Design: Glassmorphism com `backdrop-filter`, cards translúcidos, fundo `#bdd6e0
 - Constantes e dados no topo do arquivo
 - `i18n.js` carregado globalmente em `base.html`
 - Segurança de hyperlinks: backend valida `url.startswith("http")` antes de retornar; frontend só renderiza `<a>` quando `c.url` é truthy
+
+---
+
+## Templates — pegadinha do comentário `{# #}` (achado 2026-11-16)
+
+**Comentário Django `{# ... #}` não suporta múltiplas linhas.** Se `{#` e `#}` ficam em linhas diferentes, o Django não reconhece como tag nenhuma — o texto inteiro (chaves incluídas) vaza como texto literal visível na página renderizada (confirmado com `Template(...).render()`; não dá erro, só renderiza errado). Isso já aconteceu 3x nesta sessão (`painel-multinivel.html`, `landing.html`, `_federalismo_triangle.html`) e só foi pego porque o usuário testou no navegador de verdade.
+
+**Regra:** comentário Django de uma linha só, sempre (`{# comentário curto #}`). Para comentário de várias linhas, usar a block tag `{% comment %}...{% endcomment %}` (essa sim suporta multilinha) — mas nunca escrever o nome literal de outra tag Django (`{% endcomment %}`, `{% endblock %}` etc.) dentro de um comentário `{# #}` por perto: já quebrou o parser antes (`TemplateSyntaxError`) nesta mesma sessão.
 
 ---
 
@@ -377,9 +387,11 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-09-23)
+### Header Global — estado (2026-11-16)
 
-CSS: `static/css/base.css` **v=21** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=24** | Template: `base_templates/base.html`
+
+**Fix v24 — fonte do menu aumentada:** desde a reestruturacao de 2026-11-16 o menu tem so 4 itens (Sobre/Nível País/Painel/Mapa, antes eram 7) — sobrava espaco e a fonte ficou pequena. Base subiu de `1.051rem` para `1.25rem`; os 6 degraus do nav fluido (ver Fix v20 abaixo) escalados na mesma proporcao (~1.19x).
 
 **Fix v20 — nav desktop fluido (menu quebrava linha em notebooks):** com fonte cheia os 7 itens do menu so cabem em uma linha a partir de ~1570px de largura efetiva. Uma primeira tentativa (v19) estendeu o breakpoint do hamburger de `<=768px` para `<=1600px`, mas isso fazia notebooks comuns (1366/1440/1600px) mostrarem o menu hamburger mobile em vez do menu desktop — **rejeitado pelo usuario**: "quero que a versao desktop fique como versao desktop... nao colocar o sanduiche do mobile como solucao".
 
@@ -548,9 +560,11 @@ Estrutura HTML:
 np-page > np-intro + np-card (np-sidebar + np-map-container + np-filter-fab) + np-sidebar-backdrop + np-kpi-strip
 ```
 
-### Mapa Georreferenciado — estado (2026-09-10)
+### Mapa Georreferenciado — estado (2026-11-16)
 
-CSS: `static/css/mapa-georreferenciado.css` **v=12** | JS: `static/js/mapa-georreferenciado.js` **v=4** | Template: `templates/municipios/mapa-georreferenciado.html`
+CSS: `static/css/mapa-georreferenciado.css` **v=13** | JS: `static/js/mapa-georreferenciado.js` **v=6** | Template: `templates/municipios/mapa-georreferenciado.html`
+
+**Basemap (2026-11-16):** CARTO Positron (`basemaps.cartocdn.com`, usado na consolidacao de paleta com o Nivel Pais) passou a exigir API key e quebrou em producao ("API KEY REQUIRED" sobre o mapa inteiro). Revertido pro tile OSM (`tile.openstreetmap.org`, sempre gratuito/sem chave) com `filter: grayscale(0.85) brightness(1.08) contrast(0.92)` no `.leaflet-tile-pane` (`#mg-map .leaflet-tile-pane`) pra manter o visual sobrio sem depender de um provedor terceiro que pode mudar a politica de acesso sem aviso.
 
 **Mapa mobile full-screen (mesmo padrao que Nota Pais):**
 - Em `<=900px`:
@@ -673,7 +687,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=23 |
+| `base.css` | v=24 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
 | `landing.css` | v=15 |
@@ -684,8 +698,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=19 |
 | `painel-multinivel.js` | v=11 |
-| `mapa-georreferenciado.css` | v=12 |
-| `mapa-georreferenciado.js` | v=5 |
+| `mapa-georreferenciado.css` | v=13 |
+| `mapa-georreferenciado.js` | v=6 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
 | `nota-pais.css` | v=12 |
