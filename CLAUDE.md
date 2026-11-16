@@ -667,12 +667,12 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=22 |
+| `base.css` | v=23 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
 | `landing.css` | v=14 |
-| `metodologia.css` | v=54 |
-| `sobre.css` | v=26 |
+| `metodologia.css` | v=55 |
+| `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
 | `painel-multinivel.css` | v=17 |

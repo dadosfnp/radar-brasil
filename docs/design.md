@@ -5,6 +5,17 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Menu: cascata em Sobre e Painel + reordenacao (2026-11-16)
+
+- Segunda etapa da reestruturacao pedida pelos especialistas tecnicos. Menu passa de 7 itens em linha (Sobre, Metodologia, Painéis, Componentes, Financiamento Climático, Mapa Georreferenciado, Nível País) para: **Sobre ▾** (O Que É o Radar, Por Que Avaliar o Federalismo Climático, Metodologia) → **Nível País** → **Painel ▾** (Visão Geral, Componentes) → **Mapa** (renomeado de "Mapa Georreferenciado"). "Financiamento Climático" sai do menu (mesmo padrao do link "Início": `style="display:none" aria-hidden="true" tabindex="-1"`, continua no HTML e a rota continua no ar)
+- Os 2 primeiros itens do dropdown "Sobre" sao ancoras (`#sb-o-que-e`, `#sb-por-que-avaliar`) pra secoes que ja existiam em `sobre.html` sem `id`; `scroll-margin-top: 110px` adicionado nas duas secoes pra nao ficarem escondidas atras do header sticky ao rolar via ancora
+- Nao existia nenhum mecanismo de dropdown/cascata no projeto — construido do zero em `base.css`: hover + `:focus-within` no desktop (com uma "ponte" invisivel de 12px entre o gatilho e o menu, pra nao fechar ao mover o mouse na diagonal); no mobile (`<=900px`) vira sanfona embutida no proprio painel do hamburguer, sem hover, alternada por clique via JS (classe `.open`, só uma cascata aberta por vez)
+- **Licao tecnica (testada antes de aplicar):** Django recusa com `TemplateSyntaxError` um `{% block %}` com o mesmo nome repetido no mesmo template — por isso o gatilho "Painel" (que precisa acender quando Visão Geral OU Componentes estiver ativo) usa `menu_painel_active` + `menu_avaliacao_active` concatenados, e os sublinks usam blocks **novos e distintos** (`menu_painel_active_sub`, `menu_avaliacao_active_sub`) adicionados em `painel-multinivel.html`, `avaliacao-painel.html` e `linha-do-tempo.html` — nunca reusar o mesmo nome de block duas vezes no mesmo template pai
+- i18n: 5 strings novas traduzidas em `locale/en/LC_MESSAGES/django.po` ("O Que É o Radar", "Por Que Avaliar o Federalismo Climático", "Painel", "Visão Geral", "Mapa"); `.mo` recompilado via `polib` (sem `msgfmt` local)
+- `base.css` v=23, `sobre.css` v=27, `metodologia.css` v=55
+
+---
+
 ## Fundo do site 100% branco + paleta consolidada dos mapas (2026-11-16)
 
 - Pedido dos especialistas tecnicos: tirar a textura `fundo-bg.png` (azul clara com padrao) do fundo do site inteiro e deixar tudo branco solido. Trocado em `html` (`base.css`), nas zonas de hero que usavam a mesma imagem como `background` proprio (`.ini-hero` em `inicio.css`, `.lp-hero` em `landing.css`, `.meto-hero-zone` em `metodologia.css`) e no token `--color-bg-page` (`tokens.css`, usado por `.rb-main` e `.linha-do-tempo-page`), que era azul claro (`#d9e8f5`) e virou `#ffffff`. A regra `body.rb-body::before` que cobre a fresta navy acima do header sticky nao mudou — ela usa `--color-header-bg` (continua navy), nao depende do fundo branco

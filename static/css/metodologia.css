@@ -156,6 +156,7 @@ body.metodologia-page .rb-main {
 .meto-federalism-section {
     background: transparent;
     border-top: 1px solid rgba(38,69,132,.10);
+    scroll-margin-top: 110px; /* compensa o header sticky ao rolar via âncora do menu */
 }
 
 .meto-federalism-intro {

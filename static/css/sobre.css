@@ -215,6 +215,7 @@ body.sobre-page .meto-federalism-section { border-bottom: none; }
       Todas as regras escopadas em .sb-infographic (nomes genéricos). */
 
 .sb-infographic {
+    scroll-margin-top: 110px; /* compensa o header sticky ao rolar via âncora do menu */
     --fs-navy: #182253;
     --fs-navy-2: #24386e;
     --fs-slate: #63779f;

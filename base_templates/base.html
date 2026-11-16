@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=3">
     <link rel="stylesheet" href="{% static 'css/components.css' %}?v=3">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=22">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=23">
     <link rel="stylesheet" href="{% static 'css/assistente.css' %}?v=6">
     {% block extra_head %}{% endblock %}
 </head>
@@ -55,20 +55,37 @@
                         {# Início: inativo temporariamente — manter no HTML #}
                         <a href="{% url 'municipios:inicio' %}"
                            class="rb-nav-link {% block menu_inicio_active %}{% endblock %}" style="display:none" aria-hidden="true" tabindex="-1">{% trans "Início" %}</a>
-                        <a href="{% url 'municipios:sobre' %}"
-                           class="rb-nav-link {% block menu_sobre_active %}{% endblock %}">{% trans "Sobre" %}</a>
-                        <a href="{% url 'municipios:metodologia' %}"
-                           class="rb-nav-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
-                        <a href="{% url 'indicadores:painel_multinivel' %}"
-                           class="rb-nav-link {% block menu_painel_active %}{% endblock %}">{% trans "Painéis" %}</a>
-                        <a href="{% url 'indicadores:avaliacao_painel' %}"
-                           class="rb-nav-link {% block menu_avaliacao_active %}{% endblock %}">{% trans "Componentes" %}</a>
-                        <a href="{% url 'indicadores:financiamento_climatico' %}"
-                           class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}">{% trans "Financiamento Climático" %}</a>
-                        <a href="{% url 'indicadores:mapa_georreferenciado' %}"
-                           class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa Georreferenciado" %}</a>
+
+                        <div class="rb-nav-item rb-nav-item--dropdown">
+                            <button type="button" class="rb-nav-link rb-nav-trigger {% block menu_sobre_active %}{% endblock %}" aria-haspopup="true" aria-expanded="false">
+                                {% trans "Sobre" %}
+                                <svg class="rb-nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div class="rb-nav-dropdown">
+                                <a href="{% url 'municipios:sobre' %}#sb-o-que-e" class="rb-nav-dropdown-link">{% trans "O Que É o Radar" %}</a>
+                                <a href="{% url 'municipios:sobre' %}#sb-por-que-avaliar" class="rb-nav-dropdown-link">{% trans "Por Que Avaliar o Federalismo Climático" %}</a>
+                                <a href="{% url 'municipios:metodologia' %}" class="rb-nav-dropdown-link {% block menu_metodologia_active %}{% endblock %}">{% trans "Metodologia" %}</a>
+                            </div>
+                        </div>
+
                         <a href="{% url 'indicadores:nota_pais' %}"
                            class="rb-nav-link {% block menu_nota_pais_active %}{% endblock %}">{% trans "Nível País" %}</a>
+
+                        <div class="rb-nav-item rb-nav-item--dropdown">
+                            <button type="button" class="rb-nav-link rb-nav-trigger {% block menu_painel_active %}{% endblock %}{% block menu_avaliacao_active %}{% endblock %}" aria-haspopup="true" aria-expanded="false">
+                                {% trans "Painel" %}
+                                <svg class="rb-nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                            <div class="rb-nav-dropdown">
+                                <a href="{% url 'indicadores:painel_multinivel' %}" class="rb-nav-dropdown-link {% block menu_painel_active_sub %}{% endblock %}">{% trans "Visão Geral" %}</a>
+                                <a href="{% url 'indicadores:avaliacao_painel' %}" class="rb-nav-dropdown-link {% block menu_avaliacao_active_sub %}{% endblock %}">{% trans "Componentes" %}</a>
+                            </div>
+                        </div>
+
+                        <a href="{% url 'indicadores:financiamento_climatico' %}"
+                           class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}" style="display:none" aria-hidden="true" tabindex="-1">{% trans "Financiamento Climático" %}</a>
+                        <a href="{% url 'indicadores:mapa_georreferenciado' %}"
+                           class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa" %}</a>
                         <div class="rb-nav-lang-section" role="group" aria-label="{% trans 'Selecionar idioma' %}">
                             <svg class="rb-nav-globe-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <circle cx="12" cy="12" r="10"/>
@@ -206,14 +223,39 @@
                 setNavOpen(!nav.classList.contains('nav-open'));
             });
 
-            nav.querySelectorAll('.rb-nav-link').forEach(function (link) {
+            /* Links de página (não os gatilhos de cascata) fecham o menu mobile ao navegar */
+            nav.querySelectorAll('.rb-nav-link:not(.rb-nav-trigger), .rb-nav-dropdown-link').forEach(function (link) {
                 link.addEventListener('click', function () { setNavOpen(false); });
+            });
+
+            /* Cascata (Sobre/Painel): clique alterna a própria cascata — não fecha o menu
+               mobile inteiro — e fecha qualquer outra cascata aberta (só uma por vez) */
+            var dropdownItems = nav.querySelectorAll('.rb-nav-item--dropdown');
+            function closeDropdowns(except) {
+                dropdownItems.forEach(function (item) {
+                    if (item === except) return;
+                    item.classList.remove('open');
+                    var trig = item.querySelector('.rb-nav-trigger');
+                    if (trig) trig.setAttribute('aria-expanded', 'false');
+                });
+            }
+            dropdownItems.forEach(function (item) {
+                var trigger = item.querySelector('.rb-nav-trigger');
+                if (!trigger) return;
+                trigger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var willOpen = !item.classList.contains('open');
+                    closeDropdowns(willOpen ? item : null);
+                    item.classList.toggle('open', willOpen);
+                    trigger.setAttribute('aria-expanded', willOpen);
+                });
             });
 
             /* Fecha ao clicar fora do header */
             document.addEventListener('click', function (e) {
-                if (nav.classList.contains('nav-open') && !hdr.contains(e.target)) {
-                    setNavOpen(false);
+                if (!hdr.contains(e.target)) {
+                    if (nav.classList.contains('nav-open')) setNavOpen(false);
+                    closeDropdowns(null);
                 }
             });
         })();

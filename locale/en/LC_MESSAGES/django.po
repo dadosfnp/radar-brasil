@@ -1885,3 +1885,23 @@ msgstr "Not helpful"
 #: templates/assistente/_widget.html
 msgid "Obrigado pelo retorno!"
 msgstr "Thanks for the feedback!"
+
+#: base_templates/base.html
+msgid "O Que É o Radar"
+msgstr "What Is the Radar"
+
+#: base_templates/base.html
+msgid "Por Que Avaliar o Federalismo Climático"
+msgstr "Why Assess Climate Federalism"
+
+#: base_templates/base.html
+msgid "Painel"
+msgstr "Panel"
+
+#: base_templates/base.html
+msgid "Visão Geral"
+msgstr "Overview"
+
+#: base_templates/base.html
+msgid "Mapa"
+msgstr "Map"

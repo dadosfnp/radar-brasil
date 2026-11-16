@@ -218,6 +218,93 @@ body.rb-body {
     border-radius: 4px;
 }
 
+/* ── Cascata do menu (Sobre / Painel) ── */
+.rb-nav-item--dropdown {
+    position: relative;
+}
+
+.rb-nav-trigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.rb-nav-caret {
+    transition: transform 0.15s;
+    opacity: 0.75;
+    flex-shrink: 0;
+}
+
+.rb-nav-item--dropdown:hover .rb-nav-caret,
+.rb-nav-item--dropdown:focus-within .rb-nav-caret,
+.rb-nav-item--dropdown.open .rb-nav-caret {
+    transform: rotate(180deg);
+}
+
+/* ponte invisível: evita fechar o dropdown ao mover o mouse na diagonal até ele */
+.rb-nav-item--dropdown::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 12px;
+}
+
+.rb-nav-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 260px;
+    background: #0d1640;
+    border-radius: 10px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+    z-index: 10;
+}
+
+.rb-nav-item--dropdown:hover .rb-nav-dropdown,
+.rb-nav-item--dropdown:focus-within .rb-nav-dropdown,
+.rb-nav-item--dropdown.open .rb-nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.rb-nav-dropdown-link {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 6px;
+    color: rgba(255,255,255,0.82);
+    text-decoration: none;
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+}
+
+.rb-nav-dropdown-link:hover,
+.rb-nav-dropdown-link:focus-visible {
+    background: rgba(255,255,255,0.10);
+    color: #ffffff;
+    outline: none;
+}
+
+.rb-nav-dropdown-link.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
 .rb-nav-hamburger:focus-visible,
 .rb-social-icon:focus-visible {
     outline: 2px solid #d0e4f5;
@@ -570,6 +657,35 @@ body.rb-body {
         border-left-color: #ffffff;
         padding-left: 15px;
         color: #ffffff;
+    }
+
+    /* Cascata no mobile: sanfona embutida dentro do próprio painel do hamburguer,
+       sem hover (toggle por clique via JS, classe .open) */
+    .rb-nav-item--dropdown::after {
+        content: none;
+    }
+    .rb-nav-trigger {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .rb-nav-dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: rgba(255,255,255,0.04);
+        padding: 4px 0 4px 18px;
+    }
+    .rb-nav-item--dropdown.open .rb-nav-dropdown {
+        display: flex;
+    }
+    .rb-nav-dropdown-link {
+        padding: 10px 14px;
+        font-size: 0.9rem;
     }
 }
 

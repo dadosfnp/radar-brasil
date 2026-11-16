@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (50a rodada)
+
+### feat: cascata no menu (Sobre, Painel) + reordenacao
+
+- Segunda etapa da reestruturacao pedida pelos especialistas (menu, mapas, landing, Nivel Pais, Painel)
+- Menu: "Sobre" e "Painel" viram dropdowns com sub-itens; ordem nova Sobre → Nível País → Painel → Mapa; "Financiamento Climático" oculto do menu (rota continua no ar); "Mapa Georreferenciado" renomeado para "Mapa"
+- Dropdown construido do zero (hover/focus-within no desktop, sanfona por clique no mobile) — nao existia nenhum mecanismo assim no projeto
+- 2 ids de ancora novos em `sobre.html` (`#sb-o-que-e`, `#sb-por-que-avaliar`) com `scroll-margin-top` pra nao ficarem atras do header sticky
+- 2 blocks novos (`menu_painel_active_sub`, `menu_avaliacao_active_sub`) em `painel-multinivel.html`/`avaliacao-painel.html`/`linha-do-tempo.html` — Django nao aceita repetir o mesmo nome de `{% block %}` no mesmo template pai (testado antes de aplicar)
+- 5 strings novas traduzidas em EN; `.mo` recompilado via `polib`
+- `base.css` v=23, `sobre.css` v=27, `metodologia.css` v=55
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/css/sobre.css`, `static/css/metodologia.css`, `templates/municipios/sobre.html`, `templates/municipios/metodologia.html`, `templates/municipios/painel-multinivel.html`, `templates/municipios/avaliacao-painel.html`, `templates/municipios/linha-do-tempo.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+
+---
+
 ## 2026-11-16 (49a rodada)
 
 ### style: fundo do site 100% branco + paleta consolidada dos mapas
