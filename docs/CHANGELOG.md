@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-16 (51a rodada)
+
+### style: Nivel Pais — mapa primeiro, texto reduzido
+
+- Terceira etapa da reestruturacao pedida pelos especialistas (menu, mapas, landing, Nivel Pais, Painel)
+- Mapa (filtros + Leaflet) passa a vir antes do texto explicativo; texto reduzido para 1 paragrafo de contexto + 1 frase sobre a nota do Brasil 2025 + definicao + as 3 etapas de calculo, sem o subtitulo "linha de base", o destaque e o fechamento antigos
+- Achado durante o teste: essa pagina e a unica fonte de onde o Assistente extrai a nota do Brasil (nao existe no banco) — texto ajustado pra manter "Nivel Pais 3" em ordem de leitura e nao quebrar essa fonte (`ContextoTest.test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas`)
+- Textos novos traduzidos em EN; `.mo` recompilado via `polib`
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-16 (50a rodada)
 
 ### feat: cascata no menu (Sobre, Painel) + reordenacao

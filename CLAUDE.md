@@ -528,9 +528,11 @@ JS — wheel handler ativo apenas sobre `.meto-scroll-photos` (nao a secao intei
 **SVG piramide — bolinha flutuando (v25 fix):**
 - Fix: `opacity="0"` inicial + `<animate attributeName="opacity" fill="freeze" to="0.80"/>` no begin.
 
-### Nota Pais — estado (2026-09-04)
+### Nota Pais — estado (2026-11-16)
 
-CSS: `static/css/nota-pais.css` **v=9** | Template: `templates/municipios/nota-pais.html`
+CSS: `static/css/nota-pais.css` **v=12** | Template: `templates/municipios/nota-pais.html`
+
+**Reestruturacao 2026-11-16:** mapa (sidebar + Leaflet) agora vem ANTES do bloco `.np-intro` no HTML (antes era o contrario); texto do `.np-intro` reduzido (so contexto CHAMP + nota do Brasil + definicao + 3 etapas de calculo, sem "linha de base"/destaque/fechamento antigos). Essa pagina e a unica fonte de onde o Assistente extrai a nota do Brasil — qualquer edicao futura do texto deve manter "Nível País 3" em ordem de leitura (nao so dentro do badge visual), senao quebra `ContextoTest.test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas`. Paleta do mapa consolidada com o Mapa Georreferenciado (oceano branco, ver "Identidade Visual").
 
 **Mapa mobile full-screen (Google Maps / IFEM pattern):**
 - Em `<=900px`:

@@ -1905,3 +1905,31 @@ msgstr "Overview"
 #: base_templates/base.html
 msgid "Mapa"
 msgstr "Map"
+
+#: templates/municipios/nota-pais.html
+msgid "Este mapa visa representar a evolução, ao longo dos anos, dos níveis de cada país conforme a metodologia de avaliação do federalismo climático for sendo empregada pelos demais países signatários da Coalizão para Parcerias Multiníveis de Alta Ambição para Ação Climática - CHAMP."
+msgstr "This map aims to represent the evolution, over the years, of each country's levels as the climate federalism assessment methodology is adopted by the other signatory countries of the Coalition for High Ambition Multilevel Partnerships for Climate Action - CHAMP."
+
+#: templates/municipios/nota-pais.html
+msgid "Hoje, o mapa apresenta a nota país do Brasil — Nível País 3 —, resultante da análise do federalismo climático realizada sobre o ano de 2025."
+msgstr "Today, the map presents Brazil's Country Score — Country Level 3 —, resulting from the climate federalism analysis carried out for the year 2025."
+
+#: templates/municipios/nota-pais.html
+msgid "O Nível País é uma síntese dos resultados obtidos nos quatro eixos de análise: Governança, Políticas e Planos, Programas e Linhas de Financiamento."
+msgstr "Country Level is a synthesis of the results obtained across the four analysis axes: Governance, Policies and Plans, Programs and Financing Lines."
+
+#: templates/municipios/nota-pais.html
+msgid "Seu cálculo ocorre em três etapas:"
+msgstr "Its calculation takes place in three stages:"
+
+#: templates/municipios/nota-pais.html
+msgid "média dos níveis obtidos na avaliação dos componentes dentro de cada critério."
+msgstr "average of the levels obtained in the assessment of the components within each criterion."
+
+#: templates/municipios/nota-pais.html
+msgid "média dos níveis obtidos em cada critério do eixo."
+msgstr "average of the levels obtained in each criterion of the axis."
+
+#: templates/municipios/nota-pais.html
+msgid "média dos níveis obtidos nos eixos."
+msgstr "average of the levels obtained across the axes."

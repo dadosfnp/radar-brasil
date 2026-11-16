@@ -5,6 +5,18 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Nivel Pais: mapa primeiro, texto reduzido (2026-11-16)
+
+- Terceira etapa da reestruturacao pedida pelos especialistas. Ordem invertida: mapa (sidebar de filtros + Leaflet) agora vem antes do bloco de texto explicativo (`.np-page` e um flex column simples, so trocar a ordem no HTML já reordena visualmente, sem CSS novo)
+- Texto reduzido para exatamente o que foi passado: 1 paragrafo de contexto (evolucao do mapa conforme o CHAMP), 1 frase sobre a nota do Brasil 2025, a definicao do Nivel Pais e as 3 etapas de calculo (Nivel Parcial/Nivel Eixo/Nivel Pais) — removidos o subtitulo "Brasil — linha de base 2025", o paragrafo de destaque e o paragrafo de fechamento sobre expansao futura do mapa
+- **Achado durante o teste:** essa pagina e a unica fonte de onde o Assistente (chat IA) extrai a nota do Brasil no Nivel Pais (nao existe no banco, ver `apps/assistente/contexto.py`) — o teste `ContextoTest.test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas` quebrava porque o texto reduzido nao tinha mais a frase com "Nivel Pais 3" em ordem de leitura (so sobrava embaralhado dentro do badge visual). Resolvido inserindo o numero inline na frase sobre a nota do Brasil ("Nivel Pais 3") em vez de deixar so no badge — mudanca minima, mantem a reducao pedida e preserva a fonte do Assistente
+- As 3 etapas de calculo vieram sem mencionar peso/ponderacao (diferente do texto antigo, que citava "peso diferenciado" e "fatores de relevancia") — mesma formula simples (media) que o Painel vai usar no backend (proxima rodada)
+- Textos novos/alterados traduzidos em EN; `.mo` recompilado via `polib`
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## Menu: cascata em Sobre e Painel + reordenacao (2026-11-16)
 
 - Segunda etapa da reestruturacao pedida pelos especialistas tecnicos. Menu passa de 7 itens em linha (Sobre, Metodologia, Painéis, Componentes, Financiamento Climático, Mapa Georreferenciado, Nível País) para: **Sobre ▾** (O Que É o Radar, Por Que Avaliar o Federalismo Climático, Metodologia) → **Nível País** → **Painel ▾** (Visão Geral, Componentes) → **Mapa** (renomeado de "Mapa Georreferenciado"). "Financiamento Climático" sai do menu (mesmo padrao do link "Início": `style="display:none" aria-hidden="true" tabindex="-1"`, continua no HTML e a rota continua no ar)
