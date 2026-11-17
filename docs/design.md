@@ -5,6 +5,15 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: retângulo branco entre "Eixos de avaliação" e o rodapé na Landing (2026-11-17)
+
+- O fundo levemente acinzentado de `.lp-eixos-section` (`#f7f9fc`) não ia até o fim da seção — sobrava um respiro branco (fundo da página, `#fff`) entre o fim do conteúdo e o rodapé navy, criando um retângulo branco visível
+- Corrigido invertendo as cores das duas seções: `.lp-frontline-section` ("Os municípios estão na linha de frente...") passa a usar o tom acinzentado (`#f7f9fc`) e `.lp-eixos-section` ("Eixos de avaliação do Radar", última seção antes do rodapé) passa a branco puro (`#fff`), igual ao fundo da página — sem seção tingida logo antes do rodapé, não há mais seam visível
+
+**Arquivos:** `static/css/landing.css`
+
+---
+
 ## Fix: bolhas de eixo do Painel na paleta da identidade visual (2026-11-17)
 
 - As bolhas de navegação entre eixos no Painel ▸ Visão Geral (`.pm-tabs button`) usavam uma paleta laranja/pêssego (`#fbe3c3` inativa, `#f0a830` ativa) sem relação com a identidade visual do Radar Brasil. Trocada pela paleta azul/branco já usada nos filtros do Nível País e do Mapa Georreferenciado

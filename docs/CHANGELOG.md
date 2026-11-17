@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (67a rodada)
+
+### fix: retângulo branco entre "Eixos de avaliação" e o rodapé na Landing
+
+- O fundo acinzentado (`#f7f9fc`) de "Eixos de avaliação do Radar" não chegava até o rodapé — sobrava uma faixa branca (fundo da página) entre o fim da seção e o rodapé navy
+- Cores das duas últimas seções invertidas: "Os municípios estão na linha de frente..." (`.lp-frontline-section`) ganha o tom acinzentado; "Eixos de avaliação do Radar" (`.lp-eixos-section`, última antes do rodapé) vira branco puro, igual ao fundo da página — sem seam visível
+
+**Arquivos:** `static/css/landing.css`, `templates/municipios/landing.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (66a rodada)
 
 ### fix: bolhas de eixo do Painel invertidas — fundo azul, letras brancas

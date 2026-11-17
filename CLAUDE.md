@@ -93,6 +93,31 @@ cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 
 ---
 
+## Backup antes de merge/deploy em produção
+
+**Regra:** antes de mesclar uma branch grande em `next`/`main` e subir pro droplet, criar tags de backup apontando pro estado atual de `main` e `next` nos dois remotos — assim dá pra reverter exatamente pro que estava em produção se algo der errado depois do deploy.
+
+```powershell
+# 1. Conferir o commit atual de cada remoto/branch (git remote -v mostra "prod" como "nucleo" localmente neste repo)
+git fetch origin; git fetch prod
+git rev-parse origin/main prod/main origin/next prod/next
+
+# 2. Criar uma tag anotada por estado distinto (datar no nome, ex.: backup-main-2026-11-17)
+git tag -a backup-main-AAAA-MM-DD <commit-do-main> -m "Backup de main/producao antes do merge de <branch>"
+git tag -a backup-next-AAAA-MM-DD <commit-do-next> -m "Backup de next antes do merge de <branch>"
+
+# 3. Publicar as tags nos remotos onde esse commit existe (origin e/ou prod)
+git push origin backup-main-AAAA-MM-DD backup-next-AAAA-MM-DD
+git push prod backup-main-AAAA-MM-DD
+```
+
+- Se `main`/`next` estiverem no mesmo commit nos dois remotos, uma tag só já cobre os dois — não duplicar.
+- Se `next` estiver divergente entre `origin` e `prod` (ex.: commits ainda não propagados pra organização), criar uma tag por estado distinto e publicar cada uma só onde aquele commit existe.
+- Pra reverter em caso de problema: `git checkout backup-main-AAAA-MM-DD` (ou mover `main`/`next` de volta pra essa tag com `git reset --hard`/`git push --force-with-lease`, sempre confirmando com o usuário antes).
+- Tags não são apagadas depois — ficam como histórico de pontos de restauração.
+
+---
+
 ## Fontes de Dados — Google Sheets → PostgreSQL
 
 O runtime **não acessa** o Google Sheets. Os dados ficam no PostgreSQL e são atualizados via:
