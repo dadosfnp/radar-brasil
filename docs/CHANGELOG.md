@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (69a rodada)
+
+### fix: 6 strings dos 3 cards "linha de frente" sem tradução EN
+
+- Ao revisar se a reestruturação toda tinha tradução EN completa, uma varredura de todo `{% trans %}` dos templates contra o `django.po` achou 6 strings sem nenhuma entrada no `.po` (nunca passaram por `makemessages`): os 3 títulos ("Quem sente primeiro"/"Quem executa"/"Quem deve participar") e as 3 descrições dos cards de "Os municípios estão na linha de frente..." na Landing — na versão EN do site essas 6 strings apareciam em português
+- Adicionadas ao `django.po` com tradução EN; `.mo` recompilado via `polib`
+- Também encontradas (não corrigidas agora, fora do escopo desta sessão): 4 strings sem tradução EN em `sobre.html` ("Cidade" e 3 parágrafos do FAQ), introduzidas em setembro/2026, pré-existentes a esta reestruturação
+
+**Arquivos:** `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (68a rodada)
 
 ### fix: build do droplet quebrava por msgid duplicado no django.po

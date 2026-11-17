@@ -1957,3 +1957,27 @@ msgstr "Municipalities are on the front line of facing climate change"
 #: templates/municipios/landing.html
 msgid "É nos territórios que os efeitos das mudanças climáticas são sentidos primeiro — enchentes, secas e eventos extremos chegam às cidades antes de qualquer outro nível de governo. Por isso o Radar Brasil acompanha de perto como municípios, estados e União cooperam para fortalecer essa linha de frente."
 msgstr "It is in the territories that the effects of climate change are felt first — floods, droughts and extreme events reach cities before any other level of government. That is why Radar Brasil closely tracks how municipalities, states and the Union cooperate to strengthen this front line."
+
+#: templates/municipios/landing.html
+msgid "Quem sente primeiro"
+msgstr "Who feels it first"
+
+#: templates/municipios/landing.html
+msgid "Os municípios são os mais afetados pelas mudanças climáticas. É na prefeitura que a população bate à porta na ocorrência de eventos climáticos extremos."
+msgstr "Municipalities are the most affected by climate change. It is at the municipal government's door that the population turns when extreme climate events occur."
+
+#: templates/municipios/landing.html
+msgid "Quem executa"
+msgstr "Who executes"
+
+#: templates/municipios/landing.html
+msgid "A execução das políticas públicas depende cada vez mais da capacidade operacional dos municípios, que implementam as diretrizes nacionais."
+msgstr "The execution of public policies increasingly depends on the operational capacity of municipalities, which implement national guidelines."
+
+#: templates/municipios/landing.html
+msgid "Quem deve participar"
+msgstr "Who should take part"
+
+#: templates/municipios/landing.html
+msgid "Nada mais justo que os municípios participem na discussão das alternativas para construção de territórios mais resilientes."
+msgstr "It is only fair that municipalities take part in discussing alternatives for building more resilient territories."
