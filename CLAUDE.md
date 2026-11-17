@@ -314,18 +314,20 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ---
 
-## Estado Atual do Projeto (2026-10-20)
+## Estado Atual do Projeto (2026-11-17)
 
-### Branch atual: `docs/fim-expediente-2026-10-20` (so este CLAUDE.md + CHANGELOG, local)
+### Branch atual: `feat/reestruturacao-menu-mapas-landing-painel` (10 commits a frente de `next`, 100% local)
+
+**PENDENCIA PRINCIPAL:** essa branch (menu em cascata, mapas consolidados, Painel com acordeao, Landing redesenhada — reestruturacao completa pedida pelos especialistas tecnicos, ver `docs/design.md` pelas datas 2026-11-16/17) ainda **nao foi dada push, nao foi mesclada em `next` e nao foi deployada**. 51/51 testes passando, flake8/black limpos, verificado com dados reais sincronizados localmente — falta so a decisao do usuario de subir pra `next` (e depois pra producao, quando ele confirmar visualmente que esta tudo certo).
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
 | `origin` (brunofnp) | `b74d213` | `b74d213` |
-| `prod` (dadosfnp) | `b74d213` | `b74d213` |
+| `prod`/`nucleo` (dadosfnp) | `b74d213` | `b74d213` |
 
-> `main` e `next` em `b74d213` nos dois remotos. **Droplet: confirmar se o deploy de `b74d213` (paginas como fontes do Assistente) foi feito**; o ultimo deploy conferido foi o dos icones. O commit de fim de expediente de 2026-10-20 fica local na branch `docs/fim-expediente-2026-10-20` ate o proximo push.
+> `main` e `next` em `b74d213` nos dois remotos — sem mudanca desde 2026-10-20, porque a branch da reestruturacao acima ainda nao foi mesclada. **Nota:** o remoto da organizacao esta configurado localmente como `nucleo` (`git remote -v`), nao `prod` — "prod" aqui e so o nome conceitual usado nesta documentacao.
 
 ### Git — autenticacao configurada
 
@@ -448,7 +450,7 @@ App `apps/assistente/` | CSS `static/css/assistente.css` v=6 | JS `static/js/ass
 
 - Arquitetura enxuta (sem banco vetorial): contexto completo por idioma (~50k tokens, 174 fontes: FAQ P1-P9 do `sobre.html`, secoes das paginas S1-S21, fichas F1-F98, financiamentos L1-L46) + ferramenta `consultar_mapa` sobre os 2.322 empreendimentos do Novo PAC. Respostas com citacoes `[F12]`/`[P3]`/`[S4]`/`[L5]`/`[MAPA]` (listas como `[F11, F29]` tambem sao reconhecidas)
 - Paginas como fontes (`contexto.PAGINAS`): Nivel Pais, Metodologia, Sobre (sem o FAQ), Inicio e Landing, lidas do template renderizado em PT e EN e cortadas em cada h1-h3. Editar a pagina (ou recompilar o `.mo`) atualiza o assistente sozinho. E a unica fonte do Nivel Pais (Brasil 2025 = 3), que nao existe no banco
-- Divergencia conhecida: a tabela do Nivel Eixo na Metodologia diz Politicas e Planos 17 e Linhas de Financiamento 17; o banco e o Fact Sheet tem 18 e 30 (98 no total). O prompt manda preferir as fichas para contagens
+- Divergencia conhecida: a tabela do Nivel Eixo na Metodologia diz Politicas e Planos 17 e Linhas de Financiamento 17; o banco e o Fact Sheet tem 18 e 30 (98 no total). O prompt manda preferir as fichas para contagens. **Fica mais visivel desde 2026-11-16/17:** o Painel ▸ Visão Geral e os cards de eixo da Landing agora mostram a contagem do banco (18/30) — se alguem comparar com a tabela da Metodologia (17/17), vai notar a mesma divergencia ja documentada aqui, nao e um bug novo
 - Gemini via `google-genai`, **plano gratuito** (~20 req/dia por modelo, ~60 perguntas/dia somando a reserva). Modelos em `GEMINI_MODELS` (padrao `gemini-3.5-flash,gemini-3.1-flash-lite`); SDK sem retries, timeout 15s por chamada e 25s por pergunta; modelo sem cota (429) e pulado ate a cota voltar
 - `InteracaoAssistente` grava pergunta/resposta/fontes/tokens/latencia; IP so como hash; respostas reaproveitadas para a mesma pergunta com os mesmos dados (nao gasta cota); 👍/👎 por resposta; admin so leitura em `/admin`
 - Comandos: `avaliar_assistente` (golden set: FAQ + `golden_set.json`, confere fonte e numeros), `limpar_assistente` (retencao `ASSISTENTE_RETENCAO_DIAS`, padrao 90)
@@ -731,7 +733,7 @@ Proximos passos:
 - **Fact Sheet (Sobre):** usuario vai trazer novas alteracoes na proxima sessao
 - **Auditoria ponytail (nao aplicada, aguardando decisao):** decorador `@_api` para os 9 try/except das views, helper do dict de filtros do financiamento, `TemplateView` para as 8 views que so renderizam, trocar `oauth2client` (descontinuado) por `gspread.service_account_from_dict` (testar `sync_sheets_db` de verdade antes de subir), apagar `apps/municipios/templates/municipios/home.html` (orfao) e os `admin.py` vazios
 - **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
-- **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) e `fundo-bg.png` (930 KB); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
+- **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) — `fundo-bg.png` (930 KB) ficou sem uso em nenhum CSS desde a reestruturacao de 2026-11-16 (fundo do site virou branco solido), entao otimizar esse arquivo especifico deixou de fazer sentido (ele so ocupa espaco no repo); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
 - **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
 
 **Resumo do dia (2026-10-20): Assistente com paginas como fontes (`b74d213`):**
@@ -739,7 +741,7 @@ Proximos passos:
 - Icones de voto redesenhados e icone do assistente com o simbolo do Radar + estrelinha (`assistente.css` v=6)
 - Paginas Nivel Pais, Metodologia, Sobre, Inicio e Landing viraram fontes `[S..]` (o Nivel Pais 3 so existe nelas); contexto ~50k tokens; citacoes em lista reconhecidas; 47 testes
 - Tabela da Metodologia (17/17) mantida a pedido do usuario, apesar de divergir do banco (18/30)
-- Calculo do Nivel Eixo/Pais pelo banco: inviavel sem o fator de relevancia (1 a 3) e o criterio prioritario nas planilhas
+- Calculo do Nivel Eixo/Pais pelo banco: na epoca, considerado inviavel sem o fator de relevancia (1 a 3) e o criterio prioritario nas planilhas. **Atualizado em 2026-11-16/17:** implementado mesmo assim em `dados_para_grafico` (media simples dos niveis medios de cada criterio, sem ponderacao — mesma formula de 3 etapas que o texto do Nivel Pais ja documenta publicamente) pra alimentar o Painel ▸ Visão Geral e os cards de eixo da Landing. Os valores computados (arredondados: Governanca 3, Politicas e Planos 3, Programas 3, Linhas de Financiamento 2) batem exatamente com os numeros que os proprios especialistas usaram no mockup original — e `total_componentes` (maior contagem por criterio) bate exatamente com 32/18/18/30 do Fact Sheet. Ainda e uma simplificacao (sem peso/fator de relevancia); se a metodologia oficial vier a exigir ponderacao, essa conta precisa ser revista.
 
 **Resumo do periodo (2026-10-13 a 2026-10-19): Assistente de dados no ar (`916669a`):**
 - App `apps/assistente` construido em 3 etapas (contexto, Gemini + API, widget), avaliador golden set (8/8 aprovadas), reaproveitamento de respostas, feedback, admin, retencao, latencia, compatibilidade mobile; 45 testes

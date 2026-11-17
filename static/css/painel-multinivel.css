@@ -110,144 +110,6 @@ body.painel-multinivel-page .rb-main {
 }
 
 /* ══════════════════════════════
-   KPI STRIP
-   ══════════════════════════════ */
-
-.pm-kpi-strip {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 22px;
-}
-
-.pm-kpi-card {
-    background: rgba(255,255,255,.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(200,220,230,.65);
-    border-radius: 14px;
-    padding: 16px 20px;
-}
-
-.pm-kpi-label {
-    font-size: 0.65625rem;
-    font-weight: 700;
-    letter-spacing: .10em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    margin-bottom: 6px;
-}
-
-.pm-kpi-value {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--color-primary-dark);
-    line-height: 1;
-}
-
-.pm-kpi-sub {
-    font-size: 0.71875rem;
-    color: #7a8a9a;
-    margin-top: 5px;
-    line-height: 1.4;
-}
-
-/* ══════════════════════════════
-   PANEL CARD + TAB BAR
-   → .pm-panel-card e .pm-card-header definidos em components.css
-   ══════════════════════════════ */
-
-.pm-panel-label {
-    font-size: 0.59375rem;
-    font-weight: 700;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.48);
-    padding: 15px 18px;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    flex-shrink: 0;
-    border-right: 1px solid rgba(255,255,255,.10);
-    margin-right: 6px;
-}
-
-.pm-header-sep { display: none; }
-
-/* ── Tabs ── */
-.pm-tabs { flex: 1; }
-
-.pm-tabs ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: stretch;
-    gap: 2px;
-}
-
-.pm-tabs li {
-    display: flex;
-    align-items: stretch;
-    margin-top: 5px;
-}
-
-.pm-tabs button {
-    border: none;
-    background: transparent;
-    padding: 12px 16px;
-    border-radius: 9px 9px 0 0;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.78125rem;
-    font-weight: 500;
-    color: rgba(255,255,255,.60);
-    cursor: pointer;
-    transition: background .18s, color .18s;
-    position: relative;
-    white-space: nowrap;
-}
-
-.pm-tabs button:hover {
-    background: rgba(255,255,255,.08);
-    color: rgba(255,255,255,.85);
-}
-
-/* aba ativa: pílula branca que "cola" na área do gráfico */
-.pm-tabs li.active button {
-    background: rgba(255,255,255,.96);
-    color: var(--color-primary-dark);
-    font-weight: 600;
-    box-shadow: 0 -3px 12px rgba(0,0,0,.12);
-}
-
-/* cobre o border-bottom do card-header sob a aba ativa */
-.pm-tabs li.active button::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: rgba(255,255,255,.96);
-}
-
-/* ícones das abas */
-.pm-tab-icon-img {
-    width: 14px;
-    height: 14px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
-    opacity: 0.88;
-}
-
-.pm-tabs li.active .pm-tab-icon-img {
-    filter: none;
-    opacity: 1;
-}
-
-/* ══════════════════════════════
    ÁREA DO GRÁFICO
    ══════════════════════════════ */
 
@@ -376,18 +238,6 @@ body.painel-multinivel-page .rb-main {
     flex-shrink: 0;
 }
 
-/* footer com botão à direita */
-.pm-chart-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
-}
-
-/* ── .pm-criteria-badge → definido em components.css ── */
-
-.pm-criteria-badge:active {
-    transform: translateY(0);
-}
 
 /* ══════════════════════════════
    VISÃO GERAL (redesign fiel aos slides dos especialistas, 2026-11-16)
@@ -771,8 +621,6 @@ body.painel-multinivel-page .rb-main {
     .pm-grid-cells { min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
     .pm-grid-ruler-cells { min-width: 0; overflow-x: auto; }
     .pm-grid-cell { width: 20px; height: 20px; }
-    .pm-chart-footer { margin-top: 14px; justify-content: center; flex-wrap: wrap; gap: 8px 14px; }
-    .pm-criteria-badge { width: 100%; text-align: center; }
 
     .pm-eixo-overview { flex-wrap: wrap; padding: 18px 20px; }
     .pm-eixo-overview-score { align-items: flex-start; margin-left: 0; width: 100%; }
@@ -798,8 +646,7 @@ body.painel-multinivel-page .rb-main {
 }
 
 @media print {
-    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing,
-    .pm-chart-footer, .pm-criteria-badge { display: none !important; }
+    .rb-header-wrapper, .rb-main-nav, .rb-footer-landing { display: none !important; }
 
     body, .pm-wrapper { background: #fff !important; }
     .pm-chart-wrapper, .pm-chart-wrapper canvas { height: auto !important; max-height: 340px !important; }
