@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=55">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=16">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=17">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
@@ -30,10 +30,67 @@
 </section>
 
 {# ── MUNICÍPIOS NA LINHA DE FRENTE ── #}
-<section class="lp-section lp-frontline-section" style="background-image: linear-gradient(100deg, rgba(10,12,16,.72), rgba(10,12,16,.42)), url('{% static "img/shutterstock_2261699419.jpg.jpeg" %}')">
-    <div class="lp-section-inner lp-frontline-inner">
+<section class="lp-section lp-frontline-section" id="lp-linha-de-frente">
+    <div class="lp-section-inner">
         <h2 class="lp-frontline-title">{% trans "Os municípios estão na linha de frente do enfrentamento às mudanças climáticas" %}</h2>
-        <p class="lp-frontline-text">{% trans "É nos territórios que os efeitos das mudanças climáticas são sentidos primeiro — enchentes, secas e eventos extremos chegam às cidades antes de qualquer outro nível de governo. Por isso o Radar Brasil acompanha de perto como municípios, estados e União cooperam para fortalecer essa linha de frente." %}</p>
+        <div class="lp-frontline-grid">
+
+            <div class="lp-frontline-card">
+                <div class="lp-frontline-photo" style="background-image: url('{% static "img/shutterstock_2261699419.jpg.jpeg" %}')"></div>
+                <div class="lp-frontline-card-body">
+                    <div class="lp-frontline-card-head">
+                        <span class="lp-frontline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.26A8 8 0 1 0 4 16.2"/>
+                                <line x1="8" y1="19" x2="8" y2="21"/>
+                                <line x1="12" y1="19" x2="12" y2="22"/>
+                                <line x1="16" y1="19" x2="16" y2="21"/>
+                            </svg>
+                        </span>
+                        <h3 class="lp-frontline-card-title">{% trans "Quem sente primeiro" %}</h3>
+                    </div>
+                    <p class="lp-frontline-card-desc">{% trans "Os municípios são os mais afetados pelas mudanças climáticas. É na prefeitura que a população bate à porta na ocorrência de eventos climáticos extremos." %}</p>
+                </div>
+            </div>
+
+            <div class="lp-frontline-card">
+                <div class="lp-frontline-photo" style="background-image: url('{% static "img/shutterstock_2129058956.jpg.jpeg" %}')"></div>
+                <div class="lp-frontline-card-body">
+                    <div class="lp-frontline-card-head">
+                        <span class="lp-frontline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="4" y="2" width="16" height="20" rx="1"/>
+                                <line x1="9" y1="7" x2="9" y2="7.01"/>
+                                <line x1="15" y1="7" x2="15" y2="7.01"/>
+                                <line x1="9" y1="12" x2="9" y2="12.01"/>
+                                <line x1="15" y1="12" x2="15" y2="12.01"/>
+                                <line x1="9" y1="17" x2="15" y2="17"/>
+                            </svg>
+                        </span>
+                        <h3 class="lp-frontline-card-title">{% trans "Quem executa" %}</h3>
+                    </div>
+                    <p class="lp-frontline-card-desc">{% trans "A execução das políticas públicas depende cada vez mais da capacidade operacional dos municípios, que implementam as diretrizes nacionais." %}</p>
+                </div>
+            </div>
+
+            <div class="lp-frontline-card">
+                <div class="lp-frontline-photo" style="background-image: url('{% static "img/shutterstock_2316216983.jpg.jpeg" %}')"></div>
+                <div class="lp-frontline-card-body">
+                    <div class="lp-frontline-card-head">
+                        <span class="lp-frontline-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M11 17h2a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-2.5A1.5 1.5 0 0 1 9 11.5v0A1.5 1.5 0 0 1 10.5 10H13"/>
+                                <path d="M8 10l3-3 3 1 3-2 4 4-4 4-2-2-3.5 3.5"/>
+                                <path d="M2 13l4-4 3 3-4 4z"/>
+                            </svg>
+                        </span>
+                        <h3 class="lp-frontline-card-title">{% trans "Quem deve participar" %}</h3>
+                    </div>
+                    <p class="lp-frontline-card-desc">{% trans "Nada mais justo que os municípios participem na discussão das alternativas para construção de territórios mais resilientes." %}</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 
@@ -41,17 +98,17 @@
 <section class="lp-section lp-eixos-section">
     <div class="lp-section-inner">
         <h2 class="lp-eixos-title">{% trans "Eixos de avaliação do Radar" %}</h2>
-        <div class="lp-eixos-grid">
+        <div class="lp-eixos-list">
             {% for eixo in eixos_resumo %}
-            <div class="lp-eixo-card"{% if eixo.imagem %} style="background-image: linear-gradient(120deg, rgba(10,12,16,.72), rgba(10,12,16,.42)), url('{% static "img/"|add:eixo.imagem %}')"{% endif %}>
-                <div class="lp-eixo-card-head">
-                    <span class="lp-eixo-nome">{{ eixo.nome }}</span>
-                    <span class="lp-eixo-score">
-                        {% if eixo.nivel != None %}{{ eixo.nivel|floatformat:0 }}{% else %}–{% endif %}<span class="lp-eixo-score-max">/5</span>
-                    </span>
+            <div class="lp-eixo-row">
+                <div class="lp-eixo-row-text">
+                    <h3 class="lp-eixo-row-nome">{{ eixo.nome }}</h3>
+                    {% if eixo.descricao %}<p class="lp-eixo-row-desc">{{ eixo.descricao }}</p>{% endif %}
                 </div>
-                {% if eixo.descricao %}<p class="lp-eixo-desc">{{ eixo.descricao }}</p>{% endif %}
-                <span class="lp-eixo-label">{% trans "Nível Eixo" %}</span>
+                <div class="lp-eixo-row-score">
+                    <span class="lp-eixo-row-num">{% if eixo.nivel != None %}{{ eixo.nivel|floatformat:0 }}{% else %}–{% endif %}<small>/5</small></span>
+                    <span class="lp-eixo-row-label">{% trans "Nível Eixo" %}</span>
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -228,7 +285,7 @@
 
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="{% static 'js/landing.js' %}?v=2"></script>
+<script src="{% static 'js/landing.js' %}?v=3"></script>
 <script>
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.lp-panel-card').forEach((card, i) => {

@@ -79,4 +79,34 @@ function initLandingHeroMap() {
     .catch((e) => console.error("Falha ao carregar o mapa da hero:", e));
 }
 
-document.addEventListener("DOMContentLoaded", initLandingHeroMap);
+// Pirâmide União/Estados/Municípios (_federalismo_triangle.html) começa com
+// opacity:0 em metodologia.css e só aparece com a classe .meto-py-animate — em
+// sobre.html isso é feito por um IntersectionObserver inline; landing.html inclui
+// o mesmo partial mas não carrega aquele script, então a pirâmide ficava invisível
+// pra sempre. Mesma lógica replicada aqui.
+function initFederalismPyramid() {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const py = document.querySelector(".meto-pyramid-wrap");
+  if (!py) return;
+  if (reducedMotion) {
+    py.classList.add("meto-py-animate");
+    return;
+  }
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          py.classList.add("meto-py-animate");
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.4 }
+  );
+  observer.observe(py);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initLandingHeroMap();
+  initFederalismPyramid();
+});

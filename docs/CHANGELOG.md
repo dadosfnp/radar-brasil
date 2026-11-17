@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (62a rodada)
+
+### fix: 3 seções da Landing quebradas/faltando ou com layout errado
+
+- Pirâmide União/Estados/Municípios ficava invisível na Landing (`opacity: 0` permanente — a animação que revela só existia no script inline de `sobre.html`, nunca carregado aqui); replicada em `landing.js`
+- Seção "Os municípios estão na linha de frente..." era um banner único genérico (implementado sem referência visual na rodada anterior); reconstruída como os 3 cards reais pedidos (foto + ícone + título + descrição: "Quem sente primeiro" / "Quem executa" / "Quem deve participar"), mesmas 3 fotos já usadas no triângulo
+- Seção "Eixos de avaliação do Radar" trocada do grid de 4 cards com foto de fundo para a lista de linhas cinza-claro (título + descrição à esquerda, nota grande + "Nível Eixo" à direita), conforme referência enviada
+- Linha divisória sutil adicionada entre "Por que avaliar" e "Os municípios estão na linha de frente" (mesmo estilo já usado acima de "Eixos de avaliação")
+
+**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/js/landing.js`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (61a rodada)
 
 ### fix: véu do Brasil escurecido no Mapa Georreferenciado
