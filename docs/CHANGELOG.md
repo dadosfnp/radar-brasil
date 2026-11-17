@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (64a rodada)
+
+### fix: removida a setinha de dropdown dos eixos na Landing
+
+- As linhas de "Eixos de avaliação do Radar" na Landing tinham um ícone de seta (chevron) copiado do padrão de acordeão do Painel ▸ Visão Geral, mas na Landing essas linhas não abrem/fecham nada — a seta sugeria uma interação que não existe
+- Ícone e CSS correspondente removidos; layout do restante da linha (título, descrição, nota) sem alteração
+
+**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (63a rodada)
 
 ### fix: fotos nos eixos da Landing + ícones reais na linha de frente

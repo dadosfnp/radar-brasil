@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=55">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=18">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=19">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
@@ -86,9 +86,6 @@
             {% for eixo in eixos_resumo %}
             <div class="lp-eixo-row"{% if eixo.imagem %} style="background-image: linear-gradient(100deg, rgba(10,12,16,.76), rgba(10,12,16,.46)), url('{% static "img/"|add:eixo.imagem %}')"{% endif %}>
                 <div class="lp-eixo-row-text">
-                    <span class="lp-eixo-row-chevron" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                    </span>
                     <div>
                         <h3 class="lp-eixo-row-nome">{{ eixo.nome }}</h3>
                         {% if eixo.descricao %}<p class="lp-eixo-row-desc">{{ eixo.descricao }}</p>{% endif %}

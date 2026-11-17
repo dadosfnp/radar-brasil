@@ -842,15 +842,6 @@ a.lp-info-chip:hover {
     gap: 14px;
 }
 
-.lp-eixo-row-chevron {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    color: #fff;
-}
-.lp-eixo-row-chevron svg { width: 100%; height: 100%; }
-
 .lp-eixo-row-nome {
     font-family: 'Sora', sans-serif;
     font-size: 1.0625rem;

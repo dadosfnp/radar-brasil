@@ -5,6 +5,14 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: setinha de dropdown removida dos eixos da Landing (2026-11-17)
+
+- As linhas de "Eixos de avaliação do Radar" tinham um ícone de seta (`.lp-eixo-row-chevron`) herdado visualmente do padrão de acordeão do Painel ▸ Visão Geral, mas na Landing essas linhas são só informativas — não expandem nem recolhem nada. Removido o `<span>` do ícone em `landing.html` e a regra CSS correspondente em `landing.css`
+
+**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`
+
+---
+
 ## Reestruturacao — 11 ajustes finos (menu, mapas, painel, landing) (2026-11-16/17)
 
 Rodada de ajustes finos apos o usuario testar no navegador de verdade e mandar referencias mais detalhadas. 11 pontos:
