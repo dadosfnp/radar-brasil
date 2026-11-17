@@ -23,6 +23,16 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: cores do Painel ▸ Visão Geral invertidas (retângulo navy / cards cinza) (2026-11-17)
+
+- Usuário pediu o inverso do que estava: o retângulo que abraça o resumo do eixo + seus critérios (`.pm-eixo-expandido`) estava cinza claro (`#f0f1f4`) com os cards de critério (`.pm-criterio-item`) em navy — invertido: `.pm-eixo-expandido` agora é navy (`var(--color-header-bg)`) e `.pm-criterio-item` agora é cinza claro (`#f0f1f4`)
+- Todas as cores de texto/traço dentro dos dois blocos foram adaptadas pra continuar legíveis: o resumo do eixo (toggle, nome, descrição, score) passou de navy-sobre-claro para branco/branco-translúcido-sobre-navy; os critérios (nome, peso, descrição, barrinha de 5 segmentos, explicação do waffle, régua e legenda do grid) passaram de branco-sobre-navy para navy-translúcido-sobre-cinza — mesmo padrão de opacidade, só invertido entre os dois tons
+- Confirmado que `.pm-grid-legend`/`.pm-grid-tick`/`.pm-waffle-explicacao` só são usados dentro do waffle por critério (criado em `construirWaffleCriterio`), então a troca de cor não afeta nenhum outro contexto
+
+**Arquivos:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`
+
+---
+
 ## Fix: setinha de dropdown removida dos eixos da Landing (2026-11-17)
 
 - As linhas de "Eixos de avaliação do Radar" tinham um ícone de seta (`.lp-eixo-row-chevron`) herdado visualmente do padrão de acordeão do Painel ▸ Visão Geral, mas na Landing essas linhas são só informativas — não expandem nem recolhem nada. Removido o `<span>` do ícone em `landing.html` e a regra CSS correspondente em `landing.css`

@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (70a rodada)
+
+### fix: cores do Painel ▸ Visão Geral invertidas
+
+- Retângulo que abraça o resumo do eixo + critérios (`.pm-eixo-expandido`) estava cinza claro com os cards de critério (`.pm-criterio-item`) em navy; invertido a pedido do usuário: retângulo agora navy, cards de critério agora cinza claro
+- Todas as cores de texto, badge de peso, barrinha de 5 segmentos, explicação do waffle, régua e legenda do grid dentro dos dois blocos foram adaptadas (opacidade/tom invertidos) pra continuar legíveis nos novos fundos
+
+**Arquivos:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (69a rodada)
 
 ### fix: 6 strings dos 3 cards "linha de frente" sem tradução EN
