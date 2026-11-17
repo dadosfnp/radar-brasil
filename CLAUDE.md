@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-10-20 (fim do expediente)
+> Última atualização: 2026-11-17 (fim do expediente)
 
 ---
 
@@ -341,18 +341,22 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ## Estado Atual do Projeto (2026-11-17)
 
-### Branch atual: `feat/reestruturacao-menu-mapas-landing-painel` (10 commits a frente de `next`, 100% local)
+### Branch atual: `main` (local e os dois remotos identicos, ver abaixo)
 
-**PENDENCIA PRINCIPAL:** essa branch (menu em cascata, mapas consolidados, Painel com acordeao, Landing redesenhada — reestruturacao completa pedida pelos especialistas tecnicos, ver `docs/design.md` pelas datas 2026-11-16/17) ainda **nao foi dada push, nao foi mesclada em `next` e nao foi deployada**. 51/51 testes passando, flake8/black limpos, verificado com dados reais sincronizados localmente — falta so a decisao do usuario de subir pra `next` (e depois pra producao, quando ele confirmar visualmente que esta tudo certo).
+A reestruturacao completa (menu em cascata, mapas consolidados, Painel com acordeao, Landing redesenhada — pedida pelos especialistas tecnicos, ver `docs/design.md` pelas datas 2026-11-16/17) foi mesclada em `next` e `main` e **publicada nos dois remotos em 2026-11-17** (commit `035a2a6`). Depois do merge, uma rodada de fixes pos-deploy foi aplicada e tambem publicada (ver "Resumo do dia" abaixo) — a build do droplet quebrou uma vez (msgid duplicado no `django.po`) e foi corrigida; o achado mais importante foi que o **Cloudflare** cacheava `nota-pais.js`/`i18n.js` por ate 1 ano (ver "Infraestrutura de producao"), o que fazia 2 bugs ja corrigidos no codigo parecerem "nao aplicados" em producao.
+
+**PENDENCIA:** falta a confirmacao visual final do usuario em producao (apos o ultimo `git pull && docker compose build && docker compose up -d` no droplet, ja com o fix de cache-buster) — ele estava investigando os sintomas (pins no Nivel Pais, texto nao traduzido no Painel) quando a causa raiz (Cloudflare) foi encontrada e corrigida; o ciclo de confirmacao final ainda nao fechou nesta sessao.
 
 ### Remotos
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `b74d213` | `b74d213` |
-| `prod`/`nucleo` (dadosfnp) | `b74d213` | `b74d213` |
+| `origin` (brunofnp) | `035a2a6` | `035a2a6` |
+| `nucleo` (dadosfnp) | `035a2a6` | `035a2a6` |
 
-> `main` e `next` em `b74d213` nos dois remotos — sem mudanca desde 2026-10-20, porque a branch da reestruturacao acima ainda nao foi mesclada. **Nota:** o remoto da organizacao esta configurado localmente como `nucleo` (`git remote -v`), nao `prod` — "prod" aqui e so o nome conceitual usado nesta documentacao.
+> `main` e `next` identicos nos dois remotos, sem commits pendentes de push. **Nota:** o remoto da organizacao esta configurado localmente como `nucleo` (`git remote -v`) — "prod" usado em documentacao antiga era so o nome conceitual.
+
+**Tags de backup criadas antes do merge (2026-11-17):** `backup-main-2026-11-17` (aponta pro `9d39b38`, a producao antes desta reestruturacao) publicada em `origin` e `nucleo`; `backup-next-2026-11-17` (aponta pro `342833f`, o `next` do `origin` antes do merge, com o fallback do Gemini que ainda nao estava no `nucleo`) publicada so em `origin`. Ver secao "Backup antes de merge/deploy em producao" para o procedimento.
 
 ### Git — autenticacao configurada
 
@@ -729,29 +733,32 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=25 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
-| `landing.css` | v=16 |
-| `landing.js` | v=2 |
+| `landing.css` | v=20 |
+| `landing.js` | v=3 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
-| `painel-multinivel.css` | v=20 |
+| `painel-multinivel.css` | v=23 |
 | `painel-multinivel.js` | v=12 |
 | `mapa-georreferenciado.css` | v=14 |
 | `mapa-georreferenciado.js` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
 | `nota-pais.css` | v=13 |
+| `nota-pais.js` | v=1 (ganhou cache-buster em 2026-11-17 — ver "Infraestrutura de producao") |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |
 | `assistente.js` | v=5 |
+| `i18n.js` | v=1 (ganhou cache-buster em 2026-11-17 — ver "Infraestrutura de producao") |
 
 ### Pendencias
 
 Proximos passos:
 
-- **Deploy pendente (confirmar):** `b74d213` no droplet (git pull + build + up -d)
+- **Confirmar visualmente em producao (apos o fix de cache do Cloudflare):** pins/nomes de pais no Nivel Pais e texto nao traduzido no Painel (EN) deviam ter sumido depois do `?v=1` em `nota-pais.js`/`i18n.js` — o usuario ainda nao confirmou visualmente nesta sessao
+- **Nova fonte de dados (Fichas/Parametros PT) — bloqueada:** e-mail de Paulo Diego (2026-11-17) pede pra trocar a planilha de Fichas/Parametros PT para uma unica planilha combinada `10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic` (guias `Saida_fichas`/`Saida_parametros`). `sheets_reader.py` ja foi editado localmente pra apontar pra la (nao commitado, a pedido do usuario — "por enquanto vamos deixar o banco como esta"), mas a conta de servico (`radar-brasil-sheets@robust-charge-494120-s3.iam.gserviceaccount.com`) ainda **nao tem acesso** (testado, erro 403) — falta o dono da planilha compartilhar. EN de Fichas/Parametros confirmado com o usuario que **nao muda** (continuam nas planilhas separadas de sempre). A planilha do Mapa/Financiamento (mesmo ID de sempre) ja foi editada pelo time de dados segundo o mesmo e-mail — e possivel que isso explique uma mudanca de total vista no Mapa Georreferenciado em producao, mas isso so se confirma rodando `sync_sheets_db` de novo (nao feito ainda). Usuario vai avisar quando o acesso for liberado
 - **SEGURANCA (urgente):** os dois PATs do GitHub (`ghp_...`) apareceram em texto aberto numa saida de terminal colada no chat em 2026-10-20. Revogar nas contas brunofnp e dadosfnp, gerar novos (`repo` + `workflow`; `origin` = brunofnp, `prod` = dadosfnp) e limpar o historico do PowerShell
 
 - **SEGURANCA (urgente):** chave privada da service account do Google Sheets (`radar-brasil-sheets@robust-charge-494120-s3`, key id `f40019d3`) esta no historico do repo **publico** `prod` (commit `5eecb76`, arquivo `.secrests/fnp-radar-sheets.json.json`). Apagar a chave no GCP, gerar outra para o `.env` do droplet, reduzir escopo para leitura; reescrever historico so com autorizacao
@@ -763,6 +770,16 @@ Proximos passos:
 - **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
 - **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) — `fundo-bg.png` (930 KB) ficou sem uso em nenhum CSS desde a reestruturacao de 2026-11-16 (fundo do site virou branco solido), entao otimizar esse arquivo especifico deixou de fazer sentido (ele so ocupa espaco no repo); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
 - **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
+
+**Resumo do dia (2026-11-17): reestruturacao completa publicada (`035a2a6`), cache do Cloudflare descoberto:**
+- Branch `feat/reestruturacao-menu-mapas-landing-painel` mesclada em `next` e `main` e publicada em `origin` + `nucleo`, depois de tags de backup do estado anterior
+- Build do droplet quebrou por `msgid` duplicado no `django.po` ("Eixos de avaliação"/"Mapa", cadastrados duas vezes por descuido na sessao) — corrigido e republicado
+- Ajustes pos-deploy pedidos pelo usuario: seta de dropdown removida dos eixos da Landing; bolhas de eixo do Painel trocadas de laranja/pessego pra azul/branco (depois invertidas a pedido — fundo azul, letras brancas em todas); fundo das secoes "linha de frente" e "Eixos de avaliação" da Landing trocado entre si pra fechar um retangulo branco que sobrava antes do rodape
+- Varredura de todo `{% trans %}` dos templates contra o `django.po` achou 6 strings dos 3 cards "linha de frente" sem tradução EN (corrigido); achadas tambem (nao corrigidas, pre-existentes de setembro) 4 strings sem tradução em `sobre.html`
+- Cores do Painel ▸ Visão Geral invertidas a pedido do usuario: retangulo do eixo passou de cinza pra navy, cards de criterio de navy pra cinza, com todas as cores de texto/acento adaptadas
+- **Achado principal do dia:** usuario reportou que pins/nomes de pais no Nivel Pais e um texto nao traduzido no Painel continuavam em producao mesmo depois do codigo corrigido. Investigacao por `curl -I` (nao so inferencia do codigo) revelou que a producao fica atras do **Cloudflare** (nao documentado ate entao), que cacheava `nota-pais.js` e `i18n.js` por ate 1 ano — os 2 unicos arquivos JS/CSS do projeto inteiro sem `?v=N` no template. Corrigido adicionando `?v=1` aos dois; regra do cache-buster documentada como obrigatoria sem excecao
+- E-mail da equipe de dados (Paulo Diego) pedindo troca da fonte de Fichas/Parametros PT pra uma planilha combinada nova — `sheets_reader.py` preparado localmente, bloqueado por falta de permissao da conta de servico na planilha nova (ver Pendencias)
+- Mensagem de WhatsApp (sem termos tecnicos, com emoji de sirene) redigida pro usuario avisar o time sobre a atualizacao
 
 **Resumo do dia (2026-10-20): Assistente com paginas como fontes (`b74d213`):**
 - Producao: chave do Gemini nao estava no `.env` do droplet (corrigido); depois, instabilidade do plano gratuito (paliativo de timeout no `.env`)
