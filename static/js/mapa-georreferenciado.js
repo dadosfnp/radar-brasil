@@ -1,7 +1,11 @@
 ﻿/* Mapa Georreferenciado – Radar Brasil */
 /* global L */
 
-const COR_FINANCIAMENTO     = "#264584"; // Azul – tem financiamento
+// Dourado (mesmo tom do badge de nota do Brasil em .rb-brasil-badge-*, base.css) –
+// tem financiamento. Antes era o mesmo navy do preenchimento do Brasil no fundo do
+// mapa (fix anterior, 58a rodada) e as bolinhas ficavam camufladas; esse dourado já
+// é o tom da identidade usado quando algo precisa se destacar sobre o navy.
+const COR_FINANCIAMENTO     = "#FFCC3C";
 const COR_SEM_FINANCIAMENTO = "#F4511E"; // Laranja-vermelho – sem financiamento
 
 // Limites aproximados do Brasil

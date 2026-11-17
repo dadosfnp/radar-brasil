@@ -46,7 +46,7 @@ Prefixo base: `/indicadores/`
 
 | Constante | Valor | Descrição |
 |---|---|---|
-| `COR_FINANCIAMENTO` | `#264584` | Azul — município com financiamento |
+| `COR_FINANCIAMENTO` | `#FFCC3C` | Dourado (mesmo tom do badge de nota do Brasil) — município com financiamento; antes era navy, igual ao preenchimento do Brasil no fundo, e ficava camuflado |
 | `COR_SEM_FINANCIAMENTO` | `#F4511E` | Laranja-vermelho — município sem financiamento |
 | `BR_BOUNDS` | `LatLngBounds` | Limites aproximados do Brasil (restrição de pan/zoom) |
 | `REGIAO_UFS` | Objeto | Mapeamento Região → array de siglas UF |

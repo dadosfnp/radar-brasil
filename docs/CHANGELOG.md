@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (59a rodada)
+
+### fix: bolinhas de financiamento camufladas sobre o Brasil navy
+
+- A correção anterior (58a rodada) deixou as bolinhas de "Financiamento" na mesma cor navy do preenchimento do Brasil — ficavam camufladas no mapa
+- `COR_FINANCIAMENTO` trocada para dourado `#FFCC3C` (mesmo tom do badge de nota do Brasil em `.rb-brasil-badge-*`, já usado na identidade pra destacar sobre o navy); "Sem Financiamento" segue laranja-vermelho, sem mudança
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `docs/mapa-georreferenciado.md`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (58a rodada)
 
 ### fix: Mapa Georreferenciado sem fronteiras de países vizinhos
