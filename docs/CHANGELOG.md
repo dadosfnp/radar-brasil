@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (61a rodada)
+
+### fix: véu do Brasil escurecido no Mapa Georreferenciado
+
+- O véu da rodada anterior (60a, `fillOpacity: 0.22`) ficou claro demais sobre o fundo branco sólido — mais claro até que o cinza sólido dos países vizinhos, o oposto da foto de referência do usuário (onde o Brasil fica mais escuro que o entorno)
+- Confirmado com o usuário: manter a paleta branco/cinza (não voltar a usar tile de mapa real) só que com o véu bem mais visível
+- `fillOpacity` subida para `0.45` e borda para `weight: 1.5` / `opacity: 0.75` — navy translúcido agora fica mais escuro que o cinza sólido dos vizinhos
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `docs/mapa-georreferenciado.md`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (60a rodada)
 
 ### fix: veu translucido no Brasil + cores originais das bolinhas

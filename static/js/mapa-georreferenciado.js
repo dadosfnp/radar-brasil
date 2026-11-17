@@ -184,9 +184,11 @@ function initMap() {
     // CARTO ja quebrou uma vez exigindo API key. Mesma abordagem do Nivel Pais — GeoJSON
     // mundial vetorial com cor exata: fundo do container branco (ver #mg-map em
     // mapa-georreferenciado.css) = "mar", paises vizinhos preenchidos solido cinza
-    // (da o contexto/delimitacao), Brasil como veu translucido navy (fillOpacity 0.22,
-    // mesmo valor usado antes do redesign dos mapas, quando o Brasil ficava sobre tiles
-    // OSM) — pra nao competir visualmente com as bolinhas navy solidas dos marcadores.
+    // (da o contexto/delimitacao), Brasil como veu translucido navy — mais escuro que
+    // o cinza dos vizinhos (fillOpacity 0.45, nao os 0.22 originais de quando havia
+    // tiles OSM por baixo: sobre fundo branco solido 0.22 ficava claro demais e quase
+    // imperceptivel, pedido do usuario foi deixar o veu bem visivel) — pra nao competir
+    // visualmente com as bolinhas navy solidas dos marcadores.
     //
     // Pane exclusivo para os paises (abaixo dos marcadores z=400). Canvas renderer evita o
     // deslocamento no html2canvas: SVG paths sofrem do bug de translate3d herdado do
@@ -206,7 +208,7 @@ function initMap() {
                 style: feature => {
                     const isBrazil = _getIso(feature.properties) === "BRA";
                     return isBrazil
-                        ? { fillColor: '#264584', fillOpacity: 0.22, color: '#264584', weight: 1.2, opacity: 0.50 }
+                        ? { fillColor: '#264584', fillOpacity: 0.45, color: '#264584', weight: 1.5, opacity: 0.75 }
                         : { fillColor: '#B0BCC8', fillOpacity: 1,    color: '#ffffff', weight: 1.2, opacity: 1 };
                 },
             }).addTo(map);

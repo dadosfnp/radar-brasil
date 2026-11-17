@@ -79,7 +79,7 @@ Prefixo base: `/indicadores/`
 ### Funções principais
 
 #### `initMap()`
-Inicializa o mapa Leaflet (centrado no Brasil, zoom fixo — sem tile raster de terceiro), cria o pane `brasilPane` (z-index 210) e carrega o GeoJSON mundial (`GEOJSON_URL`, mesma fonte do Nível País) nele: países vizinhos em cinza sólido com fronteira branca (dá o contexto/delimitação), Brasil como véu translúcido navy (`fillOpacity: 0.22`, mesmo valor usado antes do redesign dos mapas quando havia tiles OSM por baixo) — assim não compete visualmente com as bolinhas navy sólidas dos marcadores. Configura também a centralização de popup ao clicar.
+Inicializa o mapa Leaflet (centrado no Brasil, zoom fixo — sem tile raster de terceiro), cria o pane `brasilPane` (z-index 210) e carrega o GeoJSON mundial (`GEOJSON_URL`, mesma fonte do Nível País) nele: países vizinhos em cinza sólido com fronteira branca (dá o contexto/delimitação), Brasil como véu translúcido navy bem visível (`fillOpacity: 0.45` — mais escuro que o cinza dos vizinhos, não os 0.22 originais de antes do redesign dos mapas, que sobre fundo branco sólido ficavam claros demais) — assim não compete visualmente com as bolinhas navy sólidas dos marcadores. Configura também a centralização de popup ao clicar.
 
 #### `carregarFiltros()`
 Busca `GET /indicadores/api/mapa/filtros/` e popula todos os selects. Após popular o select de UF, armazena todas as opções em `allUfOptions` para uso no filtro cascata de Região → Estado.
