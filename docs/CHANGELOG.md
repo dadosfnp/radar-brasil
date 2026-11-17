@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (66a rodada)
+
+### fix: bolhas de eixo do Painel invertidas — fundo azul, letras brancas
+
+- A paleta azul/branco da rodada anterior (65a) deixou a pílula inativa clara (fundo `#f5f8fa`, texto navy) e só a ativa em navy sólido; usuário pediu o inverso
+- Agora todas as pílulas (ativa e inativas) têm fundo navy `#264584` e texto branco; hover/ativa usa um navy mais escuro (`#1a3070`) pra ainda sinalizar a seleção
+
+**Arquivos:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (65a rodada)
 
 ### fix: bolhas de eixo do Painel na paleta azul/branco

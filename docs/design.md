@@ -7,7 +7,8 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ## Fix: bolhas de eixo do Painel na paleta da identidade visual (2026-11-17)
 
-- As bolhas de navegação entre eixos no Painel ▸ Visão Geral (`.pm-tabs button`) usavam uma paleta laranja/pêssego (`#fbe3c3` inativa, `#f0a830` ativa) sem relação com a identidade visual do Radar Brasil. Trocada pela paleta azul/branco já usada nos filtros do Nível País e do Mapa Georreferenciado: inativa `#f5f8fa` com texto/borda `#1a3070`/`#ccdde5`, hover `#e4ecf7`, ativa `#264584` com texto branco
+- As bolhas de navegação entre eixos no Painel ▸ Visão Geral (`.pm-tabs button`) usavam uma paleta laranja/pêssego (`#fbe3c3` inativa, `#f0a830` ativa) sem relação com a identidade visual do Radar Brasil. Trocada pela paleta azul/branco já usada nos filtros do Nível País e do Mapa Georreferenciado
+- Primeira tentativa: fundo claro (`#f5f8fa`) com texto navy pra pílula inativa, navy sólido só na ativa — usuário pediu o inverso. Invertido: **todas** as pílulas com fundo navy (`#264584`) e texto branco; a ativa/hover usa um navy mais escuro (`#1a3070`) pra ainda dar a sensação de seleção
 
 **Arquivos:** `static/css/painel-multinivel.css`
 
