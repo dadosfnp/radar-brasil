@@ -393,8 +393,11 @@ cd /opt/radar-brasil && git pull && docker compose build && docker compose up -d
 | Porta interna | `127.0.0.1:8005` |
 | Dominio | `https://radarbrasil.fnp.org.br` |
 | SSL | Let's Encrypt via certbot (expira 2026-11-15) |
+| CDN | **Cloudflare** na frente do dominio (confirmado em 2026-11-17 via headers HTTP — `Server: cloudflare`, `cf-cache-status`). Nao estava documentado aqui antes |
 | Banco | `fnp-database` (DigitalOcean Managed PostgreSQL 18) — database `radar_brasil`, user `radarbrasil` |
 | Container | `radarbrasil` — Python 3.12-slim, Gunicorn 3 workers |
+
+**CRITICO — cache do Cloudflare (achado 2026-11-17):** todo arquivo estatico serve com `Cache-Control: public, max-age=31536000, immutable` (WhiteNoise). Sem um `?v=N` no template, a URL nunca muda — o Cloudflare guarda a mesma resposta em cache por ate 1 ano e **nenhum** rebuild/redeploy no droplet troca o que o navegador recebe, porque o Cloudflare fica na frente da origem e nem chega a reconsultar o droplet. `static/js/nota-pais.js` e `static/js/i18n.js` eram os 2 unicos arquivos JS/CSS referenciados em qualquer template sem `?v=` (confirmado por grep em todo `templates/`+`base_templates/`) — ficaram servindo copias de setembro/2026 (confirmado via header `Last-Modified`) mesmo depois do codigo already corrigido no repo e deployado. Corrigido adicionando `?v=1` aos dois. **Regra:** todo `<script src="{% static ... %}">` e `<link ... {% static ... %}>` de arquivo proprio (nao CDN externo) tem que ter `?v=N` sem excecao — nunca assumir que um arquivo "estavel" (tipo um helper global como i18n.js) pode ficar sem, porque o Cloudflare nao faz distincao.
 
 ### Rotina de deploy
 

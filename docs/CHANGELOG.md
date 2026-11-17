@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (71a rodada)
+
+### fix: Cloudflare servindo nota-pais.js e i18n.js de setembro (cache nunca invalidado)
+
+- Depois de confirmar duas vezes que o código-fonte estava certo (sem pins/nomes de país no `nota-pais.js`, tradução presente no `i18n.js`) mas a produção continuava mostrando o comportamento antigo, investiguei direto os headers HTTP da produção (`curl -I`) em vez de assumir que era o droplet
+- Achado: a produção está atrás do **Cloudflare** (não documentado até agora) e todo estático serve com `Cache-Control: immutable, max-age=31536000` (WhiteNoise) — sem um `?v=N` na URL, o Cloudflare nunca revalida e guarda a mesma resposta por até 1 ano, **nenhum rebuild no droplet muda isso**, porque o CDN nem chega a reconsultar a origem
+- `static/js/nota-pais.js` e `static/js/i18n.js` eram os únicos 2 arquivos JS/CSS do projeto inteiro referenciados sem `?v=` (confirmado via grep em todos os templates) — Cloudflare servia cópias de setembro/2026 (`Last-Modified` confirmou), por isso as correções de pins/nomes de país e de tradução pareciam "não aplicadas" mesmo já corrigidas e deployadas
+- Adicionado `?v=1` aos dois; regra registrada no `CLAUDE.md` para nunca mais deixar um JS/CSS próprio sem cache-buster
+
+**Arquivos:** `base_templates/base.html`, `templates/municipios/nota-pais.html`, `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (70a rodada)
 
 ### fix: cores do Painel ▸ Visão Geral invertidas
