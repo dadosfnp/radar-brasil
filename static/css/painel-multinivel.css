@@ -270,23 +270,24 @@ body.painel-multinivel-page .rb-main {
 .pm-tabs li { display: flex; }
 
 .pm-tabs button {
-    border: none;
+    border: 1px solid #ccdde5;
     cursor: pointer;
     padding: 9px 20px;
     border-radius: 999px;
     font-family: 'DM Sans', 'Roboto', sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
-    color: #8a5a1f;
-    background: #fbe3c3;
-    transition: background 0.15s, color 0.15s;
+    color: #1a3070;
+    background: #f5f8fa;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
     white-space: nowrap;
 }
 
-.pm-tabs button:hover { background: #f7d6a3; }
+.pm-tabs button:hover { background: #e4ecf7; }
 
 .pm-tabs li.active button {
-    background: #f0a830;
+    background: #264584;
+    border-color: #264584;
     color: #ffffff;
 }
 

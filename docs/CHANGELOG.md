@@ -4,6 +4,16 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (65a rodada)
+
+### fix: bolhas de eixo do Painel na paleta azul/branco
+
+- `.pm-tabs button` (bolhas Governança/Políticas e Planos/Programas/Linhas de Financiamento no Painel ▸ Visão Geral) usava paleta laranja/pêssego sem relação com a identidade visual; trocada pelo azul/branco já usado nos filtros do Nível País e do Mapa Georreferenciado (inativa `#f5f8fa`/`#1a3070`, hover `#e4ecf7`, ativa `#264584`/branco)
+
+**Arquivos:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (64a rodada)
 
 ### fix: removida a setinha de dropdown dos eixos na Landing

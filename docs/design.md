@@ -5,6 +5,14 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: bolhas de eixo do Painel na paleta da identidade visual (2026-11-17)
+
+- As bolhas de navegação entre eixos no Painel ▸ Visão Geral (`.pm-tabs button`) usavam uma paleta laranja/pêssego (`#fbe3c3` inativa, `#f0a830` ativa) sem relação com a identidade visual do Radar Brasil. Trocada pela paleta azul/branco já usada nos filtros do Nível País e do Mapa Georreferenciado: inativa `#f5f8fa` com texto/borda `#1a3070`/`#ccdde5`, hover `#e4ecf7`, ativa `#264584` com texto branco
+
+**Arquivos:** `static/css/painel-multinivel.css`
+
+---
+
 ## Fix: setinha de dropdown removida dos eixos da Landing (2026-11-17)
 
 - As linhas de "Eixos de avaliação do Radar" tinham um ícone de seta (`.lp-eixo-row-chevron`) herdado visualmente do padrão de acordeão do Painel ▸ Visão Geral, mas na Landing essas linhas são só informativas — não expandem nem recolhem nada. Removido o `<span>` do ícone em `landing.html` e a regra CSS correspondente em `landing.css`
