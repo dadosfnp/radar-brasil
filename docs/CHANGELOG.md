@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (60a rodada)
+
+### fix: veu translucido no Brasil + cores originais das bolinhas
+
+- O dourado da rodada anterior (59a) não agradou — revertido pro azul original `#264584`
+- Brasil deixa de ser preenchimento sólido e volta a ser um véu translúcido (`fillOpacity: 0.22`, borda a 50% de opacidade) — mesmo valor usado antes do redesign dos mapas, quando havia tiles OSM por baixo; assim as bolinhas navy sólidas não competem mais com o fundo
+- Países vizinhos continuam sólidos (cinza, fronteira branca), mantendo a delimitação pedida na rodada anterior (58a)
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `docs/mapa-georreferenciado.md`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (59a rodada)
 
 ### fix: bolinhas de financiamento camufladas sobre o Brasil navy

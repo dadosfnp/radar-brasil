@@ -1,11 +1,7 @@
 ﻿/* Mapa Georreferenciado – Radar Brasil */
 /* global L */
 
-// Dourado (mesmo tom do badge de nota do Brasil em .rb-brasil-badge-*, base.css) –
-// tem financiamento. Antes era o mesmo navy do preenchimento do Brasil no fundo do
-// mapa (fix anterior, 58a rodada) e as bolinhas ficavam camufladas; esse dourado já
-// é o tom da identidade usado quando algo precisa se destacar sobre o navy.
-const COR_FINANCIAMENTO     = "#FFCC3C";
+const COR_FINANCIAMENTO     = "#264584"; // Azul – tem financiamento
 const COR_SEM_FINANCIAMENTO = "#F4511E"; // Laranja-vermelho – sem financiamento
 
 // Limites aproximados do Brasil
@@ -187,9 +183,10 @@ function initMap() {
     // Sem tile raster de terceiro (OSM/CARTO): nenhum dos dois da branco/cinza exatos, e o
     // CARTO ja quebrou uma vez exigindo API key. Mesma abordagem do Nivel Pais — GeoJSON
     // mundial vetorial com cor exata: fundo do container branco (ver #mg-map em
-    // mapa-georreferenciado.css) = "mar", continentes/paises preenchidos solido cinza,
-    // Brasil navy — da o contexto dos paises vizinhos, so que com o zoom fixo no Brasil
-    // (center/zoom do L.map acima) em vez do zoom mundial do Nivel Pais.
+    // mapa-georreferenciado.css) = "mar", paises vizinhos preenchidos solido cinza
+    // (da o contexto/delimitacao), Brasil como veu translucido navy (fillOpacity 0.22,
+    // mesmo valor usado antes do redesign dos mapas, quando o Brasil ficava sobre tiles
+    // OSM) — pra nao competir visualmente com as bolinhas navy solidas dos marcadores.
     //
     // Pane exclusivo para os paises (abaixo dos marcadores z=400). Canvas renderer evita o
     // deslocamento no html2canvas: SVG paths sofrem do bug de translate3d herdado do
@@ -208,13 +205,9 @@ function initMap() {
                 interactive: false,
                 style: feature => {
                     const isBrazil = _getIso(feature.properties) === "BRA";
-                    return {
-                        fillColor:   isBrazil ? '#264584' : '#B0BCC8',
-                        fillOpacity: 1,
-                        color:       '#ffffff',
-                        weight:      1.2,
-                        opacity:     1,
-                    };
+                    return isBrazil
+                        ? { fillColor: '#264584', fillOpacity: 0.22, color: '#264584', weight: 1.2, opacity: 0.50 }
+                        : { fillColor: '#B0BCC8', fillOpacity: 1,    color: '#ffffff', weight: 1.2, opacity: 1 };
                 },
             }).addTo(map);
         })

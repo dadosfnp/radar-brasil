@@ -46,7 +46,7 @@ Prefixo base: `/indicadores/`
 
 | Constante | Valor | Descrição |
 |---|---|---|
-| `COR_FINANCIAMENTO` | `#FFCC3C` | Dourado (mesmo tom do badge de nota do Brasil) — município com financiamento; antes era navy, igual ao preenchimento do Brasil no fundo, e ficava camuflado |
+| `COR_FINANCIAMENTO` | `#264584` | Azul — município com financiamento |
 | `COR_SEM_FINANCIAMENTO` | `#F4511E` | Laranja-vermelho — município sem financiamento |
 | `BR_BOUNDS` | `LatLngBounds` | Limites aproximados do Brasil (restrição de pan/zoom) |
 | `REGIAO_UFS` | Objeto | Mapeamento Região → array de siglas UF |
@@ -79,7 +79,7 @@ Prefixo base: `/indicadores/`
 ### Funções principais
 
 #### `initMap()`
-Inicializa o mapa Leaflet (centrado no Brasil, zoom fixo — sem tile raster de terceiro), cria o pane `brasilPane` (z-index 210) e carrega o GeoJSON mundial (`GEOJSON_URL`) nele: todos os países em cinza sólido, Brasil em navy, fronteiras brancas — mesma paleta e fonte de dados do Nível País (`nota-pais.js`), só que com o viewport fixo no Brasil em vez do zoom mundial. Configura também a centralização de popup ao clicar.
+Inicializa o mapa Leaflet (centrado no Brasil, zoom fixo — sem tile raster de terceiro), cria o pane `brasilPane` (z-index 210) e carrega o GeoJSON mundial (`GEOJSON_URL`, mesma fonte do Nível País) nele: países vizinhos em cinza sólido com fronteira branca (dá o contexto/delimitação), Brasil como véu translúcido navy (`fillOpacity: 0.22`, mesmo valor usado antes do redesign dos mapas quando havia tiles OSM por baixo) — assim não compete visualmente com as bolinhas navy sólidas dos marcadores. Configura também a centralização de popup ao clicar.
 
 #### `carregarFiltros()`
 Busca `GET /indicadores/api/mapa/filtros/` e popula todos os selects. Após popular o select de UF, armazena todas as opções em `allUfOptions` para uso no filtro cascata de Região → Estado.
