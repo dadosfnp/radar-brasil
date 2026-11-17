@@ -64,7 +64,8 @@ body.mapa-page .rb-main {
 .mg-sidebar {
     width: 260px;
     flex-shrink: 0;
-    background: var(--color-primary-dark);
+    background: #fff;
+    border-right: 1px solid #e8f0f4;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -73,13 +74,13 @@ body.mapa-page .rb-main {
 
 .mg-sidebar-header {
     padding: 14px 18px 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid #eef2f6;
 }
 
 .mg-sidebar-header h3 {
     font-size: 0.6875rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--color-primary-dark);
     letter-spacing: .10em;
     text-transform: uppercase;
     margin: 0;
@@ -102,7 +103,7 @@ body.mapa-page .rb-main {
 .mg-filter-label {
     font-size: 0.625rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.60);
+    color: #334488;
     text-transform: uppercase;
     letter-spacing: .07em;
 }
@@ -114,9 +115,9 @@ body.mapa-page .rb-main {
     padding: 11px 28px 11px 10px;
     min-height: 44px;
     font-size: 0.75rem;
-    color: #e0ecef;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
+    color: #1a3070;
+    background: #f5f8fa;
+    border: 1px solid #ccdde5;
     border-radius: 6px;
     appearance: none;
     -webkit-appearance: none;
@@ -126,13 +127,13 @@ body.mapa-page .rb-main {
 }
 
 .mg-select-wrap select:focus-visible {
-    outline: 2px solid rgba(255,255,255,0.70);
+    outline: 2px solid #264584;
     outline-offset: 2px;
-    border-color: rgba(255,255,255,0.40);
-    background: rgba(255,255,255,0.13);
+    border-color: #264584;
+    background: #fff;
 }
 
-.mg-select-wrap select option { background: var(--color-primary-dark); color: #e0ecef; }
+.mg-select-wrap select option { background: #fff; color: #1a3070; }
 
 .mg-select-wrap::after {
     content: '';
@@ -142,7 +143,7 @@ body.mapa-page .rb-main {
     width: 0; height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid rgba(255,255,255,0.50);
+    border-top: 5px solid rgba(38,69,132,0.50);
     pointer-events: none;
 }
 
@@ -157,26 +158,27 @@ body.mapa-page .rb-main {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--color-primary-dark);
-    border: 1px solid rgba(255,255,255,.22);
+    background: #fff;
+    border: 1px solid #ccdde5;
     border-top: none;
     border-radius: 0 0 6px 6px;
     z-index: 200;
     max-height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,.20) transparent;
+    scrollbar-color: rgba(38,69,132,.20) transparent;
     display: none;
+    box-shadow: 0 8px 20px rgba(16,29,79,.12);
 }
 .mg-mun-suggestions::-webkit-scrollbar { width: 4px; }
-.mg-mun-suggestions::-webkit-scrollbar-thumb { background: rgba(255,255,255,.20); border-radius: 4px; }
+.mg-mun-suggestions::-webkit-scrollbar-thumb { background: rgba(38,69,132,.20); border-radius: 4px; }
 
 .mg-mun-suggestion-item {
     padding: 10px 10px;
     font-size: 0.75rem;
-    color: #e0ecef;
+    color: #1a3070;
     cursor: pointer;
-    border-bottom: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid #eef2f6;
     transition: background .12s;
     display: flex;
     align-items: center;
@@ -185,11 +187,11 @@ body.mapa-page .rb-main {
 }
 .mg-mun-suggestion-item:last-child { border-bottom: none; }
 .mg-mun-suggestion-item:hover,
-.mg-mun-suggestion-item.mg-sug-active { background: rgba(255,255,255,.12); }
+.mg-mun-suggestion-item.mg-sug-active { background: #eef2f6; }
 
 .mg-mun-suggestion-uf {
     font-size: 0.625rem;
-    color: rgba(255,255,255,.50);
+    color: #5577aa;
     white-space: nowrap;
     flex-shrink: 0;
 }
@@ -199,22 +201,22 @@ body.mapa-page .rb-main {
     padding: 11px 28px 11px 10px;
     min-height: 44px;
     font-size: 0.75rem;
-    color: #e0ecef;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
+    color: #1a3070;
+    background: #f5f8fa;
+    border: 1px solid #ccdde5;
     border-radius: 6px;
     font-family: inherit;
     box-sizing: border-box;
 }
 
 .mg-mun-input:focus-visible {
-    outline: 2px solid rgba(255,255,255,0.70);
+    outline: 2px solid #264584;
     outline-offset: 2px;
-    border-color: rgba(255,255,255,0.40);
-    background: rgba(255,255,255,0.13);
+    border-color: #264584;
+    background: #fff;
 }
 
-.mg-mun-input::placeholder { color: rgba(255,255,255,0.35); }
+.mg-mun-input::placeholder { color: #8a9ab5; }
 
 .mg-mun-clear {
     position: absolute;
@@ -225,7 +227,7 @@ body.mapa-page .rb-main {
     border: none;
     padding: 2px;
     cursor: pointer;
-    color: rgba(255,255,255,0.50);
+    color: #5577aa;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -233,7 +235,7 @@ body.mapa-page .rb-main {
     transition: color var(--transition-fast);
 }
 
-.mg-mun-clear:hover { color: #fff; }
+.mg-mun-clear:hover { color: #101d4f; }
 
 /* Toggle — Exibir sem financiamento */
 .mg-toggle-row {
@@ -260,8 +262,8 @@ body.mapa-page .rb-main {
     display: block;
     width: 32px;
     height: 17px;
-    background: rgba(255,255,255,0.18);
-    border: 1px solid rgba(255,255,255,0.22);
+    background: #e4ecf0;
+    border: 1px solid #ccdde5;
     border-radius: 999px;
     position: relative;
     transition: background var(--transition-base), border-color var(--transition-base);
@@ -271,7 +273,7 @@ body.mapa-page .rb-main {
     position: absolute;
     top: 2px; left: 2px;
     width: 11px; height: 11px;
-    background: rgba(255,255,255,0.55);
+    background: #b8c4d8;
     border-radius: 50%;
     transition: transform var(--transition-base), background var(--transition-base);
 }
@@ -289,12 +291,12 @@ body.mapa-page .rb-main {
 .mg-toggle-text {
     font-size: 0.625rem;
     font-weight: 700;
-    color: rgba(255,255,255,0.60);
+    color: #334488;
     text-transform: uppercase;
     letter-spacing: .07em;
 }
 
-.mg-toggle-row:hover .mg-toggle-text { color: rgba(255,255,255,0.85); }
+.mg-toggle-row:hover .mg-toggle-text { color: #101d4f; }
 
 /* Botões da sidebar */
 .mg-sidebar-actions {
@@ -302,7 +304,7 @@ body.mapa-page .rb-main {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 1px solid rgba(255,255,255,0.10);
+    border-top: 1px solid #eef2f6;
 }
 
 .mg-btn {
@@ -328,11 +330,11 @@ body.mapa-page .rb-main {
 .mg-btn-primary:hover { background: #264584; }
 
 .mg-btn-outline {
-    background: transparent;
-    color: rgba(255,255,255,0.80);
-    border: 1px solid rgba(255,255,255,0.25);
+    background: #e4ecf0;
+    color: #101d4f;
+    border: none;
 }
-.mg-btn-outline:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.mg-btn-outline:hover { background: #d6e4ea; }
 
 /* ================== MAPA ================== */
 
@@ -349,12 +351,8 @@ body.mapa-page .rb-main {
     min-height: 560px;
     position: relative;
     z-index: 1; /* cria contexto de empilhamento para isolar os z-indexes internos do Leaflet */
-}
-
-/* Dessatura o tile OSM (sempre gratuito, sem chave) pra ficar sobrio — consolidacao de
-   paleta com o Nivel Pais, sem depender de um provedor terceiro que pode exigir API key */
-#mg-map .leaflet-tile-pane {
-    filter: grayscale(0.85) brightness(1.08) contrast(0.92);
+    /* Sem tile de terceiro — fundo branco solido = "mar" (mesma paleta do Nivel Pais) */
+    background: #ffffff;
 }
 
 /* Loader do mapa */
@@ -726,7 +724,7 @@ body.mapa-page .rb-main {
     display: none;
     background: none;
     border: none;
-    color: rgba(255,255,255,.65);
+    color: #5577aa;
     cursor: pointer;
     padding: 10px;
     min-width: 44px;
@@ -737,7 +735,7 @@ body.mapa-page .rb-main {
     transition: color var(--transition-fast), background var(--transition-fast);
     flex-shrink: 0;
 }
-.mg-sidebar-close:hover { color: #fff; background: rgba(255,255,255,.12); }
+.mg-sidebar-close:hover { color: #101d4f; background: #eef2f6; }
 
 /* ── Backdrop do painel mobile ── */
 .mg-sidebar-backdrop {
@@ -786,7 +784,7 @@ body.mapa-page .rb-main {
         content: '';
         display: block;
         width: 36px; height: 4px;
-        background: rgba(255,255,255,.30);
+        background: rgba(38,69,132,.25);
         border-radius: 2px;
         margin: 10px auto 0;
     }
@@ -806,7 +804,7 @@ body.mapa-page .rb-main {
         justify-content: space-between;
         position: sticky;
         top: 0;
-        background: var(--color-primary-dark);
+        background: #fff;
         z-index: 1;
         padding: 12px 16px 10px;
     }

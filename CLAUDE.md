@@ -475,16 +475,19 @@ Elemento `.scene` tem `transform: scale(0.70); transform-origin: 50% 50%` para e
 Escalar o `<iframe>` no CSS externo nao afeta o viewport interno — o scale deve estar dentro do HUD.
 Iframes nas paginas usam `mask-image` para dissolver bordas.
 
-### Landing Page — estado (2026-11-16)
+### Landing Page — estado (2026-11-17)
 
-CSS: `static/css/landing.css` **v=15** | JS: `static/js/landing.js` **v=1** | Template: `templates/municipios/landing.html`
+CSS: `static/css/landing.css` **v=16** | JS: `static/js/landing.js` **v=2** | Template: `templates/municipios/landing.html`
 
-**Reestruturacao 2026-11-16 (quinta e ultima etapa da rodada dos especialistas):** hero antigo (iframe `mapa-brasil-hud.html`, grid 44/56%, card "Conhecimento em Acao" com chips Paineis/Mapas/Dados) **removido** — essas classes (`.lp-hero-inner`, `.lp-hero-right`, `.lp-info-card`, `.lp-hud-frame`) ficam orfas no CSS, sem uso. Nova hero (`.lp-hero--map`): mini-mapa Leaflet (mesmo padrao do Nivel Pais — GeoJSON Natural Earth, Brasil navy, resto cinza, bordas brancas) sem filtros/pins/interacao de zoom, so hover no Brasil mostra tooltip amarelo "Brasil 2025 · 3/5 · Nivel Pais" (nota hardcoded em `landing.js`, mesma logica de `COUNTRY_NOTA` do `nota-pais.js` — nao existe API). Titulo/subtitulo novos sobre um scrim branco que desvanece sobre o mapa.
+**Reestruturacao 2026-11-16 (quinta e ultima etapa da rodada dos especialistas):** hero antigo (iframe `mapa-brasil-hud.html`, grid 44/56%, card "Conhecimento em Acao" com chips Paineis/Mapas/Dados) **removido** — essas classes (`.lp-hero-inner`, `.lp-hero-right`, `.lp-info-card`, `.lp-hud-frame`) ficam orfas no CSS, sem uso. Nova hero (`.lp-hero--map`): mini-mapa Leaflet (mesmo padrao do Nivel Pais — GeoJSON Natural Earth, Brasil navy, resto cinza, bordas brancas) sem filtros/pins/interacao de zoom, so hover no Brasil mostra o badge da nota (ver Fix 2026-11-17 abaixo).
 
-Depois da hero, 2 secoes novas:
-- **"Por que avaliar o Federalismo Climatico?"**: triangulo Uniao/Estados/Municipios extraido para um partial reutilizavel `templates/municipios/_federalismo_triangle.html` (incluido aqui e em `sobre.html` — editar so la atualiza as duas paginas). Os 3 nos ganharam foto de fundo (shutterstock, overlay navy escurecido pra legibilidade).
+Depois da hero, 3 secoes:
+- **"Por que avaliar o Federalismo Climatico?"**: triangulo Uniao/Estados/Municipios extraido para um partial reutilizavel `templates/municipios/_federalismo_triangle.html` (incluido aqui e em `sobre.html` — editar so la atualiza as duas paginas). Os 3 nos ganharam foto de fundo (shutterstock, overlay escurecido pra legibilidade).
+- **"Os municipios estao na linha de frente..." (nova, 2026-11-17):** banner full-width com foto de fundo (shutterstock_2261699419, mesma do no "Municipios" do triangulo), entre a secao do triangulo e a de eixos — sem referencia visual exata, texto de apoio redigido com base no contexto do projeto, sujeito a ajuste.
 - **"Eixos de avaliacao do Radar"**: 4 cards (Governanca/Politicas e Planos/Programas/Linhas de Financiamento), foto de fundo por eixo, descricao de uma linha e "Nivel Eixo X/5" — dados vindos do backend (`dados_para_grafico` em `apps/indicadores/services/painel_multinivel.py`, chamado em `apps/municipios/views.py::landing` pros 4 eixos; `eixos_resumo` no contexto).
 - Sidebar "Sobre/Midia/Agenda" e a grade "Nossos Paineis" (4 cards) foram tiradas da pagina a pedido do usuario, mas em **stand-by**: o bloco inteiro (`.lp-content`) esta envolvido em `{% comment %}...{% endcomment %}` em `landing.html`, nao apagado — pra reativar, so tirar as duas tags.
+
+**Fix 2026-11-17 (pedido do usuario):** linha divisoria abaixo do mapa (`border-top` da secao seguinte) removida; scrim branco atras do titulo/subtitulo removido (texto ganhou `text-shadow` branco em vez disso — nunca fica ilegivel, nem sobre o Brasil navy nem sobre o oceano branco); mapa recentralizado (`center:[-10,-62]`) pra empurrar o Brasil pra longe da area do texto. Badge da nota do Brasil (hover) agora usa as classes globais `.rb-brasil-badge-*` (`base.css`) com a nota em fonte grande — mesmo exato visual do mapa do Nivel Pais (ver `nota-pais.js`). Overlay das fotos dos cards de eixo trocado de navy pra preto neutro, menos azulado.
 
 **Cuidado com imagem de fundo via `{% static %}` em producao:** o storage e `CompressedManifestStaticFilesStorage` (nomes com hash); nunca concatenar `{% static 'img/' %}{{ variavel }}` — isso ignora o hash e quebra em producao. Usar `{% static "img/"|add:variavel %}` (resolve o caminho inteiro de uma vez) ou, em JS puro (sem acesso a `{% static %}`), expor as URLs ja resolvidas via um objeto `window.*` escrito num `<script>` do proprio template (ver `EIXO_IMAGENS` em `painel-multinivel.html`) — nunca montar `/static/img/...` na mao no `.js`.
 
@@ -539,11 +542,13 @@ JS — wheel handler ativo apenas sobre `.meto-scroll-photos` (nao a secao intei
 **SVG piramide — bolinha flutuando (v25 fix):**
 - Fix: `opacity="0"` inicial + `<animate attributeName="opacity" fill="freeze" to="0.80"/>` no begin.
 
-### Nota Pais — estado (2026-11-16)
+### Nota Pais — estado (2026-11-17)
 
-CSS: `static/css/nota-pais.css` **v=12** | Template: `templates/municipios/nota-pais.html`
+CSS: `static/css/nota-pais.css` **v=13** | Template: `templates/municipios/nota-pais.html`
 
 **Reestruturacao 2026-11-16:** mapa (sidebar + Leaflet) agora vem ANTES do bloco `.np-intro` no HTML (antes era o contrario); texto do `.np-intro` reduzido (so contexto CHAMP + nota do Brasil + definicao + 3 etapas de calculo, sem "linha de base"/destaque/fechamento antigos). Essa pagina e a unica fonte de onde o Assistente extrai a nota do Brasil — qualquer edicao futura do texto deve manter "Nível País 3" em ordem de leitura (nao so dentro do badge visual), senao quebra `ContextoTest.test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas`. Paleta do mapa consolidada com o Mapa Georreferenciado (oceano branco, ver "Identidade Visual").
+
+**Fix 2026-11-17 (pedido do usuario):** nomes de pais escritos e pins vermelhos (`PIN_ICON`/`CHAMP_SIGNATORIES`) removidos do mapa em `nota-pais.js` — so cores + hover ficaram. Badge da nota do Brasil no hover agora usa as classes globais `.rb-brasil-badge-*` (`base.css`), com a nota em fonte grande — mesmo exato visual do mini-mapa da Landing (`landing.js`, `construirBadgeBrasil()`). **Nunca estilizar o badge so num dos dois lugares** — as classes sao globais de proposito, pra manter os dois mapas identicos.
 
 **Mapa mobile full-screen (Google Maps / IFEM pattern):**
 - Em `<=900px`:
@@ -560,11 +565,13 @@ Estrutura HTML:
 np-page > np-intro + np-card (np-sidebar + np-map-container + np-filter-fab) + np-sidebar-backdrop + np-kpi-strip
 ```
 
-### Mapa Georreferenciado — estado (2026-11-16)
+### Mapa Georreferenciado — estado (2026-11-17)
 
-CSS: `static/css/mapa-georreferenciado.css` **v=13** | JS: `static/js/mapa-georreferenciado.js` **v=6** | Template: `templates/municipios/mapa-georreferenciado.html`
+CSS: `static/css/mapa-georreferenciado.css` **v=14** | JS: `static/js/mapa-georreferenciado.js` **v=7** | Template: `templates/municipios/mapa-georreferenciado.html`
 
-**Basemap (2026-11-16):** CARTO Positron (`basemaps.cartocdn.com`, usado na consolidacao de paleta com o Nivel Pais) passou a exigir API key e quebrou em producao ("API KEY REQUIRED" sobre o mapa inteiro). Revertido pro tile OSM (`tile.openstreetmap.org`, sempre gratuito/sem chave) com `filter: grayscale(0.85) brightness(1.08) contrast(0.92)` no `.leaflet-tile-pane` (`#mg-map .leaflet-tile-pane`) pra manter o visual sobrio sem depender de um provedor terceiro que pode mudar a politica de acesso sem aviso.
+**Basemap (2026-11-17, 2a tentativa):** CARTO Positron passou a exigir API key e quebrou em producao ("API KEY REQUIRED" sobre o mapa). 1a tentativa (OSM + filtro CSS `grayscale`) nao dava o branco/cinza exatos pedidos. **Solucao final: sem tile raster de terceiro nenhum.** `#mg-map` com `background: #fff` solido ("mar") + Brasil preenchido 100% solido `#B0BCC8` via GeoJSON ("continente"), mesma logica vetorial do Nivel Pais — cor exata garantida, zero dependencia de provedor externo. Perde o contexto de ruas/cidades do OSM (aceitavel: o conteudo real sao os marcadores de municipio, nao o basemap).
+
+**Filtros (2026-11-17):** sidebar inteira (`.mg-sidebar`) convertida do tema escuro navy pro tema claro do Nivel Pais (mesmos valores literais: `#f5f8fa`/`#ccdde5`/`#1a3070` nos selects, `#334488` nos labels, etc.) — pedido explicito do usuario pra padronizar os dois mapas.
 
 **Mapa mobile full-screen (mesmo padrao que Nota Pais):**
 - Em `<=900px`:
@@ -598,9 +605,11 @@ CSS: `static/css/mapa-georreferenciado.css` **v=13** | JS: `static/js/mapa-georr
 - Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
 - Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
-### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-16, v2)
+### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-17, v3)
 
-CSS: `static/css/painel-multinivel.css` v=19 | JS: `static/js/painel-multinivel.js` v=11 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=20 | JS: `static/js/painel-multinivel.js` v=12 | Template: `templates/municipios/painel-multinivel.html`
+
+**Ajustes 2026-11-17:** bolhas de eixo agora ficam **sempre visiveis** desde o estado inicial "Visão geral" (antes so apareciam depois de abrir um eixo) — funcionam como atalho direto. Resumo do eixo + sua lista de criterios agora ficam dentro de um unico retangulo cinza (`.pm-eixo-expandido`, fundo `#f0f1f4`) que os abraca juntos — antes eram dois blocos soltos. Botao "Criterios e Parametros de Avaliacao" removido da Visão Geral (template/JS/CSS). Overlay das fotos dos cards recolhidos trocado de navy pra um preto neutro (`rgba(10,12,16,...)`), menos azulado.
 
 **Correcao de fidelidade aos slides (2026-11-16, mesma sessao):** a primeira versao usava abas sempre visiveis (tabs classicas) — o usuario mandou slides mais detalhados mostrando um fluxo em 2 etapas: (1) estado inicial "Visão geral" com os 4 eixos recolhidos empilhados, foto de fundo, SEM bolhas de navegacao; (2) ao clicar em qualquer um, aparecem as bolhas (pilula laranja ativa / pilula pessego clara inativa) + só aquele eixo expandido (fundo cinza claro, sem foto) com seus criterios em cards NAVY (nome/descricao/peso/barrinha brancos sobre `var(--color-header-bg)`), nao mais cards brancos. KPI strip (Instancias Avaliadas/Eixos Analisados/Niveis de Avaliacao) e o header navy com label "Painel Multinível" **removidos** — nao apareciam em nenhum dos slides. Clicar na seta do resumo do eixo expandido volta pra visão geral (unica forma de "fechar" — nao estava nos slides mas e necessario, senao fica sem saida).
 - JS: busca os 4 eixos em paralelo (`Promise.all`) pra popular a visão geral recolhida de uma vez; cache simples por eixo (`cacheEixos`) evita refetch ao reabrir
@@ -687,22 +696,22 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=24 |
+| `base.css` | v=25 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
-| `landing.css` | v=15 |
-| `landing.js` | v=1 |
+| `landing.css` | v=16 |
+| `landing.js` | v=2 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |
 | `avaliacao-painel.css` | v=15 |
 | `avaliacao-painel.js` | v=5 |
-| `painel-multinivel.css` | v=19 |
-| `painel-multinivel.js` | v=11 |
-| `mapa-georreferenciado.css` | v=13 |
-| `mapa-georreferenciado.js` | v=6 |
+| `painel-multinivel.css` | v=20 |
+| `painel-multinivel.js` | v=12 |
+| `mapa-georreferenciado.css` | v=14 |
+| `mapa-georreferenciado.js` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
-| `nota-pais.css` | v=12 |
+| `nota-pais.css` | v=13 |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |

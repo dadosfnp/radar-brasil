@@ -7,7 +7,7 @@
 {% block menu_painel_active_sub %}active{% endblock %}
 
 {% block extra_head %}
-  <link rel="stylesheet" href="{% static 'css/painel-multinivel.css' %}?v=19">
+  <link rel="stylesheet" href="{% static 'css/painel-multinivel.css' %}?v=20">
 {% endblock %}
 
 {% block extra_js %}
@@ -21,7 +21,7 @@
       "Linhas de Financiamento": "{% static 'img/shutterstock_614431316.jpg.jpeg' %}"
     };
   </script>
-  <script src="{% static 'js/painel-multinivel.js' %}?v=11"></script>
+  <script src="{% static 'js/painel-multinivel.js' %}?v=12"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,8 +29,8 @@
 
   <h1 class="pm-page-title">{% trans "Visão geral" %}</h1>
 
-  {# Bolhas de eixo: ocultas ate abrir um eixo; servem pra trocar de eixo a partir dai #}
-  <nav class="pm-tabs" id="pm-tabs" aria-label="{% trans 'Eixos de avaliação' %}" hidden>
+  {# Bolhas de eixo: visiveis desde o inicio da Visao Geral; clicar numa delas abre aquele eixo #}
+  <nav class="pm-tabs" id="pm-tabs" aria-label="{% trans 'Eixos de avaliação' %}">
     <ul role="tablist">
       <li role="presentation"><button type="button" role="tab" data-eixo="Governanca">{% trans "Governança" %}</button></li>
       <li role="presentation"><button type="button" role="tab" data-eixo="Politicas e Planos">{% trans "Políticas e Planos" %}</button></li>
@@ -64,12 +64,6 @@
     </div>
 
     <div id="pm-chart-wrapper" class="pm-chart-wrapper" aria-label="{% trans 'Eixos e critérios de avaliação' %}"></div>
-
-    <div class="pm-chart-footer" id="pm-chart-footer" hidden>
-      <button type="button" class="pm-criteria-badge">
-        {% trans "Critérios e Parâmetros de Avaliação" %}
-      </button>
-    </div>
 
   </div>{# /pm-chart-area #}
 

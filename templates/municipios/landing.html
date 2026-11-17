@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=55">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=15">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=16">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
@@ -29,13 +29,21 @@
     </div>
 </section>
 
+{# ── MUNICÍPIOS NA LINHA DE FRENTE ── #}
+<section class="lp-section lp-frontline-section" style="background-image: linear-gradient(100deg, rgba(10,12,16,.72), rgba(10,12,16,.42)), url('{% static "img/shutterstock_2261699419.jpg.jpeg" %}')">
+    <div class="lp-section-inner lp-frontline-inner">
+        <h2 class="lp-frontline-title">{% trans "Os municípios estão na linha de frente do enfrentamento às mudanças climáticas" %}</h2>
+        <p class="lp-frontline-text">{% trans "É nos territórios que os efeitos das mudanças climáticas são sentidos primeiro — enchentes, secas e eventos extremos chegam às cidades antes de qualquer outro nível de governo. Por isso o Radar Brasil acompanha de perto como municípios, estados e União cooperam para fortalecer essa linha de frente." %}</p>
+    </div>
+</section>
+
 {# ── EIXOS DE AVALIAÇÃO DO RADAR ── #}
 <section class="lp-section lp-eixos-section">
     <div class="lp-section-inner">
         <h2 class="lp-eixos-title">{% trans "Eixos de avaliação do Radar" %}</h2>
         <div class="lp-eixos-grid">
             {% for eixo in eixos_resumo %}
-            <div class="lp-eixo-card"{% if eixo.imagem %} style="background-image: linear-gradient(120deg, rgba(16,29,79,.90), rgba(16,29,79,.74)), url('{% static "img/"|add:eixo.imagem %}')"{% endif %}>
+            <div class="lp-eixo-card"{% if eixo.imagem %} style="background-image: linear-gradient(120deg, rgba(10,12,16,.72), rgba(10,12,16,.42)), url('{% static "img/"|add:eixo.imagem %}')"{% endif %}>
                 <div class="lp-eixo-card-head">
                     <span class="lp-eixo-nome">{{ eixo.nome }}</span>
                     <span class="lp-eixo-score">
@@ -220,7 +228,7 @@
 
 {% block extra_js %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="{% static 'js/landing.js' %}?v=1"></script>
+<script src="{% static 'js/landing.js' %}?v=2"></script>
 <script>
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.lp-panel-card').forEach((card, i) => {

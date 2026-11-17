@@ -4,6 +4,25 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (57a rodada)
+
+### fix: 11 ajustes finos (menu, mapas, painel, landing)
+
+- Fotos dos cards de eixo menos azuis (overlay preto neutro em vez de navy)
+- Bolhas de eixo do Painel sempre visiveis desde a Visão Geral (antes so apareciam ao abrir um eixo)
+- Nova secao na Landing "Os municípios estão na linha de frente..." entre "Por que avaliar" e "Eixos de avaliação"
+- Botão "Critérios e Parâmetros de Avaliação" removido da Visão Geral
+- Mapa Georreferenciado: abandonado tile raster de terceiro — fundo branco solido + Brasil cinza solido via GeoJSON (mesma logica vetorial do Nível País), cor exata garantida e sem depender de provedor externo
+- Retângulo cinza unico envolvendo resumo + critérios de cada eixo no Painel
+- Nível País: nomes de país escritos e pins vermelhos removidos do mapa
+- Filtros do Mapa Georreferenciado convertidos pro mesmo tema claro do Nível País
+- Hero da Landing: linha divisória e scrim branco removidos; texto com halo branco pra nunca ficar ilegível sobre o Brasil; mapa recentralizado pra afastar o Brasil da área do texto
+- Badge da nota do Brasil padronizado (nota grande) entre os dois mapas via classes globais `.rb-brasil-badge-*`
+
+**Arquivos:** `static/js/painel-multinivel.js`, `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `static/js/mapa-georreferenciado.js`, `static/css/mapa-georreferenciado.css`, `static/js/nota-pais.js`, `static/css/nota-pais.css`, `static/js/landing.js`, `static/css/landing.css`, `static/css/base.css`, `templates/municipios/landing.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-16 (56a rodada)
 
 ### fix: rename EN quebrado para criterio de genero/raca/etnia

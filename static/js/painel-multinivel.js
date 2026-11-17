@@ -232,7 +232,7 @@ function construirEixoOverviewCard(eixo, dados, isEn) {
   const img = EIXO_IMAGEM[eixo];
   if (img) {
     card.style.backgroundImage =
-      `linear-gradient(100deg, rgba(16,29,79,.80), rgba(16,29,79,.55)), url("${img}")`;
+      `linear-gradient(100deg, rgba(10,12,16,.62), rgba(10,12,16,.30)), url("${img}")`;
   }
 
   card.appendChild(construirCaret("down"));
@@ -272,10 +272,7 @@ function construirEixoOverviewCard(eixo, dados, isEn) {
 
 async function renderVisaoGeral() {
   eixoAberto = null;
-  const tabs = document.getElementById("pm-tabs");
-  const footer = document.getElementById("pm-chart-footer");
-  if (tabs) tabs.hidden = true;
-  if (footer) footer.hidden = true;
+  renderPills(null); // bolhas continuam visiveis, so sem nenhuma marcada como ativa
 
   _ocultarErroGrafico();
   mostrarLoader(true);
@@ -364,7 +361,12 @@ function renderizarCriterios(eixo, dados) {
   wrapper.innerHTML = "";
 
   const isEn = _isEn();
-  wrapper.appendChild(construirResumoEixo(eixo, dados, isEn));
+
+  // Retângulo cinza único que abraça o resumo do eixo + todos os seus critérios
+  const expandido = document.createElement("div");
+  expandido.className = "pm-eixo-expandido";
+  expandido.appendChild(construirResumoEixo(eixo, dados, isEn));
+  wrapper.appendChild(expandido);
 
   if (!dados.criterios || dados.criterios.length === 0) return;
 
@@ -436,13 +438,12 @@ function renderizarCriterios(eixo, dados) {
     lista.appendChild(item);
   });
 
-  wrapper.appendChild(lista);
+  expandido.appendChild(lista);
 }
 
 function renderPills(eixoAtivo) {
   const tabs = document.getElementById("pm-tabs");
   if (!tabs) return;
-  tabs.hidden = false;
   tabs.querySelectorAll("button[data-eixo]").forEach((btn) => {
     const ativo = btn.dataset.eixo === eixoAtivo;
     btn.closest("li").classList.toggle("active", ativo);
@@ -453,8 +454,6 @@ function renderPills(eixoAtivo) {
 async function abrirEixo(eixo) {
   eixoAberto = eixo;
   renderPills(eixo);
-  const footer = document.getElementById("pm-chart-footer");
-  if (footer) footer.hidden = false;
 
   _ocultarErroGrafico();
   mostrarLoader(true);
@@ -479,14 +478,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (btn.dataset.eixo !== eixoAberto) abrirEixo(btn.dataset.eixo);
     });
   });
-
-  const critBtn = document.querySelector(".pm-criteria-badge");
-  if (critBtn) {
-    critBtn.addEventListener("click", () => {
-      const idx = Math.max(0, EIXOS.indexOf(eixoAberto));
-      window.location.href = `/indicadores/avaliacao-painel/?aba=${idx}`;
-    });
-  }
 
   renderVisaoGeral();
 });

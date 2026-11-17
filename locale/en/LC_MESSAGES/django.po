@@ -1957,3 +1957,11 @@ msgstr "Radar Brasil assesses how the Union, states and municipalities cooperate
 #: templates/municipios/landing.html
 msgid "Eixos de avaliação do Radar"
 msgstr "Radar's assessment axes"
+
+#: templates/municipios/landing.html
+msgid "Os municípios estão na linha de frente do enfrentamento às mudanças climáticas"
+msgstr "Municipalities are on the front line of facing climate change"
+
+#: templates/municipios/landing.html
+msgid "É nos territórios que os efeitos das mudanças climáticas são sentidos primeiro — enchentes, secas e eventos extremos chegam às cidades antes de qualquer outro nível de governo. Por isso o Radar Brasil acompanha de perto como municípios, estados e União cooperam para fortalecer essa linha de frente."
+msgstr "It is in the territories that the effects of climate change are felt first — floods, droughts and extreme events reach cities before any other level of government. That is why Radar Brasil closely tracks how municipalities, states and the Union cooperate to strengthen this front line."

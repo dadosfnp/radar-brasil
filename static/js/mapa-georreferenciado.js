@@ -187,35 +187,25 @@ function initMap() {
         zoomControl: true,
     });
 
-    // Basemap sobrio (consolidacao de paleta com o Nivel Pais: oceano branco, continente
-    // cinza claro). CARTO Positron (cartocdn.com) passou a exigir API key e quebrou em
-    // producao ("API KEY REQUIRED" sobre o mapa) — voltado para o OSM, sempre gratuito/sem
-    // chave, com filtro CSS (ver .mg-map-area .leaflet-tile-pane em mapa-georreferenciado.css)
-    // pra dessaturar e ficar sobrio sem depender de terceiro.
-    L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            maxZoom: 19,
-            attribution:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> ' +
-                RBi18n.t("contribuidores"),
-        }
-    ).addTo(map);
-
-    // Pane exclusivo para o overlay do Brasil (abaixo dos marcadores z=400)
-    // Canvas renderer evita o deslocamento no html2canvas: SVG paths sofrem do
-    // bug de translate3d herdado do .leaflet-map-pane; canvas é capturado corretamente.
+    // Sem tile raster de terceiro (OSM/CARTO): nenhum dos dois da branco/cinza exatos, e o
+    // CARTO ja quebrou uma vez exigindo API key. Mesma abordagem do Nivel Pais — forma
+    // vetorial com cor exata: fundo do container branco (ver #mg-map em
+    // mapa-georreferenciado.css) = "mar", Brasil preenchido solido cinza = "continente".
+    //
+    // Pane exclusivo para o Brasil (abaixo dos marcadores z=400). Canvas renderer evita o
+    // deslocamento no html2canvas: SVG paths sofrem do bug de translate3d herdado do
+    // .leaflet-map-pane; canvas e capturado corretamente.
     map.createPane('brasilPane').style.zIndex = 210;
     const brasilRenderer = L.canvas({ pane: 'brasilPane', padding: 0.5 });
     L.geoJSON(BRAZIL_POLY, {
         pane:     'brasilPane',
         renderer: brasilRenderer,
         style: {
-            fillColor:   '#264584',
-            fillOpacity: 0.22,
-            color:       '#264584',
+            fillColor:   '#B0BCC8',
+            fillOpacity: 1,
+            color:       '#ffffff',
             weight:      1.2,
-            opacity:     0.50,
+            opacity:     1,
         },
     }).addTo(map);
 

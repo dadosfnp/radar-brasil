@@ -5,6 +5,26 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Reestruturacao — 11 ajustes finos (menu, mapas, painel, landing) (2026-11-16/17)
+
+Rodada de ajustes finos apos o usuario testar no navegador de verdade e mandar referencias mais detalhadas. 11 pontos:
+
+1. **Fotos dos cards de eixo menos azuis:** overlay trocado de navy (`rgba(16,29,79,...)`) para um preto neutro (`rgba(10,12,16,...)`), no Painel (`painel-multinivel.js`) e na Landing (`landing.html`) — mesma mudanca nos dois, pra manter consistentes
+2. **Bolhas de eixo sempre visiveis no Painel:** antes ficavam ocultas (`hidden`) ate abrir um eixo; agora aparecem desde o estado inicial "Visão geral", funcionando como atalho pra abrir qualquer eixo direto, sem precisar clicar no card recolhido primeiro
+3. **"Por que avaliar" na Landing:** verificado — ja estava renderizando corretamente (provavelmente o usuario testou antes das correcoes anteriores desta sessao)
+4. **Nova secao na Landing** "Os municípios estão na linha de frente do enfrentamento às mudanças climáticas", entre "Por que avaliar" e "Eixos de avaliação": banner full-width com a foto shutterstock_2261699419 (a mesma usada no no "Municípios" do triângulo) de fundo — sem referencia visual exata pro texto de apoio, redigido com base no contexto do Radar Brasil, sujeito a ajuste
+5. **Botão "Critérios e Parâmetros de Avaliação" removido** da Visão Geral do Painel (template, JS e CSS do botao e do footer que o continha)
+6. **Mapa Georreferenciado: mar branco, continente cinza de verdade.** O filtro CSS sobre o tile OSM (fix anterior) nao dava as cores exatas pedidas. Abandonado tile raster de terceiro por completo — `#mg-map` com fundo branco solido ("mar") + Brasil preenchido 100% solido `#B0BCC8` via GeoJSON ("continente"), mesma logica vetorial do Nível País. Perde o contexto de ruas/cidades do OSM, mas ganha a cor exata pedida e para de depender de qualquer provedor de tile terceiro (que ja quebrou uma vez exigindo API key)
+7. **Retângulo cinza envolvendo os critérios de cada eixo** no Painel: novo container `.pm-eixo-expandido` (fundo `#f0f1f4`, borda arredondada) que abraça o resumo do eixo + a lista de critérios juntos — antes eram dois blocos soltos (resumo cinza + critérios navy flutuando direto no branco da página)
+8. **Nível País: nomes de país e pins vermelhos removidos** — as duas `forEach` que desenhavam `PIN_ICON` e os textos de nome (`addTextMarker`) tiradas de `nota-pais.js`; mapa fica só com as cores + hover. `CHAMP_SIGNATORIES`/`PIN_ICON`/`LABEL_OVERRIDES` ficam sem uso no arquivo (nao removidos, sem necessidade)
+9. **Filtros do Mapa Georreferenciado com o mesmo estilo do Nível País:** sidebar inteira (`.mg-sidebar` e tudo dentro — labels, selects, busca de município, toggle, botões) convertida do tema escuro navy pro tema claro branco/navy-texto, usando os mesmos valores literais do Nível País (cores, fontes ja estavam alinhadas desde a consolidacao anterior)
+10. **Hero da Landing:** linha divisória abaixo do mapa removida (`border-top` do `.lp-federalism-section`); scrim branco atrás do título/subtítulo removido; texto ganhou `text-shadow` branco (halo) pra nunca ficar ilegível, seja sobre o oceano/outro país (branco/cinza) seja sobre o Brasil (navy) — e o centro do mapa foi deslocado a oeste (`[-10,-62]`) pra afastar o Brasil da área onde o texto fica
+11. **Badge da nota do Brasil padronizado** entre os dois mapas (Landing e Nível País): nota grande (`1.75rem`) + "/5" menor, rotulo "BRASIL 2025"/"Nível País" acima/abaixo — classes **globais** `.rb-brasil-badge-*` em `base.css`, reaproveitadas tal e qual nos dois `onEachFeature` (landing.js tem `construirBadgeBrasil()`; nota-pais.js monta o mesmo HTML inline) pra garantir que nunca fiquem visualmente diferentes um do outro
+
+**Arquivos:** `static/js/painel-multinivel.js`, `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `static/js/mapa-georreferenciado.js`, `static/css/mapa-georreferenciado.css`, `static/js/nota-pais.js`, `static/css/nota-pais.css`, `static/js/landing.js`, `static/css/landing.css`, `static/css/base.css`, `templates/municipios/landing.html`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`
+
+---
+
 ## Fix: rename EN quebrado para "Representation of Gender, Race and Ethnicity" (2026-11-16)
 
 - Depois de popular o banco de dev com dados reais (`sync_sheets_db`), a verificacao do Painel em EN mostrou o criterio de Governanca sem descricao. Causa: `_CRITERIO_DISPLAY_EN`/`_EN_CRITERIO` em `apps/indicadores/services/painel_multinivel.py` tinham a chave "Gender, Race and Ethnicity Representation", mas o valor real salvo no banco (nas 32 linhas desse criterio, conferido direto no banco) e "Representation of Gender, Race and Ethnicity" — ordem de palavras diferente. Isso e um bug **pre-existente** (nao foi introduzido nesta reestruturacao) que fazia esse criterio nunca ser renomeado em EN (ficava com o nome cru do banco em vez de "Diversity and Representativeness") — so ficou visivel agora porque a nova Visao Geral do Painel depende do nome renomeado pra achar a descricao/peso

@@ -7,8 +7,21 @@ const LP_GEOJSON_URL =
 
 // Única fonte da nota do Brasil no Nível País (não existe API — mesmo padrão de
 // nota-pais.js: COUNTRY_NOTA). Mudar aqui também se o Nível País mudar de ano/nota.
-const LP_BRASIL_NOTA = "3/5";
+const LP_BRASIL_NOTA_NUM = "3";
 const LP_BRASIL_ANO = "2025";
+
+// Badge "BRASIL 2025 / 3/5 / Nível País" — classes globais (.rb-brasil-badge-*, em
+// base.css) reaproveitadas tal e qual em landing.js e nota-pais.js, pra garantir que
+// os dois mapas mostrem a nota com o mesmo visual exato, sem duas copias divergirem
+function construirBadgeBrasil(isEn) {
+  const titulo = isEn ? "BRAZIL" : "BRASIL";
+  const rotulo = isEn ? "Country Level" : "Nível País";
+  return (
+    `<span class="rb-brasil-badge-topo">${titulo} ${LP_BRASIL_ANO}</span>` +
+    `<span class="rb-brasil-badge-nota">${LP_BRASIL_NOTA_NUM}<small>/5</small></span>` +
+    `<span class="rb-brasil-badge-rotulo">${rotulo}</span>`
+  );
+}
 
 function _lpGetIso(props) {
   return props.ISO_A3 || props.ADM0_A3 || props.iso_a3 || "";
@@ -21,7 +34,9 @@ function initLandingHeroMap() {
   const isEn = (document.documentElement.lang || "").startsWith("en");
 
   const map = L.map(el, {
-    center: [-8, -48],
+    // Centro deslocado a oeste pra empurrar o Brasil mais pro lado direito da tela,
+    // longe da area do titulo/subtitulo (que fica no canto superior esquerdo)
+    center: [-10, -62],
     zoom: 3,
     minZoom: 2,
     maxZoom: 3,
@@ -50,12 +65,12 @@ function initLandingHeroMap() {
         },
         onEachFeature: (feature, layer) => {
           if (_lpGetIso(feature.properties) !== "BRA") return;
-          const titulo = isEn ? "Brazil" : "Brasil";
-          const rotulo = isEn ? "Country Level" : "Nível País";
-          layer.bindTooltip(
-            `<strong>${titulo} ${LP_BRASIL_ANO}</strong><br>${LP_BRASIL_NOTA} · ${rotulo}`,
-            { sticky: true, className: "lp-map-tooltip lp-map-tooltip--brasil", direction: "top", offset: [0, -4] }
-          );
+          layer.bindTooltip(construirBadgeBrasil(isEn), {
+            sticky: true,
+            className: "rb-brasil-badge",
+            direction: "top",
+            offset: [0, -4],
+          });
           layer.on("mouseover", () => layer.setStyle({ fillOpacity: 1 }));
           layer.on("mouseout", () => layer.setStyle({ fillOpacity: 0.92 }));
         },

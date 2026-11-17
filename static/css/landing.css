@@ -57,25 +57,22 @@ body.lp-body .rb-main {
     max-width: 620px;
     margin: 0 0 0 max(24px, calc((100% - 1260px) / 2 + 48px));
     padding: 72px 32px 56px 0;
-    background: linear-gradient(100deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.88) 55%, rgba(255,255,255,0) 100%);
+}
+
+/* Sem fundo/scrim atrás do texto (removido a pedido do usuário) — halo branco no
+   próprio texto garante leitura tanto sobre o oceano/outros países quanto sobre o
+   Brasil (navy), sem precisar de uma caixa visível atrás */
+.lp-hero-map-overlay .lp-hero-eyebrow,
+.lp-hero-map-overlay .lp-hero-heading,
+.lp-hero-map-overlay .lp-hero-sub {
+    text-shadow: 0 1px 2px #fff, 0 0 10px #fff, 0 0 18px #fff;
 }
 
 .lp-hero-map-overlay .lp-hero-heading { font-size: 44px; }
 .lp-hero-map-overlay .lp-hero-sub { font-size: 16px; max-width: 480px; }
 
-/* Tooltip do Brasil no mapa — mesmo padrão amarelo do Nível País (np-tooltip-brazil) */
-.leaflet-tooltip.lp-map-tooltip--brasil {
-    background: rgba(255,204,60,.95);
-    color: #101d4f;
-    border: none;
-    border-radius: 8px;
-    padding: 7px 11px;
-    font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 12px;
-    line-height: 1.4;
-    box-shadow: 0 6px 18px rgba(16,29,79,.22);
-}
-.leaflet-tooltip.lp-map-tooltip--brasil::before { display: none; }
+/* Badge da nota do Brasil: classes globais .rb-brasil-badge-* (ver base.css) —
+   mesmo visual exato do mapa do Nível País, por isso não tem CSS próprio aqui */
 
 
 .lp-hero-inner {
@@ -718,8 +715,36 @@ a.lp-info-chip:hover {
 
 .lp-federalism-section {
     background: #fff;
-    border-top: 1px solid rgba(38,69,132,.08);
     scroll-margin-top: 110px;
+}
+
+.lp-frontline-section {
+    background-size: cover;
+    background-position: center;
+    padding: 88px 0;
+}
+
+.lp-frontline-inner {
+    max-width: 720px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.lp-frontline-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0 0 18px;
+}
+
+.lp-frontline-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,.92);
+    margin: 0;
 }
 
 .lp-eixos-section {
@@ -840,6 +865,9 @@ a.lp-info-chip:hover {
     .lp-hero-inner { padding: 40px 24px 40px; }
     .lp-eixos-grid { grid-template-columns: 1fr; }
     .lp-eixos-title { font-size: 1.375rem; }
+    .lp-frontline-section { padding: 56px 0; }
+    .lp-frontline-title { font-size: 1.5rem; }
+    .lp-frontline-inner { padding: 0 20px; }
     .lp-content { padding: 28px 16px 48px; }
     .lp-panels { grid-template-columns: 1fr; }
     .lp-panels-header { flex-direction: column; align-items: flex-start; }

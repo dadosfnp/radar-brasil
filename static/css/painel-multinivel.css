@@ -522,16 +522,22 @@ body.painel-multinivel-page .rb-main {
 }
 
 /* ── Eixo expandido: resumo (fundo claro, sem foto) ── */
+/* Retângulo cinza único que abraça o resumo do eixo + todos os seus critérios */
+.pm-eixo-expandido {
+    background: #f0f1f4;
+    border-radius: 16px;
+    padding: 20px 20px 24px;
+}
+
 .pm-eixo-resumo {
     display: grid;
     grid-template-columns: auto auto 1fr auto;
     align-items: center;
     column-gap: 20px;
     row-gap: 10px;
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    background: #f0f1f4;
+    padding: 0 4px 16px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(16,29,79,.08);
 }
 
 .pm-eixo-resumo-toggle {
@@ -771,13 +777,15 @@ body.painel-multinivel-page .rb-main {
     .pm-eixo-overview { flex-wrap: wrap; padding: 18px 20px; }
     .pm-eixo-overview-score { align-items: flex-start; margin-left: 0; width: 100%; }
 
+    .pm-eixo-expandido { padding: 16px 14px 18px; }
+
     .pm-eixo-resumo {
         grid-template-columns: auto 1fr;
         grid-template-areas:
             "toggle titulo"
             "desc   desc"
             "meta   meta";
-        padding: 16px 18px;
+        padding: 0 2px 14px;
     }
     .pm-eixo-resumo-toggle { grid-area: toggle; }
     .pm-eixo-resumo-titulo { grid-area: titulo; }

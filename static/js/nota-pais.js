@@ -538,10 +538,15 @@ function buildMap(data) {
       const name  = getName(props);
       const nota  = COUNTRY_NOTA[iso];
 
-      // Hover tooltip
-      const tipClass = nota ? "np-tooltip np-tooltip-brazil" : "np-tooltip";
+      // Hover tooltip — Brasil usa o badge global .rb-brasil-badge-* (base.css),
+      // mesmo exato visual do mapa da Landing (construirBadgeBrasil em landing.js)
+      const isEn = (document.documentElement.lang || "").startsWith("en");
+      const tipClass = nota ? "rb-brasil-badge" : "np-tooltip";
+      const notaNum  = nota ? (nota.match(/\d+/) || ["–"])[0] : "";
       const tipHtml  = nota
-        ? `<strong>${RBi18n.t("Nota")}</strong><br>${name}: ${RBi18n.t(nota)}`
+        ? `<span class="rb-brasil-badge-topo">${isEn ? "BRAZIL" : "BRASIL"} 2025</span>` +
+          `<span class="rb-brasil-badge-nota">${notaNum}<small>/5</small></span>` +
+          `<span class="rb-brasil-badge-rotulo">${isEn ? "Country Level" : "Nível País"}</span>`
         : RBi18n.t("Nota não atribuída");
 
       layer.bindTooltip(tipHtml, {
@@ -571,40 +576,11 @@ function buildMap(data) {
     },
   }).addTo(map);
 
-  // Pin markers + country name labels (signatories)
-  data.features.forEach(feature => {
-    const iso = getIso(feature.properties);
-    if (!iso || !CHAMP_SIGNATORIES.has(iso)) return;
-
-    const centroid = LABEL_OVERRIDES[iso] || getCentroid(feature);
-    if (!centroid) return;
-
-    const pin = L.marker(centroid, { icon: PIN_ICON, interactive: false, zIndexOffset: 500 }).addTo(map);
-    const featureContinent = getContinent(feature.properties);
-    pinMarkers.push({ marker: pin, continent: featureContinent });
-
-    const name = getName(feature.properties);
-    if (name) {
-      const lbl = addTextMarker([centroid[0] - 1.8, centroid[1]], name, "np-country-label");
-      labelMarkers.push({ marker: lbl, continent: featureContinent, signatory: true });
-    }
-  });
-
-  // Country name labels (non-signatories)
-  data.features.forEach(feature => {
-    const iso = getIso(feature.properties);
-    if (!iso || CHAMP_SIGNATORIES.has(iso)) return;
-
-    const centroid = LABEL_OVERRIDES[iso] || getCentroid(feature);
-    if (!centroid) return;
-
-    const name = getName(feature.properties);
-    if (!name) return;
-
-    const featureContinent = getContinent(feature.properties);
-    const lbl = addTextMarker(centroid, name, "np-country-label np-country-label--minor");
-    labelMarkers.push({ marker: lbl, continent: featureContinent, signatory: false });
-  });
+  // Pins vermelhos e nomes de pais escritos no mapa removidos a pedido do
+  // usuario (2026-11-16) — mapa fica so com as cores (Brasil navy, resto
+  // cinza) e o hover/tooltip, sem marcacao textual. pinMarkers/labelMarkers
+  // ficam vazios (mantidos pra nao quebrar o filtro de regiao, que so itera
+  // os dois arrays sem assumir que tem conteudo).
 }
 
 // ── BOOT ──────────────────────────────────────────────────────────
