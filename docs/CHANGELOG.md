@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (68a rodada)
+
+### fix: build do droplet quebrava por msgid duplicado no django.po
+
+- `docker compose build` falhava em `compilemessages` (`msgfmt: found 2 fatal errors`): dois `msgid` duplicados em `locale/en/LC_MESSAGES/django.po` — "Eixos de avaliação" (linhas 625/1906) e "Mapa" (linhas 382/1918), ambos com a mesma tradução, só cadastrados duas vezes por descuido ao longo da sessão
+- Duplicatas removidas (mantida só a primeira ocorrência de cada); `.mo` recompilado via `polib` (sem `msgfmt` local, conforme já documentado)
+
+**Arquivos:** `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (67a rodada)
 
 ### fix: retângulo branco entre "Eixos de avaliação" e o rodapé na Landing

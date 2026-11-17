@@ -1903,20 +1903,12 @@ msgid "Visão geral"
 msgstr "Overview"
 
 #: templates/municipios/painel-multinivel.html
-msgid "Eixos de avaliação"
-msgstr "Assessment axes"
-
-#: templates/municipios/painel-multinivel.html
 msgid "Eixos e critérios de avaliação"
 msgstr "Assessment axes and criteria"
 
 #: base_templates/base.html
 msgid "Visão Geral"
 msgstr "Overview"
-
-#: base_templates/base.html
-msgid "Mapa"
-msgstr "Map"
 
 #: templates/municipios/nota-pais.html
 msgid "Este mapa visa representar a evolução, ao longo dos anos, dos níveis de cada país conforme a metodologia de avaliação do federalismo climático for sendo empregada pelos demais países signatários da Coalizão para Parcerias Multiníveis de Alta Ambição para Ação Climática - CHAMP."
