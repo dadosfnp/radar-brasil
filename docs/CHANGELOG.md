@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (58a rodada)
+
+### fix: Mapa Georreferenciado sem fronteiras de países vizinhos
+
+- A rodada anterior (57a) tinha trocado o tile raster por um polígono isolado só do Brasil — ficava um blob sem contexto nenhum ao redor
+- Trocado pelo mesmo GeoJSON mundial do Nível País (Natural Earth): todos os países em cinza, Brasil em navy, fronteiras brancas — mesma paleta e fonte de dados, só com o zoom/centro já fixos no Brasil em vez do zoom mundial
+
+**Arquivos:** `static/js/mapa-georreferenciado.js`, `templates/municipios/mapa-georreferenciado.html`, `docs/mapa-georreferenciado.md`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (57a rodada)
 
 ### fix: 11 ajustes finos (menu, mapas, painel, landing)

@@ -160,22 +160,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (backdrop) backdrop.addEventListener('click', _closeSheet);
 });
 
-// ── Polígono simplificado do Brasil (Natural Earth) ────────────
-const BRAZIL_POLY = { type: "Feature", geometry: { type: "Polygon", coordinates: [[
-    [-60.19, 5.27],  [-60.70, 4.20],  [-60.66, 1.32],  [-59.84, 1.38],
-    [-57.96, 1.21],  [-54.53, 2.13],  [-51.62, 4.22],  [-51.40, 1.46],
-    [-50.07,-0.34],  [-48.48,-1.46],  [-46.82,-1.06],  [-44.36,-2.46],
-    [-41.73,-2.91],  [-38.50,-3.72],  [-36.54,-4.50],  [-35.19,-5.81],
-    [-34.79,-7.12],  [-34.86,-8.10],  [-36.50,-9.00],  [-37.50,-10.47],
-    [-38.50,-13.00], [-39.08,-17.02], [-40.26,-20.19], [-43.18,-22.90],
-    [-44.72,-23.00], [-46.32,-24.00], [-48.59,-27.59], [-50.52,-29.00],
-    [-51.21,-31.05], [-52.01,-33.61], [-53.37,-33.75], [-55.50,-31.00],
-    [-57.00,-29.70], [-55.60,-27.50], [-54.62,-25.49], [-54.80,-22.30],
-    [-57.90,-22.00], [-57.90,-17.80], [-60.13,-16.26], [-65.33,-15.00],
-    [-68.74,-11.01], [-70.29,-11.00], [-73.90, -7.47], [-70.47, -2.00],
-    [-70.02, -0.19], [-69.98,  0.71], [-69.94,  1.74], [-67.33,  2.00],
-    [-64.50,  4.00], [-63.39,  3.93], [-61.54,  4.27], [-60.19,  5.27],
-]] }, properties: {} };
+// ── Fronteiras mundiais (Natural Earth) — mesma fonte do Nível País,
+// pra mostrar os países vizinhos e não só o Brasil isolado num vazio branco.
+const GEOJSON_URL =
+    "https://cdn.jsdelivr.net/gh/martynafford/natural-earth-geojson@master/110m/cultural/ne_110m_admin_0_countries.json";
+
+function _getIso(props) {
+    const iso = props.ISO_A3 || props.ADM0_A3 || props.iso_a3 || "";
+    return (iso === "-99" || iso === "") ? "" : iso;
+}
 
 // ── Inicializa o mapa ──────────────────────────────────────────
 function initMap() {
@@ -188,26 +181,40 @@ function initMap() {
     });
 
     // Sem tile raster de terceiro (OSM/CARTO): nenhum dos dois da branco/cinza exatos, e o
-    // CARTO ja quebrou uma vez exigindo API key. Mesma abordagem do Nivel Pais — forma
-    // vetorial com cor exata: fundo do container branco (ver #mg-map em
-    // mapa-georreferenciado.css) = "mar", Brasil preenchido solido cinza = "continente".
+    // CARTO ja quebrou uma vez exigindo API key. Mesma abordagem do Nivel Pais — GeoJSON
+    // mundial vetorial com cor exata: fundo do container branco (ver #mg-map em
+    // mapa-georreferenciado.css) = "mar", continentes/paises preenchidos solido cinza,
+    // Brasil navy — da o contexto dos paises vizinhos, so que com o zoom fixo no Brasil
+    // (center/zoom do L.map acima) em vez do zoom mundial do Nivel Pais.
     //
-    // Pane exclusivo para o Brasil (abaixo dos marcadores z=400). Canvas renderer evita o
+    // Pane exclusivo para os paises (abaixo dos marcadores z=400). Canvas renderer evita o
     // deslocamento no html2canvas: SVG paths sofrem do bug de translate3d herdado do
     // .leaflet-map-pane; canvas e capturado corretamente.
     map.createPane('brasilPane').style.zIndex = 210;
     const brasilRenderer = L.canvas({ pane: 'brasilPane', padding: 0.5 });
-    L.geoJSON(BRAZIL_POLY, {
-        pane:     'brasilPane',
-        renderer: brasilRenderer,
-        style: {
-            fillColor:   '#B0BCC8',
-            fillOpacity: 1,
-            color:       '#ffffff',
-            weight:      1.2,
-            opacity:     1,
-        },
-    }).addTo(map);
+    fetch(GEOJSON_URL)
+        .then(r => {
+            if (!r.ok) throw new Error(`HTTP ${r.status}`);
+            return r.json();
+        })
+        .then(data => {
+            L.geoJSON(data, {
+                pane:        'brasilPane',
+                renderer:    brasilRenderer,
+                interactive: false,
+                style: feature => {
+                    const isBrazil = _getIso(feature.properties) === "BRA";
+                    return {
+                        fillColor:   isBrazil ? '#264584' : '#B0BCC8',
+                        fillOpacity: 1,
+                        color:       '#ffffff',
+                        weight:      1.2,
+                        opacity:     1,
+                    };
+                },
+            }).addTo(map);
+        })
+        .catch(err => console.error("[Mapa Georreferenciado] Erro ao carregar GeoJSON:", err));
 
     canvasRenderer = L.canvas({ padding: 0.5 });
     markerLayer = L.featureGroup().addTo(map);

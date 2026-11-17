@@ -46,11 +46,11 @@ Prefixo base: `/indicadores/`
 
 | Constante | Valor | Descrição |
 |---|---|---|
-| `COR_FINANCIAMENTO` | `#4CAF50` | Verde — município com financiamento |
+| `COR_FINANCIAMENTO` | `#264584` | Azul — município com financiamento |
 | `COR_SEM_FINANCIAMENTO` | `#F4511E` | Laranja-vermelho — município sem financiamento |
 | `BR_BOUNDS` | `LatLngBounds` | Limites aproximados do Brasil (restrição de pan/zoom) |
 | `REGIAO_UFS` | Objeto | Mapeamento Região → array de siglas UF |
-| `BRAZIL_POLY` | GeoJSON Feature | Polígono simplificado do Brasil (Natural Earth) para overlay |
+| `GEOJSON_URL` | string | Mesma fonte do Nível País (Natural Earth, países do mundo), usada só pra desenhar fronteiras — zoom inicial fica no Brasil |
 
 #### `REGIAO_UFS`
 ```js
@@ -79,7 +79,7 @@ Prefixo base: `/indicadores/`
 ### Funções principais
 
 #### `initMap()`
-Inicializa o mapa Leaflet, adiciona tiles OSM, cria o pane `brasilPane` (z-index 210) com o overlay GeoJSON do Brasil, e configura a centralização de popup ao clicar.
+Inicializa o mapa Leaflet (centrado no Brasil, zoom fixo — sem tile raster de terceiro), cria o pane `brasilPane` (z-index 210) e carrega o GeoJSON mundial (`GEOJSON_URL`) nele: todos os países em cinza sólido, Brasil em navy, fronteiras brancas — mesma paleta e fonte de dados do Nível País (`nota-pais.js`), só que com o viewport fixo no Brasil em vez do zoom mundial. Configura também a centralização de popup ao clicar.
 
 #### `carregarFiltros()`
 Busca `GET /indicadores/api/mapa/filtros/` e popula todos os selects. Após popular o select de UF, armazena todas as opções em `allUfOptions` para uso no filtro cascata de Região → Estado.
