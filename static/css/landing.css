@@ -774,7 +774,7 @@ a.lp-info-chip:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #1ba8b8;
+    background: #264584;
     color: #fff;
 }
 
@@ -823,7 +823,9 @@ a.lp-info-chip:hover {
 }
 
 .lp-eixo-row {
-    background: #f0f1f4;
+    background-color: #101d4f;
+    background-size: cover;
+    background-position: center;
     border-radius: 14px;
     padding: 22px 28px;
     display: flex;
@@ -832,22 +834,36 @@ a.lp-info-chip:hover {
     gap: 24px;
 }
 
-.lp-eixo-row-text { flex: 1; min-width: 0; }
+.lp-eixo-row-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.lp-eixo-row-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    color: #fff;
+}
+.lp-eixo-row-chevron svg { width: 100%; height: 100%; }
 
 .lp-eixo-row-nome {
     font-family: 'Sora', sans-serif;
     font-size: 1.0625rem;
     font-weight: 700;
-    color: #101d4f;
+    color: #fff;
     margin: 0 0 6px;
 }
 
 .lp-eixo-row-desc {
     font-family: 'DM Sans', sans-serif;
-    font-style: italic;
     font-size: 0.8125rem;
     line-height: 1.55;
-    color: #334488;
+    color: rgba(255,255,255,.90);
     margin: 0;
 }
 
@@ -860,21 +876,21 @@ a.lp-info-chip:hover {
     font-family: 'Sora', sans-serif;
     font-size: 2.25rem;
     font-weight: 800;
-    color: #101d4f;
+    color: #fff;
     line-height: 1;
 }
 
 .lp-eixo-row-num small {
     font-size: 1rem;
     font-weight: 600;
-    opacity: .6;
+    opacity: .75;
 }
 
 .lp-eixo-row-label {
     display: block;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
-    color: #5577aa;
+    color: rgba(255,255,255,.75);
     margin-top: 2px;
 }
 

@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-17 (63a rodada)
+
+### fix: fotos nos eixos da Landing + ícones reais na linha de frente
+
+- "Eixos de avaliação do Radar": linhas voltam a ter foto de fundo (mesmas do Painel ▸ Visão Geral) com overlay escuro e texto branco, conforme nova referência enviada — a rodada anterior só tinha acertado a estrutura em lista, não a foto
+- "Os municípios estão na linha de frente": ícones genéricos trocados pelos ícones reais pedidos (nuvem de chuva, prédio, aperto de mãos) — Phosphor Icons Fill (MIT), buscados via GitHub
+- Círculo de fundo dos ícones trocado do ciano genérico para o navy da identidade visual
+
+**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (62a rodada)
 
 ### fix: 3 seções da Landing quebradas/faltando ou com layout errado
