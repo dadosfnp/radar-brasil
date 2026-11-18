@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (84a rodada)
+
+### fix: ícone da aba do navegador sumia ao navegar entre páginas internas
+
+- Usuário reportou: favicon aparecia na página inicial, mas sumia (ícone genérico) em outras páginas (ex. Mapa)
+- HTML idêntico em todas as páginas (confirmado, não era bug de template) — é um bug conhecido do Chrome/Edge com favicon só em SVG não sendo mantido de forma confiável ao navegar entre páginas do mesmo site
+- Corrigido adicionando `favicon.ico` (fallback universal) + PNG 32x32 + `apple-touch-icon.png` 180x180, ao lado do SVG existente — gerados a partir do `avatar-principal.svg` via Chromium headless + Pillow (ferramentas de build locais, nenhuma dependência nova no projeto)
+
+**Arquivos:** `base_templates/base.html`, `static/img/favicon.ico`, `static/img/favicon-32.png`, `static/img/apple-touch-icon.png`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (83a rodada)
 
 ### fix: contagem de países signatários da Coalizão CHAMP atualizada (77 → 80)

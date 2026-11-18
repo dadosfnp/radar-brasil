@@ -5,6 +5,16 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: ícone da aba do navegador sumia ao navegar entre páginas (2026-11-18)
+
+- Usuário reportou prints: o favicon aparecia certo na página inicial, mas sumia (ícone genérico do navegador) ao entrar em outras páginas do site (ex. Mapa)
+- O HTML era idêntico em todas as páginas (`<link rel="icon" type="image/svg+xml" ...>`, herdado do `base.html`, nunca sobrescrito) — não era um bug de template. É um bug conhecido do Chrome/Edge: favicon só-SVG não é mantido de forma confiável ao navegar entre páginas do mesmo site, mesmo quando a URL do ícone não muda
+- Corrigido com o padrão robusto de mercado: `favicon.ico` (fallback universal, todo navegador reconhece) + SVG (navegadores modernos) + PNG 32x32 + `apple-touch-icon.png` 180x180 (iOS não processa SVG bem para isso). Gerados a partir do `avatar-principal.svg` existente (renderizado via Chromium headless e convertido com Pillow, ferramentas de build locais — nenhuma dependência nova no projeto)
+
+**Arquivos:** `base_templates/base.html`, `static/img/favicon.ico`, `static/img/favicon-32.png`, `static/img/apple-touch-icon.png`
+
+---
+
 ## Fix: badge "Nivel 5" ilegível em espanhol, texto escuro sobre fundo escuro (2026-11-18)
 
 - Na página Componentes, o badge do nível máximo (fundo verde-escuro sólido, aplicado inline pelo JS a partir da cor do backend) ficava sem a cor de texto branca em espanhol — a CSS só tinha o seletor `[data-nivel="Nível 5"]`/`[data-nivel="Level 5"]` pro texto branco, faltava `[data-nivel="Nivel 5"]` (sem acento). Mesma causa fazia a estrela de destaque de nível máximo não aparecer em espanhol

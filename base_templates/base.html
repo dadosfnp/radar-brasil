@@ -22,9 +22,13 @@
     <meta name="twitter:description" content="{% block twitter_description %}{% trans "Plataforma de monitoramento do federalismo climático brasileiro." %}{% endblock %}">
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar-fundo-escuro.svg' %}">
 
-    <!-- Favicon -->
+    <!-- Favicon — SVG sozinho falha em manter o icone na aba ao navegar entre paginas
+         em alguns navegadores (Chrome/Edge, bug conhecido); .ico/.png como fallback
+         universal resolve (achado em 2026-11-18) -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}?v=1" sizes="any">
     <link rel="icon" type="image/svg+xml" href="{% static 'img/avatar-principal.svg' %}">
-    <link rel="apple-touch-icon" href="{% static 'img/avatar-principal.svg' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32.png' %}?v=1">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}?v=1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
