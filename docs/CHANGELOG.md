@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (82a rodada)
+
+### fix: Painel ▸ Visão Geral no mobile — bolhas empilhadas e cards espremidos
+
+- Usuário reportou prints: (1) as 4 bolhas de eixo quebravam em 2 linhas desbalanceadas (3+1) no mobile; (2) ao abrir um critério, a barrinha de progresso + "X/5" apareciam comprimidas
+- Causa 1: `.pm-tabs ul` usava `flex-wrap: wrap` sem override mobile — corrigido pra faixa de scroll horizontal numa linha só (`flex-wrap: nowrap; overflow-x: auto`), padrão de chips mobile nativo, sem barra de scroll visível
+- Causa 2: `.pm-criterio-score` no mobile usava `width: 100%; margin-left: 28px` — margin soma **fora** da largura de 100%, estourando a linha e forçando o flex-shrink a espremer a barrinha+label numa faixa mais estreita do que cabia. Trocado por `padding-left: 44px` (fica **dentro** do `width:100%`, já que `box-sizing: border-box` é global)
+- Aumentado o respiro geral (`.pm-eixo-expandido`, `.pm-criterio-header` com mais padding/gap) e o tamanho dos segmentos da barrinha no mobile
+- Conferido com Playwright em viewport de 390px: sem overflow horizontal da página, faixa de bolhas com scroll de verdade, barrinha de progresso dentro dos limites do card
+- Cache-buster: `painel-multinivel.css` v=24
+
+**Arquivos:** `static/css/painel-multinivel.css`, `templates/municipios/painel-multinivel.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (81a rodada)
 
 ### fix: total do Mapa Georreferenciado 3,4x maior em inglês/espanhol que em português

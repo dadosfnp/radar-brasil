@@ -600,7 +600,21 @@ body.painel-multinivel-page .rb-main {
     .pm-wrapper { margin: 8px; padding: 0 12px; }
     .pm-page-title { font-size: 1.375rem; }
 
-    .pm-tabs button { padding: 8px 14px; font-size: 0.8125rem; min-height: 40px; }
+    /* Bolhas de eixo: faixa com scroll horizontal numa linha só — nunca mais
+       empilhadas/quebradas (3+1 descompensado). Padrão de chips mobile nativo:
+       sem barra de scroll visível, só o gesto de arrastar. */
+    .pm-tabs ul {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        margin: 0 -12px 18px;
+        padding: 0 12px 2px;
+    }
+    .pm-tabs ul::-webkit-scrollbar { display: none; }
+    .pm-tabs li { flex-shrink: 0; }
+    .pm-tabs button { padding: 9px 16px; font-size: 0.8125rem; min-height: 40px; }
 
     /* Contém a expansão dos flex items — sem min-width:0 o container expande para
        o conteúdo (~700px) e quebra o layout horizontal inteiro */
@@ -626,7 +640,7 @@ body.painel-multinivel-page .rb-main {
     .pm-eixo-overview { flex-wrap: wrap; padding: 18px 20px; }
     .pm-eixo-overview-score { align-items: flex-start; margin-left: 0; width: 100%; }
 
-    .pm-eixo-expandido { padding: 16px 14px 18px; }
+    .pm-eixo-expandido { padding: 18px 16px 20px; }
 
     .pm-eixo-resumo {
         grid-template-columns: auto 1fr;
@@ -634,7 +648,8 @@ body.painel-multinivel-page .rb-main {
             "toggle titulo"
             "desc   desc"
             "meta   meta";
-        padding: 0 2px 14px;
+        row-gap: 12px;
+        padding: 0 2px 16px;
     }
     .pm-eixo-resumo-toggle { grid-area: toggle; }
     .pm-eixo-resumo-titulo { grid-area: titulo; }
@@ -642,8 +657,22 @@ body.painel-multinivel-page .rb-main {
     .pm-eixo-resumo-meta { grid-area: meta; flex-direction: row; justify-content: space-between; align-items: center; }
     .pm-eixo-resumo-score { align-items: flex-end; }
 
-    .pm-criterio-header { flex-wrap: wrap; padding: 12px 14px; }
-    .pm-criterio-score { width: 100%; justify-content: space-between; margin-left: 28px; }
+    .pm-criterios-lista { gap: 12px; }
+
+    .pm-criterio-header { flex-wrap: wrap; padding: 14px 16px; row-gap: 10px; }
+    /* Era "width:100%; margin-left:28px" — margin soma FORA da largura de 100%,
+       estourando a linha e forçando o flex-shrink a espremer a barrinha + "X/5"
+       numa faixa mais estreita do que cabia (o "aspecto espremido" reportado,
+       2026-11-18). padding-left fica DENTRO dos 100% (box-sizing:border-box é
+       global), então nunca mais estoura nem espreme. */
+    .pm-criterio-score {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 44px;
+        justify-content: flex-start;
+    }
+    .pm-pill-bar { gap: 4px; }
+    .pm-pill-seg { width: 18px; height: 9px; }
 }
 
 @media print {
