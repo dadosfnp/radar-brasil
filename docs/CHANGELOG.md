@@ -4,6 +4,18 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (85a rodada)
+
+### fix: favicon continuava sumindo em Nível País/Painel/Mapa mesmo em aba anônima
+
+- Depois do fix anterior (favicon.ico/png como fallback), o usuário reportou que o ícone continuava faltando especificamente em Nível País, Painel e Mapa (Sobre funcionava) — confirmado mesmo em aba anônima, o que descarta cache do navegador
+- Conferido na própria produção: HTML idêntico (as 4 tags `<link>` de ícone) e arquivos `favicon.ico`/`favicon-32.png` respondendo 200 corretamente em todas as páginas — não achada nenhuma diferença de código entre as páginas que funcionam e as que não funcionam. Nenhum JS do projeto mexe em `document.head`/tags de ícone
+- Adicionado um fallback adicional e padrão de mercado: rota `/favicon.ico` na raiz do site (redirect 301 pra `/static/img/favicon.ico`) — navegadores pedem esse caminho automaticamente por convenção, independente das tags `<link>` da página, e cobre qualquer inconsistência entre como cada página processa os ícones declarados no `<head>`
+
+**Arquivos:** `setup/urls.py`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (84a rodada)
 
 ### fix: ícone da aba do navegador sumia ao navegar entre páginas internas
