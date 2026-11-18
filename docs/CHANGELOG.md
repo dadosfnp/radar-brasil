@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (81a rodada)
+
+### fix: total do Mapa Georreferenciado 3,4x maior em inglês/espanhol que em português
+
+- Usuário reportou print: o valor total no canto do Mapa Georreferenciado mudava de R$ 185,9 bi (PT) pra R$ 633 bi (EN/ES) — mesmo dataset, só o idioma mudando
+- Causa: `mapa_georreferenciado.py` comparava `reg.perfil == "Investimento Único"` (string fixa em português) pra decidir como agregar cada registro (Único: mínimo por município; Agrupado: uma vez por empreendimento). O campo `perfil` **não é normalizado** pro PT canônico na importação (diferente de `eixo`) — a planilha EN grava o valor já em inglês ("Single Investment"/"Pooled Investment"). Resultado: todo registro em inglês caía sempre no branco "Agrupado" por engano, somando valores que deveriam contar só uma vez (o mínimo) por município — pré-existente, não introduzido nesta sessão, só achado agora
+- Corrigido comparando contra um conjunto `{"Investimento Único", "Single Investment"}` em vez de uma string fixa
+- Confirmado com os dados reais: PT e EN agora dão o mesmo total exato (R$ 185.952.979.274, 561 municípios)
+
+**Arquivos:** `apps/indicadores/services/mapa_georreferenciado.py`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (80a rodada)
 
 ### fix: badge "Nivel 5" ilegível em espanhol (texto escuro sobre fundo verde-escuro)

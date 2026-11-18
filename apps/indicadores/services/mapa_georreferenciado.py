@@ -5,6 +5,14 @@ from apps.indicadores.models import RegistroMapa
 
 COORDS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "municipios_coords.json")
 
+# "Perfil" nao e normalizado pro PT canonico na importacao (ao contrario de "eixo") —
+# a sheet EN guarda o valor ja em ingles ("Single Investment"/"Pooled Investment").
+# Comparar so com a string PT quebrava a classificacao Unico/Agrupado inteira em EN/ES,
+# inflando o total exibido no canto do mapa (achado em 2026-11-18: 185bi PT vs 633bi EN
+# pro mesmo dataset — "Unico" caindo todo como "Agrupado" por engano, somando ao inves
+# de pegar so o minimo por municipio).
+_PERFIL_UNICO = {"Investimento Único", "Single Investment"}
+
 REGIAO_POR_UF = {
     "AC": "Norte",
     "AM": "Norte",
@@ -122,7 +130,7 @@ def get_dados_mapa(lang: str = "pt") -> dict:
             "eixo": reg.eixo,
         }
 
-        if reg.perfil == "Investimento Único":
+        if reg.perfil in _PERFIL_UNICO:
             d["unico_ests"].append(est)
             d["programas"].append(programa_entry)
         else:
