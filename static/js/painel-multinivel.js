@@ -28,6 +28,11 @@ const NIVEL_COLORS = {
   "Level 3":  "#e8c53a",
   "Level 4":  "#72be79",
   "Level 5":  "#1a4a35",
+  "Nivel 1":  "#e06b6b",
+  "Nivel 2":  "#f09a50",
+  "Nivel 3":  "#e8c53a",
+  "Nivel 4":  "#72be79",
+  "Nivel 5":  "#1a4a35",
 };
 
 const NIVEL_BORDER = {
@@ -41,19 +46,46 @@ const NIVEL_BORDER = {
   "Level 3":  "#c8a520",
   "Level 4":  "#52a059",
   "Level 5":  "#0f2d20",
+  "Nivel 1":  "#c85050",
+  "Nivel 2":  "#d87a30",
+  "Nivel 3":  "#c8a520",
+  "Nivel 4":  "#52a059",
+  "Nivel 5":  "#0f2d20",
 };
 
 const cacheEixos = {};
 let eixoAberto = null;
 
-function _isEn() {
-  return (document.documentElement.lang || "").startsWith("en");
+function _lang() {
+  return RBi18n.getLang();
 }
 
-function _niveisOrdem(isEn) {
-  return isEn
-    ? ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
-    : ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
+// Textos fixos da Visão Geral/critérios que não vêm do django.po (montados em JS)
+const PM_TXT = {
+  nivelEixo:            { en: "Axis Level",           es: "Nivel Eje" },
+  voltarVisaoGeral:     { en: "Back to overview",      es: "Volver a la visión general" },
+  eixo:                 { en: "Axis",                  es: "Eje" },
+  componentesAvaliados: { en: "components evaluated",  es: "componentes evaluados" },
+  peso:                 { en: "weight",                es: "peso" },
+};
+function _t(chave, lang) {
+  return (PM_TXT[chave] && PM_TXT[chave][lang]) || {
+    nivelEixo: "Nível Eixo",
+    voltarVisaoGeral: "Voltar para a visão geral",
+    eixo: "Eixo",
+    componentesAvaliados: "componentes avaliados",
+    peso: "peso",
+  }[chave];
+}
+
+// Chaves devem bater exatamente com o "label" que a API devolve por idioma
+// (painel_multinivel.py: "Nível N" pt, "Level N" en, "Nivel N" es — sem isso o
+// waffle/pillbar fica todo zerado em es, porque a contagem vem chaveada por
+// esse texto exato).
+function _niveisOrdem(lang) {
+  if (lang === "en") return ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"];
+  if (lang === "es") return ["Nivel 1", "Nivel 2", "Nivel 3", "Nivel 4", "Nivel 5"];
+  return ["Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"];
 }
 
 // criterio → { nivel: count }, a partir de labels/datasets (mesmo shape do Chart.js)
@@ -70,12 +102,12 @@ function construirMatrizPorCriterio(dados) {
 }
 
 // Barrinha de 5 segmentos coloridos até o nível médio (arredondado) do critério
-function construirPillBar(nivelMedio, isEn) {
+function construirPillBar(nivelMedio, lang) {
   const wrap = document.createElement("span");
   wrap.className = "pm-pill-bar";
 
   const arred = nivelMedio != null ? Math.max(0, Math.min(5, Math.round(nivelMedio))) : 0;
-  const corNivel = arred > 0 ? NIVEL_COLORS[_niveisOrdem(isEn)[arred - 1]] : null;
+  const corNivel = arred > 0 ? NIVEL_COLORS[_niveisOrdem(lang)[arred - 1]] : null;
 
   for (let i = 1; i <= 5; i++) {
     const seg = document.createElement("span");
@@ -93,7 +125,7 @@ function construirPillBar(nivelMedio, isEn) {
 }
 
 // Waffle detalhado (células + régua + legenda) de UM critério só
-function construirWaffleCriterio(nomeCriterio, contagemPorNivel, isEn) {
+function construirWaffleCriterio(nomeCriterio, contagemPorNivel, lang) {
   const container = document.createElement("div");
   container.className = "pm-waffle";
 
@@ -104,7 +136,7 @@ function construirWaffleCriterio(nomeCriterio, contagemPorNivel, isEn) {
   );
   container.appendChild(explicacao);
 
-  const niveisOrdem = _niveisOrdem(isEn);
+  const niveisOrdem = _niveisOrdem(lang);
   const total = niveisOrdem.reduce((acc, n) => acc + (contagemPorNivel[n] || 0), 0);
 
   const cells = document.createElement("div");
@@ -225,7 +257,7 @@ function mostrarLoader(visivel) {
 
 // ── Visão geral: 4 eixos recolhidos, sem bolhas ──────────────────────────
 
-function construirEixoOverviewCard(eixo, dados, isEn) {
+function construirEixoOverviewCard(eixo, dados, lang) {
   const card = document.createElement("button");
   card.type = "button";
   card.className = "pm-eixo-overview";
@@ -262,7 +294,7 @@ function construirEixoOverviewCard(eixo, dados, isEn) {
   score.appendChild(num);
   const label = document.createElement("span");
   label.className = "pm-eixo-overview-score-label";
-  label.textContent = isEn ? "Axis Level" : "Nível Eixo";
+  label.textContent = _t("nivelEixo", lang);
   score.appendChild(label);
   card.appendChild(score);
 
@@ -277,14 +309,14 @@ async function renderVisaoGeral() {
   _ocultarErroGrafico();
   mostrarLoader(true);
   try {
-    const isEn = _isEn();
+    const lang = _lang();
     const todos = await Promise.all(EIXOS.map(fetchEixo));
     const wrapper = document.getElementById("pm-chart-wrapper");
     wrapper.innerHTML = "";
     const lista = document.createElement("div");
     lista.className = "pm-eixos-overview-list";
     EIXOS.forEach((eixo, i) => {
-      lista.appendChild(construirEixoOverviewCard(eixo, todos[i], isEn));
+      lista.appendChild(construirEixoOverviewCard(eixo, todos[i], lang));
     });
     wrapper.appendChild(lista);
   } catch (e) {
@@ -297,14 +329,14 @@ async function renderVisaoGeral() {
 
 // ── Eixo expandido: bolhas + resumo + critérios em acordeão ──────────────
 
-function construirResumoEixo(eixo, dados, isEn) {
+function construirResumoEixo(eixo, dados, lang) {
   const resumo = document.createElement("div");
   resumo.className = "pm-eixo-resumo";
 
   const toggle = document.createElement("button");
   toggle.type = "button";
   toggle.className = "pm-eixo-resumo-toggle";
-  toggle.setAttribute("aria-label", isEn ? "Back to overview" : "Voltar para a visão geral");
+  toggle.setAttribute("aria-label", _t("voltarVisaoGeral", lang));
   toggle.appendChild(construirCaret("up"));
   toggle.addEventListener("click", renderVisaoGeral);
   resumo.appendChild(toggle);
@@ -313,7 +345,7 @@ function construirResumoEixo(eixo, dados, isEn) {
   titulo.className = "pm-eixo-resumo-titulo";
   const eyebrow = document.createElement("span");
   eyebrow.className = "pm-eixo-resumo-eyebrow";
-  eyebrow.textContent = isEn ? "Axis" : "Eixo";
+  eyebrow.textContent = _t("eixo", lang);
   titulo.appendChild(eyebrow);
   const nome = document.createElement("span");
   nome.className = "pm-eixo-resumo-nome";
@@ -333,7 +365,7 @@ function construirResumoEixo(eixo, dados, isEn) {
   if (dados.total_componentes) {
     const total = document.createElement("span");
     total.className = "pm-eixo-resumo-total";
-    total.textContent = dados.total_componentes + " " + (isEn ? "components evaluated" : "componentes avaliados");
+    total.textContent = dados.total_componentes + " " + _t("componentesAvaliados", lang);
     meta.appendChild(total);
   }
   const score = document.createElement("span");
@@ -347,7 +379,7 @@ function construirResumoEixo(eixo, dados, isEn) {
   score.appendChild(num);
   const scoreLabel = document.createElement("span");
   scoreLabel.className = "pm-eixo-resumo-score-label";
-  scoreLabel.textContent = isEn ? "Axis Level" : "Nível Eixo";
+  scoreLabel.textContent = _t("nivelEixo", lang);
   score.appendChild(scoreLabel);
   meta.appendChild(score);
   resumo.appendChild(meta);
@@ -360,12 +392,12 @@ function renderizarCriterios(eixo, dados) {
   if (!wrapper) return;
   wrapper.innerHTML = "";
 
-  const isEn = _isEn();
+  const lang = _lang();
 
   // Retângulo cinza único que abraça o resumo do eixo + todos os seus critérios
   const expandido = document.createElement("div");
   expandido.className = "pm-eixo-expandido";
-  expandido.appendChild(construirResumoEixo(eixo, dados, isEn));
+  expandido.appendChild(construirResumoEixo(eixo, dados, lang));
   wrapper.appendChild(expandido);
 
   if (!dados.criterios || dados.criterios.length === 0) return;
@@ -396,7 +428,7 @@ function renderizarCriterios(eixo, dados) {
     if (criterio.peso > 1) {
       const peso = document.createElement("span");
       peso.className = "pm-criterio-peso";
-      peso.textContent = (isEn ? "weight" : "peso") + " " + criterio.peso;
+      peso.textContent = _t("peso", lang) + " " + criterio.peso;
       nomeRow.appendChild(peso);
     }
     info.appendChild(nomeRow);
@@ -411,7 +443,7 @@ function renderizarCriterios(eixo, dados) {
 
     const scoreWrap = document.createElement("span");
     scoreWrap.className = "pm-criterio-score";
-    scoreWrap.appendChild(construirPillBar(criterio.nivel_medio, isEn));
+    scoreWrap.appendChild(construirPillBar(criterio.nivel_medio, lang));
     header.appendChild(scoreWrap);
 
     item.appendChild(header);
@@ -427,7 +459,7 @@ function renderizarCriterios(eixo, dados) {
       item.classList.toggle("open", novoEstado);
       if (novoEstado && !detalhe.dataset.built) {
         detalhe.appendChild(
-          construirWaffleCriterio(criterio.nome, matrix[criterio.nome] || {}, isEn)
+          construirWaffleCriterio(criterio.nome, matrix[criterio.nome] || {}, lang)
         );
         detalhe.dataset.built = "1";
       }

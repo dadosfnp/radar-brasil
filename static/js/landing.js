@@ -13,9 +13,9 @@ const LP_BRASIL_ANO = "2025";
 // Badge "BRASIL 2025 / 3/5 / Nível País" — classes globais (.rb-brasil-badge-*, em
 // base.css) reaproveitadas tal e qual em landing.js e nota-pais.js, pra garantir que
 // os dois mapas mostrem a nota com o mesmo visual exato, sem duas copias divergirem
-function construirBadgeBrasil(isEn) {
-  const titulo = isEn ? "BRAZIL" : "BRASIL";
-  const rotulo = isEn ? "Country Level" : "Nível País";
+function construirBadgeBrasil(lang) {
+  const titulo = lang === "en" ? "BRAZIL" : "BRASIL";
+  const rotulo = { en: "Country Level", es: "Nivel País" }[lang] || "Nível País";
   return (
     `<span class="rb-brasil-badge-topo">${titulo} ${LP_BRASIL_ANO}</span>` +
     `<span class="rb-brasil-badge-nota">${LP_BRASIL_NOTA_NUM}<small>/5</small></span>` +
@@ -31,7 +31,7 @@ function initLandingHeroMap() {
   const el = document.getElementById("lp-hero-map");
   if (!el || typeof L === "undefined") return;
 
-  const isEn = (document.documentElement.lang || "").startsWith("en");
+  const lang = (document.documentElement.lang || "pt").slice(0, 2);
 
   const map = L.map(el, {
     // Centro deslocado a oeste pra empurrar o Brasil mais pro lado direito da tela,
@@ -65,7 +65,7 @@ function initLandingHeroMap() {
         },
         onEachFeature: (feature, layer) => {
           if (_lpGetIso(feature.properties) !== "BRA") return;
-          layer.bindTooltip(construirBadgeBrasil(isEn), {
+          layer.bindTooltip(construirBadgeBrasil(lang), {
             sticky: true,
             className: "rb-brasil-badge",
             direction: "top",

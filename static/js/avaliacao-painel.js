@@ -178,6 +178,13 @@ const EIXO_LABELS_EN = {
     "Programas":               "Programs",
     "Linhas de Financiamento": "Financing Lines",
 };
+const EIXO_LABELS_ES = {
+    "Governanca":              "Gobernanza",
+    "Politicas e Planos":      "Políticas y Planes",
+    "Programas":               "Programas",
+    "Linhas de Financiamento": "Líneas de Financiamiento",
+};
+const EIXO_LABELS_POR_IDIOMA = { en: EIXO_LABELS_EN, es: EIXO_LABELS_ES };
 
 // Descrições completas de cada nível por eixo e critério
 const NIVEIS_CRITERIOS = {
@@ -427,9 +434,8 @@ function ativarAba(eixo, tabEl) {
 
     eixoAtual      = eixo;
     estruturaAtual = "";
-    eixoLabel.textContent  = RBi18n.getLang() === "en"
-        ? (EIXO_LABELS_EN[eixo] || eixo)
-        : (EIXO_LABELS[eixo] || eixo);
+    const dictEixo = EIXO_LABELS_POR_IDIOMA[RBi18n.getLang()] || EIXO_LABELS;
+    eixoLabel.textContent = dictEixo[eixo] || eixo;
 
     resetarTabela();
     carregarFiltros(eixo);
@@ -591,10 +597,12 @@ modal.addEventListener("click", (e) => { if (e.target === modal) fecharModal(); 
 const NIVEL_COLORS_MODAL = ["#e06b6b","#f09a50","#e8c53a","#72be79","#1a4a35"];
 const NIVEL_LABELS_PT    = ["Nível 1","Nível 2","Nível 3","Nível 4","Nível 5"];
 const NIVEL_LABELS_EN    = ["Level 1","Level 2","Level 3","Level 4","Level 5"];
+const NIVEL_LABELS_ES    = ["Nivel 1","Nivel 2","Nivel 3","Nivel 4","Nivel 5"];
+const NIVEL_LABELS_POR_IDIOMA = { en: NIVEL_LABELS_EN, es: NIVEL_LABELS_ES };
 
 function abrirModalNiveis(eixo, criterio, nivelAtual) {
     const lang   = RBi18n.getLang();
-    const labels = lang === "en" ? NIVEL_LABELS_EN : NIVEL_LABELS_PT;
+    const labels = NIVEL_LABELS_POR_IDIOMA[lang] || NIVEL_LABELS_PT;
     const eixoData    = NIVEIS_CRITERIOS[eixo] || {};
     const criterioLow = criterio.toLowerCase();
     const criterioKey = Object.keys(eixoData).find(k => k.toLowerCase() === criterioLow);
@@ -668,7 +676,7 @@ pdfBtn.addEventListener("click", () => {
     });
 
     const html = `<!DOCTYPE html>
-<html lang="${RBi18n.getLang() === 'en' ? 'en-US' : 'pt-BR'}">
+<html lang="${({ en: 'en-US', es: 'es-ES' })[RBi18n.getLang()] || 'pt-BR'}">
 <head>
 <meta charset="UTF-8">
 <title>Ficha Técnica – ${escHtml(titulo)}</title>

@@ -108,6 +108,54 @@ const NOMES_PT = {
   NZL:"Nova Zelândia", FJI:"Fiji",
 };
 
+// Nomes dos países em espanhol (mesmas chaves ISO3 de NOMES_PT — o GeoJSON não
+// tem campo nativo em espanhol, igual já não tinha em português)
+const NOMES_ES = {
+  // Américas
+  CAN:"Canadá", USA:"Estados Unidos", MEX:"México",
+  GTM:"Guatemala", NIC:"Nicaragua", CRI:"Costa Rica", COL:"Colombia",
+  BHS:"Bahamas", JAM:"Jamaica", DOM:"República Dominicana", VCT:"San Vicente y las Granadinas",
+  BRA:"Brasil", BOL:"Bolivia", PRY:"Paraguay", CHL:"Chile",
+  ARG:"Argentina", PER:"Perú", VEN:"Venezuela", ECU:"Ecuador",
+  URY:"Uruguay", GUY:"Guyana", SUR:"Surinam", PAN:"Panamá",
+  HND:"Honduras", SLV:"El Salvador", BLZ:"Belice", CUB:"Cuba",
+  HTI:"Haití", TTO:"Trinidad y Tobago",
+  // Europa
+  ISL:"Islandia", SWE:"Suecia", FIN:"Finlandia", DNK:"Dinamarca",
+  GBR:"Reino Unido", NLD:"Países Bajos", BEL:"Bélgica", FRA:"Francia",
+  PRT:"Portugal", ITA:"Italia", POL:"Polonia", EST:"Estonia", UKR:"Ucrania",
+  DEU:"Alemania", ESP:"España", NOR:"Noruega", IRL:"Irlanda", AUT:"Austria",
+  CHE:"Suiza", ROU:"Rumania", BGR:"Bulgaria", GRC:"Grecia", HUN:"Hungría",
+  CZE:"Chequia", SVK:"Eslovaquia", HRV:"Croacia", SVN:"Eslovenia",
+  LTU:"Lituania", LVA:"Letonia", BLR:"Bielorrusia", MDA:"Moldavia",
+  BIH:"Bosnia y Herzegovina", SRB:"Serbia", MNE:"Montenegro",
+  MKD:"Macedonia del Norte", ALB:"Albania", RUS:"Rusia",
+  // África
+  MAR:"Marruecos", TUN:"Túnez", DZA:"Argelia", LBY:"Libia", EGY:"Egipto",
+  NGA:"Nigeria", GHA:"Ghana", SLE:"Sierra Leona", TCD:"Chad", BFA:"Burkina Faso",
+  CPV:"Cabo Verde", RWA:"Ruanda", KEN:"Kenia", ETH:"Etiopía",
+  SYC:"Seychelles", SWZ:"Esuatini", LSO:"Lesoto",
+  ZAF:"Sudáfrica", MOZ:"Mozambique", TZA:"Tanzania", UGA:"Uganda",
+  AGO:"Angola", ZMB:"Zambia", ZWE:"Zimbabue", NAM:"Namibia",
+  CMR:"Camerún", COD:"Congo (Rep. Dem.)", COG:"Congo", SDN:"Sudán",
+  SOM:"Somalia", MDG:"Madagascar",
+  // Ásia e Oriente Médio
+  TUR:"Turquía", JOR:"Jordania", ARE:"Emiratos Árabes Unidos",
+  TKM:"Turkmenistán", KGZ:"Kirguistán", MNG:"Mongolia",
+  PAK:"Pakistán", BGD:"Bangladés", BTN:"Bután",
+  KOR:"Corea del Sur", JPN:"Japón", PHL:"Filipinas",
+  BRN:"Brunéi", LKA:"Sri Lanka",
+  CHN:"China", IND:"India", IRN:"Irán", IRQ:"Irak",
+  SAU:"Arabia Saudita", SYR:"Siria", AFG:"Afganistán",
+  KAZ:"Kazajistán", UZB:"Uzbekistán", TJK:"Tayikistán",
+  ARM:"Armenia", AZE:"Azerbaiyán", GEO:"Georgia",
+  MYS:"Malasia", THA:"Tailandia", VNM:"Vietnam", IDN:"Indonesia",
+  MMR:"Myanmar", KHM:"Camboya", LAO:"Laos", SGP:"Singapur",
+  // Oceania
+  AUS:"Australia", PLW:"Palaos", PNG:"Papúa Nueva Guinea", KIR:"Kiribati",
+  NZL:"Nueva Zelanda", FJI:"Fiyi",
+};
+
 // Posições corretas dos labels — substitui o centróide calculado para países
 // com geometria problemática (territórios ultramarinos, ilhas, países muito pequenos)
 const LABEL_OVERRIDES = {
@@ -465,8 +513,12 @@ function getIso(props) {
 
 function getName(props) {
   const iso = getIso(props);
-  if (RBi18n.getLang() === "en") {
+  const lang = RBi18n.getLang();
+  if (lang === "en") {
     return props.NAME || props.ADMIN || props.name || NOMES_PT[iso] || "";
+  }
+  if (lang === "es") {
+    return NOMES_ES[iso] || props.NAME || props.ADMIN || props.name || "";
   }
   return NOMES_PT[iso] || props.NAME || props.ADMIN || props.name || "";
 }
@@ -540,13 +592,14 @@ function buildMap(data) {
 
       // Hover tooltip — Brasil usa o badge global .rb-brasil-badge-* (base.css),
       // mesmo exato visual do mapa da Landing (construirBadgeBrasil em landing.js)
-      const isEn = (document.documentElement.lang || "").startsWith("en");
+      const lang = RBi18n.getLang();
       const tipClass = nota ? "rb-brasil-badge" : "np-tooltip";
       const notaNum  = nota ? (nota.match(/\d+/) || ["–"])[0] : "";
+      const rotuloPais = { en: "Country Level", es: "Nivel País" }[lang] || "Nível País";
       const tipHtml  = nota
-        ? `<span class="rb-brasil-badge-topo">${isEn ? "BRAZIL" : "BRASIL"} 2025</span>` +
+        ? `<span class="rb-brasil-badge-topo">${lang === "en" ? "BRAZIL" : "BRASIL"} 2025</span>` +
           `<span class="rb-brasil-badge-nota">${notaNum}<small>/5</small></span>` +
-          `<span class="rb-brasil-badge-rotulo">${isEn ? "Country Level" : "Nível País"}</span>`
+          `<span class="rb-brasil-badge-rotulo">${rotuloPais}</span>`
         : RBi18n.t("Nota não atribuída");
 
       layer.bindTooltip(tipHtml, {
