@@ -4,6 +4,17 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (83a rodada)
+
+### fix: contagem de países signatários da Coalizão CHAMP atualizada (77 → 80)
+
+- KPI "PAÍSES SIGNATÁRIOS" no Nível País atualizado de 77 pra 80, a pedido do usuário
+- O número "78" na linha do tempo da página Sobre (marco histórico datado da fundação da coalizão) não foi alterado — é um fato de um momento específico do passado, diferente do contador atual
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (82a rodada)
 
 ### fix: Painel ▸ Visão Geral no mobile — bolhas empilhadas e cards espremidos
