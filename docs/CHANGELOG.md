@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (72a rodada)
+
+### feat: novo banco PT (Fichas/Parâmetros) + tradução automática PT→EN/ES via Gemini
+
+- Fichas e Parâmetros PT passam a ler a planilha combinada "V01_BANCO DE DADOS_2025" (abas `Saida_fichas`/`Saida_parametros`), que a equipe de dados confirmou preservar exatamente as mesmas colunas de sempre — conferido coluna a coluna antes de qualquer mudança. Acesso da conta de serviço liberado; sync local rodado com sucesso: 100 fichas (era 98), 434 parâmetros (era 412)
+- Novo serviço `apps/indicadores/services/traducao.py`: gera as versões EN e ES de Fichas/Parâmetros automaticamente via Gemini a partir do conteúdo PT, em vez de depender de uma planilha EN mantida à mão (que deixa de ser lida para essas duas tabelas). Cache em `TraducaoCache` (nova migração) por hash do texto evita retraduzir conteúdo inalterado a cada sync
+- Campos que nunca passam por tradução livre: `eixo`/`nivel` (chaves canônicas PT, usadas em lookups internos) e `avaliacao`/`criterio` (vocabulário fixo de 12 valores, para nunca divergir dos dicionários já existentes no Painel)
+- Espanhol adicionado como terceiro idioma do banco (Fichas/Parâmetros); Financiamento e Mapa continuam só PT/EN por enquanto
+- Dois bugs corrigidos rodando a tradução de verdade (não só com mock): cache gravava uma tradução que falhou (todos os modelos indisponíveis) como se fosse definitiva, impedindo nova tentativa depois; e uma resposta do Gemini sem texto (bloqueio/vazia) quebrava o parse em vez de cair no fallback
+- Ajuste de qualidade: a instrução inicial mandava preservar "Decreto nº"/"Lei nº" por inteiro; corrigida para traduzir as palavras ("Decree No.", "Law No.") preservando só o número de identificação
+
+**Arquivos:** `apps/indicadores/services/traducao.py`, `apps/indicadores/services/sheets_reader.py`, `apps/indicadores/management/commands/sync_sheets_db.py`, `apps/indicadores/models.py`, `apps/indicadores/migrations/0002_traducaocache.py`, `apps/indicadores/tests.py`, `.env.example`, `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-17 (71a rodada)
 
 ### fix: Cloudflare servindo nota-pais.js e i18n.js de setembro (cache nunca invalidado)

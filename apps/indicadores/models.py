@@ -119,3 +119,26 @@ class RegistroMapa(models.Model):
 
     def __str__(self):
         return f"[{self.lang}] {self.municipio} ({self.uf})"
+
+
+class TraducaoCache(models.Model):
+    """Cache de traduções (PT -> EN/ES) via Gemini, usado pelo sync_sheets_db para Fichas e
+    Parâmetros. Evita retraduzir um texto que não mudou entre uma importação e outra —
+    chave única por (hash do texto original, idioma de destino)."""
+
+    hash_origem = models.CharField(max_length=64)
+    lang = models.CharField(max_length=5)
+    texto_pt = models.TextField()
+    texto_traduzido = models.TextField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [models.Index(fields=["hash_origem", "lang"])]
+        constraints = [
+            models.UniqueConstraint(fields=["hash_origem", "lang"], name="uniq_traducao_hash_lang")
+        ]
+        verbose_name = "Cache de Tradução"
+        verbose_name_plural = "Cache de Traduções"
+
+    def __str__(self):
+        return f"[{self.lang}] {self.texto_pt[:60]}"

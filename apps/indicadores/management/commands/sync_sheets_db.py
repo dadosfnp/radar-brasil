@@ -20,6 +20,7 @@ from apps.indicadores.models import (
     RegistroParametro,
 )
 from apps.indicadores.services import sheets_reader as sr
+from apps.indicadores.services import traducao as tr
 
 
 def _s(v) -> str:
@@ -90,7 +91,7 @@ class Command(BaseCommand):
         )
         parser.add_argument(
             "--lang",
-            choices=["pt", "en", "all"],
+            choices=["pt", "en", "es", "all"],
             default="all",
             help="Idioma a importar (default: all)",
         )
@@ -100,10 +101,16 @@ class Command(BaseCommand):
         lang = options["lang"]
 
         sheets = ["fichas", "parametros", "financiamento", "mapa"] if sheet == "all" else [sheet]
-        langs = ["pt", "en"] if lang == "all" else [lang]
+        langs = ["pt", "en", "es"] if lang == "all" else [lang]
+        # Espanhol so existe (por enquanto) para Fichas/Parametros, via traducao automatica
+        # (ver traducao.py) — Financiamento e Mapa ainda nao tem planilha nem fonte ES.
+        sem_es = {"financiamento", "mapa"}
 
         for s in sheets:
             for lg in langs:
+                if lg == "es" and s in sem_es:
+                    self.stdout.write(f"\n… {s} [es] ainda nao suportado, pulando")
+                    continue
                 self.stdout.write(f"\n→ Importando {s} [{lg}]...")
                 try:
                     getattr(self, f"_importar_{s}")(lg)
@@ -113,11 +120,32 @@ class Command(BaseCommand):
                     raise
 
     # ── Fichas ───────────────────────────────────────────────────
+    # Campos traduziveis (texto livre, via traducao.py) — tudo que nao e link nem eixo.
+    _CAMPOS_TRADUZIVEIS_FICHA = [
+        "estrutura",
+        "setor",
+        "descricao",
+        "orgao_responsavel",
+        "arcabouco_normativo",
+        "espaco_dialogo_federativo",
+        "financiamento",
+        "periodicidade",
+        "composicao",
+        "carater_decisorio",
+        "politica_plano_relacionado",
+        "contrapartida",
+        "modalidade",
+        "repasse",
+        "fontes",
+    ]
+
     def _importar_fichas(self, lang: str):
-        df = sr.ler_fichas(lang)
+        # Fichas PT e a unica fonte (planilha); EN/ES sao geradas por traducao automatica
+        # a partir do PT — ver docstring de traducao.py.
+        df = sr.ler_fichas("pt")
         RegistroFicha.objects.filter(lang=lang).delete()
 
-        objs = []
+        linhas = []
         for _, row in df.iterrows():
             estrutura = _s(row.get("Estrutura", ""))
             if not estrutura:
@@ -126,59 +154,92 @@ class Command(BaseCommand):
             def gv(col):
                 return _s(row.get(col, ""))
 
-            objs.append(
-                RegistroFicha(
-                    lang=lang,
-                    estrutura=estrutura,
-                    eixo=gv("Eixo"),
-                    setor=gv("Setor"),
-                    link_eixo=gv("Link_eixo"),
-                    descricao=_multiline(gv("Descricao")),
-                    orgao_responsavel=_multiline(gv("Orgao_responsavel")),
-                    link_orgao=gv("Link_orgao"),
-                    arcabouco_normativo=_multiline(gv("Arcabouco_normativo")),
-                    link_arcabouco=gv("Link_arcabouco"),
-                    espaco_dialogo_federativo=_multiline(gv("Espaco_dialogo_federativo")),
-                    financiamento=_multiline(gv("Financiamento")),
-                    periodicidade=_multiline(gv("Periodicidade")),
-                    composicao=_multiline(gv("Composicao")),
-                    carater_decisorio=_multiline(gv("Carater_decisorio")),
-                    politica_plano_relacionado=_multiline(gv("Politica_Plano_relacionado")),
-                    contrapartida=_multiline(gv("Contrapartida")),
-                    modalidade=_multiline(gv("Modalidade")),
-                    repasse=_multiline(gv("Repasse")),
-                    fontes=_multiline(gv("Fontes")),
-                )
+            linhas.append(
+                {
+                    "eixo": gv("Eixo"),
+                    "estrutura": estrutura,
+                    "setor": gv("Setor"),
+                    "link_eixo": gv("Link_eixo"),
+                    "descricao": _multiline(gv("Descricao")),
+                    "orgao_responsavel": _multiline(gv("Orgao_responsavel")),
+                    "link_orgao": gv("Link_orgao"),
+                    "arcabouco_normativo": _multiline(gv("Arcabouco_normativo")),
+                    "link_arcabouco": gv("Link_arcabouco"),
+                    "espaco_dialogo_federativo": _multiline(gv("Espaco_dialogo_federativo")),
+                    "financiamento": _multiline(gv("Financiamento")),
+                    "periodicidade": _multiline(gv("Periodicidade")),
+                    "composicao": _multiline(gv("Composicao")),
+                    "carater_decisorio": _multiline(gv("Carater_decisorio")),
+                    "politica_plano_relacionado": _multiline(gv("Politica_Plano_relacionado")),
+                    "contrapartida": _multiline(gv("Contrapartida")),
+                    "modalidade": _multiline(gv("Modalidade")),
+                    "repasse": _multiline(gv("Repasse")),
+                    "fontes": _multiline(gv("Fontes")),
+                }
             )
 
+        if lang != "pt":
+            textos = {
+                v
+                for linha in linhas
+                for campo, v in linha.items()
+                if campo in self._CAMPOS_TRADUZIVEIS_FICHA
+            }
+            traducoes = tr.traduzir_textos(textos, lang)
+            for linha in linhas:
+                for campo in self._CAMPOS_TRADUZIVEIS_FICHA:
+                    if linha[campo]:
+                        linha[campo] = traducoes.get(linha[campo], linha[campo])
+
+        objs = [RegistroFicha(lang=lang, **linha) for linha in linhas]
         RegistroFicha.objects.bulk_create(objs, batch_size=500)
         self.stdout.write(f"    {len(objs)} fichas importadas")
 
     # ── Parâmetros ───────────────────────────────────────────────
+    _CAMPOS_TRADUZIVEIS_PARAMETRO = ["estrutura", "setor", "criterio", "descritivo"]
+
     def _importar_parametros(self, lang: str):
-        df = sr.ler_parametros(lang)
+        # Parametros PT e a unica fonte (planilha); EN/ES sao geradas por traducao
+        # automatica a partir do PT — ver docstring de traducao.py. "Avaliacao" usa
+        # vocabulario fixo (CRITERIO_EN/CRITERIO_ES) em vez de traducao livre.
+        df = sr.ler_parametros("pt")
         RegistroParametro.objects.filter(lang=lang).delete()
 
-        objs = []
+        linhas = []
         for _, row in df.iterrows():
             estrutura = _s(row.get("Estrutura", ""))
             if not estrutura:
                 continue
 
-            objs.append(
-                RegistroParametro(
-                    lang=lang,
-                    estrutura=estrutura,
-                    eixo=_s(row.get("Eixo", "")),
-                    setor=_s(row.get("Setor", "")),
-                    nivel=_s(row.get("Nível", "")),
-                    criterio=_s(row.get("Critério", "")),
-                    avaliacao=_s(row.get("Avaliação", "")),
-                    classificacao=_s(row.get("Classificação", "")),
-                    descritivo=_s(row.get("Descritivo", "")),
-                )
+            linhas.append(
+                {
+                    "eixo": _s(row.get("Eixo", "")),
+                    "estrutura": estrutura,
+                    "setor": _s(row.get("Setor", "")),
+                    "nivel": _s(row.get("Nível", "")),
+                    "criterio": _s(row.get("Critério", "")),
+                    "avaliacao": _s(row.get("Avaliação", "")),
+                    "classificacao": _s(row.get("Classificacao", "")),
+                    "descritivo": _s(row.get("Descritivo", "")),
+                }
             )
 
+        if lang != "pt":
+            dict_avaliacao = {"en": tr.CRITERIO_EN, "es": tr.CRITERIO_ES}[lang]
+            textos = {
+                v
+                for linha in linhas
+                for campo, v in linha.items()
+                if campo in self._CAMPOS_TRADUZIVEIS_PARAMETRO
+            }
+            traducoes = tr.traduzir_textos(textos, lang)
+            for linha in linhas:
+                for campo in self._CAMPOS_TRADUZIVEIS_PARAMETRO:
+                    if linha[campo]:
+                        linha[campo] = traducoes.get(linha[campo], linha[campo])
+                linha["avaliacao"] = dict_avaliacao.get(linha["avaliacao"], linha["avaliacao"])
+
+        objs = [RegistroParametro(lang=lang, **linha) for linha in linhas]
         RegistroParametro.objects.bulk_create(objs, batch_size=500)
         self.stdout.write(f"    {len(objs)} parâmetros importados")
 

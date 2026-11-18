@@ -37,13 +37,14 @@ apps/
   indicadores/
     views.py           ← views Django (render + JsonResponse)
     urls.py            ← rotas das páginas e APIs
-    models.py          ← RegistroFicha, RegistroParametro, RegistroFinanciamento, RegistroMapa
+    models.py          ← RegistroFicha, RegistroParametro, RegistroFinanciamento, RegistroMapa, TraducaoCache
     services/
       avaliacao_painel.py        ← Painel Multinível (fichas técnicas) — lê do ORM
       painel_multinivel.py       ← scores/critérios por eixo — lê do ORM
       financiamento_climatico.py ← tabela de financiamentos — lê do ORM
       mapa_georreferenciado.py   ← dados do mapa Leaflet — lê do ORM
       sheets_reader.py           ← lê Google Sheets — usado APENAS pelo sync_sheets_db
+      traducao.py                ← traduz PT→EN/ES via Gemini (Fichas/Parâmetros) — usado APENAS pelo sync_sheets_db
     management/commands/
       sync_sheets_db.py          ← importa Sheets → PostgreSQL (rodar ao atualizar planilhas)
   municipios/          ← views e urls principais
@@ -132,19 +133,25 @@ O comando lê as planilhas abaixo, normaliza os dados e faz `bulk_create` no ban
 
 ### Planilhas PT
 
+**Mudança 2026-11-18:** Fichas e Parâmetros PT passaram a viver numa única planilha combinada ("V01_BANCO DE DADOS_2025", e-mail Paulo Diego) em vez de 2 planilhas separadas. As abas `Saida_fichas`/`Saida_parametros` são preenchidas automaticamente pela própria planilha (fórmulas internas, várias abas de trabalho `GOVERNANÇA`/`POLÍTICAS E PLANOS`/`PROGRAMAS`/`LINHAS_FINANCIAMENTO`/`Catalogo`/etc. — não lidas pelo nosso código) e preservam exatamente as mesmas colunas que as planilhas antigas (conferido coluna a coluna, incluindo o erro de digitação histórico "Classsificacao"). Há também um arquivo separado "C1/C01_BANCO DE DADOS_2025" que é só material de trabalho/legenda da equipe de dados (explica como as colunas brutas viram as variáveis finais) — não é lido pelo nosso código.
+
 | Tabela | Sheet ID | GID / worksheet |
 |---|---|---|
-| Fichas | `16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8` | worksheet "dados" |
-| Parâmetros | `1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE` | worksheet "dados" |
+| Fichas | `10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic` | worksheet "Saida_fichas" |
+| Parâmetros | `10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic` (mesma planilha) | worksheet "Saida_parametros" |
 | Financiamento | `1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c` | GID `793540087` |
 | Mapa | `1qMPAIB5e6IoG_cdCpBMIgzG8fZS1wUZ1zQbOFW3jACs` | GID `1619423236` |
 
-### Planilhas EN
+### Planilhas EN (Financiamento e Mapa) / tradução automática (Fichas e Parâmetros)
+
+**Mudança 2026-11-18 (implementada e verificada):** Fichas e Parâmetros deixaram de ter planilha EN própria — a equipe de dados só mantém o PT, e o `sync_sheets_db` gera EN e ES automaticamente via Gemini a partir do conteúdo PT (`apps/indicadores/services/traducao.py`), com cache em `TraducaoCache` (migração `0002_traducaocache`) por hash do texto pra não retraduzir conteúdo inalterado a cada sync. Financiamento e Mapa continuam com planilha EN mantida à mão, sem ES ainda (`--lang es` pula essas duas sheets com aviso, não erro).
+
+- **Campos nunca traduzidos** (ficam na forma canônica PT em qualquer idioma): `eixo` (chave normalizada), `nivel` ("Nível N"), os 3 campos de link. `avaliacao`/`criterio` (nome do critério, ex. "Operacionalidade") usa vocabulário fixo de 12 valores (`CRITERIO_EN`/`CRITERIO_ES` em `traducao.py`) em vez de tradução livre, pra nunca divergir dos dicionários já existentes em `painel_multinivel.py` (`_EN_CRITERIO`). Todo o resto (descrição, órgão responsável, arcabouço normativo, etc.) traduz via Gemini, em lote de até 40 textos únicos por chamada, com 3 modelos de fallback (`GEMINI_TRADUCAO_MODELS`, variável própria — **não** reaproveita `GEMINI_MODELS` do Assistente de propósito, pra um `.env` que já define uma não sobrescrever a outra silenciosamente) e timeout próprio (`GEMINI_TRADUCAO_TIMEOUT_S`, padrão 60s — mais longo que o do Assistente porque sync roda offline).
+- **Nunca cachear uma tradução que falhou:** se todos os modelos falharem num lote, o texto em PT é usado como stand-in só naquela execução — nunca gravado em `TraducaoCache`, pra uma próxima tentativa poder chamar o Gemini de novo em vez de ficar presa num "sucesso" falso (bug encontrado e corrigido nesta sessão, 210 entradas erradas já tinham sido gravadas antes do fix).
+- Testado de ponta a ponta com a planilha V01 real: Fichas (100 registros, 21 campos) e Parâmetros (434 registros, 9 campos) PT/EN/ES, qualidade conferida manualmente — só identidades esperadas entre idiomas (números, siglas, nomes próprios de bancos/programas, cognatos PT/ES).
 
 | Tabela | Sheet ID | GID |
 |---|---|---|
-| Fichas EN | `1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g` | `1400373985` |
-| Parâmetros EN | `1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8` | `1708988989` |
 | Financiamento EN | `1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk` | `449650871` |
 | Mapa EN | `1uj_8PdAvTScqxSGi0ujBCRhiuJgXXFeaZFO8B4qJtqk` | primeira aba |
 
@@ -758,7 +765,9 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 Proximos passos:
 
 - **Confirmar visualmente em producao (apos o fix de cache do Cloudflare):** pins/nomes de pais no Nivel Pais e texto nao traduzido no Painel (EN) deviam ter sumido depois do `?v=1` em `nota-pais.js`/`i18n.js` — o usuario ainda nao confirmou visualmente nesta sessao
-- **Nova fonte de dados (Fichas/Parametros PT) — bloqueada:** e-mail de Paulo Diego (2026-11-17) pede pra trocar a planilha de Fichas/Parametros PT para uma unica planilha combinada `10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic` (guias `Saida_fichas`/`Saida_parametros`). `sheets_reader.py` ja foi editado localmente pra apontar pra la (nao commitado, a pedido do usuario — "por enquanto vamos deixar o banco como esta"), mas a conta de servico (`radar-brasil-sheets@robust-charge-494120-s3.iam.gserviceaccount.com`) ainda **nao tem acesso** (testado, erro 403) — falta o dono da planilha compartilhar. EN de Fichas/Parametros confirmado com o usuario que **nao muda** (continuam nas planilhas separadas de sempre). A planilha do Mapa/Financiamento (mesmo ID de sempre) ja foi editada pelo time de dados segundo o mesmo e-mail — e possivel que isso explique uma mudanca de total vista no Mapa Georreferenciado em producao, mas isso so se confirma rodando `sync_sheets_db` de novo (nao feito ainda). Usuario vai avisar quando o acesso for liberado
+- **Espanhol na interface (pendente):** o banco (Fichas/Parametros) ja tem PT/EN/ES completos (ver "Planilhas EN / traducao automatica"); falta adicionar "es" em `settings.LANGUAGES`, criar `locale/es/LC_MESSAGES/django.po`, estender `i18n.js` (DICT.es) e os dicionarios EN-style em `painel_multinivel.py`/`avaliacao_painel.py`/`apps/municipios/views.py` (NOME_EIXO_ES etc.) pros textos fixos da interface — e redesenhar o seletor de idioma (hoje pilula PT|EN) para o estilo bandeira+nome+chevron pedido pelo usuario (referencia: dropdown "English (English)"/"Español (Spanish)"), em 3 vias (PT/EN/ES), no estilo visual do Radar Brasil
+- **Gemini free tier — cota diaria aperta rapido (achado 2026-11-18):** o plano gratuito e 20 requisicoes/dia **por modelo**; a bateria de testes+traducao completa desta sessao (Fichas+Parametros, EN+ES, ~40 lotes de ate 40 textos) esgotou a cota do `gemini-3.5-flash` (que a API resolve internamente para `gemini-3.6-flash`) ainda de manha. Rodar `sync_sheets_db` de novo no mesmo dia (depois que a planilha mudar de novo) pode cair direto nos modelos de reserva. Nada a corrigir agora — so dimensionar expectativa se for preciso resincronizar no mesmo dia
+- **Achado a parte, fora do escopo de hoje:** `gemini-3-flash` (3a reserva padrao do Assistente, `apps/assistente/servico.py` `_PADRAO`) **nao existe** na API (404 sempre — confirmado via `client.models.list()`). Na pratica o Assistente em producao roda com só 2 reservas funcionais, nao 3. Nao mexi nisso (sistema separado, ja em producao) — fica registrado pra decisao futura
 - **SEGURANCA (urgente):** os dois PATs do GitHub (`ghp_...`) apareceram em texto aberto numa saida de terminal colada no chat em 2026-10-20. Revogar nas contas brunofnp e dadosfnp, gerar novos (`repo` + `workflow`; `origin` = brunofnp, `prod` = dadosfnp) e limpar o historico do PowerShell
 
 - **SEGURANCA (urgente):** chave privada da service account do Google Sheets (`radar-brasil-sheets@robust-charge-494120-s3`, key id `f40019d3`) esta no historico do repo **publico** `prod` (commit `5eecb76`, arquivo `.secrests/fnp-radar-sheets.json.json`). Apagar a chave no GCP, gerar outra para o `.env` do droplet, reduzir escopo para leitura; reescrever historico so com autorizacao
@@ -770,6 +779,14 @@ Proximos passos:
 - **Docs desatualizados:** `README.md`, `docs/arquitetura.md` e `docs/financiamento-climatico.md` ainda descrevem Render + leitura direta do Sheets + cache de 30 min (hoje: droplet + PostgreSQL)
 - **CONSTRAINTS.md:** otimizar as 4 fotos da Metodologia (4 a 9 MB) — `fundo-bg.png` (930 KB) ficou sem uso em nenhum CSS desde a reestruturacao de 2026-11-16 (fundo do site virou branco solido), entao otimizar esse arquivo especifico deixou de fazer sentido (ele so ocupa espaco no repo); medir cobertura dos services (`pip install pytest-cov` no `.venv`) e fixar o limite
 - **Opcional:** comparar os textos dos niveis 1 a 5 da Metodologia com o Anexo I do PDF publicado (formulas ja conferidas e coerentes)
+
+**Resumo do dia (2026-11-18): novo banco PT + traducao automatica via Gemini (EN/ES), ainda local:**
+- Mapeamento completo entre a planilha antiga e a nova "V01_BANCO DE DADOS_2025": `Saida_fichas`/`Saida_parametros` tem exatamente as mesmas colunas de sempre (conferido coluna a coluna) — zero trabalho de remapeamento, so trocar o Sheet ID (ja preparado ontem). Arquivo "C1/C01_BANCO DE DADOS_2025" e so material de trabalho da equipe de dados (nao lido pelo codigo)
+- Acesso da conta de servico a planilha nova liberado pelo usuario; sync local rodado com sucesso (100 fichas, 434 parametros — antes eram 98/412)
+- Construido o pipeline de traducao automatica PT->EN/ES via Gemini (`traducao.py` + `TraducaoCache`), substituindo as planilhas EN de Fichas/Parametros que a equipe de dados mantinha a mao. Dois bugs encontrados e corrigidos rodando de verdade (nao so com mock): cache gravando traducao falha como se fosse definitiva, e `resp.text` vindo `None` quebrando o parse; e um ajuste de qualidade (instrucao inicial mandava preservar "Decreto nº"/"Lei nº" por inteiro — corrigido pra traduzir as palavras e preservar so o numero)
+- Espanhol adicionado como terceiro idioma do banco (Fichas/Parametros apenas por enquanto); Financiamento e Mapa continuam so PT/EN
+- Pendente: espanhol ainda nao existe na interface (menu, botoes, `i18n.js`) nem o novo seletor de idioma (bandeira+nome+chevron) pedido pelo usuario — proximo passo da sessao
+- Achado a parte: `gemini-3-flash` (3a reserva do Assistente) nao existe na API (404) — Assistente em producao roda com so 2 reservas funcionais; nao corrigido (fora do escopo)
 
 **Resumo do dia (2026-11-17): reestruturacao completa publicada (`035a2a6`), cache do Cloudflare descoberto:**
 - Branch `feat/reestruturacao-menu-mapas-landing-painel` mesclada em `next` e `main` e publicada em `origin` + `nucleo`, depois de tags de backup do estado anterior

@@ -17,12 +17,16 @@ CREDS_PATH = ".secrets/fnp-radar-sheets.json"
 
 # ── IDs das planilhas ────────────────────────────────────────────
 SHEET_IDS = {
+    # Fichas e Parametros PT passaram a viver na mesma planilha combinada
+    # "V01_BANCO DE DADOS_2025" (e-mail Paulo Diego, 2026-11-17), guias
+    # "Saida_fichas" e "Saida_parametros" — EN continua nas planilhas
+    # separadas de sempre.
     "fichas": {
-        "pt": {"id": "16s59h5uE0R6GZTkrjQZI152gUOjfjxeOeAwy7v6JYH8", "gid": None},
+        "pt": {"id": "10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic", "gid": None},
         "en": {"id": "1EkaWJ2n391vXukwsNTGj-RMd65S55hADtR24lxRXx9g", "gid": 1400373985},
     },
     "parametros": {
-        "pt": {"id": "1jKGDhsjDYHRKEJCLdP-5zCxCSh5q5A5t8x1RhErmEoE", "gid": None},
+        "pt": {"id": "10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic", "gid": None},
         "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
     },
     "financiamento": {
@@ -196,7 +200,7 @@ def _ler(cfg: dict, worksheet_name: str = "dados") -> pd.DataFrame:
 def ler_fichas(lang: str) -> pd.DataFrame:
     """Lê a sheet Fichas e normaliza colunas + eixo para forma canônica PT."""
     cfg = SHEET_IDS["fichas"][lang]
-    df = _ler(cfg)
+    df = _ler(cfg, worksheet_name="Saida_fichas" if lang == "pt" else "dados")
     if lang == "en":
         df.rename(columns=_EN_COLS_FICHAS_PARAMS, inplace=True)
         if "Eixo" in df.columns:
@@ -214,7 +218,7 @@ def ler_fichas(lang: str) -> pd.DataFrame:
 def ler_parametros(lang: str) -> pd.DataFrame:
     """Lê a sheet Parâmetros e normaliza colunas + eixo + nível para forma canônica PT."""
     cfg = SHEET_IDS["parametros"][lang]
-    df = _ler(cfg)
+    df = _ler(cfg, worksheet_name="Saida_parametros" if lang == "pt" else "dados")
     if lang == "en":
         df.rename(columns=_EN_COLS_FICHAS_PARAMS, inplace=True)
         if "Eixo" in df.columns:

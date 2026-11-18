@@ -1,7 +1,11 @@
+import json
+from types import SimpleNamespace
+from unittest.mock import patch
+
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from apps.indicadores.models import RegistroParametro
+from apps.indicadores.models import RegistroParametro, TraducaoCache
 
 
 class PainelMultinivelAPITest(TestCase):
@@ -199,3 +203,71 @@ class CorrigirMojibakeTest(TestCase):
             None,
         ):
             self.assertEqual(fix(limpo), limpo)
+
+
+def _resposta_json(payload: dict):
+    return SimpleNamespace(text=json.dumps(payload, ensure_ascii=False))
+
+
+class TraducaoTest(TestCase):
+    def test_criterio_en_e_es_tem_as_mesmas_chaves(self):
+        from apps.indicadores.services.traducao import CRITERIO_EN, CRITERIO_ES
+
+        self.assertEqual(set(CRITERIO_EN.keys()), set(CRITERIO_ES.keys()))
+        self.assertEqual(len(CRITERIO_EN), 12)
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": ""})
+    def test_sem_chave_devolve_texto_em_pt_sem_gravar_cache(self):
+        from apps.indicadores.services.traducao import traduzir_textos
+
+        resultado = traduzir_textos({"Texto qualquer"}, "en")
+        self.assertEqual(resultado, {"Texto qualquer": "Texto qualquer"})
+        self.assertEqual(TraducaoCache.objects.count(), 0)
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.indicadores.services.traducao.genai.Client")
+    def test_traduz_e_grava_no_cache(self, Client):
+        from apps.indicadores.services.traducao import traduzir_textos, _hash
+
+        # traduzir_textos ordena os textos (sorted) antes de montar o lote — "Mundo" < "Olá"
+        Client.return_value.models.generate_content.return_value = _resposta_json(
+            {"0": "World", "1": "Hello"}
+        )
+        resultado = traduzir_textos({"Olá", "Mundo"}, "en")
+        self.assertEqual(resultado, {"Olá": "Hello", "Mundo": "World"})
+        self.assertEqual(TraducaoCache.objects.count(), 2)
+        self.assertTrue(TraducaoCache.objects.filter(hash_origem=_hash("Olá"), lang="en").exists())
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.indicadores.services.traducao.genai.Client")
+    def test_segunda_chamada_usa_cache_sem_chamar_gemini_de_novo(self, Client):
+        from apps.indicadores.services.traducao import traduzir_textos
+
+        Client.return_value.models.generate_content.return_value = _resposta_json({"0": "Hello"})
+        traduzir_textos({"Olá"}, "en")
+        self.assertEqual(Client.return_value.models.generate_content.call_count, 1)
+
+        traduzir_textos({"Olá"}, "en")
+        self.assertEqual(Client.return_value.models.generate_content.call_count, 1)
+
+    @patch.dict("os.environ", {"GEMINI_API_KEY": "teste"})
+    @patch("apps.indicadores.services.traducao.genai.Client")
+    def test_lote_com_todos_os_modelos_falhando_nao_grava_cache(self, Client):
+        from apps.indicadores.services.traducao import traduzir_textos
+
+        Client.return_value.models.generate_content.side_effect = RuntimeError("503")
+        resultado = traduzir_textos({"Olá"}, "en")
+        self.assertEqual(resultado, {"Olá": "Olá"})
+        self.assertEqual(TraducaoCache.objects.count(), 0)
+
+    def test_extrair_json_remove_cerca_markdown(self):
+        from apps.indicadores.services.traducao import _extrair_json
+
+        bruto = '```json\n{"0": "ok"}\n```'
+        self.assertEqual(_extrair_json(bruto), {"0": "ok"})
+
+    def test_extrair_json_sem_texto_lanca_erro_tratavel(self):
+        from apps.indicadores.services.traducao import _extrair_json
+
+        with self.assertRaises(ValueError):
+            _extrair_json(None)
