@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (73a rodada)
+
+### feat: seletor de idioma redesenhado (bandeira + nome + chevron)
+
+- Pílula PT|EN substituída por um dropdown com bandeira + nome do idioma atual + seta, expandindo para mostrar os idiomas disponíveis — pedido do usuário com referência de outro site
+- Desktop: componente novo (`.rb-lang-select`), mesmo visual dos dropdowns Sobre/Painel já existentes, ancorado à direita
+- Mobile: reaproveita o mesmo padrão de cascata do Sobre/Painel dentro do painel do hamburguer, sem CSS/JS novo
+- Espanhol ainda não entra como opção (falta a infraestrutura de interface — próximo passo)
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (72a rodada)
 
 ### feat: novo banco PT (Fichas/Parâmetros) + tradução automática PT→EN/ES via Gemini

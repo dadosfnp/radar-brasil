@@ -33,6 +33,18 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Seletor de idioma redesenhado: bandeira + nome + chevron (2026-11-18)
+
+- Pedido do usuário com referência visual de outro site (ícone de bandeira + nome do idioma no próprio idioma + seta, expandindo num dropdown). Substituiu a pílula PT|EN antiga nas duas posições: desktop (`.rb-lang-form`, ao lado da logo FNP) e mobile (dentro do painel do hamburguer)
+- Desktop: novo componente `.rb-lang-select`/`.rb-lang-trigger`/`.rb-lang-dropdown`, hover-based, mesmo visual (fundo `#0d1640`, sombra, borda sutil) dos dropdowns Sobre/Painel já existentes no menu, só ancorado à direita (`right: 0`) em vez de à esquerda, porque fica na ponta do header
+- Mobile: em vez de criar CSS novo, a seção de idioma passou a reaproveitar literalmente o mesmo padrão de cascata do Sobre/Painel (`.rb-nav-item--dropdown` dentro de `#rb-main-nav`) — ganha o toggle por clique (JS já existente) de graça, sem duplicar lógica
+- Gatilho mostra bandeira + nome do idioma **atual** (dinâmico via `request.LANGUAGE_CODE`); dropdown lista os dois idiomas (PT 🇧🇷/EN 🇬🇧), com o ativo destacado em negrito/branco
+- Espanhol ainda não entra como opção no seletor — ainda não existe na interface (`settings.LANGUAGES`, `django.po`, `i18n.js`); entra como uma 3ª opção quando essa frente for concluída
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`
+
+---
+
 ## Fix: setinha de dropdown removida dos eixos da Landing (2026-11-17)
 
 - As linhas de "Eixos de avaliação do Radar" tinham um ícone de seta (`.lp-eixo-row-chevron`) herdado visualmente do padrão de acordeão do Painel ▸ Visão Geral, mas na Landing essas linhas são só informativas — não expandem nem recolhem nada. Removido o `<span>` do ícone em `landing.html` e a regra CSS correspondente em `landing.css`

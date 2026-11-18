@@ -136,42 +136,121 @@ body.rb-body {
     margin-right: 0;
 }
 
-.rb-lang-toggle {
+/* ── Seletor de idioma (dropdown bandeira + nome) ── */
+.rb-lang-flag {
+    font-size: 0.9375rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.rb-lang-select {
+    position: relative;
+}
+
+/* ponte invisível: evita fechar o dropdown ao mover o mouse na diagonal até ele */
+.rb-lang-select::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.rb-lang-trigger {
     display: flex;
     align-items: center;
+    gap: 6px;
     background: rgba(255,255,255,0.10);
     border: 1px solid rgba(255,255,255,0.20);
     border-radius: 20px;
-    padding: 3px;
-    gap: 0;
-}
-
-.rb-lang-btn {
-    background: none;
-    border: none;
+    padding: 5px 12px 5px 10px;
     cursor: pointer;
-    color: rgba(255,255,255,0.60);
+    color: #fff;
     font-family: 'DM Sans', 'Roboto', sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    padding: 4px 12px;
-    border-radius: 16px;
-    transition: color 0.15s, background 0.15s;
-    line-height: 1;
+    letter-spacing: 0.3px;
+    transition: background 0.15s, border-color 0.15s;
 }
 
-.rb-lang-btn:hover {
+.rb-lang-trigger:hover,
+.rb-lang-select:focus-within .rb-lang-trigger {
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.32);
+}
+
+.rb-lang-trigger .rb-nav-caret {
+    opacity: 0.75;
+}
+
+.rb-lang-select:hover .rb-nav-caret,
+.rb-lang-select:focus-within .rb-nav-caret {
+    transform: rotate(180deg);
+}
+
+.rb-lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 4px;
+    min-width: 170px;
+    background: #0d1640;
+    border-radius: 10px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+    z-index: 10;
+}
+
+.rb-lang-select:hover .rb-lang-dropdown,
+.rb-lang-select:focus-within .rb-lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* .rb-lang-option reseta o botão; cor/tamanho vem de .rb-nav-dropdown-link no mobile
+   (cascata do hamburguer) ou das regras abaixo no dropdown desktop */
+.rb-lang-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+}
+
+.rb-lang-dropdown .rb-lang-option {
+    padding: 8px 10px;
+    border-radius: 6px;
+    color: rgba(255,255,255,0.82);
+    font-family: 'DM Sans', 'Roboto', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+}
+
+.rb-lang-dropdown .rb-lang-option:hover,
+.rb-lang-dropdown .rb-lang-option:focus-visible {
+    background: rgba(255,255,255,0.10);
     color: #fff;
+    outline: none;
 }
 
-.rb-lang-btn.active {
-    background: rgba(255,255,255,0.22);
+.rb-lang-dropdown .rb-lang-option.active {
     color: #fff;
-}
-
-.rb-lang-sep {
-    display: none;
+    font-weight: 700;
 }
 
 /* MENU NAV — variáveis definidas em tokens.css */
@@ -566,9 +645,6 @@ body.rb-body {
     flex: 1;
 }
 
-/* Seção idioma no dropdown mobile — oculta no desktop */
-.rb-nav-lang-section { display: none; }
-
 /* ---- NAV DESKTOP FLUIDO — notebooks/telas menores continuam em UMA LINHA ----
    Desde a reestruturacao de 2026-11-16 o menu tem só 4 itens (Sobre/Nível
    País/Painel/Mapa, antes eram 7) — bem mais folga, por isso a fonte base
@@ -831,48 +907,6 @@ body.rb-body {
     /* Touch targets mínimos de 44px */
     .rb-nav-hamburger {
         padding: 13px 10px;
-    }
-
-    /* Seção idioma no fundo do dropdown — globo + PT | EN */
-    .rb-nav-lang-section {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 18px 10px;
-        margin-top: 6px;
-        border-top: 1px solid rgba(255,255,255,0.12);
-        color: rgba(255,255,255,0.6);
-    }
-    .rb-nav-lang-form-mobile {
-        display: flex;
-        gap: 6px;
-    }
-    .rb-nav-lang-btn {
-        background: transparent;
-        border: 1px solid rgba(255,255,255,0.28);
-        color: rgba(255,255,255,0.65);
-        padding: 5px 14px;
-        border-radius: 4px;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        letter-spacing: .08em;
-        cursor: pointer;
-        min-height: 36px;
-        transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
-    .rb-nav-lang-btn.active {
-        background: rgba(255,255,255,0.14);
-        border-color: rgba(255,255,255,0.55);
-        color: #ffffff;
-    }
-    .rb-nav-lang-btn:hover {
-        background: rgba(255,255,255,0.10);
-        border-color: rgba(255,255,255,0.45);
-        color: rgba(255,255,255,0.9);
-    }
-    .rb-nav-globe-icon {
-        flex-shrink: 0;
-        opacity: 0.7;
     }
 
     /* Logos parceiros */
