@@ -483,32 +483,43 @@ body.avaliacao-painel-page .rb-main {
 }
 
 .ap-nivel-badge[data-nivel="Nível 5"],
-.ap-nivel-badge[data-nivel="Level 5"] {
+.ap-nivel-badge[data-nivel="Level 5"],
+.ap-nivel-badge[data-nivel="Nivel 5"] {
     background: rgba(26,74,53,.14);
     color: #ffffff;
     border: 1px solid rgba(26,74,53,.38);
 }
-.ap-nivel-badge[data-nivel="Nível 4"] {
+.ap-nivel-badge[data-nivel="Nível 4"],
+.ap-nivel-badge[data-nivel="Level 4"],
+.ap-nivel-badge[data-nivel="Nivel 4"] {
     background: rgba(38,69,132,.22);
     color: #264584;
     border: 1px solid rgba(38,69,132,.45);
 }
-.ap-nivel-badge[data-nivel="Nível 3"] {
+.ap-nivel-badge[data-nivel="Nível 3"],
+.ap-nivel-badge[data-nivel="Level 3"],
+.ap-nivel-badge[data-nivel="Nivel 3"] {
     background: rgba(232,197,58,.20);
     color: #7a6210;
     border: 1px solid rgba(232,197,58,.45);
 }
-.ap-nivel-badge[data-nivel="Nível 2"] {
+.ap-nivel-badge[data-nivel="Nível 2"],
+.ap-nivel-badge[data-nivel="Level 2"],
+.ap-nivel-badge[data-nivel="Nivel 2"] {
     background: rgba(240,154,80,.20);
     color: #7a4012;
     border: 1px solid rgba(240,154,80,.45);
 }
-.ap-nivel-badge[data-nivel="Nível 1"] {
+.ap-nivel-badge[data-nivel="Nível 1"],
+.ap-nivel-badge[data-nivel="Level 1"],
+.ap-nivel-badge[data-nivel="Nivel 1"] {
     background: rgba(224,107,107,.20);
     color: #7a1f1f;
     border: 1px solid rgba(224,107,107,.45);
 }
-.ap-nivel-badge[data-nivel="Nível 0"] {
+.ap-nivel-badge[data-nivel="Nível 0"],
+.ap-nivel-badge[data-nivel="Level 0"],
+.ap-nivel-badge[data-nivel="Nivel 0"] {
     background: rgba(189,197,208,.22);
     color: #454e5c;
     border: 1px solid rgba(189,197,208,.45);

@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (80a rodada)
+
+### fix: badge "Nivel 5" ilegível em espanhol (texto escuro sobre fundo verde-escuro)
+
+- Usuário reportou print: na página Componentes, o badge do nível máximo ficava com texto difícil de ler em espanhol
+- Causa: o JS aplica a cor de fundo do badge via `style="background-color:..."` inline (vem do backend, independente de idioma); a CSS só definia `color: #ffffff` (texto branco, necessário pro fundo verde-escuro) pros seletores `[data-nivel="Nível 5"]` e `[data-nivel="Level 5"]` — faltava `[data-nivel="Nivel 5"]` (espanhol, sem acento). Mesma causa também fazia a estrela/destaque de nível máximo não aparecer em espanhol (`isMax` no JS só comparava com as strings PT/EN)
+- Corrigido: adicionados os seletores `Nivel 0`–`Nivel 5` (espanhol) em todas as regras de cor do badge na CSS, e a 3ª variante no `isMax` do JS. Confirmado que o CSS computa `rgb(255,255,255)` pro texto do badge "Nivel 5" depois do fix
+- Cache-busters: `avaliacao-painel.css` v=16, `avaliacao-painel.js` v=7
+
+**Arquivos:** `static/css/avaliacao-painel.css`, `static/js/avaliacao-painel.js`, `templates/municipios/avaliacao-painel.html`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (79a rodada) — hotfix durante o deploy
 
 ### fix: campos do Financiamento Climático estouravam limite de 500 caracteres em produção

@@ -495,8 +495,9 @@ async function carregarTabela(estrutura) {
         tabelaBody.innerHTML = "";
         const NIVEL5_PT = "Nível 5";
         const NIVEL5_EN = "Level 5";
+        const NIVEL5_ES = "Nivel 5";
         data.rows.forEach((row) => {
-            const isMax = row.nivel === NIVEL5_PT || row.nivel === NIVEL5_EN;
+            const isMax = row.nivel === NIVEL5_PT || row.nivel === NIVEL5_EN || row.nivel === NIVEL5_ES;
             const descHtml = row.descritivo
                 ? `<span class="ap-param-desc">${escHtml(row.descritivo)}</span>`
                 : "";
