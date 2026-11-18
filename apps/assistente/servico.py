@@ -22,7 +22,15 @@ from apps.assistente.ferramentas import consultar_mapa as _consultar_mapa
 # dias com os dois primeiros retornando 503 juntos (sobrecarga compartilhada no plano
 # gratuito). So modelos rapidos (~2s em 2026-10-13): gemini-3-flash-preview e
 # gemini-3.5-flash-lite sairam da lista porque travavam 15-45s antes de responder ou falhar.
-_PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite,gemini-3-flash"
+#
+# Achado em 2026-11-18: "gemini-3-flash" nunca existiu na API (404 sempre — confirmado via
+# client.models.list()), entao essa 3a reserva nunca funcionou desde 2026-10-21; nesse mesmo
+# dia o 1o e o 2o modelo tambem falharam juntos (cota do 1o esgotada pelo uso pesado do
+# traducao.py na mesma conta Gemini + 503 momentaneo no 2o), deixando o Assistente em
+# producao indisponivel de verdade. Trocado por "gemini-3.1-flash-lite-preview" (testado e
+# respondendo rapido em 2026-11-18, nunca testado/rejeitado neste projeto antes — ao
+# contrario do gemini-3.5-flash-lite, que ja tem historico de travar 15-45s aqui).
+_PADRAO = "gemini-3.5-flash,gemini-3.1-flash-lite,gemini-3.1-flash-lite-preview"
 MODELOS = [m.strip() for m in os.environ.get("GEMINI_MODELS", _PADRAO).split(",") if m.strip()]
 _TENTAR_PROXIMO = {429, 500, 503, 504}
 # Tempo maximo por chamada ao Gemini e para a pergunta inteira (com reservas). Sem isso o

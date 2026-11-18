@@ -4,6 +4,51 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (78a rodada)
+
+### fix: Painel ▸ Visão Geral, Nível País e Landing todos em português quando o idioma era espanhol
+
+- Auditoria em todos os arquivos JS achou 4 pontos que ainda escolhiam o texto com um booleano binário "é inglês?" (`isEn`), caindo pro português sempre que não fosse inglês — ou seja, invisíveis em inglês, mas quebrados em espanhol:
+  - `avaliacao-painel.js`: rótulo do eixo no topo da página de Componentes ("Governança" fixo em espanhol) e os rótulos "Nível 1"–"Nível 5" do modal de níveis
+  - `painel-multinivel.js` (o maior gap): praticamente toda a página "Visão Geral" — "Nível Eixo", "Eixo", "Voltar para a visão geral", "componentes avaliados", "peso" — e, mais grave, a própria contagem de níveis do waffle/barrinha de progresso ficava **zerada** em espanhol, porque o código comparava com a chave "Nível 1" (PT) enquanto a API já devolve "Nivel 1" (ES, sem acento) — não era só texto, quebrava a visualização de dado
+  - `nota-pais.js` e `landing.js`: o badge de hover do Brasil no mapa-múndi ("BRASIL 2025 · 3/5 · Nível País") e os nomes dos ~90 países do mapa (dicionário só tinha PT e EN, sem ES — teriam voltado em português)
+- Corrigido com um `lang` de 3 vias (`pt`/`en`/`es`) no lugar do booleano, em todos os 4 arquivos; criado `NOMES_ES` (mesmas ~90 chaves ISO3 de `NOMES_PT`) pros nomes de país
+- Conferido com Playwright local em espanhol: Painel ▸ Visão Geral com waffle colorido e contagem certa, badge do Nível País, tudo certo
+- Cache-busters: `avaliacao-painel.js` v=6, `painel-multinivel.js` v=13, `nota-pais.js` v=2, `landing.js` v=4
+
+**Arquivos:** `static/js/avaliacao-painel.js`, `static/js/painel-multinivel.js`, `static/js/nota-pais.js`, `static/js/landing.js`, 4 templates (cache-buster), `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
+### fix: Assistente (RAG) indisponível em produção — cota Gemini esgotada + 3ª reserva que nunca existiu
+
+- Usuário reportou o widget do Assistente em produção respondendo "indisponível" pra qualquer pergunta
+- Testados os 3 modelos de `GEMINI_MODELS` direto na API: `gemini-3.5-flash` com cota diária esgotada (429 — a bateria de tradução desta sessão, na mesma conta/chave Gemini da produção, consumiu a cota), `gemini-3.1-flash-lite` com 503 momentâneo, `gemini-3-flash` com 404 (**nunca existiu** na API — bug permanente, não relacionado à cota, presente desde 2026-10-21 quando essa 3ª reserva foi adicionada; o Assistente rodava com só 2 reservas reais desde então)
+- Corrigido o bug permanente: 3ª reserva trocada por `gemini-3.1-flash-lite-preview` (testada e respondendo rápido, nunca testada/rejeitada neste projeto antes — ao contrário de `gemini-3.5-flash-lite`, que já tem histórico documentado de travar 15-45s com o contexto completo do Assistente, por isso não foi escolhida apesar de também estar disponível)
+- O esgotamento de cota em si só se resolve com o reset diário (~24h) — não tem fix de código pra isso
+- Usuário confirmou que a chave Gemini de produção e a de desenvolvimento local são a mesma conta, e decidiu não separar (não tem outra conta disponível); combinado avisar antes de qualquer tradução em lote grande daqui pra frente
+- **Pendente do usuário:** atualizar `GEMINI_MODELS` no `.env` real do droplet (mesmo valor) + `docker compose up -d --force-recreate`
+
+**Arquivos:** `apps/assistente/servico.py`, `.env.example`, `.env` (local), `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
+## 2026-11-18 (77a rodada)
+
+### feat: Financiamento Climático migrado pro V01 + tradução automática EN/ES via Gemini
+
+- Usuário questionou se o banco novo (V01 + C1) realmente substituía as 4 tabelas antigas por completo. Investigação encontrou: Financiamento Climático **também** migrou pro V01 (aba nova `Financiamento_climatico`, achado não documentado antes) — Mapa Georreferenciado continua na planilha própria de sempre (nome do arquivo no Drive é "Financiamento", só coincidência, sem relação com a tabela de Financiamento Climático — confusão desfeita com o usuário)
+- `sheets_reader.py`: `ler_financiamento("pt")` agora lê a aba `Financiamento_climatico` do V01 em vez da planilha separada antiga
+- `sync_sheets_db.py`: `_importar_financiamento` reescrito no mesmo padrão de Fichas/Parâmetros — PT é a única fonte, EN/ES gerados via Gemini (`traducao.py`). Todos os 10 campos (`programa`, `setor`, `modalidade`, `origem`, `valor`, `contrapartida`, `federal`, `estadual`, `municipal`, `ente`) traduzem livremente, nenhum é chave de lookup
+- **Bug real achado e corrigido durante a migração:** `_has_ente_value()` (filtro "Nível de Governo") usava um conjunto fixo de strings pra detectar valor zero ("R$ 0,00" etc.) — o espanhol formata como "0,00 R$" (símbolo depois do número), que não batia com nenhuma entrada do conjunto, fazendo um repasse zerado parecer "com valor" só em espanhol. Reescrito pra confiar no valor numérico sempre que o texto tem algum dígito, independente de formatação/idioma
+- **Drive-by fix:** campo `ente` (coluna real: "Tipo do repasse/financiamento") sempre voltava vazio — o código procurava por colunas "Ente"/"Ente Federado", que nunca existiram na planilha. Corrigida a busca da coluna (valor real hoje: sempre "Valores indisponíveis", dado ainda não preenchido pela equipe, mas pelo menos chega ao banco)
+- Testado de ponta a ponta com a planilha real: 49 financiamentos (antes 46) em PT/EN/ES, endpoints da API conferidos nos 3 idiomas
+- `apps/indicadores/views.py`: `_lang_sem_es()` (fallback pro inglês quando não há banco em espanhol) agora só se aplica ao Mapa — Financiamento Climático já tem ES de verdade
+
+**Arquivos:** `apps/indicadores/services/sheets_reader.py`, `apps/indicadores/management/commands/sync_sheets_db.py`, `apps/indicadores/services/financiamento_climatico.py`, `apps/indicadores/views.py`, `CLAUDE.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (76a rodada)
 
 ### fix: pill do idioma ainda invadindo o logo FNP (cascata de `position` entre duas classes)
