@@ -69,16 +69,21 @@ class RegistroFinanciamento(models.Model):
     """Linha de financiamento climático por idioma (substitui Google Sheets Financiamento PT/EN)."""
 
     lang = models.CharField(max_length=5)
+    # Nenhum destes e campo curto de verdade -- "Origem dos Recursos" ja apareceu com
+    # 843 caracteres na planilha V01, e o sheet EN antigo tinha frases longas tambem em
+    # Federal/Estadual/Municipal/Ente (ex. "Conditioned on the entity's ability to pay").
+    # TextField em todos, nunca CharField com limite arbitrario -- ja quebrou um
+    # bulk_create inteiro em producao por causa disso (2026-11-18).
     programa = models.TextField(blank=True)
-    setor = models.CharField(max_length=500, blank=True)
-    modalidade = models.CharField(max_length=500, blank=True)
-    origem = models.CharField(max_length=500, blank=True)
-    valor = models.CharField(max_length=500, blank=True)
-    contrapartida = models.CharField(max_length=500, blank=True)
-    federal = models.CharField(max_length=500, blank=True)
-    estadual = models.CharField(max_length=500, blank=True)
-    municipal = models.CharField(max_length=500, blank=True)
-    ente = models.CharField(max_length=500, blank=True)
+    setor = models.TextField(blank=True)
+    modalidade = models.TextField(blank=True)
+    origem = models.TextField(blank=True)
+    valor = models.TextField(blank=True)
+    contrapartida = models.TextField(blank=True)
+    federal = models.TextField(blank=True)
+    estadual = models.TextField(blank=True)
+    municipal = models.TextField(blank=True)
+    ente = models.TextField(blank=True)
 
     class Meta:
         indexes = [

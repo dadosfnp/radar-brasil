@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (79a rodada) — hotfix durante o deploy
+
+### fix: campos do Financiamento Climático estouravam limite de 500 caracteres em produção
+
+- Durante o `sync_sheets_db` do deploy desta sessão, `financiamento [pt]` quebrou em produção: `psycopg2.errors.StringDataRightTruncation: value too long for type character varying(500)`. A coluna "Origem dos Recursos" da planilha V01 tem valores com até 843 caracteres (parágrafo inteiro), e o campo `origem` era `CharField(max_length=500)`
+- Como o `delete()` do idioma já roda antes do `bulk_create()`, a falha deixou a tabela `RegistroFinanciamento` **vazia** em produção pro português até o fix
+- Corrigido convertendo todos os 9 campos de texto livre da tabela (`programa` já era `TextField`; `setor`, `modalidade`, `origem`, `valor`, `contrapartida`, `federal`, `estadual`, `municipal`, `ente`) de `CharField(500)` pra `TextField` — nenhum deles é campo curto de verdade (o sheet EN antigo já tinha frases longas em Federal/Estadual/Municipal/Ente também). Migração `0003_alter_registrofinanciamento_contrapartida_and_more`
+- Testado localmente: migração aplicada, `sync_sheets_db --sheet financiamento --lang pt` reimportando as 49 linhas sem erro
+
+**Arquivos:** `apps/indicadores/models.py`, `apps/indicadores/migrations/0003_alter_registrofinanciamento_contrapartida_and_more.py`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (78a rodada)
 
 ### fix: Painel ▸ Visão Geral, Nível País e Landing todos em português quando o idioma era espanhol
