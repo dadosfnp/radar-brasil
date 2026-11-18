@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-11-17 (fim do expediente)
+> Última atualização: 2026-11-18 (fim do expediente)
 
 ---
 
@@ -353,9 +353,14 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ### Branch atual: `main` (local e os dois remotos identicos, ver abaixo)
 
-**Deploy completo em producao em 2026-11-18** (commit `e30114c`): novo banco PT Fichas/Parametros/Financiamento Climatico (planilha V01) com traducao automatica EN/ES via Gemini, espanhol na interface inteira, seletor de idioma redesenhado, e o fix do Assistente (ver "Incidente" na secao do Assistente). `sync_sheets_db` rodado em producao com sucesso: Fichas (100), Parametros (434) e Financiamento (49) em PT/EN/ES. Confirmado com testes reais na API de producao (Financiamento, Painel, Assistente respondendo certo).
+**Deploy completo em producao em 2026-11-18** (commit final `eabcb3a`): novo banco PT Fichas/Parametros/Financiamento Climatico (planilha V01) com traducao automatica EN/ES via Gemini, espanhol na interface inteira, seletor de idioma redesenhado, e o fix do Assistente (ver "Incidente" na secao do Assistente). `sync_sheets_db` rodado em producao com sucesso: Fichas (100), Parametros (434) e Financiamento (49) em PT/EN/ES. Confirmado com testes reais na API de producao (Financiamento, Painel, Assistente respondendo certo) e visualmente pelo usuario.
 
-Durante o proprio deploy, `financiamento [pt]` quebrou em producao (`value too long for type character varying(500)` — ver "79a rodada" no CHANGELOG) e deixou a tabela vazia por alguns minutos ate o hotfix (`e30114c`, campos viram `TextField`) ser publicado e o `sync_sheets_db --sheet financiamento` rodado de novo. Resolvido no mesmo dia, sem pendencia.
+Durante o proprio deploy, `financiamento [pt]` quebrou em producao (`value too long for type character varying(500)` — ver "79a rodada" no CHANGELOG) e deixou a tabela vazia por alguns minutos ate o hotfix (campos viram `TextField`) ser publicado e o `sync_sheets_db --sheet financiamento` rodado de novo. Resolvido no mesmo dia.
+
+**3 fixes pos-deploy, achados pelo usuario testando em producao (todos resolvidos e publicados no mesmo dia):**
+1. Badge "Nivel 5" ilegivel em espanhol (texto escuro sobre fundo escuro) — CSS so cobria PT/EN
+2. Total do Mapa Georreferenciado 3,4x maior em EN/ES que em PT (R$ 633bi vs R$ 185,9bi) — `mapa_georreferenciado.py` comparava `perfil` com uma string fixa em portugues; achado pre-existente, nao introduzido nesta sessao
+3. Painel ▸ Visão Geral no mobile: bolhas de eixo empilhando em 2 linhas desbalanceadas + barrinha de score comprimida — CSS sem tratamento mobile adequado
 
 **Historico do dia anterior (2026-11-17), para contexto:** a reestruturacao completa (menu em cascata, mapas consolidados, Painel com acordeao, Landing redesenhada) foi mesclada e publicada em `035a2a6`; achado principal daquele dia foi o **Cloudflare** cacheando `nota-pais.js`/`i18n.js` por ate 1 ano (ver "Infraestrutura de producao").
 
@@ -363,8 +368,8 @@ Durante o proprio deploy, `financiamento [pt]` quebrou em producao (`value too l
 
 | Remoto | `next` | `main` |
 |---|---|---|
-| `origin` (brunofnp) | `e30114c` | `e30114c` |
-| `nucleo` (dadosfnp) | `e30114c` | `e30114c` |
+| `origin` (brunofnp) | `eabcb3a` | `eabcb3a` |
+| `nucleo` (dadosfnp) | `eabcb3a` | `eabcb3a` |
 
 > `main` e `next` identicos nos dois remotos, sem commits pendentes de push. **Nota:** o remoto da organizacao esta configurado localmente como `nucleo` (`git remote -v`) — "prod" usado em documentacao antiga era so o nome conceitual.
 
@@ -613,9 +618,11 @@ Estrutura HTML:
 np-page > np-intro + np-card (np-sidebar + np-map-container + np-filter-fab) + np-sidebar-backdrop + np-kpi-strip
 ```
 
-### Mapa Georreferenciado — estado (2026-11-17)
+### Mapa Georreferenciado — estado (2026-11-18)
 
 CSS: `static/css/mapa-georreferenciado.css` **v=14** | JS: `static/js/mapa-georreferenciado.js` **v=7** | Template: `templates/municipios/mapa-georreferenciado.html`
+
+**Fix total 3,4x maior em EN/ES (2026-11-18):** `mapa_georreferenciado.py` decidia a agregacao (Unico: minimo por municipio / Agrupado: uma vez por empreendimento) comparando `reg.perfil == "Investimento Único"` — string fixa em portugues. O campo `perfil` **nao e normalizado** pro PT na importacao (diferente de `eixo`) — a planilha EN grava o valor ja em ingles ("Single Investment"/"Pooled Investment"). Todo registro em ingles caia sempre no ramo "Agrupado" por engano, somando ao inves de pegar so o minimo por municipio — inflava o total de R$ 185,9bi (PT) pra R$ 633bi (EN/ES). Achado pre-existente (nao introduzido nesta sessao), corrigido comparando contra `{"Investimento Único", "Single Investment"}`. PT e EN agora dao o mesmo total exato.
 
 **Basemap (2026-11-17, 2a tentativa):** CARTO Positron passou a exigir API key e quebrou em producao ("API KEY REQUIRED" sobre o mapa). 1a tentativa (OSM + filtro CSS `grayscale`) nao dava o branco/cinza exatos pedidos. **Solucao final: sem tile raster de terceiro nenhum.** `#mg-map` com `background: #fff` solido ("mar") + Brasil preenchido 100% solido `#B0BCC8` via GeoJSON ("continente"), mesma logica vetorial do Nivel Pais — cor exata garantida, zero dependencia de provedor externo. Perde o contexto de ruas/cidades do OSM (aceitavel: o conteudo real sao os marcadores de municipio, nao o basemap).
 
@@ -653,9 +660,11 @@ CSS: `static/css/mapa-georreferenciado.css` **v=14** | JS: `static/js/mapa-georr
 - Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
 - Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
-### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-17, v3)
+### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-18, v4)
 
-CSS: `static/css/painel-multinivel.css` v=20 | JS: `static/js/painel-multinivel.js` v=12 | Template: `templates/municipios/painel-multinivel.html`
+CSS: `static/css/painel-multinivel.css` v=24 | JS: `static/js/painel-multinivel.js` v=13 | Template: `templates/municipios/painel-multinivel.html`
+
+**Fix mobile (2026-11-18):** bolhas de eixo quebravam em 2 linhas desbalanceadas (3+1) — viraram faixa de scroll horizontal numa linha só (`flex-wrap: nowrap; overflow-x: auto`), sem barra visível. Score do critério no mobile usava `width:100%; margin-left:28px` (margin soma fora da largura, estourava a linha e o flex-shrink comprimia a barrinha+label) — trocado por `padding-left:44px` (fica dentro do `width:100%`, `box-sizing:border-box` é global). Conferido com Playwright em 390px.
 
 **Ajustes 2026-11-17:** bolhas de eixo agora ficam **sempre visiveis** desde o estado inicial "Visão geral" (antes so apareciam depois de abrir um eixo) — funcionam como atalho direto. Resumo do eixo + sua lista de criterios agora ficam dentro de um unico retangulo cinza (`.pm-eixo-expandido`, fundo `#f0f1f4`) que os abraca juntos — antes eram dois blocos soltos. Botao "Criterios e Parametros de Avaliacao" removido da Visão Geral (template/JS/CSS). Overlay das fotos dos cards recolhidos trocado de navy pra um preto neutro (`rgba(10,12,16,...)`), menos azulado.
 
@@ -671,11 +680,13 @@ Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no esta
 - Sem isso, `min-width: auto` (default flex) forcava expansao para ~700px quebrando o layout
 - `overflow: hidden` adicionado ao `.pm-chart-area` no mobile como barreira adicional
 
-### Avaliacao Painel — estado (2026-09-23)
+### Avaliacao Painel — estado (2026-11-18)
 
-CSS: `static/css/avaliacao-painel.css` v=15 | Template: `templates/municipios/avaliacao-painel.html`
+CSS: `static/css/avaliacao-painel.css` v=16 | JS: `static/js/avaliacao-painel.js` v=7 | Template: `templates/municipios/avaliacao-painel.html`
 
 Todos os touch targets elevados para min-height: 44px em mobile.
+
+**Fix badge "Nivel 5" ilegivel em espanhol (2026-11-18):** CSS so tinha `color:#ffffff` pros seletores `[data-nivel="Nível 5"]`/`"Level 5"` — faltava `"Nivel 5"` (ES, sem acento), entao o fundo verde-escuro inline (vem do backend) ficava com texto escuro padrao por cima, ilegivel. Adicionados os 6 niveis em espanhol em todas as regras de cor do badge; mesma causa corrigida na estrela de nivel maximo (`isMax` no JS).
 
 **Fix modal ficha tecnica mobile (v14):**
 - `inset: 88px 0 0` no `.ap-modal-overlay` em `<=900px` — overlay inicia abaixo do header
@@ -712,12 +723,12 @@ Tabela mobile: card layout com `td:first-child` como cabecalho navy.
 - Sem degrades, sem teal/verde (exceto bolinha piscante `#22c55e`)
 - **Paleta consolidada dos mapas** (Nivel Pais + Mapa Georreferenciado): oceano branco, continente cinza `#B0BCC8`, Brasil navy `#264584`, fronteiras brancas — tokens `--map-ocean-color`/`--map-land-color`/`--map-brazil-color`/`--map-border-color` em `tokens.css`. Mapa Georreferenciado usa tile CARTO Positron sem rotulos (`light_nolabels`) no lugar do OSM colorido
 
-### i18n EN — completo
+### i18n — PT/EN/ES completo (2026-11-18)
 
-- `LocaleMiddleware`, seletor PT|EN no header, `LANGUAGES = [("pt-br",...), ("en",...)]`
-- `locale/en/LC_MESSAGES/django.po` — 245+ strings + `django.mo` compilado
-- `static/js/i18n.js` — `RBi18n.t()` / `RBi18n.getLang()` — cobre 9 templates + 5 JS
-- Banco EN populado (98 fichas, 412 parametros, 46 financiamentos, 2322 mapas)
+- `LocaleMiddleware`, seletor com bandeira+nome+chevron no header (3 opcoes), `LANGUAGES = [("pt-br",...), ("en",...), ("es",...)]`
+- `locale/en/LC_MESSAGES/django.po` (245+ strings) e `locale/es/LC_MESSAGES/django.po` (617 strings, traduzidas via Gemini em lote) — ambos com `.mo` compilado
+- `static/js/i18n.js` — `RBi18n.t()` / `RBi18n.getLang()` — `DICT.en` e `DICT.es`
+- Banco (producao, apos deploy de 2026-11-18): 100 fichas, 434 parametros e 49 financiamentos em PT/EN/ES; 2322 registros de mapa em PT/EN (sem ES ainda — `_lang_sem_es()` cai pro ingles)
 
 ### Arquitetura de dados
 
@@ -748,19 +759,19 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
 | `landing.css` | v=20 |
-| `landing.js` | v=3 |
+| `landing.js` | v=4 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |
-| `avaliacao-painel.css` | v=15 |
-| `avaliacao-painel.js` | v=5 |
-| `painel-multinivel.css` | v=23 |
-| `painel-multinivel.js` | v=12 |
+| `avaliacao-painel.css` | v=16 |
+| `avaliacao-painel.js` | v=7 |
+| `painel-multinivel.css` | v=24 |
+| `painel-multinivel.js` | v=13 |
 | `mapa-georreferenciado.css` | v=14 |
 | `mapa-georreferenciado.js` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
 | `nota-pais.css` | v=13 |
-| `nota-pais.js` | v=1 (ganhou cache-buster em 2026-11-17 — ver "Infraestrutura de producao") |
+| `nota-pais.js` | v=2 (ganhou cache-buster em 2026-11-17; badge/mapa em 3 idiomas em 2026-11-18) |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |
@@ -771,10 +782,8 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 Proximos passos:
 
-- **Confirmar visualmente em producao (apos o fix de cache do Cloudflare):** pins/nomes de pais no Nivel Pais e texto nao traduzido no Painel (EN) deviam ter sumido depois do `?v=1` em `nota-pais.js`/`i18n.js` — o usuario ainda nao confirmou visualmente nesta sessao
-- **Espanhol na interface: feito (2026-11-18).** `settings.LANGUAGES` com "es", `locale/es/LC_MESSAGES/django.po` (617 strings traduzidas via Gemini em lote, revisadas), `i18n.js` com `DICT.es`, dicionarios ES em `painel_multinivel.py`/`avaliacao_painel.py`/`apps/municipios/views.py`, seletor de idioma com a 3a opcao "Español". Mapa Georreferenciado e Financiamento Climatico (sem banco ES ainda) caem pro ingles em "es" via `_lang_sem_es()` em vez de devolver vazio. Conferido com dados reais, 58 testes passando
-- **Bug de UI achado e corrigido no mesmo dia (2 rodadas):** apos o redesign do seletor de idioma (commit `373972e`), o item pensado so pro dropdown mobile vazou como uma 5a aba duplicada no menu desktop, e o pill de verdade (ao lado do logo FNP) ficou mal posicionado, invadindo o logo — mais bandeiras emoji nao renderizando no Windows/Chrome (apareciam como texto "BR"). 1a correcao: item mobile só visivel `<=900px`, bandeiras trocadas por SVG local, e o pill reposicionado — **mas essa 1a tentativa nao resolveu de verdade** (usuario mandou 2a screenshot mostrando o pill ainda invadindo o logo). Causa raiz real: `.rb-lang-form` e `.rb-lang-select` sao duas classes do MESMO elemento, cada uma com sua propria regra de `position` (`absolute` vs `relative`) brigando na cascata — `relative` vencia por vir depois no arquivo, entao o pill nunca saia do fluxo do flex (virava item ao lado do logo) e o deslocamento aplicado em cima dessa posicao errada sobrepunha o logo. 2a correcao (de verdade): unificar as duas declaracoes de posicionamento numa regra so (ver "Header Global"). Confirmado com medicao via Playwright local (`npx playwright`), nao so por screenshot — a 1a screenshot do usuario parecia confirmar sucesso mas era so um crop que cortava antes de mostrar o problema. Licao: bug visual de posicionamento (CSS) com 2 classes conflitantes no mesmo elemento pode *parecer* corrigido numa screenshot e nao estar — medir com Playwright (`boundingBox()`) da certeza que uma screenshot cortada nao da
-- **Gemini free tier — cota diaria aperta rapido, e derrubou o Assistente de verdade (achado 2026-11-18):** o plano gratuito e 20 requisicoes/dia **por modelo**; a bateria de testes+traducao completa desta sessao (Fichas+Parametros EN+ES de manha, django.po + Financiamento Climatico a tarde) esgotou a cota do `gemini-3.5-flash` — e essa mesma chave/conta e a que a producao usa (usuario nao tem conta separada). Resultado: Assistente em producao ficou indisponivel por horas (ver "Incidente" na secao do Assistente, acima) ate o reset diario. Daqui pra frente: avisar antes de rodar traducao em lote grande via Gemini — nao e so "dimensionar expectativa", e risco real de derrubar producao
+- **Mapa Georreferenciado sem espanhol:** Fichas, Parametros e Financiamento Climatico ja tem ES de verdade (via Gemini); so o Mapa continua PT/EN (planilha EN mantida a mao, sem tradutor automatico) — `_lang_sem_es()` cai pro ingles em "es" pra esse dataset especifico, nunca devolve vazio. Migrar o Mapa pro mesmo padrao de traducao automatica fica pra uma proxima sessao, se fizer sentido
+- **Gemini free tier — cota compartilhada entre dev local e producao (achado e combinado em 2026-11-18):** dev local e o Assistente em producao usam a mesma conta/chave Gemini (usuario nao tem conta separada, decidiu nao criar uma so pra isso). Uma rodada de traducao em lote pesada local pode esgotar a cota (20 req/dia por modelo) que a producao tambem usa — foi exatamente o que derrubou o Assistente por algumas horas nesta sessao (ver "Incidente" na secao do Assistente; resolvido no mesmo dia). **Combinado: avisar antes de rodar qualquer traducao em lote grande via Gemini neste projeto daqui pra frente** (ver memoria de sessao)
 - **SEGURANCA (urgente):** os dois PATs do GitHub (`ghp_...`) apareceram em texto aberto numa saida de terminal colada no chat em 2026-10-20. Revogar nas contas brunofnp e dadosfnp, gerar novos (`repo` + `workflow`; `origin` = brunofnp, `prod` = dadosfnp) e limpar o historico do PowerShell
 
 - **SEGURANCA (urgente):** chave privada da service account do Google Sheets (`radar-brasil-sheets@robust-charge-494120-s3`, key id `f40019d3`) esta no historico do repo **publico** `prod` (commit `5eecb76`, arquivo `.secrests/fnp-radar-sheets.json.json`). Apagar a chave no GCP, gerar outra para o `.env` do droplet, reduzir escopo para leitura; reescrever historico so com autorizacao
@@ -794,6 +803,7 @@ Proximos passos:
 - Espanhol adicionado como terceiro idioma do banco (Fichas/Parametros apenas por enquanto); Financiamento e Mapa continuam so PT/EN
 - Achado a parte: `gemini-3-flash` (3a reserva do Assistente) nao existe na API (404) — Assistente em producao roda com so 2 reservas funcionais; nao corrigido (fora do escopo)
 - **Continuacao do mesmo dia — seletor de idioma redesenhado e depois corrigido, espanhol completo na interface:** seletor PT|EN trocado por dropdown bandeira+nome+seta (commit `373972e`). Usuario reportou com prints 2 bugs visuais no resultado: item duplicado aparecendo como 5a aba no menu desktop, e o pill de verdade invadindo o logo FNP (mais bandeiras emoji aparecendo como texto "BR" no Windows/Chrome). Corrigido: item mobile só visivel `<=900px`, pill reposicionado com o valor historico (`bottom: -26px`), bandeiras trocadas por SVG proprio em `static/img/flags/`. Em seguida, espanhol completo na interface: `settings.LANGUAGES`, `locale/es/LC_MESSAGES/django.po` (617 strings traduzidas via Gemini em lote, revisadas, com retomada de progresso pra sobreviver a erros 503/429 do free tier), `DICT.es` no `i18n.js`, dicionarios ES em `painel_multinivel.py`/`avaliacao_painel.py`/`views.py`, e a 3a opcao "Español" no seletor. Mapa/Financiamento (sem banco ES) caem pro ingles em vez de vazio via `_lang_sem_es()`. 58 testes passando, conferido com dados reais em espanhol (Painel, Componentes, Landing)
+- **Continuacao — Financiamento Climatico migrado + deploy completo em producao:** achado que Financiamento Climatico (nao so Fichas/Parametros) tambem migrou pra aba `Financiamento_climatico` do V01 (usuario perguntou se o banco novo cobria mesmo as 4 tabelas antigas — Mapa confirmado continuar na planilha de sempre, so com nome "Financiamento" por coincidencia no Drive, sem relacao). Migrado pro mesmo padrao PT+Gemini de Fichas/Parametros. Backup tag `backup-main-2026-11-18` criada antes do merge; `next`/`main` publicados nos dois remotos (commit final `eabcb3a`). Durante o `sync_sheets_db` em producao, `financiamento [pt]` quebrou (`origem` com 843 caracteres estourando `CharField(500)`) — hotfix rodando os 9 campos pra `TextField`, resync rodado de novo com sucesso. Assistente em producao testado e confirmado respondendo (ver "Incidente" acima). Depois do deploy, usuario achou mais 3 bugs visuais testando em producao (badge Nivel 5 ilegivel em ES, total do Mapa 3,4x maior em EN/ES, Painel mobile com bolhas empilhadas e score espremido) — todos corrigidos e publicados no mesmo dia (ver CHANGELOG 80a/81a/82a rodadas)
 
 **Resumo do dia (2026-11-17): reestruturacao completa publicada (`035a2a6`), cache do Cloudflare descoberto:**
 - Branch `feat/reestruturacao-menu-mapas-landing-painel` mesclada em `next` e `main` e publicada em `origin` + `nucleo`, depois de tags de backup do estado anterior

@@ -5,6 +5,27 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: badge "Nivel 5" ilegível em espanhol, texto escuro sobre fundo escuro (2026-11-18)
+
+- Na página Componentes, o badge do nível máximo (fundo verde-escuro sólido, aplicado inline pelo JS a partir da cor do backend) ficava sem a cor de texto branca em espanhol — a CSS só tinha o seletor `[data-nivel="Nível 5"]`/`[data-nivel="Level 5"]` pro texto branco, faltava `[data-nivel="Nivel 5"]` (sem acento). Mesma causa fazia a estrela de destaque de nível máximo não aparecer em espanhol
+- Corrigido adicionando os 6 níveis em espanhol (`Nivel 0` a `Nivel 5`) em todas as regras de cor do badge, e a 3ª variante na checagem de nível máximo do JS
+
+**Arquivos:** `static/css/avaliacao-painel.css`, `static/js/avaliacao-painel.js`
+
+---
+
+## Fix: Painel ▸ Visão Geral no mobile — bolhas empilhadas e score espremido (2026-11-18)
+
+- Usuário reportou (com prints) dois problemas visuais no mobile: as 4 bolhas de eixo quebravam em 2 linhas desbalanceadas (3 numa linha, 1 sozinha na outra); e, dentro de um critério aberto, a barrinha de progresso + "X/5" apareciam comprimidas, sem respiro
+- Bolhas: trocado `flex-wrap: wrap` (sem override mobile) por uma faixa de scroll horizontal numa linha só — padrão de chips mobile nativo (iOS/Android), sem barra de scroll visível, só o gesto de arrastar
+- Score do critério: a regra mobile tinha `width: 100%; margin-left: 28px` — como margin soma **fora** da largura de 100%, a linha estourava e o navegador comprimia (flex-shrink) a barrinha+label pra caber. Trocado por `padding-left: 44px`, que fica **dentro** do `width:100%` (o projeto já usa `box-sizing: border-box` global), nunca mais estoura nem espreme
+- Aproveitado pra aumentar o respiro geral (padding/gap) do card do eixo e dos critérios no mobile, e o tamanho dos segmentos da barrinha
+- Conferido com Playwright em viewport de 390px (iPhone): sem overflow horizontal da página, faixa de bolhas com scroll de verdade (`scrollWidth` > `clientWidth`), barrinha de score dentro dos limites do card (`right` do score < `right` do header)
+
+**Arquivos:** `static/css/painel-multinivel.css`
+
+---
+
 ## Fix: seletor de idioma vazando como 5ª aba do menu + invadindo o logo da FNP (2026-11-18)
 
 - O redesign do seletor (bandeira + nome + chevron, commit `373972e`) reaproveitou a mesma estrutura/classes (`.rb-nav-item--dropdown`, `.rb-nav-trigger`) dos dropdowns "Sobre"/"Painel" pro item de idioma **mobile** (dentro do painel do hamburguer) — sem nada escondendo esse item em telas largas. Resultado: no desktop ele aparecia duplicado, como uma 5ª aba inline no menu ("🇧🇷 Português ∨" ao lado de "Mapa"), além do pill de verdade ao lado do logo FNP
