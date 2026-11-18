@@ -29,8 +29,13 @@ SHEET_IDS = {
         "pt": {"id": "10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic", "gid": None},
         "en": {"id": "1t-ivtzjEbn4qneUZr9vaRwCgq7iGKTmIHUnM0aBp4f8", "gid": 1708988989},
     },
+    # Financiamento Climático PT passou a viver tambem na planilha combinada V01
+    # (aba "Financiamento_climatico", e-mail Paulo Diego, achado em 2026-11-18) —
+    # EN/ES agora sao gerados por traducao automatica a partir do PT, mesmo padrao
+    # de Fichas/Parametros. A entrada "en" abaixo fica so de historico/referencia,
+    # sem uso (igual ja acontecia com fichas/parametros.en).
     "financiamento": {
-        "pt": {"id": "1sxKa2yu8GL8U6m4zoK42hO75a-YZqVKK5PKNJ8jlJ8c", "gid": 793540087},
+        "pt": {"id": "10bQF-i3AzELKGFBgWNqRgdC6aLUbekNpg4Rl5kPX2Ic", "gid": None},
         "en": {"id": "1bQoDf4AEElaNy6_vUQSh-tOoZDKZA-R7mEn2eUmZEmk", "gid": 449650871},
     },
     "mapa": {
@@ -235,13 +240,7 @@ def ler_parametros(lang: str) -> pd.DataFrame:
 def ler_financiamento(lang: str) -> pd.DataFrame:
     """Lê a sheet Financiamento e normaliza colunas EN → PT."""
     cfg = SHEET_IDS["financiamento"][lang]
-    client = _get_client()
-    sh = client.open_by_key(cfg["id"])
-    ws = sh.get_worksheet_by_id(cfg["gid"])
-    dados = ws.get_all_records()
-    df = pd.DataFrame(dados)
-    df.columns = [str(col).strip() for col in df.columns]
-    df = _corrigir_mojibake_df(df)
+    df = _ler(cfg, worksheet_name="Financiamento_climatico" if lang == "pt" else "dados")
     if lang == "en":
         df.rename(columns=_EN_COLS_FINANCIAMENTO, inplace=True)
     return df

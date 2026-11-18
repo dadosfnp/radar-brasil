@@ -20,9 +20,9 @@ def _lang(request) -> str:
 
 
 def _lang_sem_es(request) -> str:
-    """Mapa e Financiamento ainda não têm banco em espanhol (só Fichas/
-    Parâmetros, via tradução automática) — em "es" cai pro inglês em vez de
-    devolver uma consulta vazia."""
+    """Mapa Georreferenciado ainda não tem banco em espanhol (Fichas,
+    Parâmetros e Financiamento já têm, via tradução automática) — em "es"
+    cai pro inglês em vez de devolver uma consulta vazia."""
     lang = _lang(request)
     return "en" if lang == "es" else lang
 
@@ -140,7 +140,7 @@ def api_fin_cli_filtros(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_filtros
 
-        return JsonResponse(get_filtros(lang=_lang_sem_es(request)))
+        return JsonResponse(get_filtros(lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_fin_cli_filtros")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -157,7 +157,7 @@ def api_fin_cli_tabela(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_tabela
 
-        return JsonResponse({"rows": get_tabela(filtros, lang=_lang_sem_es(request))})
+        return JsonResponse({"rows": get_tabela(filtros, lang=_lang(request))})
     except Exception:
         logger.exception("Erro em api_fin_cli_tabela")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -174,7 +174,7 @@ def api_fin_cli_graficos(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_graficos
 
-        return JsonResponse(get_graficos(filtros, lang=_lang_sem_es(request)))
+        return JsonResponse(get_graficos(filtros, lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_fin_cli_graficos")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)
@@ -191,7 +191,7 @@ def api_fin_cli_filtros_disponiveis(request):
     try:
         from apps.indicadores.services.financiamento_climatico import get_filtros_disponiveis
 
-        return JsonResponse(get_filtros_disponiveis(filtros, lang=_lang_sem_es(request)))
+        return JsonResponse(get_filtros_disponiveis(filtros, lang=_lang(request)))
     except Exception:
         logger.exception("Erro em api_fin_cli_filtros_disponiveis")
         return JsonResponse({"erro": _ERRO_GENERICO}, status=500)

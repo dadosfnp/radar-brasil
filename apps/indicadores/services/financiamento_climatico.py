@@ -73,13 +73,18 @@ def _aplicar_filtros(qs, filtros: dict):
 
 
 def _has_ente_value(field_val: str) -> bool:
-    """Retorna True se o campo indica repasse real (valor > 0 ou texto descritivo)."""
+    """Retorna True se o campo indica repasse real (valor > 0 ou texto descritivo).
+
+    Se o texto tem algum dígito, confia inteiramente no valor numérico (cobre
+    qualquer formatação de moeda/idioma — "R$ 0,00", "R$ 0.00", "0,00 R$" —
+    sem depender de um conjunto fixo de strings). Só cai no "é descritivo,
+    conta como valor" quando não há nenhum dígito no texto."""
     s = str(field_val).strip()
-    if not s:
+    if not s or s in ("-", "nan", "None", "N/A"):
         return False
-    if _parse_num(s) > 0:
-        return True
-    return s.lower() not in {"r$ 0,00", "r$0,00", "0", "0,00", "0.00"}
+    if re.search(r"\d", s):
+        return _parse_num(s) > 0
+    return True
 
 
 def _filtrar_ente(registros: list, filtros: dict) -> list:

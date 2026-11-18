@@ -102,9 +102,9 @@ class Command(BaseCommand):
 
         sheets = ["fichas", "parametros", "financiamento", "mapa"] if sheet == "all" else [sheet]
         langs = ["pt", "en", "es"] if lang == "all" else [lang]
-        # Espanhol so existe (por enquanto) para Fichas/Parametros, via traducao automatica
-        # (ver traducao.py) — Financiamento e Mapa ainda nao tem planilha nem fonte ES.
-        sem_es = {"financiamento", "mapa"}
+        # Espanhol existe (via traducao automatica, ver traducao.py) para Fichas,
+        # Parametros e Financiamento — Mapa ainda nao tem planilha nem fonte ES.
+        sem_es = {"mapa"}
 
         for s in sheets:
             for lg in langs:
@@ -244,8 +244,26 @@ class Command(BaseCommand):
         self.stdout.write(f"    {len(objs)} parâmetros importados")
 
     # ── Financiamento ────────────────────────────────────────────
+    _CAMPOS_TRADUZIVEIS_FINANCIAMENTO = [
+        "programa",
+        "setor",
+        "modalidade",
+        "origem",
+        "valor",
+        "contrapartida",
+        "federal",
+        "estadual",
+        "municipal",
+        "ente",
+    ]
+
     def _importar_financiamento(self, lang: str):
-        df = sr.ler_financiamento(lang)
+        # Financiamento Climatico PT e a unica fonte (aba Financiamento_climatico
+        # da planilha V01, achado em 2026-11-18); EN/ES sao gerados por traducao
+        # automatica a partir do PT, mesmo padrao de Fichas/Parametros — ver
+        # docstring de traducao.py. Nenhum campo daqui e chave de lookup em outro
+        # lugar do codigo, entao todos traduzem livremente (sem vocabulario fixo).
+        df = sr.ler_financiamento("pt")
         RegistroFinanciamento.objects.filter(lang=lang).delete()
 
         prog_col = _col(df, "Programas e Linhas de Financiamento", "Programa", "Programas")
@@ -253,39 +271,51 @@ class Command(BaseCommand):
         mod_col = _col(df, "Modalidade")
         orig_col = _col(df, "Origem dos Recursos", "Origem")
         val_col = _col(
-            df, "Valor de Financiamento", "Valor de financiamento", "Valor do Financiamento"
+            df, "Valor de financiamento", "Valor de Financiamento", "Valor do Financiamento"
         )
-        cpart_col = _col(df, "Contrapartida", "Contrapatida mínima", "Contrapartida mínima")
+        cpart_col = _col(df, "Contrapatida mínima", "Contrapartida mínima", "Contrapartida")
         fed_col = _col(df, "Federal", "Repasse Federal")
         est_col = _col(df, "Estadual", "Repasse Estadual")
         mun_col = _col(df, "Municipal", "Repasse Municipal")
-        ente_col = _col(df, "Ente", "Ente Federado")
+        ente_col = _col(df, "Tipo do repasse/financiamento", "Ente", "Ente Federado")
 
-        objs = []
+        def gv(row, col):
+            if not col:
+                return ""
+            v = str(row.get(col, "")).strip()
+            return "" if v in ("nan", "None", "N/A") else v
+
+        linhas = []
         for _, row in df.iterrows():
-
-            def gv(col):
-                if not col:
-                    return ""
-                v = str(row.get(col, "")).strip()
-                return "" if v in ("nan", "None", "N/A") else v
-
-            objs.append(
-                RegistroFinanciamento(
-                    lang=lang,
-                    programa=gv(prog_col),
-                    setor=gv(setor_col),
-                    modalidade=gv(mod_col),
-                    origem=gv(orig_col),
-                    valor=gv(val_col),
-                    contrapartida=gv(cpart_col),
-                    federal=gv(fed_col),
-                    estadual=gv(est_col),
-                    municipal=gv(mun_col),
-                    ente=gv(ente_col),
-                )
+            linhas.append(
+                {
+                    "programa": gv(row, prog_col),
+                    "setor": gv(row, setor_col),
+                    "modalidade": gv(row, mod_col),
+                    "origem": gv(row, orig_col),
+                    "valor": gv(row, val_col),
+                    "contrapartida": gv(row, cpart_col),
+                    "federal": gv(row, fed_col),
+                    "estadual": gv(row, est_col),
+                    "municipal": gv(row, mun_col),
+                    "ente": gv(row, ente_col),
+                }
             )
 
+        if lang != "pt":
+            textos = {
+                v
+                for linha in linhas
+                for campo, v in linha.items()
+                if campo in self._CAMPOS_TRADUZIVEIS_FINANCIAMENTO
+            }
+            traducoes = tr.traduzir_textos(textos, lang)
+            for linha in linhas:
+                for campo in self._CAMPOS_TRADUZIVEIS_FINANCIAMENTO:
+                    if linha[campo]:
+                        linha[campo] = traducoes.get(linha[campo], linha[campo])
+
+        objs = [RegistroFinanciamento(lang=lang, **linha) for linha in linhas]
         RegistroFinanciamento.objects.bulk_create(objs, batch_size=500)
         self.stdout.write(f"    {len(objs)} financiamentos importados")
 
