@@ -14,7 +14,7 @@
     <meta property="og:description" content="{% block og_description %}{% trans "Plataforma de monitoramento do federalismo climático brasileiro. Avalie, compare e explore dados climáticos de municípios em todo o território nacional." %}{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logo-radar-fundo-escuro.svg' %}">
-    <meta property="og:locale" content="{% if request.LANGUAGE_CODE == 'en' %}en_US{% else %}pt_BR{% endif %}">
+    <meta property="og:locale" content="{% if request.LANGUAGE_CODE == 'en' %}en_US{% elif request.LANGUAGE_CODE == 'es' %}es_ES{% else %}pt_BR{% endif %}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
@@ -31,7 +31,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/tokens.css' %}?v=3">
     <link rel="stylesheet" href="{% static 'css/components.css' %}?v=3">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=26">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=27">
     <link rel="stylesheet" href="{% static 'css/assistente.css' %}?v=6">
     {% block extra_head %}{% endblock %}
 </head>
@@ -86,10 +86,10 @@
                            class="rb-nav-link {% block menu_fin_cli_active %}{% endblock %}" style="display:none" aria-hidden="true" tabindex="-1">{% trans "Financiamento Climático" %}</a>
                         <a href="{% url 'indicadores:mapa_georreferenciado' %}"
                            class="rb-nav-link {% block menu_mapa_active %}{% endblock %}">{% trans "Mapa" %}</a>
-                        <div class="rb-nav-item rb-nav-item--dropdown">
+                        <div class="rb-nav-item rb-nav-item--dropdown rb-nav-item--lang-mobile">
                             <button type="button" class="rb-nav-link rb-nav-trigger" aria-haspopup="true" aria-expanded="false">
-                                <span class="rb-lang-flag" aria-hidden="true">{% if request.LANGUAGE_CODE == "en" %}🇬🇧{% else %}🇧🇷{% endif %}</span>
-                                {% if request.LANGUAGE_CODE == "en" %}English{% else %}Português{% endif %}
+                                {% if request.LANGUAGE_CODE == "en" %}<img src="{% static 'img/flags/gb.svg' %}" class="rb-lang-flag" alt="">{% elif request.LANGUAGE_CODE == "es" %}<img src="{% static 'img/flags/es.svg' %}" class="rb-lang-flag" alt="">{% else %}<img src="{% static 'img/flags/br.svg' %}" class="rb-lang-flag" alt="">{% endif %}
+                                {% if request.LANGUAGE_CODE == "en" %}English{% elif request.LANGUAGE_CODE == "es" %}Español{% else %}Português{% endif %}
                                 <svg class="rb-nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
                             <div class="rb-nav-dropdown" role="group" aria-label="{% trans 'Selecionar idioma' %}">
@@ -97,10 +97,13 @@
                                     {% csrf_token %}
                                     <input name="next" type="hidden" value="{{ request.path }}">
                                     <button type="submit" name="language" value="pt-br" class="rb-nav-dropdown-link rb-lang-option{% if request.LANGUAGE_CODE == 'pt-br' %} active{% endif %}">
-                                        <span class="rb-lang-flag" aria-hidden="true">🇧🇷</span> Português
+                                        <img src="{% static 'img/flags/br.svg' %}" class="rb-lang-flag" alt=""> Português
                                     </button>
                                     <button type="submit" name="language" value="en" class="rb-nav-dropdown-link rb-lang-option{% if request.LANGUAGE_CODE == 'en' %} active{% endif %}">
-                                        <span class="rb-lang-flag" aria-hidden="true">🇬🇧</span> English
+                                        <img src="{% static 'img/flags/gb.svg' %}" class="rb-lang-flag" alt=""> English
+                                    </button>
+                                    <button type="submit" name="language" value="es" class="rb-nav-dropdown-link rb-lang-option{% if request.LANGUAGE_CODE == 'es' %} active{% endif %}">
+                                        <img src="{% static 'img/flags/es.svg' %}" class="rb-lang-flag" alt=""> Español
                                     </button>
                                 </form>
                             </div>
@@ -113,8 +116,8 @@
                     </a>
                     <div class="rb-lang-form rb-lang-select">
                         <button type="button" class="rb-lang-trigger" aria-haspopup="true" aria-expanded="false">
-                            <span class="rb-lang-flag" aria-hidden="true">{% if request.LANGUAGE_CODE == "en" %}🇬🇧{% else %}🇧🇷{% endif %}</span>
-                            {% if request.LANGUAGE_CODE == "en" %}English{% else %}Português{% endif %}
+                            {% if request.LANGUAGE_CODE == "en" %}<img src="{% static 'img/flags/gb.svg' %}" class="rb-lang-flag" alt="">{% elif request.LANGUAGE_CODE == "es" %}<img src="{% static 'img/flags/es.svg' %}" class="rb-lang-flag" alt="">{% else %}<img src="{% static 'img/flags/br.svg' %}" class="rb-lang-flag" alt="">{% endif %}
+                            {% if request.LANGUAGE_CODE == "en" %}English{% elif request.LANGUAGE_CODE == "es" %}Español{% else %}Português{% endif %}
                             <svg class="rb-nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </button>
                         <div class="rb-lang-dropdown" role="group" aria-label="{% trans 'Selecionar idioma' %}">
@@ -122,10 +125,13 @@
                                 {% csrf_token %}
                                 <input name="next" type="hidden" value="{{ request.path }}">
                                 <button type="submit" name="language" value="pt-br" class="rb-lang-option{% if request.LANGUAGE_CODE == 'pt-br' %} active{% endif %}">
-                                    <span class="rb-lang-flag" aria-hidden="true">🇧🇷</span> Português
+                                    <img src="{% static 'img/flags/br.svg' %}" class="rb-lang-flag" alt=""> Português
                                 </button>
                                 <button type="submit" name="language" value="en" class="rb-lang-option{% if request.LANGUAGE_CODE == 'en' %} active{% endif %}">
-                                    <span class="rb-lang-flag" aria-hidden="true">🇬🇧</span> English
+                                    <img src="{% static 'img/flags/gb.svg' %}" class="rb-lang-flag" alt=""> English
+                                </button>
+                                <button type="submit" name="language" value="es" class="rb-lang-option{% if request.LANGUAGE_CODE == 'es' %} active{% endif %}">
+                                    <img src="{% static 'img/flags/es.svg' %}" class="rb-lang-flag" alt=""> Español
                                 </button>
                             </form>
                         </div>
@@ -209,7 +215,7 @@
 
     </footer>
 
-    <script src="{% static 'js/i18n.js' %}?v=1"></script>
+    <script src="{% static 'js/i18n.js' %}?v=2"></script>
     {% block extra_js %}{% endblock %}
 
     {% include "assistente/_widget.html" %}

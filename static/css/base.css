@@ -130,17 +130,26 @@ body.rb-body {
 
 .rb-lang-form {
     position: absolute;
-    top: 100%;
-    margin-top: 4px;
+    bottom: -26px;
     right: 16px;
-    margin-right: 0;
 }
 
 /* ── Seletor de idioma (dropdown bandeira + nome) ── */
 .rb-lang-flag {
-    font-size: 0.9375rem;
-    line-height: 1;
+    width: 16px;
+    height: 11px;
+    object-fit: cover;
+    border-radius: 2px;
     flex-shrink: 0;
+    display: inline-block;
+}
+
+/* Item do idioma embutido no menu — existe só pra aparecer dentro do painel do
+   hamburguer (<=900px); no desktop quem mostra o idioma é o .rb-lang-select
+   ao lado do logo FNP. Sem isso ele reaparece como uma 5a aba do menu (bug
+   achado em 2026-11-18). */
+.rb-nav-item--lang-mobile {
+    display: none;
 }
 
 .rb-lang-select {
@@ -702,6 +711,12 @@ body.rb-body {
         display: flex;
         margin: 0;
     }
+    .rb-nav-item--lang-mobile {
+        display: block;
+    }
+    .rb-lang-form {
+        display: none;
+    }
     .rb-nav-links {
         display: none;
         position: absolute;
@@ -807,10 +822,7 @@ body.rb-body {
     .rb-header-logo-img {
         height: 36px;
     }
-    /* Pill PT|EN oculta no header mobile — substituída pelo globo no dropdown */
-    .rb-lang-form {
-        display: none;
-    }
+    /* .rb-lang-form já fica oculto a partir de 900px (ver breakpoint acima) */
 
     /* Conteúdo principal */
     .rb-main {

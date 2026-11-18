@@ -34,6 +34,12 @@ NOME_EIXO_EN = {
     "Programas": "Programs",
     "Linhas de Financiamento": "Financing Lines",
 }
+NOME_EIXO_ES = {
+    "Governanca": "Gobernanza",
+    "Politicas e Planos": "Políticas y Planes",
+    "Programas": "Programas",
+    "Linhas de Financiamento": "Líneas de Financiamiento",
+}
 
 # Nomes usados para ORDENAÇÃO (devem bater com os valores no banco)
 ORDEM_CRITERIOS = {
@@ -75,8 +81,13 @@ _CRITERIO_DISPLAY_EN = {
     "Representation of Gender, Race and Ethnicity": "Diversity and Representativeness",
     "Monitoring and Local Participation": "Monitoring and Evaluation",
 }
+_CRITERIO_DISPLAY_ES = {
+    "Financiamiento": "Sostenibilidad Financiera",
+    "Representación de Género, Raza y Etnia": "Diversidad y Representatividad",
+    "Monitoreo y Participación Local": "Monitoreo y Evaluación",
+}
 
-# Nomes de critérios EN → PT, usado APENAS para ordenação via ORDEM_CRITERIOS
+# Nomes de critérios EN/ES → PT, usado APENAS para ordenação via ORDEM_CRITERIOS
 _EN_CRITERIO = {
     "Operability": "Operacionalidade",
     "Federative dialogue space": "Espaço de diálogo federativo",
@@ -91,6 +102,22 @@ _EN_CRITERIO = {
     "Decentralized Execution Capability": "Capacidade de Execução Descentralizada",
     "Monitoring and Accountability": "Monitoramento e Prestação de Contas",
 }
+_ES_CRITERIO = {
+    "Operatividad": "Operacionalidade",
+    "Espacio de diálogo federativo": "Espaço de diálogo federativo",
+    "Comunicación y Transparencia": "Comunicação e Transparência",
+    "Financiamiento": "Financiamento",
+    "Representación de Género, Raza y Etnia": "Representação de Gênero, Raça e Etnia",
+    "Cooperación Federativa": "Cooperação Federativa",
+    "Capilaridad y Alcance Territorial": "Capilaridade e Alcance Territorial",
+    "Fortalecimiento de la Capacidad Local": "Fortalecimento da Capacidade Local",
+    "Monitoreo y Participación Local": "Monitoramento e Participação Local",
+    "Diseño Participativo de la Línea de Financiamiento": (
+        "Desenho Participativo da Linha de Financiamento"
+    ),
+    "Capacidad de Ejecución Descentralizada": "Capacidade de Execução Descentralizada",
+    "Monitoreo y Rendición de Cuentas": "Monitoramento e Prestação de Contas",
+}
 
 # "Visão Geral" do Painel (2026-11-16): Nível Eixo, peso e descrições de uma linha.
 # Nível Eixo/Nível Parcial são sempre media simples (ver texto do Nivel Pais) — peso
@@ -103,6 +130,8 @@ _CRITERIO_DISPLAY_PT["Desenho Participativo da Linha de Financiamento"] = "Desen
 _CRITERIO_DISPLAY_PT["Capacidade de Execução Descentralizada"] = "Execução Descentralizada"
 _CRITERIO_DISPLAY_EN["Participatory Design of the Financing Line"] = "Participatory Design"
 _CRITERIO_DISPLAY_EN["Decentralized Execution Capability"] = "Decentralized Execution"
+_CRITERIO_DISPLAY_ES["Diseño Participativo de la Línea de Financiamiento"] = "Diseño Participativo"
+_CRITERIO_DISPLAY_ES["Capacidad de Ejecución Descentralizada"] = "Ejecución Descentralizada"
 
 _DESCRICAO_EIXO_PT = {
     "Governanca": (
@@ -142,6 +171,27 @@ _DESCRICAO_EIXO_EN = {
     "Linhas de Financiamento": (
         "States and municipalities do not take part in structuring financing "
         "lines and have little access to the funds available."
+    ),
+}
+_DESCRICAO_EIXO_ES = {
+    "Governanca": (
+        "La gobernanza climática brasileña funciona, pero todavía sin los "
+        "estados y municipios en el centro de las decisiones."
+    ),
+    "Politicas e Planos": (
+        "Existen recursos para elaborar y ejecutar planes con la temática "
+        "climática. Lo que falta, sin embargo, es la participación de quienes "
+        "van a ejecutarlos, es decir, los estados y municipios."
+    ),
+    "Programas": (
+        "A pesar de la baja participación de estados y municipios en la "
+        "elaboración de los programas federales, estos tienen un alcance "
+        "territorial satisfactorio. Falta apoyo técnico y recursos que lleguen "
+        "a la punta."
+    ),
+    "Linhas de Financiamento": (
+        "Estados y municipios no participan en la estructuración de las "
+        "líneas de financiamiento y acceden poco a los recursos disponibles."
     ),
 }
 
@@ -201,6 +251,39 @@ _DESCRICAO_CRITERIO_EN = {
         "Monitoring and Accountability": "Degree of participation of entities in monitoring",
     },
 }
+_DESCRICAO_CRITERIO_ES = {
+    "Governanca": {
+        "Operatividad": "Influencia y regularidad de funcionamiento de la instancia",
+        "Espacio de diálogo federativo": "Representación de la Unión, estados y municipios",
+        "Sostenibilidad Financiera": "Recursos para los costos operativos de la instancia",
+        "Diversidad y Representatividad": "Previsión normativa de género, raza y etnia",
+        "Comunicación y Transparencia": "Información disponible en sitios y redes",
+    },
+    "Politicas e Planos": {
+        "Operatividad": "Actualización y periodicidad de la política o del plan",
+        "Espacio de diálogo federativo": (
+            "Participación de las entidades en la elaboración y ejecución"
+        ),
+        "Financiamiento": "Especificación de las fuentes de recursos",
+        "Comunicación y Transparencia": "Información pública sobre la política o el plan",
+    },
+    "Programas": {
+        "Cooperación Federativa": (
+            "Participación de las entidades en la estructuración del programa"
+        ),
+        "Capilaridad y Alcance Territorial": "Descentralización de la ejecución de las acciones",
+        "Financiamiento": "Dotación presupuestaria, transferencias y fondos",
+        "Fortalecimiento de la Capacidad Local": "Apoyo técnico y capacitación de las entidades",
+        "Monitoreo y Evaluación": "Instrumentos de seguimiento de la ejecución",
+    },
+    "Linhas de Financiamento": {
+        "Diseño Participativo": "Participación de las entidades en el diseño de las líneas",
+        "Ejecución Descentralizada": "Descentralización de los recursos",
+        "Monitoreo y Rendición de Cuentas": (
+            "Grado de participación de las entidades en el monitoreo"
+        ),
+    },
+}
 
 # Peso exibido (rotulo "peso N"). Default 1 (sem badge); so os casos abaixo mostram
 # "peso 2". Nunca entra em nenhuma media — Nivel Eixo/Parcial seguem media simples.
@@ -215,6 +298,12 @@ _PESO_CRITERIO_EN = {
     "Politicas e Planos": {"Operability": 2},
     "Programas": {"Financing": 2},
     "Linhas de Financiamento": {"Decentralized Execution": 2},
+}
+_PESO_CRITERIO_ES = {
+    "Governanca": {"Espacio de diálogo federativo": 2},
+    "Politicas e Planos": {"Operatividad": 2},
+    "Programas": {"Financiamiento": 2},
+    "Linhas de Financiamento": {"Ejecución Descentralizada": 2},
 }
 
 
@@ -274,7 +363,7 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
         ordem_norm = [_normalizar(o) for o in ordem]
 
         def _sort_key(av):
-            av_pt = _EN_CRITERIO.get(av, av) if lang == "en" else av
+            av_pt = {"en": _EN_CRITERIO, "es": _ES_CRITERIO}.get(lang, {}).get(av, av)
             try:
                 return ordem_norm.index(_normalizar(av_pt))
             except ValueError:
@@ -293,7 +382,12 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     datasets = []
     for nivel, cor in CORES_NIVEL.items():
         data = [contagem.get((av, nivel), 0) for av in labels]
-        label_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
+        if lang == "en":
+            label_display = nivel.replace("Nível ", "Level ")
+        elif lang == "es":
+            label_display = nivel.replace("Nível ", "Nivel ")
+        else:
+            label_display = nivel
         datasets.append(
             {
                 "label": label_display,
@@ -317,9 +411,11 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     labels_raw = list(labels)
 
     # Aplica nomes de exibição (renomeia labels do banco antes de retornar)
-    display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
+    display_map = {"en": _CRITERIO_DISPLAY_EN, "es": _CRITERIO_DISPLAY_ES}.get(
+        lang, _CRITERIO_DISPLAY_PT
+    )
     # "Financiamento" → "Sustentabilidade Financeira" apenas no eixo Governança
-    fin_key = "Financing" if lang == "en" else "Financiamento"
+    fin_key = {"en": "Financing", "es": "Financiamiento"}.get(lang, "Financiamento")
     if eixo_front != "Governanca":
         display_map = {k: v for k, v in display_map.items() if k != fin_key}
     labels = [display_map.get(lb, lb) for lb in labels]
@@ -327,9 +423,13 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     # "Visão Geral": Nível Eixo (média simples dos níveis médios de cada critério —
     # mesma fórmula de 3 etapas documentada no Nível País, sem ponderação), descrição
     # do eixo e, por critério, descrição + peso (so rotulo, nunca entra na média)
-    desc_eixo_map = _DESCRICAO_EIXO_EN if lang == "en" else _DESCRICAO_EIXO_PT
-    desc_criterio_map = _DESCRICAO_CRITERIO_EN if lang == "en" else _DESCRICAO_CRITERIO_PT
-    peso_map = _PESO_CRITERIO_EN if lang == "en" else _PESO_CRITERIO_PT
+    desc_eixo_map = {"en": _DESCRICAO_EIXO_EN, "es": _DESCRICAO_EIXO_ES}.get(
+        lang, _DESCRICAO_EIXO_PT
+    )
+    desc_criterio_map = {"en": _DESCRICAO_CRITERIO_EN, "es": _DESCRICAO_CRITERIO_ES}.get(
+        lang, _DESCRICAO_CRITERIO_PT
+    )
+    peso_map = {"en": _PESO_CRITERIO_EN, "es": _PESO_CRITERIO_ES}.get(lang, _PESO_CRITERIO_PT)
     desc_criterio_eixo = desc_criterio_map.get(eixo_front, {})
     peso_eixo = peso_map.get(eixo_front, {})
 

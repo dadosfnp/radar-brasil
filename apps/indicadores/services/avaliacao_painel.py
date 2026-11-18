@@ -1,7 +1,7 @@
 import unicodedata
 
 from apps.indicadores.models import RegistroFicha, RegistroParametro
-from apps.indicadores.services.painel_multinivel import ORDEM_CRITERIOS, _EN_CRITERIO
+from apps.indicadores.services.painel_multinivel import ORDEM_CRITERIOS, _EN_CRITERIO, _ES_CRITERIO
 
 # ── Constantes ────────────────────────────────────────────────────
 CORES_NIVEL = {
@@ -36,26 +36,45 @@ LABEL_SETOR = {
 }
 
 _CAMPOS_LABELS = {
-    "setor": ("Setor", "Sector"),
-    "descricao": ("Descrição", "Description"),
-    "orgao_responsavel": ("Órgão Responsável", "Responsible Agency"),
-    "arcabouco_normativo": ("Arcabouço Normativo", "Regulatory Framework"),
-    "contrapartida": ("Contrapartida", "Counterpart"),
-    "espaco_dialogo_federativo": ("Espaço de Diálogo Federativo", "Federative Dialogue Space"),
-    "financiamento": ("Financiamento", "Financing"),
-    "periodicidade": ("Periodicidade", "Periodicity"),
-    "composicao": ("Composição", "Composition"),
-    "carater_decisorio": ("Caráter Decisório", "Decision Authority"),
-    "politica_plano_relacionado": ("Política ou Plano Relacionado", "Related Policy or Plan"),
-    "modalidade": ("Modalidade", "Modality"),
-    "repasse": ("Repasse", "Transfer"),
-    "fontes": ("Fontes", "Sources"),
+    "setor": ("Setor", "Sector", "Sector"),
+    "descricao": ("Descrição", "Description", "Descripción"),
+    "orgao_responsavel": ("Órgão Responsável", "Responsible Agency", "Órgano Responsable"),
+    "arcabouco_normativo": (
+        "Arcabouço Normativo",
+        "Regulatory Framework",
+        "Marco Normativo",
+    ),
+    "contrapartida": ("Contrapartida", "Counterpart", "Contrapartida"),
+    "espaco_dialogo_federativo": (
+        "Espaço de Diálogo Federativo",
+        "Federative Dialogue Space",
+        "Espacio de Diálogo Federativo",
+    ),
+    "financiamento": ("Financiamento", "Financing", "Financiamiento"),
+    "periodicidade": ("Periodicidade", "Periodicity", "Periodicidad"),
+    "composicao": ("Composição", "Composition", "Composición"),
+    "carater_decisorio": (
+        "Caráter Decisório",
+        "Decision Authority",
+        "Carácter Decisorio",
+    ),
+    "politica_plano_relacionado": (
+        "Política ou Plano Relacionado",
+        "Related Policy or Plan",
+        "Política o Plan Relacionado",
+    ),
+    "modalidade": ("Modalidade", "Modality", "Modalidad"),
+    "repasse": ("Repasse", "Transfer", "Transferencia"),
+    "fontes": ("Fontes", "Sources", "Fuentes"),
 }
 
 _CAMPOS_ORDER = list(_CAMPOS_LABELS.keys())
 
+_LABEL_IDX = {"pt": 0, "en": 1, "es": 2}
+
 _INVALID_PT = {"nan", "Ñ aplica", "N/A", ""}
 _INVALID_EN = {"nan", "Does not apply", "N/A", "Not applicable", "N/A - Does not apply", ""}
+_INVALID_ES = {"nan", "No aplica", "N/A", "No aplicable", "N/A - No aplica", ""}
 
 # Renomeia campo `avaliacao` (critério) para exibição na tabela
 _CRITERIO_DISPLAY_PT = {
@@ -67,6 +86,11 @@ _CRITERIO_DISPLAY_EN = {
     "Financing": "Financial Sustainability",
     "Representation of Gender, Race and Ethnicity": "Diversity and Representativeness",
     "Monitoring and Local Participation": "Monitoring and Evaluation",
+}
+_CRITERIO_DISPLAY_ES = {
+    "Financiamiento": "Sostenibilidad Financiera",
+    "Representación de Género, Raza y Etnia": "Diversidad y Representatividad",
+    "Monitoreo y Participación Local": "Monitoreo y Evaluación",
 }
 
 # Mapeamento: atributo do modelo → coluna de link (quando existir)
@@ -152,7 +176,8 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
         ordem_norm = [_normalizar(o) for o in ordem]
 
         def _sort_key(reg):
-            av = _EN_CRITERIO.get(reg.avaliacao, reg.avaliacao) if lang == "en" else reg.avaliacao
+            av_para_pt = {"en": _EN_CRITERIO, "es": _ES_CRITERIO}.get(lang, {})
+            av = av_para_pt.get(reg.avaliacao, reg.avaliacao)
             av_norm = _normalizar(av)
             try:
                 return ordem_norm.index(av_norm)
@@ -164,16 +189,23 @@ def get_tabela(estrutura: str, lang: str = "pt") -> list:
         nivel_ordem = {n: i for i, n in enumerate(reversed(list(CORES_NIVEL.keys())))}
         registros = sorted(registros, key=lambda r: nivel_ordem.get(r.nivel, 99))
 
-    display_map = _CRITERIO_DISPLAY_EN if lang == "en" else _CRITERIO_DISPLAY_PT
+    display_map = {"en": _CRITERIO_DISPLAY_EN, "es": _CRITERIO_DISPLAY_ES}.get(
+        lang, _CRITERIO_DISPLAY_PT
+    )
     # "Financiamento" → "Sustentabilidade Financeira" apenas no eixo Governança
-    fin_key = "Financing" if lang == "en" else "Financiamento"
+    fin_key = {"en": "Financing", "es": "Financiamiento"}.get(lang, "Financiamento")
     if eixo_front != "Governanca":
         display_map = {k: v for k, v in display_map.items() if k != fin_key}
     result = []
     for reg in registros:
         nivel = reg.nivel
         cor = CORES_NIVEL.get(nivel, "#E0E0E0")
-        nivel_display = nivel.replace("Nível ", "Level ") if lang == "en" else nivel
+        if lang == "en":
+            nivel_display = nivel.replace("Nível ", "Level ")
+        elif lang == "es":
+            nivel_display = nivel.replace("Nível ", "Nivel ")
+        else:
+            nivel_display = nivel
         result.append(
             {
                 "avaliacao": display_map.get(reg.avaliacao, reg.avaliacao),
@@ -192,8 +224,8 @@ def get_ficha(estrutura: str, lang: str = "pt") -> dict:
         return {}
     reg = qs.first()
 
-    invalid = _INVALID_EN if lang == "en" else _INVALID_PT
-    label_idx = 1 if lang == "en" else 0
+    invalid = {"en": _INVALID_EN, "es": _INVALID_ES}.get(lang, _INVALID_PT)
+    label_idx = _LABEL_IDX.get(lang, 0)
 
     def _safe_link(val: str):
         v = str(val).strip()

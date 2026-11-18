@@ -5,6 +5,25 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: seletor de idioma vazando como 5ª aba do menu + invadindo o logo da FNP (2026-11-18)
+
+- O redesign do seletor (bandeira + nome + chevron, commit `373972e`) reaproveitou a mesma estrutura/classes (`.rb-nav-item--dropdown`, `.rb-nav-trigger`) dos dropdowns "Sobre"/"Painel" pro item de idioma **mobile** (dentro do painel do hamburguer) — sem nada escondendo esse item em telas largas. Resultado: no desktop ele aparecia duplicado, como uma 5ª aba inline no menu ("🇧🇷 Português ∨" ao lado de "Mapa"), além do pill de verdade ao lado do logo FNP
+- O pill desktop (`.rb-lang-form`) usava `position: absolute; top: 100%` — relativo à caixa do próprio logo FNP, que fica centralizada numa linha mais alta que sua própria altura; na prática ficava colado ao lado/sobre o logo em vez de abaixo dele, e por estar dentro do `.rb-header-wrapper` (sticky), em algumas situações desgrudava do header e flutuava sobre o conteúdo da página ao rolar
+- Bandeiras emoji (🇧🇷/🇬🇧) não renderizam no Windows/Chrome como glifo colorido — caem pro fallback de texto ("BR"), por isso "faltou a bandeira"
+- Corrigido: (1) item mobile ganhou a classe `.rb-nav-item--lang-mobile`, com `display: none` por padrão e só volta a `display: block` dentro do breakpoint `<=900px` (mesmo limiar em que o hamburguer assume) — nunca mais aparece como aba no desktop; (2) `.rb-lang-form` trocado para `bottom: -26px; right: 16px` (mesmo valor documentado como correto por meses pro antigo pill PT|EN, "abaixo do logo FNP"), sem mais sobreposição nem fuga do header; (3) bandeiras emoji substituídas por SVGs locais (`static/img/flags/br.svg`, `gb.svg`, `es.svg`, ~3 formas simples cada, sem depender de fonte emoji do SO) — mesmo visual em qualquer navegador/SO
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/img/flags/br.svg`, `static/img/flags/gb.svg`, `static/img/flags/es.svg`
+
+---
+
+## Seletor de idioma: 3ª opção "Español" (2026-11-18)
+
+- Com a infraestrutura de espanhol na interface pronta (ver CHANGELOG), a bandeira `es.svg` (vermelho/amarelo/vermelho, sem brasão) entra como 3ª opção nos dois dropdowns (mobile e desktop), ao lado de Português e English — mesmo padrão visual, sem CSS novo
+
+**Arquivos:** `base_templates/base.html`
+
+---
+
 ## Fix: retângulo branco entre "Eixos de avaliação" e o rodapé na Landing (2026-11-17)
 
 - O fundo levemente acinzentado de `.lp-eixos-section` (`#f7f9fc`) não ia até o fim da seção — sobrava um respiro branco (fundo da página, `#fff`) entre o fim do conteúdo e o rodapé navy, criando um retângulo branco visível

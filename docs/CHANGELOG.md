@@ -4,6 +4,37 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (75a rodada)
+
+### feat: espanhol completo na interface (menu, botões, textos do Painel/Nível País/Mapa)
+
+- `settings.LANGUAGES` ganha `("es", "Español")`; `LocaleMiddleware` passa a servir a plataforma inteira em espanhol
+- `locale/es/LC_MESSAGES/django.po` criado do zero: as 617 strings do `django.po` (PT→EN) traduzidas para espanhol via Gemini, em lotes, com o mesmo script de tradução batch usado pro banco (um uso único de build, não liga em `TraducaoCache` — essa é exclusiva do `sync_sheets_db`). Revisão manual: 69 traduções saíram idênticas ao PT, todas cognatos esperados (Mapa, Filtrar, Programas, Peso, Componentes etc.) — mesmo padrão já documentado pras Fichas/Parâmetros. Padronizado "Financiamiento" (não "Financiación") em todo o arquivo, pra bater com o termo já usado em "Financiamiento Climático" e com os dicionários novos do Painel. Compilado pra `django.mo` via `polib` (sem `msgfmt` local)
+- `static/js/i18n.js`: novo dicionário `DICT.es`, espelhando `DICT.en` string a string (estágios, filtros, popups do mapa, mensagens de estado, Painel, Financiamento, Nível País etc.) — `RBi18n.getLang()` já lia os 2 primeiros caracteres do `<html lang>`, então o `es` passa a funcionar sem nenhuma mudança de lógica, só o dicionário novo
+- Backend: `apps/indicadores/services/painel_multinivel.py` e `avaliacao_painel.py` ganham o equivalente ES de todo dicionário que já tinha EN (`NOME_EIXO_ES`, `_CRITERIO_DISPLAY_ES`, `_ES_CRITERIO`, `_DESCRICAO_EIXO_ES`, `_DESCRICAO_CRITERIO_ES`, `_PESO_CRITERIO_ES`, `_CAMPOS_LABELS` com 3ª coluna, `_INVALID_ES`) — os ternários binários `"X_EN if lang == 'en' else X_PT"` viram lookups `{"en": X_EN, "es": X_ES}.get(lang, X_PT)` em todos os pontos de uso
+- `apps/indicadores/views.py` (`_lang`) e `apps/municipios/views.py` (`landing`) passam a reconhecer `es` (antes só reconheciam `en`, com fallback silencioso pra `pt`). Nova `_lang_sem_es()`: Mapa Georreferenciado e Financiamento Climático ainda não têm banco em espanhol (só Fichas/Parâmetros têm, via tradução automática) — em vez de devolver uma consulta vazia pro usuário em espanhol, caem pro inglês nesses dois mapas/tabelas especificamente
+- Conferido com dados reais (não só mock): Painel ▸ Visão Geral, Componentes e os cards de eixo da Landing retornam labels/descrições/pesos corretos em espanhol; Mapa e Financiamento confirmados caindo pro inglês em vez de vazio
+- 58 testes existentes continuam passando sem alteração (a suíte não tinha asserção amarrada aos ternários binários antigos)
+- Pendente: nenhuma UI nova — o seletor de idioma (ver 73a/74a rodadas) ganha a 3ª opção "Español" no mesmo commit
+
+**Arquivos:** `setup/settings.py`, `locale/es/LC_MESSAGES/django.po`, `locale/es/LC_MESSAGES/django.mo`, `static/js/i18n.js`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/services/avaliacao_painel.py`, `apps/indicadores/views.py`, `apps/municipios/views.py`, `base_templates/base.html`, `static/img/flags/es.svg`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
+## 2026-11-18 (74a rodada)
+
+### fix: seletor de idioma vazando como aba duplicada no desktop + invadindo o logo da FNP
+
+- Usuário reportou, com prints: o pill de idioma aparecia duplicado no desktop (uma cópia inline no menu, como se fosse uma 5ª aba "BR Português ∨" ao lado de "Mapa", e outra sobre/ao lado do logo FNP) e sem bandeira (aparecia o texto "BR")
+- Causa 1: o item de idioma pensado só pro dropdown mobile (dentro do painel do hamburguer) usava a mesma estrutura/classes dos dropdowns "Sobre"/"Painel", que são visíveis por padrão no desktop — nada escondia esse item fora do mobile
+- Causa 2: o pill desktop usava `position: absolute; top: 100%` relativo à caixa do logo FNP, que por estar numa linha mais alta que sua própria altura fazia o pill ficar colado ao lado do logo em vez de abaixo, e eventualmente escapava do header sticky flutuando sobre o conteúdo da página
+- Causa 3: bandeiras emoji (🇧🇷/🇬🇧) não têm glifo colorido no Windows/Chrome — caem pro fallback de texto ("BR")
+- Corrigido: item mobile só aparece `<=900px` (mesmo limiar do hamburguer); pill desktop reposicionado com os valores (`bottom: -26px; right: 16px`) já documentados como corretos pro antigo pill PT|EN; bandeiras emoji trocadas por SVG local (`static/img/flags/`), independente de fonte do sistema operacional
+
+**Arquivos:** `base_templates/base.html`, `static/css/base.css`, `static/img/flags/br.svg`, `static/img/flags/gb.svg`, `static/img/flags/es.svg`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (73a rodada)
 
 ### feat: seletor de idioma redesenhado (bandeira + nome + chevron)

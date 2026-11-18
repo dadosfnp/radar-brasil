@@ -3,6 +3,7 @@
 from apps.indicadores.services.painel_multinivel import (
     EIXO_MAP,
     NOME_EIXO_EN,
+    NOME_EIXO_ES,
     NOME_EIXO_PT,
     dados_para_grafico,
 )
@@ -29,8 +30,14 @@ def metodologia(request):
 
 
 def landing(request):
-    lang = "en" if str(getattr(request, "LANGUAGE_CODE", "pt-br")).startswith("en") else "pt"
-    nomes = NOME_EIXO_EN if lang == "en" else NOME_EIXO_PT
+    codigo = str(getattr(request, "LANGUAGE_CODE", "pt-br"))
+    if codigo.startswith("en"):
+        lang = "en"
+    elif codigo.startswith("es"):
+        lang = "es"
+    else:
+        lang = "pt"
+    nomes = {"en": NOME_EIXO_EN, "es": NOME_EIXO_ES}.get(lang, NOME_EIXO_PT)
 
     eixos_resumo = []
     for eixo_front in EIXO_MAP:

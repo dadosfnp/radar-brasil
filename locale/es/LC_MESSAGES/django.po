@@ -1,0 +1,2820 @@
+# Spanish translations for Radar Brasil
+msgid ""
+msgstr ""
+"Language: es\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Início"
+msgstr "Inicio"
+
+msgid "Metodologia"
+msgstr "Metodología"
+
+msgid "Painel Multinível"
+msgstr "Panel Multinivel"
+
+msgid "Avaliação Painel Multinível"
+msgstr "Evaluación Panel Multinivel"
+
+msgid "Nota País"
+msgstr "Nota País"
+
+msgid "Financiamento Climático"
+msgstr "Financiamiento Climático"
+
+msgid "Mapa Georreferenciado"
+msgstr "Mapa Georreferenciado"
+
+msgid "Impulsionando a Ação Climática Federativa"
+msgstr "Impulsando la Acción Climática Federativa"
+
+msgid "Siga-nos"
+msgstr "Síguenos"
+
+msgid "Contato"
+msgstr "Contacto"
+
+msgid "Todos os direitos reservados."
+msgstr "Todos los derechos reservados."
+
+msgid "Uma plataforma de dados abertos"
+msgstr "Una plataforma de datos abiertos"
+
+msgid "para a ação climática municipal"
+msgstr "para la acción climática municipal"
+
+msgid "Saiba mais"
+msgstr "Saber más"
+
+msgid "Em breve"
+msgstr "Próximamente"
+
+msgid "Notícias"
+msgstr "Noticias"
+
+msgid "Agenda"
+msgstr "Agenda"
+
+msgid "Mapa Interfederativo Georreferenciado"
+msgstr "Mapa Interfederativo Georreferenciado"
+
+msgid ""
+"Visualize os investimentos climáticos e transferências interfederativas, "
+"utilizando os filtros para refinar a busca."
+msgstr ""
+"Visualice las inversiones climáticas y transferencias interfederativas, "
+"utilizando los filtros para refinar la búsqueda."
+
+msgid "Selecione um município"
+msgstr "Seleccione un municipio"
+
+msgid "Selecione uma UF"
+msgstr "Seleccione una UF"
+
+msgid "Filtrar"
+msgstr "Filtrar"
+
+msgid "Limpar filtros"
+msgstr "Limpiar filtros"
+
+msgid "Baixar dados (CSV)"
+msgstr "Descargar datos (CSV)"
+
+msgid "Print Mapa"
+msgstr "Imprimir Mapa"
+
+msgid "Exibir sem financiamento"
+msgstr "Exhibir sin financiamiento"
+
+msgid "Total Estimado"
+msgstr "Total Estimado"
+
+msgid "Para"
+msgstr "Para"
+
+msgid "Município"
+msgstr "Municipio"
+
+msgid "municípios"
+msgstr "municipios"
+
+msgid "programa de investimento"
+msgstr "programa de inversión"
+
+msgid "programas de investimento"
+msgstr "programas de inversión"
+
+msgid "FILTROS"
+msgstr "FILTROS"
+
+msgid "FILTRAR POR FINANCIAMENTO"
+msgstr "FILTRAR POR FINANCIAMIENTO"
+
+msgid "Todos"
+msgstr "Todos"
+
+msgid "MODALIDADE"
+msgstr "MODALIDAD"
+
+msgid "Todas as Modalidades"
+msgstr "Todas las Modalidades"
+
+msgid "ESTÁGIO"
+msgstr "ETAPA"
+
+msgid "Todos os Estágios"
+msgstr "Todas las Etapas"
+
+msgid "EXECUTOR"
+msgstr "EJECUTOR"
+
+msgid "Todos os Executores"
+msgstr "Todos los Ejecutores"
+
+msgid "REGIÃO"
+msgstr "REGIÓN"
+
+msgid "Todas as Regiões"
+msgstr "Todas las Regiones"
+
+msgid "ESTADO"
+msgstr "ESTADO"
+
+msgid "Todos os Estados"
+msgstr "Todos los Estados"
+
+msgid "FILTRAR POR PORTE POPULACIONAL"
+msgstr "FILTRAR POR TAMAÑO DE POBLACIÓN"
+
+msgid "MUNICÍPIO"
+msgstr "MUNICIPIO"
+
+msgid "Porte Populacional"
+msgstr "Tamaño de Población"
+
+msgid "Perfil Investimento"
+msgstr "Perfil de Inversión"
+
+msgid "Estimativa Total"
+msgstr "Estimación Total"
+
+msgid "Sem Financiamento"
+msgstr "Sin Financiamiento"
+
+msgid "PROGRAMA / EIXO"
+msgstr "PROGRAMA / EJE"
+
+msgid "Financiamento"
+msgstr "Financiamiento"
+
+msgid "Abaixo 80k"
+msgstr "Menos de 80k"
+
+msgid "Acima 80k"
+msgstr "Más de 80k"
+
+msgid "Capital"
+msgstr "Capital"
+
+msgid "Selecione um item para visualizar a avaliação."
+msgstr "Seleccione un elemento para visualizar la evaluación."
+
+msgid "Falha ao conectar. Verifique sua conexão."
+msgstr "Fallo al conectar. Verifique su conexión."
+
+msgid "Erro ao carregar dados."
+msgstr "Error al cargar los datos."
+
+msgid "Nenhum dado encontrado."
+msgstr "No se encontraron datos."
+
+msgid "Instância de Governança"
+msgstr "Instancia de Gobernanza"
+
+msgid "Setor"
+msgstr "Sector"
+
+msgid "Buscar..."
+msgstr "Buscar..."
+
+msgid "Critérios e Parâmetros de Avaliação"
+msgstr "Criterios y Parámetros de Evaluación"
+
+msgid "Ficha Técnica"
+msgstr "Ficha Técnica"
+
+msgid "Baixar PDF"
+msgstr "Descargar PDF"
+
+msgid "Linha do Tempo"
+msgstr "Línea de Tiempo"
+
+msgid "Critério"
+msgstr "Criterio"
+
+msgid "Pontuação"
+msgstr "Puntuación"
+
+msgid "Nível"
+msgstr "Nivel"
+
+msgid "Governança"
+msgstr "Gobernanza"
+
+msgid "Políticas e Planos"
+msgstr "Políticas y Planes"
+
+msgid "Programas"
+msgstr "Programas"
+
+msgid "Linhas de Financiamento"
+msgstr "Líneas de Financiamiento"
+
+msgid "Estruturas avaliadas"
+msgstr "Estructuras evaluadas"
+
+msgid "Municípios avaliados"
+msgstr "Municipios evaluados"
+
+msgid "Nota média"
+msgstr "Nota media"
+
+msgid "Distribuição por Setor"
+msgstr "Distribución por Sector"
+
+msgid "Origem dos Recursos"
+msgstr "Origen de los Recursos"
+
+msgid "Ente Federativo"
+msgstr "Ente Federativo"
+
+msgid "Aplicar filtros"
+msgstr "Aplicar filtros"
+
+msgid "Exportar CSV"
+msgstr "Exportar CSV"
+
+msgid "Anterior"
+msgstr "Anterior"
+
+msgid "Próximo"
+msgstr "Siguiente"
+
+msgid "Página"
+msgstr "Página"
+
+msgid "de"
+msgstr "de"
+
+msgid "Países Signatários"
+msgstr "Países Signatarios"
+
+msgid "Nível Brasil"
+msgstr "Nivel Brasil"
+
+msgid "Todas as regiões"
+msgstr "Todas las regiones"
+
+msgid "Américas"
+msgstr "América"
+
+msgid "Europa"
+msgstr "Europa"
+
+msgid "África"
+msgstr "África"
+
+msgid "Ásia"
+msgstr "Asia"
+
+msgid "Oceania"
+msgstr "Oceanía"
+
+msgid "Sobre a Metodologia"
+msgstr "Sobre la Metodología"
+
+msgid "Selecionar idioma"
+msgstr "Seleccionar idioma"
+
+msgid "Ir para o conteúdo principal"
+msgstr "Ir al contenido principal"
+
+msgid "Abrir menu"
+msgstr "Abrir menú"
+
+msgid "Fechar menu"
+msgstr "Cerrar menú"
+
+msgid "Carregando..."
+msgstr "Cargando..."
+
+msgid "Erro ao carregar"
+msgstr "Error al cargar"
+
+msgid "Voltar ao topo"
+msgstr "Volver al inicio"
+
+msgid "Fechar"
+msgstr "Cerrar"
+
+msgid "Conheça"
+msgstr "Conozca"
+
+msgid "O que é o Radar Brasil — Federalismo Climático?"
+msgstr "¿Qué es Radar Brasil — Federalismo Climático?"
+
+msgid "O Radar Brasil na mídia"
+msgstr "Radar Brasil en los medios"
+
+msgid "Iniciativa"
+msgstr "Iniciativa"
+
+msgid ""
+"Brasil lança iniciativa para estruturar 100 ações climáticas de impacto nos "
+"municípios."
+msgstr ""
+"Brasil lanza una iniciativa para estructurar 100 acciones climáticas de "
+"impacto en los municipios."
+
+msgid "Evento"
+msgstr "Evento"
+
+msgid ""
+"Cidades selecionadas para primeira fase do Cidades Modelo Verdes Resilientes"
+" foram anunciadas durante o 1º Encontro Cidades Verdes Resilientes. A "
+"iniciativa oferta suporte técnico para desenvolver duas ações climáticas de "
+"grande impacto."
+msgstr ""
+"Las ciudades seleccionadas para la primera fase de las Ciudades Modelo "
+"Verdes y Resilientes fueron anunciadas durante el 1er Encuentro de Ciudades "
+"Verdes Resilientes. La iniciativa ofrece soporte técnico para desarrollar "
+"dos acciones climáticas de gran impacto."
+
+msgid "Agenda Radar Brasil"
+msgstr "Agenda Radar Brasil"
+
+msgid "Ver Agenda"
+msgstr "Ver Agenda"
+
+msgid "Desvendando o Federalismo Climático: Nossa Metodologia"
+msgstr "Desvelando el Federalismo Climático: Nuestra Metodología"
+
+msgid ""
+"Desenvolvemos uma metodologia robusta que avalia a cooperação "
+"interfederativa nas ações climáticas."
+msgstr ""
+"Desarrollamos una metodología robusta que evalúa la cooperación "
+"interfederativa en las acciones climáticas."
+
+msgid "Saiba mais sobre a Metodologia do Radar Brasil"
+msgstr "Conozca más sobre la Metodología de Radar Brasil"
+
+msgid "Painéis"
+msgstr "Paneles"
+
+msgid "Painéis de Avaliação Interativos: Radiografia Federativa"
+msgstr "Paneles de Evaluación Interactivos: Radiografía Federativa"
+
+msgid ""
+"Explore dados climáticos através de painéis interativos que oferecem uma "
+"visão completa das ações federativas em todo o Brasil."
+msgstr ""
+"Explore datos climáticos a través de paneles interactivos que ofrecen una "
+"visión completa de las acciones federativas en todo Brasil."
+
+msgid "Acessar painéis"
+msgstr "Acceder a los paneles"
+
+msgid "Mapa"
+msgstr "Mapa"
+
+msgid "Conectando Ações: Mapa Inter-federativo"
+msgstr "Conectando Acciones: Mapa Interfederativo"
+
+msgid ""
+"Visualize geograficamente as conexões e sinergias entre diferentes níveis de"
+" governo nas ações climáticas em todo o território nacional."
+msgstr ""
+"Visualice geográficamente las conexiones y sinergias entre los diferentes "
+"niveles de gobierno en las acciones climáticas en todo el territorio "
+"nacional."
+
+msgid "Explorar mapa"
+msgstr "Explorar mapa"
+
+msgid "Ecossistema"
+msgstr "Ecosistema"
+
+msgid "Ecossistema de Colaboração: Outras Iniciativas e Recursos"
+msgstr "Ecosistema de Colaboración: Otras Iniciativas y Recursos"
+
+msgid ""
+"Conecte-se com uma rede ampla de organizações, iniciativas e recursos que "
+"fortalecem a ação climática no Brasil."
+msgstr ""
+"Conéctese con una amplia red de organizaciones, iniciativas y recursos que "
+"fortalecen la acción climática en Brasil."
+
+msgid "Federalismo Climático"
+msgstr "Federalismo Climático"
+
+msgid "Explore os eixos do Radar Brasil —"
+msgstr "Explore los ejes de Radar Brasil —"
+
+msgid "Explore os eixos"
+msgstr "Explore los ejes"
+
+msgid "do Radar Brasil"
+msgstr "de Radar Brasil"
+
+msgid "Governança, Políticas e Planos, Programas e Financiamento"
+msgstr "Gobernanza, Políticas y Planes, Programas y Financiamiento"
+
+msgid ""
+"Clique em um dos eixos abaixo para acessar os dados, painéis interativos e "
+"avaliações de cada eixo do federalismo climático brasileiro."
+msgstr ""
+"Haga clic en uno de los ejes a continuación para acceder a los datos, "
+"paneles interactivos y evaluaciones de cada eje del federalismo climático "
+"brasileño."
+
+msgid "Estruturas de Governança"
+msgstr "Estructuras de Gobernanza"
+
+msgid ""
+"Acompanhe os arranjos institucionais e mecanismos de participação federativa"
+" que estruturam a ação climática multinível."
+msgstr ""
+"Siga los arreglos institucionales y mecanismos de participación federativa "
+"que estructuran la acción climática multinivel."
+
+msgid ""
+"Identifique os instrumentos de orientação estratégica existente no "
+"enfrentamento das mudanças climáticas."
+msgstr ""
+"Identifique los instrumentos de orientación estratégica existentes para "
+"enfrentar el cambio climático."
+
+msgid ""
+"Identifique as ações e iniciativas planejadas para reduzir impactos das "
+"mudanças climáticas."
+msgstr ""
+"Identifique las acciones e iniciativas planificadas para reducir los "
+"impactos del cambio climático."
+
+msgid ""
+"Analise os investimentos e transferências interfederativas em apoio ao "
+"enfrentamento das mudanças climáticas."
+msgstr ""
+"Analice las inversiones y transferencias interfederativas en apoyo al "
+"enfrentamiento del cambio climático."
+
+msgid ""
+"O Radar Brasil avalia o nível de implementação do Federalismo Climático no "
+"País, mapeando instâncias de governança, políticas e planos, programas e "
+"linhas de financiamento relacionados à ação climática, e mensurando os "
+"resultados por meio de critérios padronizados entre eixos e instâncias."
+msgstr ""
+"Radar Brasil evalúa el nivel de implementación del Federalismo Climático en "
+"el país, mapeando instancias de gobernanza, políticas y planes, programas y "
+"líneas de financiamiento relacionados con la acción climática, y midiendo "
+"los resultados mediante criterios estandarizados entre ejes e instancias."
+
+msgid "O que foi mapeado"
+msgstr "Qué se ha mapeado"
+
+msgid "linhas de financiamento do Governo Federal voltadas à ação climática"
+msgstr ""
+"líneas de financiamiento del Gobierno Federal orientadas a la acción "
+"climática"
+
+msgid "instâncias de governança"
+msgstr "instancias de gobernanza"
+
+msgid "planos e políticas públicas"
+msgstr "planes y políticas públicas"
+
+msgid "programas"
+msgstr "programas"
+
+msgid "Mapeamento"
+msgstr "Mapeo"
+
+msgid ""
+"O mapeamento identificou os principais instrumentos federais de ação "
+"climática disponíveis para municípios brasileiros, organizados em quatro "
+"eixos:"
+msgstr ""
+"El mapeo identificó los principales instrumentos federales de acción "
+"climática disponibles para los municipios brasileños, organizados en cuatro "
+"ejes:"
+
+msgid "linhas de financiamento do Governo Federal voltadas à ação climática;"
+msgstr ""
+"líneas de financiamiento del Gobierno Federal orientadas a la acción "
+"climática;"
+
+msgid "instâncias de governança;"
+msgstr "instancias de gobernanza;"
+
+msgid "planos e políticas públicas;"
+msgstr "planes y políticas públicas;"
+
+msgid "programas."
+msgstr "programas."
+
+msgid "Mensuração dos resultados"
+msgstr "Medición de resultados"
+
+msgid "Leitura comparativa entre eixos e instâncias avaliadas;"
+msgstr "Lectura comparativa entre ejes e instancias evaluadas;"
+
+msgid ""
+"Nível de implementação do Federalismo Climático no País, considerando os "
+"parâmetros e critérios avaliados."
+msgstr ""
+"Nivel de implementación del Federalismo Climático en el país, considerando "
+"los parámetros y criterios evaluados."
+
+msgid "Critérios de avaliação"
+msgstr "Criterios de evaluación"
+
+msgid ""
+"Estabelecimento de níveis (1 a 5) para cada parâmetro, sendo 1 a ausência de"
+" ação ou participação de municípios, e 5 atividade plena."
+msgstr ""
+"Establecimiento de niveles (1 a 5) para cada parámetro, siendo 1 la ausencia"
+" de acción o participación de municipios, y 5 actividad plena."
+
+msgid "Escala de Avaliação"
+msgstr "Escala de Evaluación"
+
+msgid "Ausência"
+msgstr "Ausencia"
+
+msgid "Atividade plena"
+msgstr "Actividad plena"
+
+msgid "ausência de ação ou participação de municípios."
+msgstr "ausencia de acción o participación de municipios."
+
+msgid "plena implementação e participação ativa dos municípios."
+msgstr "plena implementación y participación activa de los municipios."
+
+msgid "linhas de financiamento climático"
+msgstr "líneas de financiamiento climático"
+
+msgid "programas mapeados"
+msgstr "programas mapeados"
+
+msgid ""
+"A Linha do Tempo trará informações sobre a progressão dos acontecimentos ao "
+"longo do tempo (marco legal, financiamento, participação etc.) em ordem "
+"cronológica, permitindo uma compreensão mais clara da sequência e evolução "
+"da instância selecionada, conforme os critérios de avaliação definidos. O "
+"painel encontra-se em construção."
+msgstr ""
+"La Línea de Tiempo mostrará información sobre la progresión de los "
+"acontecimientos a lo largo del tiempo (marco legal, financiamiento, "
+"participación, etc.) en orden cronológico, permitiendo una comprensión más "
+"clara de la secuencia y evolución de la instancia seleccionada, conforme a "
+"los criterios de evaluación definidos. El panel se encuentra en "
+"construcción."
+
+msgid "Conteúdo em construção..."
+msgstr "Contenido en construcción..."
+
+msgid "← Voltar para Avaliação Painel Multinível"
+msgstr "← Volver a Evaluación Panel Multinivel"
+
+msgid "Filtros"
+msgstr "Filtros"
+
+msgid "Filtrar por Financiamento"
+msgstr "Filtrar por Financiamiento"
+
+msgid "Modalidade"
+msgstr "Modalidad"
+
+msgid "Estágio"
+msgstr "Etapa"
+
+msgid "Executor"
+msgstr "Ejecutor"
+
+msgid "Região"
+msgstr "Región"
+
+msgid "Estado"
+msgstr "Estado"
+
+msgid "Filtrar por Porte Populacional"
+msgstr "Filtrar por Tamaño Poblacional"
+
+msgid "Buscar município..."
+msgstr "Buscar municipio..."
+
+msgid "Fechar filtros"
+msgstr "Cerrar filtros"
+
+msgid "Carregando dados do mapa"
+msgstr "Cargando datos del mapa"
+
+msgid "Total Estimado 2023 a 2030"
+msgstr "Total Estimado 2023 a 2030"
+
+msgid "Programa / Eixo"
+msgstr "Programa / Eje"
+
+msgid "Acima de 80mil"
+msgstr "Por encima de 80 mil"
+
+msgid "Abaixo de 80mil"
+msgstr "Por debajo de 80 mil"
+
+msgid "Voltar para a página Início e ver todos os eixos"
+msgstr "Volver a la página Inicio y ver todos los ejes"
+
+msgid "Explorar todos os eixos"
+msgstr "Explorar todos los ejes"
+
+msgid "Governança · Políticas e Planos · Programas · Linhas de Financiamento"
+msgstr ""
+"Gobernanza · Políticas y Planes · Programas · Líneas de Financiamiento"
+
+msgid "Instâncias Avaliadas"
+msgstr "Instancias Evaluadas"
+
+msgid "Total de instâncias com avaliação registrada na edição 2024"
+msgstr "Total de instancias con evaluación registrada en la edición 2024"
+
+msgid "Edição 2024"
+msgstr "Edición 2024"
+
+msgid "Eixos Analisados"
+msgstr "Ejes Analizados"
+
+msgid "Níveis de Maturidade"
+msgstr "Niveles de Madurez"
+
+msgid ""
+"Escala de 1 (ausência) a 5 (atividade plena) que mede o grau de "
+"institucionalização climática"
+msgstr ""
+"Escala de 1 (ausencia) a 5 (actividad plena) que mide el grado de "
+"institucionalización climática"
+
+msgid "Nível 1"
+msgstr "Nivel 1"
+
+msgid "Nível 5"
+msgstr "Nivel 5"
+
+msgid "Dimensões do painel"
+msgstr "Dimensiones del panel"
+
+msgid "Govern."
+msgstr "Gobern."
+
+msgid "Políticas"
+msgstr "Políticas"
+
+msgid "Financ."
+msgstr "Financ."
+
+msgid "Linha de Financiamento"
+msgstr "Línea de Financiamiento"
+
+msgid "Carregando dados do gráfico"
+msgstr "Cargando datos del gráfico"
+
+msgid "Carregando dados..."
+msgstr "Cargando datos..."
+
+msgid "Gráfico de distribuição por nível de maturidade"
+msgstr "Gráfico de distribución por nivel de madurez"
+
+msgid "Eixos de avaliação"
+msgstr "Ejes de evaluación"
+
+msgid "Critérios de Avaliação"
+msgstr "Criterios de Evaluación"
+
+msgid ""
+"No campo abaixo, selecione a Instância de Governança ou o Setor para "
+"realizar a pesquisa."
+msgstr ""
+"En el campo inferior, seleccione la Instancia de Gobernanza o el Sector para"
+" realizar la búsqueda."
+
+msgid ""
+"Cada critério possui parâmetros de avaliação específicos, para que a "
+"atribuição dos níveis e evolução sejam objetivos e transparentes."
+msgstr ""
+"Cada criterio posee parámetros de evaluación específicos, para que la "
+"asignación de los niveles y la evolución sean objetivos y transparentes."
+
+msgid "Busque ou selecione uma instância…"
+msgstr "Busque o seleccione una instancia…"
+
+msgid "Limpar instância"
+msgstr "Limpiar instancia"
+
+msgid "Abrir lista de instâncias"
+msgstr "Abrir lista de instancias"
+
+msgid "Instâncias disponíveis"
+msgstr "Instancias disponibles"
+
+msgid "Busque ou selecione um setor…"
+msgstr "Busque o seleccione un sector…"
+
+msgid "Limpar setor"
+msgstr "Limpiar sector"
+
+msgid "Abrir lista de setores"
+msgstr "Abrir lista de sectores"
+
+msgid "Setores disponíveis"
+msgstr "Sectores disponibles"
+
+msgid "Carregando dados"
+msgstr "Cargando datos"
+
+msgid "Parâmetro"
+msgstr "Parámetro"
+
+msgid "Salvar PDF"
+msgstr "Guardar PDF"
+
+msgid "Carregando ficha..."
+msgstr "Cargando ficha..."
+
+msgid "Carregando ficha técnica"
+msgstr "Cargando ficha técnica"
+
+msgid ""
+"Nesta página será possível acessar informações sobre o financiamento "
+"climático no Brasil, os programas e linhas de financiamento disponíveis, "
+"conforme os seguintes filtros:"
+msgstr ""
+"En esta página será posible acceder a información sobre el financiamiento "
+"climático en Brasil, los programas y líneas de financiamiento disponibles, "
+"conforme a los siguientes filtros:"
+
+msgid "Programas e linhas de Financiamento"
+msgstr "Programas y líneas de Financiamiento"
+
+msgid "Nível de Governo"
+msgstr "Nivel de Gobierno"
+
+msgid "Valor do Financiamento por Setor"
+msgstr "Valor del Financiamiento por Sector"
+
+msgid "Repasses de Recursos por Nível de Governo"
+msgstr "Transferencias de Recursos por Nivel de Gobierno"
+
+msgid "Imprimir Tela"
+msgstr "Imprimir Pantalla"
+
+msgid "Programas e linhas de financiamento climático"
+msgstr "Programas y líneas de financiamiento climático"
+
+msgid "Programas e Linhas de Financiamento"
+msgstr "Programas y Líneas de Financiamiento"
+
+msgid "Valor do Financiamento"
+msgstr "Valor del Financiamiento"
+
+msgid "Contrapartida"
+msgstr "Contrapartida"
+
+msgid "Federal"
+msgstr "Federal"
+
+msgid "Estadual"
+msgstr "Estatal"
+
+msgid "Municipal"
+msgstr "Municipal"
+
+msgid "Baixar Dados"
+msgstr "Descargar Datos"
+
+msgid "Nota-País - Radar Brasil"
+msgstr "Nota-País - Radar Brasil"
+
+msgid ""
+"No Mapa Mundi abaixo, podemos identificar os países signatários da Coalizão "
+"CHAMP e suas respectivas Nota-País, termômetro da capacidade de cada país de"
+" execução e de cumprimento dos compromissos climáticos."
+msgstr ""
+"En el Mapamundi de abajo, podemos identificar a los países signatarios de la"
+" Coalición CHAMP y sus respectivas Notas-País, termómetro de la capacidad de"
+" cada país de ejecución y cumplimiento de los compromisos climáticos."
+
+msgid ""
+"O mapa apresenta uma proposta de visualização comparativa dos países "
+"signatários do CHAMP (Coalition for High Ambition Multilevel Partnerships), "
+"permitindo, futuramente, acompanhar como cada país está avançando no "
+"fortalecimento do federalismo climático e da cooperação multinível para o "
+"cumprimento de seus compromissos climáticos."
+msgstr ""
+"El mapa presenta una propuesta de visualización comparativa de los países "
+"signatarios del CHAMP (Coalition for High Ambition Multilevel Partnerships),"
+" permitiendo, en el futuro, acompañar cómo cada país está avanzando en el "
+"fortalecimiento del federalismo climático y de la cooperación multinivel "
+"para el cumplimiento de sus compromisos climáticos."
+
+msgid ""
+"A proposta é que, à medida que informações comparáveis estejam disponíveis, "
+"o mapa permita visualizar o posicionamento do Brasil no contexto dos países "
+"signatários do CHAMP, contribuindo para identificar diferentes níveis de "
+"desenvolvimento da governança climática multinível e acompanhar sua evolução"
+" ao longo do tempo."
+msgstr ""
+"La propuesta es que, a medida que información comparable esté disponible, el"
+" mapa permita visualizar el posicionamiento de Brasil en el contexto de los "
+"países signatarios del CHAMP, contribuyendo a identificar diferentes niveles"
+" de desarrollo de la gobernanza climática multinivel y acompañar su "
+"evolución a lo largo del tiempo."
+
+msgid "Brasil — linha de base 2025"
+msgstr "Brasil — línea de base 2025"
+
+msgid ""
+"Para o Brasil, o mapa apresenta inicialmente a nota país resultante da "
+"análise realizada em 2025, que constitui a linha de base do Radar Brasil: "
+"Federalismo Climático."
+msgstr ""
+"Para Brasil, el mapa presenta inicialmente la nota país resultante del "
+"análisis realizado en 2025, que constituye la línea de base del Radar "
+"Brasil: Federalismo Climático."
+
+msgid ""
+"O Nível País é uma síntese dos resultados obtidos nos quatro eixos de "
+"análise: Governança, Políticas e Planos, Programas e Linhas de "
+"Financiamento. Seu cálculo ocorre em três etapas:"
+msgstr ""
+"El Nivel País es una síntesis de los resultados obtenidos en los cuatro ejes"
+" de análisis: Gobernanza, Políticas y Planes, Programas y Líneas de "
+"Financiamiento. Su cálculo ocurre en tres etapas:"
+
+msgid ""
+"média dos níveis obtidos nos critérios de cada componente, com peso "
+"diferenciado para um critério considerado estratégico para o federalismo "
+"climático."
+msgstr ""
+"promedio de los niveles obtenidos en los criterios de cada componente, con "
+"peso diferenciado para un criterio considerado estratégico para el "
+"federalismo climático."
+
+msgid ""
+"consolidação dos resultados dos componentes de cada eixo, considerando "
+"fatores de relevância definidos na metodologia."
+msgstr ""
+"consolidación de los resultados de los componentes de cada eje, considerando"
+" factores de relevancia definidos en la metodología."
+
+msgid ""
+"média dos resultados dos quatro eixos, sintetizando a capacidade "
+"identificada de implementação do federalismo climático."
+msgstr ""
+"promedio de los resultados de los cuatro ejes, sintetizando la capacidad "
+"identificada de implementación del federalismo climático."
+
+msgid "Brasil 2025"
+msgstr "Brasil 2025"
+
+msgid ""
+"Na análise referente a 2025, o Brasil alcançou Nível País 3, resultado que "
+"estabelece a linha de base do Radar e servirá como referência para o "
+"acompanhamento de sua evolução nos próximos ciclos."
+msgstr ""
+"En el análisis referente a 2025, Brasil alcanzó Nivel País 3, resultado que "
+"establece la línea de base del Radar y servirá como referencia para el "
+"acompañamiento de su evolución en los próximos ciclos."
+
+msgid ""
+"A proposta do Radar Brasil sobre a evolução do mapa consiste em incorporar, "
+"progressivamente, os demais países signatários do CHAMP à medida que "
+"metodologias e informações comparáveis estejam disponíveis, possibilitando "
+"uma visão internacional do desenvolvimento do federalismo climático."
+msgstr ""
+"La propuesta del Radar Brasil sobre la evolución del mapa consiste en "
+"incorporar, progresivamente, a los demás países signatarios del CHAMP a "
+"medida que metodologías e informaciones comparables estén disponibles, "
+"posibilitando una visión internacional del desarrollo del federalismo "
+"climático."
+
+msgid "Compromissos Climáticos"
+msgstr "Compromisos Climáticos"
+
+msgid "Iniciativas Ativas"
+msgstr "Iniciativas Activas"
+
+msgid "Regiões Monitoradas"
+msgstr "Regiones Monitoreadas"
+
+msgid "PAÍSES SIGNATÁRIOS"
+msgstr "PAÍSES SIGNATARIOS"
+
+msgid "COMPROMISSOS CLIMÁTICOS"
+msgstr "COMPROMISOS CLIMÁTICOS"
+
+msgid "INICIATIVAS ATIVAS"
+msgstr "INICIATIVAS ACTIVAS"
+
+msgid "REGIÕES MONITORADAS"
+msgstr "REGIONES MONITOREADAS"
+
+msgid ""
+"Radar Brasil — Plataforma de monitoramento do federalismo climático "
+"brasileiro. Avalie, compare e explore dados climáticos de municípios em todo"
+" o território nacional."
+msgstr ""
+"Radar Brasil — Plataforma de monitoreo del federalismo climático brasileño. "
+"Evalúe, compare y explore datos climáticos de municipios en todo el "
+"territorio nacional."
+
+msgid "Radar Brasil — Federalismo Climático"
+msgstr "Radar Brasil — Federalismo Climático"
+
+msgid ""
+"Plataforma de monitoramento do federalismo climático brasileiro. Avalie, "
+"compare e explore dados climáticos de municípios em todo o território "
+"nacional."
+msgstr ""
+"Plataforma de seguimiento del federalismo climático brasileño. Evalúe, "
+"compare y explore datos climáticos de municipios en todo el territorio "
+"nacional."
+
+msgid "Plataforma de monitoramento do federalismo climático brasileiro."
+msgstr "Plataforma de seguimiento del federalismo climático brasileño."
+
+msgid ""
+"Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, "
+"Brasília/DF"
+msgstr ""
+"Venâncio Shopping - Setor Comercial Sul, Bloco B50, 8º andar, sala 827, "
+"Brasília/DF"
+
+msgid "Frente Nacional de Prefeitas e Prefeitos"
+msgstr "Frente Nacional de Alcaldesas y Alcaldes"
+
+msgid "Por que avaliar o Federalismo Climático?"
+msgstr "¿Por qué evaluar el Federalismo Climático?"
+
+msgid ""
+"O Radar Brasil: Federalismo Climático tem o objetivo de monitorar e avaliar "
+"a governança multinível das políticas climáticas no Brasil, tendo como "
+"premissa o federalismo climático, incentivando o cumprimento dos "
+"compromissos climáticos do Brasil e promovendo um futuro mais sustentável."
+msgstr ""
+"El Radar Brasil: Federalismo Climático tiene como objetivo monitorear y "
+"evaluar la gobernanza multinivel de las políticas climáticas en Brasil, bajo"
+" la premisa del federalismo climático, incentivando el cumplimiento de los "
+"compromisos climáticos de Brasil y promoviendo un futuro más sostenible."
+
+msgid ""
+"É o modelo de governança pelo qual a competência comum sobre a agenda "
+"climática é exercida de forma coordenada, transversal e cientificamente "
+"informada entre União, Estados, Distrito Federal e Municípios."
+msgstr ""
+"Es el modelo de gobernanza mediante el cual la competencia común sobre la "
+"agenda climática se ejerce de forma coordinada, transversal y "
+"científicamente informada entre la Unión, los Estados, el Distrito Federal y"
+" los Municipios."
+
+msgid "União"
+msgstr "Unión"
+
+msgid "Estados"
+msgstr "Estados"
+
+msgid "Municípios"
+msgstr "Municipios"
+
+msgid ""
+"Esse exercício respeita as competências, capacidades, responsabilidades e "
+"especificidades de cada ente, e atravessa os diferentes setores e "
+"instrumentos de planejamento governamental de cada nível federativo."
+msgstr ""
+"Este ejercicio respeta las competencias, capacidades, responsabilidades y "
+"especificidades de cada ente, y atraviesa los diferentes sectores e "
+"instrumentos de planificación gubernamental de cada nivel federativo."
+
+msgid "Natureza"
+msgstr "Naturaleza"
+
+msgid "Sociedade"
+msgstr "Sociedad"
+
+msgid "Clima"
+msgstr "Clima"
+
+msgid ""
+"Seu propósito é uma transição climática justa, que reduza desigualdades "
+"sociais, raciais e de gênero e amplie a equidade, a inclusão e a cidadania "
+"climática."
+msgstr ""
+"Su propósito es una transición climática justa, que reduzca desigualdades "
+"sociales, raciales y de género y amplíe la equidad, la inclusión y la "
+"ciudadanía climática."
+
+msgid "O propósito do Federalismo Climático é de buscar"
+msgstr "El propósito del Federalismo Climático es buscar"
+
+msgid ""
+"uma transição climática justa, que reduza desigualdades sociais, raciais e "
+"de gênero e amplie a equidade, a inclusão e a cidadania climática"
+msgstr ""
+"una transición climática justa, que reduzca desigualdades sociales, raciales"
+" y de género y amplíe la equidad, la inclusión y la ciudadanía climática"
+
+msgid "Resolução N°3, de Julho de 2024 do Conselho da Federação"
+msgstr "Resolución N°3, de julio de 2024 del Consejo de la Federación"
+
+msgid "Histórico do Federalismo Climático no Brasil"
+msgstr "Historial del Federalismo Climático en Brasil"
+
+msgid "Conselho da Federação"
+msgstr "Consejo de la Federación"
+
+msgid ""
+"O Brasil estabelece o Conselho da Federação, sob a Presidência da República."
+msgstr ""
+"Brasil establece el Consejo de la Federación, bajo la Presidencia de la "
+"República."
+
+msgid "Câmara Técnica I: Fortalecimento da Gestão e Cooperação Federativa"
+msgstr ""
+"Cámara Técnica I: Fortalecimiento de la Gestión y Cooperación Federativa"
+
+msgid "Presidência: CNM"
+msgstr "Presidencia: CNM"
+
+msgid ""
+"Câmara Técnica II: Desenvolvimento Econômico Sustentável e Mudança Climática"
+msgstr "Cámara Técnica II: Desarrollo Económico Sostenible y Cambio Climático"
+
+msgid "Presidência: FNP"
+msgstr "Presidencia: FNP"
+
+msgid "Câmara Técnica III: Políticas Sociais e Combate às Desigualdades"
+msgstr "Cámara Técnica III: Políticas Sociales y Combate a las Desigualdades"
+
+msgid "Presidência: ABM"
+msgstr "Presidencia: ABM"
+
+msgid ""
+"78 países comprometeram-se com a Coalizão CHAMP (Coalition for High Ambition"
+" Multilevel Partnerships) para Ação Climática, incluindo o Brasil."
+msgstr ""
+"78 países se comprometieron con la Coalición CHAMP (Coalition for High "
+"Ambition Multilevel Partnerships) para la Acción Climática, incluyendo a "
+"Brasil."
+
+msgid "Resolução nº 3/2024"
+msgstr "Resolución nº 3/2024"
+
+msgid ""
+"A Resolução nº 3/2024 do Conselho da Federação reforça o compromisso do "
+"Brasil com a iniciativa CHAMP e define a agenda climática como prioridade "
+"para os entes federativos."
+msgstr ""
+"La Resolución nº 3/2024 del Consejo de la Federación refuerza el compromiso "
+"de Brasil con la iniciativa CHAMP y define la agenda climática como "
+"prioridad para los entes federativos."
+
+msgid ""
+"O Brasil apresenta sua nova NDC, na qual afirma: &ldquo;os entes federativos"
+" farão esforços coordenados para enfrentar a emergência climática, incluindo"
+" ações para prevenir e preparar-se para eventos extremos, e buscarão "
+"integrar a política climática em seus instrumentos de planejamento de curto,"
+" médio e longo prazo&rdquo;."
+msgstr ""
+"Brasil presenta su nueva NDC, en la cual afirma: &ldquo;los entes "
+"federativos realizarán esfuerzos coordinados para enfrentar la emergencia "
+"climática, incluyendo acciones para prevenir y prepararse para eventos "
+"extremos, y buscarán integrar la política climática en sus instrumentos de "
+"planificación de corto, mediano y largo plazo&rdquo;."
+
+msgid "Como avaliamos o Federalismo Climático?"
+msgstr "¿Cómo evaluamos el Federalismo Climático?"
+
+msgid ""
+"O Radar Brasil: Federalismo Climático sintetiza o desempenho dos entes "
+"federativos em uma única Nota País. Essa nota é resultado de uma avaliação "
+"em funil: partimos da análise de cada componente para, depois, chegar à "
+"síntese do todo."
+msgstr ""
+"El Radar Brasil: Federalismo Climático sintetiza el desempeño de los entes "
+"federativos en una única Nota País. Esta nota es el resultado de una "
+"evaluación en embudo: partimos del análisis de cada componente para, luego, "
+"llegar a la síntesis del todo."
+
+msgid ""
+"Cada instância e componente do federalismo climático é avaliado "
+"individualmente, a partir de critérios e parâmetros de nível. Os resultados "
+"dessas avaliações são agregados nos eixos analíticos e, por fim, "
+"consolidados na Nota País."
+msgstr ""
+"Cada instancia y componente del federalismo climático es evaluado "
+"individualmente, a partir de criterios y parámetros de nivel. Los resultados"
+" de estas evaluaciones se agregan en los ejes analíticos y, por fin, se "
+"consolidan en la Nota País."
+
+msgid "Eixo"
+msgstr "Eje"
+
+msgid ""
+"O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, "
+"Programas e Linhas de Financiamento. Esta separação permite qualificar a "
+"análise de instâncias e componentes que possuem lógica institucional "
+"distinta e confrontar os eixos entre si para extrair novas camadas de "
+"análise."
+msgstr ""
+"El Radar Brasil evalúa 4 ejes temáticos: Gobernanza, Políticas y Planes, "
+"Programas y Líneas de Financiamiento. Esta separación permite cualificar el "
+"análisis de instancias y componentes que poseen lógica institucional "
+"distinta y confrontar los ejes entre sí para extraer nuevas capas de "
+"análisis."
+
+msgid ""
+"Um critério corresponde a uma dimensão específica de análise dentro de cada "
+"eixo. A definição de múltiplos critérios por eixo responde à necessidade de "
+"decompor a instância/componente em partes menores, mensuráveis e "
+"analiticamente distintas entre si, de três a cinco critérios."
+msgstr ""
+"Un criterio corresponde a una dimensión específica de análisis dentro de "
+"cada eje. La definición de múltiples criterios por eje responde a la "
+"necesidad de descomponer la instancia/componente en partes menores, "
+"mensurables y analíticamente distintas entre sí, de tres a cinco criterios."
+
+msgid ""
+"O parâmetro define como diferenciar os graus de maturidade de cada critério."
+" É uma determinante objetiva associada a cada um dos cinco níveis da escala."
+" Diante de um determinado dado, o parâmetro indica em qual nível aquele caso"
+" deve ser classificado."
+msgstr ""
+"El parámetro define cómo diferenciar los grados de madurez de cada criterio."
+" Es una determinante objetiva asociada a cada uno de los cinco niveles de la"
+" escala. Ante un determinado dato, el parámetro indica en qué nivel aquel "
+"caso debe ser clasificado."
+
+msgid "Componente"
+msgstr "Componente"
+
+msgid ""
+"Um componente representa um espaço de governança, política, plano, programa "
+"ou linha de financiamento avaliado. Cada componente recebe uma avaliação "
+"individual por critério, que é depois agregada ao eixo correspondente."
+msgstr ""
+"Un componente representa un espacio de gobernanza, política, plan, programa "
+"o línea de financiamiento evaluado. Cada componente recibe una evaluación "
+"individual por criterio, que es después agregada al eje correspondiente."
+
+msgid "Conheça os critérios de análise para cada eixo"
+msgstr "Conozca los criterios de análisis para cada eje"
+
+msgid "Eixo Governança"
+msgstr "Eje Gobernanza"
+
+msgid ""
+"Compreende os arranjos institucionais, instâncias de coordenação e "
+"mecanismos de articulação e participação federativa que estruturam a "
+"governança climática multinível, tais como conselhos, comitês, fóruns, "
+"câmaras e comissões."
+msgstr ""
+"Comprende los arreglos institucionales, instancias de coordinación y "
+"mecanismos de articulación y participación federativa que estructuran la "
+"gobernanza climática multinivel, tales como consejos, comités, foros, "
+"cámaras y comisiones."
+
+msgid "Operacionalidade"
+msgstr "Operatividad"
+
+msgid "Espaço de Diálogo Federativo"
+msgstr "Espacio de Diálogo Federativo"
+
+msgid "Diversidade e Representatividade"
+msgstr "Diversidad y Representatividad"
+
+msgid "Comunicação e Transparência"
+msgstr "Comunicación y Transparencia"
+
+msgid "Sustentabilidade Financeira"
+msgstr "Sostenibilidad Financiera"
+
+msgid "Eixo Políticas e Planos"
+msgstr "Eje Políticas y Planes"
+
+msgid ""
+"Compreende os instrumentos normativos e de planejamento estratégico que "
+"orientam a formulação, a implementação e o monitoramento das ações "
+"governamentais relacionadas ao clima."
+msgstr ""
+"Comprende los instrumentos normativos y de planificación estratégica que "
+"orientan la formulación, la implementación y el seguimiento de las acciones "
+"gubernamentales relacionadas con el clima."
+
+msgid "Eixo Programas"
+msgstr "Eje Programas"
+
+msgid ""
+"Conjunto de ações, iniciativas e estratégias implementadas pelos entes "
+"federativos para mitigação, adaptação e fortalecimento da resiliência "
+"climática em diferentes níveis de governo."
+msgstr ""
+"Conjunto de acciones, iniciativas y estrategias implementadas por los entes "
+"federativos para la mitigación, la adaptación y el fortalecimiento de la "
+"resiliencia climática en diferentes niveles de gobierno."
+
+msgid "Cooperação Federativa"
+msgstr "Cooperación Federativa"
+
+msgid "Capilaridade e Alcance Territorial"
+msgstr "Capilaridad y Alcance Territorial"
+
+msgid "Fortalecimento da Capacidade Local"
+msgstr "Fortalecimiento de la Capacidad Local"
+
+msgid "Monitoramento e Avaliação"
+msgstr "Seguimiento y Evaluación"
+
+msgid "Eixo Linhas de Financiamento"
+msgstr "Eje Líneas de Financiamiento"
+
+msgid ""
+"Mecanismos orçamentários, de investimentos, transferências interfederativas "
+"e instrumentos de apoio financeiro que viabilizam a execução descentralizada"
+" de ações climáticas."
+msgstr ""
+"Mecanismos presupuestarios, de inversiones, transferencias interfederativas "
+"e instrumentos de apoyo financiero que viabilizan la ejecución "
+"descentralizada de acciones climáticas."
+
+msgid "Desenho Participativo"
+msgstr "Diseño Participativo"
+
+msgid "Capacidade de Execução Descentralizada"
+msgstr "Capacidad de Ejecución Descentralizada"
+
+msgid "Monitoramento e Prestação de Contas"
+msgstr "Seguimiento y Rendición de Cuentas"
+
+msgid "O que avaliamos?"
+msgstr "¿Qué evaluamos?"
+
+msgid ""
+"Nesta primeira etapa do Radar, o escopo concentrou-se nas iniciativas e "
+"instrumentos da esfera federal que promovem ou induzem a cooperação "
+"interfederativa no enfrentamento das mudanças climáticas. Ou seja, esta "
+"primeira fase avalia o federalismo climático a partir da oferta federal de "
+"canais de cooperação multinível, não da capacidade institucional dos entes "
+"subnacionais em si."
+msgstr ""
+"En esta primera etapa del Radar, el ámbito se concentró en las iniciativas e"
+" instrumentos de la esfera federal que promueven o inducen la cooperación "
+"interfederativa en el enfrentamiento al cambio climático. Es decir, esta "
+"primera fase evalúa el federalismo climático a partir de la oferta federal "
+"de canales de cooperación multinivel, no de la capacidad institucional de "
+"los entes subnacionales en sí."
+
+msgid ""
+"Desta forma, foram analisadas nesta etapa 31 instâncias de governança, 17 "
+"políticas e planos, 18 programas e 17 linhas de financiamento."
+msgstr ""
+"De este modo, se analizaron en esta etapa 31 instancias de gobernanza, 17 "
+"políticas y planes, 18 programas y 17 líneas de financiación."
+
+msgid "Edições do Radar Brasil"
+msgstr "Ediciones del Radar Brasil"
+
+msgid "Esta é a versão referente ao ano de 2025"
+msgstr "Esta es la versión correspondiente al año 2025"
+
+msgid "em desenvolvimento"
+msgstr "en desarrollo"
+
+msgid "Para saber mais, acesse a nota metodológica."
+msgstr "Para saber más, acceda a la nota metodológica."
+
+msgid "Nota Metodológica"
+msgstr "Nota Metodológica"
+
+msgid "Abrir documento"
+msgstr "Abrir documento"
+
+msgid "políticas e planos"
+msgstr "políticas y planes"
+
+msgid "linhas de financiamento"
+msgstr "líneas de financiación"
+
+msgid "Níveis de Avaliação"
+msgstr "Niveles de Evaluación"
+
+msgid "Informação que transforma territórios"
+msgstr "Información que transforma territorios"
+
+msgid "Impulsionando Ação Climática e Federativa"
+msgstr "Impulsando la Acción Climática y Federativa"
+
+msgid ""
+"Uma plataforma integrada de informação, análise e colaboração para "
+"fortalecer a ação climática e o desenvolvimento sustentável nos territórios."
+msgstr ""
+"Una plataforma integrada de información, análisis y colaboración para "
+"fortalecer la acción climática y el desarrollo sostenible en los "
+"territorios."
+
+msgid "Explorar Painéis"
+msgstr "Explorar Paneles"
+
+msgid "Conhecer o Projeto"
+msgstr "Conocer el Proyecto"
+
+msgid "Conhecimento em Ação"
+msgstr "Conocimiento en Acción"
+
+msgid ""
+"Explore nossos painéis e ferramentas para decisões mais informadas e "
+"colaborativas."
+msgstr ""
+"Explore nuestros paneles y herramientas para tomar decisiones más informadas"
+" y colaborativas."
+
+msgid "Mapas"
+msgstr "Mapas"
+
+msgid "Dados"
+msgstr "Datos"
+
+msgid "Sobre o Radar Brasil"
+msgstr "Sobre el Radar Brasil"
+
+msgid ""
+"Conheça nossa missão, metodologia e os parceiros que tornam essa iniciativa "
+"possível."
+msgstr ""
+"Conozca nuestra misión, metodología y los socios que hacen posible esta "
+"iniciativa."
+
+msgid "Nossos Painéis"
+msgstr "Nuestros Paneles"
+
+msgid "Explore conhecimento que gera soluções"
+msgstr "Explore conocimiento que genera soluciones"
+
+msgid ""
+"Painéis temáticos para entender desafios, identificar oportunidades e "
+"impulsionar ações concretas."
+msgstr ""
+"Paneles temáticos para entender desafíos, identificar oportunidades e "
+"impulsar acciones concretas."
+
+msgid "Ver todos os painéis"
+msgstr "Ver todos los paneles"
+
+msgid "Panorama"
+msgstr "Panorama"
+
+msgid "Acessar painel Metodologia"
+msgstr "Acceder al panel Metodología"
+
+msgid "Acessar Painel"
+msgstr "Acceder al Panel"
+
+msgid "Análises"
+msgstr "Análisis"
+
+msgid "Território"
+msgstr "Territorio"
+
+msgid "Explorar Mapa"
+msgstr "Explorar Mapa"
+
+msgid "Colaboração"
+msgstr "Colaboración"
+
+msgid "Ver Iniciativas"
+msgstr "Ver Iniciativas"
+
+msgid "Metodologia de Cálculo"
+msgstr "Metodología de Cálculo"
+
+msgid ""
+"A Nota País é construída de forma progressiva: partimos da avaliação "
+"individual de cada instância (Nível Parcial) para, em seguida, consolidar "
+"por eixo (Nível Eixo) e, por fim, chegar à nota geral do país."
+msgstr ""
+"La nota país se construye de forma progresiva: partimos de la evaluación "
+"individual de cada instancia (Nivel Parcial) para, a continuación, "
+"consolidar por eje (Nivel Eje) y, por último, llegar a la nota general del "
+"país."
+
+msgid "Nível Parcial"
+msgstr "Nivel Parcial"
+
+msgid "Score de cada instância"
+msgstr "Puntuación de cada instancia"
+
+msgid ""
+"Média aritmética dos valores atribuídos a cada critério de avaliação da "
+"instância, na escala de 1 a 5."
+msgstr ""
+"Media aritmética de los valores asignados a cada criterio de evaluación de "
+"la instancia, en una escala del 1 al 5."
+
+msgid "Peso"
+msgstr "Peso"
+
+msgid "Escala"
+msgstr "Escala"
+
+msgid "Espaço de Diálogo"
+msgstr "Espacio de Diálogo"
+
+msgid "Outros critérios do eixo"
+msgstr "Otros criterios del eje"
+
+msgid "Média"
+msgstr "Media"
+
+msgid "Nível Eixo"
+msgstr "Nivel Eje"
+
+msgid "Score do eixo temático"
+msgstr "Puntuación del eje temático"
+
+msgid ""
+"Média aritmética dos Níveis Parciais de todas as instâncias avaliadas dentro"
+" de cada eixo temático."
+msgstr ""
+"Media aritmética de los Niveles Parciales de todas las instancias evaluadas "
+"dentro de cada eje temático."
+
+msgid "Instâncias"
+msgstr "Instancias"
+
+msgid "Média NP"
+msgstr "Media NP"
+
+msgid "Nível País"
+msgstr "Nivel País"
+
+msgid "Nota geral do Brasil"
+msgstr "Nota general de Brasil"
+
+msgid ""
+"Média aritmética dos quatro Níveis Eixo, sintetizando em uma única nota o "
+"desempenho geral do federalismo climático brasileiro."
+msgstr ""
+"Media aritmética de los cuatro Niveles Eje, sintetizando en una única nota "
+"el desempeño general del federalismo climático brasileño."
+
+msgid "eixos"
+msgstr "ejes"
+
+msgid "Como avaliamos o Radar Brasil?"
+msgstr "¿Cómo evaluamos el Radar Brasil?"
+
+msgid ""
+"Critérios, parâmetros e a fórmula de cálculo que transformam dados em Nível "
+"País, a nota síntese do federalismo climático brasileiro."
+msgstr ""
+"Criterios, parámetros y la fórmula de cálculo que transforman datos en Nivel"
+" País, la nota síntesis del federalismo climático brasileño."
+
+msgid ""
+"O Radar Brasil avalia o nível de implementação do Federalismo Climático no "
+"País, mapeando componentes de governança, políticas e planos, programas e "
+"linhas de financiamento relacionados à ação climática, e mensurando os "
+"resultados por meio de critérios padronizados entre eixos e componentes."
+msgstr ""
+"El Radar Brasil evalúa el nivel de implementación del Federalismo Climático "
+"en el País, mapeando componentes de gobernanza, políticas y planes, "
+"programas y líneas de financiación relacionados con la acción climática, y "
+"midiendo los resultados a través de criterios estandarizados entre ejes y "
+"componentes."
+
+msgid ""
+"Cada componente do federalismo climático é avaliado individualmente, a "
+"partir de critérios e parâmetros de nível. Os resultados dessas avaliações "
+"são agregados nos eixos analíticos e, por fim, consolidados na Nota País."
+msgstr ""
+"Cada componente del federalismo climático se evalúa individualmente, a "
+"partir de criterios y parámetros de nivel. Los resultados de estas "
+"evaluaciones se agregan en los ejes analíticos y, por último, se consolidan "
+"en la Nota País."
+
+msgid ""
+"O Radar Brasil avalia 4 eixos temáticos: Governança, Políticas e Planos, "
+"Programas e Linhas de Financiamento. Esta separação permite qualificar a "
+"análise de componentes que possuem lógica institucional distinta e "
+"confrontar os eixos entre si para extrair novas camadas de análise."
+msgstr ""
+"El Radar Brasil evalúa 4 ejes temáticos: Gobernanza, Políticas y Planes, "
+"Programas y Líneas de Financiamiento. Esta separación permite calificar el "
+"análisis de componentes que poseen una lógica institucional distinta y "
+"enfrentar los ejes entre sí para extraer nuevas capas de análisis."
+
+msgid ""
+"Um critério corresponde a uma dimensão específica de análise dentro de cada "
+"eixo. A definição de múltiplos critérios por eixo responde à necessidade de "
+"decompor o componente em partes menores, mensuráveis e analiticamente "
+"distintas entre si, de três a cinco critérios."
+msgstr ""
+"Un criterio corresponde a una dimensión específica de análisis dentro de "
+"cada eje. La definición de múltiples criterios por eje responde a la "
+"necesidad de descomponer el componente en partes más pequeñas, mensurables y"
+" analíticamente distintas entre sí, de tres a cinco criterios."
+
+msgid "Informação"
+msgstr "Información"
+
+msgid ""
+"Clique em um critério para ver sua definição e os parâmetros de avaliação"
+msgstr ""
+"Haga clic en un criterio para ver su definición y los parámetros de "
+"evaluación"
+
+msgid ""
+"Compreende os arranjos institucionais, componentes de coordenação e "
+"mecanismos de articulação e participação federativa que estruturam a "
+"governança climática multinível, tais como conselhos, comitês, fóruns, "
+"câmaras e comissões."
+msgstr ""
+"Comprende los arreglos institucionales, componentes de coordinación y "
+"mecanismos de articulación y participación federativa que estructuran la "
+"gobernanza climática multinivel, tales como consejos, comités, foros, "
+"cámaras y comisiones."
+
+msgid ""
+"Este critério avalia o nível de influência e a regularidade de funcionamento"
+" dos espaços de governança."
+msgstr ""
+"Este criterio evalúa el nivel de influencia y la regularidad de "
+"funcionamiento de los espacios de gobernanza."
+
+msgid "Inativo (sem funcionamento ou em recomposição)"
+msgstr "Inactivo (sin funcionamiento o en recomposición)"
+
+msgid "Baixa operacionalidade (consultivo e funcionamento irregular)"
+msgstr "Baja operatividad (consultivo y funcionamiento irregular)"
+
+msgid "Média operacionalidade (consultivo e funcionamento regular)"
+msgstr "Media operatividad (consultivo y funcionamiento regular)"
+
+msgid "Alta operacionalidade (deliberativo e funcionamento irregular)"
+msgstr "Alta operatividad (deliberativo y funcionamiento irregular)"
+
+msgid "Plena operacionalidade (deliberativo e funcionamento regular)"
+msgstr "Plena operatividad (deliberativo y funcionamiento regular)"
+
+msgid ""
+"Avalia a existência e qualidade de mecanismos formais de diálogo e "
+"participação dos entes federativos na formulação e acompanhamento da "
+"política climática."
+msgstr ""
+"Evalúa la existencia y calidad de mecanismos formales de diálogo y "
+"participación de los entes federativos en la formulación y seguimiento de la"
+" política climática."
+
+msgid "Sem mecanismo de participação federativa previsto"
+msgstr "Sin mecanismo de participación federativa previsto"
+
+msgid "Mecanismo previsto, mas sem representação dos entes subnacionais"
+msgstr ""
+"Mecanismo previsto, pero sin representación de los entes subnacionales"
+
+msgid "Representação dos entes subnacionais com caráter consultivo"
+msgstr "Representación de los entes subnacionales con carácter consultivo"
+
+msgid ""
+"Representação deliberativa dos entes subnacionais sem funcionamento regular"
+msgstr ""
+"Representación deliberativa de los entes subnacionales sin funcionamiento "
+"regular"
+
+msgid ""
+"Representação deliberativa dos entes subnacionais com funcionamento regular"
+msgstr ""
+"Representación deliberativa de los entes subnacionales con funcionamiento "
+"regular"
+
+msgid ""
+"Avalia a presença de critérios ou garantias formais de diversidade de "
+"gênero, raça e etnia na composição e funcionamento do espaço de governança."
+msgstr ""
+"Evalúa la presencia de criterios o garantías formales de diversidad de "
+"género, raza y etnicidad en la composición y funcionamiento del espacio de "
+"gobernanza."
+
+msgid "Sem critério ou garantia de diversidade prevista"
+msgstr "Sin criterio o garantía de diversidad prevista"
+
+msgid "Recomendação não vinculante de diversidade"
+msgstr "Recomendación no vinculante de diversidad"
+
+msgid "Critério formal de diversidade previsto sem monitoramento"
+msgstr "Criterio formal de diversidad previsto sin monitoreo"
+
+msgid "Critério formal de diversidade com monitoramento, mas sem paridade"
+msgstr "Criterio formal de diversidad con monitoreo, pero sin paridad"
+
+msgid "Critério formal com paridade e monitoramento sistemático"
+msgstr "Criterio formal con paridad y monitoreo sistemático"
+
+msgid ""
+"Avalia a publicização e acessibilidade das informações sobre o "
+"funcionamento, decisões e resultados do espaço de governança."
+msgstr ""
+"Evalúa la publicidad y accesibilidad de las informaciónes sobre el "
+"funcionamiento, decisiones y resultados del espacio de gobernanza."
+
+msgid "Sem publicização das informações"
+msgstr "Sin publicidad de las informaciones"
+
+msgid "Publicação esporádica e não padronizada"
+msgstr "Publicación esporádica y no estandarizada"
+
+msgid "Publicação regular de atas e decisões em canais institucionais"
+msgstr "Publicación regular de actas y decisiones en canales institucionales"
+
+msgid "Publicação regular com acesso facilitado e linguagem acessível"
+msgstr "Publicación regular con acceso facilitado y lenguaje accesible"
+
+msgid ""
+"Portal dedicado com dados abertos, atualização sistemática e histórico "
+"completo"
+msgstr ""
+"Portal dedicado con datos abiertos, actualización sistemática e histórico "
+"completo"
+
+msgid ""
+"Avalia a previsão e regularidade de fontes de financiamento para o "
+"funcionamento do espaço de governança."
+msgstr ""
+"Evalúa la previsión y regularidad de fuentes de financiación para el "
+"funcionamiento del espacio de gobernanza."
+
+msgid "Sem previsão de financiamento dedicado"
+msgstr "Sin previsión de financiación dedicada"
+
+msgid "Financiamento eventual sem garantia de continuidade"
+msgstr "Financiamiento eventual sin garantía de continuidad"
+
+msgid "Financiamento previsto em norma sem dotação específica garantida"
+msgstr "Financiamiento prevista en norma sin dotación específica garantizada"
+
+msgid "Dotação orçamentária específica prevista com regularidade parcial"
+msgstr "Dotación presupuestaria específica prevista con regularidad parcial"
+
+msgid "Dotação orçamentária consolidada e executada regularmente"
+msgstr "Dotación presupuestaria consolidada y ejecutada regularmente"
+
+msgid ""
+"Avalia o estágio de formulação, vigência e implementação das políticas e "
+"planos climáticos."
+msgstr ""
+"Evalúa la etapa de formulación, vigencia e implementación de las políticas y"
+" planes climáticos."
+
+msgid "Inexistente (sem política ou plano formulado)"
+msgstr "Inexistente (sin política o plan formulado)"
+
+msgid "Em elaboração ou consulta pública (sem vigência)"
+msgstr "En elaboración o consulta pública (sin vigencia)"
+
+msgid "Aprovado e em vigor, sem estrutura de implementação definida"
+msgstr "Aprobado y en vigor, sin estructura de implementación definida"
+
+msgid ""
+"Em implementação com estrutura definida e metas parcialmente estabelecidas"
+msgstr ""
+"En implementación con estructura definida y metas parcialmente establecidas"
+
+msgid ""
+"Em implementação plena com metas, prazos e responsáveis definidos e "
+"monitoramento ativo"
+msgstr ""
+"En implementación plena con metas, plazos y responsables definidos y "
+"seguimiento activo"
+
+msgid ""
+"Avalia a previsão e qualidade de mecanismos de participação dos entes "
+"federativos na formulação e revisão das políticas e planos."
+msgstr ""
+"Evalúa la previsión y calidad de mecanismos de participación de los entes "
+"federativos en la formulación y revisión de las políticas y planes."
+
+msgid ""
+"Consulta pública genérica sem mecanismo específico para entes federativos"
+msgstr ""
+"Consulta pública genérica sin mecanismo específico para entes federativos"
+
+msgid "Consulta específica a estados e municípios com caráter informativo"
+msgstr "Consulta específica a estados y municipios con carácter informativo"
+
+msgid "Participação dos entes subnacionais em etapas de formulação ou revisão"
+msgstr ""
+"Participación de los entes subnacionales en etapas de formulación o revisión"
+
+msgid ""
+"Participação ativa e sistemática dos entes subnacionais em todas as etapas "
+"do ciclo da política"
+msgstr ""
+"Participación activa y sistemática de los entes subnacionales en todas las "
+"etapas del ciclo de la política"
+
+msgid ""
+"Avalia a existência de fontes de financiamento previstas para a "
+"implementação das políticas e planos."
+msgstr ""
+"Evalúa la existencia de fuentes de financiación previstas para la "
+"implementación de las políticas y planes."
+
+msgid "Sem previsão de financiamento para implementação"
+msgstr "Sin previsión de financiación para implementación"
+
+msgid "Financiamento genérico sem vinculação específica à política climática"
+msgstr ""
+"Financiamiento genérica sin vinculación específica a la política climática"
+
+msgid ""
+"Financiamento previsto em documento normativo sem dotação específica "
+"garantida"
+msgstr ""
+"Financiamiento prevista en documento normativo sin dotación específica "
+"garantizada"
+
+msgid ""
+"Financiamento consolidado com dotação específica, executada regularmente e "
+"com previsão plurianual"
+msgstr ""
+"Financiamiento consolidada con dotación específica, ejecutada regularmente y"
+" con previsión plurianual"
+
+msgid ""
+"Avalia a publicização e acessibilidade das informações sobre objetivos, "
+"metas, resultados e revisões das políticas e planos."
+msgstr ""
+"Evalúa la publicidad y accesibilidad de la información sobre objetivos, "
+"metas, resultados y revisiones de las políticas y planes."
+
+msgid "Publicação regular das políticas e resultados em canais institucionais"
+msgstr ""
+"Publicación regular de las políticas y resultados en canales institucionales"
+
+msgid "Publicação sistemática com linguagem acessível e dados abertos"
+msgstr "Publicación sistemática con lenguaje accesible y datos abiertos"
+
+msgid ""
+"Portal dedicado com dados abertos, histórico completo e mecanismo de "
+"feedback ativo"
+msgstr ""
+"Portal dedicado con datos abiertos, histórico completo y mecanismo de "
+"retroalimentación activo"
+
+msgid ""
+"Avalia o nível de articulação formal entre União, estados e municípios no "
+"desenho e implementação dos programas."
+msgstr ""
+"Evalúa el nivel de articulación formal entre la Unión, estados y municipios "
+"en el diseño e implementación de los programas."
+
+msgid "Sem previsão de cooperação federativa"
+msgstr "Sin previsión de cooperación federativa"
+
+msgid "Cooperação prevista sem mecanismo formal (acordos esporádicos)"
+msgstr "Cooperación prevista sin mecanismo formal (acuerdos esporádicos)"
+
+msgid ""
+"Cooperação com convênios ou instrumentos formais, mas de forma não "
+"sistemática"
+msgstr ""
+"Cooperación con convenios o instrumentos formales, pero de forma no "
+"sistemática"
+
+msgid ""
+"Cooperação sistemática com instrumentos formalizados e instância de "
+"coordenação"
+msgstr ""
+"Cooperación sistemática con instrumentos formalizados e instancia de "
+"coordinación"
+
+msgid ""
+"Cooperação plena com instância de coordenação ativa, metas conjuntas e "
+"prestação de contas compartilhada"
+msgstr ""
+"Cooperación plena con instancia de coordinación activa, metas conjuntas y "
+"rendición de cuentas compartida"
+
+msgid ""
+"Avalia o grau de cobertura territorial dos programas, considerando o alcance"
+" a municípios e regiões de diferentes perfis socioeconômicos e geográficos."
+msgstr ""
+"Evalúa el grado de cobertura territorial de los programas, considerando el "
+"alcance a municipios y regiones de diferentes perfiles socioeconómicos y "
+"geográficos."
+
+msgid "Alcance restrito a capitais ou municípios de grande porte"
+msgstr "Alcance restringido a capitales o municipios de gran tamaño"
+
+msgid "Alcance a municípios de médio e grande porte, sem critério de equidade"
+msgstr ""
+"Alcance a municipios de mediano y gran tamaño, sin criterio de equidad"
+
+msgid "Critério formal de equidade territorial previsto, com alcance parcial"
+msgstr "Criterio formal de equidad territorial previsto, con alcance parcial"
+
+msgid ""
+"Cobertura abrangente com critérios de priorização de municípios vulneráveis"
+msgstr ""
+"Cobertura amplia con criterios de priorización de municipios vulnerables"
+
+msgid ""
+"Cobertura universal ou estratégica com mecanismo de acompanhamento do "
+"alcance territorial"
+msgstr ""
+"Cobertura universal o estratégica con mecanismo de seguimiento del alcance "
+"territorial"
+
+msgid ""
+"Avalia a previsão e regularidade das fontes de financiamento dos programas, "
+"considerando continuidade e capacidade de expansão."
+msgstr ""
+"Evalúa la previsión y regularidad de las fuentes de financiación de los "
+"programas, considerando la continuidad y capacidad de expansión."
+
+msgid "Sem previsão de financiamento regular"
+msgstr "Sin previsión de financiación regular"
+
+msgid "Dotação orçamentária específica com regularidade parcial"
+msgstr "Dotación presupuestaria específica con regularidad parcial"
+
+msgid ""
+"Financiamento consolidado e executado regularmente, com previsão plurianual "
+"e capacidade de expansão"
+msgstr ""
+"Financiamiento consolidada y ejecutada regularmente, con previsión "
+"plurianual y capacidad de expansión"
+
+msgid ""
+"Avalia se os programas incluem componentes de capacitação técnica, "
+"assistência e fortalecimento institucional dos entes subnacionais para "
+"gestão climática."
+msgstr ""
+"Evalúa si los programas incluyen componentes de capacitación técnica, "
+"asistencia y fortalecimiento institucional de los entes subnacionales para "
+"la gestión climática."
+
+msgid "Sem componente de capacitação ou assistência técnica"
+msgstr "Sin componente de capacitación o asistencia técnica"
+
+msgid "Componente de capacitação previsto sem estrutura regular"
+msgstr "Componente de capacitación previsto sin estructura regular"
+
+msgid ""
+"Capacitação ofertada de forma regular, sem vinculação ao fortalecimento "
+"institucional"
+msgstr ""
+"Capacitación ofrecida de forma regular, sin vinculación al fortalecimiento "
+"institucional"
+
+msgid ""
+"Capacitação técnica regular com assistência para implementação e gestão"
+msgstr ""
+"Capacitación técnica regular con asistencia para la implementación y gestión"
+
+msgid ""
+"Programa integrado de fortalecimento com assistência técnica, capacitação e "
+"acompanhamento sistemático"
+msgstr ""
+"Programa integrado de fortalecimiento con asistencia técnica, capacitación y"
+" seguimiento sistemático"
+
+msgid ""
+"Avalia a existência e qualidade dos mecanismos de acompanhamento dos "
+"resultados dos programas, incluindo a participação dos beneficiários locais."
+msgstr ""
+"Evalúa la existencia y calidad de los mecanismos de seguimiento de los "
+"resultados de los programas, incluyendo la participación de los "
+"beneficiarios locales."
+
+msgid "Sem mecanismo de monitoramento ou avaliação"
+msgstr "Sin mecanismo de seguimiento o evaluación"
+
+msgid "Relatórios eventuais sem padronização ou publicização"
+msgstr "Informes eventuales sin estandarización o publicidad"
+
+msgid ""
+"Monitoramento periódico com indicadores definidos, sem avaliação sistemática"
+msgstr ""
+"Monitoreo periódico con indicadores definidos, sin evaluación sistemática"
+
+msgid ""
+"Monitoramento regular com indicadores e avaliação periódica com participação"
+" parcial dos beneficiários"
+msgstr ""
+"Monitoreo regular con indicadores y evaluación periódica con participación "
+"parcial de los beneficiarios"
+
+msgid ""
+"Sistema de monitoramento e avaliação consolidado, com participação ativa dos"
+" beneficiários e publicização de resultados"
+msgstr ""
+"Sistema de monitoreo y evaluación consolidado, con participación activa de "
+"los beneficiarios y publicación de resultados"
+
+msgid "Desenho Participativo da Linha de Financiamento"
+msgstr "Diseño Participativo de la Línea de Financiamiento"
+
+msgid ""
+"Avalia o grau de participação dos entes subnacionais e da sociedade civil na"
+" formulação e revisão das linhas de financiamento climático."
+msgstr ""
+"Evalúa el grado de participación de los entes subnacionales y de la sociedad"
+" civil en la formulación y revisión de las líneas de financiamiento "
+"climático."
+
+msgid ""
+"Sem participação dos entes subnacionais ou da sociedade civil no desenho"
+msgstr ""
+"Sin participación de los entes subnacionales o de la sociedad civil en el "
+"diseño"
+
+msgid "Consulta esporádica sem caráter formal ou vinculativo"
+msgstr "Consulta esporádica sin carácter formal o vinculante"
+
+msgid ""
+"Consulta formal com representação dos entes subnacionais, sem poder de "
+"influência"
+msgstr ""
+"Consulta formal con representación de los entes subnacionales, sin poder de "
+"influencia"
+
+msgid ""
+"Participação dos entes subnacionais com capacidade de propor alterações nas "
+"condições da linha"
+msgstr ""
+"Participación de los entes subnacionales con capacidad de proponer "
+"modificaciones en las condiciones de la línea"
+
+msgid ""
+"Processo participativo formalizado com revisão periódica, co-gestão e "
+"transparência nos critérios"
+msgstr ""
+"Proceso participativo formalizado con revisión periódica, cogestión y "
+"transparencia en los criterios"
+
+msgid ""
+"Avalia em que medida as linhas de financiamento permitem e facilitam o "
+"acesso direto por estados e municípios, sem intermediação obrigatória da "
+"União."
+msgstr ""
+"Evalúa en qué medida las líneas de financiamiento permiten y facilitan el "
+"acceso directo por parte de estados y municipios, sin intermediación "
+"obligatoria de la Unión."
+
+msgid "Acesso exclusivamente pela União (sem repasse ou acesso direto)"
+msgstr ""
+"Acceso exclusivamente por la Unión (sin transferencia o acceso directo)"
+
+msgid "Acesso mediado pela União, sem simplificação para entes subnacionais"
+msgstr ""
+"Acceso mediado por la Unión, sin simplificación para entes subnacionales"
+
+msgid ""
+"Repasse previsto com critérios formais, mas com barreiras burocráticas "
+"elevadas"
+msgstr ""
+"Transferencia prevista con criterios formales, pero con altas barreras "
+"burocráticas"
+
+msgid ""
+"Acesso direto facilitado com simplificação parcial das exigências para entes"
+" subnacionais"
+msgstr ""
+"Acceso directo facilitado con simplificación parcial de las exigencias para "
+"entes subnacionales"
+
+msgid ""
+"Acesso direto pleno com simplificação das exigências, apoio técnico para "
+"habilitação e descentralização efetiva"
+msgstr ""
+"Acceso directo pleno con simplificación de las exigencias, apoyo técnico "
+"para habilitación y descentralización efectiva"
+
+msgid ""
+"Avalia a existência e qualidade dos mecanismos de acompanhamento da execução"
+" e dos resultados das linhas de financiamento, incluindo a transparência na "
+"prestação de contas."
+msgstr ""
+"Evalúa la existencia y calidad de los mecanismos de seguimiento de la "
+"ejecución y de los resultados de las líneas de financiamiento, incluyendo la"
+" transparencia en la rendición de cuentas."
+
+msgid "Sem mecanismo de monitoramento ou prestação de contas definido"
+msgstr "Sin mecanismo de monitoreo o rendición de cuentas definido"
+
+msgid "Prestação de contas básica prevista sem publicização ou padronização"
+msgstr ""
+"Rendición de cuentas básica prevista sin publicación o estandarización"
+
+msgid "Prestação de contas formal com relatórios periódicos sem dados abertos"
+msgstr ""
+"Rendición de cuentas formal con informes periódicos sin datos abiertos"
+
+msgid ""
+"Monitoramento regular com indicadores definidos e publicização dos "
+"resultados"
+msgstr ""
+"Monitoreo regular con indicadores definidos y publicación de los resultados"
+
+msgid ""
+"Sistema de monitoramento integrado com dados abertos, auditoria independente"
+" e publicização dos resultados"
+msgstr ""
+"Sistema de monitoreo integrado con datos abiertos, auditoría independiente y"
+" publicación de los resultados"
+
+msgid ""
+"Desta forma, foram analisados nesta etapa 32 componentes de governança, 18 "
+"políticas ou planos, 18 programas e 30 linhas de financiamento."
+msgstr ""
+"De esta forma, se analizaron en esta etapa 32 componentes de gobernanza, 18 "
+"políticas o planes, 18 programas y 30 líneas de financiamiento."
+
+msgid "componentes de governança"
+msgstr "componentes de gobernanza"
+
+msgid "políticas ou planos"
+msgstr "políticas o planes"
+
+msgid "Abrir Nota Metodológica"
+msgstr "Abrir Nota Metodológica"
+
+msgid ""
+"A Nota Metodológica do Radar Brasil: Federalismo Climático documenta a "
+"metodologia empregada na fase piloto do Radar Brasil, delimitando conceitos "
+"empregados, abrangência do estudo, critérios e parâmetros para tratamento "
+"dos dados, entre outros fatores necessários à compreensão dos resultados "
+"obtidos."
+msgstr ""
+"La Nota Metodológica del Radar Brasil: Federalismo Climático documenta la "
+"metodología empleada en la fase piloto del Radar Brasil, delimitando los "
+"conceptos empleados, el alcance del estudio, los criterios y parámetros para"
+" el tratamiento de los datos, entre otros factores necesarios para la "
+"comprensión de los resultados obtenidos."
+
+msgid ""
+"Os níveis obtidos em cada parâmetro por componente servem de base para o "
+"cálculo do nível país e estão divididos em 3 etapas de cálculo: Nível "
+"Parcial, Nível Eixo e Nível País."
+msgstr ""
+"Los niveles obtenidos en cada parámetro por componente sirven de base para "
+"el cálculo del nivel país y están divididos en 3 etapas de cálculo: Nivel "
+"Parcial, Nivel Eje y Nivel País."
+
+msgid ""
+"Para o cálculo do Nível País, inicialmente é calculado o Nível Parcial que "
+"compreende a média dos níveis obtidos em cada critério do componente "
+"avaliado. Para esta média, é acrescido peso 2 a um dos critérios de cada "
+"eixo, em virtude da sua importância ao federalismo climático. O cálculo pode"
+" ser expresso pela seguinte fórmula."
+msgstr ""
+"Para el cálculo del Nivel País, inicialmente se calcula el Nivel Parcial, "
+"que comprende el promedio de los niveles obtenidos en cada criterio del "
+"componente evaluado. A este promedio se le añade un peso 2 a uno de los "
+"criterios de cada eje, debido a su importancia para el federalismo "
+"climático. El cálculo se puede expresar mediante la siguiente fórmula."
+
+msgid "Fator de Relevância dos Componentes"
+msgstr "Factor de Relevancia de los Componentes"
+
+msgid ""
+"No cálculo, foram estabelecidos pesos de 1 a 3 para cada componente "
+"analisado, considerando seu fator de relevância."
+msgstr ""
+"En el cálculo, se establecieron pesos de 1 a 3 para cada componente "
+"analizado, considerando su factor de relevancia."
+
+msgid "Peso 3"
+msgstr "Peso 3"
+
+msgid ""
+"Componentes que declaram, em seu texto ou instrumento formal, mitigação ou "
+"adaptação às mudanças climáticas como objetivo."
+msgstr ""
+"Componentes que declaran, en su texto o instrumento formal, la mitigación o "
+"adaptación al cambio climático como objetivo."
+
+msgid ""
+"Ex.: Comitê Gestor do Fundo Nacional sobre Mudança do Clima, Plano Nacional "
+"de Proteção e Defesa Civil, Programa Gestão de Riscos e de Desastres, PAC "
+"Seleções - Desenvolvimento Urbano Resiliente e Sustentável"
+msgstr ""
+"Ej.: Comité Gestor del Fondo Nacional sobre Cambio Climático, Plan Nacional "
+"de Protección y Defensa Civil, Programa de Gestión de Riesgos y Desastres, "
+"PAC Selecciones - Desarrollo Urbano Resiliente y Sostenible"
+
+msgid "Peso 2"
+msgstr "Peso 2"
+
+msgid ""
+"Componentes que possuem objetivos que se relacionam diretamente a mitigação "
+"ou adaptação às mudanças climáticas."
+msgstr ""
+"Componentes que poseen objetivos que se relacionan directamente con la "
+"mitigación o adaptación al cambio climático."
+
+msgid ""
+"Ex.: Conselho Nacional de Desenvolvimento Rural Sustentável (CONDRAF), Plano"
+" Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), "
+"Programa Saneamento Básico, Novo PAC Transição e Segurança Energética - "
+"Subeixo Eficiência Energética"
+msgstr ""
+"Ej.: Consejo Nacional de Desarrollo Rural Sustentable (CONDRAF), Plan "
+"Nacional de Desarrollo Rural Sustentable y Solidario (PNDRSS), Programa de "
+"Saneamiento Básico, Nuevo PAC Transición y Seguridad Energética - Subeje de "
+"Eficiencia Energética"
+
+msgid "Peso 1"
+msgstr "Peso 1"
+
+msgid ""
+"Componentes cujos objetivos se relacionam apenas indiretamente à mitigação "
+"ou adaptação às mudanças climáticas."
+msgstr ""
+"Componentes cuyos objetivos se relacionan solo indirectamente con la "
+"mitigación o adaptación al cambio climático."
+
+msgid ""
+"Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano "
+"Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Programa"
+" Políticas para Quilombolas, Pró-Transporte (CEF)"
+msgstr ""
+"Ej.: Consejo Nacional de Seguridad Alimentaria y Nutricional (CONSEA), Plan "
+"Nacional de Desarrollo Rural Sustentable y Solidario (PNDRSS), Programa de "
+"Políticas para Quilombolas, Pró-Transporte (CEF)"
+
+msgid "Score de cada componente"
+msgstr "Puntuación de cada componente"
+
+msgid ""
+"Média ponderada dos critérios avaliados, atribuindo peso duplo ao critério "
+"de maior relevância para o eixo."
+msgstr ""
+"Promedio ponderado de los criterios evaluados, asignando doble peso al "
+"criterio de mayor relevancia para el eje."
+
+msgid "Demais critérios do eixo"
+msgstr "Demás criterios del eje"
+
+msgid "Critério prioritário"
+msgstr "Criterio prioritario"
+
+msgid "Méd. pond."
+msgstr "Prom. pond."
+
+msgid "Nível Parcial do componente avaliado (resultado na escala 1 a 5)"
+msgstr "Nivel Parcial del componente evaluado (resultado en escala de 1 a 5)"
+
+msgid "valor de cada critério avaliado (escala 1 a 5)"
+msgstr "valor de cada criterio evaluado (escala de 1 a 5)"
+
+msgid "critério de maior relevância para o eixo (peso duplo)"
+msgstr "criterio de mayor relevancia para el eje (doble peso)"
+
+msgid "número total de critérios do componente"
+msgstr "número total de criterios del componente"
+
+msgid ""
+"Média ponderada dos Níveis Parciais de cada componente, usando o fator de "
+"relevância como multiplicador de peso."
+msgstr ""
+"Promedio ponderado de los Niveles Parciales de cada componente, utilizando "
+"el factor de relevancia como multiplicador de peso."
+
+msgid "Componentes"
+msgstr "Componentes"
+
+msgid "Méd. pond. NP"
+msgstr "Méd. pond. NP"
+
+msgid "Nível Eixo do eixo temático k (resultado ponderado na escala 1 a 5)"
+msgstr ""
+"Nivel Eje del eje temático k (resultado ponderado en la escala de 1 a 5)"
+
+msgid "Nível Parcial de cada componente avaliado"
+msgstr "Nivel Parcial de cada componente evaluado"
+
+msgid "fator de relevância do componente (peso 1, 2 ou 3)"
+msgstr "factor de relevancia del componente (peso 1, 2 o 3)"
+
+msgid "Nível Eixo de cada eixo temático (k = 1 a 4)"
+msgstr "Nivel Eje de cada eje temático (k = 1 a 4)"
+
+msgid ""
+"nota síntese da capacidade do país em implementar o federalismo climático"
+msgstr ""
+"nota síntesis de la capacidad del país para implementar el federalismo "
+"climático"
+
+msgid "Perguntas frequentes sobre o projeto, sua metodologia e escopo."
+msgstr "Preguntas frecuentes sobre el proyecto, su metodología y alcance."
+
+msgid "No que consiste o Radar Brasil: Federalismo Climático?"
+msgstr "¿En qué consiste el Radar Brasil: Federalismo Climático?"
+
+msgid ""
+"Instrumento sistemático para diagnosticar a implementação do federalismo "
+"climático no Brasil, identificando avanços, lacunas e assimetrias nas "
+"iniciativas, políticas, programas, planos e linhas de financiamento do "
+"Governo Federal."
+msgstr ""
+"Instrumento sistemático para diagnosticar la implementación del federalismo "
+"climático en Brasil, identificando avances, brechas y asimetrías en las "
+"iniciativas, políticas, programas, planes y líneas de financiación del "
+"Gobierno Federal."
+
+msgid "Qual a origem do Radar Brasil?"
+msgstr "¿Cuál es el origen de Radar Brasil?"
+
+msgid ""
+"O Radar Brasil é uma iniciativa da Frente Nacional de Prefeitas e Prefeitos "
+"(FNP) e integra o projeto Mutirão Brasil, iniciativa da C40 Cities e do "
+"Pacto Global de Prefeitas e Prefeitos pelo Clima e Energia (GCoM), com apoio"
+" da Bloomberg Philanthropies, voltada a apoiar cidades brasileiras na "
+"estruturação de projetos climáticos para implementação."
+msgstr ""
+"Radar Brasil es una iniciativa del Frente Nacional de Alcaldes y Alcaldesas "
+"(FNP) e integra el proyecto Mutirão Brasil, iniciativa de C40 Cities y del "
+"Pacto Global de Alcaldes y Alcaldesas por el Clima y la Energía (GCoM), con "
+"el apoyo de Bloomberg Philanthropies, orientada a apoyar a las ciudades "
+"brasileñas en la estructuración de proyectos climáticos para su "
+"implementación."
+
+msgid "Qual o escopo do Radar Brasil?"
+msgstr "¿Cuál es el alcance de Radar Brasil?"
+
+msgid ""
+"Foco nas iniciativas e instrumentos federais que promovem a cooperação "
+"interfederativa no enfrentamento das mudanças climáticas, avaliando a oferta"
+" de mecanismos de articulação multinível, e não a capacidade institucional "
+"dos entes subnacionais."
+msgstr ""
+"Enfoque en las iniciativas e instrumentos federales que promueven la "
+"cooperación interfederativa en el enfrentamiento al cambio climático, "
+"evaluando la oferta de mecanismos de articulación multinivel, y no la "
+"capacidad institucional de los entes subnacionales."
+
+msgid "Qual o recorte adotado pelo Radar Brasil?"
+msgstr "¿Cuál es el recorte adoptado por Radar Brasil?"
+
+msgid ""
+"O Radar Brasil considera três fatores principais: a maior acessibilidade às "
+"ações federais; o compromisso do Brasil com a agenda CHAMP; e o papel "
+"central da União na coordenação e implementação de políticas nacionais."
+msgstr ""
+"Radar Brasil considera tres factores principales: mayor accesibilidad a las "
+"acciones federales; el compromiso de Brasil con la agenda CHAMP; y el papel "
+"central de la Unión en la coordinación e implementación de políticas "
+"nacionales."
+
+msgid "Qual é o princípio ou fundamento que orienta o Radar Brasil?"
+msgstr "¿Cuál es el principio o fundamento que orienta a Radar Brasil?"
+
+msgid ""
+"O federalismo climático, baseado na articulação e cooperação entre os "
+"diferentes níveis de governo para contribuir para o cumprimento dos "
+"compromissos climáticos do Brasil e promover um futuro mais sustentável."
+msgstr ""
+"El federalismo climático, basado en la articulación y cooperación entre los "
+"diferentes niveles de gobierno para contribuir al cumplimiento de los "
+"compromisos climáticos de Brasil y promover un futuro más sostenible."
+
+msgid "Qual o objetivo do Radar Brasil?"
+msgstr "¿Cuál es el objetivo de Radar Brasil?"
+
+msgid ""
+"Monitorar e avaliar a governança multinível das políticas climáticas no "
+"Brasil."
+msgstr ""
+"Monitorear y evaluar la gobernanza multinivel de las políticas climáticas en"
+" Brasil."
+
+msgid "Quais as fontes pesquisadas no levantamento de dados do Radar Brasil?"
+msgstr ""
+"¿Cuáles son las fuentes investigadas en el levantamiento de datos de Radar "
+"Brasil?"
+
+msgid ""
+"Os dados foram levantados exclusivamente em fontes oficiais do Governo "
+"Federal, incluindo sítios eletrônicos, normativos, legislações e o Plano "
+"Plurianual (PPA) vigente."
+msgstr ""
+"Los datos se recopilaron exclusivamente en fuentes oficiales del Gobierno "
+"Federal, incluyendo sitios web, normativas, legislaciones y el Plan "
+"Plurianual (PPA) vigente."
+
+msgid ""
+"Qual o recorte temporal e a periodicidade dos dados pesquisados pelo Radar "
+"Brasil?"
+msgstr ""
+"¿Cuál es el recorte temporal y la periodicidad de los datos investigados por"
+" Radar Brasil?"
+
+msgid ""
+"Iniciada em 2025, a análise adotou como recorte temporal o final de 2024 e o"
+" primeiro semestre de 2025, estabelecendo uma linha de base para o "
+"diagnóstico inicial do federalismo climático."
+msgstr ""
+"Iniciada en 2025, el análisis adoptó como recorte temporal el final de 2024 "
+"y el primer semestre de 2025, estableciendo una línea de base para el "
+"diagnóstico inicial del federalismo climático."
+
+msgid "De que forma o Radar irá monitorar e avaliar a governança multinível?"
+msgstr "¿De qué forma Radar monitoreará y evaluará la gobernanza multinivel?"
+
+msgid ""
+"A avaliação adota metodologia baseada em critérios e parâmetros de níveis, "
+"aplicada de forma independente aos quatro eixos: Governança, Políticas e "
+"Planos, Programas e Linhas de Financiamento. Os critérios definem as "
+"dimensões analisadas e os parâmetros estabelecem os diferentes níveis de "
+"maturidade."
+msgstr ""
+"La evaluación adopta una metodología basada en criterios y parámetros de "
+"niveles, aplicada de forma independiente a los cuatro ejes: Gobernanza, "
+"Políticas y Planes, Programas y Líneas de Financiamiento. Los criterios "
+"definen las dimensiones analizadas y los parámetros establecen los "
+"diferentes niveles de madurez."
+
+msgid ""
+"As informações são sistematizadas em base de dados e classificadas pela "
+"equipe técnica da FNP."
+msgstr ""
+"La información se sistematiza en una base de datos y es clasificada por el "
+"equipo técnico de la FNP."
+
+msgid ""
+"Quais os fatores predominantes para a avaliação da governança multinível?"
+msgstr ""
+"¿Cuáles son los factores predominantes para la evaluación de la gobernanza "
+"multinivel?"
+
+msgid "Fatores predominantes para a avaliação da governança multinível?"
+msgstr ""
+"¿Factores predominantes para la evaluación de la gobernanza multinivel?"
+
+msgid ""
+"Aderência à agenda climática, interface com estados e municípios, relevância"
+" para a coordenação federativa e disponibilidade de informações públicas."
+msgstr ""
+"Adherencia a la agenda climática, interfaz con estados y municipios, "
+"relevancia para la coordinación federativa y disponibilidad de información "
+"pública."
+
+msgid "Fator de relevância:"
+msgstr "Factor de relevancia:"
+
+msgid ""
+"para os componentes que declaram, em seu texto ou instrumento formal, "
+"mitigação ou adaptação às mudanças climáticas como objetivo."
+msgstr ""
+"para los componentes que declaran, en su texto o instrumento formal, la "
+"mitigación o la adaptación al cambio climático como objetivo."
+
+msgid ""
+"aos componentes que possuem objetivos que se relacionam diretamente a "
+"mitigação ou adaptação às mudanças climáticas."
+msgstr ""
+"para los componentes que poseen objetivos que se relacionan directamente con"
+" la mitigación o la adaptación al cambio climático."
+
+msgid ""
+"Ex.: Conselho Nacional de Desenvolvimento Rural Sustentável (CONDRAF), "
+"Programa Saneamento Básico, Novo PAC Transição e Segurança Energética - "
+"Subeixo Eficiência Energética"
+msgstr ""
+"Ej.: Consejo Nacional de Desarrollo Rural Sustentable (CONDRAF), Programa de"
+" Saneamiento Básico, Nuevo PAC Transición y Seguridad Energética - Subeje "
+"Eficiencia Energética"
+
+msgid ""
+"aos componentes cujos objetivos se relacionam apenas indiretamente à "
+"mitigação ou adaptação às mudanças climáticas."
+msgstr ""
+"para los componentes cuyos objetivos se relacionan solo indirectamente con "
+"la mitigación o la adaptación al cambio climático."
+
+msgid ""
+"Ex.: Conselho Nacional de Segurança Alimentar e Nutricional (CONSEA), Plano "
+"Nacional de Desenvolvimento Rural Sustentável e Solidário (PNDRSS), Pró-"
+"Transporte (CEF)"
+msgstr ""
+"Ej.: Consejo Nacional de Seguridad Alimentaria y Nutricional (CONSEA), Plan "
+"Nacional de Desarrollo Rural Sustentable y Solidario (PNDRSS), Pró-"
+"Transporte (CEF)"
+
+msgid "Sobre"
+msgstr "Acerca de"
+
+msgid "O que é o Radar Brasil:"
+msgstr "¿Qué es Radar Brasil?"
+
+msgid "Fontes dos dados do Radar Brasil:"
+msgstr "Fuentes de los datos de Radar Brasil:"
+
+msgid "Recorte temporal:"
+msgstr "Recorte temporal:"
+
+msgid "O que o Radar Brasil avalia?"
+msgstr "¿Qué evalúa Radar Brasil?"
+
+msgid "Como avaliamos o federalismo climático?"
+msgstr "¿Cómo evaluamos el federalismo climático?"
+
+msgid "Eixos"
+msgstr "Ejes"
+
+msgid "Critérios"
+msgstr "Criterios"
+
+msgid "Parâmetros"
+msgstr "Parámetros"
+
+msgid ""
+"Dimensão específica de análise que detalha cada eixo em aspectos mensuráveis"
+" e distintos (de 3 a 5 por eixo)."
+msgstr ""
+"Dimensión específica de análisis que detalla cada eje en aspectos "
+"mensurables y distintos (de 3 a 5 por eje)."
+
+msgid ""
+"Foram definidos 5 níveis de maturidade para cada critério na escala de "
+"avaliação."
+msgstr ""
+"Se definieron 5 niveles de madurez para cada criterio en la escala de "
+"evaluación."
+
+#: templates/municipios/sobre.html
+msgid "Federalismo climático"
+msgstr "Federalismo climático"
+
+#: templates/municipios/sobre.html
+msgid "Evolução do Federalismo Climático brasileiro no tempo"
+msgstr "Evolución del federalismo climático brasileño en el tiempo"
+
+#: templates/municipios/sobre.html
+msgid "Nível País ao longo do tempo"
+msgstr "Nivel País a lo largo del tiempo"
+
+#: templates/municipios/sobre.html
+msgid "Ano"
+msgstr "Año"
+
+#: templates/municipios/sobre.html
+msgid "Número de componentes avaliados em 2025"
+msgstr "Número de componentes evaluados en 2025"
+
+#: templates/municipios/sobre.html
+msgid "Número de componentes avaliados em 2026"
+msgstr "Número de componentes evaluados en 2026"
+
+#: templates/municipios/sobre.html
+msgid "em análise"
+msgstr "en análisis"
+
+#: templates/municipios/sobre.html
+msgid "O que é o Radar Brasil - Federalismo Climático?"
+msgstr "¿Qué es el Radar Brasil - Federalismo Climático?"
+
+#: templates/municipios/sobre.html
+msgid ""
+"Esta plataforma de avaliação do federalismo climático brasileiro é uma "
+"iniciativa da FNP no âmbito do Programa Mutirão Brasil, em parceria com o "
+"C40 e o GCoM."
+msgstr ""
+"Esta plataforma de evaluación del federalismo climático brasileño es una "
+"iniciativa de la FNP en el ámbito del Programa Mutirão Brasil, en "
+"colaboración con C40 y GCoM."
+
+#: templates/municipios/sobre.html
+msgid "Série histórica e acompanhamento"
+msgstr "Serie histórica y seguimiento"
+
+#: templates/municipios/sobre.html
+msgid "Panorama do nível nacional e do andamento das avaliações por eixo."
+msgstr "Panorama del nivel nacional y del avance de las evaluaciones por eje."
+
+#: templates/municipios/sobre.html
+msgid "Atualização 2025-2026"
+msgstr "Actualización 2025-2026"
+
+#: templates/municipios/sobre.html
+msgid "Série temporal"
+msgstr "Serie temporal"
+
+#: templates/municipios/sobre.html
+msgid "Resultado consolidado"
+msgstr "Resultado consolidado"
+
+#: templates/municipios/sobre.html
+msgid "Acompanhamento"
+msgstr "Seguimiento"
+
+#: templates/municipios/sobre.html
+msgid "Componentes avaliados em 2025"
+msgstr "Componentes evaluados en 2025"
+
+#: templates/municipios/sobre.html
+msgid "Componentes avaliados em 2026"
+msgstr "Componentes evaluados en 2026"
+
+#: templates/municipios/sobre.html
+msgid "Em acompanhamento"
+msgstr "En seguimiento"
+
+#: templates/municipios/sobre.html
+msgid "Em análise"
+msgstr "En análisis"
+
+#: templates/municipios/sobre.html
+msgid ""
+"nível consolidado 3. Os anos seguintes são exibidos como horizonte de "
+"acompanhamento, sem atribuição de pontuação."
+msgstr ""
+"nivel consolidado 3. Los años siguientes se muestran como horizonte de "
+"seguimiento, sin asignación de puntuación."
+
+#: templates/municipios/sobre.html
+msgid "Total:"
+msgstr "Total:"
+
+#: templates/municipios/sobre.html
+msgid "98 componentes"
+msgstr "98 componentes"
+
+#: templates/municipios/sobre.html
+msgid "avaliados em 2025."
+msgstr "evaluados en 2025."
+
+#: templates/municipios/sobre.html
+msgid "Os quatro eixos estão"
+msgstr "Los cuatro ejes están"
+
+#: templates/municipios/sobre.html
+msgid "; valores finais ainda não consolidados."
+msgstr "; valores finales aún no consolidados."
+
+#: templates/assistente/_widget.html
+msgid "Fontes"
+msgstr "Fuentes"
+
+#: templates/assistente/_widget.html
+msgid "O assistente está indisponível no momento. Tente novamente mais tarde."
+msgstr ""
+"El asistente no está disponible en este momento. Inténtelo de nuevo más "
+"tarde."
+
+#: templates/assistente/_widget.html
+msgid "Consultando os dados do Radar Brasil…"
+msgstr "Consultando los datos de Radar Brasil…"
+
+#: templates/assistente/_widget.html
+msgid "Assistente Radar Brasil"
+msgstr "Asistente Radar Brasil"
+
+#: templates/assistente/_widget.html
+msgid "Pergunte sobre os dados da plataforma"
+msgstr "Pregunte sobre los datos de la plataforma"
+
+#: templates/assistente/_widget.html
+msgid "Limpar conversa"
+msgstr "Borrar conversación"
+
+#: templates/assistente/_widget.html
+msgid "Expandir"
+msgstr "Expandir"
+
+#: templates/assistente/_widget.html
+msgid "Pergunte alguma coisa sobre os dados do Radar Brasil"
+msgstr "Pregunte algo sobre los datos de Radar Brasil"
+
+#: templates/assistente/_widget.html
+msgid "Qual o nível do CONDRAF em cada critério?"
+msgstr "¿Cuál es el nivel del CONDRAF en cada criterio?"
+
+#: templates/assistente/_widget.html
+msgid "Como está Niterói no Novo PAC?"
+msgstr "¿Cómo está Niterói en el Nuevo PAC?"
+
+#: templates/assistente/_widget.html
+msgid "Sua pergunta"
+msgstr "Su pregunta"
+
+#: templates/assistente/_widget.html
+msgid "Ex: Como está o eixo Governança?"
+msgstr "Ej: ¿Cómo está el eje Gobernanza?"
+
+#: templates/assistente/_widget.html
+msgid "Enviar"
+msgstr "Enviar"
+
+#: templates/assistente/_widget.html
+msgid ""
+"Respostas geradas por IA com base nos dados do Radar Brasil. Não insira "
+"dados pessoais."
+msgstr ""
+"Respuestas generadas por IA basadas en los datos de Radar Brasil. No "
+"introduzca datos personales."
+
+#: templates/assistente/_widget.html
+msgid "DPO:"
+msgstr "DPO:"
+
+#: templates/assistente/_widget.html
+msgid "Abrir o Assistente Radar Brasil"
+msgstr "Abrir el Asistente Radar Brasil"
+
+#: templates/assistente/_widget.html
+msgid "Fechar o Assistente Radar Brasil"
+msgstr "Cerrar el Asistente Radar Brasil"
+
+#: templates/assistente/_widget.html
+msgid "Esta resposta foi útil?"
+msgstr "¿Fue útil esta respuesta?"
+
+#: templates/assistente/_widget.html
+msgid "Sim, foi útil"
+msgstr "Sí, fue útil"
+
+#: templates/assistente/_widget.html
+msgid "Não foi útil"
+msgstr "No fue útil"
+
+#: templates/assistente/_widget.html
+msgid "Obrigado pelo retorno!"
+msgstr "¡Gracias por sus comentarios!"
+
+#: base_templates/base.html
+msgid "O que é o Radar"
+msgstr "Qué es el Radar"
+
+#: base_templates/base.html
+msgid "Por que avaliar o Federalismo Climático"
+msgstr "Por qué evaluar el Federalismo Climático"
+
+#: base_templates/base.html
+msgid "Painel"
+msgstr "Panel"
+
+#: templates/municipios/painel-multinivel.html
+msgid "Visão geral"
+msgstr "Visión general"
+
+#: templates/municipios/painel-multinivel.html
+msgid "Eixos e critérios de avaliação"
+msgstr "Ejes y criterios de evaluación"
+
+#: base_templates/base.html
+msgid "Visão Geral"
+msgstr "Visión General"
+
+#: templates/municipios/nota-pais.html
+msgid ""
+"Este mapa visa representar a evolução, ao longo dos anos, dos níveis de cada"
+" país conforme a metodologia de avaliação do federalismo climático for sendo"
+" empregada pelos demais países signatários da Coalizão para Parcerias "
+"Multiníveis de Alta Ambição para Ação Climática - CHAMP."
+msgstr ""
+"Este mapa pretende representar la evolución, a lo largo de los años, de los "
+"niveles de cada país a medida que la metodología de evaluación del "
+"federalismo climático sea empleada por los demás países firmantes de la "
+"Coalición para Alianzas Multinivel de Alta Ambición para la Acción Climática"
+" - CHAMP."
+
+#: templates/municipios/nota-pais.html
+msgid ""
+"Hoje, o mapa apresenta a nota país do Brasil — Nível País 3 —, resultante da"
+" análise do federalismo climático realizada sobre o ano de 2025."
+msgstr ""
+"Hoy, el mapa presenta la nota país de Brasil — Nivel País 3 —, resultante "
+"del análisis del federalismo climático realizado sobre el año 2025."
+
+#: templates/municipios/nota-pais.html
+msgid ""
+"O Nível País é uma síntese dos resultados obtidos nos quatro eixos de "
+"análise: Governança, Políticas e Planos, Programas e Linhas de "
+"Financiamento."
+msgstr ""
+"El Nivel País es una síntesis de los resultados obtenidos en los cuatro ejes"
+" de análisis: Gobernanza, Políticas y Planes, Programas y Líneas de "
+"Financiamiento."
+
+#: templates/municipios/nota-pais.html
+msgid "Seu cálculo ocorre em três etapas:"
+msgstr "Su cálculo ocurre en tres etapas:"
+
+#: templates/municipios/nota-pais.html
+msgid ""
+"média dos níveis obtidos na avaliação dos componentes dentro de cada "
+"critério."
+msgstr ""
+"promedio de los niveles obtenidos en la evaluación de los componentes dentro"
+" de cada criterio."
+
+#: templates/municipios/nota-pais.html
+msgid "média dos níveis obtidos em cada critério do eixo."
+msgstr "promedio de los niveles obtenidos en cada criterio del eje."
+
+#: templates/municipios/nota-pais.html
+msgid "média dos níveis obtidos nos eixos."
+msgstr "promedio de los niveles obtenidos en los ejes."
+
+#: templates/municipios/landing.html
+msgid "O Brasil é o primeiro país a medir seu federalismo climático."
+msgstr "Brasil es el primer país en medir su federalismo climático."
+
+#: templates/municipios/landing.html
+msgid ""
+"O Radar Brasil avalia como União, estados e municípios cooperam na agenda "
+"climática, com uma metodologia pensada para ser aplicada pelos demais "
+"signatários da Coalizão para Parcerias Multiníveis de Alta Ambição para Ação"
+" Climática - CHAMP."
+msgstr ""
+"El Radar Brasil evalúa cómo la Unión, los estados y los municipios cooperan "
+"en la agenda climática, con una metodología pensada para ser aplicada por "
+"los demás signatarios de la Coalición para Asociaciones Multinivel de Alta "
+"Ambición para la Acción Climática - CHAMP."
+
+#: templates/municipios/landing.html
+msgid "Eixos de avaliação do Radar"
+msgstr "Ejes de evaluación del Radar"
+
+#: templates/municipios/landing.html
+msgid ""
+"Os municípios estão na linha de frente do enfrentamento às mudanças "
+"climáticas"
+msgstr ""
+"Los municipios están en la línea de frente del enfrentamiento al cambio "
+"climático"
+
+#: templates/municipios/landing.html
+msgid ""
+"É nos territórios que os efeitos das mudanças climáticas são sentidos "
+"primeiro — enchentes, secas e eventos extremos chegam às cidades antes de "
+"qualquer outro nível de governo. Por isso o Radar Brasil acompanha de perto "
+"como municípios, estados e União cooperam para fortalecer essa linha de "
+"frente."
+msgstr ""
+"Es en los territorios donde los efectos del cambio climático se sienten "
+"primero — inundaciones, sequías y eventos extremos llegan a las ciudades "
+"antes que a cualquier otro nivel de gobierno. Por eso, el Radar Brasil "
+"acompaña de cerca cómo los municipios, estados y la Unión cooperan para "
+"fortalecer esta línea de frente."
+
+#: templates/municipios/landing.html
+msgid "Quem sente primeiro"
+msgstr "Quién siente primero"
+
+#: templates/municipios/landing.html
+msgid ""
+"Os municípios são os mais afetados pelas mudanças climáticas. É na "
+"prefeitura que a população bate à porta na ocorrência de eventos climáticos "
+"extremos."
+msgstr ""
+"Los municipios son los más afectados por el cambio climático. Es en la "
+"alcaldía donde la población toca a la puerta ante la ocurrencia de eventos "
+"climáticos extremos."
+
+#: templates/municipios/landing.html
+msgid "Quem executa"
+msgstr "Quién ejecuta"
+
+#: templates/municipios/landing.html
+msgid ""
+"A execução das políticas públicas depende cada vez mais da capacidade "
+"operacional dos municípios, que implementam as diretrizes nacionais."
+msgstr ""
+"La ejecución de las políticas públicas depende cada vez más de la capacidad "
+"operativa de los municipios, que implementan las directrices nacionales."
+
+#: templates/municipios/landing.html
+msgid "Quem deve participar"
+msgstr "Quién debe participar"
+
+#: templates/municipios/landing.html
+msgid ""
+"Nada mais justo que os municípios participem na discussão das alternativas "
+"para construção de territórios mais resilientes."
+msgstr ""
+"Nada más justo que los municipios participen en la discusión de las "
+"alternativas para la construcción de territorios más resilientes."

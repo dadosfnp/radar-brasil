@@ -428,9 +428,11 @@ Para atualizar dados das planilhas (sem redeploy):
 docker compose exec radarbrasil python manage.py sync_sheets_db
 ```
 
-### Header Global — estado (2026-11-16)
+### Header Global — estado (2026-11-18)
 
-CSS: `static/css/base.css` **v=24** | Template: `base_templates/base.html`
+CSS: `static/css/base.css` **v=27** | Template: `base_templates/base.html`
+
+**Seletor de idioma (v26/v27, substitui a pilula PT|EN antiga):** dropdown bandeira+nome+seta, 3 idiomas (Português/English/Español). Desktop: `.rb-lang-select` ao lado do logo FNP, mesmo componente visual dos dropdowns Sobre/Painel (fundo navy `#0d1640`, abre no hover/focus-within); posicionado com `.rb-lang-form { position: absolute; bottom: -26px; right: 16px }` — **mesmo valor usado pela pilula antiga**, bottom (nao top) pra ficar sempre abaixo do logo FNP sem invadi-lo nem escapar do header sticky. Mobile: item dentro do painel do hamburguer, classe `.rb-nav-item--lang-mobile` com `display: none` por padrao e só `display: block` dentro do breakpoint `<=900px` — **sem isso ele vaza como uma aba a mais no desktop** (bug achado e corrigido em 2026-11-18, ver Pendencias/Resumo do dia). Bandeiras sao SVG proprio em `static/img/flags/{br,gb,es}.svg` (nao emoji — emoji de bandeira nao renderiza no Windows/Chrome, cai pro fallback de texto "BR"/"GB").
 
 **Fix v24 — fonte do menu aumentada:** desde a reestruturacao de 2026-11-16 o menu tem so 4 itens (Sobre/Nível País/Painel/Mapa, antes eram 7) — sobrava espaco e a fonte ficou pequena. Base subiu de `1.051rem` para `1.25rem`; os 6 degraus do nav fluido (ver Fix v20 abaixo) escalados na mesma proporcao (~1.19x).
 
@@ -459,16 +461,13 @@ Cada degrau foi encontrado empiricamente com Playwright (menor fonte que ainda c
 Layout grid 3 colunas `auto 1fr auto` em linha unica, sticky no topo:
 - Coluna esquerda: logo Radar Brasil SVG `logo-radar-fundo-escuro.svg`, `height: 74px` desktop / `68px` mobile (v18 — era 62px; +20% de aumento), `?v=2` cache-buster no src do SVG
 - Coluna central: `<nav class="rb-main-nav">` — links brancos `rgba(255,255,255,0.78)`, fonte `1.051rem`, active com `border-bottom: 2px solid #fff`
-- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + pill PT|EN; logos alinhados pelo topo (axis to axis, v17)
+- Coluna direita: logo FNP `height: 62px` desktop / `34px` mobile + seletor de idioma; logos alinhados pelo topo (axis to axis, v17)
 
 **Menu — item renomeado (2026-09-09):**
 - "Nota Pais" renomeado para "Nivel Pais" em PT (`{% trans "Nível País" %}`)
 - EN: "Country Level" (ja existia no django.po)
 
-**Pill PT|EN no mobile (v7/v8):**
-- Desktop: `position: absolute; bottom: -26px; right: 16px` (abaixo do logo FNP)
-- Mobile (<=768px): `flex-direction: column; align-items: flex-end; gap: 4px` no `.rb-header-logo` + `.rb-lang-form { position: static }` — pill empilha abaixo do logo FNP sem sobreposicao
-- Altura total coluna direita no mobile: ~60px (logo 34px + gap 4px + pill ~22px), menor que logo Radar (68px)
+**Idioma no mobile (desde o redesign do seletor):** `.rb-lang-form` (pill desktop) fica `display: none` a partir de `<=900px` — nesse breakpoint o idioma vira um item a mais dentro do painel do hamburguer (`.rb-nav-item--lang-mobile`), sanfona embutida igual Sobre/Painel, nao mais um pill separado ao lado do logo FNP.
 
 **Nav mobile (hamburger):**
 - `.rb-nav-links` em mobile: `position: absolute; top: 100%; left: 0; right: 0` — dropdown full-width abaixo do header
@@ -737,7 +736,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 
 | Arquivo | Versao no template |
 |---|---|
-| `base.css` | v=25 |
+| `base.css` | v=27 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
 | `landing.css` | v=20 |
@@ -758,14 +757,15 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `components.css` | v=3 |
 | `assistente.css` | v=6 |
 | `assistente.js` | v=5 |
-| `i18n.js` | v=1 (ganhou cache-buster em 2026-11-17 — ver "Infraestrutura de producao") |
+| `i18n.js` | v=2 (ganhou cache-buster em 2026-11-17; DICT.es em 2026-11-18) |
 
 ### Pendencias
 
 Proximos passos:
 
 - **Confirmar visualmente em producao (apos o fix de cache do Cloudflare):** pins/nomes de pais no Nivel Pais e texto nao traduzido no Painel (EN) deviam ter sumido depois do `?v=1` em `nota-pais.js`/`i18n.js` — o usuario ainda nao confirmou visualmente nesta sessao
-- **Espanhol na interface (pendente):** o banco (Fichas/Parametros) ja tem PT/EN/ES completos (ver "Planilhas EN / traducao automatica"); falta adicionar "es" em `settings.LANGUAGES`, criar `locale/es/LC_MESSAGES/django.po`, estender `i18n.js` (DICT.es) e os dicionarios EN-style em `painel_multinivel.py`/`avaliacao_painel.py`/`apps/municipios/views.py` (NOME_EIXO_ES etc.) pros textos fixos da interface — e redesenhar o seletor de idioma (hoje pilula PT|EN) para o estilo bandeira+nome+chevron pedido pelo usuario (referencia: dropdown "English (English)"/"Español (Spanish)"), em 3 vias (PT/EN/ES), no estilo visual do Radar Brasil
+- **Espanhol na interface: feito (2026-11-18).** `settings.LANGUAGES` com "es", `locale/es/LC_MESSAGES/django.po` (617 strings traduzidas via Gemini em lote, revisadas), `i18n.js` com `DICT.es`, dicionarios ES em `painel_multinivel.py`/`avaliacao_painel.py`/`apps/municipios/views.py`, seletor de idioma com a 3a opcao "Español". Mapa Georreferenciado e Financiamento Climatico (sem banco ES ainda) caem pro ingles em "es" via `_lang_sem_es()` em vez de devolver vazio. Conferido com dados reais, 58 testes passando
+- **Bug de UI achado e corrigido no mesmo dia:** apos o redesign do seletor de idioma (commit `373972e`), o item pensado so pro dropdown mobile vazou como uma 5a aba duplicada no menu desktop, e o pill de verdade (ao lado do logo FNP) ficou mal posicionado, invadindo o logo — mais bandeiras emoji nao renderizando no Windows/Chrome (apareciam como texto "BR"). Corrigido: item mobile só visivel `<=900px`, pill desktop reposicionado (`bottom: -26px`, valor ja usado por meses no pill antigo), bandeiras trocadas por SVG local em `static/img/flags/`. Licao: ao copiar a estrutura de um componente existente (dropdown Sobre/Painel) pra um uso diferente (item so-mobile), **conferir explicitamente que o novo uso fica escondido onde o original nao ficava** — nao assumir que "reaproveitar classe" = "reaproveitar escopo de visibilidade"
 - **Gemini free tier — cota diaria aperta rapido (achado 2026-11-18):** o plano gratuito e 20 requisicoes/dia **por modelo**; a bateria de testes+traducao completa desta sessao (Fichas+Parametros, EN+ES, ~40 lotes de ate 40 textos) esgotou a cota do `gemini-3.5-flash` (que a API resolve internamente para `gemini-3.6-flash`) ainda de manha. Rodar `sync_sheets_db` de novo no mesmo dia (depois que a planilha mudar de novo) pode cair direto nos modelos de reserva. Nada a corrigir agora — so dimensionar expectativa se for preciso resincronizar no mesmo dia
 - **Achado a parte, fora do escopo de hoje:** `gemini-3-flash` (3a reserva padrao do Assistente, `apps/assistente/servico.py` `_PADRAO`) **nao existe** na API (404 sempre — confirmado via `client.models.list()`). Na pratica o Assistente em producao roda com só 2 reservas funcionais, nao 3. Nao mexi nisso (sistema separado, ja em producao) — fica registrado pra decisao futura
 - **SEGURANCA (urgente):** os dois PATs do GitHub (`ghp_...`) apareceram em texto aberto numa saida de terminal colada no chat em 2026-10-20. Revogar nas contas brunofnp e dadosfnp, gerar novos (`repo` + `workflow`; `origin` = brunofnp, `prod` = dadosfnp) e limpar o historico do PowerShell
@@ -785,8 +785,8 @@ Proximos passos:
 - Acesso da conta de servico a planilha nova liberado pelo usuario; sync local rodado com sucesso (100 fichas, 434 parametros — antes eram 98/412)
 - Construido o pipeline de traducao automatica PT->EN/ES via Gemini (`traducao.py` + `TraducaoCache`), substituindo as planilhas EN de Fichas/Parametros que a equipe de dados mantinha a mao. Dois bugs encontrados e corrigidos rodando de verdade (nao so com mock): cache gravando traducao falha como se fosse definitiva, e `resp.text` vindo `None` quebrando o parse; e um ajuste de qualidade (instrucao inicial mandava preservar "Decreto nº"/"Lei nº" por inteiro — corrigido pra traduzir as palavras e preservar so o numero)
 - Espanhol adicionado como terceiro idioma do banco (Fichas/Parametros apenas por enquanto); Financiamento e Mapa continuam so PT/EN
-- Pendente: espanhol ainda nao existe na interface (menu, botoes, `i18n.js`) nem o novo seletor de idioma (bandeira+nome+chevron) pedido pelo usuario — proximo passo da sessao
 - Achado a parte: `gemini-3-flash` (3a reserva do Assistente) nao existe na API (404) — Assistente em producao roda com so 2 reservas funcionais; nao corrigido (fora do escopo)
+- **Continuacao do mesmo dia — seletor de idioma redesenhado e depois corrigido, espanhol completo na interface:** seletor PT|EN trocado por dropdown bandeira+nome+seta (commit `373972e`). Usuario reportou com prints 2 bugs visuais no resultado: item duplicado aparecendo como 5a aba no menu desktop, e o pill de verdade invadindo o logo FNP (mais bandeiras emoji aparecendo como texto "BR" no Windows/Chrome). Corrigido: item mobile só visivel `<=900px`, pill reposicionado com o valor historico (`bottom: -26px`), bandeiras trocadas por SVG proprio em `static/img/flags/`. Em seguida, espanhol completo na interface: `settings.LANGUAGES`, `locale/es/LC_MESSAGES/django.po` (617 strings traduzidas via Gemini em lote, revisadas, com retomada de progresso pra sobreviver a erros 503/429 do free tier), `DICT.es` no `i18n.js`, dicionarios ES em `painel_multinivel.py`/`avaliacao_painel.py`/`views.py`, e a 3a opcao "Español" no seletor. Mapa/Financiamento (sem banco ES) caem pro ingles em vez de vazio via `_lang_sem_es()`. 58 testes passando, conferido com dados reais em espanhol (Painel, Componentes, Landing)
 
 **Resumo do dia (2026-11-17): reestruturacao completa publicada (`035a2a6`), cache do Cloudflare descoberto:**
 - Branch `feat/reestruturacao-menu-mapas-landing-painel` mesclada em `next` e `main` e publicada em `origin` + `nucleo`, depois de tags de backup do estado anterior
