@@ -16,6 +16,18 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: pill do idioma ainda invadindo o logo FNP (cascata de `position`, 2026-11-18)
+
+- A correção anterior (ver fix acima) ainda não resolvia de verdade: `.rb-lang-form` e `.rb-lang-select` são as **duas classes do mesmo elemento** (`<div class="rb-lang-form rb-lang-select">`), e cada uma tinha sua própria regra de `position` (`absolute` numa, `relative` na outra) — mesma especificidade (uma classe cada), então vencia quem viesse depois no arquivo. `.rb-lang-select { position: relative }` vinha **depois** de `.rb-lang-form { position: absolute; ... }`, então `relative` vencia e o `bottom`/`right` nunca funcionavam como posicionamento absoluto de verdade
+- Com `position: relative`, o elemento nunca saía do fluxo normal do flex (`.rb-header-logo { display: flex }`) — virava um 2º item flex ao lado do link do logo FNP (por isso a 1ª screenshot do usuário mostrava o pill "ao lado" do logo, na mesma altura — não era posicionamento absoluto funcionando, era só o layout de flex acontecendo por acidente). O deslocamento `bottom: -26px` então era aplicado **relativo à posição estática no flex**, empurrando o pill pra baixo o bastante pra sobrepor ~19px da parte de baixo do logo (2ª screenshot do usuário, mostrando o pill "entrando" no logo de novo)
+- Medido com Playwright local (`npx playwright`) pra confirmar antes/depois, não só inferido pelo CSS: largura da coluna do logo FNP media 307px (logo + pill lado a lado) em vez dos 184px esperados (só o logo + padding) — confirmava que o pill contava como item do flex
+- Corrigido juntando as duas declarações de posicionamento numa regra só, em `.rb-lang-select` (`position: absolute; bottom: -26px; right: 16px`), removendo a regra separada e conflitante de `.rb-lang-form`. Resultado medido depois: coluna do logo volta a 184px, pill passa a ficar com `bottom` ~-2px de sobreposição (praticamente colado, sem invadir)
+- **Lição:** nunca dividir `position`/`top`/`bottom`/`left`/`right` do mesmo elemento entre duas classes diferentes torcendo pra uma delas "ganhar" — a cascata decide por ordem no arquivo, não por qual regra "faz mais sentido". Declarações de posicionamento que pertencem ao mesmo elemento devem viver na mesma regra (ou já nascer com especificidade clara)
+
+**Arquivos:** `static/css/base.css`
+
+---
+
 ## Seletor de idioma: 3ª opção "Español" (2026-11-18)
 
 - Com a infraestrutura de espanhol na interface pronta (ver CHANGELOG), a bandeira `es.svg` (vermelho/amarelo/vermelho, sem brasão) entra como 3ª opção nos dois dropdowns (mobile e desktop), ao lado de Português e English — mesmo padrão visual, sem CSS novo

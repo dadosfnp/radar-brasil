@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-18 (76a rodada)
+
+### fix: pill do idioma ainda invadindo o logo FNP (cascata de `position` entre duas classes)
+
+- A correção da 74a rodada não resolvia de verdade: `.rb-lang-form` (`position: absolute`) e `.rb-lang-select` (`position: relative`) são duas classes do **mesmo elemento**, mesma especificidade — vencia quem vinha depois no arquivo (`.rb-lang-select`). Com `position: relative`, o pill nunca saía do fluxo do flex, virando um 2º item ao lado do logo FNP (explica a 1ª screenshot do usuário, "ao lado" do logo) e, com o deslocamento `bottom: -26px` aplicado sobre essa posição de flex, acabava sobrepondo ~19px do logo (2ª screenshot, "entrando" no logo de novo)
+- Confirmado com medição via Playwright local antes/depois (não só inferência do CSS): coluna do logo FNP media 307px com o bug (logo + pill contando como 2 itens do flex) e volta a 184px depois do fix (só o logo, pill de volta a `position: absolute` de verdade)
+- Corrigido unificando as duas declarações de posicionamento numa regra só (`.rb-lang-select { position: absolute; bottom: -26px; right: 16px }`), removendo a regra conflitante de `.rb-lang-form`
+- `base.css` `v=28`
+
+**Arquivos:** `static/css/base.css`, `base_templates/base.html`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (75a rodada)
 
 ### feat: espanhol completo na interface (menu, botões, textos do Painel/Nível País/Mapa)

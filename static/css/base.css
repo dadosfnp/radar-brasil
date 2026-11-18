@@ -128,12 +128,6 @@ body.rb-body {
     opacity: 1;
 }
 
-.rb-lang-form {
-    position: absolute;
-    bottom: -26px;
-    right: 16px;
-}
-
 /* ── Seletor de idioma (dropdown bandeira + nome) ── */
 .rb-lang-flag {
     width: 16px;
@@ -152,8 +146,16 @@ body.rb-body {
     display: none;
 }
 
+/* .rb-lang-form e .rb-lang-select ficam no mesmo elemento (ver base.html) — o
+   posicionamento junta os dois aqui numa regra só, pra nunca mais duas regras
+   de "position" com a mesma especificidade brigarem pela cascata (foi
+   exatamente isso que quebrou em 2026-11-18: .rb-lang-select{position:relative}
+   vinha depois no arquivo e vencia .rb-lang-form{position:absolute}, deixando
+   o pill preso no fluxo do flex ao lado do logo FNP em vez de abaixo dele). */
 .rb-lang-select {
-    position: relative;
+    position: absolute;
+    bottom: -26px;
+    right: 16px;
 }
 
 /* ponte invisível: evita fechar o dropdown ao mover o mouse na diagonal até ele */
