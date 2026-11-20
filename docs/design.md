@@ -5,6 +5,28 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: removido o badge com bolinha verde piscando do hero da Metodologia (2026-11-20)
+
+- Usuário pediu a remoção do selo superior ("Metodologia" + bolinha verde piscando) acima do título do hero
+- Removido o bloco `.meto-hero-badge` do template; as regras CSS compartilhadas (`metodologia.css`) não foram tocadas porque `sobre.html` tem um badge idêntico ("Sobre o Radar Brasil"), fora do escopo deste pedido, e continua usando as mesmas classes
+
+**Arquivos:** `templates/municipios/metodologia.html`
+
+---
+
+## Fix: seleção de eixos em Componentes no mesmo estilo de pílula do Painel ▸ Visão Geral (2026-11-20)
+
+- Usuário pediu que a barra de eixos de Componentes (Governança/Políticas e Planos/Programas/Linhas de Financiamento) usasse o mesmo visual da barra de pílulas do Painel ▸ Visão Geral (`.pm-tabs`), em vez do estilo antigo de "abas de pasta" (navy, `border-radius` só em cima, ícone SVG colorido por `filter: brightness(0) invert(1)`)
+- Header do card (`.ap-card-header`, navy por padrão vindo de `components.css`) virou branco nesta página, com o título "Painel de Componentes" como heading (`.ap-panel-label`) acima da fileira de pílulas — mesma composição visual de "Visão geral" no Painel
+- Botões viraram pílulas azuis sólidas (`border-radius: 999px`, `background:#264584`, ativo/hover `#1a3070`, texto branco), mesmos valores literais de `.pm-tabs button`
+- Ícones SVG de cada aba e o `data-short` (abreviação usada só no breakpoint de 480px) removidos do HTML — não tinham equivalente no padrão de pílula e não eram lidos por nenhum JS
+- Mobile (`<=900px`): a fileira de pílulas virou faixa de scroll horizontal numa linha só, mesmo padrão de chips já usado em `.pm-tabs ul` (sem barra de scroll visível). O breakpoint de 480px, que tinha um padrão à parte de "abas estilo iOS" (ícone em cima + label abreviado via `data-short`), foi removido — ficava inconsistente com os elementos já apagados do HTML e a faixa de 900px já cobre a largura de celular
+- Cache-buster: `avaliacao-painel.css` v=17
+
+**Arquivos:** `static/css/avaliacao-painel.css`, `templates/municipios/avaliacao-painel.html`
+
+---
+
 ## Fix: ícone da aba do navegador sumia ao navegar entre páginas (2026-11-18)
 
 - Usuário reportou prints: o favicon aparecia certo na página inicial, mas sumia (ícone genérico do navegador) ao entrar em outras páginas do site (ex. Mapa)

@@ -1,4 +1,4 @@
-﻿from django.shortcuts import render
+﻿from django.shortcuts import redirect, render
 
 from apps.indicadores.services.painel_multinivel import (
     EIXO_MAP,
@@ -18,7 +18,10 @@ _EIXO_IMAGEM = {
 
 
 def inicio(request):
-    return render(request, "municipios/inicio.html")
+    # Pagina antiga, substituida pela Landing (reestruturacao de 2026-11-16) — o link
+    # ja saiu do menu, mas a rota continuava acessivel direto e mostrava o design antigo
+    # fora de uso (achado em 2026-11-20). Redireciona pra Landing em vez de apagar a rota.
+    return redirect("municipios:home", permanent=True)
 
 
 def sobre(request):

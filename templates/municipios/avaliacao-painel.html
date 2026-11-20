@@ -9,7 +9,7 @@
 {% block extra_head %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/avaliacao-painel.css' %}?v=16">
+    <link rel="stylesheet" href="{% static 'css/avaliacao-painel.css' %}?v=17">
 {% endblock %}
 
 {% block content %}
@@ -23,26 +23,22 @@
       <ul role="tablist">
         <li class="active" role="presentation">
           <button type="button" role="tab" aria-selected="true" aria-controls="ap-tabpanel" data-eixo="Governanca" id="ap-tab-governanca">
-            <img src="{% static 'img/governanca.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="{% trans 'Govern.' %}">{% trans "Governança" %}</span>
+            <span>{% trans "Governança" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Politicas e Planos" id="ap-tab-politicas">
-            <img src="{% static 'img/politicas_planos.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="{% trans 'Políticas' %}">{% trans "Políticas e Planos" %}</span>
+            <span>{% trans "Políticas e Planos" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Programas" id="ap-tab-programas">
-            <img src="{% static 'img/programas.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="{% trans 'Programas' %}">{% trans "Programas" %}</span>
+            <span>{% trans "Programas" %}</span>
           </button>
         </li>
         <li role="presentation">
           <button type="button" role="tab" aria-selected="false" aria-controls="ap-tabpanel" data-eixo="Linhas de Financiamento" id="ap-tab-financiamento">
-            <img src="{% static 'img/financiamento.svg' %}" alt="" class="ap-tab-icon-img" aria-hidden="true">
-            <span data-short="{% trans 'Financ.' %}">{% trans "Linha de Financiamento" %}</span>
+            <span>{% trans "Linha de Financiamento" %}</span>
           </button>
         </li>
       </ul>

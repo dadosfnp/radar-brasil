@@ -4,6 +4,22 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-20 (86a rodada)
+
+### fix: 5 ajustes pedidos pelo usuário (rota `/inicio/`, textos do Painel, níveis redondos, badge da Metodologia, eixos de Componentes)
+
+- `/inicio/`: a página antiga ("Explore os eixos do Radar Brasil", substituída pela Landing na reestruturação de 2026-11-16) continuava acessível direto pela URL, fora de uso e desatualizada — a rota agora redireciona (301) pra Landing (`municipios:home`) em vez de renderizar o template antigo
+- Painel ▸ Visão Geral (e Landing, que usa a mesma função de serviço): texto de cada eixo trocado de avaliativo ("A governança climática brasileira funciona, mas...") para definição do que o eixo mede (ex. "Acompanhe os arranjos institucionais e mecanismos de participação federativa que estruturam a ação climática multinível."), em PT/EN/ES, a pedido do usuário com referência visual anexada
+- Painel ▸ Visão Geral (e Landing): Nível Eixo e nível médio de cada critério agora são números redondos ("3/5") em vez de uma casa decimal ("2.8/5") — `round(soma/total, 1)` virou `round(soma/total)` em `dados_para_grafico`; teste `VisaoGeralPainelTest` ajustado (2.8 arredonda pra 3)
+- Metodologia: removido o badge superior "Metodologia" com bolinha verde piscando acima do título do hero (pedido do usuário); badge idêntico no Sobre ("Sobre o Radar Brasil") mantido, fora do escopo do pedido
+- Componentes: seleção de eixos trocada do estilo antigo de "abas de pasta" (navy, ícone colorido) pro mesmo estilo de pílula azul do Painel ▸ Visão Geral (`.pm-tabs`) — header virou branco com o título como heading acima da fileira de pílulas; ícones SVG e abreviação `data-short` de cada aba removidos (sem uso fora do estilo antigo); mobile unificado numa faixa de scroll horizontal única (removido o padrão à parte de "abas estilo iOS" do breakpoint de 480px)
+- Conferido com `pytest apps -q` (58 testes), `flake8 apps setup` e `black apps setup --check` depois das mudanças de backend
+- Cache-buster: `avaliacao-painel.css` v=17
+
+**Arquivos:** `apps/municipios/views.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/tests.py`, `templates/municipios/metodologia.html`, `templates/municipios/avaliacao-painel.html`, `static/css/avaliacao-painel.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-18 (85a rodada)
 
 ### fix: favicon continuava sumindo em Nível País/Painel/Mapa mesmo em aba anônima

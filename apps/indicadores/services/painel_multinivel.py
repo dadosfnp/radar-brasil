@@ -135,63 +135,54 @@ _CRITERIO_DISPLAY_ES["Capacidad de Ejecución Descentralizada"] = "Ejecución De
 
 _DESCRICAO_EIXO_PT = {
     "Governanca": (
-        "A governança climática brasileira funciona, mas ainda sem estados e "
-        "municípios no centro das decisões."
+        "Acompanhe os arranjos institucionais e mecanismos de participação "
+        "federativa que estruturam a ação climática multinível."
     ),
     "Politicas e Planos": (
-        "Há recursos para elaborar e executar planos com a temática climática. O "
-        "que falta, no entanto, é a participação de quem vai executá-los, ou seja, "
-        "os estados e municípios."
+        "Identifique os instrumentos de orientação estratégica existente no "
+        "enfrentamento das mudanças climáticas."
     ),
     "Programas": (
-        "Apesar da baixa participação de estados e municípios na elaboração dos "
-        "programas federais, estes têm um alcance territorial satisfatório. Falta "
-        "apoio técnico e recursos que cheguem na ponta."
+        "Identifique as ações e iniciativas planejadas para reduzir impactos "
+        "das mudanças climáticas."
     ),
     "Linhas de Financiamento": (
-        "Estados e municípios não participam da estruturação das linhas de "
-        "financiamento e acessam pouco os recursos disponíveis."
+        "Analise os investimentos e transferências interfederativas em apoio "
+        "ao enfrentamento das mudanças climáticas."
     ),
 }
 _DESCRICAO_EIXO_EN = {
     "Governanca": (
-        "Brazilian climate governance works, but states and municipalities are "
-        "still not at the center of decisions."
+        "Track the institutional arrangements and federative participation "
+        "mechanisms that structure multilevel climate action."
     ),
     "Politicas e Planos": (
-        "Resources exist to draft and execute plans on the climate agenda. What is "
-        "missing is the participation of those who will execute them — the states "
-        "and municipalities."
+        "Identify the strategic guidance instruments that exist to tackle " "climate change."
     ),
     "Programas": (
-        "Despite the low participation of states and municipalities in designing "
-        "federal programs, they have satisfactory territorial reach. Technical "
-        "support and funds are not reaching the ground."
+        "Identify the actions and initiatives planned to reduce the impacts " "of climate change."
     ),
     "Linhas de Financiamento": (
-        "States and municipalities do not take part in structuring financing "
-        "lines and have little access to the funds available."
+        "Review the investments and interfederative transfers supporting "
+        "the response to climate change."
     ),
 }
 _DESCRICAO_EIXO_ES = {
     "Governanca": (
-        "La gobernanza climática brasileña funciona, pero todavía sin los "
-        "estados y municipios en el centro de las decisiones."
+        "Siga los arreglos institucionales y los mecanismos de participación "
+        "federativa que estructuran la acción climática multinivel."
     ),
     "Politicas e Planos": (
-        "Existen recursos para elaborar y ejecutar planes con la temática "
-        "climática. Lo que falta, sin embargo, es la participación de quienes "
-        "van a ejecutarlos, es decir, los estados y municipios."
+        "Identifique los instrumentos de orientación estratégica existentes "
+        "para enfrentar el cambio climático."
     ),
     "Programas": (
-        "A pesar de la baja participación de estados y municipios en la "
-        "elaboración de los programas federales, estos tienen un alcance "
-        "territorial satisfactorio. Falta apoyo técnico y recursos que lleguen "
-        "a la punta."
+        "Identifique las acciones e iniciativas planificadas para reducir "
+        "los impactos del cambio climático."
     ),
     "Linhas de Financiamento": (
-        "Estados y municipios no participan en la estructuración de las "
-        "líneas de financiamiento y acceden poco a los recursos disponibles."
+        "Analice las inversiones y transferencias interfederativas de apoyo "
+        "al enfrentamiento del cambio climático."
     ),
 }
 
@@ -406,7 +397,8 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
     for av in labels:
         total = sum(contagem.get((av, n), 0) for n in CORES_NIVEL)
         soma = sum(contagem.get((av, n), 0) * NIVEL_NUM[n] for n in CORES_NIVEL)
-        nivel_medio_raw[av] = round(soma / total, 1) if total else 0
+        # Numero redondo na Visao Geral (3/5, nao 2.7/5) — pedido do usuario em 2026-11-20
+        nivel_medio_raw[av] = round(soma / total) if total else 0
         total_raw[av] = total
     labels_raw = list(labels)
 
@@ -446,7 +438,7 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
         )
 
     nivel_eixo = (
-        round(sum(c["nivel_medio"] for c in criterios) / len(criterios), 1) if criterios else None
+        round(sum(c["nivel_medio"] for c in criterios) / len(criterios)) if criterios else None
     )
     total_componentes = max(total_raw.values()) if total_raw else 0
 

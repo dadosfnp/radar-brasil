@@ -53,8 +53,9 @@ class VisaoGeralPainelTest(TestCase):
     def test_nivel_eixo_e_media_simples_dos_criterios(self):
         res = self.client.get(reverse("indicadores:painel_multinivel_api"), {"eixo": "Governanca"})
         corpo = res.json()
-        # (3.0 + 3.0 + 2.0 + 1.0 + 5.0) / 5 = 2.8 — média simples, sem peso
-        self.assertEqual(corpo["nivel_eixo"], 2.8)
+        # (3.0 + 3.0 + 2.0 + 1.0 + 5.0) / 5 = 2.8, arredondado pra numero redondo (3)
+        # — pedido do usuario em 2026-11-20, "3/5" em vez de "2.8/5"
+        self.assertEqual(corpo["nivel_eixo"], 3)
         self.assertEqual(corpo["total_componentes"], 4)
         self.assertTrue(corpo["descricao_eixo"])
 

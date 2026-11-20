@@ -349,9 +349,11 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ---
 
-## Estado Atual do Projeto (2026-11-18)
+## Estado Atual do Projeto (2026-11-20)
 
 ### Branch atual: `main` (local e os dois remotos identicos, ver abaixo)
+
+**Resumo do dia (2026-11-20) — 5 ajustes pedidos pelo usuario, ainda locais (nao commitados/publicados):** redirect de `/inicio/` (pagina antiga fora de uso) pra Landing; textos dos eixos no Painel ▸ Visao Geral trocados de avaliativos pra definicionais; niveis de eixo/criterio arredondados pra numero redondo ("3/5"); badge com bolinha verde piscando removido do hero da Metodologia; selecao de eixos em Componentes restilizada pro mesmo padrao de pilula do Painel. Detalhes nas secoes "Painel Multinivel" e "Avaliacao Painel" acima e no `docs/CHANGELOG.md` (86a rodada). `pytest`/`flake8`/`black --check` rodados e limpos apos as mudancas.
 
 **Deploy completo em producao em 2026-11-18** (commit final `eabcb3a`): novo banco PT Fichas/Parametros/Financiamento Climatico (planilha V01) com traducao automatica EN/ES via Gemini, espanhol na interface inteira, seletor de idioma redesenhado, e o fix do Assistente (ver "Incidente" na secao do Assistente). `sync_sheets_db` rodado em producao com sucesso: Fichas (100), Parametros (434) e Financiamento (49) em PT/EN/ES. Confirmado com testes reais na API de producao (Financiamento, Painel, Assistente respondendo certo) e visualmente pelo usuario.
 
@@ -660,9 +662,11 @@ CSS: `static/css/mapa-georreferenciado.css` **v=14** | JS: `static/js/mapa-georr
 - Fecha automaticamente ao selecionar qualquer filtro (select, checkbox) ou botao de acao
 - Evento `mg:filter-selected` tambem fecha ao selecionar sugestao de municipio
 
-### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-18, v4)
+### Painel Multinivel ("Visão Geral" no menu) — estado (2026-11-20, v5)
 
 CSS: `static/css/painel-multinivel.css` v=24 | JS: `static/js/painel-multinivel.js` v=13 | Template: `templates/municipios/painel-multinivel.html`
+
+**Textos e arredondamento (2026-11-20):** a pedido do usuario (com referencia visual), a descricao de cada eixo em `_DESCRICAO_EIXO_PT/EN/ES` (`painel_multinivel.py`) trocou de avaliativa/julgadora ("A governanca climatica brasileira funciona, mas...") pra definicao do que o eixo mede ("Acompanhe os arranjos institucionais e mecanismos de participacao federativa..."). Nivel Eixo e nivel medio de cada criterio passaram a ser numeros redondos ("3/5") em vez de uma casa decimal ("2.8/5") — `round(x, 1)` virou `round(x)` em `dados_para_grafico`. Como essa funcao tambem alimenta os cards de eixo da Landing, as duas paginas mudam juntas (deliberado, pra nao mostrar "2.7/5" num lugar e "3/5" no outro).
 
 **Fix mobile (2026-11-18):** bolhas de eixo quebravam em 2 linhas desbalanceadas (3+1) — viraram faixa de scroll horizontal numa linha só (`flex-wrap: nowrap; overflow-x: auto`), sem barra visível. Score do critério no mobile usava `width:100%; margin-left:28px` (margin soma fora da largura, estourava a linha e o flex-shrink comprimia a barrinha+label) — trocado por `padding-left:44px` (fica dentro do `width:100%`, `box-sizing:border-box` é global). Conferido com Playwright em 390px.
 
@@ -680,9 +684,11 @@ Grafico fixo em 380px. `_mostrarErroGrafico` esconde `#pm-chart-wrapper` no esta
 - Sem isso, `min-width: auto` (default flex) forcava expansao para ~700px quebrando o layout
 - `overflow: hidden` adicionado ao `.pm-chart-area` no mobile como barreira adicional
 
-### Avaliacao Painel — estado (2026-11-18)
+### Avaliacao Painel — estado (2026-11-20)
 
-CSS: `static/css/avaliacao-painel.css` v=16 | JS: `static/js/avaliacao-painel.js` v=7 | Template: `templates/municipios/avaliacao-painel.html`
+CSS: `static/css/avaliacao-painel.css` v=17 | JS: `static/js/avaliacao-painel.js` v=7 | Template: `templates/municipios/avaliacao-painel.html`
+
+**Selecao de eixos no estilo pilula do Painel (2026-11-20):** a pedido do usuario, trocado o estilo antigo de "abas de pasta" (header navy, icone SVG colorido) pelo mesmo visual de pilula azul do Painel ▸ Visao Geral (`.pm-tabs`). `.ap-card-header` vira branco nesta pagina com o titulo como heading acima da fileira de pilulas; `.ap-tabs button` usa os mesmos valores literais de `.pm-tabs button` (`#264584`/`#1a3070`, `border-radius:999px`). Icones SVG e o atributo `data-short` de cada aba removidos do template (sem uso fora do estilo antigo). Mobile unificado numa faixa de scroll horizontal unica (`flex-wrap:nowrap; overflow-x:auto`, mesmo padrao de `.pm-tabs ul`) — removido o breakpoint `<=480px` separado que tinha um padrao "abas estilo iOS" (icone em cima + label abreviado via `data-short`), que ficou inconsistente com os elementos apagados do HTML.
 
 Todos os touch targets elevados para min-height: 44px em mobile.
 
@@ -762,7 +768,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `landing.js` | v=4 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |
-| `avaliacao-painel.css` | v=16 |
+| `avaliacao-painel.css` | v=17 |
 | `avaliacao-painel.js` | v=7 |
 | `painel-multinivel.css` | v=24 |
 | `painel-multinivel.js` | v=13 |
