@@ -1,7 +1,7 @@
 # CLAUDE.md — Contexto do Projeto Radar Brasil
 
 > Arquivo de contexto para sessões com Claude Code. Atualizado ao final de cada expediente.
-> Última atualização: 2026-11-18 (fim do expediente)
+> Última atualização: 2026-11-20 (fim do expediente)
 
 ---
 
@@ -351,9 +351,19 @@ Particularidades que um agente precisa saber (detalhes nas seções acima):
 
 ## Estado Atual do Projeto (2026-11-20)
 
-### Branch atual: `main` (local e os dois remotos identicos, ver abaixo)
+### Branch atual: `main` (local e os dois remotos identicos no commit `60c13b4`, deploy ja feito no droplet)
 
-**Resumo do dia (2026-11-20) — 5 ajustes pedidos pelo usuario, ainda locais (nao commitados/publicados):** redirect de `/inicio/` (pagina antiga fora de uso) pra Landing; textos dos eixos no Painel ▸ Visao Geral trocados de avaliativos pra definicionais; niveis de eixo/criterio arredondados pra numero redondo ("3/5"); badge com bolinha verde piscando removido do hero da Metodologia; selecao de eixos em Componentes restilizada pro mesmo padrao de pilula do Painel. Detalhes nas secoes "Painel Multinivel" e "Avaliacao Painel" acima e no `docs/CHANGELOG.md` (86a rodada). `pytest`/`flake8`/`black --check` rodados e limpos apos as mudancas.
+**Resumo do dia (2026-11-20) — 6 ajustes pedidos pelo usuario, todos publicados e deployados em producao:**
+1. Redirect de `/inicio/` (pagina antiga fora de uso, mostrava o design pre-2026-11-16) pra Landing
+2. Textos dos eixos no Painel ▸ Visao Geral (e Landing, mesma funcao de servico) trocados de avaliativos pra definicionais, em PT/EN/ES
+3. Niveis de eixo/criterio no Painel ▸ Visao Geral (e Landing) arredondados pra numero redondo ("3/5" em vez de "2.8/5")
+4. Badge com bolinha verde piscando removido do hero da Metodologia (Sobre mantem o seu, fora do escopo pedido)
+5. Selecao de eixos em Componentes restilizada pro mesmo padrao de pilula azul do Painel ▸ Visao Geral, incluindo os breakpoints mobile
+6. Titulo "Nivel Pais" movido pro topo da pagina (estava no meio, dentro do texto explicativo abaixo do mapa) — mesmo padrao de heading no topo que as demais paginas internas usam; oculto no mobile junto com o resto do `.np-intro`, pra nao empurrar o mapa em tela cheia
+
+Detalhes completos nas secoes "Painel Multinivel", "Avaliacao Painel" e "Nota Pais" acima e em `docs/CHANGELOG.md` (86a e 87a rodadas) / `docs/design.md`. Dois commits (`a147dde`, `60c13b4`), cada um em branch propria a partir de `next`, mesclados em `next`+`main` e publicados em `origin`+`nucleo` apos confirmacao do usuario. `pytest` (58 testes), `flake8` e `black --check` rodados e limpos apos cada bloco de mudancas. Usuario confirmou deploy manual feito no droplet (`git pull && docker compose build && docker compose up -d`).
+
+Cache-busters atualizados nesta sessao: `avaliacao-painel.css` v=17, `nota-pais.css` v=14 (ver tabela de versoes).
 
 **Deploy completo em producao em 2026-11-18** (commit final `eabcb3a`): novo banco PT Fichas/Parametros/Financiamento Climatico (planilha V01) com traducao automatica EN/ES via Gemini, espanhol na interface inteira, seletor de idioma redesenhado, e o fix do Assistente (ver "Incidente" na secao do Assistente). `sync_sheets_db` rodado em producao com sucesso: Fichas (100), Parametros (434) e Financiamento (49) em PT/EN/ES. Confirmado com testes reais na API de producao (Financiamento, Painel, Assistente respondendo certo) e visualmente pelo usuario.
 
