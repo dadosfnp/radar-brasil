@@ -21,26 +21,21 @@ body.np-body .rb-main {
     gap: 16px;
 }
 
+/* Titulo no topo da pagina, mesmo padrao do Painel (.pm-page-title) — pedido
+   do usuario em 2026-11-20, antes ficava abaixo do mapa dentro do .np-intro */
+.np-page-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: #101d4f;
+    margin: 0;
+}
+
 /* ── INTRO ── */
 .np-intro {
     display: flex;
     flex-direction: column;
     gap: 14px;
-}
-
-.np-intro-header {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.np-intro h2 {
-    font-family: 'Sora', 'Roboto', sans-serif;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #101d4f;
-    margin: 0;
-    letter-spacing: -.02em;
 }
 
 .np-intro-lead {
@@ -567,7 +562,8 @@ body.np-body .rb-main {
 }
 
 @media (max-width: 900px) {
-    /* Intro some: mapa ocupa a tela inteira (Google Maps / IFEM pattern) */
+    /* Titulo e intro somem: mapa ocupa a tela inteira (Google Maps / IFEM pattern) */
+    .np-page-title { display: none; }
     .np-intro { display: none; }
     .np-page { padding: 0; gap: 0; }
     .np-card { flex-direction: column; min-height: unset; overflow: visible; border-radius: 0; box-shadow: none;

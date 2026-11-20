@@ -597,9 +597,11 @@ JS — wheel handler ativo apenas sobre `.meto-scroll-photos` (nao a secao intei
 **SVG piramide — bolinha flutuando (v25 fix):**
 - Fix: `opacity="0"` inicial + `<animate attributeName="opacity" fill="freeze" to="0.80"/>` no begin.
 
-### Nota Pais — estado (2026-11-17)
+### Nota Pais — estado (2026-11-20)
 
-CSS: `static/css/nota-pais.css` **v=13** | Template: `templates/municipios/nota-pais.html`
+CSS: `static/css/nota-pais.css` **v=14** | Template: `templates/municipios/nota-pais.html`
+
+**Titulo no topo (2026-11-20):** usuario apontou que "Nivel Pais" ficava no meio da pagina (dentro do `.np-intro`, abaixo do mapa) em vez de no topo, diferente das demais paginas internas (ex. Painel). Adicionado `<h1 class="np-page-title">` logo no inicio de `.np-page`, mesmo estilo de `.pm-page-title`; removido o `<h2>` duplicado que vivia em `.np-intro-header`. Oculto no mobile (`<=900px`) junto com `.np-intro`, pra nao empurrar o mapa em tela cheia.
 
 **Reestruturacao 2026-11-16:** mapa (sidebar + Leaflet) agora vem ANTES do bloco `.np-intro` no HTML (antes era o contrario); texto do `.np-intro` reduzido (so contexto CHAMP + nota do Brasil + definicao + 3 etapas de calculo, sem "linha de base"/destaque/fechamento antigos). Essa pagina e a unica fonte de onde o Assistente extrai a nota do Brasil — qualquer edicao futura do texto deve manter "Nível País 3" em ordem de leitura (nao so dentro do badge visual), senao quebra `ContextoTest.test_paginas_da_plataforma_entram_como_fontes_nos_dois_idiomas`. Paleta do mapa consolidada com o Mapa Georreferenciado (oceano branco, ver "Identidade Visual").
 
@@ -776,7 +778,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `mapa-georreferenciado.js` | v=7 |
 | `financiamento-climatico.css` | v=5 |
 | `financiamento-climatico.js` | v=5 |
-| `nota-pais.css` | v=13 |
+| `nota-pais.css` | v=14 |
 | `nota-pais.js` | v=2 (ganhou cache-buster em 2026-11-17; badge/mapa em 3 idiomas em 2026-11-18) |
 | `linha-do-tempo.css` | v=1 |
 | `components.css` | v=3 |

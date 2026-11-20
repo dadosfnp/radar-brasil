@@ -14,6 +14,17 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 
 ---
 
+## Fix: título "Nível País" movido pro topo da página (2026-11-20)
+
+- Usuário apontou (com print) que o título "Nível País" estava no meio da página, dentro do bloco de texto explicativo abaixo do mapa — diferente do padrão das outras páginas internas (ex. Painel ▸ Visão Geral), que têm o título como heading logo no topo
+- Adicionado `<h1 class="np-page-title">` logo no início de `.np-page`, antes do card do mapa, com o mesmo estilo visual de `.pm-page-title` (Sora, 800, navy). Removido o `<h2>` duplicado que vivia dentro de `.np-intro-header` (o texto explicativo abaixo do mapa continua igual, só sem repetir o título)
+- No mobile (`<=900px`), o título novo fica oculto junto com `.np-intro` (mesmo padrão já existente) — a página mantém o mapa em tela cheia (estilo Google Maps), sem o título empurrando o mapa pra baixo
+- Cache-buster: `nota-pais.css` v=14
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `static/css/nota-pais.css`
+
+---
+
 ## Fix: seleção de eixos em Componentes no mesmo estilo de pílula do Painel ▸ Visão Geral (2026-11-20)
 
 - Usuário pediu que a barra de eixos de Componentes (Governança/Políticas e Planos/Programas/Linhas de Financiamento) usasse o mesmo visual da barra de pílulas do Painel ▸ Visão Geral (`.pm-tabs`), em vez do estilo antigo de "abas de pasta" (navy, `border-radius` só em cima, ícone SVG colorido por `filter: brightness(0) invert(1)`)

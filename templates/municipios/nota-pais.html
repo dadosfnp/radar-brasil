@@ -9,11 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="{% static 'css/nota-pais.css' %}?v=13">
+    <link rel="stylesheet" href="{% static 'css/nota-pais.css' %}?v=14">
 {% endblock %}
 
 {% block content %}
 <div class="np-page">
+
+  <h1 class="np-page-title">{% trans "Nível País" %}</h1>
 
   {# CARD PRINCIPAL: sidebar + mapa (primeiro, antes do texto explicativo) #}
   <div class="np-card">
@@ -217,10 +219,6 @@
 
   {# INTRO: texto explicativo reduzido, agora abaixo do mapa #}
   <div class="np-intro">
-
-    <div class="np-intro-header">
-      <h2>{% trans "Nível País" %}</h2>
-    </div>
 
     <div class="np-intro-br-row">
       <div class="np-intro-br-text">

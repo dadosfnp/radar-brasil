@@ -4,6 +4,19 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-20 (87a rodada)
+
+### fix: título "Nível País" movido pro topo da página
+
+- Usuário apontou (com print) que o título "Nível País" ficava no meio da página, dentro do bloco de texto explicativo abaixo do mapa, diferente do padrão de título no topo que as demais páginas internas usam (ex. Painel ▸ Visão Geral)
+- Adicionado `<h1 class="np-page-title">` logo no início de `.np-page`, antes do card do mapa, com o mesmo estilo de `.pm-page-title`; removido o `<h2>` duplicado que vivia dentro de `.np-intro-header`
+- No mobile (`<=900px`), o título fica oculto junto com `.np-intro`, mantendo o mapa em tela cheia como já era
+- Cache-buster: `nota-pais.css` v=14
+
+**Arquivos:** `templates/municipios/nota-pais.html`, `static/css/nota-pais.css`, `docs/design.md`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-20 (86a rodada)
 
 ### fix: 5 ajustes pedidos pelo usuário (rota `/inicio/`, textos do Painel, níveis redondos, badge da Metodologia, eixos de Componentes)
