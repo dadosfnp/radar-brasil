@@ -44,6 +44,11 @@ SHEET_IDS = {
     },
 }
 
+# Aba "CALCULO" da planilha "BANCO DE DADOS_2025" (equipe de dados): notas oficiais
+# de cada critério e de cada eixo, já ponderadas por Fator de Relevância e peso do
+# critério (2026-11-23). Planilha diferente da V01 acima.
+CALCULO_SHEET_ID = "1489lXS-582IznafbucL7b1u33lZUXiBnDK3vGQAf91Y"
+
 # ── Mapeamentos EN → PT ──────────────────────────────────────────
 _EN_COLS_FICHAS_PARAMS = {
     "Structure": "Estrutura",
@@ -244,6 +249,16 @@ def ler_financiamento(lang: str) -> pd.DataFrame:
     if lang == "en":
         df.rename(columns=_EN_COLS_FINANCIAMENTO, inplace=True)
     return df
+
+
+def ler_calculo() -> list:
+    """Lê a aba CALCULO (grade crua) da planilha de trabalho da equipe de dados.
+
+    UNFORMATTED_VALUE: números com precisão total (a exibição da planilha corta em 2
+    casas, e 2,499 exibido como "2,50" arredondaria errado).
+    """
+    ws = _get_client().open_by_key(CALCULO_SHEET_ID).worksheet("CALCULO")
+    return ws.get_all_values(value_render_option="UNFORMATTED_VALUE")
 
 
 def ler_mapa(lang: str) -> pd.DataFrame:

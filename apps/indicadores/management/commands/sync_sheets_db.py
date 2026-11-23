@@ -12,8 +12,10 @@ import re
 import unicodedata
 
 from django.core.management.base import BaseCommand
+from django.db import transaction
 
 from apps.indicadores.models import (
+    NotaCalculada,
     RegistroFicha,
     RegistroFinanciamento,
     RegistroMapa,
@@ -79,13 +81,47 @@ def _col(df, *names):
     return None
 
 
+def extrair_notas_calculo(valores: list) -> list:
+    """Extrai (eixo normalizado, posicao, nota) das linhas "Nível Eixo – <eixo>" da aba CALCULO.
+
+    Cada bloco da aba tem um cabeçalho "ID | Componente | Fr | XXX-C01 … XXX-C0n | NÍVEL …"
+    e termina numa linha de totais "Nível Eixo – <eixo>". As colunas XXX-Cnn dessa linha
+    são os critérios (posicao 1..n); a coluna logo depois do último critério é a nota do
+    eixo (posicao 0).
+    """
+    notas = []
+    cabecalho = None
+    for linha in valores:
+        primeira = str(linha[0]).strip() if linha else ""
+        if primeira == "ID":
+            cabecalho = [str(c).strip() for c in linha]
+            continue
+        if not primeira.startswith("Nível Eixo") or cabecalho is None:
+            continue
+        eixo = _normalizar(re.split(r"[–-]", primeira, maxsplit=1)[1])
+        cols = [i for i, c in enumerate(cabecalho) if re.search(r"-C\d+$", c)]
+        if not cols:
+            raise ValueError(f"CALCULO: bloco '{primeira}' sem colunas de critério")
+        for posicao, i in enumerate(cols + [cols[-1] + 1], start=1):
+            notas.append(
+                {
+                    "eixo": eixo,
+                    # nota do eixo (coluna depois do último critério) vai pra posicao 0
+                    "posicao": 0 if posicao > len(cols) else posicao,
+                    "nota": float(str(linha[i]).replace(",", ".")),
+                }
+            )
+        cabecalho = None
+    return notas
+
+
 class Command(BaseCommand):
     help = "Importa dados do Google Sheets para o PostgreSQL (radar_brasil)"
 
     def add_arguments(self, parser):
         parser.add_argument(
             "--sheet",
-            choices=["fichas", "parametros", "financiamento", "mapa", "all"],
+            choices=["fichas", "parametros", "financiamento", "mapa", "calculo", "all"],
             default="all",
             help="Planilha a importar (default: all)",
         )
@@ -100,13 +136,23 @@ class Command(BaseCommand):
         sheet = options["sheet"]
         lang = options["lang"]
 
-        sheets = ["fichas", "parametros", "financiamento", "mapa"] if sheet == "all" else [sheet]
+        sheets = (
+            ["fichas", "parametros", "financiamento", "mapa", "calculo"]
+            if sheet == "all"
+            else [sheet]
+        )
         langs = ["pt", "en", "es"] if lang == "all" else [lang]
         # Espanhol existe (via traducao automatica, ver traducao.py) para Fichas,
         # Parametros e Financiamento — Mapa ainda nao tem planilha nem fonte ES.
         sem_es = {"mapa"}
 
         for s in sheets:
+            if s == "calculo":
+                # So numeros, sem idioma: importa uma vez, independente de --lang
+                self.stdout.write("\n→ Importando calculo...")
+                self._importar_calculo()
+                self.stdout.write(self.style.SUCCESS("  ✓ calculo concluído"))
+                continue
             for lg in langs:
                 if lg == "es" and s in sem_es:
                     self.stdout.write(f"\n… {s} [es] ainda nao suportado, pulando")
@@ -318,6 +364,19 @@ class Command(BaseCommand):
         objs = [RegistroFinanciamento(lang=lang, **linha) for linha in linhas]
         RegistroFinanciamento.objects.bulk_create(objs, batch_size=500)
         self.stdout.write(f"    {len(objs)} financiamentos importados")
+
+    # ── Cálculo (notas oficiais) ─────────────────────────────────
+    def _importar_calculo(self):
+        notas = extrair_notas_calculo(sr.ler_calculo())
+        eixos = {n["eixo"] for n in notas}
+        if len(eixos) != 4:
+            # Nao apaga as notas atuais se a aba veio incompleta/mudou de formato
+            raise ValueError(f"CALCULO: esperava 4 eixos, achou {sorted(eixos)}")
+        with transaction.atomic():
+            NotaCalculada.objects.all().delete()
+            NotaCalculada.objects.bulk_create([NotaCalculada(**n) for n in notas])
+        for n in sorted(notas, key=lambda n: (n["eixo"], n["posicao"])):
+            self.stdout.write(f"    {n['eixo']} [{n['posicao']}] = {n['nota']:.4f}")
 
     # ── Mapa ─────────────────────────────────────────────────────
     def _importar_mapa(self, lang: str):

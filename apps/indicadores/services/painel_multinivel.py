@@ -1,8 +1,9 @@
+import math
 import unicodedata
 
 from django.db.models import Count
 
-from apps.indicadores.models import RegistroParametro
+from apps.indicadores.models import NotaCalculada, RegistroParametro
 
 # ── Constantes ────────────────────────────────────────────────────
 CORES_NIVEL = {
@@ -120,8 +121,8 @@ _ES_CRITERIO = {
 }
 
 # "Visão Geral" do Painel (2026-11-16): Nível Eixo, peso e descrições de uma linha.
-# Nível Eixo/Nível Parcial são sempre media simples (ver texto do Nivel Pais) — peso
-# e so um rotulo exibido, nunca entra em nenhuma media.
+# Os niveis vem da aba CALCULO da planilha (NotaCalculada, ja ponderados por Fator
+# de Relevancia e peso). NIVEL_NUM so serve a reserva de media simples sem o sync.
 NIVEL_NUM = {"Nível 1": 1, "Nível 2": 2, "Nível 3": 3, "Nível 4": 4, "Nível 5": 5}
 
 # Renomeia mais 2 criterios de Linhas de Financiamento para nomes curtos (mockup dos
@@ -277,7 +278,7 @@ _DESCRICAO_CRITERIO_ES = {
 }
 
 # Peso exibido (rotulo "peso N"). Default 1 (sem badge); so os casos abaixo mostram
-# "peso 2". Nunca entra em nenhuma media — Nivel Eixo/Parcial seguem media simples.
+# "peso 2". Aqui e so o rotulo: a ponderacao de verdade acontece na aba CALCULO.
 _PESO_CRITERIO_PT = {
     "Governanca": {"Espaço de diálogo federativo": 2},
     "Politicas e Planos": {"Operacionalidade": 2},
@@ -296,6 +297,12 @@ _PESO_CRITERIO_ES = {
     "Programas": {"Financiamiento": 2},
     "Linhas de Financiamento": {"Ejecución Descentralizada": 2},
 }
+
+
+def arredondar(x: float) -> int:
+    """Igual ao ROUND(x; 0) do Google Sheets: ,5 sobe. O round() do Python manda ,5
+    pro par mais proximo (round(2.5) == 2) e divergia da planilha."""
+    return math.floor(x + 0.5)
 
 
 def _normalizar(texto: str) -> str:
@@ -390,15 +397,32 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
             }
         )
 
-    # Nível médio por critério (antes do rename, "labels" ainda são os valores do
-    # banco) e total de componentes avaliados em cada um
+    # Nível de cada critério (antes do rename, "labels" ainda são os valores do banco)
+    # e total de componentes avaliados em cada um. Fonte oficial: aba CALCULO da
+    # planilha (NotaCalculada, ponderada por Fator de Relevância e peso do critério);
+    # posicao do critério = sua ordem em ORDEM_CRITERIOS (= C01..C0n da planilha).
+    notas = dict(NotaCalculada.objects.filter(eixo=eixo_norm).values_list("posicao", "nota"))
+    ordem_norm = [_normalizar(o) for o in ordem]
+    dict_pt = {"en": _EN_CRITERIO, "es": _ES_CRITERIO}.get(lang, {})
+
+    def _posicao(av):
+        try:
+            return ordem_norm.index(_normalizar(dict_pt.get(av, av))) + 1
+        except ValueError:
+            return None
+
     nivel_medio_raw = {}
     total_raw = {}
     for av in labels:
         total = sum(contagem.get((av, n), 0) for n in CORES_NIVEL)
-        soma = sum(contagem.get((av, n), 0) * NIVEL_NUM[n] for n in CORES_NIVEL)
+        nota = notas.get(_posicao(av))
+        if nota is None:
+            # ponytail: reserva enquanto o sync da aba CALCULO nao rodou — media
+            # simples sem Fr/peso, pode divergir da planilha
+            soma = sum(contagem.get((av, n), 0) * NIVEL_NUM[n] for n in CORES_NIVEL)
+            nota = soma / total if total else 0
         # Numero redondo na Visao Geral (3/5, nao 2.7/5) — pedido do usuario em 2026-11-20
-        nivel_medio_raw[av] = round(soma / total) if total else 0
+        nivel_medio_raw[av] = arredondar(nota)
         total_raw[av] = total
     labels_raw = list(labels)
 
@@ -412,9 +436,8 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
         display_map = {k: v for k, v in display_map.items() if k != fin_key}
     labels = [display_map.get(lb, lb) for lb in labels]
 
-    # "Visão Geral": Nível Eixo (média simples dos níveis médios de cada critério —
-    # mesma fórmula de 3 etapas documentada no Nível País, sem ponderação), descrição
-    # do eixo e, por critério, descrição + peso (so rotulo, nunca entra na média)
+    # "Visão Geral": Nível Eixo (nota oficial da aba CALCULO), descrição do eixo e,
+    # por critério, descrição + peso (rotulo)
     desc_eixo_map = {"en": _DESCRICAO_EIXO_EN, "es": _DESCRICAO_EIXO_ES}.get(
         lang, _DESCRICAO_EIXO_PT
     )
@@ -437,9 +460,12 @@ def dados_para_grafico(eixo_front: str, lang: str = "pt") -> dict:
             }
         )
 
-    nivel_eixo = (
-        round(sum(c["nivel_medio"] for c in criterios) / len(criterios)) if criterios else None
-    )
+    if 0 in notas:
+        nivel_eixo = arredondar(notas[0])
+    elif criterios:
+        nivel_eixo = arredondar(sum(c["nivel_medio"] for c in criterios) / len(criterios))
+    else:
+        nivel_eixo = None
     total_componentes = max(total_raw.values()) if total_raw else 0
 
     return {

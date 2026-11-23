@@ -65,6 +65,27 @@ class RegistroParametro(models.Model):
         return f"[{self.lang}] {self.estrutura} — {self.avaliacao} — {self.nivel}"
 
 
+class NotaCalculada(models.Model):
+    """Notas oficiais da aba CALCULO da planilha da equipe de dados (sem idioma: só números).
+
+    posicao 0 = nota do eixo; 1..n = critério C01..C0n (mesma ordem de ORDEM_CRITERIOS).
+    A planilha pondera pelo Fator de Relevância de cada componente e pelo peso de cada
+    critério — o site só exibe, não recalcula.
+    """
+
+    eixo = models.CharField(max_length=200)  # normalizado, igual RegistroParametro.eixo
+    posicao = models.PositiveSmallIntegerField()
+    nota = models.FloatField()
+
+    class Meta:
+        unique_together = [("eixo", "posicao")]
+        verbose_name = "Nota calculada"
+        verbose_name_plural = "Notas calculadas"
+
+    def __str__(self):
+        return f"{self.eixo} [{self.posicao}] = {self.nota}"
+
+
 class RegistroFinanciamento(models.Model):
     """Linha de financiamento climático por idioma (substitui Google Sheets Financiamento PT/EN)."""
 

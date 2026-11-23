@@ -4,6 +4,21 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 
 ---
 
+## 2026-11-23 (88a rodada)
+
+### fix: níveis do Painel ▸ Visão Geral (e Landing) passam a vir da aba CALCULO da planilha
+
+- Usuário apontou que os níveis do site não batiam com a aba CALCULO da planilha "BANCO DE DADOS_2025" (`1489lXS…`). Três causas: (1) o site fazia média simples dos componentes, a planilha pondera pelo Fator de Relevância (Fr 1-3) de cada componente; (2) o Nível Eixo do site era a média dos critérios já arredondados, sem o peso 2 do critério — a planilha calcula a nota de cada componente com o peso e pondera pelo Fr; (3) `round()` do Python arredonda ,5 pro par (`round(2.5) == 2`), o `ROUND` do Sheets sobe (3)
+- Novo modelo `NotaCalculada` (eixo, posicao, nota; migração `0004`) — posicao 0 = nota do eixo, 1..n = critério C01..C0n (mesma ordem de `ORDEM_CRITERIOS`, conferida na aba METODOLOGIA)
+- `sync_sheets_db --sheet calculo` (também incluso no `all`) lê as linhas "Nível Eixo – …" da aba CALCULO com valores não formatados (precisão total); recusa substituir as notas se não vierem os 4 eixos
+- `dados_para_grafico` usa essas notas e arredonda como o `ROUND` do Sheets (`arredondar()`, ,5 sobe); se a tabela estiver vazia, cai na média simples antiga como reserva
+- Efeito visível: Programas ▸ Monitoramento e Avaliação (2,50) passa de 2 para 3; demais níveis iguais aos da planilha (Gov 4/3/3/2/3 eixo 3; Pol 3/2/4/2 eixo 3; Pro 2/3/3/3/3 eixo 3; Fin 2/2/2 eixo 2)
+- Testes novos em `NotaCalculadaTest` (60 testes no total)
+
+**Arquivos:** `apps/indicadores/models.py`, `apps/indicadores/migrations/0004_notacalculada.py`, `apps/indicadores/services/sheets_reader.py`, `apps/indicadores/services/painel_multinivel.py`, `apps/indicadores/management/commands/sync_sheets_db.py`, `apps/indicadores/tests.py`, `docs/CHANGELOG.md`
+
+---
+
 ## 2026-11-20 (87a rodada)
 
 ### fix: título "Nível País" movido pro topo da página

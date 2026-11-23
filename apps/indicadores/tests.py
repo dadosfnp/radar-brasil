@@ -98,6 +98,59 @@ class VisaoGeralPainelTest(TestCase):
         self.assertTrue(por_nome["Diversity and Representativeness"]["descricao"])
 
 
+class NotaCalculadaTest(TestCase):
+    """Niveis da Visao Geral vem da aba CALCULO da planilha (2026-11-23)."""
+
+    def test_extrai_criterios_e_nota_do_eixo_da_aba_calculo(self):
+        from apps.indicadores.management.commands.sync_sheets_db import extrair_notas_calculo
+
+        grade = [
+            ["Programas", "", ""],
+            ["ID", "Componente", "Fr", "PRO-C01", "PRO-C02", "NÍVEL PRO", "N_GOV_FR"],
+            ["PRO-001", "X", 2, 1, 4, 2.5, 5],
+            ["Nível Eixo – Programas", "", "", 1.87, "2,5", 2.78, 3],
+            ["", ""],
+        ]
+        notas = extrair_notas_calculo(grade)
+        self.assertEqual(
+            notas,
+            [
+                {"eixo": "programas", "posicao": 1, "nota": 1.87},
+                {"eixo": "programas", "posicao": 2, "nota": 2.5},
+                {"eixo": "programas", "posicao": 0, "nota": 2.78},
+            ],
+        )
+
+    def test_painel_usa_notas_da_planilha_e_arredonda_meio_pra_cima(self):
+        from apps.indicadores.models import NotaCalculada
+        from apps.indicadores.services.painel_multinivel import dados_para_grafico
+
+        # Media simples daria 1; a planilha (ponderada) diz 2,5 -> ROUND do Sheets = 3
+        RegistroParametro.objects.create(
+            lang="pt",
+            estrutura="",
+            eixo="programas",
+            avaliacao="Cooperação Federativa",
+            nivel="Nível 1",
+        )
+        NotaCalculada.objects.create(eixo="programas", posicao=1, nota=2.5)
+        NotaCalculada.objects.create(eixo="programas", posicao=0, nota=2.09)
+
+        corpo = dados_para_grafico("Programas")
+        self.assertEqual(corpo["criterios"][0]["nivel_medio"], 3)
+        self.assertEqual(corpo["nivel_eixo"], 2)
+
+        # EN acha a mesma posicao pelo nome traduzido do criterio
+        RegistroParametro.objects.create(
+            lang="en",
+            estrutura="",
+            eixo="programas",
+            avaliacao="Federative Cooperation",
+            nivel="Nível 1",
+        )
+        self.assertEqual(dados_para_grafico("Programas", "en")["criterios"][0]["nivel_medio"], 3)
+
+
 class AvaliacaoAPITest(TestCase):
     def setUp(self):
         self.client = Client()
