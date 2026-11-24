@@ -2846,9 +2846,5 @@ msgid "Documento em português"
 msgstr "Document in Portuguese"
 
 #: templates/municipios/landing.html
-msgid "Ler o relatório"
-msgstr "Read the report"
-
-#: templates/municipios/landing.html
-msgid "(abre em nova aba)"
-msgstr "(opens in a new tab)"
+msgid "Baixar o relatório"
+msgstr "Download the report"

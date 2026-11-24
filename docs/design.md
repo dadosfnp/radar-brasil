@@ -15,7 +15,8 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 - Responsivo: `<=860px` empilha (capa 200px centralizada, texto centralizado); `<=580px` capa 160px e botões em largura cheia. Conferido com Playwright em 1440/1100/390px, PT/EN/ES, sem rolagem horizontal
 - PDF original (94 MB, 4 fotos sem compressão + dados de edição do Illustrator em cada página) otimizado para 4,2 MB: fotos recomprimidas em JPEG ~2000px e `PieceInfo` removido; texto, sumário e 28 das 32 páginas idênticos pixel a pixel. Original guardado fora do repo
 - **Redesenho no mesmo dia (pedido do usuário: card "fora do tema da Landing"):** saíram o card navy, os anéis e o ciano. Agora segue o padrão das outras seções — frase do time como título centralizado (mesmo estilo de `.lp-frontline-title`/`.lp-eixos-title`, nome do relatório destacado em `#264584`), card branco com raio 16px e a sombra dos cards de "linha de frente" (máx. 620px), capa reta 150px, título do card "Relatório · Versão 2025" no estilo de `.lp-frontline-card-title`, botões pílula com os valores de `.pm-tabs` (`#264584`/`#1a3070` sólido e contorno azul). Nenhuma string nova de tradução
-- Cache-buster: `landing.css` v=25
+- **Versão final (mesmo dia, pedido do usuário com referência de CTA):** trocado o card por uma chamada simples no fim da página — título centralizado (frase do time), linha de apoio "Relatório · Versão 2025 · PDF · 32 páginas · 4,2 MB" e um único botão pílula grande "Baixar o relatório" (`#264584`, hover `#1a3070`, sombra azul, ícone de download, atributo `download`; largura cheia no celular). Capa (`relatorio-panorama-capa.jpg`) e as strings "Ler o relatório"/"(abre em nova aba)" removidas por não terem mais uso; string nova "Baixar o relatório" em EN/ES
+- Cache-buster: `landing.css` v=26
 
 ---
 

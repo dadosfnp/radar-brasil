@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'css/metodologia.css' %}?v=55">
-    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=25">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}?v=26">
 {% endblock %}
 
 {% block body_class %}rb-body lp-body{% endblock %}
@@ -109,26 +109,11 @@
             {% trans "Acesse o relatório do Radar Brasil e conheça o" %}
             <span class="lp-report-highlight">{% trans "Panorama do Federalismo Climático Brasileiro" %}</span>
         </h2>
-        <div class="lp-report-card">
-            <a class="lp-report-cover" href="{% static 'doc/radar-brasil-panorama-federalismo-climatico-2025.pdf' %}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-                <img src="{% static 'img/relatorio-panorama-capa.jpg' %}" width="910" height="1287" loading="lazy" decoding="async" alt="">
-            </a>
-            <div class="lp-report-body">
-                <h3 class="lp-report-card-title">{% trans "Relatório · Versão 2025" %}</h3>
-                <p class="lp-report-meta">PDF · {% trans "32 páginas" %} · 4,2 MB{% if LANG != "pt-br" %} · {% trans "Documento em português" %}{% endif %}</p>
-                <div class="lp-report-actions">
-                    <a class="lp-report-btn lp-report-btn--primary" href="{% static 'doc/radar-brasil-panorama-federalismo-climatico-2025.pdf' %}" target="_blank" rel="noopener">
-                        {% trans "Ler o relatório" %}
-                        <span class="lp-sr-only">{% trans "(abre em nova aba)" %}</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-                    </a>
-                    <a class="lp-report-btn lp-report-btn--ghost" href="{% static 'doc/radar-brasil-panorama-federalismo-climatico-2025.pdf' %}" download>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
-                        {% trans "Baixar PDF" %}
-                    </a>
-                </div>
-            </div>
-        </div>
+        <p class="lp-report-meta">{% trans "Relatório · Versão 2025" %} · PDF · {% trans "32 páginas" %} · 4,2&nbsp;MB{% if LANG != "pt-br" %} · {% trans "Documento em português" %}{% endif %}</p>
+        <a class="lp-report-btn" href="{% static 'doc/radar-brasil-panorama-federalismo-climatico-2025.pdf' %}" download>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+            {% trans "Baixar o relatório" %}
+        </a>
     </div>
 </section>
 

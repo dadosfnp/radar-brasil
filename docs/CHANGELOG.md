@@ -13,9 +13,10 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - 7 strings novas traduzidas em EN/ES (`django.po` + `.mo` recompilados via polib); em EN/ES a linha de meta avisa "Documento em português"
 - A pedido do usuário, a Landing ficou toda branca: removido também o fundo cinza `#f7f9fc` da seção "linha de frente" (as divisórias finas entre seções continuam)
 - **Redesenho no mesmo dia (pedido do usuário: card "fora do tema da Landing"):** saíram o card navy, os anéis e o ciano. Agora segue o padrão das outras seções — frase do time como título centralizado (mesmo estilo de `.lp-frontline-title`/`.lp-eixos-title`, nome do relatório destacado em `#264584`), card branco com raio 16px e a sombra dos cards de "linha de frente" (máx. 620px), capa reta 150px, título do card "Relatório · Versão 2025" no estilo de `.lp-frontline-card-title`, botões pílula com os valores de `.pm-tabs` (`#264584`/`#1a3070` sólido e contorno azul). Nenhuma string nova de tradução
-- Cache-buster: `landing.css` v=25
+- **Versão final (mesmo dia, pedido do usuário com referência de CTA):** trocado o card por uma chamada simples no fim da página — título centralizado (frase do time), linha de apoio "Relatório · Versão 2025 · PDF · 32 páginas · 4,2 MB" e um único botão pílula grande "Baixar o relatório" (`#264584`, hover `#1a3070`, sombra azul, ícone de download, atributo `download`; largura cheia no celular). Capa (`relatorio-panorama-capa.jpg`) e as strings "Ler o relatório"/"(abre em nova aba)" removidas por não terem mais uso; string nova "Baixar o relatório" em EN/ES
+- Cache-buster: `landing.css` v=26
 
-**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, `static/img/relatorio-panorama-capa.jpg`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `locale/es/LC_MESSAGES/django.po`, `locale/es/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
+**Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `locale/es/LC_MESSAGES/django.po`, `locale/es/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
 
 ---
 
