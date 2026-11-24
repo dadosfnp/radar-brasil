@@ -886,6 +886,187 @@ a.lp-info-chip:hover {
 }
 
 /* ══════════════════════════════
+   RELATÓRIO — Panorama do Federalismo Climático (2026-11-24)
+   Card navy com anéis ciano: mesmo motivo visual da capa do PDF.
+   ══════════════════════════════ */
+
+.lp-report-section {
+    background: #fff;
+    padding-top: 8px;
+}
+
+.lp-report-card {
+    --lp-report-cyan: #3fe0f0;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: center;
+    gap: 56px;
+    padding: 48px 56px;
+    border-radius: 20px;
+    background: #101d4f;
+    box-shadow: 0 18px 48px rgba(16,29,79,.22);
+}
+
+/* Anéis concêntricos nos cantos (eco da capa) */
+.lp-report-card::before,
+.lp-report-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+    background: repeating-radial-gradient(
+        circle,
+        transparent 0 26px,
+        rgba(63,224,240,.38) 26px 27.5px
+    );
+}
+.lp-report-card::before { width: 300px; height: 300px; top: -150px; right: -110px; }
+.lp-report-card::after  { width: 240px; height: 240px; bottom: -130px; left: -90px; opacity: .55; }
+
+.lp-report-cover {
+    display: block;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 22px 40px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.10);
+    transform: rotate(-3deg);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+}
+.lp-report-card:hover .lp-report-cover {
+    transform: rotate(0) translateY(-6px);
+    box-shadow: 0 30px 56px rgba(0,0,0,.50), 0 0 0 1px rgba(63,224,240,.45);
+}
+.lp-report-cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.lp-report-body { min-width: 0; }
+
+.lp-report-eyebrow {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--lp-report-cyan);
+    margin-bottom: 14px;
+}
+
+.lp-report-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 1.625rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #fff;
+    margin: 0 0 14px;
+    text-wrap: balance;
+}
+
+.lp-report-highlight {
+    display: block;
+    margin-top: 6px;
+    font-weight: 800;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    color: var(--lp-report-cyan);
+}
+
+.lp-report-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,.72);
+    margin: 0 0 28px;
+}
+
+.lp-report-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.lp-report-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-family: 'Sora', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color .2s, color .2s, border-color .2s, transform .2s;
+}
+.lp-report-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.lp-report-btn--primary {
+    background: var(--lp-report-cyan);
+    color: #101d4f;
+}
+.lp-report-btn--primary:hover { background: #fff; transform: translateY(-1px); }
+.lp-report-btn--ghost {
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,.45);
+}
+.lp-report-btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.lp-report-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+}
+
+.lp-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lp-report-cover,
+    .lp-report-btn { transition: none; }
+    .lp-report-card:hover .lp-report-cover { transform: rotate(-3deg); }
+}
+
+@media (max-width: 860px) {
+    .lp-report-card {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 32px;
+        text-align: center;
+    }
+    .lp-report-cover { width: 200px; margin: 0 auto; }
+    .lp-report-actions { justify-content: center; }
+}
+
+@media (max-width: 580px) {
+    .lp-report-card { padding: 36px 20px 32px; border-radius: 16px; }
+    .lp-report-cover { width: 160px; }
+    .lp-report-title { font-size: 1.25rem; }
+    .lp-report-highlight { font-size: 1.4375rem; }
+    .lp-report-actions { flex-direction: column; align-items: stretch; }
+    .lp-report-btn { justify-content: center; }
+}
+
+/* ══════════════════════════════
    RESPONSIVO
    ══════════════════════════════ */
 

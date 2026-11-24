@@ -2818,3 +2818,31 @@ msgid ""
 msgstr ""
 "Nada más justo que los municipios participen en la discusión de las "
 "alternativas para la construcción de territorios más resilientes."
+
+#: templates/municipios/landing.html
+msgid "Relatório · Versão 2025"
+msgstr "Informe · Versión 2025"
+
+#: templates/municipios/landing.html
+msgid "Acesse o relatório do Radar Brasil e conheça o"
+msgstr "Acceda al informe del Radar Brasil y conozca el"
+
+#: templates/municipios/landing.html
+msgid "Panorama do Federalismo Climático Brasileiro"
+msgstr "Panorama del Federalismo Climático Brasileño"
+
+#: templates/municipios/landing.html
+msgid "32 páginas"
+msgstr "32 páginas"
+
+#: templates/municipios/landing.html
+msgid "Documento em português"
+msgstr "Documento en portugués"
+
+#: templates/municipios/landing.html
+msgid "Ler o relatório"
+msgstr "Leer el informe"
+
+#: templates/municipios/landing.html
+msgid "(abre em nova aba)"
+msgstr "(se abre en una nueva pestaña)"
