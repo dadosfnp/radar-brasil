@@ -776,7 +776,7 @@ Esses arquivos nao foram incorporados a nenhuma pagina e podem ser descartados o
 | `base.css` | v=28 |
 | `tokens.css` | v=3 |
 | `inicio.css` | v=13 |
-| `landing.css` | v=23 |
+| `landing.css` | v=24 |
 | `landing.js` | v=4 |
 | `metodologia.css` | v=55 |
 | `sobre.css` | v=27 |

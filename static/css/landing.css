@@ -719,7 +719,7 @@ a.lp-info-chip:hover {
 }
 
 .lp-frontline-section {
-    background: #f7f9fc;
+    background: #fff;
     border-top: 1px solid rgba(38,69,132,.08);
 }
 
@@ -890,15 +890,11 @@ a.lp-info-chip:hover {
    Card navy com anéis ciano: mesmo motivo visual da capa do PDF.
    ══════════════════════════════ */
 
-/* Mesmo fundo cinza e divisoria da secao "linha de frente" */
+/* Fundo branco + divisoria no topo, como as demais secoes da Landing */
 .lp-report-section {
-    background: #f7f9fc;
+    background: #fff;
     border-top: 1px solid rgba(38,69,132,.08);
 }
-
-/* A onda do rodape e transparente e mostrava o branco do body entre o cinza da
-   secao e o rodape — na Landing ela continua o cinza (so este CSS carrega aqui) */
-.lp-body .rb-footer-wave { background: #f7f9fc; }
 
 .lp-report-card {
     --lp-report-cyan: #3fe0f0;

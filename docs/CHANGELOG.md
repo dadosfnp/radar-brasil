@@ -11,7 +11,8 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - Nova seção no fim da Landing, abaixo de "Eixos de avaliação do Radar", a pedido do time: capa do relatório + "Acesse o relatório do Radar Brasil e conheça o PANORAMA DO FEDERALISMO CLIMÁTICO BRASILEIRO." + botões "Ler o relatório" (nova aba) e "Baixar PDF" (detalhes de design em `docs/design.md`)
 - PDF publicado como `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, otimizado de 94 MB (`Relatorio_Vers_6.pdf`) para 4,2 MB sem perda de texto/vetores — o original não entra no repo (perto do limite de 100 MB do GitHub e pesado demais pra baixar no celular)
 - 7 strings novas traduzidas em EN/ES (`django.po` + `.mo` recompilados via polib); em EN/ES a linha de meta avisa "Documento em português"
-- Cache-buster: `landing.css` v=23
+- A pedido do usuário, a Landing ficou toda branca: removido também o fundo cinza `#f7f9fc` da seção "linha de frente" (as divisórias finas entre seções continuam)
+- Cache-buster: `landing.css` v=24
 
 **Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, `static/img/relatorio-panorama-capa.jpg`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `locale/es/LC_MESSAGES/django.po`, `locale/es/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
 
