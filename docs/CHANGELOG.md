@@ -12,7 +12,8 @@ Histórico cronológico de todas as alterações realizadas no projeto.
 - PDF publicado como `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, otimizado de 94 MB (`Relatorio_Vers_6.pdf`) para 4,2 MB sem perda de texto/vetores — o original não entra no repo (perto do limite de 100 MB do GitHub e pesado demais pra baixar no celular)
 - 7 strings novas traduzidas em EN/ES (`django.po` + `.mo` recompilados via polib); em EN/ES a linha de meta avisa "Documento em português"
 - A pedido do usuário, a Landing ficou toda branca: removido também o fundo cinza `#f7f9fc` da seção "linha de frente" (as divisórias finas entre seções continuam)
-- Cache-buster: `landing.css` v=24
+- **Redesenho no mesmo dia (pedido do usuário: card "fora do tema da Landing"):** saíram o card navy, os anéis e o ciano. Agora segue o padrão das outras seções — frase do time como título centralizado (mesmo estilo de `.lp-frontline-title`/`.lp-eixos-title`, nome do relatório destacado em `#264584`), card branco com raio 16px e a sombra dos cards de "linha de frente" (máx. 620px), capa reta 150px, título do card "Relatório · Versão 2025" no estilo de `.lp-frontline-card-title`, botões pílula com os valores de `.pm-tabs` (`#264584`/`#1a3070` sólido e contorno azul). Nenhuma string nova de tradução
+- Cache-buster: `landing.css` v=25
 
 **Arquivos:** `templates/municipios/landing.html`, `static/css/landing.css`, `static/doc/radar-brasil-panorama-federalismo-climatico-2025.pdf`, `static/img/relatorio-panorama-capa.jpg`, `locale/en/LC_MESSAGES/django.po`, `locale/en/LC_MESSAGES/django.mo`, `locale/es/LC_MESSAGES/django.po`, `locale/es/LC_MESSAGES/django.mo`, `docs/design.md`, `docs/CHANGELOG.md`, `CLAUDE.md`
 
