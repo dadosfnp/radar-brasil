@@ -8,13 +8,13 @@ Documentação completa de todas as decisões e evoluções de design da platafo
 ## Feat: seção do relatório "Panorama do Federalismo Climático Brasileiro" na Landing (2026-11-24)
 
 - Pedido do time: chamada pro relatório no fim da Landing, abaixo de "Eixos de avaliação do Radar", com o texto "Acesse o relatório do Radar Brasil e conheça o PANORAMA DO FEDERALISMO CLIMÁTICO BRASILEIRO."
-- Card navy `#101d4f` (mesma cor dos cards de eixo logo acima) com anéis concêntricos ciano `#3fe0f0` nos cantos via `repeating-radial-gradient` em `::before/::after` — eco direto dos anéis da capa do PDF, sem imagem extra
+- Seção com fundo cinza `#f7f9fc` e divisória no topo (mesmo padrão da seção "linha de frente"), separando-a dos eixos — a faixa da onda do rodapé (`.rb-footer-wave`, transparente) também ganhou esse cinza só na Landing, senão sobrava uma faixa branca entre a seção e o rodapé; card navy `#101d4f` (mesma cor dos cards de eixo logo acima) com anéis concêntricos ciano `#3fe0f0` nos cantos via `repeating-radial-gradient` em `::before/::after` — eco direto dos anéis da capa do PDF, sem imagem extra
 - Capa real do PDF (`static/img/relatorio-panorama-capa.jpg`, 910×1287, 134 KB, `loading="lazy"`) à esquerda, girada -3° com sombra; endireita e sobe 6px no hover do card (desligado com `prefers-reduced-motion`)
 - Texto: sobretítulo DM Mono "Relatório · Versão 2025", frase em Sora 600 branca e o nome do relatório em Sora 800 ciano, caixa alta (mesmo tratamento da capa); linha de meta "PDF · 32 páginas · 4,2 MB" (+ "Documento em português" em EN/ES)
 - Botões pílula: "Ler o relatório" (ciano sólido, abre em nova aba, aviso de nova aba só pra leitor de tela) e "Baixar PDF" (contorno branco, atributo `download`); alvo de 46px, `focus-visible` com contorno branco
 - Responsivo: `<=860px` empilha (capa 200px centralizada, texto centralizado); `<=580px` capa 160px e botões em largura cheia. Conferido com Playwright em 1440/1100/390px, PT/EN/ES, sem rolagem horizontal
 - PDF original (94 MB, 4 fotos sem compressão + dados de edição do Illustrator em cada página) otimizado para 4,2 MB: fotos recomprimidas em JPEG ~2000px e `PieceInfo` removido; texto, sumário e 28 das 32 páginas idênticos pixel a pixel. Original guardado fora do repo
-- Cache-buster: `landing.css` v=21
+- Cache-buster: `landing.css` v=23
 
 ---
 
